@@ -133,8 +133,7 @@ public class PhpDocumentor extends AbstractApiDocReport {
                     throw new PhpDocumentorExecuteException(phpDocFile.getParent());
                 }
 
-            }
-            else {
+            } else {
                 this.getLog().error("Unable to find phpdoc.config. Path: " + phpDocConfigFile.getAbsolutePath());
             }
         /*CHECKSTYLE:OFF*/
