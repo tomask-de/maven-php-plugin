@@ -192,6 +192,7 @@ public final class PhpTest extends AbstractPhpMojo {
      * @param file the PHP file to test
      * @throws MojoExecutionException if something goes wrong.
      */
+    @Override
     protected void handlePhpFile(File file) throws MojoExecutionException {
         // by definition, handlePhpFile will only be called for .php files.
         final String ending = "." + getPhpFileEnding();

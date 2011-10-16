@@ -24,9 +24,9 @@ import java.util.List;
  */
 public class MultiException extends PhpException {
 
-	private static final long serialVersionUID = 1L;
-	
-	private final List<Exception> exceptions;
+    private static final long serialVersionUID = 1L;
+    
+    private final List<Exception> exceptions;
 
     public MultiException(List<Exception> exceptions) {
         this.exceptions = exceptions;

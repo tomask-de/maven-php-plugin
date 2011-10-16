@@ -116,11 +116,13 @@ public class PhpDocumentor extends AbstractApiDocReport {
                 final int executeCommandLine = CommandLineUtils.executeCommandLine(
                     commandLine, new StreamConsumer() {
 
+                        @Override
                         public void consumeLine(String line) {
                             getLog().debug("system.out: " + line);
                         }
 
                     }, new StreamConsumer() {
+                        @Override
                         public void consumeLine(String line) {
 
                             getLog().debug("system.err: " + line);
@@ -146,6 +148,7 @@ public class PhpDocumentor extends AbstractApiDocReport {
      * @param locale the locale to localize
      * @return the name
      */
+    @Override
     public String getName(Locale locale) {
         return "PHPDocumentor";
     }
@@ -156,10 +159,12 @@ public class PhpDocumentor extends AbstractApiDocReport {
      * @param locale the locale to localize
      * @return the text
      */
+    @Override
     public String getDescription(Locale locale) {
         return "PHPDocumentor generated documentation";
     }
 
+    @Override
     public String getOutputName() {
         return "apidocs/phpdocumentor";
     }

@@ -23,9 +23,9 @@ import java.io.File;
  */
 public class PhpErrorException extends PhpExecutionException {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/**
+    /**
      * Creates an exception for the occured error.
      *
      * @param phpFile the PHP file which was involved in the exception

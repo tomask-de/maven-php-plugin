@@ -116,14 +116,17 @@ public abstract class AbstractApiDocReport extends AbstractMavenReport {
         this.siteRenderer = siteRenderer;
     }
 
+    @Override
     protected Renderer getSiteRenderer() {
         return siteRenderer;
     }
 
+    @Override
     protected MavenProject getProject() {
         return project;
     }
 
+    @Override
     protected String getOutputDirectory() {
         return getApiDocOutputDirectory().getAbsolutePath();
     }
