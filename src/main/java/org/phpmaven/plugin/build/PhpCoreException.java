@@ -21,7 +21,9 @@ package org.phpmaven.plugin.build;
  */
 public class PhpCoreException extends PhpException {
 
-    public PhpCoreException() {
+	private static final long serialVersionUID = 1L;
+
+	public PhpCoreException() {
         super();
     }
 

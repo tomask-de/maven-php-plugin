@@ -21,7 +21,9 @@ package org.phpmaven.plugin.build;
  */
 public class UnitTestCaseFailureException extends Exception {
 
-    private final int completeFailures;
+	private static final long serialVersionUID = 1L;
+	
+	private final int completeFailures;
     private final int completeErrors;
 
     public UnitTestCaseFailureException(int completeErrors,

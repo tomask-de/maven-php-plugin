@@ -21,7 +21,9 @@ package org.phpmaven.plugin.build;
  */
 public abstract class PhpException extends Exception {
 
-    // checkstyle wants exceptions to be immutable but we
+	private static final long serialVersionUID = 1L;
+	
+	// checkstyle wants exceptions to be immutable but we
     // can not implement that at the moment
     /*CHECKSTYLE:OFF*/
     private String phpOutput;

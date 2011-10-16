@@ -22,7 +22,10 @@ import java.io.File;
  * @author Tobias Sarnowski
  */
 public class PhpWarningException extends PhpExecutionException {
-    public PhpWarningException(File phpFile, String phpErrorMessage) {
+
+	private static final long serialVersionUID = 1L;
+
+	public PhpWarningException(File phpFile, String phpErrorMessage) {
         super(phpFile, phpErrorMessage);
     }
 }

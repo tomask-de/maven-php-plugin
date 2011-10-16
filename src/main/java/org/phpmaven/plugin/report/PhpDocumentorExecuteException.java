@@ -22,7 +22,9 @@ package org.phpmaven.plugin.report;
  */
 public class PhpDocumentorExecuteException extends Exception {
 
-    private final String parent;
+	private static final long serialVersionUID = 1L;
+	
+	private final String parent;
 
     public PhpDocumentorExecuteException(String parent) {
         this.parent = parent;

@@ -22,7 +22,9 @@ package org.phpmaven.plugin.report;
  */
 public class PhpDocumentorNotFoundException extends Exception {
 
-    @Override
+	private static final long serialVersionUID = 1L;
+
+	@Override
     public String getMessage() {
         return "PHPDocumentor not found";
     }
