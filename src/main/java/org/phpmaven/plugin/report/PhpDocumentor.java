@@ -78,8 +78,8 @@ public class PhpDocumentor extends AbstractApiDocReport {
     @Override
     protected void executeReport(Locale locale) throws MavenReportException {
         try {
-            System.out.println(phpDocConfigFile.getAbsolutePath());
             if (phpDocConfigFile.isFile()) {
+                System.out.println("generating phpdoc using config from " + phpDocConfigFile.getAbsolutePath());
                 final Properties properties = new Properties();
 
                 properties.load(new FileInputStream(phpDocConfigFile));
@@ -133,6 +133,9 @@ public class PhpDocumentor extends AbstractApiDocReport {
                     throw new PhpDocumentorExecuteException(phpDocFile.getParent());
                 }
 
+            }
+            else {
+                this.getLog().error("Unable to find phpdoc.config. Path: " + phpDocConfigFile.getAbsolutePath());
             }
         /*CHECKSTYLE:OFF*/
         } catch (Exception e) {
