@@ -69,79 +69,77 @@ public class PhpDocumentor extends AbstractApiDocReport {
     private void writeReport() {
         if (getSink() != null)  {
             getSink().rawText(
-                "<a href=\"phpdocumentor/HTMLframesConverter/default/index.html\" target=\"_blank\">" +
+                "<a href=\"phpdocumentor/index.html\" target=\"_blank\">" +
                     "Show documention<br>" +
-                    "<iframe src=\"phpdocumentor/HTMLframesConverter/default/index.html\"" +
+                    "<iframe src=\"phpdocumentor/index.html\"" +
                     "frameborder=0 style=\"border=0px;width:100%;height:400px\">");
         }
     }
     @Override
     protected void executeReport(Locale locale) throws MavenReportException {
+        final Properties properties = new Properties();
         try {
             if (phpDocConfigFile.isFile()) {
-                System.out.println("generating phpdoc using config from " + phpDocConfigFile.getAbsolutePath());
-                final Properties properties = new Properties();
-
+                getLog().debug("generating phpdoc using config from " + phpDocConfigFile.getAbsolutePath());
                 properties.load(new FileInputStream(phpDocConfigFile));
-                properties.put("directory", getProject().getBasedir() + "/"
-                    + getSourceDirectory());
-                properties.put("target", getApiDocOutputDirectory().
-                    getAbsoluteFile().getPath() + "/" + getFolderName());
-
-                writePropFile(properties, generatedPhpDocConfigFile, "[Parse Data]");
-                final String path = System.getProperty("java.library.path");
-                getLog().debug("PATH: " + path);
-                final String[] paths = path.split(File.pathSeparator);
-                File phpDocFile = null;
-                if ("phpdoc".equals(phpDocFilePath)) {
-                    for (int i = 0; i < paths.length; i++) {
-                        final File file = new File(paths[i], "phpdoc");
-                        if (file.isFile()) {
-                            phpDocFile = file;
-                            break;
-                        }
-                    }
-                } else {
-                    phpDocFile = new File(phpDocFilePath);
-                }
-                if (phpDocFile == null || !phpDocFile.isFile()) {
-                    throw new PhpDocumentorNotFoundException();
-                }
-                final String executing = phpExe
-                    + " phpdoc -c \"" + generatedPhpDocConfigFile.getAbsolutePath() + "\"";
-                getLog().debug("Executing PHPDocumentor: " + executing);
-                final Commandline commandLine = new Commandline(executing);
-                commandLine.setWorkingDirectory(phpDocFile.getParent());
-
-                final int executeCommandLine = CommandLineUtils.executeCommandLine(
-                    commandLine, new StreamConsumer() {
-
-                        @Override
-                        public void consumeLine(String line) {
-                            getLog().debug("system.out: " + line);
-                        }
-
-                    }, new StreamConsumer() {
-                        @Override
-                        public void consumeLine(String line) {
-
-                            getLog().debug("system.err: " + line);
-                        }
-
-                    });
-                if (executeCommandLine == 1) {
-                    throw new PhpDocumentorExecuteException(phpDocFile.getParent());
-                }
-
             } else {
-                this.getLog().error("Unable to find phpdoc.config. Path: " + phpDocConfigFile.getAbsolutePath());
+                getLog().debug("config file " + phpDocConfigFile.getAbsolutePath() + " not found. ignoring.");
             }
+            properties.put("directory", getProject().getBasedir() + "/"
+                + getSourceDirectory());
+            properties.put("target", getApiDocOutputDirectory().
+                getAbsoluteFile().getPath() + "/" + getFolderName());
+
+            writePropFile(properties, generatedPhpDocConfigFile, "[Parse Data]");
+            final String path = System.getProperty("java.library.path");
+            getLog().debug("PATH: " + path);
+            final String[] paths = path.split(File.pathSeparator);
+            File phpDocFile = null;
+            if ("phpdoc".equals(phpDocFilePath)) {
+                for (int i = 0; i < paths.length; i++) {
+                    final File file = new File(paths[i], "phpdoc");
+                    if (file.isFile()) {
+                        phpDocFile = file;
+                        break;
+                    }
+                }
+            } else {
+                phpDocFile = new File(phpDocFilePath);
+            }
+            if (phpDocFile == null || !phpDocFile.isFile()) {
+                throw new PhpDocumentorNotFoundException();
+            }
+            final String executing = phpExe
+                + " phpdoc -c \"" + generatedPhpDocConfigFile.getAbsolutePath() + "\"";
+            getLog().debug("Executing PHPDocumentor: " + executing);
+            final Commandline commandLine = new Commandline(executing);
+            commandLine.setWorkingDirectory(phpDocFile.getParent());
+
+            final int executeCommandLine = CommandLineUtils.executeCommandLine(
+                commandLine, new StreamConsumer() {
+
+                    @Override
+                    public void consumeLine(String line) {
+                        getLog().debug("system.out: " + line);
+                    }
+
+                }, new StreamConsumer() {
+                    @Override
+                    public void consumeLine(String line) {
+
+                        getLog().debug("system.err: " + line);
+                    }
+
+                });
+            if (executeCommandLine == 1) {
+                throw new PhpDocumentorExecuteException(phpDocFile.getParent());
+            }
+            writeReport();
         /*CHECKSTYLE:OFF*/
         } catch (Exception e) {
         /*CHECKSTYLE:ON*/
             throw new MavenReportException(e.getMessage(), e);
         }
-        writeReport();
     }
 
     /**
