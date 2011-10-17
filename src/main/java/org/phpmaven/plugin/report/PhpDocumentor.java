@@ -50,9 +50,9 @@ public class PhpDocumentor extends AbstractApiDocReport {
     private String phpExe = "php";
 
     /**
-     * The phpdoc configuraton file. The default is ${project.basedir}/phpdoc.config
+     * The phpdoc configuraton file. The default is ${project.basedir}/src/site/phpdoc/phpdoc.config
      *
-     * @parameter expression="${project.basedir}/phpdoc.config";
+     * @parameter expression="${project.basedir}/src/site/phpdoc/phpdoc.config";
      * @required
      */
     private File phpDocConfigFile;
