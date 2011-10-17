@@ -30,62 +30,13 @@
         <developerConnection>scm:git:git@github.com:php-maven/${project.artifactId}.git</developerConnection>
     </scm>
 
-    <issueManagement>
-        <system>github.com</system>
-        <url>http://github.com/php-maven/maven-php-plugin/issues</url>
-    </issueManagement>
-
-    <developers>
-        <developer>
-            <id>christian.wiedemann</id>
-            <name>Christian Wiedemann</name>
-            <email>christian.wiedemann@key-tec.de</email>
-            <roles>
-                <role>Project Founder</role>
-                <role>Developer</role>
-            </roles>
-            <organization>KEY-TEC</organization>
-            <timezone>+1</timezone>
-        </developer>
-        <developer>
-            <id>tobias.sarnowski</id>
-            <name>Tobias Sarnowski</name>
-            <email>sarnowski@new-thoughts.org</email>
-            <roles>
-                <role>Developer</role>
-            </roles>
-            <timezone>+1</timezone>
-        </developer>
-        <developer>
-            <id>rafael.schally</id>
-            <name>Rafael Schally</name>
-            <email>rafael.schally@key-tec.de</email>
-            <roles>
-                <role>Developer</role>
-            </roles>
-            <organization>KEY-TEC</organization>
-            <timezone>+1</timezone>
-        </developer>
-    </developers>
-
-    <mailingLists>
-        <mailingList>
-            <name>Maven for PHP mailing list</name>
-            <subscribe>http://groups.google.com/group/maven-for-php/subscribe</subscribe>
-            <unsubscribe>http://groups.google.de/group/maven-for-php</unsubscribe>
-            <post>maven-for-php@googlegroups.com</post>
-            <archive>http://groups.google.de/group/maven-for-php</archive>
-        </mailingList>
-    </mailingLists>
-
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <doxiaVersion>1.2</doxiaVersion>
+        <!-- <doxiaVersion>1.2</doxiaVersion> -->
     </properties>
 
     <dependencies>
 	    <!-- doxia -->
-	    <dependency>
+	    <!-- <dependency>
 	      <groupId>org.apache.maven.doxia</groupId>
 	      <artifactId>doxia-sink-api</artifactId>
 	      <version>${doxiaVersion}</version>
@@ -99,7 +50,7 @@
 	      <groupId>org.apache.maven.doxia</groupId>
 	      <artifactId>doxia-site-renderer</artifactId>
 	      <version>${doxiaVersion}</version>
-	    </dependency>
+	    </dependency> -->
     
     	<!-- maven -->
         <dependency>
@@ -122,6 +73,7 @@
             <artifactId>maven-project</artifactId>
             <version>3.0-alpha-2</version>
         </dependency>
+        
         <!-- plexus -->
         <dependency>
             <groupId>org.codehaus.plexus</groupId>
@@ -138,6 +90,7 @@
             <artifactId>plexus-compiler-api</artifactId>
             <version>1.5</version>
         </dependency>
+        
     	<!-- utilities -->
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -265,54 +218,60 @@
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
+            
+            <plugin>
+            	<groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-site-plugin</artifactId>
+			    <version>3.0</version>
+			    <configuration>
+					<reportPlugins>
+						<plugin>
+			                <groupId>org.codehaus.mojo</groupId>
+			                <artifactId>taglist-maven-plugin</artifactId>
+			                <version>2.4</version>
+			            </plugin>
+			            <plugin>
+			                <groupId>org.apache.maven.plugins</groupId>
+			                <artifactId>maven-project-info-reports-plugin</artifactId>
+			                <version>2.4</version>
+			                <reportSets>
+			                    <reportSet>
+			                        <reports>
+			                            <report>project-team</report>
+			                            <report>license</report>
+			                            <report>scm</report>
+			                            <report>mailing-list</report>
+			                            <report>issue-tracking</report>
+			                        </reports>
+			                    </reportSet>
+			                </reportSets>
+			            </plugin>
+			            <plugin>
+			                <groupId>org.apache.maven.plugins</groupId>
+			                <artifactId>maven-surefire-report-plugin</artifactId>
+			                <version>2.10</version>
+			                <reportSets>
+			                    <reportSet>
+			                        <reports>
+			                            <report>report-only</report>
+			                        </reports>
+			                    </reportSet>
+			                </reportSets>
+			            </plugin>
+			            <!-- <plugin>
+			                <groupId>org.apache.maven.plugins</groupId>
+			                <artifactId>maven-changes-plugin</artifactId>
+			                <version>2.6</version>
+			            </plugin> 
+			            TODO does not work with current TRAC-->
+			            <plugin>
+			                <groupId>org.apache.maven.plugins</groupId>
+			                <artifactId>maven-plugin-plugin</artifactId>
+			                <version>2.9</version>
+			            </plugin>
+					</reportPlugins>
+				</configuration>
+            </plugin>
         </plugins>
     </build>
-
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>taglist-maven-plugin</artifactId>
-                <version>2.4</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>2.2</version>
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                            <report>project-team</report>
-                            <report>license</report>
-                            <report>scm</report>
-                            <report>mailing-list</report>
-                            <report>issue-tracking</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.6</version>
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                            <report>report-only</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>changes-maven-plugin</artifactId>
-                <version>2.0-beta-1</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-plugin-plugin</artifactId>
-                <version>2.6</version>
-            </plugin>
-        </plugins>
-    </reporting>
 </project>
