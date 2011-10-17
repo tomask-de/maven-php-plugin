@@ -60,11 +60,14 @@ public class PhpDocumentor extends AbstractApiDocReport {
     /**
      * The generated phpDoc file.
      *
-     * @parameter expression="${project.build.directory}/site/phpdoc/phpdoc.ini";
+     * @parameter expression="${project.build.directory}/temp/phpdoc/phpdoc.ini";
      * @required
      * @readonly
      */
     private File generatedPhpDocConfigFile;
+    
+    // XXX: Load phpDocumentor via maven dependencies
+    // XXX: Configuration option to specifiy the phpDocumentor to be used
 
     private void writeReport() {
         if (getSink() != null)  {
