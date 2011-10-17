@@ -13,9 +13,41 @@
 				<artifactId>maven-php-plugin</artifactId>
 				<extensions>true</extensions>
 			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+			    <version>3.0</version>
+			    <configuration>
+					<reportPlugins>
+						<plugin>
+							<groupId>org.phpmaven</groupId>
+							<artifactId>maven-php-plugin</artifactId>
+							<reportSets>
+								<reportSet>
+									<reports>
+										<report>phpdocumentor</report>
+									</reports>
+								</reportSet>
+							</reportSets>
+						</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-surefire-report-plugin</artifactId>
+							<version>2.10</version>
+							<reportSets>
+								<reportSet>
+									<reports>
+										<report>report-only</report>
+									</reports>
+								</reportSet>
+							</reportSets>
+						</plugin>
+					</reportPlugins>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
-
 
 	<dependencies>
 		<!--  phpUnit for PHP 5 -->
@@ -32,41 +64,6 @@
 			<version>1.3.2-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
-
-	<reporting>
-		<plugins>
-			<!-- START SNIPPET: doxygen -->
-			<!-- Doxygen Documentation  -->
-			<plugin>
-				<groupId>org.phpmaven</groupId>
-				<artifactId>maven-php-plugin</artifactId>
-				<!-- Optional -->
-				<reportSets>
-					<reportSet>
-						<reports>
-							<report>doxygen</report>
-							<report>phpdocumentor</report>
-						</reports>
-					</reportSet>
-				</reportSets>
-				<!-- / Optional -->
-			</plugin>
-			
-			<!-- END SNIPPET: doxygen -->
-			<!-- Surfire Documentation -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-report-plugin</artifactId>
-				<version>2.4</version>
-				<reportSets>
-					<reportSet>
-						<reports>
-							<report>report-only</report>
-						</reports>
-					</reportSet>
-				</reportSets>
-			</plugin>
-		</plugins>
-	</reporting>
+	
 </project>
 <!-- END SNIPPET: pom -->
