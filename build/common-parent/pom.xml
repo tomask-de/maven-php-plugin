@@ -1,0 +1,78 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <properties>
+        <phpmavenLatestRelease>2.0.0-beta-1</phpmavenLatestRelease>
+        <phpmavenLatestSnapshot>2.0-SNAPSHOT</phpmavenLatestSnapshot>
+        <phpmavenRootUrl>http://www.phpmaven.org</phpmavenRootUrl>
+
+        <phpmavenReposReleasesUrl>http://repos.php-maven.org/releases</phpmavenReposReleasesUrl>
+        <phpmavenReposReleasesId>releases-php-maven-org</phpmavenReposReleasesId>
+        <phpmavenReposReleasesName>Official PHP-Maven Releases</phpmavenReposReleasesName>
+        <phpmavenReposReleasesUploadUrl>ftp://repos.php-maven.org/releases</phpmavenReposReleasesUploadUrl>
+        <phpmavenReposSnapshotsUrl>http://repos.php-maven.org/snapshots</phpmavenReposSnapshotsUrl>
+        <phpmavenReposSnapshotsId>snapshots-php-maven-org</phpmavenReposSnapshotsId>
+        <phpmavenReposSnapshotsName>Official PHP-Maven Snapshots</phpmavenReposSnapshotsName>
+        <phpmavenReposSnapshotsUploadUrl>ftp://repos.php-maven.org/snapshots</phpmavenReposSnapshotsUploadUrl>
+        <phpmavenSitesId>website-php-maven-org</phpmavenSitesId>
+        <phpmavenSitesName>Official PHP-Maven website</phpmavenSitesName>
+        <phpmavenSitesUploadUrl>ftp://www.php-maven.org</phpmavenSitesUploadUrl>
+        
+        <phpmavenRootScmUrl>scm:git:git://github.com/php-maven/maven-php-plugin.git</phpmavenRootScmUrl>
+        <phpmavenRootScmUrlWeb>http://github.com/php-maven/maven-php-plugin</phpmavenRootScmUrlWeb>
+        
+        <phpmavenForkYear>2010</phpmavenForkYear>
+        <phpmavenCopyrightYear>2012</phpmavenCopyrightYear>
+    </properties>
+
+    <groupId>org.phpmaven.build</groupId>
+    <artifactId>common-parent</artifactId>
+    <version>1</version>
+    <packaging>pom</packaging>
+
+    <name>Maven PHP parent pom</name>
+
+    <description>
+        A Maven plugin for dependency management and quality assurance in PHP projects. Uses
+        the default Maven lifecycle to provide multiple php features.
+    </description>
+    
+    <distributionManagement>
+        <repository>
+            <id>upload-${phpmavenReposReleasesId}</id>
+            <name>${phpmavenReposReleasesName}</name>
+            <url>${phpmavenReposReleasesUploadUrl}</url>
+        </repository>
+        <snapshotRepository>
+            <id>upload-${phpmavenReposSnapshotsId}</id>
+            <name>${phpmavenReposSnapshotsName}</name>
+            <url>${phpmavenReposSnapshotsUploadUrl}</url>
+        </snapshotRepository>
+    </distributionManagement>
+    
+    <build>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-webdav-jackrabbit</artifactId>
+				<version>2.0</version>
+			</extension>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ftp</artifactId>
+				<version>2.0</version>
+			</extension>
+		</extensions>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                  <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

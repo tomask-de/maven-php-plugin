@@ -2,276 +2,40 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.phpmaven</groupId>
-        <artifactId>maven-php-parent</artifactId>
-        <version>2.0-SNAPSHOT</version>
+        <groupId>org.phpmaven.build</groupId>
+        <artifactId>common-parent</artifactId>
+        <version>1</version>
+        <relativePath>build/common-parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>maven-php-plugin</artifactId>
-    <packaging>maven-plugin</packaging>
+    <artifactId>aggregator</artifactId>
+    <packaging>pom</packaging>
 
-    <name>Maven PHP Plugin</name>
-    <url>http://www.php-maven.org</url>
+    <name>Maven PHP Build aggregator</name>
 
     <description>
         A Maven plugin for dependency management and quality assurance in PHP projects. Uses
         the default Maven lifecycle to provide multiple php features.
     </description>
-
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-        </license>
-    </licenses>
-
-    <scm>
-        <connection>scm:git:git://github.com/php-maven/${project.artifactId}.git</connection>
-        <developerConnection>scm:git:git@github.com:php-maven/${project.artifactId}.git</developerConnection>
-    </scm>
-
-    <properties>
-        <!-- <doxiaVersion>1.2</doxiaVersion> -->
-    </properties>
-
-    <dependencies>
-	    <!-- doxia -->
-	    <!-- <dependency>
-	      <groupId>org.apache.maven.doxia</groupId>
-	      <artifactId>doxia-sink-api</artifactId>
-	      <version>${doxiaVersion}</version>
-	    </dependency>
-	    <dependency>
-	      <groupId>org.apache.maven.doxia</groupId>
-	      <artifactId>doxia-core</artifactId>
-	      <version>${doxiaVersion}</version>
-	    </dependency>
-	    <dependency>
-	      <groupId>org.apache.maven.doxia</groupId>
-	      <artifactId>doxia-site-renderer</artifactId>
-	      <version>${doxiaVersion}</version>
-	    </dependency> -->
     
-    	<!-- maven -->
-        <dependency>
-            <groupId>org.apache.maven.reporting</groupId>
-            <artifactId>maven-reporting-impl</artifactId>
-            <version>2.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.maven.reporting</groupId>
-            <artifactId>maven-reporting-api</artifactId>
-            <version>3.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.maven</groupId>
-            <artifactId>maven-plugin-api</artifactId>
-            <version>3.0.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.maven</groupId>
-            <artifactId>maven-project</artifactId>
-            <version>3.0-alpha-2</version>
-        </dependency>
+    <modules>
+    	<!-- Not part of the build cycle -->
+    	<!-- REASON: maven-site does currently not allow skins in aggregators -->
+        <!-- <module>var</module> -->
+        <!-- <module>build</module> -->
         
-        <!-- plexus -->
-        <dependency>
-            <groupId>org.codehaus.plexus</groupId>
-            <artifactId>plexus-cli</artifactId>
-            <version>1.5</version>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.plexus</groupId>
-            <artifactId>plexus-utils</artifactId>
-            <version>2.0.5</version>
-        </dependency>
-        <dependency>
-            <groupId>plexus</groupId>
-            <artifactId>plexus-compiler-api</artifactId>
-            <version>1.5</version>
-        </dependency>
-        
-    	<!-- utilities -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>r06</version>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.2</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+        <!-- normal build cycle -->
+        <module>sites</module>
+        <module>branches</module>
+        <module>tags</module>
+    </modules>
+    
+    <distributionManagement>
+        <site>
+            <id>upload-${phpmavenSitesId}</id>
+            <name>${phpmavenSitesName}</name>
+            <url>${phpmavenSitesUploadUrl}/</url>
+        </site>
+    </distributionManagement>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>2.5</version>
-                <configuration>
-                    <configLocation>${project.basedir}/checkstyle.xml</configLocation>
-                    <consoleOutput>true</consoleOutput>
-                    <logViolationsToConsole>true</logViolationsToConsole>
-                    <detail>true</detail>
-                    <failOnViolation>true</failOnViolation>
-                    <failsOnError>true</failsOnError>
-                    <violationSeverity>warning</violationSeverity>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>process-sources</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>com.mycila.maven-license-plugin</groupId>
-                <artifactId>maven-license-plugin</artifactId>
-                <version>1.5.1</version>
-                <configuration>
-                    <header>LICENSE.header</header>
-                    <includes>
-                        <!-- java -->
-                        <include>**/*.java</include>
-                        <!-- php -->
-                        <include>${project.build.sourceDirectory}/**/*.php</include>
-                    </includes>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>format</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>format</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>check</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.7</version>
-                <executions>
-                    <execution>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                        <configuration>
-                            <encoding>${project.build.sourceEncoding}</encoding>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>2.1.2</version>
-                <executions>
-                    <execution>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.3</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>test-jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3</version>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.4.2</version>
-                <configuration>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
-            </plugin>
-            
-            <plugin>
-            	<groupId>org.apache.maven.plugins</groupId>
-			    <artifactId>maven-site-plugin</artifactId>
-			    <version>3.0</version>
-			    <configuration>
-					<reportPlugins>
-						<plugin>
-			                <groupId>org.codehaus.mojo</groupId>
-			                <artifactId>taglist-maven-plugin</artifactId>
-			                <version>2.4</version>
-			            </plugin>
-			            <plugin>
-			                <groupId>org.apache.maven.plugins</groupId>
-			                <artifactId>maven-project-info-reports-plugin</artifactId>
-			                <version>2.4</version>
-			                <reportSets>
-			                    <reportSet>
-			                        <reports>
-			                            <report>project-team</report>
-			                            <report>license</report>
-			                            <report>scm</report>
-			                            <report>mailing-list</report>
-			                            <report>issue-tracking</report>
-			                        </reports>
-			                    </reportSet>
-			                </reportSets>
-			            </plugin>
-			            <plugin>
-			                <groupId>org.apache.maven.plugins</groupId>
-			                <artifactId>maven-surefire-report-plugin</artifactId>
-			                <version>2.10</version>
-			                <reportSets>
-			                    <reportSet>
-			                        <reports>
-			                            <report>report-only</report>
-			                        </reports>
-			                    </reportSet>
-			                </reportSets>
-			            </plugin>
-			            <!-- <plugin>
-			                <groupId>org.apache.maven.plugins</groupId>
-			                <artifactId>maven-changes-plugin</artifactId>
-			                <version>2.6</version>
-			            </plugin> 
-			            TODO does not work with current TRAC-->
-			            <plugin>
-			                <groupId>org.apache.maven.plugins</groupId>
-			                <artifactId>maven-plugin-plugin</artifactId>
-			                <version>2.9</version>
-			            </plugin>
-					</reportPlugins>
-				</configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>
