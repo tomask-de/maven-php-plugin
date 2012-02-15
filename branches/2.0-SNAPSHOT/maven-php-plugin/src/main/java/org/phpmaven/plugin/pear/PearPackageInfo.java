@@ -171,10 +171,29 @@ public class PearPackageInfo
                     maintainer.setEmail(token.substring(1, indexOf));
                     if (indexOf < token.length() - 1)
                     {
-                        final String sub = token.substring(indexOf + 1).trim();
+                        String sub = token.substring(indexOf + 1).trim();
                         if (sub.startsWith("(") && sub.endsWith(")"))
                         {
                             maintainer.setRole(sub.substring(1, sub.length() - 1));
+                        }
+                        else if (sub.startsWith("("))
+                        {
+                            String nextToken = null;
+                            do
+                            {
+                                nextToken = tokenizer.nextToken();
+                                if (nextToken.startsWith(" " ))
+                                {
+                                    sub = sub + nextToken.trim();
+                                }
+                                else
+                                {
+                                    tokenizer.moveBackward();
+                                    break;
+                                }
+                            }
+                            while (!sub.endsWith(")"));
+                            maintainer.setRole(sub.substring(1, sub.length() - (sub.endsWith(")") ? 1 : 0)));
                         }
                         else
                         {
@@ -246,10 +265,29 @@ public class PearPackageInfo
                         maintainer.setEmail(token.substring(1, indexOf));
                         if (indexOf < token.length() - 1)
                         {
-                            final String sub = token.substring(indexOf + 1).trim();
+                            String sub = token.substring(indexOf + 1).trim();
                             if (sub.startsWith("(") && sub.endsWith(")"))
                             {
                                 maintainer.setRole(sub.substring(1, sub.length() - 1));
+                            }
+                            else if (sub.startsWith("("))
+                            {
+                                String nextToken = null;
+                                do
+                                {
+                                    nextToken = tokenizer.nextToken();
+                                    if (nextToken.startsWith(" " ))
+                                    {
+                                        sub = sub + nextToken.trim();
+                                    }
+                                    else
+                                    {
+                                        tokenizer.moveBackward();
+                                        break;
+                                    }
+                                }
+                                while (!sub.endsWith(")"));
+                                maintainer.setRole(sub.substring(1, sub.length() - (sub.endsWith(")") ? 1 : 0)));
                             }
                             else
                             {

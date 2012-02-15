@@ -447,7 +447,7 @@ public class PearCreatePomMojo extends DefaultMojo
         
         String pomXml = POM_TEMPLATE.replace("${TARGET.GROUPID}", this.pearGroupId);
         pomXml = pomXml.replace("${TARGET.ARTIFACTID}", this.pearArtifactId);
-        pomXml = pomXml.replace("${TARGET.NAME}", info.getSummary() == null ? this.pearName : info.getSummary());
+        pomXml = pomXml.replace("${TARGET.NAME}", escapeXml(info.getSummary()) == null ? this.pearName : info.getSummary());
         pomXml = pomXml.replace("${TARGET.VERSION}", this.pearPackageMavenVersion);
         pomXml = pomXml.replace("${TARGET.PEARVERSION}", this.pearPackageVersion);
         pomXml = pomXml.replace("${TARGET.CHANNELS}", channels.toString());
