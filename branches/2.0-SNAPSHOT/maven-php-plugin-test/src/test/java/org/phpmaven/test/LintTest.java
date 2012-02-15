@@ -60,7 +60,7 @@ public class LintTest extends TestCase {
         catch (VerificationException ex)
         {
             // we expect a verification exception
-            verifier.verifyTextInLog("syntax check failure");
+            verifier.verifyTextInLog("Lint check failure");
             verifier.resetStreams();
         }
     }
@@ -107,7 +107,7 @@ public class LintTest extends TestCase {
         catch (VerificationException ex)
         {
             // we expect a verification exception
-            verifier.verifyTextInLog("syntax check failure");
+            verifier.verifyTextInLog("Lint check failure");
             verifier.resetStreams();
         }
     }
