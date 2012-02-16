@@ -459,8 +459,7 @@ public final class PhpTest extends AbstractPhpMojo implements IPhpunitConfigurat
         if (getPhpHelper().getPhpVersion() == PhpVersion.PHP5 || getPhpHelper().getPhpVersion() == PhpVersion.PHP6) {
             command +=
                 " \"" + getTemporaryScriptFilename().getAbsolutePath() + "\""
-                    + " --log-junit \"" + this.phpunitXmlResult.getAbsolutePath() + "\""
-                    + " \"" + this.generatedPhpUnitTestsuiteFile.getAbsolutePath() + "\"";
+                    + " --log-junit \"" + this.phpunitXmlResult.getAbsolutePath() + "\"";
         } else {
             throw new PhpErrorException(
                 getTemporaryScriptFilename(),
@@ -477,6 +476,8 @@ public final class PhpTest extends AbstractPhpMojo implements IPhpunitConfigurat
         if (this.phpUnitArguments != null) {
             command = command + " " + this.phpUnitArguments;
         }
+        
+        command += " \"" + this.generatedPhpUnitTestsuiteFile.getAbsolutePath() + "\"";
         
         return command;
     }
@@ -495,8 +496,7 @@ public final class PhpTest extends AbstractPhpMojo implements IPhpunitConfigurat
         if (getPhpHelper().getPhpVersion() == PhpVersion.PHP5 || getPhpHelper().getPhpVersion() == PhpVersion.PHP6) {
             command +=
                 " \"" + getTemporaryScriptFilename().getAbsolutePath() + "\""
-                    + " --log-junit \"" + xmlLog.getAbsolutePath() + "\""
-                    + " \"" + file.getAbsolutePath() + "\"";
+                    + " --log-junit \"" + xmlLog.getAbsolutePath() + "\"";
         } else {
             throw new PhpErrorException(
                 getTemporaryScriptFilename(),
@@ -506,6 +506,8 @@ public final class PhpTest extends AbstractPhpMojo implements IPhpunitConfigurat
         if (this.phpUnitArguments != null) {
             command = command + " " + this.phpUnitArguments;
         }
+        
+        command += " \"" + file.getAbsolutePath() + "\"";
         
         return command;
     }
