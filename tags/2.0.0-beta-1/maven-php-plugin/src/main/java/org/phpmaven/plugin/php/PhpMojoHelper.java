@@ -542,12 +542,16 @@ public class PhpMojoHelper implements IPhpExecution {
         if (file == null) {
             return includePathParameter(new String[]{
                 this.targetClassesDirectory.getAbsolutePath(),
-                this.dependenciesTargetDirectory.getAbsolutePath()
+                this.dependenciesTargetDirectory.getAbsolutePath(),
+                // XXX: Hotfix We should really remove this and provide non-corrupt pear-packages :-(
+                new File(this.dependenciesTargetDirectory.getAbsolutePath(), "pear").getAbsolutePath()
             });
         }
         return includePathParameter(new String[]{
             this.targetClassesDirectory.getAbsolutePath(),
             this.dependenciesTargetDirectory.getAbsolutePath(),
+            // XXX: Hotfix We should really remove this and provide non-corrupt pear-packages :-(
+            new File(this.dependenciesTargetDirectory.getAbsolutePath(), "pear").getAbsolutePath(),
             file.getParentFile().getAbsolutePath()
         });
     }
@@ -566,14 +570,22 @@ public class PhpMojoHelper implements IPhpExecution {
                 this.targetClassesDirectory.getAbsolutePath(),
                 this.targetTestClassesDirectory.getAbsolutePath(),
                 this.dependenciesTargetDirectory.getAbsolutePath(),
-                this.testDependenciesTargetDirectory.getAbsolutePath()
+                // XXX: Hotfix We should really remove this and provide non-corrupt pear-packages :-(
+                new File(this.dependenciesTargetDirectory.getAbsolutePath(), "pear").getAbsolutePath(),
+                this.testDependenciesTargetDirectory.getAbsolutePath(),
+                // XXX: Hotfix We should really remove this and provide non-corrupt pear-packages :-(
+                new File(this.testDependenciesTargetDirectory.getAbsolutePath(), "pear").getAbsolutePath()
             });
         }
         return includePathParameter(new String[]{
             this.targetClassesDirectory.getAbsolutePath(),
             this.targetTestClassesDirectory.getAbsolutePath(),
             this.dependenciesTargetDirectory.getAbsolutePath(),
+            // XXX: Hotfix We should really remove this and provide non-corrupt pear-packages :-(
+            new File(this.dependenciesTargetDirectory.getAbsolutePath(), "pear").getAbsolutePath(),
             this.testDependenciesTargetDirectory.getAbsolutePath(),
+            // XXX: Hotfix We should really remove this and provide non-corrupt pear-packages :-(
+            new File(this.testDependenciesTargetDirectory.getAbsolutePath(), "pear").getAbsolutePath(),
             file.getParentFile().getAbsolutePath()
         });
     }
