@@ -15,8 +15,15 @@
 
 require_once 'PHPUnit/Framework/TestSuite.php';
 
-PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
-PHPUnit_Util_Filter::addDirectoryToWhitelist('$:{PHPUNIT_SRC_DIR}', 'PHPUNIT_PHP_FILE_SUFFIX');
+// TODO
+// if (PHPUnit_Util_Filesystem::fileExistsInIncludePath('PHP/CodeCoverage/Filter.php')) {
+// 	PHP_CodeCoverage_Filter::getInstance()->addFileToBlacklist(__FILE__, 'PHPUNIT');
+// 	PHP_CodeCoverage_Filter::getInstance()->addDirectoryToWhitelist('$:{PHPUNIT_SRC_DIR}', 'PHPUNIT_PHP_FILE_SUFFIX');
+// }
+// else {
+// 	PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
+// 	PHPUnit_Util_Filter::addDirectoryToWhitelist('$:{PHPUNIT_SRC_DIR}', 'PHPUNIT_PHP_FILE_SUFFIX');
+// }
 
 class MavenCoverageTestSuite extends PHPUnit_Framework_TestSuite {
 	public static function suite() {

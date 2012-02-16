@@ -13,22 +13,33 @@
  * limitations under the License.
  */
 
-$suiteFile = $_SERVER['argv'][1];
-require_once 'PHPUnit/TextUI/TestRunner.php';
-require_once 'PHPUnit/Util/Log/PMD.php';
-require_once 'PHPUnit/Util/Log/TAP.php';
-require_once 'PHPUnit/Util/Configuration.php';
-require_once 'PHPUnit/Util/Fileloader.php';
-require_once 'PHPUnit/Util/Filter.php';
-require_once 'PHPUnit/Util/Getopt.php';
-require_once 'PHPUnit/Util/Skeleton.php';
-require_once 'PHPUnit/Util/TestDox/ResultPrinter/Text.php';
-PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
+require_once 'PHPUnit/Util/Filesystem.php';
+if (PHPUnit_Util_Filesystem::fileExistsInIncludePath('PHPUnit/Autoload.php')) {
+	require_once 'PHPUnit/Autoload.php';
+}
+else {
+	require_once 'PHPUnit/TextUI/TestRunner.php';
+	require_once 'PHPUnit/Util/Log/PMD.php';
+	require_once 'PHPUnit/Util/Log/TAP.php';
+	require_once 'PHPUnit/Util/Configuration.php';
+	require_once 'PHPUnit/Util/Fileloader.php';
+	require_once 'PHPUnit/Util/Filter.php';
+	require_once 'PHPUnit/Util/Getopt.php';
+	require_once 'PHPUnit/Util/Skeleton.php';
+	require_once 'PHPUnit/Util/TestDox/ResultPrinter/Text.php';
+}
 
-// fix command line arguments; sets the class name
-array_splice($_SERVER['argv'], 1, 1);
-
-$_SERVER['argv'][] = 'MavenTestSuite';
-$_SERVER['argv'][] = $suiteFile;
+// TODO
+// if (PHPUnit_Util_Filesystem::fileExistsInIncludePath('PHP/CodeCoverage/Filter.php')) {
+// 	PHP_CodeCoverage_Filter::getInstance()->addFileToBlacklist(__FILE__, 'PHPUNIT');
+// }
+// else {
+// 	PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
+// }
 
 require_once 'PHPUnit/TextUI/Command.php';
+
+// newer phpunit versions (>3.3.10) do not invoke it directly
+if (!defined('PHPUnit_MAIN_METHOD')) {
+	PHPUnit_TextUI_Command::main();
+}

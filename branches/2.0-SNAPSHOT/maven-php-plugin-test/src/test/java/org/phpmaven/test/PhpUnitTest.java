@@ -152,6 +152,54 @@ public class PhpUnitTest extends TestCase {
     }
 
     /**
+     * tests the goal "test" with simple test.
+     *
+     * @throws Exception
+     */
+    public void testGoalTestWith2Tests() throws Exception {
+        final File testDir = ResourceExtractor.simpleExtractResources( getClass(), "/org/phpmaven/test/projects/test-oktests-multiple");
+        
+        final Verifier verifier = new Verifier( testDir.getAbsolutePath() );
+        
+        // delete the pom from previous runs
+        verifier.deleteArtifact( "org.phpmaven.test", "test-oktests-multiple", "0.0.1", "pom" );
+
+        // execute testing
+        verifier.executeGoal("test");
+
+        // verify no error was thrown
+        verifier.verifyErrorFreeLog();
+
+        // reset the streams
+        verifier.resetStreams();
+    }
+    
+// TODO Setting singleTestInvocation to true requires at least phpunitXmlResult to be set manually.
+//    /**
+//     * tests the goal "test" with simple test.
+//     *
+//     * @throws Exception
+//     */
+//    public void testGoalTestWith2TestsSingleInvocation() throws Exception {
+//        final File testDir = ResourceExtractor.simpleExtractResources( getClass(), "/org/phpmaven/test/projects/test-oktests-multiple");
+//        
+//        final Verifier verifier = new Verifier( testDir.getAbsolutePath() );
+//        
+//        // delete the pom from previous runs
+//        verifier.deleteArtifact( "org.phpmaven.test", "test-oktests-multiple", "0.0.1", "pom" );
+//        verifier.setSystemProperty("singleTestInvocation", "true");
+//
+//        // execute testing
+//        verifier.executeGoal("test");
+//
+//        // verify no error was thrown
+//        verifier.verifyErrorFreeLog();
+//
+//        // reset the streams
+//        verifier.resetStreams();
+//    }
+
+    /**
      * tests the goal "test" without any test.
      *
      * @throws Exception
