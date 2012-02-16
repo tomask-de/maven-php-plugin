@@ -27,6 +27,13 @@ else {
 	require_once 'PHPUnit/Util/Getopt.php';
 	require_once 'PHPUnit/Util/Skeleton.php';
 	require_once 'PHPUnit/Util/TestDox/ResultPrinter/Text.php';
+	// this indicates a version < 3.6.0
+	// --log-xml is replaced by --log-junit by phpunit version 3.6.0
+	for ($i = 0; $i < count($_SERVER['argv']); $i++) {
+		if ($_SERVER['argv'][$i] == '--log-junit') {
+			$_SERVER['argv'][$i] = '--log-xml';
+		}
+	}
 }
 
 // TODO

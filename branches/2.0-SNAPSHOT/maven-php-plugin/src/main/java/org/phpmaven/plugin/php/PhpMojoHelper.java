@@ -419,7 +419,7 @@ public class PhpMojoHelper implements IPhpExecution {
         @SuppressWarnings("unchecked")
         final Set<Artifact> deps = this.project.getArtifacts();
         for (final Artifact dep : deps) {
-            this.log.debug("dependency " + 
+            this.log.info("dependency " + 
                 dep.getGroupId() + ":" + 
                 dep.getArtifactId() + ":" +
                 dep.getVersion() + ":" +
@@ -458,7 +458,7 @@ public class PhpMojoHelper implements IPhpExecution {
         @SuppressWarnings("unchecked")
         final Set<Artifact> deps = this.project.getArtifacts();
         for (final Artifact dep : deps) {
-            this.log.debug("dependency " + 
+            this.log.info("dependency " + 
                 dep.getGroupId() + ":" + 
                 dep.getArtifactId() + ":" +
                 dep.getVersion() + ":" +
