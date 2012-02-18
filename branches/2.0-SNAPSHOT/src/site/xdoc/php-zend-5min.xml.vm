@@ -8,51 +8,72 @@
 			Martin Eisengardt
 		</author>
 
-		<title>Maven for PHP libraries - 5 minutes starter guide</title>
+		<title>Maven for PHP zend framework applications - 5 minutes starter guide</title>
 	</properties>
 	<meta name="keyword" content="apache, maven, php"></meta>
 	<body>
-		<section name="PHP libraries  - 5 minutes starter guide">
+		<section name="PHP web projects - 5 minutes starter guide">
 			<subsection name="Create a project">
 			<p>
 			First, prepare Maven and follow the <a href="${phpmavenRootUrl}/prepare.html">preparation instructions.</a><br></br>
 			Next, type the following Maven goal in your command line and execute it
 			(Note that PHP 4 is not supported since phpmaven2.):</p>
-<b>PHP 5:</b> 
-<source>
+<b>PHP 5:</b>
+<source> 			
 mvn archetype:generate \
 -DarchetypeGroupId=org.phpmaven \
--DarchetypeArtifactId=php5-lib-archetype \
+-DarchetypeArtifactId=php5-zend-archetype \
 -DarchetypeVersion=${phpmavenTagName} \
 -DgroupId=org.sample \
 -DartifactId=my-app \
 -Dversion=0.0.1-SNAPSHOT
 			</source>
-			<p>
 			After some time maven will ask to confirm the parameters. The result will look like this:
-			</p>
 			<source>
 my-app 
 	|-- pom.xml 
 	`-- src 
 		|-- main 
 			 `-- php 
-				 `-- org 
-					 `-- sample  
-						`-- app.php 
+				`-- application 
+					`-- controllers 
+						`-- ErrorController.php
+						`-- IndexController.php
+					`-- views
+						`-- scripts
+							`-- error
+								`-- error.phtml
+							`-- index
+								`-- index.phtml
+					`-- Bootstrap.php
+				`-- public
+					`-- index.php
+			`-- resources
+				`-- application
+					`-- configs
+						`-- application.ini
+				`-- etc
+					`-- logback.xml
+					`-- phpunit.xml
+				`-- public
+					`-- .htaccess
+				`-- webapp
+					`-- WEB-INF
+						`-- web.xml
+				`-- .zfproject.xml
 		|`-- test 
 			`-- php 
-				`-- org 
-					`-- sample 
-						`-- apptest.php
+				`-- ControllerTest.php
 		|`-- site
 			`-- site.xml
 			`-- apt
 				`-- index.apt
 			</source>
 			<p>
+			
 			<ul>
-			<li><b>src/main/php</b> - contains the project source code</li>
+			<li><b>src/main/php/lib</b> - contains the project source code; as you see only *.php and *.phtml files of the zend directory layout.</li>
+			<li><b>src/main/php/resources</b> - contains the additional resources; all non-php files from zend directory layout</li>
 			<li><b>src/test/php</b> - contains the test source code</li>
 			<li><b>pom.xml</b> The project&apos;s Project Object Model, or POM, looks like this:</li>
 			</ul>
@@ -62,12 +83,13 @@ my-app
 		<p>
 <macro name="snippet">
 <param name="id" value="pom"></param>
-<param name="file" value="${phpmavenFsRoot}/src/site/include/pom.xml"></param>
+<param name="file" value="${phpmavenFsRoot}/src/site/include/pom_zend.xml"></param>
 </macro></p>
 		</subsection>
 		<subsection name="What have I just done?">
 			<p>What have I just done?</p>
-			You have just executed the Maven goal archetype:generate and passed various parameters to that goal. The prefix archetype is
+			You have just executed the Maven goal archetype:generate and passed
+			various parameters to that goal. The prefix archetype is
 			the plugin containing the goal.
 			This goal created a default project structure for your PHP project.
 		</subsection>
@@ -87,9 +109,24 @@ my-app
 [INFO] Final Memory: 3M/6M
 [INFO] ------------------------------------------------------------------------			
 			</source>
-Maven created a phar package under the project&apos;s target folder.  		
+Maven has created a zip and a tar package under the project&apos;s target folder.  		
 		</subsection>
-		<subsection name="Project documentation">
+		<subsection name="What has Maven done?">
+		<p>
+		
+	&quot;Maven for PHP&quot; validates the PHP code with the php.exe, runs PHPUnit tests, and creates an assembly for the web project.</p>
+		</subsection>
+		<subsection name="Let us start in webserver">
+		<p>
+		   Now run <source>mvn jetty:run</source>.
+		   Maven will print various information and end with something like
+		   <source>jetty server started</source>.
+		   do not stop it here but start your web browser and navigate to <source>http://localhost:8080/my-app</source>.
+		   You will see the zend frameworks welcome page (the index page).
+		   <img src="images/tut/5min_zend_success.jpg" />
+	    </p>
+		</subsection>
+		<subsection name="Documentation">
 		<p>
 		Go to the <a href="documentation.html">&quot;Documentation&quot; section.</a>
 		</p> 
@@ -101,5 +138,4 @@ var pageTracker = _gat._getTracker(&apos;UA-5308244-1&apos;);
 pageTracker._trackPageview();
 </script>
 	</body>
-	
 </document>
