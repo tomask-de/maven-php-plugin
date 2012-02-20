@@ -62,6 +62,7 @@
         <developer>
             <id>banaalo</id>
             <name>Marco Schulz</name>
+            <email>banaalo@gmx.de</email>
             <roles>
                 <role>developer</role>
                 <role>documentation</role>
@@ -103,6 +104,26 @@
                         </plugin>
                     </reportPlugins>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.phpmaven.sites</groupId>
+                <artifactId>sitemap-plugin</artifactId>
+                <version>1</version>
+                <configuration>
+                    <modules>
+                        <module>${project.basedir}/../../tags</module>
+                        <module>${project.basedir}/../../branches</module>
+                    </modules>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>site</phase>
+                        <goals>
+                            <goal>generate</goal>
+                            <goal>generate-index</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
