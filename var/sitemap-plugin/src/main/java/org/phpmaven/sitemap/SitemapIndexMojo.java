@@ -65,7 +65,7 @@ import org.w3c.dom.Element;
 public class SitemapIndexMojo extends AbstractMojo
 {
 
-    private static final SimpleDateFormat W3C_DATE_FORMAT = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ssZ" );
+    private static final SimpleDateFormat W3C_DATE_FORMAT = new SimpleDateFormat( "yyyy-MM-dd" );
 
     private static final String W3C_DATE = W3C_DATE_FORMAT.format(new Date());
 
