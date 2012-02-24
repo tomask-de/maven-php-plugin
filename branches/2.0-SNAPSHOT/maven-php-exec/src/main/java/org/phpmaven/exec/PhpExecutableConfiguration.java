@@ -288,7 +288,7 @@ public class PhpExecutableConfiguration implements IPhpExecutableConfiguration {
         final IPhpExecutable result = this.componentFactory.lookup(
                 IPhpExecutable.class,
                 this.getInterpreter(),
-                null,
+                IComponentFactory.EMPTY_CONFIG,
                 this.session);
         result.configure(this, log);
         if (this.useCache) {

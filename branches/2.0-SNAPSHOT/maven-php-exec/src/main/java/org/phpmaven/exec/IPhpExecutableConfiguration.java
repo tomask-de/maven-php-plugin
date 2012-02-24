@@ -24,6 +24,7 @@ import org.apache.maven.plugin.logging.Log;
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.phpmaven.core.BuildPluginConfiguration;
+import org.phpmaven.core.IComponentFactory;
 
 /**
  * A php executable configuration.
@@ -32,6 +33,10 @@ import org.phpmaven.core.BuildPluginConfiguration;
  * This configuration is used to declare a php executable that PHP-Maven will use.
  * You can declare a path to an existing executable if it is not found via PATH variable.
  * Additional command line options, PHP.INI options and environment variables can be set.
+ * </p>
+ * 
+ * <p>
+ * Create an instance via {@link IComponentFactory}.
  * </p>
  * 
  * <p>

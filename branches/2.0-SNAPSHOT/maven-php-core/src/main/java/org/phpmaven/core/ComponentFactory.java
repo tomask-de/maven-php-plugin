@@ -34,7 +34,9 @@ import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.component.configurator.ComponentConfigurationException;
 import org.codehaus.plexus.component.configurator.ComponentConfigurator;
 import org.codehaus.plexus.component.configurator.ConfigurationListener;
+import org.codehaus.plexus.component.configurator.expression.ExpressionEvaluationException;
 import org.codehaus.plexus.component.configurator.expression.ExpressionEvaluator;
+import org.codehaus.plexus.component.configurator.expression.TypeAwareExpressionEvaluator;
 import org.codehaus.plexus.component.repository.exception.ComponentLifecycleException;
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 import org.codehaus.plexus.configuration.PlexusConfiguration;
@@ -71,13 +73,7 @@ public class ComponentFactory implements IComponentFactory {
     @Override
     public <T> T lookup(Class<T> clazz, Xpp3Dom configuration, MavenSession session)
         throws ComponentLookupException, PlexusConfigurationException {
-        final T result = this.plexusContainer.lookup(clazz);
-        
-        final ClassRealm realm = this.plexusContainer.getComponentDescriptor(clazz.getName(), "default").getRealm();
-        
-        configure(clazz, configuration, session.getCurrentProject(), result, realm, session);
-        
-        return result;
+        return this.lookup(clazz, configuration == null ? EMPTY_CONFIG : new Xpp3Dom[]{configuration}, session);
     }
 
     /**
@@ -86,11 +82,51 @@ public class ComponentFactory implements IComponentFactory {
     @Override
     public <T> T lookup(Class<T> clazz, String roleHint, Xpp3Dom configuration, MavenSession session)
         throws ComponentLookupException, PlexusConfigurationException {
+        return this.lookup(
+                clazz,
+                roleHint,
+                configuration == null ? EMPTY_CONFIG : new Xpp3Dom[]{configuration},
+                session);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public <T> T lookup(Class<T> clazz, Xpp3Dom[] configuration, MavenSession session)
+        throws ComponentLookupException, PlexusConfigurationException {
+        final T result = this.plexusContainer.lookup(clazz);
+        
+        final ClassRealm realm = this.plexusContainer.getComponentDescriptor(clazz.getName(), "default").getRealm();
+        
+        configure(
+                clazz,
+                configuration,
+                session.getCurrentProject(),
+                result,
+                realm,
+                session);
+        
+        return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public <T> T lookup(Class<T> clazz, String roleHint, Xpp3Dom[] configuration, MavenSession session)
+        throws ComponentLookupException, PlexusConfigurationException {
         final T result = this.plexusContainer.lookup(clazz, roleHint);
         
         final ClassRealm realm = this.plexusContainer.getComponentDescriptor(clazz.getName(), roleHint).getRealm();
         
-        configure(clazz, configuration, session.getCurrentProject(), result, realm, session);
+        configure(
+                clazz,
+                configuration,
+                session.getCurrentProject(),
+                result,
+                realm,
+                session);
         
         return result;
     }
@@ -105,7 +141,7 @@ public class ComponentFactory implements IComponentFactory {
      * @param session
      * @throws PlexusConfigurationException
      */
-    private <T> void configure(Class<T> clazz, Xpp3Dom configuration,
+    private <T> void configure(Class<T> clazz, Xpp3Dom[] configuration,
             MavenProject mavenProject, final T result, final ClassRealm realm, MavenSession session)
         throws PlexusConfigurationException {
         final MojoExecution execution = new MojoExecution(null);
@@ -133,15 +169,15 @@ public class ComponentFactory implements IComponentFactory {
         configureFromAnnotation(result.getClass(), mavenProject, result, realm,
                 expressionEvaluator);
         
-        PlexusConfiguration pomConfiguration;
-        
-        if (configuration == null) {
-            pomConfiguration = new XmlPlexusConfiguration("configuration");
+        if (configuration == null || configuration.length == 0) {
+            final PlexusConfiguration pomConfiguration = new XmlPlexusConfiguration("configuration");
+            populatePluginFields(result, pomConfiguration, expressionEvaluator, realm);
         } else {
-            pomConfiguration = new XmlPlexusConfiguration(configuration);
+            for (final Xpp3Dom config : configuration) {
+                final PlexusConfiguration pomConfiguration = new XmlPlexusConfiguration(config);
+                populatePluginFields(result, pomConfiguration, expressionEvaluator, realm);
+            }
         }
-
-        populatePluginFields(result, pomConfiguration, expressionEvaluator, realm);
     }
 
     private <T> void configureFromAnnotation(Class<? extends T> clazz,
@@ -150,16 +186,15 @@ public class ComponentFactory implements IComponentFactory {
         throws PlexusConfigurationException {
         final BuildPluginConfiguration pConfiguration = clazz.getAnnotation(BuildPluginConfiguration.class);
         if (pConfiguration != null) {
-            @SuppressWarnings("unchecked")
-            final List<Plugin> plugins = mavenProject.getBuildPlugins();
-            for (final Plugin plugin : plugins) {
-                if (plugin.getGroupId().equals(pConfiguration.groupId())
-                        && plugin.getArtifactId().equals(pConfiguration.artifactId())) {
-                    final Xpp3Dom config = (Xpp3Dom) plugin.getConfiguration();
-                    final PlexusConfiguration pomConfiguration = new XmlPlexusConfiguration(config);
-                    populatePluginFields(result, pomConfiguration, expressionEvaluator, realm);
-                    break;
-                }
+            
+            final Xpp3Dom config = this.getBuildConfig(
+                    mavenProject,
+                    pConfiguration.groupId(),
+                    pConfiguration.artifactId());
+            
+            if (config != null) {
+                final PlexusConfiguration pomConfiguration = new XmlPlexusConfiguration(config);
+                populatePluginFields(result, pomConfiguration, expressionEvaluator, realm);
             }
         }
     }
@@ -221,6 +256,34 @@ public class ComponentFactory implements IComponentFactory {
                 }
             }
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Xpp3Dom getBuildConfig(final MavenProject project, String groupid, String artifactId) {
+        @SuppressWarnings("unchecked")
+        final List<Plugin> plugins = project.getBuildPlugins();
+        for (final Plugin plugin : plugins) {
+            if (plugin.getGroupId().equals(groupid)
+                    && plugin.getArtifactId().equals(artifactId)) {
+                return (Xpp3Dom) plugin.getConfiguration();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * {@inheritDoc} 
+     */
+    @Override
+    public <T> T filterString(final MavenSession session, final String source, Class<T> type)
+        throws ExpressionEvaluationException {
+        final MojoExecution execution = new MojoExecution(null);
+        final TypeAwareExpressionEvaluator expressionEvaluator = new PluginParameterExpressionEvaluator(
+                session, execution);
+        return type.cast(expressionEvaluator.evaluate(source, type));
     }
 
 }

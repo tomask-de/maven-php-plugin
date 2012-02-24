@@ -17,6 +17,8 @@
 package org.phpmaven.core;
 
 import org.apache.maven.execution.MavenSession;
+import org.apache.maven.project.MavenProject;
+import org.codehaus.plexus.component.configurator.expression.ExpressionEvaluationException;
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
@@ -29,6 +31,11 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
  * @since 2.0.0
  */
 public interface IComponentFactory {
+
+    /**
+     * An empty xpp3dom configuration.
+     */
+    Xpp3Dom[] EMPTY_CONFIG = new Xpp3Dom[0];
     
     /**
      * Lookup the component and apply the given configuration.
@@ -56,5 +63,55 @@ public interface IComponentFactory {
      */
     <T> T lookup(Class<T> clazz, String roleHint, Xpp3Dom configuration, MavenSession session)
         throws ComponentLookupException, PlexusConfigurationException;
+    
+    /**
+     * Lookup the component and apply the given configuration.
+     * @param clazz The looked up component class (interface).
+     * @param configuration The configuration array; the first element int he array will be applied first,
+     *        the second element will overvrite the first one and so on.
+     * @param session the current maven session.
+     * @param <T> The component class
+     * @return The component instance.
+     * @throws ComponentLookupException thrown if the component lookup failed.
+     * @throws PlexusConfigurationException thrown if the configuration failed.
+     */
+    <T> T lookup(Class<T> clazz, Xpp3Dom[] configuration, MavenSession session)
+        throws ComponentLookupException, PlexusConfigurationException;
+    
+    /**
+     * Lookup the component and apply the given configuration.
+     * @param clazz The looked up component class (interface).
+     * @param roleHint the role hint used to lookup the component.
+     * @param configuration The configuration array; the first element int he array will be applied first,
+     *        the second element will overvrite the first one and so on.
+     * @param session the current maven session.
+     * @param <T> The component class
+     * @return The component instance.
+     * @throws ComponentLookupException thrown if the component lookup failed.
+     * @throws PlexusConfigurationException thrown if the configuration failed.
+     */
+    <T> T lookup(Class<T> clazz, String roleHint, Xpp3Dom[] configuration, MavenSession session)
+        throws ComponentLookupException, PlexusConfigurationException;
+    
+    /**
+     * receives a build configuration.
+     * @param project the maven project.
+     * @param groupid the group id
+     * @param artifactId the artifact id
+     * @return build configuration or null if there is no build configuration for this plugin
+     */
+    Xpp3Dom getBuildConfig(final MavenProject project, final String groupid, final String artifactId);
+    
+    /**
+     * Parses the given configuration string and returns it by filtering the properties.
+     * @param session session
+     * @param source source string
+     * @param type the class type
+     * @param <T> the class type
+     * @return filtered string
+     * @throws ExpressionEvaluationException thrown on expression errors
+     */
+    <T> T filterString(final MavenSession session, final String source, Class<T> type)
+        throws ExpressionEvaluationException;
 
 }
