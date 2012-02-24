@@ -18,6 +18,7 @@ package org.phpmaven.exec;
 
 import java.io.File;
 
+import org.apache.maven.plugin.logging.Log;
 import org.codehaus.plexus.util.cli.StreamConsumer;
 
 /**
@@ -33,6 +34,19 @@ import org.codehaus.plexus.util.cli.StreamConsumer;
  * @since 2.0.0
  */
 public interface IPhpExecutable {
+    
+    /**
+     * Configures this executable.
+     * 
+     * <p>
+     * Implementations should fail if this method is called twice. Implementations should assume that
+     * this method is called before any other method is called.
+     * </p>
+     * 
+     * @param config configuration
+     * @param log the logger
+     */
+    void configure(IPhpExecutableConfiguration config, Log log);
     
     /**
      * Executes PHP with the given arguments and returns its output.

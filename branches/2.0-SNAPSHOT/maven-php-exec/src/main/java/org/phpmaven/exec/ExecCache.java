@@ -57,16 +57,18 @@ final class ExecCache {
     
     /**
      * Returns the executable from given filename.
-     * @param fileName path and filename of the php executable.
+     * @param config configuration.
      * @param log The logger.
      * @return the executable.
      */
-    public IPhpExecutable get(String fileName, Log log) {
+    public IPhpExecutable get(PhpExecutableConfiguration config, Log log) {
         synchronized (this.cache) {
-            if (!this.cache.containsKey(fileName)) {
-                return this.cache.get(fileName);
+            if (!this.cache.containsKey(config.getExecutable())) {
+                return this.cache.get(config.getExecutable());
             }
-            return this.cache.put(fileName, new PhpExecutable(fileName, log));
+            final IPhpExecutable result = this.cache.put(config.getExecutable(), new PhpExecutable());
+            result.configure(config, log);
+            return result;
         }
     }
 

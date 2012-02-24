@@ -22,12 +22,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.logging.Log;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Configuration;
+import org.codehaus.plexus.component.annotations.Requirement;
+import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
+import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.codehaus.plexus.util.cli.StreamConsumer;
-import org.phpmaven.core.BuildPluginConfiguration;
 import org.phpmaven.core.ConfigurationParameter;
+import org.phpmaven.core.IComponentFactory;
 
 /**
  * A php executable configuration.
@@ -40,115 +44,84 @@ import org.phpmaven.core.ConfigurationParameter;
  * @since 2.0.0
  */
 @Component(role = IPhpExecutableConfiguration.class, instantiationStrategy = "per-lookup")
-@BuildPluginConfiguration(groupId = "org.phpmaven", artifactId = "maven-php-exec")
 public class PhpExecutableConfiguration implements IPhpExecutableConfiguration {
 
     /**
      * Path to the php executable file.
-     * 
-     * <p>
-     * On Windows operating system the extension ".exe" will be automatically added if not specified.
-     * Since this option is a machine dependend path it is recommended to not use it within the pom.xml.
-     * Instead set a property in your settings.xml. The property "phpExecutable" will be mapped to this
-     * executable configuration as soon as you use it.
-     * </p>
-     * 
-     * <p>
-     * Defaults to "php".
-     * </p>
-     * 
-     * @parameter expression="${phpExecutable}" default-value="php"
      */
     @Configuration(name = "executable", value = "php")
+    @ConfigurationParameter(name = "executable", expression = "${php.executable}")
     private String executable;
+
+    /**
+     * Path to the php interpreter.
+     */
+    @Configuration(name = "interpreter", value = "PHP_EXE")
+    @ConfigurationParameter(name = "interpreter", expression = "${php.interpreter}")
+    private String interpreter;
     
     /**
      * Flag that controls the activity of the php information cache.
-     * 
-     * <p>
-     * The php cache helps to tune performance. Normally it is ok to let PHP-Maven cache some information
-     * on the php installation. If there are any problems or if you expect that the php executable
-     * behaves different depending on configuration and environment variables you should try to deactivate
-     * the cache.
-     * </p>
-     * 
-     * <p>
-     * Defaults to true.
-     * </p>
-     * 
-     * @parameter expression="${phpExecutableUseCache}" default-value="true"
      */
-    private boolean useCache = true;
+    @Configuration(name = "useCache", value = "true")
+    @ConfigurationParameter(name = "useCache", expression = "${php.executable.useCache}")
+    private boolean useCache;
     
     /**
      * Additional environment variables.
-     * 
-     * <p>Use in the form &lt;env&gt;&lt;variable1&gt;value&lt;/variable1&gt;&lt;/env&gt;</p>
-     * 
-     * @parameter
      */
     private Map<String, String> env = new HashMap<String, String>();
     
     /**
      * Additional defines for php (command line option -D).
-     * 
-     * <p>
-     * Support for additional command line defines given to PHP. Must not be used to declare the include path.
-     * Use in the form: &lt;phpDefines&gt;&lt;variable1&gt;value&lt;/variable1&gt;&lt;/phpDefines&gt;
-     * </p>
-     * 
-     * @parameter
      */
-    private Map<String, String> phpDefines;
+    private Map<String, String> phpDefines = new HashMap<String, String>();
     
     /**
      * The include path that will be used for php.
-     * 
-     * @parameter
      */
     private List<String> includePath = new ArrayList<String>();
 
     /**
      * Additional PHP arguments.
-     * 
-     * <p>
-     * Use php -h to get a list of all php compile arguments.
-     * </p>
-     * 
-     * @parameter expression="${additionalPhpParameters}"
      */
+    @ConfigurationParameter(name = "additionalPhpParameters", expression = "${php.executable.additionalParameters}")
     private String additionalPhpParameters;
 
     /**
      * If true, errors triggered because of missing includes will be ignored.
-     * 
-     * <p>Defaults to false.</p>
-     * 
-     * @parameter expression="${phpIgnoreIncludeErrors}" default-value="false"
      */
+    @Configuration(name = "ignoreIncludeErrors", value = "false")
+    @ConfigurationParameter(name = "ignoreIncludeErrors", expression = "${php.executable.ignoreIncludeErrors}")
     private boolean ignoreIncludeErrors;
 
     /**
      * If the output of the php scripts will be written to the console.
-     * 
-     * <p>Defaults to false.</p>
-     * 
-     * @parameter expression="${logPhpOutput}" default-value="false"
      */
+    @Configuration(name = "logPhpOutput", value = "false")
+    @ConfigurationParameter(name = "logPhpOutput", expression = "${php.executable.logPhpOutput}")
     private boolean logPhpOutput;
     
     /**
      * A temporary script file that can be used for php execution of small code snippets.
-     * 
-     * <p>Defauls to ${project.basedir}/target/snippet.php</p>
      */
     @ConfigurationParameter(name = "temporaryScriptFile", expression = "${project.basedir}/target/snippet.php")
     private File temporaryScriptFile;
+    
+    /**
+     * The component factory.
+     */
+    @Requirement
+    private IComponentFactory componentFactory;
 
     /**
-     * Returns the executable that will be used.
-     * 
-     * @return The php executable path and file name.
+     * The maven session.
+     */
+    @ConfigurationParameter(name = "session", expression = "${session}")
+    private MavenSession session;
+
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getExecutable() {
@@ -156,9 +129,7 @@ public class PhpExecutableConfiguration implements IPhpExecutableConfiguration {
     }
 
     /**
-     * Sets the php executable to be used.
-     * 
-     * @param executable the php executable path and file name.
+     * {@inheritDoc}
      */
     @Override
     public void setExecutable(String executable) {
@@ -166,9 +137,7 @@ public class PhpExecutableConfiguration implements IPhpExecutableConfiguration {
     }
 
     /**
-     * Returns true if the php information cache can be used.
-     * 
-     * @return true if the cache can be used.
+     * {@inheritDoc}
      */
     @Override
     public boolean isUseCache() {
@@ -176,9 +145,7 @@ public class PhpExecutableConfiguration implements IPhpExecutableConfiguration {
     }
 
     /**
-     * Sets the flag to control the php information cache.
-     * 
-     * @param useCache true to use the cache.
+     * {@inheritDoc}
      */
     @Override
     public void setUseCache(boolean useCache) {
@@ -186,8 +153,7 @@ public class PhpExecutableConfiguration implements IPhpExecutableConfiguration {
     }
 
     /**
-     * Returns the environment variables to be used.
-     * @return Map with environment variables.
+     * {@inheritDoc}
      */
     @Override
     public Map<String, String> getEnv() {
@@ -195,8 +161,7 @@ public class PhpExecutableConfiguration implements IPhpExecutableConfiguration {
     }
 
     /**
-     * Sets the environment variables.
-     * @param env environment variables.
+     * {@inheritDoc}
      */
     @Override
     public void setEnv(Map<String, String> env) {
@@ -204,8 +169,7 @@ public class PhpExecutableConfiguration implements IPhpExecutableConfiguration {
     }
 
     /**
-     * Returns the php defines to be used.
-     * @return php defines.
+     * {@inheritDoc}
      */
     @Override
     public Map<String, String> getPhpDefines() {
@@ -213,8 +177,7 @@ public class PhpExecutableConfiguration implements IPhpExecutableConfiguration {
     }
 
     /**
-     * Sets the php defines to be used.
-     * @param phpDefines php defines.
+     * {@inheritDoc}
      */
     @Override
     public void setPhpDefines(Map<String, String> phpDefines) {
@@ -222,8 +185,7 @@ public class PhpExecutableConfiguration implements IPhpExecutableConfiguration {
     }
 
     /**
-     * Returns the include path.
-     * @return include path.
+     * {@inheritDoc}
      */
     @Override
     public List<String> getIncludePath() {
@@ -231,8 +193,7 @@ public class PhpExecutableConfiguration implements IPhpExecutableConfiguration {
     }
 
     /**
-     * Sets the include path.
-     * @param includePath include path.
+     * {@inheritDoc}
      */
     @Override
     public void setIncludePath(List<String> includePath) {
@@ -240,8 +201,7 @@ public class PhpExecutableConfiguration implements IPhpExecutableConfiguration {
     }
     
     /**
-     * Returns additional php parameters.
-     * @return additional php parameters.
+     * {@inheritDoc}
      */
     @Override
     public String getAdditionalPhpParameters() {
@@ -249,8 +209,7 @@ public class PhpExecutableConfiguration implements IPhpExecutableConfiguration {
     }
 
     /**
-     * Sets additional php parameters.
-     * @param additionalPhpParameters additional php parameters.
+     * {@inheritDoc}
      */
     @Override
     public void setAdditionalPhpParameters(String additionalPhpParameters) {
@@ -258,8 +217,7 @@ public class PhpExecutableConfiguration implements IPhpExecutableConfiguration {
     }
 
     /**
-     * Returns the flag to ignore include errors.
-     * @return flag to ignore include errors.
+     * {@inheritDoc}
      */
     @Override
     public boolean isIgnoreIncludeErrors() {
@@ -267,8 +225,7 @@ public class PhpExecutableConfiguration implements IPhpExecutableConfiguration {
     }
 
     /**
-     * Sets the flag to ignore include errors.
-     * @param ignoreIncludeErrors flag to ignore include errors.
+     * {@inheritDoc}
      */
     @Override
     public void setIgnoreIncludeErrors(boolean ignoreIncludeErrors) {
@@ -276,8 +233,7 @@ public class PhpExecutableConfiguration implements IPhpExecutableConfiguration {
     }
 
     /**
-     * Returns true if php output will be logged.
-     * @return true if php output will be logged.
+     * {@inheritDoc}
      */
     @Override
     public boolean isLogPhpOutput() {
@@ -285,8 +241,7 @@ public class PhpExecutableConfiguration implements IPhpExecutableConfiguration {
     }
 
     /**
-     * Sets the flag if php output will be logged.
-     * @param logPhpOutput flag if php output will be logged.
+     * {@inheritDoc}
      */
     @Override
     public void setLogPhpOutput(boolean logPhpOutput) {
@@ -294,8 +249,7 @@ public class PhpExecutableConfiguration implements IPhpExecutableConfiguration {
     }
 
     /**
-     * Returns the file to place temporary scripts that will be executed.
-     * @return file to place temporary scripts that will be executed.
+     * {@inheritDoc}
      */
     @Override
     public File getTemporaryScriptFile() {
@@ -303,8 +257,7 @@ public class PhpExecutableConfiguration implements IPhpExecutableConfiguration {
     }
 
     /**
-     * Sets the file for temporary script executions.
-     * @param temporaryScriptFile file for temporary scripts.
+     * {@inheritDoc}
      */
     @Override
     public void setTemporaryScriptFile(File temporaryScriptFile) {
@@ -312,25 +265,37 @@ public class PhpExecutableConfiguration implements IPhpExecutableConfiguration {
     }
 
     /**
-     * Returns the php executable that uses the configuration.
-     * 
-     * <p>
-     * Will not respect any changes that are done after invoking this method.
-     * After doing a configuration change you must receive a new executable.
-     * </p>
-     * 
-     * @param log The logger.
-     * 
-     * @return php executable.
+     * {@inheritDoc}
      */
     @Override
-    public IPhpExecutable getPhpExecutable(Log log) {
+    public String getInterpreter() {
+        return this.interpreter;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setInterpreter(String interpreter) {
+        this.interpreter = interpreter;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public IPhpExecutable getPhpExecutable(Log log) throws PlexusConfigurationException, ComponentLookupException {
+        final IPhpExecutable result = this.componentFactory.lookup(
+                IPhpExecutable.class,
+                this.getInterpreter(),
+                null,
+                this.session);
+        result.configure(this, log);
         if (this.useCache) {
-            final IPhpExecutable cache = ExecCache.instance().get(this.additionalPhpParameters, log);
-            final IPhpExecutable result = new PhpExecutable(this, log);
+            final IPhpExecutable cache = ExecCache.instance().get(this, log);
             return new CachedExecutable(cache, result);
         }
-        return new PhpExecutable(this, log);
+        return result;
     }
     
     /**
@@ -377,6 +342,11 @@ public class PhpExecutableConfiguration implements IPhpExecutableConfiguration {
         @Override
         public String execute(String arguments, File file) throws PhpException {
             return this.result.execute(arguments, file);
+        }
+
+        @Override
+        public void configure(IPhpExecutableConfiguration config, Log log) {
+            throw new IllegalStateException("Must not call this method twice. The executable is already configured.");
         }
     }
 

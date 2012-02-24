@@ -47,11 +47,5 @@ public @interface ConfigurationParameter {
      * @return configuration name
      */
     String name();
-    
-    /**
-     * The java define where values could be found.
-     * @return java define
-     */
-    String javaDefine() default "";
 
 }

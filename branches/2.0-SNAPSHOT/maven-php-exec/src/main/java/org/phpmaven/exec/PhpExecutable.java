@@ -19,11 +19,14 @@ package org.phpmaven.exec;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.maven.plugin.logging.Log;
+import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.util.cli.CommandLineException;
 import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.Commandline;
@@ -40,7 +43,8 @@ import com.google.common.base.Preconditions;
  * @author Martin Eisengardt
  * @since 2.0.0
  */
-final class PhpExecutable implements IPhpExecutable {
+@Component(role = IPhpExecutable.class, hint = "PHP_EXE" , instantiationStrategy = "per-lookup")
+public final class PhpExecutable implements IPhpExecutable {
 
     
     /**
@@ -121,37 +125,11 @@ final class PhpExecutable implements IPhpExecutable {
      * The php defines.
      */
     private Map<String, String> phpDefines;
-    
+
     /**
-     * Constructor to create the php executable.
-     * 
-     * @param config The configuration for the executable.
-     * @param log the logging
+     * true if this executable is already configured.
      */
-    public PhpExecutable(PhpExecutableConfiguration config, Log log) {
-        this.additionalPhpParameters = config.getAdditionalPhpParameters();
-        this.ignoreIncludeErrors = config.isIgnoreIncludeErrors();
-        this.log = log;
-        this.logPhpOutput = config.isLogPhpOutput();
-        this.phpExecutable = config.getExecutable();
-        this.temporaryScriptFile = config.getTemporaryScriptFile();
-        
-        // TODO respect the following
-        this.env = config.getEnv();
-        this.includePath = config.getIncludePath();
-        this.phpDefines = config.getPhpDefines();
-    }
-    
-    /**
-     * Constructor to create the php executable.
-     * 
-     * @param executablePath The executable path and file name.
-     * @param log the logging
-     */
-    public PhpExecutable(String executablePath, Log log) {
-        this.phpExecutable = executablePath;
-        this.log = log;
-    }
+    private boolean configured;
 
     /**
      * Checks if a line (string) contains a PHP error message.
@@ -433,6 +411,25 @@ final class PhpExecutable implements IPhpExecutable {
             command += " " + codeArguments;
         }
         return this.execute(command, snippet);
+    }
+
+    @Override
+    public void configure(IPhpExecutableConfiguration config, Log logger) {
+        if (this.configured) {
+            throw new IllegalStateException("Must not call this method twice. The executable is already configured.");
+        }
+        this.configured = true;
+        this.additionalPhpParameters = config.getAdditionalPhpParameters();
+        this.ignoreIncludeErrors = config.isIgnoreIncludeErrors();
+        this.log = logger;
+        this.logPhpOutput = config.isLogPhpOutput();
+        this.phpExecutable = config.getExecutable();
+        this.temporaryScriptFile = config.getTemporaryScriptFile();
+        
+        // TODO respect the following
+        this.env = new HashMap<String, String>(config.getEnv());
+        this.includePath = new ArrayList<String>(config.getIncludePath());
+        this.phpDefines = new HashMap<String, String>(config.getPhpDefines());
     }
 
 }
