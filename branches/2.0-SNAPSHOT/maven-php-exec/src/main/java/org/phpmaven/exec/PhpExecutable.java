@@ -180,14 +180,26 @@ public final class PhpExecutable implements IPhpExecutable {
         Preconditions.checkNotNull(stdout, "stdout");
         Preconditions.checkNotNull(stderr, "stderr");
 
-        final String command;
+        String command;
         if (this.additionalPhpParameters != null) {
             command = phpExecutable + " " + this.additionalPhpParameters + " " + arguments;
         } else {
             command = phpExecutable + " " + arguments;
         }
+        
+        if (this.includePath.size() > 0) {
+            final String[] includePaths = this.includePath.toArray(new String[this.includePath.size()]);
+            command += " " + this.includePathParameter(includePaths);
+        }
 
         final Commandline commandLine = new Commandline(command);
+        for (final Map.Entry<String, String> envVar : this.env.entrySet()) {
+            commandLine.addEnvironment(envVar.getKey(), envVar.getValue());
+        }
+        for (final Map.Entry<String, String> phpDefine : this.phpDefines.entrySet()) {
+            command += " -d ";
+            command += phpDefine.getKey() + "=\"" + phpDefine.getValue() + "\"";
+        }
 
         try {
             this.log.debug("Executing " + commandLine);
@@ -306,16 +318,16 @@ public final class PhpExecutable implements IPhpExecutable {
      * @param paths a list of paths
      * @return the complete parameter for PHP
      */
-    public String includePathParameter(String[] paths) {
-        final StringBuilder includePath = new StringBuilder();
-        includePath.append(PHP_FLAG_INCLUDES);
-        includePath.append("=\"");
+    private String includePathParameter(String[] paths) {
+        final StringBuilder strIncludePath = new StringBuilder();
+        strIncludePath.append(PHP_FLAG_INCLUDES);
+        strIncludePath.append("=\"");
         for (String path : paths) {
-            includePath.append(File.pathSeparator);
-            includePath.append(path);
+            strIncludePath.append(File.pathSeparator);
+            strIncludePath.append(path);
         }
-        includePath.append("\"");
-        return includePath.toString();
+        strIncludePath.append("\"");
+        return strIncludePath.toString();
     }
 
     /**
@@ -425,8 +437,6 @@ public final class PhpExecutable implements IPhpExecutable {
         this.logPhpOutput = config.isLogPhpOutput();
         this.phpExecutable = config.getExecutable();
         this.temporaryScriptFile = config.getTemporaryScriptFile();
-        
-        // TODO respect the following
         this.env = new HashMap<String, String>(config.getEnv());
         this.includePath = new ArrayList<String>(config.getIncludePath());
         this.phpDefines = new HashMap<String, String>(config.getPhpDefines());
