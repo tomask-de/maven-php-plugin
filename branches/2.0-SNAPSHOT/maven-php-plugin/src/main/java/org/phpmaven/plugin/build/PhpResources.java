@@ -16,6 +16,12 @@ package org.phpmaven.plugin.build;
 
 import java.io.File;
 
+import org.apache.maven.plugin.MojoExecutionException;
+import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
+import org.codehaus.plexus.configuration.PlexusConfigurationException;
+import org.phpmaven.core.IComponentFactory;
+import org.phpmaven.exec.IPhpExecutableConfiguration;
+
 
 /**
  * php-validate execute the php with all php files under the source folder. 
@@ -27,6 +33,11 @@ import java.io.File;
  * @author Martin Eisengardt
  */
 public final class PhpResources extends AbstractPhpResources {
+    
+    /**
+     * @component
+     */
+    private IComponentFactory componentFactory;
 
     @Override
     protected File getSourceFolder() {
@@ -36,6 +47,23 @@ public final class PhpResources extends AbstractPhpResources {
     @Override
     protected File getTargetFolder() {
         return this.getTargetClassesDirectory();
+    }
+
+    @Override
+    public void execute() throws MojoExecutionException {
+        System.out.println(this.getProject().getBuild().getOutputDirectory());
+//        try {
+//            final IPhpExecutableConfiguration config = this.componentFactory.lookup(IPhpExecutableConfiguration.class, null, this.getSession());
+//            int i = 42;
+//        }
+//        catch (PlexusConfigurationException ex) {
+//            this.getLog().error(ex);
+//        }
+//        catch (ComponentLookupException ex) {
+//            this.getLog().error(ex);
+//        }
+        
+        super.execute();
     }
     
 }

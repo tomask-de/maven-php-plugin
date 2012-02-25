@@ -34,6 +34,9 @@ import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.component.configurator.ComponentConfigurationException;
 import org.codehaus.plexus.component.configurator.ComponentConfigurator;
 import org.codehaus.plexus.component.configurator.ConfigurationListener;
+import org.codehaus.plexus.component.configurator.converters.ConfigurationConverter;
+import org.codehaus.plexus.component.configurator.converters.lookup.ConverterLookup;
+import org.codehaus.plexus.component.configurator.converters.lookup.DefaultConverterLookup;
 import org.codehaus.plexus.component.configurator.expression.ExpressionEvaluationException;
 import org.codehaus.plexus.component.configurator.expression.ExpressionEvaluator;
 import org.codehaus.plexus.component.configurator.expression.TypeAwareExpressionEvaluator;
@@ -263,7 +266,6 @@ public class ComponentFactory implements IComponentFactory {
      */
     @Override
     public Xpp3Dom getBuildConfig(final MavenProject project, String groupid, String artifactId) {
-        @SuppressWarnings("unchecked")
         final List<Plugin> plugins = project.getBuildPlugins();
         for (final Plugin plugin : plugins) {
             if (plugin.getGroupId().equals(groupid)
@@ -283,7 +285,27 @@ public class ComponentFactory implements IComponentFactory {
         final MojoExecution execution = new MojoExecution(null);
         final TypeAwareExpressionEvaluator expressionEvaluator = new PluginParameterExpressionEvaluator(
                 session, execution);
-        return type.cast(expressionEvaluator.evaluate(source, type));
+        
+        final ConverterLookup convLookup = new DefaultConverterLookup();
+        try {
+            final ConfigurationConverter converter = convLookup.lookupConverterForType(type);
+            
+            final Object value = expressionEvaluator.evaluate(source);
+            if (value == null) {
+                return null;
+            }
+            final PlexusConfiguration configuration = new XmlPlexusConfiguration("configuration");
+            configuration.setValue(value.toString());
+            return type.cast(converter.fromConfiguration(
+                    convLookup,
+                    configuration,
+                    type,
+                    value.getClass(),
+                    this.plexusContainer.getContainerRealm(),
+                    expressionEvaluator));
+        } catch (ComponentConfigurationException ex) {
+            throw new ExpressionEvaluationException("Problems converting filtered string to target class", ex);
+        }
     }
 
 }
