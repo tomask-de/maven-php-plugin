@@ -51,7 +51,6 @@ public final class PhpResources extends AbstractPhpResources {
 
     @Override
     public void execute() throws MojoExecutionException {
-        System.out.println(this.getProject().getBuild().getOutputDirectory());
 //        try {
 //            final IPhpExecutableConfiguration config = this.componentFactory.lookup(IPhpExecutableConfiguration.class, null, this.getSession());
 //            int i = 42;
