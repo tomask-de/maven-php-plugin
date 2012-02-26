@@ -107,6 +107,11 @@ public final class PhpExecutable implements IPhpExecutable {
     private PhpVersion phpVersion;
     
     /**
+     * The used PHP version (cached after initial call of {@link #getPhpVersion()}.
+     */
+    private String strPhpVersion;
+    
+    /**
      * The log to be used for logging php output.
      */
     private Log log;
@@ -166,13 +171,7 @@ public final class PhpExecutable implements IPhpExecutable {
     }
 
     /**
-     * Executes PHP with the given arguments.
-     *
-     * @param arguments string of arguments for PHP
-     * @param stdout handler for stdout lines
-     * @param stderr handler for stderr lines
-     * @return the return code of PHP
-     * @throws PhpException if the executions fails
+     * {@inheritDoc}
      */
     @Override
     public int execute(String arguments, StreamConsumer stdout, StreamConsumer stderr) throws PhpException {
@@ -182,23 +181,25 @@ public final class PhpExecutable implements IPhpExecutable {
 
         String command;
         if (this.additionalPhpParameters != null) {
-            command = phpExecutable + " " + this.additionalPhpParameters + " " + arguments;
+            command = phpExecutable + " " + this.additionalPhpParameters;
         } else {
-            command = phpExecutable + " " + arguments;
+            command = phpExecutable;
+        }
+        for (final Map.Entry<String, String> phpDefine : this.phpDefines.entrySet()) {
+            command += " -d ";
+            command += phpDefine.getKey() + "=\"" + phpDefine.getValue() + "\"";
         }
         
         if (this.includePath.size() > 0) {
             final String[] includePaths = this.includePath.toArray(new String[this.includePath.size()]);
             command += " " + this.includePathParameter(includePaths);
         }
+        
+        command += " " + arguments;
 
         final Commandline commandLine = new Commandline(command);
         for (final Map.Entry<String, String> envVar : this.env.entrySet()) {
             commandLine.addEnvironment(envVar.getKey(), envVar.getValue());
-        }
-        for (final Map.Entry<String, String> phpDefine : this.phpDefines.entrySet()) {
-            command += " -d ";
-            command += phpDefine.getKey() + "=\"" + phpDefine.getValue() + "\"";
         }
 
         try {
@@ -210,14 +211,7 @@ public final class PhpExecutable implements IPhpExecutable {
     }
 
     /**
-     * Executes PHP with the given arguments and throws an IllegalStateException if the
-     * execution fails.
-     *
-     * @param arguments string of arguments for PHP
-     * @param file a hint which file will be processed
-     * @param stdout handler for stdout lines
-     * @return the returncode of PHP
-     * @throws PhpException if the execution failed
+     * {@inheritDoc}
      */
     @Override
     public int execute(String arguments, File file, final StreamConsumer stdout) throws PhpException {
@@ -243,17 +237,21 @@ public final class PhpExecutable implements IPhpExecutable {
                     final boolean warning = isWarning(line);
                     if (error || warning) {
                         if (PhpExecutable.this.ignoreIncludeErrors
-                            && !line.contains("require_once")
-                            && !line.contains("include_once")
+                                && !line.contains("require_once(")
+                                && !line.contains("include_once(")
+                                && !line.contains("require(")
+                                && !line.contains("include(")
                             ) {
                             stderr.append(line);
                             stderr.append("\n");
+                            if (error) throwError.set(true);
+                            if (warning) throwWarning.set(true);
                         } else if (!PhpExecutable.this.ignoreIncludeErrors) {
                             stderr.append(line);
                             stderr.append("\n");
+                            if (error) throwError.set(true);
+                            if (warning) throwWarning.set(true);
                         }
-                        if (error) throwError.set(true);
-                        if (warning) throwWarning.set(true);
                     }
                 }
             },
@@ -286,12 +284,7 @@ public final class PhpExecutable implements IPhpExecutable {
     }
 
     /**
-     * Executes PHP with the given arguments and returns its output.
-     *
-     * @param arguments string of arguments for PHP
-     * @param file a hint which file will be processed
-     * @return the output string
-     * @throws PhpException if the execution failed
+     * {@inheritDoc}
      */
     @Override
     public String execute(String arguments, File file) throws PhpException {
@@ -332,16 +325,13 @@ public final class PhpExecutable implements IPhpExecutable {
 
     /**
      * Retrieves the used PHP version.
-     *
-     * @return the PHP version
      * @throws PhpException is the php version is not resolvable or supported
      */
-    @Override
-    public PhpVersion getVersion() throws PhpException {
+    private void getVersionEx() throws PhpException {
 
         // already found out?
         if (phpVersion != null) {
-            return phpVersion;
+            return;
         }
 
         // execute PHP
@@ -350,7 +340,8 @@ public final class PhpExecutable implements IPhpExecutable {
             new StreamConsumer() {
                 @Override
                 public void consumeLine(String line) {
-                    if (phpVersion == null && line.startsWith("PHP")) {
+                    if (phpVersion == null && line.startsWith("PHP ")) {
+                        strPhpVersion = line.substring(4, line.indexOf(" ", 4));
                         final String version = line.substring(4, 5);
                         if ("6".equals(version)) {
                             phpVersion = PhpVersion.PHP6;
@@ -368,18 +359,16 @@ public final class PhpExecutable implements IPhpExecutable {
                 }
             }
         );
+        
+        if (phpVersion == null) {
+            throw new PhpCoreException("Problems while evaluating php version.");
+        }
 
         this.log.debug("PHP version: " + phpVersion.name());
-        return phpVersion;
     }
     
     /**
-     * Executes PHP code snippet with the given arguments and returns its output.
-     *
-     * @param arguments string of arguments for PHP
-     * @param code the php code to be executed
-     * @return the output string
-     * @throws PhpException if the execution failed
+     * {@inheritDoc}
      */
     @Override
     public String executeCode(String arguments, String code) throws PhpException {
@@ -387,13 +376,7 @@ public final class PhpExecutable implements IPhpExecutable {
     }
     
     /**
-     * Executes PHP code snippet with the given arguments and returns its output.
-     *
-     * @param arguments string of arguments for PHP
-     * @param code the php code to be executed
-     * @param codeArguments Arguments (cli) for the script
-     * @return the output string
-     * @throws PhpException if the execution failed
+     * {@inheritDoc}
      */
     @Override
     public String executeCode(String arguments, String code, String codeArguments) throws PhpException {
@@ -425,6 +408,9 @@ public final class PhpExecutable implements IPhpExecutable {
         return this.execute(command, snippet);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void configure(IPhpExecutableConfiguration config, Log logger) {
         if (this.configured) {
@@ -440,6 +426,32 @@ public final class PhpExecutable implements IPhpExecutable {
         this.env = new HashMap<String, String>(config.getEnv());
         this.includePath = new ArrayList<String>(config.getIncludePath());
         this.phpDefines = new HashMap<String, String>(config.getPhpDefines());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public PhpVersion getVersion() throws PhpException {
+        this.getVersionEx();
+        return this.phpVersion;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getStrVersion() throws PhpException {
+        this.getVersionEx();
+        return this.strPhpVersion;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String execute(File file) throws PhpException {
+        return this.execute("\"" + file.getAbsolutePath() + "\"", file);
     }
 
 }

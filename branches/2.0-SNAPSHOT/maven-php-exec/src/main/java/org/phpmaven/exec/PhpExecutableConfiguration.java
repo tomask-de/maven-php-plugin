@@ -302,51 +302,97 @@ public class PhpExecutableConfiguration implements IPhpExecutableConfiguration {
      * Helper implementation for a cached php executable.
      */
     private static final class CachedExecutable implements IPhpExecutable {
+        
+        /** cached executable. */
         private final IPhpExecutable cache;
+        
+        /** resulting php executable. */
         private final IPhpExecutable result;
 
+        /**
+         * Constructor.
+         * @param cache
+         * @param result
+         */
         private CachedExecutable(IPhpExecutable cache, IPhpExecutable result) {
             this.cache = cache;
             this.result = result;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public PhpVersion getVersion() throws PhpException {
             return this.cache.getVersion();
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public String executeCode(String arguments, String code,
                 String codeArguments) throws PhpException {
             return this.result.executeCode(arguments, code, codeArguments);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public String executeCode(String arguments, String code)
             throws PhpException {
             return this.result.executeCode(arguments, code);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public int execute(String arguments, StreamConsumer stdout,
                 StreamConsumer stderr) throws PhpException {
             return this.result.execute(arguments, stdout, stderr);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public int execute(String arguments, File file, StreamConsumer stdout)
             throws PhpException {
             return this.result.execute(arguments, file, stdout);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public String execute(String arguments, File file) throws PhpException {
             return this.result.execute(arguments, file);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void configure(IPhpExecutableConfiguration config, Log log) {
             throw new IllegalStateException("Must not call this method twice. The executable is already configured.");
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public String getStrVersion() throws PhpException {
+            return this.cache.getStrVersion();
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public String execute(File file) throws PhpException {
+            return this.result.execute(file);
         }
     }
 

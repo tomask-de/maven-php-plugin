@@ -63,10 +63,11 @@ final class ExecCache {
      */
     public IPhpExecutable get(PhpExecutableConfiguration config, Log log) {
         synchronized (this.cache) {
-            if (!this.cache.containsKey(config.getExecutable())) {
+            if (this.cache.containsKey(config.getExecutable())) {
                 return this.cache.get(config.getExecutable());
             }
-            final IPhpExecutable result = this.cache.put(config.getExecutable(), new PhpExecutable());
+            final IPhpExecutable result = new PhpExecutable();
+            this.cache.put(config.getExecutable(), result);
             result.configure(config, log);
             return result;
         }

@@ -51,12 +51,21 @@ public interface IPhpExecutable {
     /**
      * Executes PHP with the given arguments and returns its output.
      *
-     * @param arguments string of arguments for PHP
+     * @param arguments string of arguments for PHP (including the file-path and filename)
      * @param file a hint which file will be processed
      * @return the output string
      * @throws PhpException if the execution failed
      */
     String execute(String arguments, File file) throws PhpException;
+    
+    /**
+     * Executes PHP with the given arguments and returns its output.
+     *
+     * @param file the php file to be executed
+     * @return the output string
+     * @throws PhpException if the execution failed
+     */
+    String execute(File file) throws PhpException;
     
     /**
      * Executes PHP code snippet with the given arguments and returns its output.
@@ -83,7 +92,7 @@ public interface IPhpExecutable {
      * Executes PHP with the given arguments and throws an IllegalStateException if the
      * execution fails.
      *
-     * @param arguments string of arguments for PHP
+     * @param arguments string of arguments for PHP (including the file-path and filename)
      * @param file a hint which file will be processed
      * @param stdout handler for stdout lines
      * @return the returncode of PHP
@@ -94,7 +103,7 @@ public interface IPhpExecutable {
     /**
      * Executes PHP with the given arguments.
      *
-     * @param arguments string of arguments for PHP
+     * @param arguments string of arguments for PHP (including the file-path and filename)
      * @param stdout handler for stdout lines
      * @param stderr handler for stderr lines
      * @return the return code of PHP
@@ -108,5 +117,12 @@ public interface IPhpExecutable {
      * @throws PhpException if the execution fails
      */
     PhpVersion getVersion() throws PhpException;
+    
+    /**
+     * Returns the version string.
+     * @return PHP version string.
+     * @throws PhpException if the execution fails
+     */
+    String getStrVersion() throws PhpException;
 
 }
