@@ -21,6 +21,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.logging.Log;
 import org.codehaus.plexus.util.DirectoryWalkListener;
 import org.codehaus.plexus.util.DirectoryWalker;
+import org.phpmaven.plugin.build.FileHelper;
 
 import com.google.common.collect.Lists;
 
@@ -88,10 +89,10 @@ public abstract class AbstractPhpWalkHelper implements DirectoryWalkListener {
         walker.addDirectoryWalkListener(this);
         walker.addSCMExcludes();
 
-        for (String exclude : excludes) {
+        for (String exclude : FileHelper.getWildcardMatches(excludes, parentFolder, false)) {
             walker.addExclude(exclude);
         }
-        for (String include : includes) {
+        for (String include : FileHelper.getWildcardMatches(includes, parentFolder, false)) {
             walker.addInclude(include);
         }
 

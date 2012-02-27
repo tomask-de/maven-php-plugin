@@ -144,6 +144,9 @@ public abstract class AbstractPhpResources extends AbstractPhpMojo {
             getLog().info("Not including php sources in resulting output.");
         }
         
+        // resolve wildcards in excludeFromValidation
+        excludeFromValidation = FileHelper.getWildcardMatches(excludeFromValidation, getSourceDirectory(), false);
+ 
         getLog().info("Unpacking dependencies");
         
         try {
