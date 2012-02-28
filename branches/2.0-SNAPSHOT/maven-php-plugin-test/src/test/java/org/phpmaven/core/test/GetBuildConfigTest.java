@@ -21,6 +21,7 @@ import java.io.File;
 import org.apache.maven.execution.MavenSession;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.phpmaven.core.IComponentFactory;
+import org.phpmaven.test.AbstractTestCase;
 
 /**
  * Test case for the IComponentFactory class.
@@ -42,7 +43,7 @@ public class GetBuildConfigTest extends AbstractTestCase {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the session
-        final MavenSession session = createSession("pom-with-buildconfig-childoverwrite");
+        final MavenSession session = createSimpleSession("core/pom-with-buildconfig-childoverwrite");
         final Xpp3Dom dom = factory.getBuildConfig(
                 session.getCurrentProject(),
                 "org.phpmaven",

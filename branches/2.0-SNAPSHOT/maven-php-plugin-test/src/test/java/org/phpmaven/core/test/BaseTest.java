@@ -17,6 +17,7 @@
 package org.phpmaven.core.test;
 
 import org.phpmaven.core.IComponentFactory;
+import org.phpmaven.test.AbstractTestCase;
 
 /**
  * Base test cases for the component factory.

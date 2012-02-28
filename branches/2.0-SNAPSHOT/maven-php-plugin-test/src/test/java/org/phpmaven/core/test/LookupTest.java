@@ -22,6 +22,7 @@ import org.apache.maven.execution.MavenSession;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.core.test.comp.ISomeComponent;
+import org.phpmaven.test.AbstractTestCase;
 
 /**
  * Test case for the IComponentFactory class.
@@ -42,7 +43,7 @@ public class LookupTest extends AbstractTestCase {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the session
-        final MavenSession session = createSession("empty-pom");
+        final MavenSession session = createSimpleSession("core/empty-pom");
         // lookup the sample
         final ISomeComponent component = factory.lookup(ISomeComponent.class, (Xpp3Dom) null, session);
         assertNotNull(component);
@@ -63,7 +64,7 @@ public class LookupTest extends AbstractTestCase {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the session
-        final MavenSession session = createSession("pom-with-buildconfig");
+        final MavenSession session = createSimpleSession("core/pom-with-buildconfig");
         // lookup the sample
         final ISomeComponent component = factory.lookup(ISomeComponent.class, (Xpp3Dom) null, session);
         assertNotNull(component);
@@ -84,7 +85,7 @@ public class LookupTest extends AbstractTestCase {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the session
-        final MavenSession session = createSession("pom-with-buildconfig-child");
+        final MavenSession session = createSimpleSession("core/pom-with-buildconfig-child");
         // lookup the sample
         final ISomeComponent component = factory.lookup(ISomeComponent.class, (Xpp3Dom) null, session);
         assertNotNull(component);
@@ -106,7 +107,7 @@ public class LookupTest extends AbstractTestCase {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the session
-        final MavenSession session = createSession("pom-with-buildconfig-childoverwrite");
+        final MavenSession session = createSimpleSession("core/pom-with-buildconfig-childoverwrite");
         // lookup the sample
         final ISomeComponent component = factory.lookup(ISomeComponent.class, (Xpp3Dom) null, session);
         assertNotNull(component);

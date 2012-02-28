@@ -20,12 +20,12 @@ import java.io.File;
 
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.monitor.logging.DefaultLog;
-import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 import org.codehaus.plexus.logging.console.ConsoleLogger;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.exec.IPhpExecutable;
 import org.phpmaven.exec.IPhpExecutableConfiguration;
 import org.phpmaven.exec.PhpWarningException;
+import org.phpmaven.test.AbstractTestCase;
 
 /**
  * test cases for PHP support.
@@ -44,7 +44,7 @@ public class IncludesTest extends AbstractTestCase {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the execution config
-        final MavenSession session = this.createSession("empty-pom");
+        final MavenSession session = this.createSimpleSession("php/empty-pom");
         final IPhpExecutableConfiguration execConfig = factory.lookup(
                 IPhpExecutableConfiguration.class,
                 IComponentFactory.EMPTY_CONFIG,
@@ -68,7 +68,7 @@ public class IncludesTest extends AbstractTestCase {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the execution config
-        final MavenSession session = this.createSession("empty-pom");
+        final MavenSession session = this.createSimpleSession("php/empty-pom");
         final IPhpExecutableConfiguration execConfig = factory.lookup(
                 IPhpExecutableConfiguration.class,
                 IComponentFactory.EMPTY_CONFIG,

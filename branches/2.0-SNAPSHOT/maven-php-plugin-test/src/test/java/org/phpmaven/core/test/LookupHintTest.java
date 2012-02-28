@@ -22,6 +22,7 @@ import org.apache.maven.execution.MavenSession;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.core.test.comp.ISomeComponentHint;
+import org.phpmaven.test.AbstractTestCase;
 
 /**
  * Test case for the IComponentFactory class.
@@ -42,7 +43,7 @@ public class LookupHintTest extends AbstractTestCase {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the session
-        final MavenSession session = createSession("empty-pom");
+        final MavenSession session = createSimpleSession("core/empty-pom");
         // lookup the sample
         final ISomeComponentHint component = factory.lookup(
                 ISomeComponentHint.class,
@@ -67,7 +68,7 @@ public class LookupHintTest extends AbstractTestCase {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the session
-        final MavenSession session = createSession("pom-with-buildconfig");
+        final MavenSession session = createSimpleSession("core/pom-with-buildconfig");
         // lookup the sample
         final ISomeComponentHint component = factory.lookup(
                 ISomeComponentHint.class,
@@ -92,7 +93,7 @@ public class LookupHintTest extends AbstractTestCase {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the session
-        final MavenSession session = createSession("pom-with-buildconfig-child");
+        final MavenSession session = createSimpleSession("core/pom-with-buildconfig-child");
         // lookup the sample
         final ISomeComponentHint component = factory.lookup(
                 ISomeComponentHint.class,
@@ -118,7 +119,7 @@ public class LookupHintTest extends AbstractTestCase {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the session
-        final MavenSession session = createSession("pom-with-buildconfig-childoverwrite");
+        final MavenSession session = createSimpleSession("core/pom-with-buildconfig-childoverwrite");
         // lookup the sample
         final ISomeComponentHint component = factory.lookup(
                 ISomeComponentHint.class,
@@ -143,7 +144,7 @@ public class LookupHintTest extends AbstractTestCase {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the session
-        final MavenSession session = createSession("empty-pom");
+        final MavenSession session = createSimpleSession("core/empty-pom");
         // lookup the sample
         final ISomeComponentHint component = factory.lookup(
                 ISomeComponentHint.class,
@@ -168,7 +169,7 @@ public class LookupHintTest extends AbstractTestCase {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the session
-        final MavenSession session = createSession("pom-with-buildconfig");
+        final MavenSession session = createSimpleSession("core/pom-with-buildconfig");
         // lookup the sample
         final ISomeComponentHint component = factory.lookup(
                 ISomeComponentHint.class,
@@ -193,7 +194,7 @@ public class LookupHintTest extends AbstractTestCase {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the session
-        final MavenSession session = createSession("pom-with-buildconfig-child");
+        final MavenSession session = createSimpleSession("core/pom-with-buildconfig-child");
         // lookup the sample
         final ISomeComponentHint component = factory.lookup(
                 ISomeComponentHint.class,
@@ -219,7 +220,7 @@ public class LookupHintTest extends AbstractTestCase {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the session
-        final MavenSession session = createSession("pom-with-buildconfig-childoverwrite");
+        final MavenSession session = createSimpleSession("core/pom-with-buildconfig-childoverwrite");
         // lookup the sample
         final ISomeComponentHint component = factory.lookup(
                 ISomeComponentHint.class,
@@ -244,7 +245,7 @@ public class LookupHintTest extends AbstractTestCase {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the session
-        final MavenSession session = createSession("pom-with-buildconfig-childoverwrite");
+        final MavenSession session = createSimpleSession("core/pom-with-buildconfig-childoverwrite");
         // lookup the sample
         try {
             factory.lookup(

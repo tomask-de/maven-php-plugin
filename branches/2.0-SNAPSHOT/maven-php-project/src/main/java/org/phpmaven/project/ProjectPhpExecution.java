@@ -150,18 +150,18 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
         throws PlexusConfigurationException, ComponentLookupException {
         final List<Xpp3Dom> configs = new ArrayList<Xpp3Dom>();
         final Xpp3Dom buildConfig = this.componentFactory.getBuildConfig(project, "org.phpmaven", "maven-php-project");
-        if (buildConfig != null) {
-            configs.add(buildConfig);
+        if (buildConfig != null && buildConfig.getChild("executableConfig") != null) {
+            configs.add(buildConfig.getChild("executableConfig"));
         }
-        if (mojoConfig != null) {
-            configs.add(mojoConfig);
+        if (mojoConfig != null && mojoConfig.getChild("executableConfig") != null) {
+            configs.add(mojoConfig.getChild("executableConfig"));
         }
         final IPhpExecutableConfiguration execConfig = this.componentFactory.lookup(
                 IPhpExecutableConfiguration.class,
                 configs.toArray(new Xpp3Dom[configs.size()]),
                 mavenSession);
         try {
-            this.addIncludes(execConfig, buildConfig, project, mavenSession);
+            this.addIncludes(execConfig, buildConfig, mojoConfig, project, mavenSession);
         } catch (ExpressionEvaluationException ex) {
             throw new PlexusConfigurationException("Problems evaluating the includes", ex);
         }
@@ -188,16 +188,16 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
         if (buildConfig != null && buildConfig.getChild("executableConfig") != null) {
             configs.add(buildConfig.getChild("executableConfig"));
         }
-        if (mojoConfig != null) {
-            configs.add(mojoConfig);
+        if (mojoConfig != null && mojoConfig.getChild("executableConfig") != null) {
+            configs.add(mojoConfig.getChild("executableConfig"));
         }
         final IPhpExecutableConfiguration execConfig = this.componentFactory.lookup(
                 IPhpExecutableConfiguration.class,
                 configs.toArray(new Xpp3Dom[configs.size()]),
                 mavenSession);
         try {
-            this.addIncludes(execConfig, buildConfig, project, mavenSession);
-            this.addTestIncludes(execConfig, buildConfig, project, mavenSession);
+            this.addIncludes(execConfig, buildConfig, mojoConfig, project, mavenSession);
+            this.addTestIncludes(execConfig, buildConfig, mojoConfig, project, mavenSession);
         } catch (ExpressionEvaluationException ex) {
             throw new PlexusConfigurationException("Problems evaluating the includes", ex);
         }
@@ -208,6 +208,7 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
      * Adds the default includes to the executable configuration.
      * @param execConfig executable configuration.
      * @param buildConfig the build configuration.
+     * @param mojoConfig the mojo configuration.
      * @param project the project.
      * @param mavenSession the maven session.
      * @throws ExpressionEvaluationException thrown on maven property errors
@@ -215,6 +216,7 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
     private void addIncludes(
             IPhpExecutableConfiguration execConfig,
             Xpp3Dom buildConfig,
+            Xpp3Dom mojoConfig,
             MavenProject project,
             MavenSession mavenSession)
         throws ExpressionEvaluationException {
@@ -231,6 +233,12 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
                     buildConfig.getChild("dependenciesDir").getValue(),
                     File.class);
         }
+        if (mojoConfig != null && mojoConfig.getChild("dependenciesDir") != null) {
+            depsDir = this.componentFactory.filterString(
+                    mavenSession,
+                    mojoConfig.getChild("dependenciesDir").getValue(),
+                    File.class);
+        }
         execConfig.getIncludePath().add(depsDir.getAbsolutePath());
         // TODO: Bad hack for broken pear libraries.
         execConfig.getIncludePath().add(new File(depsDir, "pear").getAbsolutePath());
@@ -240,6 +248,7 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
      * Adds the test includes to the executable configuration.
      * @param execConfig executable configuration.
      * @param buildConfig 
+     * @param mojoConfig 
      * @param project the project.
      * @param mavenSession the maven session.
      * @throws ExpressionEvaluationException thrown on maven property errors
@@ -247,6 +256,7 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
     private void addTestIncludes(
             IPhpExecutableConfiguration execConfig,
             Xpp3Dom buildConfig,
+            Xpp3Dom mojoConfig,
             MavenProject project,
             MavenSession mavenSession)
         throws ExpressionEvaluationException {
@@ -261,6 +271,12 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
             depsDir = this.componentFactory.filterString(
                     mavenSession,
                     buildConfig.getChild("testDependenciesDir").getValue(),
+                    File.class);
+        }
+        if (mojoConfig != null && mojoConfig.getChild("testDependenciesDir") != null) {
+            depsDir = this.componentFactory.filterString(
+                    mavenSession,
+                    mojoConfig.getChild("testDependenciesDir").getValue(),
                     File.class);
         }
         execConfig.getIncludePath().add(depsDir.getAbsolutePath());
@@ -363,6 +379,12 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
                     buildConfig.getChild("dependenciesDir").getValue(),
                     File.class);
         }
+        if (mojoConfig != null && mojoConfig.getChild("dependenciesDir") != null) {
+            depsDir = this.componentFactory.filterString(
+                    mavenSession,
+                    mojoConfig.getChild("dependenciesDir").getValue(),
+                    File.class);
+        }
         return depsDir;
     }
     
@@ -387,6 +409,12 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
             depsDir = this.componentFactory.filterString(
                     mavenSession,
                     buildConfig.getChild("testDependenciesDir").getValue(),
+                    File.class);
+        }
+        if (mojoConfig != null && mojoConfig.getChild("testDependenciesDir") != null) {
+            depsDir = this.componentFactory.filterString(
+                    mavenSession,
+                    mojoConfig.getChild("testDependenciesDir").getValue(),
                     File.class);
         }
         return depsDir;
