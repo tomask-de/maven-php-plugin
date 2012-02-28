@@ -236,6 +236,7 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         verifier.setLocalRepo(reposPath + "/local-repos");
         verifier.setAutoclean(true);
         verifier.setForkJvm(true);
+        verifier.setLogFileName(new File(root, "../../../dev/log.txt").getAbsolutePath());
         verifier.getCliOptions().add("-Dmaven.repo.remote=" + (
                 new File(MavenCli.userMavenConfigurationHome, "/repository").toURI().toURL().toString()));
         verifier.executeGoal("install");
