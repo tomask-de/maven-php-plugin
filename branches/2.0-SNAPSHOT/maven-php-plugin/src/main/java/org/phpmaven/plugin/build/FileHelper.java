@@ -33,6 +33,7 @@ import java.util.zip.ZipFile;
 
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.wagon.PathUtils;
+import org.codehaus.plexus.util.DirectoryScanner;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.IOUtil;
 import org.phpmaven.plugin.php.IPhpExecution;
@@ -348,4 +349,20 @@ public final class FileHelper {
         return result.toString();
     }
     
+    /**
+     * Resolve a list of file wildcard expressions.
+     *
+     * @param fileList List of strings with filenames/wildcard expressions
+     * @param baseDir the base folder to run the wildcards on
+     * @param caseSensitiveMatch true if the wildcards should be run case sensitive
+     * @return List of matching file names
+     */    
+    public static String[] getWildcardMatches(String[] fileList, File baseDir, boolean caseSensitiveMatch) {
+        final DirectoryScanner scanner = new DirectoryScanner();
+        scanner.setIncludes(fileList);
+        scanner.setBasedir(baseDir);
+        scanner.setCaseSensitive(caseSensitiveMatch);
+        scanner.scan();
+        return scanner.getIncludedFiles();
+   }
 }
