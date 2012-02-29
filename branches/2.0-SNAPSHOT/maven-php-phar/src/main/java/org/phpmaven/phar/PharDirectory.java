@@ -1,4 +1,6 @@
 /**
+ * Copyright 2010-2012 by PHP-maven.org
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -11,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.phpmaven.phar;
 
 import java.io.File;
@@ -18,54 +21,63 @@ import java.io.File;
 /**
  * A phar directory entry.
  * 
- * @author Martin Eisengardt
+ * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
+ * @since 2.0.0
  */
 public class PharDirectory extends PharEntry {
 
     /**
-     * The files directory.
+     * The relative path.
      */
-    private File directory;
+    private String relativePath;
 
     /**
-     * The base directory.
+     * The directory to be packed.
      */
-    private File baseDirectory;
+    private File pathToPack;
 
     /**
-     * Returns the directory to be packed.
+     * Returns the relative path inside the phar.
      * 
-     * @return directory
+     * @return relative path
      */
-    public File getDirectory() {
-        return directory;
+    public String getRelativePath() {
+        return relativePath;
     }
 
     /**
-     * Sets the directory to be packed.
+     * Sets the relative path inside the phar.
      * 
-     * @param directory directory
+     * @param relativePath relative path
      */
-    public void setDirectory(File directory) {
-        this.directory = directory;
+    public void setRelativePath(String relativePath) {
+        this.relativePath = relativePath;
     }
 
     /**
-     * Returns the base directory to build local relative file names.
+     * Returns the path to be packed.
      * 
-     * @return the base directory.
+     * @return the directory.
      */
-    public File getBaseDirectory() {
-        return baseDirectory;
+    public File getPathToPack() {
+        return pathToPack;
     }
 
     /**
-     * Sets the base directory to build local relative file names.
+     * Sets the path to be packed.
      * 
-     * @param baseDirectory base directory
+     * @param pathToPack directory to be packed
      */
-    public void setBaseDirectory(File baseDirectory) {
-        this.baseDirectory = baseDirectory;
+    public void setPathToPack(File pathToPack) {
+        this.pathToPack = pathToPack;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    EntryType getType() {
+        return EntryType.DIRECTORY;
     }
 
 }

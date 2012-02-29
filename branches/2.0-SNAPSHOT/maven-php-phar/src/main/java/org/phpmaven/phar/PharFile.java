@@ -1,4 +1,6 @@
 /**
+ * Copyright 2010-2012 by PHP-maven.org
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -11,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.phpmaven.phar;
 
 import java.io.File;
@@ -18,7 +21,8 @@ import java.io.File;
 /**
  * A phar file entry.
  * 
- * @author Martin Eisengardt
+ * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
+ * @since 2.0.0
  */
 public class PharFile extends PharEntry {
 
@@ -66,6 +70,14 @@ public class PharFile extends PharEntry {
      */
     public void setLocalName(String localName) {
         this.localName = localName;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    EntryType getType() {
+        return EntryType.FILE;
     }
 
 }

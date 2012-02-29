@@ -16,68 +16,74 @@
 
 package org.phpmaven.phar;
 
-import org.phpmaven.core.IComponentFactory;
-import org.phpmaven.exec.IPhpExecutableConfiguration;
+import java.io.File;
+
+import org.apache.maven.plugin.logging.Log;
+import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
+import org.codehaus.plexus.configuration.PlexusConfigurationException;
+import org.phpmaven.exec.PhpException;
 
 /**
- * Phar tooling.
- * 
- * <p>
- * This tooling helps to create, package and extract phar archives. It uses an available php
- * executable to perform any phar action.
- * </p>
- * 
- * <p>
- * Create an instance via {@link IComponentFactory}.
- * </p>
- * 
- * <p>
- * Configuration of the phar tooling can be done via either the goal you are executing
- * or via plugin configuration. Example of a configuration via build plugin:<br />
- * <pre>
- * &lt;build><br />
- * &nbsp;&nbsp;...<br />
- * &nbsp;&nbsp;&lt;plugins><br />
- * &nbsp;&nbsp;&nbsp;&nbsp;...<br />
- * &nbsp;&nbsp;&nbsp;&nbsp;&lt;plugin><br />
- * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;groupId>org.phpmaven&lt;/groupId><br />
- * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;artifactId>maven-php-phar&lt;/artifactId><br />
- * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;configuration><br />
- * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;executableConfig><br />
- * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;executable>/some/php.exe&lt;/executable><br />
- * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/executableConfig><br />
- * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/configuration><br />
- * &nbsp;&nbsp;&nbsp;&nbsp;&lt;/plugin><br />
- * &nbsp;&nbsp;&nbsp;&nbsp;...<br />
- * &nbsp;&nbsp;&lt;/plugins><br />
- * &nbsp;&nbsp;...<br />
- * &lt/build><br />
- * </pre>
- * This example will use an alternative php executable for all phar actions.
- * </p>
- * 
- * <p>
- * Available options:
- * </p>
- * 
- * <table border="1">
- * <tr><th>Name</th><th>Command line option</th><th>Property</th><th>Default</th><th>Description</th></tr>
- * <tr>
- *   <td>executableConfig</td>
- *   <td>-</td>
- *   <td>-</td>
- *   <td>-</td>
- *   <td>Alternative configuration used every time the php executable is invoked for
- *       phar related actions. See {@link IPhpExecutableConfiguration} for details.
- *   </td>
- * </tr>
- * </table>
+ * A phar packager used to package, extract and read phars.
  * 
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
 public interface IPharPackager {
 
-    void packagePhar();
+    /**
+     * Package a phar file.
+     * 
+     * @param request The packaging request.
+     * @param log The logger.
+     * 
+     * @throws PhpException thrown if the packaging failed.
+     * @throws ComponentLookupException thrown if the configuration failed.
+     * @throws PlexusConfigurationException thrown if the configuration failed.
+     */
+    void packagePhar(IPharPackagingRequest request, Log log)
+        throws PhpException, ComponentLookupException, PlexusConfigurationException;
+    
+    /**
+     * Reads the stub file from given phar package.
+     * 
+     * @param pharPackage the phar package.
+     * @param log The logger.
+     * @return contents of the phar stub.
+     * 
+     * @throws PhpException thrown if the reading failed.
+     * @throws ComponentLookupException thrown if the configuration failed.
+     * @throws PlexusConfigurationException thrown if the configuration failed.
+     */
+    String readStub(File pharPackage, Log log)
+        throws PhpException, ComponentLookupException, PlexusConfigurationException;
+    
+    /**
+     * Extracts the phar file to given package.
+     * 
+     * @param pharPackage the phar package.
+     * @param targetDirectory the target directory.
+     * @param log The logger.
+     * 
+     * @throws PhpException thrown if the extraction failed.
+     * @throws ComponentLookupException thrown if the configuration failed.
+     * @throws PlexusConfigurationException thrown if the configuration failed.
+     */
+    void extractPharTo(File pharPackage, File targetDirectory, Log log)
+        throws PhpException, ComponentLookupException, PlexusConfigurationException;
+    
+    /**
+     * Lists all files of a phar archive.
+     * 
+     * @param pharPackage phar package.
+     * @param log logger.
+     * @return iterable with file names that are packed into the phar.
+     * 
+     * @throws PhpException thrown if the reading failed.
+     * @throws ComponentLookupException thrown if the configuration failed.
+     * @throws PlexusConfigurationException thrown if the configuration failed.
+     */
+    Iterable<String> listFiles(File pharPackage, Log log)
+        throws PhpException, ComponentLookupException, PlexusConfigurationException;
 
 }

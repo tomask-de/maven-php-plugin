@@ -393,7 +393,7 @@ public final class PhpExecutable implements IPhpExecutable {
             w.write("<?php \n" + code);
             w.close();
         } catch (IOException ex) {
-            throw new PhpErrorException(snippet, "Error writing php tempoary code snippet to file");
+            throw new PhpErrorException(snippet, "Error writing php temporary code snippet to file");
         }
         
         String command = "";

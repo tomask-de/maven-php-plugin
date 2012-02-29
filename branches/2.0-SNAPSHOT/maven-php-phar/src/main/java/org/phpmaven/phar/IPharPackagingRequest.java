@@ -27,6 +27,76 @@ import org.phpmaven.core.IComponentFactory;
  * Create an instance via {@link IComponentFactory}.
  * </p>
  * 
+ * <p>
+ * Available configuration options:
+ * </p>
+ * 
+ * <table border="1">
+ * <tr><th>Name</th><th>Command line option</th><th>Property</th><th>Default</th><th>Description</th></tr>
+ * <tr>
+ *   <td>targetDirectory</td>
+ *   <td>-</td>
+ *   <td>-</td>
+ *   <td>-</td>
+ *   <td>Alternative target directory. Defaults to "${project.basedir}/target".
+ *   </td>
+ * </tr>
+ * <tr>
+ *   <td>filename</td>
+ *   <td>-</td>
+ *   <td>-</td>
+ *   <td>-</td>
+ *   <td>The phar filename. Notice: This is only available for the phar goal.
+ *       The package goal will always overwrite this with a filename from
+ *       project artifact id and version number.
+ *   </td>
+ * </tr>
+ * <tr>
+ *   <td>compressed</td>
+ *   <td>-</td>
+ *   <td>-</td>
+ *   <td>-</td>
+ *   <td>Flag to enable phar package compression. Defaults to true.
+ *   </td>
+ * </tr>
+ * <tr>
+ *   <td>stub</td>
+ *   <td>-</td>
+ *   <td>-</td>
+ *   <td>-</td>
+ *   <td>The stub to be used for the phar file. The stub is a php script that will be invoked
+ *       if someone executes the phar.
+ *   </td>
+ * </tr>
+ * <tr>
+ *   <td>packagePhpTemplate</td>
+ *   <td>-</td>
+ *   <td>-</td>
+ *   <td>-</td>
+ *   <td>PHP template to package the phar. See {@link IPharPackagingRequest#getPackagePhpTemplate()}
+ *       for details.
+ *   </td>
+ * </tr>
+ * <tr>
+ *   <td>packagePhpDirectoryTemplate</td>
+ *   <td>-</td>
+ *   <td>-</td>
+ *   <td>-</td>
+ *   <td>PHP template to package a directory. See {@link IPharPackagingRequest#getPackagePhpDirectoryTemplate()}
+ *       for details.
+ *   </td>
+ * </tr>
+ * <tr>
+ *   <td>packagePhpFileTemplate</td>
+ *   <td>-</td>
+ *   <td>-</td>
+ *   <td>-</td>
+ *   <td>PHP template to package a file. See {@link IPharPackagingRequest#getPackagePhpFileTemplate()}
+ *       for details.
+ *   </td>
+ * </tr>
+ * </table>
+ * 
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
@@ -53,15 +123,19 @@ public interface IPharPackagingRequest {
      * </tr>
      * <tr>
      *   <td>$:{pharcontents}</td>
-     *   <td>TODO</td>
+     *   <td>Will contain entries for each package content. That will be either
+     *   directories or files. See the parameter packagePhpDirectoryTemplate and the
+     *   packagePhpFileTemplate for details.</td>
      * </tr>
      * <tr>
      *   <td>$:{pharcompression}</td>
-     *   <td>TODO</td>
+     *   <td>Will contain a php command to compress the files within the created
+     *   phar file.</td>
      * </tr>
      * <tr>
      *   <td>$:{pharstub}</td>
-     *   <td>TODO</td>
+     *   <td>Will contain the phar stub; this is a php file that is being invoked
+     *   if someone uses php to execute the phar.</td>
      * </tr>   
      * </table>
      * 
@@ -69,149 +143,162 @@ public interface IPharPackagingRequest {
      */
     String getPackagePhpTemplate();
 
-//    /**
-//     * Sets the packager php template.
-//     * @param packagePhpTemplate packager php template.
-//     */
-//    public void setPackagePhpTemplate(String packagePhpTemplate) {
-//        this.packagePhpTemplate = packagePhpTemplate;
-//    }
-//
-//    /**
-//     * Returns the packager php directory template.
-//     * @return packager php directory template
-//     */
-//    public String getPackagePhpDirectoryTemplate() {
-//        return packagePhpDirectoryTemplate;
-//    }
-//
-//    /**
-//     * Sets the packager php directory template.
-//     * @param packagePhpDirectoryTemplate packager php directory template.
-//     */
-//    public void setPackagePhpDirectoryTemplate(
-//            String packagePhpDirectoryTemplate) {
-//        this.packagePhpDirectoryTemplate = packagePhpDirectoryTemplate;
-//    }
-//
-//    /**
-//     * Returns the php file stub.
-//     * 
-//     * @return php file stub
-//     */
-//    public String getStub() {
-//        return stub;
-//    }
-//
-//    /**
-//     * Sets the php file stub.
-//     * 
-//     * @param stub
-//     *            php file stub
-//     */
-//    public void setStub(String stub) {
-//        this.stub = stub;
-//    }
-//
-//    /**
-//     * Adds a directory to be packed.
-//     * 
-//     * @param directory
-//     *            directory to pack
-//     * @param baseDirectory
-//     *            base directory for building relative entries
-//     */
-//    public void addDirectory(File directory, File baseDirectory) {
-//        final PharDirectory entry = new PharDirectory();
-//        entry.setDirectory(directory);
-//        entry.setBaseDirectory(baseDirectory);
-//        this.entries.add(entry);
-//    }
-//
-//    /**
-//     * Adds a file to be packed.
-//     * 
-//     * @param file file to pack
-//     * @param localName the local name (relative path)
-//     */
-//    public void addFile(File file, String localName) {
-//        final PharFile entry = new PharFile();
-//        entry.setFile(file);
-//        entry.setLocalName(localName);
-//        this.entries.add(entry);
-//    }
-//
-//    /**
-//     * Returns the entries for packing.
-//     * @return entries to be packed
-//     */
-//    public Iterable<PharEntry> getEntries() {
-//        return this.entries;
-//    }
-//
-//    /**
-//     * Returns the compression method.
-//     * @return compression method
-//     */
-//    public CompressionMethod getFileCompression() {
-//        return fileCompression;
-//    }
-//
-//    /**
-//     * Sets the compression mode.
-//     * @param fileCompression file compression mode
-//     */
-//    public void setFileCompression(CompressionMethod fileCompression) {
-//        this.fileCompression = fileCompression;
-//    }
-//
-//    /**
-//     * Returns the target directory.
-//     * @return target directory
-//     */
-//    public File getTargetDirectory() {
-//        return targetDirectory;
-//    }
-//
-//    /**
-//     * Sets the target directory.
-//     * @param targetDirectory target directory
-//     */
-//    public void setTargetDirectory(File targetDirectory) {
-//        this.targetDirectory = targetDirectory;
-//    }
-//
-//    /**
-//     * Returns the filename.
-//     * @return filename of phar file
-//     */
-//    public String getFilename() {
-//        return filename;
-//    }
-//
-//    /**
-//     * Sets the filename.
-//     * @param filename filename of phar file
-//     */
-//    public void setFilename(String filename) {
-//        this.filename = filename;
-//    }
-//
-//    /**
-//     * Sets compression flag.
-//     * @param compressed true to use compression
-//     */
-//    public void setCompressed(boolean compressed) {
-//        this.isCompressed = compressed;
-//    }
-//
-//    /**
-//     * Returns the compression flag.
-//     * @return true to compress
-//     */
-//    public boolean isCompressed() {
-//        return isCompressed;
-//    }
+    /**
+     * Sets the packager php template.
+     * @param packagePhpTemplate packager php template.
+     * @see #getPackagePhpTemplate()
+     */
+    void setPackagePhpTemplate(String packagePhpTemplate);
+    
+    /**
+     * Returns the packager php directory template.
+     * 
+     * <p>
+     * This template is used to create a php code fragment for adding a directory
+     * into a phar file. The following variables/phrases will be replaced.
+     * </p>
+     * 
+     * <table broder="1">
+     * <tr><th>name</th><th>description</th></tr>
+     * <tr>
+     *   <td>$:{pkgdir}</td>
+     *   <td>The relative path for the directory within the phar file.</td>
+     * </tr>
+     * <tr>
+     *   <td>$:{pkgbasedir}</td>
+     *   <td>The absolute path of the directory (the path that needs to be packed).</td>
+     * </tr>   
+     * </table>
+     * 
+     * @return packager php directory template
+     */
+    String getPackagePhpDirectoryTemplate();
 
+    /**
+     * Sets the packager php directory template.
+     * @param packagePhpDirectoryTemplate packager php directory template.
+     * @see #getPackagePhpDirectoryTemplate()
+     */
+    void setPackagePhpDirectoryTemplate(String packagePhpDirectoryTemplate);
+    
+    /**
+     * Returns the packager php file template.
+     * 
+     * <p>
+     * This template is used to create a php code fragment for adding a single file
+     * into a phar file. The following variables/phrases will be replaced.
+     * </p>
+     * 
+     * <table broder="1">
+     * <tr><th>name</th><th>description</th></tr>
+     * <tr>
+     *   <td>$:{filename}</td>
+     *   <td>The relative path for the file within the phar file.</td>
+     * </tr>
+     * <tr>
+     *   <td>$:{filebasepath}</td>
+     *   <td>The absolute path of the file (the path that needs to be packed).</td>
+     * </tr>   
+     * </table>
+     * 
+     * @return packager php file template
+     */
+    String getPackagePhpFileTemplate();
+
+    /**
+     * Sets the packager php file template.
+     * @param packagePhpFileTemplate packager php file template.
+     * @see #getPackagePhpFileTemplate()
+     */
+    void setPackagePhpFileTemplate(String packagePhpFileTemplate);
+    
+
+    /**
+     * Returns the php file stub.
+     * 
+     * @return php file stub
+     */
+    String getStub();
+
+    /**
+     * Sets the php file stub.
+     * 
+     * @param stub
+     *            php file stub
+     */
+    void setStub(String stub);
+    
+
+    /**
+     * Adds a directory to be packed.
+     * 
+     * @param relativePath
+     *            relative path name inside the phar
+     * @param pathToPack
+     *            The path that will be packed
+     */
+    void addDirectory(String relativePath, File pathToPack);
+    
+    /**
+     * Adds a file to be packed.
+     * 
+     * @param localName the local name (relative path)
+     * @param file file to pack
+     */
+    void addFile(String localName, File file);
+    
+    /**
+     * Returns the entries for packing.
+     * @return entries to be packed
+     */
+    Iterable<PharEntry> getEntries();
+
+    /**
+     * Returns the compression method.
+     * @return compression method
+     */
+    CompressionMethod getFileCompression();
+    
+    /**
+     * Sets the compression mode.
+     * @param fileCompression file compression mode
+     */
+    void setFileCompression(CompressionMethod fileCompression);
+    
+    /**
+     * Returns the target directory.
+     * @return target directory
+     */
+    File getTargetDirectory();
+    
+    /**
+     * Sets the target directory.
+     * @param targetDirectory target directory
+     */
+    void setTargetDirectory(File targetDirectory);
+    
+    /**
+     * Returns the filename.
+     * @return filename of phar file
+     */
+    String getFilename();
+    
+    /**
+     * Sets the filename.
+     * @param filename filename of phar file
+     */
+    void setFilename(String filename);
+    
+    /**
+     * Sets compression flag.
+     * @param compressed true to use compression
+     */
+    void setCompressed(boolean compressed);
+    
+    /**
+     * Returns the compression flag.
+     * @return true to compress
+     */
+    boolean isCompressed();
     
 }
