@@ -190,10 +190,16 @@ public class ComponentFactory implements IComponentFactory {
         final BuildPluginConfiguration pConfiguration = clazz.getAnnotation(BuildPluginConfiguration.class);
         if (pConfiguration != null) {
             
-            final Xpp3Dom config = this.getBuildConfig(
+            Xpp3Dom config = this.getBuildConfig(
                     mavenProject,
                     pConfiguration.groupId(),
                     pConfiguration.artifactId());
+            
+            for (final String cfg : pConfiguration.path().split("/")) {
+                if (cfg.length() > 0) {
+                    config = config == null ? null : config.getChild(cfg);
+                }
+            }
             
             if (config != null) {
                 final PlexusConfiguration pomConfiguration = new XmlPlexusConfiguration(config);

@@ -50,4 +50,10 @@ public @interface BuildPluginConfiguration {
      */
     String artifactId();
 
+    /**
+     * Returns the path to the configuration.
+     * @return xml path to the configuration.
+     */
+    String path() default "";
+
 }
