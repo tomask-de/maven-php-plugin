@@ -147,6 +147,9 @@ public class PharPackager implements IPharPackager {
         
         // TODO: Make configurable via build config
         
+        final String pharFileName = pharPackage.getAbsolutePath().replace("\\", "\\\\");
+        final String targetName = targetDirectory.getAbsolutePath().replace("\\", "\\\\");
+        
         executable.executeCode("",
             /*"$phar = new Phar('$:{pharFile}');\n" +
             "// $phar->extractTo('$:{targetDir}', null, true);\n" +
@@ -159,7 +162,7 @@ public class PharPackager implements IPharPackager {
             "  file_put_contents($fullPath, $contents);\n" +
             "}\n";*/
             "$iter = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(" +
-            "'phar://$:{pharFile}'), RecursiveIteratorIterator::CHILD_FIRST);\n" +
+            "'phar://" + pharFileName + "'), RecursiveIteratorIterator::CHILD_FIRST);\n" +
             "if (!function_exists('mkdirs')) {\n" +
             "  function mkdirs($arg) {\n" +
             "    if (strlen($arg) <= 2) return;\n" +
@@ -170,8 +173,8 @@ public class PharPackager implements IPharPackager {
             "  }\n" +
             "}\n" +
             "foreach ($iter as $file) {\n" +
-            "  $relPath = substr($file->getPathName(), strlen('phar://$:{pharFile}'));\n" +
-            "  $fullPath = '$:{targetDir}'.$relPath;\n" +
+            "  $relPath = substr($file->getPathName(), strlen('phar://" + pharFileName + "'));\n" +
+            "  $fullPath = '" + targetName + "'.$relPath;\n" +
             "  if ($iter->isDir()) {\n" +
             "    mkdirs($fullPath);\n" +
             "  }\n" +
@@ -180,9 +183,7 @@ public class PharPackager implements IPharPackager {
             "    $contents = file_get_contents($file->getPathName());\n" +
             "    file_put_contents($fullPath, $contents);\n" +
             "  }\n" +
-            "}\n".
-            replace("$:{pharFile}", pharPackage.getAbsolutePath().replace("\\", "\\\\")).
-                replace("${targetDir}", targetDirectory.getAbsolutePath().replace("\\", "\\\\")));
+            "}\n");
     }
 
     /**
@@ -194,12 +195,14 @@ public class PharPackager implements IPharPackager {
         final IPhpExecutableConfiguration execConfig = getExecConfig();
         final IPhpExecutable executable = execConfig.getPhpExecutable(log);
             
+        final String pharFileName = pharPackage.getAbsolutePath().replace("\\", "\\\\");
         final String files = executable.executeCode("",
             "$iter = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(" +
-            "'phar://$:{pharFile}'));\n" +
+            "'phar://" + pharFileName + "'));\n" +
             "foreach ($iter as $file) {\n" +
             "  if (!$iter->isDir()) {\n" +
-            "    echo substr($file->getPathName(), strlen('phar://$:{pharFile}'));\n" +
+            "    echo substr($file->getPathName(), strlen('phar://" + pharFileName + "'));\n" +
+            "    echo \"\\n\";\n" +
             "  }\n" +
             "}\n");
         final List<String> result = new ArrayList<String>();
