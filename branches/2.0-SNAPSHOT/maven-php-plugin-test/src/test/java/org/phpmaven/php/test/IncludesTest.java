@@ -25,7 +25,7 @@ import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.exec.IPhpExecutable;
 import org.phpmaven.exec.IPhpExecutableConfiguration;
 import org.phpmaven.exec.PhpWarningException;
-import org.phpmaven.test.AbstractTestCase;
+import org.phpmaven.mojos.test.AbstractTestCase;
 
 /**
  * test cases for PHP support.

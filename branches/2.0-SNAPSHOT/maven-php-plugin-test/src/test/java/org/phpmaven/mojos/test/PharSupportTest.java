@@ -1,4 +1,6 @@
 /**
+ * Copyright 2010-2012 by PHP-maven.org
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,44 +14,30 @@
  * limitations under the License.
  */
 
-package org.phpmaven.test;
-
-import java.io.File;
-
-import junit.framework.TestCase;
+package org.phpmaven.mojos.test;
 
 import org.apache.maven.it.Verifier;
-import org.apache.maven.it.util.ResourceExtractor;
 
 /**
  * Testing the phar support.
  * 
- * @author Martin Eisengardt
+ * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
+ * @since 2.0.0
  */
-public class PharSupportTest extends TestCase {
-    
-    /**
-     * Setup test case.
-     */
-    protected void setUp() throws Exception {
-        // required for mojo lookups to work
-        super.setUp();
-    }
+public class PharSupportTest extends AbstractTestCase {
     
 
     /**
      * tests the goal "install" with simple phar file.
      *
-     * @throws Exception
+     * @throws Exception 
      */
     public void testGoalTestWithSimplePhar() throws Exception {
-        final File testDir = ResourceExtractor.simpleExtractResources( getClass(), "/org/phpmaven/test/projects/phar-simple");
-        
-        final Verifier verifier = new Verifier( testDir.getAbsolutePath() );
+        final Verifier verifier = this.getPhpMavenVerifier("mojos-phar/phar-simple");
         
         // delete the pom from previous runs
-        verifier.deleteArtifact( "org.phpmaven.test", "phar-simple", "0.0.1", "pom" );
-        verifier.deleteArtifact( "org.phpmaven.test", "phar-simple", "0.0.1", "phar" );
+        verifier.deleteArtifact("org.phpmaven.test", "phar-simple", "0.0.1", "pom");
+        verifier.deleteArtifact("org.phpmaven.test", "phar-simple", "0.0.1", "phar");
 
         // execute testing
         verifier.executeGoal("install");
@@ -67,16 +55,14 @@ public class PharSupportTest extends TestCase {
     /**
      * tests the goal "install" with autoprepend file.
      *
-     * @throws Exception
+     * @throws Exception 
      */
     public void testGoalTestWithAutoprepend() throws Exception {
-        final File testDir = ResourceExtractor.simpleExtractResources( getClass(), "/org/phpmaven/test/projects/phar-autoprepend");
-        
-        final Verifier verifier = new Verifier( testDir.getAbsolutePath() );
+        final Verifier verifier = this.getPhpMavenVerifier("mojos-phar/phar-autoprepend");
         
         // delete the pom from previous runs
-        verifier.deleteArtifact( "org.phpmaven.test", "phar-autoprepend", "0.0.1", "pom" );
-        verifier.deleteArtifact( "org.phpmaven.test", "phar-autoprepend", "0.0.1", "phar" );
+        verifier.deleteArtifact("org.phpmaven.test", "phar-autoprepend", "0.0.1", "pom");
+        verifier.deleteArtifact("org.phpmaven.test", "phar-autoprepend", "0.0.1", "phar");
 
         // execute testing
         verifier.executeGoal("install");
@@ -94,17 +80,14 @@ public class PharSupportTest extends TestCase {
     /**
      * tests the goal "install" with dependencies to another phar.
      *
-     * @throws Exception
+     * @throws Exception 
      */
     public void testGoalTestWithDependencies() throws Exception {
-        final File testDirDep1 = ResourceExtractor.simpleExtractResources( getClass(), "/org/phpmaven/test/projects/phar-with-dep1");
-        final File testDirDep2 = ResourceExtractor.simpleExtractResources( getClass(), "/org/phpmaven/test/projects/phar-with-dep2");
-        
-        final Verifier verifierDep1 = new Verifier( testDirDep1.getAbsolutePath() );
+        final Verifier verifierDep1 = this.getPhpMavenVerifier("mojo-phars/phar-with-dep1");
         
         // delete the pom from previous runs
-        verifierDep1.deleteArtifact( "org.phpmaven.test", "phar-with-dep1", "0.0.1", "pom" );
-        verifierDep1.deleteArtifact( "org.phpmaven.test", "phar-with-dep1", "0.0.1", "phar" );
+        verifierDep1.deleteArtifact("org.phpmaven.test", "phar-with-dep1", "0.0.1", "pom");
+        verifierDep1.deleteArtifact("org.phpmaven.test", "phar-with-dep1", "0.0.1", "phar");
 
         // execute testing
         verifierDep1.executeGoal("install");
@@ -118,11 +101,11 @@ public class PharSupportTest extends TestCase {
         verifierDep1.assertArtifactPresent("org.phpmaven.test", "phar-with-dep1", "0.0.1", "pom");
         verifierDep1.assertArtifactPresent("org.phpmaven.test", "phar-with-dep1", "0.0.1", "phar");
 
-        final Verifier verifierDep2 = new Verifier( testDirDep2.getAbsolutePath() );
+        final Verifier verifierDep2 = this.getPhpMavenVerifier("mojo-phars/phar-with-dep2");
         
         // delete the pom from previous runs
-        verifierDep2.deleteArtifact( "org.phpmaven.test", "phar-with-dep2", "0.0.1", "pom" );
-        verifierDep2.deleteArtifact( "org.phpmaven.test", "phar-with-dep2", "0.0.1", "phar" );
+        verifierDep2.deleteArtifact("org.phpmaven.test", "phar-with-dep2", "0.0.1", "pom");
+        verifierDep2.deleteArtifact("org.phpmaven.test", "phar-with-dep2", "0.0.1", "phar");
 
         // execute testing
         verifierDep2.executeGoal("install");
@@ -142,17 +125,14 @@ public class PharSupportTest extends TestCase {
     /**
      * tests the goal "install" with dependencies to another phar that provides a folder structure.
      *
-     * @throws Exception
+     * @throws Exception 
      */
     public void testGoalTestWithDependenciesInFolders() throws Exception {
-        final File testDirDep1 = ResourceExtractor.simpleExtractResources( getClass(), "/org/phpmaven/test/projects/phar-with-dep1-folders");
-        final File testDirDep2 = ResourceExtractor.simpleExtractResources( getClass(), "/org/phpmaven/test/projects/phar-with-dep2-folders");
-        
-        final Verifier verifierDep1 = new Verifier( testDirDep1.getAbsolutePath() );
+        final Verifier verifierDep1 = this.getPhpMavenVerifier("mojo-phars/phar-with-dep1-folders");
         
         // delete the pom from previous runs
-        verifierDep1.deleteArtifact( "org.phpmaven.test", "phar-with-dep1-folders", "0.0.1", "pom" );
-        verifierDep1.deleteArtifact( "org.phpmaven.test", "phar-with-dep1-folders", "0.0.1", "phar" );
+        verifierDep1.deleteArtifact("org.phpmaven.test", "phar-with-dep1-folders", "0.0.1", "pom");
+        verifierDep1.deleteArtifact("org.phpmaven.test", "phar-with-dep1-folders", "0.0.1", "phar");
 
         // execute testing
         verifierDep1.executeGoal("install");
@@ -166,11 +146,11 @@ public class PharSupportTest extends TestCase {
         verifierDep1.assertArtifactPresent("org.phpmaven.test", "phar-with-dep1-folders", "0.0.1", "pom");
         verifierDep1.assertArtifactPresent("org.phpmaven.test", "phar-with-dep1-folders", "0.0.1", "phar");
 
-        final Verifier verifierDep2 = new Verifier( testDirDep2.getAbsolutePath() );
+        final Verifier verifierDep2 = this.getPhpMavenVerifier("mojo-phars/phar-with-dep2-folders");
         
         // delete the pom from previous runs
-        verifierDep2.deleteArtifact( "org.phpmaven.test", "phar-with-dep2-folders", "0.0.1", "pom" );
-        verifierDep2.deleteArtifact( "org.phpmaven.test", "phar-with-dep2-folders", "0.0.1", "phar" );
+        verifierDep2.deleteArtifact("org.phpmaven.test", "phar-with-dep2-folders", "0.0.1", "pom");
+        verifierDep2.deleteArtifact("org.phpmaven.test", "phar-with-dep2-folders", "0.0.1", "phar");
 
         // execute testing
         verifierDep2.executeGoal("install");

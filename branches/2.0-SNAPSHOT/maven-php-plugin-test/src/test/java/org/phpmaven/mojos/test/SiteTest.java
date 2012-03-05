@@ -1,4 +1,6 @@
 /**
+ * Copyright 2010-2012 by PHP-maven.org
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,45 +14,32 @@
  * limitations under the License.
  */
 
-package org.phpmaven.test;
+package org.phpmaven.mojos.test;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.TestCase;
-
 import org.apache.maven.it.Verifier;
-import org.apache.maven.it.util.ResourceExtractor;
 
 /**
  * Test the site generation.
  * 
- * @auhor Martin Eisengardt
+ * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
+ * @since 2.0.0
  */
-public class SiteTest extends TestCase {
+public class SiteTest extends AbstractTestCase {
     
     /**
-     * Setup test case.
-     */
-    protected void setUp() throws Exception {
-        // required for mojo lookups to work
-        super.setUp();
-    }
-
-    /**
-     * tests the goal "site" with a project continaing all default reports.
+     * tests the goal "site" with a project containing all default reports.
      *
-     * @throws Exception
+     * @throws Exception 
      */
     public void testSite() throws Exception {
-        final File testDir = ResourceExtractor.simpleExtractResources( getClass(), "/org/phpmaven/test/projects/site-all");
-        
-        final Verifier verifier = new Verifier( testDir.getAbsolutePath() );
+        final Verifier verifier = this.getPhpMavenVerifier("mojos-site/site-all");
         
         // delete the pom from previous runs
-        verifier.deleteArtifact( "org.phpmaven.test", "site-all", "0.0.1", "pom" );
-        verifier.deleteArtifact( "org.phpmaven.test", "site-all", "0.0.1", "phar" );
+        verifier.deleteArtifact("org.phpmaven.test", "site-all", "0.0.1", "pom");
+        verifier.deleteArtifact("org.phpmaven.test", "site-all", "0.0.1", "phar");
         verifier.setAutoclean(true);
 
         final List<String> goals = new ArrayList<String>();

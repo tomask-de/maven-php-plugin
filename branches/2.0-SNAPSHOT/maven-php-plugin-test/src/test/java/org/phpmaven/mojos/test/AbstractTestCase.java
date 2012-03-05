@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package org.phpmaven.test;
+package org.phpmaven.mojos.test;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.Map;
 import java.util.Properties;
@@ -55,6 +54,15 @@ import org.sonatype.aether.util.DefaultRepositorySystemSession;
  * @since 2.0.0
  */
 public abstract class AbstractTestCase extends PlexusTestCase {
+    
+    /**
+     * Local repository directory.
+     * @return local repos dir
+     */
+    private File getLocalReposDir() {
+        final File tempDir = new File(System.getProperty("java.io.tmpdir", "/temp"));
+        return new File(tempDir, "local-repos");
+    }
 
     /**
      * Creates a maven session with given test directory (name relative to package org/phpmaven/test/projects).
@@ -89,7 +97,7 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         throws Exception {
         final File testDir = preparePhpMavenLocalRepos(strTestDir);
         
-        final File localReposFile = new File(testDir, "local-repos");
+        final File localReposFile = this.getLocalReposDir();
         
         final SimpleLocalRepositoryManager localRepositoryManager = new SimpleLocalRepositoryManager(
                 localReposFile);
@@ -186,12 +194,14 @@ public abstract class AbstractTestCase extends PlexusTestCase {
             "../maven-php-project",
             "../maven-php-pear",
             "../maven-php-phar",
+            "../maven-php-phpunit",
+            "../maven-php-phpdoc",
             "../maven-php-validate-lint",
             "../maven-php-plugin"
         };
         
         for (final String pom : pomsToInstall) {
-            this.installToRepos(testDir.getAbsolutePath(), pom);
+            this.installToRepos(getLocalReposDir().getAbsolutePath(), pom);
         }
         return testDir;
     }
@@ -206,10 +216,59 @@ public abstract class AbstractTestCase extends PlexusTestCase {
     protected Verifier getPhpMavenVerifier(final String strTestDir)
         throws IOException, VerificationException {
         final File testDir = this.preparePhpMavenLocalRepos(strTestDir);
-        final File localReposFile = new File(testDir, "local-repos");
+        final File localReposFile = this.getLocalReposDir();
         final Verifier verifier = new Verifier(testDir.getAbsolutePath());
         verifier.setLocalRepo(localReposFile.getAbsolutePath());
         return verifier;
+    }
+    
+    /**
+     * see http://mrpmorris.blogspot.com/2007/05/convert-absolute-path-to-relative-path.html for
+     * details.
+     * @param absolutePath
+     * @param relativeTo
+     * @return
+     */
+    private String relativePath(String absolutePath, String relativeTo) {
+        final String[] absoluteDirectories = absolutePath.split("[\\\\\\/]");
+        final String[] relativeDirectories = relativeTo.split("[\\\\\\/]");
+        
+        // Get the shortest of the two paths
+        final int length = absoluteDirectories.length < relativeDirectories.length ?
+                absoluteDirectories.length : relativeDirectories.length;
+        // Use to determine where in the loop we exited
+        int lastCommonRoot = -1;
+        int index;
+        // Find common root 
+        for (index = 0; index < length; index++) {
+            if (absoluteDirectories[index].equals(relativeDirectories[index])) {
+                lastCommonRoot = index;
+            } else {
+                break; 
+            }
+        }
+        
+        // If we didn't find a common prefix then throw
+        if (lastCommonRoot == -1) {
+            throw new IllegalArgumentException("Paths do not have a common base");
+        }
+        
+        // Build up the relative path
+        final StringBuilder relativePath = new StringBuilder();
+        // Add on the ..
+        for (index = lastCommonRoot + 1; index < absoluteDirectories.length; index++) {
+            if (absoluteDirectories[index].length() > 0) {
+                relativePath.append("..\\");
+            }
+        }
+        
+        // Add on the folders
+        for (index = lastCommonRoot + 1; index < relativeDirectories.length - 1; index++) {
+            relativePath.append(relativeDirectories[index] + "\\");
+        }
+        
+        relativePath.append(relativeDirectories[relativeDirectories.length - 1]);
+        return relativePath.toString();
     }
     
     /**
@@ -217,11 +276,11 @@ public abstract class AbstractTestCase extends PlexusTestCase {
      * @param reposPath the repository path
      * @param pom path to local pom that will be installed; a relative path from current project root
      * @throws VerificationException thrown if the given pom cannot be installed
-     * @throws MalformedURLException 
+     * @throws IOException 
      */
     @SuppressWarnings("unchecked")
     private void installToRepos(final String reposPath, String pom)
-        throws VerificationException, MalformedURLException {
+        throws VerificationException, IOException {
         File root;
         try {
             root = new File(
@@ -231,14 +290,19 @@ public abstract class AbstractTestCase extends PlexusTestCase {
             throw new VerificationException(e);
         }
         
-        //final File pom = new File(root.getAbsoluteFile(), pathToPom).getAbsoluteFile();
-        final Verifier verifier = new Verifier(new File(root, pom).getAbsolutePath());
-        verifier.setLocalRepo(reposPath + "/local-repos");
+        final File pomFile = new File(root, pom);
+        final File logFile = new File(root, "../../../dev/log.txt");
+        final String relLogPath = this.relativePath(pomFile.getCanonicalPath(), logFile.getCanonicalPath()); 
+        
+        final Verifier verifier = new Verifier(pomFile.getAbsolutePath());
+        verifier.setLocalRepo(reposPath);
         verifier.setAutoclean(true);
         verifier.setForkJvm(true);
-        verifier.setLogFileName(new File(root, "../../../dev/log.txt").getAbsolutePath());
-        verifier.getCliOptions().add("-Dmaven.repo.remote=" + (
-                new File(MavenCli.userMavenConfigurationHome, "/repository").toURI().toURL().toString()));
+        verifier.setLogFileName(relLogPath);
+        verifier.getCliOptions().add("-P");
+        verifier.getCliOptions().add("php-maven-testing-profile");
+//        verifier.getCliOptions().add("-Dmaven.repo.remote=" + (
+//                new File(MavenCli.userMavenConfigurationHome, "/repository").toURI().toURL().toString()));
         verifier.executeGoal("install");
         // verifier.verifyErrorFreeLog();
         verifier.resetStreams();

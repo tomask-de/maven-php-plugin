@@ -1,4 +1,6 @@
 /**
+ * Copyright 2010-2012 by PHP-maven.org
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,43 +14,29 @@
  * limitations under the License.
  */
 
-package org.phpmaven.test;
-
-import java.io.File;
-
-import junit.framework.TestCase;
+package org.phpmaven.mojos.test;
 
 import org.apache.maven.it.Verifier;
-import org.apache.maven.it.util.ResourceExtractor;
 
 /**
  * Test copying the resources to target directory.
  * 
- * @auhor Martin Eisengardt
+ * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
+ * @since 2.0.0
  */
-public class CopyTest extends TestCase {
-    
-    /**
-     * Setup test case.
-     */
-    protected void setUp() throws Exception {
-        // required for mojo lookups to work
-        super.setUp();
-    }
+public class CopyTest extends AbstractTestCase {
 
     /**
      * tests the goal "compile" with sources.
      *
-     * @throws Exception
+     * @throws Exception 
      */
     public void testCompile() throws Exception {
-        final File testDir = ResourceExtractor.simpleExtractResources( getClass(), "/org/phpmaven/test/projects/source-copy");
-        
-        final Verifier verifier = new Verifier( testDir.getAbsolutePath() );
+        final Verifier verifier = this.getPhpMavenVerifier("mojos-compile/source-copy");
         
         // delete the pom from previous runs
-        verifier.deleteArtifact( "org.phpmaven.test", "source-copy", "0.0.1", "pom" );
-        verifier.deleteArtifact( "org.phpmaven.test", "source-copy", "0.0.1", "phar" );
+        verifier.deleteArtifact("org.phpmaven.test", "source-copy", "0.0.1", "pom");
+        verifier.deleteArtifact("org.phpmaven.test", "source-copy", "0.0.1", "phar");
         verifier.setAutoclean(true);
 
         verifier.executeGoal("compile");
@@ -61,16 +49,14 @@ public class CopyTest extends TestCase {
     /**
      * tests the goal "test-compile" with sources.
      *
-     * @throws Exception
+     * @throws Exception 
      */
     public void testTestCompile() throws Exception {
-        final File testDir = ResourceExtractor.simpleExtractResources( getClass(), "/org/phpmaven/test/projects/source-copy");
-        
-        final Verifier verifier = new Verifier( testDir.getAbsolutePath() );
+        final Verifier verifier = this.getPhpMavenVerifier("mojos-compile/source-copy");
         
         // delete the pom from previous runs
-        verifier.deleteArtifact( "org.phpmaven.test", "source-copy", "0.0.1", "pom" );
-        verifier.deleteArtifact( "org.phpmaven.test", "source-copy", "0.0.1", "phar" );
+        verifier.deleteArtifact("org.phpmaven.test", "source-copy", "0.0.1", "pom");
+        verifier.deleteArtifact("org.phpmaven.test", "source-copy", "0.0.1", "phar");
         verifier.setAutoclean(true);
 
         verifier.executeGoal("test-compile");

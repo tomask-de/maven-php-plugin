@@ -26,10 +26,10 @@ import org.codehaus.plexus.logging.console.ConsoleLogger;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.exec.IPhpExecutable;
 import org.phpmaven.exec.IPhpExecutableConfiguration;
+import org.phpmaven.mojos.test.AbstractTestCase;
 import org.phpmaven.phar.IPharPackager;
 import org.phpmaven.phar.IPharPackagerConfiguration;
 import org.phpmaven.phar.IPharPackagingRequest;
-import org.phpmaven.test.AbstractTestCase;
 
 /**
  * test cases for the PHAR packager.

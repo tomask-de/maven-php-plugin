@@ -20,7 +20,7 @@ import java.io.File;
 
 import org.apache.maven.execution.MavenSession;
 import org.phpmaven.core.IComponentFactory;
-import org.phpmaven.test.AbstractTestCase;
+import org.phpmaven.mojos.test.AbstractTestCase;
 
 /**
  * Test case for the IComponentFactory class.

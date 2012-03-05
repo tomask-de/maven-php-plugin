@@ -1,4 +1,6 @@
 /**
+ * Copyright 2010-2012 by PHP-maven.org
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,15 +14,10 @@
  * limitations under the License.
  */
 
-package org.phpmaven.test;
-
-import java.io.File;
-
-import junit.framework.TestCase;
+package org.phpmaven.mojos.test;
 
 import org.apache.maven.it.VerificationException;
 import org.apache.maven.it.Verifier;
-import org.apache.maven.it.util.ResourceExtractor;
 import org.phpmaven.plugin.build.PhpTest;
 import org.phpmaven.plugin.php.PhpUnitTestfileWalker;
 
@@ -29,34 +26,22 @@ import org.phpmaven.plugin.php.PhpUnitTestfileWalker;
  * 
  * Tests: http://maven.apache.org/plugin-developers/plugin-testing.html
  * 
- * @author Martin Eisengardt
+ * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
+ * @since 2.0.0
  */
-public class PhpUnitTest extends TestCase {
-    
-    /**
-     * Setup test case.
-     */
-    protected void setUp() throws Exception {
-        // required for mojo lookups to work
-        super.setUp();
-    }
-    
-    // XXX: Include path of php should be using target/classes and target/test-classes and not src/....
+public class PhpUnitTest extends AbstractTestCase {
 
     /**
      * tests the goal "test" with simple autoloader (autoprepend file).
      *
-     * @throws Exception
+     * @throws Exception 
      */
     public void testGoalTestWithDependencies() throws Exception {
-        final File testDirDep1 = ResourceExtractor.simpleExtractResources( getClass(), "/org/phpmaven/test/projects/test-with-dep1");
-        final File testDirDep2 = ResourceExtractor.simpleExtractResources( getClass(), "/org/phpmaven/test/projects/test-with-dep2");
-        
-        final Verifier verifierDep1 = new Verifier( testDirDep1.getAbsolutePath() );
+        final Verifier verifierDep1 = this.getPhpMavenVerifier("mojos-phpunit/test-with-dep1");
         
         // delete the pom from previous runs
-        verifierDep1.deleteArtifact( "org.phpmaven.test", "test-with-dep1", "0.0.1", "pom" );
-        verifierDep1.deleteArtifact( "org.phpmaven.test", "test-with-dep1", "0.0.1", "phar" );
+        verifierDep1.deleteArtifact("org.phpmaven.test", "test-with-dep1", "0.0.1", "pom");
+        verifierDep1.deleteArtifact("org.phpmaven.test", "test-with-dep1", "0.0.1", "phar");
 
         // execute testing
         verifierDep1.executeGoal("install");
@@ -70,7 +55,7 @@ public class PhpUnitTest extends TestCase {
         verifierDep1.assertArtifactPresent("org.phpmaven.test", "test-with-dep1", "0.0.1", "pom");
         verifierDep1.assertArtifactPresent("org.phpmaven.test", "test-with-dep1", "0.0.1", "phar");
 
-        final Verifier verifierDep2 = new Verifier( testDirDep2.getAbsolutePath() );
+        final Verifier verifierDep2 = this.getPhpMavenVerifier("mojos-phpunit/test-with-dep2");
         
         // execute testing
         verifierDep2.executeGoal("test");
@@ -85,15 +70,13 @@ public class PhpUnitTest extends TestCase {
     /**
      * tests the goal "test" with simple autoloader (autoprepend file).
      *
-     * @throws Exception
+     * @throws Exception 
      */
     public void testGoalTestWithAutoprependFile() throws Exception {
-        final File testDir = ResourceExtractor.simpleExtractResources( getClass(), "/org/phpmaven/test/projects/test-autoprepend");
-        
-        final Verifier verifier = new Verifier( testDir.getAbsolutePath() );
+        final Verifier verifier = this.getPhpMavenVerifier("mojos-phpunit/test-autoprepend");
         
         // delete the pom from previous runs
-        verifier.deleteArtifact( "org.phpmaven.test", "test-autoprepend", "0.0.1", "pom" );
+        verifier.deleteArtifact("org.phpmaven.test", "test-autoprepend", "0.0.1", "pom");
 
         // execute testing
         verifier.executeGoal("test");
@@ -108,15 +91,13 @@ public class PhpUnitTest extends TestCase {
     /**
      * tests the goal "test" with bootstrap file (passing phpunit options).
      *
-     * @throws Exception
+     * @throws Exception 
      */
     public void testGoalTestWithBootstrapFile() throws Exception {
-        final File testDir = ResourceExtractor.simpleExtractResources( getClass(), "/org/phpmaven/test/projects/test-bootstrap");
-        
-        final Verifier verifier = new Verifier( testDir.getAbsolutePath() );
+        final Verifier verifier = this.getPhpMavenVerifier("mojos-phpunit/test-bootstrap");
         
         // delete the pom from previous runs
-        verifier.deleteArtifact( "org.phpmaven.test", "test-bootstrap", "0.0.1", "pom" );
+        verifier.deleteArtifact("org.phpmaven.test", "test-bootstrap", "0.0.1", "pom");
 
         // execute testing
         verifier.executeGoal("test");
@@ -131,15 +112,13 @@ public class PhpUnitTest extends TestCase {
     /**
      * tests the goal "test" with simple test.
      *
-     * @throws Exception
+     * @throws Exception 
      */
     public void testGoalTestWithTests() throws Exception {
-        final File testDir = ResourceExtractor.simpleExtractResources( getClass(), "/org/phpmaven/test/projects/test-oktests");
-        
-        final Verifier verifier = new Verifier( testDir.getAbsolutePath() );
+        final Verifier verifier = this.getPhpMavenVerifier("mojos-phpunit/tests-oktests");
         
         // delete the pom from previous runs
-        verifier.deleteArtifact( "org.phpmaven.test", "test-oktests", "0.0.1", "pom" );
+        verifier.deleteArtifact("org.phpmaven.test", "test-oktests", "0.0.1", "pom");
 
         // execute testing
         verifier.executeGoal("test");
@@ -154,15 +133,13 @@ public class PhpUnitTest extends TestCase {
     /**
      * tests the goal "test" with simple test.
      *
-     * @throws Exception
+     * @throws Exception 
      */
     public void testGoalTestWith2Tests() throws Exception {
-        final File testDir = ResourceExtractor.simpleExtractResources( getClass(), "/org/phpmaven/test/projects/test-oktests-multiple");
-        
-        final Verifier verifier = new Verifier( testDir.getAbsolutePath() );
+        final Verifier verifier = this.getPhpMavenVerifier("mojos-phpunit/test-oktests-multiple");
         
         // delete the pom from previous runs
-        verifier.deleteArtifact( "org.phpmaven.test", "test-oktests-multiple", "0.0.1", "pom" );
+        verifier.deleteArtifact("org.phpmaven.test", "test-oktests-multiple", "0.0.1", "pom");
 
         // execute testing
         verifier.executeGoal("test");
@@ -202,15 +179,13 @@ public class PhpUnitTest extends TestCase {
     /**
      * tests the goal "test" without any test.
      *
-     * @throws Exception
+     * @throws Exception 
      */
     public void testGoalTestWithNoTests() throws Exception {
-        final File testDir = ResourceExtractor.simpleExtractResources( getClass(), "/org/phpmaven/test/projects/test-notests");
-        
-        final Verifier verifier = new Verifier( testDir.getAbsolutePath() );
+        final Verifier verifier = this.getPhpMavenVerifier("mojos-phpunit/test-notests");
         
         // delete the pom from previous runs
-        verifier.deleteArtifact( "org.phpmaven.test", "test-notests", "0.0.1", "pom" );
+        verifier.deleteArtifact("org.phpmaven.test", "test-notests", "0.0.1", "pom");
 
         // execute testing
         verifier.executeGoal("test");
@@ -225,25 +200,20 @@ public class PhpUnitTest extends TestCase {
     /**
      * tests the goal "test" without any test; complaining.
      *
-     * @throws Exception
+     * @throws Exception 
      */
     public void testGoalTestWithNoTestsFailing() throws Exception {
-        final File testDir = ResourceExtractor.simpleExtractResources( getClass(), "/org/phpmaven/test/projects/test-notests");
-        
-        final Verifier verifier = new Verifier( testDir.getAbsolutePath() );
+        final Verifier verifier = this.getPhpMavenVerifier("mojos-phpunit/test-notests");
         // delete the pom from previous runs
-        verifier.deleteArtifact( "org.phpmaven.test", "test-notest", "0.0.1", "pom" );
+        verifier.deleteArtifact("org.phpmaven.test", "test-notest", "0.0.1", "pom");
 
         // execute testing
         verifier.addCliOption("-DfailIfNoTests");
-        try
-        {
+        try {
             verifier.executeGoal("test");
             verifier.resetStreams();
             fail("Build failure expected");
-        }
-        catch (VerificationException ex)
-        {
+        } catch (VerificationException ex) {
             // we expect a verification exception
             verifier.verifyTextInLog(PhpUnitTestfileWalker.FAIL_ON_NO_TEST_TEXT);
             verifier.resetStreams();
@@ -253,15 +223,13 @@ public class PhpUnitTest extends TestCase {
     /**
      * tests the goal "test" with failing tests and skip tests set to true.
      *
-     * @throws Exception
+     * @throws Exception 
      */
     public void testGoalTestFailingSkipped() throws Exception {
-        final File testDir = ResourceExtractor.simpleExtractResources( getClass(), "/org/phpmaven/test/projects/test-failing");
-        
-        final Verifier verifier = new Verifier( testDir.getAbsolutePath() );
+        final Verifier verifier = this.getPhpMavenVerifier("mojos-phpunit/test-failing");
         
         // delete the pom from previous runs
-        verifier.deleteArtifact( "org.phpmaven.test", "test-failing", "0.0.1", "pom" );
+        verifier.deleteArtifact("org.phpmaven.test", "test-failing", "0.0.1", "pom");
 
         // execute testing
         verifier.addCliOption("-DskipTests");
@@ -278,15 +246,13 @@ public class PhpUnitTest extends TestCase {
     /**
      * tests the goal "test" with failing tests and skip tests set to true.
      *
-     * @throws Exception
+     * @throws Exception 
      */
     public void testGoalTestFailingSkipped2() throws Exception {
-        final File testDir = ResourceExtractor.simpleExtractResources( getClass(), "/org/phpmaven/test/projects/test-failing");
-        
-        final Verifier verifier = new Verifier( testDir.getAbsolutePath() );
+        final Verifier verifier = this.getPhpMavenVerifier("mojos-phpunit/test-failing");
         
         // delete the pom from previous runs
-        verifier.deleteArtifact( "org.phpmaven.test", "test-failing", "0.0.1", "pom" );
+        verifier.deleteArtifact("org.phpmaven.test", "test-failing", "0.0.1", "pom");
 
         // execute testing
         verifier.addCliOption("-Dmaven.test.skip");
@@ -303,15 +269,13 @@ public class PhpUnitTest extends TestCase {
     /**
      * tests the goal "test" with failing tests and ignore failures set to true.
      *
-     * @throws Exception
+     * @throws Exception 
      */
     public void testGoalTestFailingIgnored() throws Exception {
-        final File testDir = ResourceExtractor.simpleExtractResources( getClass(), "/org/phpmaven/test/projects/test-failing");
-        
-        final Verifier verifier = new Verifier( testDir.getAbsolutePath() );
+        final Verifier verifier = this.getPhpMavenVerifier("mojos-phpunit/test-failing");
         
         // delete the pom from previous runs
-        verifier.deleteArtifact( "org.phpmaven.test", "test-failing", "0.0.1", "pom" );
+        verifier.deleteArtifact("org.phpmaven.test", "test-failing", "0.0.1", "pom");
 
         // execute testing
         verifier.addCliOption("-Dmaven.test.failure.ignore");
@@ -327,24 +291,19 @@ public class PhpUnitTest extends TestCase {
     /**
      * tests the goal "test" with failing tests; complaining.
      *
-     * @throws Exception
+     * @throws Exception 
      */
     public void testGoalTestFailing() throws Exception {
-        final File testDir = ResourceExtractor.simpleExtractResources( getClass(), "/org/phpmaven/test/projects/test-failing");
-        
-        final Verifier verifier = new Verifier( testDir.getAbsolutePath() );
+        final Verifier verifier = this.getPhpMavenVerifier("mojos-phpunit/test-failing");
         // delete the pom from previous runs
-        verifier.deleteArtifact( "org.phpmaven.test", "test-failing", "0.0.1", "pom" );
+        verifier.deleteArtifact("org.phpmaven.test", "test-failing", "0.0.1", "pom");
 
         // execute testing
-        try
-        {
+        try {
             verifier.executeGoal("test");
             verifier.resetStreams();
             fail("Build failure expected");
-        }
-        catch (VerificationException ex)
-        {
+        } catch (VerificationException ex) {
             // we expect a verification exception
             verifier.resetStreams();
         }
