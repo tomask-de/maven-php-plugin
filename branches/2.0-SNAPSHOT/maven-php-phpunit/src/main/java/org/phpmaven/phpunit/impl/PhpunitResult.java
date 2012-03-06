@@ -77,7 +77,7 @@ public class PhpunitResult implements IPhpunitResult {
     /**
      * Time in seconds.
      */
-    private int time;
+    private float time;
 
     /**
      * Test case name.
@@ -232,7 +232,7 @@ public class PhpunitResult implements IPhpunitResult {
      * {@inheritDoc}
      */
     @Override
-    public int getTime() {
+    public float getTime() {
         return this.time;
     }
 
@@ -240,7 +240,7 @@ public class PhpunitResult implements IPhpunitResult {
      * {@inheritDoc}
      */
     @Override
-    public void setTime(int seconds) {
+    public void setTime(float seconds) {
         this.time = seconds;
     }
 

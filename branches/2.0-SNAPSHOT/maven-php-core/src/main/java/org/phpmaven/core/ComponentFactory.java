@@ -152,16 +152,20 @@ public class ComponentFactory implements IComponentFactory {
         final ExpressionEvaluator expressionEvaluator = new PluginParameterExpressionEvaluator(session, execution);
         
         Xpp3Dom classAnnotationConfig = null;
-        for (final Field field : result.getClass().getDeclaredFields()) {
-            final ConfigurationParameter param = field.getAnnotation(ConfigurationParameter.class);
-            if (param != null) {
-                if (classAnnotationConfig == null) {
-                    classAnnotationConfig = new Xpp3Dom("configuration");
+        Class<?> resultClazz = result.getClass();
+        while (resultClazz != null) {
+            for (final Field field : resultClazz.getDeclaredFields()) {
+                final ConfigurationParameter param = field.getAnnotation(ConfigurationParameter.class);
+                if (param != null) {
+                    if (classAnnotationConfig == null) {
+                        classAnnotationConfig = new Xpp3Dom("configuration");
+                    }
+                    final Xpp3Dom child = new Xpp3Dom(param.name());
+                    child.setValue(param.expression());
+                    classAnnotationConfig.addChild(child);
                 }
-                final Xpp3Dom child = new Xpp3Dom(param.name());
-                child.setValue(param.expression());
-                classAnnotationConfig.addChild(child);
             }
+            resultClazz = resultClazz.getSuperclass();
         }
         if (classAnnotationConfig != null) {
             final PlexusConfiguration pomConfiguration = new XmlPlexusConfiguration(classAnnotationConfig);

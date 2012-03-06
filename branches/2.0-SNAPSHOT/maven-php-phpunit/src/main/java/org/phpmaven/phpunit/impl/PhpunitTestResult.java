@@ -66,7 +66,7 @@ public class PhpunitTestResult implements IPhpunitTestResult {
      */
     @Override
     public void appendSuccess(File fileToTest, File xmlOutput, File textOutput,
-            File coverageOutput, String testName, int tests, int seconds) {
+            File coverageOutput, String testName, int tests, float seconds) {
         final IPhpunitResult result = new PhpunitResult();
         result.setResultType(ResultType.SUCCESS);
         result.setFileToTest(fileToTest);
@@ -85,7 +85,7 @@ public class PhpunitTestResult implements IPhpunitTestResult {
     @Override
     public void appendFailure(File fileToTest, File xmlOutput, File textOutput,
             File coverageOutput, String testName, int tests, int failures,
-            int errors, int seconds) {
+            int errors, float seconds) {
         final IPhpunitResult result = new PhpunitResult();
         result.setResultType(ResultType.FAILURE);
         result.setFileToTest(fileToTest);
@@ -118,7 +118,45 @@ public class PhpunitTestResult implements IPhpunitTestResult {
      */
     @Override
     public Iterable<IPhpunitResult> getResults() {
-        return this.getResults();
+        return this.results;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        final StringBuffer buffer = new StringBuffer();
+        if (this.isSuccess) {
+            buffer.append("TEST SUCCESS\n");
+        } else {
+            buffer.append("TEST FAIILURES\n");
+        }
+        for (final IPhpunitResult result : this.getResults()) {
+            /*CHECKSTYLE:OFF*/
+            switch (result.getResultType()) {
+            /*CHECKSTYLE:ON*/
+                case SUCCESS:
+                    buffer.append("  SUCCESS [").append(result.getTestName()).append("] ");
+                    buffer.append(result.getTime()).append("s / ");
+                    buffer.append(result.getTests()).append(" Tests, ");
+                    buffer.append(result.getFailures()).append(" Failures, ");
+                    buffer.append(result.getErrors()).append(" Errors\n");
+                    break;
+                case FAILURE:
+                    buffer.append("  FAILURE [").append(result.getTestName()).append("] ");
+                    buffer.append(result.getTime()).append("s / ");
+                    buffer.append(result.getTests()).append(" Tests, ");
+                    buffer.append(result.getFailures()).append(" Failures, ");
+                    buffer.append(result.getErrors()).append(" Errors\n");
+                    break;
+                case EXCEPTION:
+                    buffer.append("  EXCEPTION [").append(result.getException().getMessage()).append("]\n");
+                    buffer.append(result.getException().getAppendedOutput()).append("\n");
+                    break;
+            }
+        }
+        return buffer.toString();
     }
 
 }

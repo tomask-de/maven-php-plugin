@@ -183,9 +183,9 @@ public abstract class AbstractPhpunitExeSupport extends AbstractPhpunitSupport {
     protected String getForkInvocationCommand(final IPhpunitEntry entry,
             final File xmlFile) {
         String command =
-            this.getLogXmlArgument() + " \"" + xmlFile.getAbsolutePath() + "\" ";
+            this.getLogXmlArgument() + " \"" + xmlFile.getAbsolutePath() + "\" --no-syntax-check ";
         if (this.getCoverageResult() != null) {
-            command += "--no-syntax-check --coverage-html \"" + this.getCoverageResult().getAbsolutePath() + "\" ";
+            command += "--coverage-html \"" + this.getCoverageResult().getAbsolutePath() + "\" ";
         }
         if (this.getPhpunitArguments() != null && this.getPhpunitArguments().length() > 0) {
             command += this.getPhpunitArguments() + " ";
@@ -263,7 +263,7 @@ public abstract class AbstractPhpunitExeSupport extends AbstractPhpunitSupport {
             final int tests = Integer.parseInt(e.getAttribute("tests"));
             final int failures = Integer.parseInt(e.getAttribute("failures"));
             final int errors = Integer.parseInt(e.getAttribute("errors"));
-            final int time = Integer.parseInt(e.getAttribute("time"));
+            final float time = Float.parseFloat(e.getAttribute("time"));
             
             if (errors > 0 || failures > 0) {
                 result.setSuccess(false);
@@ -358,7 +358,7 @@ public abstract class AbstractPhpunitExeSupport extends AbstractPhpunitSupport {
      */
     protected String getSingleInvocationCommand(final File xmlFile) {
         String command =
-            this.getLogXmlArgument() + " \"" + xmlFile.getAbsolutePath() + "\" ";
+            this.getLogXmlArgument() + " \"" + xmlFile.getAbsolutePath() + "\" --no-syntax-check ";
         if (this.getCoverageResult() != null) {
             command += "--coverage-html \"" + this.getCoverageResult().getAbsolutePath() + "\" ";
         }

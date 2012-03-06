@@ -152,13 +152,13 @@ public interface IPhpunitResult {
      * Returns the time elapsed.
      * @return seconds.
      */
-    int getTime();
+    float getTime();
     
     /**
      * Sets the time elapsed.
      * @param seconds time in seconds.
      */
-    void setTime(int seconds);
+    void setTime(float seconds);
 
     /**
      * Sets the name of the test.

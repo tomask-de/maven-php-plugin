@@ -51,7 +51,7 @@ public interface IPhpunitTestResult {
      * @param seconds time elapsed in seconds.
      */
     void appendSuccess(File fileToTest, File xmlOutput, File textOutput, File coverageOutput,
-        String testName, int tests, int seconds);
+        String testName, int tests, float seconds);
     
    /**
     * Appends a failure result.
@@ -66,7 +66,7 @@ public interface IPhpunitTestResult {
     * @param seconds time in seconds.
     */
     void appendFailure(File fileToTest, File xmlOutput, File textOutput, File coverageOutput,
-        String testName, int tests, int failures, int errors, int seconds);
+        String testName, int tests, int failures, int errors, float seconds);
     
     /**
      * Appends exception.

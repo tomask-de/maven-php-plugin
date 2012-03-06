@@ -33,6 +33,7 @@ import org.apache.maven.execution.MavenExecutionResult;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.it.VerificationException;
 import org.apache.maven.it.Verifier;
+import org.apache.maven.it.util.FileUtils;
 import org.apache.maven.it.util.ResourceExtractor;
 import org.apache.maven.project.DefaultProjectBuildingRequest;
 import org.apache.maven.project.MavenProject;
@@ -59,7 +60,7 @@ public abstract class AbstractTestCase extends PlexusTestCase {
      * Local repository directory.
      * @return local repos dir
      */
-    private File getLocalReposDir() {
+    protected File getLocalReposDir() {
         final File tempDir = new File(System.getProperty("java.io.tmpdir", "/temp"));
         return new File(tempDir, "local-repos");
     }
@@ -73,8 +74,7 @@ public abstract class AbstractTestCase extends PlexusTestCase {
      */
     protected MavenSession createSimpleSession(final String strTestDir)
         throws Exception {
-        final File testDir = ResourceExtractor.simpleExtractResources(
-                getClass(), "/org/phpmaven/test/projects/" + strTestDir);
+        final File testDir = prepareResources(strTestDir);
         final RepositorySystemSession systemSession = null;
         final MavenExecutionRequest request = new DefaultMavenExecutionRequest();
         final MavenExecutionResult result = null;
@@ -170,8 +170,7 @@ public abstract class AbstractTestCase extends PlexusTestCase {
      */
     private File preparePhpMavenLocalRepos(final String strTestDir)
         throws IOException, VerificationException {
-        final File testDir = ResourceExtractor.simpleExtractResources(
-                getClass(), "/org/phpmaven/test/projects/" + strTestDir);
+        final File testDir = prepareResources(strTestDir);
         
         final String[] pomsToInstall = new String[]{
             // the common parent
@@ -205,6 +204,22 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         }
         return testDir;
     }
+
+    private File prepareResources(final String strTestDir) throws IOException {
+        
+        final String tempDirPath = System.getProperty(
+               "maven.test.tmpdir", System.getProperty("java.io.tmpdir"));
+        final File testDir = new File(tempDirPath, "org/phpmaven/test/projects/" + strTestDir);
+        FileUtils.deleteDirectory(testDir);
+        
+        ResourceExtractor.extractResourcePath(
+                getClass(),
+                "/org/phpmaven/test/projects/" + strTestDir,
+                new File(tempDirPath),
+                true);
+        
+        return testDir;
+    }
     
     /**
      * Prepares a verifier and installs php maven to a local repository.
@@ -216,6 +231,22 @@ public abstract class AbstractTestCase extends PlexusTestCase {
     protected Verifier getPhpMavenVerifier(final String strTestDir)
         throws IOException, VerificationException {
         final File testDir = this.preparePhpMavenLocalRepos(strTestDir);
+        final File localReposFile = this.getLocalReposDir();
+        final Verifier verifier = new Verifier(testDir.getAbsolutePath());
+        verifier.setLocalRepo(localReposFile.getAbsolutePath());
+        return verifier;
+    }
+    
+    /**
+     * Prepares a verifier and installs php maven to a local repository.
+     * @param strTestDir strTestDir The local test directory for the project to be tested
+     * @return The verifier to be used for testing
+     * @throws VerificationException 
+     * @throws IOException 
+     */
+    protected Verifier getVerifier(final String strTestDir)
+        throws IOException, VerificationException {
+        final File testDir = this.prepareResources(strTestDir);
         final File localReposFile = this.getLocalReposDir();
         final Verifier verifier = new Verifier(testDir.getAbsolutePath());
         verifier.setLocalRepo(localReposFile.getAbsolutePath());

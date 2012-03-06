@@ -70,8 +70,8 @@ public abstract class AbstractPhpunitSupport implements IPhpunitSupport {
     /**
      * The executable configuration.
      */
-    @ConfigurationParameter(name = "executableConfig", expression = "")
-    private Xpp3Dom execConfig;
+    @Configuration(name = "executableConfig", value = "")
+    private Xpp3Dom executableConfig;
     
     /**
      * The component factory.
@@ -98,15 +98,7 @@ public abstract class AbstractPhpunitSupport implements IPhpunitSupport {
      * @return executable configuration.
      */
     protected Xpp3Dom getExecConfig() {
-        return this.execConfig;
-    }
-    
-    /**
-     * Setter for the configuration framework.
-     * @param dom executable config.
-     */
-    public void setExecutableConfig(Xpp3Dom dom) {
-        this.execConfig = dom;
+        return this.executableConfig;
     }
     
     /**
