@@ -28,8 +28,8 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.phpmaven.core.ConfigurationParameter;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.exec.IPhpExecutable;
-import org.phpmaven.exec.IPhpExecutableConfiguration;
 import org.phpmaven.phpunit.IPhpunitSupport;
+import org.phpmaven.project.IProjectPhpExecution;
 
 /**
  * Abstract Phpunit support base class.
@@ -117,11 +117,13 @@ public abstract class AbstractPhpunitSupport implements IPhpunitSupport {
      * @throws ComponentLookupException thrown on configuration errors.
      */
     protected IPhpExecutable getExec(Log log) throws ComponentLookupException, PlexusConfigurationException {
-        final IPhpExecutableConfiguration config = this.factory.lookup(
-                IPhpExecutableConfiguration.class,
-                this.getExecConfig(),
+        final IProjectPhpExecution config = this.factory.lookup(
+                IProjectPhpExecution.class,
+                IComponentFactory.EMPTY_CONFIG,
                 this.session);
-        return config.getPhpExecutable(log);
+        return config.getTestExecutionConfiguration(
+                this.getExecConfig(),
+                this.session.getCurrentProject()).getPhpExecutable(log);
     }
 
     /**
