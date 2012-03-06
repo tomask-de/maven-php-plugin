@@ -36,12 +36,12 @@ import org.phpmaven.phpunit.IPhpunitTestResult;
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
-public class V339Test extends AbstractVersionTestCase {
+public class V3310Test extends AbstractVersionTestCase {
 
     /**
      * The phpunit version.
      */
-    private static final String PHPUNIT_VERSION = "3.3.9";
+    private static final String PHPUNIT_VERSION = "3.3.10";
     
     /**
      * The packages.
@@ -59,12 +59,12 @@ public class V339Test extends AbstractVersionTestCase {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the execution config
-        final MavenSession session = this.createSimpleSession("phpunit/pom-339");
+        final MavenSession session = this.createSimpleSession("phpunit/pom-3310");
         final IPhpunitConfiguration config = factory.lookup(
                 IPhpunitConfiguration.class,
                 IComponentFactory.EMPTY_CONFIG,
                 session);
-        final Verifier verifier = this.getVerifier("phpunit/pom-339");
+        final Verifier verifier = this.getVerifier("phpunit/pom-3310");
         final IPhpunitSupport phpunit = config.getPhpunitSupport(PHPUNIT_VERSION);
         
         this.prepareMaven(verifier, session, PACKAGES);

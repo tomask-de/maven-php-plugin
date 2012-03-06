@@ -36,18 +36,26 @@ import org.phpmaven.phpunit.IPhpunitTestResult;
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
-public class V339Test extends AbstractVersionTestCase {
+public class V360Test extends AbstractVersionTestCase {
 
     /**
      * The phpunit version.
      */
-    private static final String PHPUNIT_VERSION = "3.3.9";
+    private static final String PHPUNIT_VERSION = "3.6.0";
     
     /**
      * The packages.
      */
     private static final Pkg[] PACKAGES = new Pkg[]{
-        new Pkg("de.phpunit", "PHPUnit", PHPUNIT_VERSION)
+        new Pkg("de.phpunit", "PHPUnit", PHPUNIT_VERSION),
+        new Pkg("de.phpunit", "File_Iterator", "1.3.0"),
+        new Pkg("de.phpunit", "Text_Template", "1.1.1"),
+        new Pkg("de.phpunit", "PHP_CodeCoverage", "1.1.0"),
+        new Pkg("de.phpunit", "PHP_TokenStream", "1.1.0"),
+        new Pkg("de.phpunit", "PHP_Timer", "1.0.1"),
+        new Pkg("de.phpunit", "PHPUnit_MockObject", "1.1.0"),
+        new Pkg("de.phpunit", "PHP_Invoker", "1.1.0"),
+        new Pkg("com.symfony-project", "YAML", "1.0.2")
     };
 
     /**
@@ -59,12 +67,12 @@ public class V339Test extends AbstractVersionTestCase {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the execution config
-        final MavenSession session = this.createSimpleSession("phpunit/pom-339");
+        final MavenSession session = this.createSimpleSession("phpunit/pom-360");
         final IPhpunitConfiguration config = factory.lookup(
                 IPhpunitConfiguration.class,
                 IComponentFactory.EMPTY_CONFIG,
                 session);
-        final Verifier verifier = this.getVerifier("phpunit/pom-339");
+        final Verifier verifier = this.getVerifier("phpunit/pom-360");
         final IPhpunitSupport phpunit = config.getPhpunitSupport(PHPUNIT_VERSION);
         
         this.prepareMaven(verifier, session, PACKAGES);

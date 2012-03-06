@@ -20,7 +20,7 @@ import org.codehaus.plexus.component.annotations.Component;
 import org.phpmaven.phpunit.IPhpunitSupport;
 
 /**
- * Phpunit support for >= 3.3.10 and < 3.6.0.
+ * Phpunit support for >= 3.3.10 and < 3.4.0.
  * 
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
@@ -79,6 +79,14 @@ public class PhpunitSupport3310 extends AbstractPhpunitExeSupport {
     @Override
     protected String getLogXmlArgument() {
         return "--log-xml";
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected String getExtraArguments() {
+        return "--no-syntax-check ";
     }
 
 }

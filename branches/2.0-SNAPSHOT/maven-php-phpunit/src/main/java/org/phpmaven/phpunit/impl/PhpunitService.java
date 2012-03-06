@@ -49,6 +49,11 @@ public class PhpunitService implements IPhpunitService {
     private static Version v3310;
     
     /**
+     * Version 3.4.0.
+     */
+    private static Version v340;
+    
+    /**
      * Version 3.6.0.
      */
     private static Version v360;
@@ -62,6 +67,7 @@ public class PhpunitService implements IPhpunitService {
     static {
         try {
             v3310 = SCHEME.parseVersion("3.3.10");
+            v340 = SCHEME.parseVersion("3.4.0");
             v360 = SCHEME.parseVersion("3.6.0");
         } catch (InvalidVersionSpecificationException ex) {
             // should never happen
@@ -111,10 +117,17 @@ public class PhpunitService implements IPhpunitService {
                         IComponentFactory.EMPTY_CONFIG,
                         session);
             }
-            if (v360.compareTo(mavenVer) > 0) {
+            if (v340.compareTo(mavenVer) > 0) {
                 return this.factory.lookup(
                         IPhpunitSupport.class,
                         "PHP_EXE_V3.3.10",
+                        IComponentFactory.EMPTY_CONFIG,
+                        session);
+            }
+            if (v360.compareTo(mavenVer) > 0) {
+                return this.factory.lookup(
+                        IPhpunitSupport.class,
+                        "PHP_EXE_V3.4.0",
                         IComponentFactory.EMPTY_CONFIG,
                         session);
             }

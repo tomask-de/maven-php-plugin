@@ -20,20 +20,31 @@ import org.codehaus.plexus.component.annotations.Component;
 import org.phpmaven.phpunit.IPhpunitSupport;
 
 /**
- * Phpunit support for > 3.6.0.
+ * Phpunit support for >= 3.4.0 and < 3.6.0.
  * 
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
-@Component(role = IPhpunitSupport.class, instantiationStrategy = "per-lookup", hint = "PHP_EXE_V3.6.0")
-public class PhpunitSupport360 extends AbstractPhpunitExeSupport {
+@Component(role = IPhpunitSupport.class, instantiationStrategy = "per-lookup", hint = "PHP_EXE_V3.4.0")
+public class PhpunitSupport340 extends AbstractPhpunitExeSupport {
     
     private static final String TEMPLATE =
-            "require_once 'PHPUnit/Autoload.php';\n" +
+            "require_once 'PHPUnit/TextUI/TestRunner.php';\n" +
+            "require_once 'PHPUnit/Util/Log/PMD.php';\n" +
+            "require_once 'PHPUnit/Util/Log/TAP.php';\n" +
+            "require_once 'PHPUnit/Util/Configuration.php';\n" +
+            "require_once 'PHPUnit/Util/Fileloader.php';\n" +
+            "require_once 'PHPUnit/Util/Filter.php';\n" +
+            "require_once 'PHPUnit/Util/Getopt.php';\n" +
+            "require_once 'PHPUnit/Util/Skeleton.php';\n" +
+            "require_once 'PHPUnit/Util/TestDox/ResultPrinter/Text.php';\n" +
+            "\n" +
+            "require_once 'PHPUnit/TextUI/Command.php';\n" +
             "PHPUnit_TextUI_Command::main();";
     
     private static final String SUITE_TEMPLATE =
             "<?php\n" +
+            "require_once 'PHPUnit/Framework/TestSuite.php';\n" +
             "\n" +
             "class MavenTestSuite extends PHPUnit_Framework_TestSuite {\n" +
             "  public static function suite() {\n" +
@@ -67,7 +78,7 @@ public class PhpunitSupport360 extends AbstractPhpunitExeSupport {
      */
     @Override
     protected String getLogXmlArgument() {
-        return "--log-junit";
+        return "--log-xml";
     }
 
     /**

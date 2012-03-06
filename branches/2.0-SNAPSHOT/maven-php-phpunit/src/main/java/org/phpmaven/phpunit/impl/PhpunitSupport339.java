@@ -80,4 +80,12 @@ public class PhpunitSupport339 extends AbstractPhpunitExeSupport {
         return "--log-xml";
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected String getExtraArguments() {
+        return "--no-syntax-check ";
+    }
+
 }

@@ -33,7 +33,7 @@ import org.phpmaven.phar.IPharPackagerConfiguration;
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
-public class AbstractVersionTest extends AbstractTestCase {
+public abstract class AbstractVersionTestCase extends AbstractTestCase {
 
     /**
      * Package.
