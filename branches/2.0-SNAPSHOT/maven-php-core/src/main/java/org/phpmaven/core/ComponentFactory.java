@@ -18,6 +18,7 @@ package org.phpmaven.core;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.List;
 
@@ -312,6 +313,39 @@ public class ComponentFactory implements IComponentFactory {
         } catch (ComponentConfigurationException ex) {
             throw new ExpressionEvaluationException("Problems converting filtered string to target class", ex);
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public <T extends IService> T[] getServiceImplementations(Class<T> type,
+            Xpp3Dom[] config, MavenSession session)
+        throws ComponentLookupException, PlexusConfigurationException {
+        final List<T> list = this.plexusContainer.lookupList(type);
+        @SuppressWarnings("unchecked")
+        final T[] result = list.toArray((T[]) Array.newInstance(type, list.size()));
+        final ClassRealm realm = this.plexusContainer.getComponentDescriptor(type.getName(), "default").getRealm();
+        for (final T res : result) {
+            configure(
+                    type,
+                    config,
+                    session.getCurrentProject(),
+                    res,
+                    realm,
+                    session);
+        }
+        return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public <T extends IService> T[] getServiceImplementations(Class<T> type,
+            MavenSession session) throws ComponentLookupException,
+            PlexusConfigurationException {
+        return this.getServiceImplementations(type, EMPTY_CONFIG, session);
     }
 
 }

@@ -18,6 +18,7 @@ package org.phpmaven.phpunit;
 
 import java.io.File;
 
+import org.apache.maven.plugin.logging.Log;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.exec.PhpException;
 
@@ -96,9 +97,10 @@ public interface IPhpunitSupport {
     /**
      * Executes the phpunit tests.
      * @param request test request.
+     * @param log the logger.
      * @return test result.
      * @throws PhpException thrown on php execution errors or phpunit execution errors.
      */
-    IPhpunitTestResult executeTests(IPhpunitTestRequest request) throws PhpException;
+    IPhpunitTestResult executeTests(IPhpunitTestRequest request, Log log) throws PhpException;
 
 }

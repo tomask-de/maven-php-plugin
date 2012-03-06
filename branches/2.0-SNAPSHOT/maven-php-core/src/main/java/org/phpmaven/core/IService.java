@@ -14,34 +14,20 @@
  * limitations under the License.
  */
 
-package org.phpmaven.phpunit;
-
-import java.io.File;
+package org.phpmaven.core;
 
 /**
- * A request for phpunit execution.
+ * Service interface.
  * 
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
-public interface IPhpunitTestRequest {
+public interface IService {
     
     /**
-     * Adds a test file.
-     * @param fileToTest file to be tested.
+     * Returns the name of this service.
+     * @return name of the service.
      */
-    void addTestFile(File fileToTest);
-    
-    /**
-     * Ass a test folder.
-     * @param folderToTest folder to be tested.
-     */
-    void addTestFolder(File folderToTest);
-    
-    /**
-     * Returns the entries of this request.
-     * @return request entries.
-     */
-    Iterable<IPhpunitEntry> getEntries();
+    String getServiceName();
 
 }

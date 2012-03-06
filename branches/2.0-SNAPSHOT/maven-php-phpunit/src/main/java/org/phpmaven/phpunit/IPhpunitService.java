@@ -19,19 +19,39 @@ package org.phpmaven.phpunit;
 import org.apache.maven.execution.MavenSession;
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 import org.codehaus.plexus.configuration.PlexusConfigurationException;
+import org.phpmaven.core.IService;
 
 /**
- * TODO Docu
+ * Service for phpunit support.
+ * 
+ * <p>
+ * To support additional services create a plexus service implementation.
+ * </p>
  * 
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
-public interface IPhpunitService {
+public interface IPhpunitService extends IService {
     
-    String getServiceName();
+    /**
+     * Creates a default phpunit support (no specific version).
+     * @param session maven session to be used for configuration.
+     * @return default phpunit support or {@code null} if this service is not able to create a phpunit support.
+     * @throws PlexusConfigurationException thrown if configuration fails.
+     * @throws ComponentLookupException thrown if configuration fails.
+     */
+    IPhpunitSupport createDefault(MavenSession session)
+        throws PlexusConfigurationException, ComponentLookupException;
     
-    IPhpunitSupport createDefault(MavenSession session) throws PlexusConfigurationException, ComponentLookupException;
-    
-    IPhpunitSupport createForPhpunitVersion(String version, MavenSession session) throws PlexusConfigurationException, ComponentLookupException;
+    /**
+     * Creates a phpunit support for given version.
+     * @param version version to be used.
+     * @param session maven session to be used for configuration.
+     * @return phpunit support or {@code null} if this service is not able to create a phpunit support.
+     * @throws PlexusConfigurationException thrown if configuration fails.
+     * @throws ComponentLookupException thrown if configuration fails.
+     */
+    IPhpunitSupport createForPhpunitVersion(String version, MavenSession session)
+        throws PlexusConfigurationException, ComponentLookupException;
 
 }

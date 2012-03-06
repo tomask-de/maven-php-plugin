@@ -16,14 +16,69 @@
 
 package org.phpmaven.phpunit;
 
+import java.io.File;
+
+import org.phpmaven.exec.PhpException;
+
 /**
- * TODO Docu
+ * Phpunit test result.
  * 
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
 public interface IPhpunitTestResult {
     
+    /**
+     * Returns true if the test was successful.
+     * @return true if the test was successful.
+     */
     boolean isSuccess();
+    
+    /**
+     * Sets the successful flag.
+     * @param isSuccess if the test was successful.
+     */
+    void setSuccess(boolean isSuccess);
+     
+    /**
+     * Appends a success result.
+     * @param fileToTest the file/folder to be tested.
+     * @param xmlOutput the xml output.
+     * @param textOutput the text output.
+     * @param coverageOutput the coverage output.
+     * @param testName name of the testcase.
+     * @param tests the number of tests.
+     * @param seconds time elapsed in seconds.
+     */
+    void appendSuccess(File fileToTest, File xmlOutput, File textOutput, File coverageOutput,
+        String testName, int tests, int seconds);
+    
+   /**
+    * Appends a failure result.
+    * @param fileToTest the file/folder to be tested.
+    * @param xmlOutput the xml output.
+    * @param textOutput the text output.
+    * @param coverageOutput the coverage output.
+    * @param testName name of the testcase.
+    * @param tests the number of tests.
+    * @param failures the number of failures.
+    * @param errors the number of errors.
+    * @param seconds time in seconds.
+    */
+    void appendFailure(File fileToTest, File xmlOutput, File textOutput, File coverageOutput,
+        String testName, int tests, int failures, int errors, int seconds);
+    
+    /**
+     * Appends exception.
+     * @param fileToTest the file/folder to be tested.
+     * @param ex the exception that occured.
+     */
+    void appendException(File fileToTest, PhpException ex);
+    
+    /**
+     * Returns the results.
+     * @return results.
+     */
+    Iterable<IPhpunitResult> getResults();
 
 }

@@ -113,5 +113,30 @@ public interface IComponentFactory {
      */
     <T> T filterString(final MavenSession session, final String source, Class<T> type)
         throws ExpressionEvaluationException;
+    
+    /**
+     * Returns the service implementations for given class.
+     * @param type class type
+     * @param <T> class type
+     * @param session the maven session.
+     * @return implementations
+     * @throws ComponentLookupException thrown on configuration errors.
+     * @throws PlexusConfigurationException thrown on configuration errors.
+     */
+    <T extends IService> T[] getServiceImplementations(final Class<T> type, MavenSession session)
+        throws ComponentLookupException, PlexusConfigurationException;
+    
+    /**
+     * Returns the service implementations for given class.
+     * @param type class type
+     * @param <T> class type
+     * @param config the configuration.
+     * @param session the maven session.
+     * @return implementations
+     * @throws ComponentLookupException thrown on configuration errors.
+     * @throws PlexusConfigurationException thrown on configuration errors.
+     */
+    <T extends IService> T[] getServiceImplementations(final Class<T> type, Xpp3Dom[] config, MavenSession session)
+        throws ComponentLookupException, PlexusConfigurationException;
 
 }

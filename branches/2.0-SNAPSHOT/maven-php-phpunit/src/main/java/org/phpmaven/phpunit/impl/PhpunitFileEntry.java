@@ -14,34 +14,47 @@
  * limitations under the License.
  */
 
-package org.phpmaven.phpunit;
+package org.phpmaven.phpunit.impl;
 
 import java.io.File;
 
+import org.phpmaven.phpunit.IPhpunitEntry;
+
 /**
- * A request for phpunit execution.
+ * A file entry for phpunit requests.
  * 
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
-public interface IPhpunitTestRequest {
+public class PhpunitFileEntry implements IPhpunitEntry {
+
+    /**
+     * File.
+     */
+    private final File file;
     
     /**
-     * Adds a test file.
-     * @param fileToTest file to be tested.
+     * Constructor to create a new file entry.
+     * @param file the file.
      */
-    void addTestFile(File fileToTest);
-    
+    public PhpunitFileEntry(File file) {
+        this.file = file;
+    }
+
     /**
-     * Ass a test folder.
-     * @param folderToTest folder to be tested.
+     * {@inheritDoc}
      */
-    void addTestFolder(File folderToTest);
-    
+    @Override
+    public EntryType getType() {
+        return EntryType.FILE;
+    }
+
     /**
-     * Returns the entries of this request.
-     * @return request entries.
+     * {@inheritDoc}
      */
-    Iterable<IPhpunitEntry> getEntries();
+    @Override
+    public File getFile() {
+        return this.file;
+    }
 
 }

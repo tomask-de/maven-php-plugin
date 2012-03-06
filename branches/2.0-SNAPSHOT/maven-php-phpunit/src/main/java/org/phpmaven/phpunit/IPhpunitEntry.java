@@ -19,20 +19,33 @@ package org.phpmaven.phpunit;
 import java.io.File;
 
 /**
- * TODO Docu
+ * ENtry of phpunit requests.
  * 
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
 public interface IPhpunitEntry {
     
+    /**
+     * Entry types.
+     */
     enum EntryType {
+        /** A single test case file. */
         FILE,
+        /** A test case folder. */
         FOLDER
     }
     
+    /**
+     * Returns the type of this entry.
+     * @return entry type.
+     */
     EntryType getType();
     
+    /**
+     * returns the java file.
+     * @return java file (either file or diectory).
+     */
     File getFile();
 
 }
