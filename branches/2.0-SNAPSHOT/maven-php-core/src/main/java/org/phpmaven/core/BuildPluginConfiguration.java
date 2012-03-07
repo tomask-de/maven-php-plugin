@@ -55,5 +55,11 @@ public @interface BuildPluginConfiguration {
      * @return xml path to the configuration.
      */
     String path() default "";
+    
+    /**
+     * Filters specific xml nodes from configuration.
+     * @return filtered nodes.
+     */
+    String[] filter() default { };
 
 }

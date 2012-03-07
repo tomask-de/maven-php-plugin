@@ -20,7 +20,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.Plugin;
@@ -172,10 +174,11 @@ public class ComponentFactory implements IComponentFactory {
             populatePluginFields(result, pomConfiguration, expressionEvaluator, realm);
         }
         
-        configureFromAnnotation(clazz, mavenProject, result, realm,
-                expressionEvaluator);
-        configureFromAnnotation(result.getClass(), mavenProject, result, realm,
-                expressionEvaluator);
+        final Set<Class<?>> classes = this.getAllClasses(result);
+        for (final Class<?> cls : classes) {
+            configureFromAnnotation(cls, mavenProject, result, realm,
+                    expressionEvaluator);
+        }
         
         if (configuration == null || configuration.length == 0) {
             final PlexusConfiguration pomConfiguration = new XmlPlexusConfiguration("configuration");
@@ -187,22 +190,59 @@ public class ComponentFactory implements IComponentFactory {
             }
         }
     }
+    
+    private Set<Class<?>> getAllClasses(Object obj) {
+        final Set<Class<?>> result = new HashSet<Class<?>>();
+        final Set<Class<?>> newcls = new HashSet<Class<?>>();
+        newcls.add(obj.getClass());
+        while (!newcls.isEmpty()) {
+            final Class<?> cls = newcls.iterator().next();
+            newcls.remove(cls);
+            if (result.add(cls)) {
+                if (cls.getSuperclass() != null) {
+                    newcls.add(cls.getSuperclass());
+                }
+                for (final Class<?> cls2 : cls.getInterfaces()) {
+                    newcls.add(cls2);
+                }
+            }
+        }
+        return result;
+    }
 
-    private <T> void configureFromAnnotation(Class<? extends T> clazz,
-            MavenProject mavenProject, final T result, final ClassRealm realm,
+    private void configureFromAnnotation(Class<?> clazz,
+            MavenProject mavenProject, final Object result, final ClassRealm realm,
             final ExpressionEvaluator expressionEvaluator)
         throws PlexusConfigurationException {
         final BuildPluginConfiguration pConfiguration = clazz.getAnnotation(BuildPluginConfiguration.class);
         if (pConfiguration != null) {
             
-            Xpp3Dom config = this.getBuildConfig(
+            Xpp3Dom origConfig = this.getBuildConfig(
                     mavenProject,
                     pConfiguration.groupId(),
                     pConfiguration.artifactId());
             
             for (final String cfg : pConfiguration.path().split("/")) {
                 if (cfg.length() > 0) {
-                    config = config == null ? null : config.getChild(cfg);
+                    origConfig = origConfig == null ? null : origConfig.getChild(cfg);
+                }
+            }
+            
+            Xpp3Dom config = origConfig;
+            
+            // filtering needed?
+            if (pConfiguration.filter().length > 0 && origConfig != null) {
+                final Set<String> filtered = new HashSet<String>();
+                for (final String filter : pConfiguration.filter()) {
+                    filtered.add(filter);
+                }
+                
+                config = new Xpp3Dom(origConfig);
+                for (int i = 0; i < config.getChildCount(); i++) {
+                    if (filtered.contains(config.getChild(i).getName())) {
+                        config.removeChild(i);
+                        i--;
+                    }
                 }
             }
             
@@ -227,7 +267,7 @@ public class ComponentFactory implements IComponentFactory {
         ComponentConfigurator configurator = null;
         
         try {
-            configurator = this.plexusContainer.lookup(ComponentConfigurator.class, "basic");
+            configurator = this.plexusContainer.lookup(ComponentConfigurator.class, "php-maven");
             
             final ConfigurationListener listener = new DebugConfigurationListener(this.logger);
             
