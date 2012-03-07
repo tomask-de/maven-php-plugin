@@ -96,7 +96,7 @@ public class PharPackager implements IPharPackager {
                 replace("$:{pharcontents}", contents.toString()).
                 // TODO: May we need to set a compression template????
                 replace("$:{pharcompression}", request.isCompressed() ? "$phar->compressFiles(Phar::GZ);\n" : "").
-                replace("$:{pharstub}", stubToUse);
+                replace("$:{pharstub}", "<?php " + stubToUse + " __HALT_COMPILER(); ?>");
 
         // XXX: respect build directory (set working path)
         exec.executeCode("", snippet);

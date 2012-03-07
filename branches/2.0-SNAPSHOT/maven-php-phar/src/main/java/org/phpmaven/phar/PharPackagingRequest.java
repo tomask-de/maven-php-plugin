@@ -82,10 +82,7 @@ public class PharPackagingRequest implements IPharPackagingRequest {
     /**
      * The stub.
      */
-    @Configuration(name = "stub", value =
-            "<?php " +
-            "die('Unable to execute this phar'); " +
-            "__HALT_COMPILER(); ?>")
+    @Configuration(name = "stub", value = "die('Unable to execute this phar');")
     private String stub;
     
     /**

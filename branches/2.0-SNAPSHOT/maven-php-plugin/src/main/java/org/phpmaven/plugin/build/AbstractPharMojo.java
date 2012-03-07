@@ -15,13 +15,16 @@
 package org.phpmaven.plugin.build;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.phpmaven.plugin.phar.PharConfig;
-import org.phpmaven.plugin.phar.PharPackager;
-import org.phpmaven.plugin.phar.PharPackager.CompressionMethod;
-import org.phpmaven.plugin.php.PhpException;
+import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
+import org.codehaus.plexus.configuration.PlexusConfigurationException;
+import org.codehaus.plexus.util.xml.Xpp3Dom;
+import org.phpmaven.phar.IPharPackager;
+import org.phpmaven.phar.IPharPackagerConfiguration;
+import org.phpmaven.phar.IPharPackagingRequest;
 
 
 /**
@@ -32,29 +35,25 @@ import org.phpmaven.plugin.php.PhpException;
 public abstract class AbstractPharMojo extends AbstractPhpMojo {
     
     /**
-     * The phar configuration.
-     * 
-     * @parameter
-     * @optional
-     */
-    private PharConfig pharConfig;
-    
-    /**
-     * The php package file name.
-     * 
-     * @parameter default-value="packagePhar.php"
-     * @required
-     */
-    private String packagePhpFilename;
-    
-    /**
      * The target directory to be used.
+     * 
+     * <p>
+     * Defaults to "${project.basedir}/target".
+     * </p>
      * 
      * @parameter expression="${project.basedir}/target"
      * @required
      * @readonly
      */
     private File targetDirectory;
+    
+    /**
+     * The contents of the packed file.
+     * 
+     * @parameter
+     * @optional
+     */
+    private PharContentEntry[] entries;
     
     /**
      * The final phar filename.
@@ -65,12 +64,13 @@ public abstract class AbstractPharMojo extends AbstractPhpMojo {
     private String pharFilename;
     
     /**
-     * The contents of the packed file.
+     * The phar packager configuration.
      * 
+     * @see IPharPackagerConfiguration
      * @parameter
      * @optional
      */
-    private PharContentEntry[] entries;
+    protected Xpp3Dom pharPackagerConfig;
     
     /**
      * The phar content entry used by configuration.
@@ -124,7 +124,7 @@ public abstract class AbstractPharMojo extends AbstractPhpMojo {
         }
         
     }
-
+    
     /**
      * Returns the default phar entries to be used for packaging if there was no alternative configuration.
      * 
@@ -146,55 +146,80 @@ public abstract class AbstractPharMojo extends AbstractPhpMojo {
                 "P A C K A G E    P H A R\n" +
                 "-------------------------------------------------------");
         
-        String filename = this.pharFilename;
-        if (filename == null) {
-            filename = this.getDefaultFilename();
-        }
-        getLog().info("phar filename: " + filename);
-        
-        final File targetFile = new File(this.getTargetDirectory(), filename);
-        if (targetFile.exists()) {
-            getLog().info("phar already exists. skipping. Use clean first to re-create the phar.");
-            this.getProject().getArtifact().setFile(new File(this.getTargetDirectory(), filename));
-            return;
-        }
-        
-        final PharPackager packager = new PharPackager();
-        packager.setFileCompression(CompressionMethod.COMPRESSION_GZIP);
-        packager.setFilename(filename);
-        packager.setConfig(this.pharConfig);
-        packager.setTargetDirectory(this.getTargetDirectory());
-        if (this.entries == null || this.entries.length == 0) {
-            this.entries = this.getDefaultEntries();
-        }
-        for (final PharContentEntry entry : entries) {
-            if (entry.getFile().exists()) {
-                if (entry.getFile().isFile()) {
-                    packager.addFile(entry.getFile(), entry.getRelPath());
-                } else {
-                    final File relPath = new File(entry.getRelPath());
-                    if (!relPath.equals(entry.getFile()) && !isParent(entry.getFile(), relPath)) {
-                        throw new MojoExecutionException(
-                                "Cannot package phar: " +
-                                entry.getFile().getAbsolutePath() +
-                                " not within relative path " +
-                                relPath.getAbsoluteFile());
-                    }
-                    packager.addDirectory(entry.getFile(), relPath);
-                }
-            } else {
-                getLog().debug("Phar entry " + entry.getFile().getAbsolutePath() + " does not exist. skipping.");
-            }
-        }
-        packager.setBuildDirectory(this.getTargetDirectory());
-        packager.setPackagePhpFilename(this.packagePhpFilename);
         try {
-            packager.execute(this.getPhpHelper());
-        } catch (PhpException ex) {
-            throw new MojoExecutionException("Failed packing phar", ex);
+            // calculate the filename
+            String filename = this.pharFilename;
+            if (filename == null) {
+                filename = this.getDefaultFilename();
+            }
+            getLog().info("phar filename: " + filename);
+            
+            // skip if the phar already exists
+            final File targetFile = new File(this.getTargetDirectory(), filename);
+            if (targetFile.exists()) {
+                getLog().warn("phar already exists. skipping. Use clean first to re-create the phar.");
+                this.getProject().getArtifact().setFile(new File(this.getTargetDirectory(), filename));
+                return;
+            }
+            
+            // create the packager
+            final IPharPackagerConfiguration packagerConfig = this.factory.lookup(
+                    IPharPackagerConfiguration.class,
+                    this.pharPackagerConfig,
+                    this.getSession());
+            
+            final IPharPackager packager = packagerConfig.getPharPackager();
+            
+            // create and populate the request
+            final IPharPackagingRequest request = this.factory.lookup(
+                    IPharPackagingRequest.class,
+                    this.pharPackagerConfig,
+                    this.getSession());
+            
+            request.setFileCompression(org.phpmaven.phar.CompressionMethod.COMPRESSION_GZIP);
+            request.setFilename(filename);
+            request.setTargetDirectory(this.getTargetDirectory());
+            if (this.entries == null || this.entries.length == 0) {
+                this.entries = this.getDefaultEntries();
+            }
+            for (final PharContentEntry entry : entries) {
+                if (entry.getFile().exists()) {
+                    if (entry.getFile().isFile()) {
+                        request.addFile(entry.getRelPath(), entry.getFile());
+                    } else {
+                        final File relPath = new File(entry.getRelPath());
+                        if (!relPath.equals(entry.getFile()) && !isParent(entry.getFile(), relPath)) {
+                            throw new MojoExecutionException(
+                                    "Cannot package phar: " +
+                                    entry.getFile().getAbsolutePath() +
+                                    " not within relative path " +
+                                    relPath.getAbsoluteFile());
+                        }
+                        request.addDirectory(
+                                entry.getFile().getCanonicalPath().substring(relPath.getCanonicalPath().length()),
+                                entry.getFile());
+                    }
+                } else {
+                    getLog().debug("Phar entry " + entry.getFile().getAbsolutePath() + " does not exist. skipping.");
+                }
+            }
+            request.setTargetDirectory(this.getTargetDirectory());
+            
+            // package
+            packager.packagePhar(request, getLog());
+            
+            // assign to artifact
+            this.getProject().getArtifact().setFile(new File(this.getTargetDirectory(), filename));
+            
+        } catch (PlexusConfigurationException ex) {
+            throw new MojoExecutionException("failed creating the phar packager.", ex);
+        } catch (ComponentLookupException ex) {
+            throw new MojoExecutionException("failed creating the phar packager.", ex);
+        } catch (org.phpmaven.exec.PhpException ex) {
+            throw new MojoExecutionException("failed creating the phar.", ex);
+        } catch (IOException ex) {
+            throw new MojoExecutionException("failed creating the phar.", ex);
         }
-        
-        this.getProject().getArtifact().setFile(new File(this.getTargetDirectory(), filename));
     }
 
     /**

@@ -90,7 +90,7 @@ public class BaseTest extends AbstractTestCase {
                 session);
         
         // prepare the request
-        request.setStub("<?php die('HELLO STUB!'); __HALT_COMPILER();");
+        request.setStub("die('HELLO STUB!');");
         request.addFile("/some/file.php", new File(session.getCurrentProject().getBasedir(), "testphar.php"));
         request.addDirectory("/", new File(session.getCurrentProject().getBasedir(), "phar1"));
         assertEquals(

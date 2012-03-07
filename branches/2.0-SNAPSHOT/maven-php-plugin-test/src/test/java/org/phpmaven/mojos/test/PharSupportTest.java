@@ -84,7 +84,7 @@ public class PharSupportTest extends AbstractTestCase {
      * @throws Exception 
      */
     public void testGoalTestWithDependencies() throws Exception {
-        final Verifier verifierDep1 = this.getPhpMavenVerifier("mojo-phars/phar-with-dep1");
+        final Verifier verifierDep1 = this.getPhpMavenVerifier("mojos-phar/phar-with-dep1");
         
         // delete the pom from previous runs
         verifierDep1.deleteArtifact("org.phpmaven.test", "phar-with-dep1", "0.0.1", "pom");
@@ -102,7 +102,7 @@ public class PharSupportTest extends AbstractTestCase {
         verifierDep1.assertArtifactPresent("org.phpmaven.test", "phar-with-dep1", "0.0.1", "pom");
         verifierDep1.assertArtifactPresent("org.phpmaven.test", "phar-with-dep1", "0.0.1", "phar");
 
-        final Verifier verifierDep2 = this.getPhpMavenVerifier("mojo-phars/phar-with-dep2");
+        final Verifier verifierDep2 = this.getPhpMavenVerifier("mojos-phar/phar-with-dep2");
         
         // delete the pom from previous runs
         verifierDep2.deleteArtifact("org.phpmaven.test", "phar-with-dep2", "0.0.1", "pom");
@@ -129,7 +129,7 @@ public class PharSupportTest extends AbstractTestCase {
      * @throws Exception 
      */
     public void testGoalTestWithDependenciesInFolders() throws Exception {
-        final Verifier verifierDep1 = this.getPhpMavenVerifier("mojo-phars/phar-with-dep1-folders");
+        final Verifier verifierDep1 = this.getPhpMavenVerifier("mojos-phar/phar-with-dep1-folders");
         
         // delete the pom from previous runs
         verifierDep1.deleteArtifact("org.phpmaven.test", "phar-with-dep1-folders", "0.0.1", "pom");
@@ -147,7 +147,7 @@ public class PharSupportTest extends AbstractTestCase {
         verifierDep1.assertArtifactPresent("org.phpmaven.test", "phar-with-dep1-folders", "0.0.1", "pom");
         verifierDep1.assertArtifactPresent("org.phpmaven.test", "phar-with-dep1-folders", "0.0.1", "phar");
 
-        final Verifier verifierDep2 = this.getPhpMavenVerifier("mojo-phars/phar-with-dep2-folders");
+        final Verifier verifierDep2 = this.getPhpMavenVerifier("mojos-phar/phar-with-dep2-folders");
         
         // delete the pom from previous runs
         verifierDep2.deleteArtifact("org.phpmaven.test", "phar-with-dep2-folders", "0.0.1", "pom");
