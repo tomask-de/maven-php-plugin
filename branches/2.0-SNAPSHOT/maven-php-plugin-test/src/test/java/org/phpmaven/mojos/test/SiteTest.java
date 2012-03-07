@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.maven.it.Verifier;
+import org.phpmaven.test.AbstractTestCase;
 
 /**
  * Test the site generation.

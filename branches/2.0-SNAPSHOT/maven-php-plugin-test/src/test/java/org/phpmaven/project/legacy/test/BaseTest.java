@@ -24,8 +24,8 @@ import org.apache.maven.execution.MavenSession;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.exec.IPhpExecutableConfiguration;
-import org.phpmaven.mojos.test.AbstractTestCase;
 import org.phpmaven.project.IProjectPhpExecution;
+import org.phpmaven.test.AbstractTestCase;
 
 /**
  * test cases for PHP legacy project support.

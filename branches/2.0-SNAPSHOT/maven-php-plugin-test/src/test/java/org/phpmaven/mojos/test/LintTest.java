@@ -18,6 +18,7 @@ package org.phpmaven.mojos.test;
 
 import org.apache.maven.it.VerificationException;
 import org.apache.maven.it.Verifier;
+import org.phpmaven.test.AbstractTestCase;
 
 /**
  * Testing the lint check.

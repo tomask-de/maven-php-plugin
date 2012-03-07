@@ -25,6 +25,7 @@ import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
+import org.phpmaven.core.BuildPluginConfiguration;
 import org.phpmaven.core.ConfigurationParameter;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.exec.IPhpExecutable;
@@ -37,6 +38,9 @@ import org.phpmaven.project.IProjectPhpExecution;
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
+@BuildPluginConfiguration(groupId = "org.phpmaven", artifactId = "maven-php-phpunit", filter = {
+        "phpunitService", "phpunitVersion"
+        })
 public abstract class AbstractPhpunitSupport implements IPhpunitSupport {
     
     /**
@@ -98,7 +102,13 @@ public abstract class AbstractPhpunitSupport implements IPhpunitSupport {
      * @return executable configuration.
      */
     protected Xpp3Dom getExecConfig() {
-        return this.executableConfig;
+        if (this.executableConfig == null) {
+            return null;
+        }
+        
+        final Xpp3Dom res = new Xpp3Dom("configuration");
+        res.addChild(new Xpp3Dom(this.executableConfig));
+        return res;
     }
     
     /**

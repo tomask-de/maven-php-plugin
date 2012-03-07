@@ -20,6 +20,7 @@ import org.apache.maven.it.VerificationException;
 import org.apache.maven.it.Verifier;
 import org.phpmaven.plugin.build.PhpTest;
 import org.phpmaven.plugin.php.PhpUnitTestfileWalker;
+import org.phpmaven.test.AbstractTestCase;
 
 /**
  * Testcase for php-maven mojos being present.
@@ -115,7 +116,7 @@ public class PhpUnitTest extends AbstractTestCase {
      * @throws Exception 
      */
     public void testGoalTestWithTests() throws Exception {
-        final Verifier verifier = this.getPhpMavenVerifier("mojos-phpunit/tests-oktests");
+        final Verifier verifier = this.getPhpMavenVerifier("mojos-phpunit/test-oktests");
         
         // delete the pom from previous runs
         verifier.deleteArtifact("org.phpmaven.test", "test-oktests", "0.0.1", "pom");

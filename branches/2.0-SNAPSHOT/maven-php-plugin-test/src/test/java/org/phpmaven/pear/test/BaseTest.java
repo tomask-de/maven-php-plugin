@@ -25,10 +25,10 @@ import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.codehaus.plexus.logging.console.ConsoleLogger;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.exec.PhpException;
-import org.phpmaven.mojos.test.AbstractTestCase;
 import org.phpmaven.pear.IPearChannel;
 import org.phpmaven.pear.IPearConfiguration;
 import org.phpmaven.pear.IPearUtility;
+import org.phpmaven.test.AbstractTestCase;
 
 /**
  * test cases for the pear support.

@@ -79,7 +79,7 @@ public abstract class AbstractPhpWalkHelper implements DirectoryWalkListener {
      */
     public final void goRecursiveAndCall(File parentFolder) throws MultiException {
         if (!parentFolder.isDirectory()) {
-            this.log.error("Source directory (" + parentFolder.getAbsolutePath() + ")");
+            this.log.warn("Source directory does not exist (" + parentFolder.getAbsolutePath() + ")");
             return;
         }
 

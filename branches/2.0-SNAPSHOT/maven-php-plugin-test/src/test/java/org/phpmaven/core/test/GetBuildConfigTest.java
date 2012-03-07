@@ -21,7 +21,7 @@ import java.io.File;
 import org.apache.maven.execution.MavenSession;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.phpmaven.core.IComponentFactory;
-import org.phpmaven.mojos.test.AbstractTestCase;
+import org.phpmaven.test.AbstractTestCase;
 
 /**
  * Test case for the IComponentFactory class.

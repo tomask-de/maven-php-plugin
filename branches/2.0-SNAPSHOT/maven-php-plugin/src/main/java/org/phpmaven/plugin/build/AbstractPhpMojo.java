@@ -20,6 +20,7 @@ import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuilder;
+import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.plugin.php.IPhpConfigurationMojo;
 import org.phpmaven.plugin.php.IPhpWalkConfigurationMojo;
 import org.phpmaven.plugin.php.PhpMojoHelper;
@@ -174,6 +175,13 @@ public abstract class AbstractPhpMojo extends AbstractMojo implements IPhpConfig
      */
     private PhpMojoHelper phpHelper;
     
+    /**
+     * The configuration factory.
+     * @component
+     * @required
+     */
+    protected IComponentFactory factory;
+
     /**
      * Returns the php helper to execute and manage php.
      * 

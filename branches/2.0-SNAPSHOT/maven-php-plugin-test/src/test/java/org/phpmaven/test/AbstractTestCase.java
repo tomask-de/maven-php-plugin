@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.phpmaven.mojos.test;
+package org.phpmaven.test;
 
 import java.io.File;
 import java.io.IOException;
@@ -179,8 +179,6 @@ public abstract class AbstractTestCase extends PlexusTestCase {
             "../../../var/generic-parent-tags",
             "../../../var/generic-parent-branches",
             "../generic-parent",
-            // php-parents
-            "../php-parent-pom",
             // java-generics
             "../../../var/java-parent",
             "../../../var/java-parent-branches",
@@ -196,7 +194,9 @@ public abstract class AbstractTestCase extends PlexusTestCase {
             "../maven-php-phpunit",
             "../maven-php-phpdoc",
             "../maven-php-validate-lint",
-            "../maven-php-plugin"
+            "../maven-php-plugin",
+            // php-parents
+            "../php-parent-pom"
         };
         
         for (final String pom : pomsToInstall) {
@@ -234,6 +234,7 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         final File localReposFile = this.getLocalReposDir();
         final Verifier verifier = new Verifier(testDir.getAbsolutePath());
         verifier.setLocalRepo(localReposFile.getAbsolutePath());
+        verifier.addCliOption("-nsu");
         return verifier;
     }
     
@@ -250,6 +251,7 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         final File localReposFile = this.getLocalReposDir();
         final Verifier verifier = new Verifier(testDir.getAbsolutePath());
         verifier.setLocalRepo(localReposFile.getAbsolutePath());
+        verifier.addCliOption("-nsu");
         return verifier;
     }
     
@@ -327,13 +329,11 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         
         final Verifier verifier = new Verifier(pomFile.getAbsolutePath());
         verifier.setLocalRepo(reposPath);
-        verifier.setAutoclean(true);
+        verifier.setAutoclean(false);
         verifier.setForkJvm(true);
         verifier.setLogFileName(relLogPath);
-        verifier.getCliOptions().add("-P");
-        verifier.getCliOptions().add("php-maven-testing-profile");
-//        verifier.getCliOptions().add("-Dmaven.repo.remote=" + (
-//                new File(MavenCli.userMavenConfigurationHome, "/repository").toURI().toURL().toString()));
+        verifier.addCliOption("-P");
+        verifier.addCliOption("php-maven-testing-profile");
         verifier.executeGoal("install");
         // verifier.verifyErrorFreeLog();
         verifier.resetStreams();

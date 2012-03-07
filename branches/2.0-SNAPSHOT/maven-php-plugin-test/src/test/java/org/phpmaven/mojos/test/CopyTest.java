@@ -17,6 +17,7 @@
 package org.phpmaven.mojos.test;
 
 import org.apache.maven.it.Verifier;
+import org.phpmaven.test.AbstractTestCase;
 
 /**
  * Test copying the resources to target directory.

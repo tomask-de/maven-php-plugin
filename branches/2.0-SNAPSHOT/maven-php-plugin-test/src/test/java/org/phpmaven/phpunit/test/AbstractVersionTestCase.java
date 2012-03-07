@@ -23,9 +23,9 @@ import org.apache.maven.it.Verifier;
 import org.apache.maven.monitor.logging.DefaultLog;
 import org.codehaus.plexus.logging.console.ConsoleLogger;
 import org.phpmaven.core.IComponentFactory;
-import org.phpmaven.mojos.test.AbstractTestCase;
 import org.phpmaven.phar.IPharPackager;
 import org.phpmaven.phar.IPharPackagerConfiguration;
+import org.phpmaven.test.AbstractTestCase;
 
 /**
  * test cases for PHPUNIT support.

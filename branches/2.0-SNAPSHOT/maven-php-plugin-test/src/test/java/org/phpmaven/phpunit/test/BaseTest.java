@@ -18,9 +18,9 @@ package org.phpmaven.phpunit.test;
 
 import org.apache.maven.execution.MavenSession;
 import org.phpmaven.core.IComponentFactory;
-import org.phpmaven.mojos.test.AbstractTestCase;
 import org.phpmaven.phpunit.IPhpunitConfiguration;
 import org.phpmaven.phpunit.IPhpunitSupport;
+import org.phpmaven.test.AbstractTestCase;
 
 /**
  * test cases for PHPUNIT support.

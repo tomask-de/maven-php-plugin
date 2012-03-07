@@ -14,31 +14,22 @@
 
 package org.phpmaven.plugin.build;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URL;
-import java.util.List;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.codehaus.plexus.util.FileUtils;
+import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
+import org.codehaus.plexus.configuration.PlexusConfigurationException;
+import org.phpmaven.core.IComponentFactory;
+import org.phpmaven.phpunit.IPhpunitConfiguration;
+import org.phpmaven.phpunit.IPhpunitSupport;
+import org.phpmaven.phpunit.IPhpunitTestRequest;
+import org.phpmaven.phpunit.IPhpunitTestResult;
 import org.phpmaven.plugin.php.IPhpunitConfigurationMojo;
 import org.phpmaven.plugin.php.MultiException;
-import org.phpmaven.plugin.php.PhpErrorException;
 import org.phpmaven.plugin.php.PhpException;
 import org.phpmaven.plugin.php.PhpUnitTestfileWalker;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
-import com.google.common.collect.Lists;
 
 /**
  * PHPUnit executes <a href="http://www.phpunit.de/">phpunit</a> TestCases and
@@ -165,11 +156,6 @@ public final class PhpTest extends AbstractPhpMojo implements IPhpunitConfigurat
     private String phpUnitArguments;
     
     // end of properties for IPhpunitConfigurationMojo
-     
-    /**
-     * Collection of test results.
-     */
-    private List<SurefireResult> surefireResults = Lists.newArrayList();
 
     public PhpTest() {
         super();
@@ -265,301 +251,50 @@ public final class PhpTest extends AbstractPhpMojo implements IPhpunitConfigurat
                         "T E S T S\n" +
                         "-------------------------------------------------------\n");
                 
-                if (this.singleTestInvocation) {
-                    doTestingSingleInvocation(files);
-                } else {
-                    doTesting(files);
+                final IPhpunitConfiguration config = this.factory.lookup(
+                        IPhpunitConfiguration.class,
+                        IComponentFactory.EMPTY_CONFIG,
+                        this.getSession());
+                
+                final IPhpunitTestRequest request = this.factory.lookup(
+                        IPhpunitTestRequest.class,
+                        IComponentFactory.EMPTY_CONFIG,
+                        this.getSession());
+                for (final File file : files) {
+                    request.addTestFile(file);
+                }
+                final IPhpunitSupport support = config.getPhpunitSupport();
+                support.setIsSingleTestInvocation(this.singleTestInvocation);
+                support.setPhpunitArguments(this.phpUnitArguments);
+                support.setXmlResult(this.phpunitXmlResult);
+                support.setResultFolder(this.resultFolder);
+                support.setCoverageResult(this.phpunitCoverageResult);
+                // TODO generatedPhpUnitTestsuiteFile
+                
+                getLog().info("Starting tests.");
+                
+                final IPhpunitTestResult result = support.executeTests(request, getLog());
+                
+                getLog().info("\n\nResults :\n\n" + result.toString());
+
+                if (!result.isSuccess()) {
+                    if (this.testFailureIgnore) {
+                        getLog().info(IGNORING_TEST_FAILURES_TEXT);
+                    } else {
+                        throw new MojoExecutionException("Test failures");
+                    }
                 }
             }
-        } catch (PhpException e) {
+        } catch (PlexusConfigurationException e) {
             throw new MojoExecutionException(e.getMessage(), e);
-        } catch (UnitTestCaseFailureException e) {
+        } catch (ComponentLookupException e) {
+            throw new MojoExecutionException(e.getMessage(), e);
+        } catch (org.phpmaven.exec.PhpException e) {
+            throw new MojoExecutionException(e.getMessage(), e);
+        } catch (PhpException e) {
             throw new MojoExecutionException(e.getMessage(), e);
         } catch (IOException e) {
             throw new MojoExecutionException(e.getMessage(), e);
-        }
-    }
-
-    /**
-     * Performs the testing.
-     * 
-     * @param files files to test.
-     * @throws IOException thrown if there were io errors.
-     * @throws PhpException thrown on php failures.
-     * @throws MojoExecutionException thrown if on errors.
-     * @throws UnitTestCaseFailureException thrown on unit testing failures.
-     */
-    private void doTesting(final Iterable<File> files) throws IOException,
-            PhpException, MojoExecutionException, UnitTestCaseFailureException {
-        final File folder = getResultFolder();
-        folder.mkdirs();
-        
-        // prepare the execution snippet
-        final URL mavenUrl = getClass().getResource("Maven.php");
-        FileUtils.copyURLToFile(mavenUrl, this.getTemporaryScriptFilename());
-   
-        getLog().info("Surefire report directory: " + folder.getAbsolutePath());
-
-        for (final File file : files) {
-            // replace file ending with .xml
-            final String ending = "." + getPhpFileEnding();
-            String name = file.getName();
-            name = name.substring(0, name.length() - ending.length()) + ".xml";
-            final File targetFile = new File(getResultFolder(), name);
-   
-            // create report directory
-            targetFile.getParentFile().mkdirs();
-   
-            executeTest(file, targetFile);
-        }
-   
-        getLog().info("\n\nResults :\n\n");
-   
-        int completeTests = 0;
-        int completeFailures = 0;
-        int completeErrors = 0;
-   
-        for (SurefireResult surefireResult : surefireResults) {
-            completeTests += surefireResult.getTests();
-            completeFailures += surefireResult.getFailure();
-            completeErrors += surefireResult.getErrors();
-        }
-   
-        getLog().info("\n\nTests run: " + completeTests
-            + ", Failures: " + completeFailures
-            + ", Errors: " + completeErrors + "\n");
-   
-        if (completeErrors != 0 || completeFailures != 0) {
-            if (this.testFailureIgnore) {
-                getLog().info(IGNORING_TEST_FAILURES_TEXT);
-            } else {
-                throw new UnitTestCaseFailureException(completeErrors, completeFailures);
-            }
-        }
-    }
-
-    /**
-     * Performs the testing by performing only one phpunit invocation.
-     * 
-     * @param files files to test.
-     * @throws IOException thrown if there were io errors.
-     * @throws PhpException thrown on php failures.
-     * @throws MojoExecutionException thrown if on errors.
-     * @throws UnitTestCaseFailureException thrown on unit testing failures.
-     */
-    private void doTestingSingleInvocation(final Iterable<File> files) throws IOException,
-            PhpException, MojoExecutionException, UnitTestCaseFailureException {
-        this.phpunitXmlResult.getParentFile().mkdirs();
-        
-        // prepare the execution snippet
-        final URL mavenUrl = getClass().getResource("MavenSingleInvocation.php");
-        FileUtils.copyURLToFile(mavenUrl, this.getTemporaryScriptFilename());
-        
-        final URL testsuiteUrl = getClass().getResource("MavenTestSuite.php");
-        String snippet = FileHelper.readUrl(testsuiteUrl);
-        final StringBuffer buffer = new StringBuffer();
-        for (final File test : files) {
-            if (buffer.length() > 0) {
-                buffer.append(",\n");
-            }
-            buffer.append("'");
-            buffer.append(test.getAbsolutePath().replace("\\", "\\\\").replace("'", "\\'"));
-            buffer.append("'");
-        }
-        snippet = snippet.replace("$:{PHPUNIT_TEST_FILES}", buffer.toString());
-        snippet = snippet.replace("$:{PHPUNIT_SRC_DIR}",
-                this.getProject().getTestCompileSourceRoots().get(0).toString());
-        snippet = snippet.replace("$:{PHPUNIT_PHP_FILE_SUFFIX}",
-                "." + this.getPhpFileEnding());
-        this.generatedPhpUnitTestsuiteFile.getParentFile().mkdirs();
-        FileUtils.fileWrite(this.generatedPhpUnitTestsuiteFile.getAbsolutePath(), snippet);
-   
-        getLog().info("Surefire report: " + this.phpunitXmlResult.getAbsolutePath());
-        
-        final String commandLine = createCommandLine();
-        // XXX: so we need to parse the result ???
-        /*final String result = */getPhpHelper().execute(commandLine, this.getTemporaryScriptFilename());
-        try {
-            this.parseResultingXML(this.phpunitXmlResult);
-        } catch (SAXException ex) {
-            throw new MojoExecutionException("Failed parsing xml result", ex);
-        } catch (IOException ex) {
-            throw new MojoExecutionException("Failed parsing xml result", ex);
-        } catch (ParserConfigurationException ex) {
-            throw new MojoExecutionException("Failed parsing xml result", ex);
-        }
-        
-        getLog().info("\n\nResults :\n\n");
-   
-        int completeTests = 0;
-        int completeFailures = 0;
-        int completeErrors = 0;
-        
-        for (SurefireResult surefireResult : surefireResults) {
-            completeTests += surefireResult.getTests();
-            completeFailures += surefireResult.getFailure();
-            completeErrors += surefireResult.getErrors();
-        }
-   
-        getLog().info("\n\nTests run: " + completeTests
-                + ", Failures: " + completeFailures
-                + ", Errors: " + completeErrors + "\n");
-   
-        if (completeErrors != 0 || completeFailures != 0) {
-            if (this.testFailureIgnore) {
-                getLog().info(IGNORING_TEST_FAILURES_TEXT);
-            } else {
-                throw new UnitTestCaseFailureException(completeErrors, completeFailures);
-            }
-        }
-    }
-
-    /**
-     * Performs the testing for a single file.
-     * 
-     * @param file test file.
-     * @param targetFile target file.
-     * @throws MojoExecutionException thrown on errors.
-     */
-    private void executeTest(final File file, final File targetFile)
-        throws MojoExecutionException {
-        try {
-            final String command = createCommandLine(file, targetFile);
-            String output = "-no output-";
-            try {
-                output = getPhpHelper().execute(command, file);
-            } catch (PhpException e) {
-                writeFailure(file, targetFile, e.getAppendedOutput());
-            }
-   
-            if (targetFile.exists()) {
-                parseResultingXML(targetFile);
-            } else {
-                throw new PhpErrorException(file, output);
-            }
-        } catch (PhpException e) {
-            try {
-                writeFailure(file, targetFile, e.getMessage());
-                throw new MojoExecutionException(e.getMessage(), e);
-            } catch (IOException ioe) {
-                throw new MojoExecutionException(ioe.getMessage(), ioe);
-            }
-        } catch (SAXException e) {
-            throw new MojoExecutionException(e.getMessage(), e);
-        } catch (ParserConfigurationException e) {
-            throw new MojoExecutionException(e.getMessage(), e);
-        } catch (IOException e) {
-            throw new MojoExecutionException(e.getMessage(), e);
-        }
-    }
-
-    private String createCommandLine() throws PhpException {
-        String command = getPhpHelper().defaultTestIncludePath(null);
-
-        if (getPhpHelper().getPhpVersion() == PhpVersion.PHP5 || getPhpHelper().getPhpVersion() == PhpVersion.PHP6) {
-            command +=
-                " \"" + getTemporaryScriptFilename().getAbsolutePath() + "\""
-                    + " --log-junit \"" + this.phpunitXmlResult.getAbsolutePath() + "\"";
-        } else {
-            throw new PhpErrorException(
-                getTemporaryScriptFilename(),
-                "This php-maven version does not support php others than v5 and v6. PHP Version 4 is deprecated.");
-        }
-        
-        if (this.phpunitCoverageResult != null) {
-            getLog().info("Activating coverage clover xml result; target file: " +
-                this.phpunitCoverageResult.getAbsolutePath());
-            this.phpunitCoverageResult.mkdirs();
-            command += " --no-syntax-check --coverage-clover \"" + this.phpunitCoverageResult.getAbsolutePath() + "\"";
-        }
-        
-        if (this.phpUnitArguments != null) {
-            command = command + " " + this.phpUnitArguments;
-        }
-        
-        command += " \"" + this.generatedPhpUnitTestsuiteFile.getAbsolutePath() + "\"";
-        
-        return command;
-    }
-
-    /**
-     * Creates the command line for the single file testing.
-     * 
-     * @param file the target file to test
-     * @param xmlLog the xml log file
-     * @return command line
-     * @throws PhpException thrown on php errors
-     */
-    private String createCommandLine(File file, File xmlLog) throws PhpException {
-        String command = getPhpHelper().defaultTestIncludePath(file);
-
-        if (getPhpHelper().getPhpVersion() == PhpVersion.PHP5 || getPhpHelper().getPhpVersion() == PhpVersion.PHP6) {
-            command +=
-                " \"" + getTemporaryScriptFilename().getAbsolutePath() + "\""
-                    + " --log-junit \"" + xmlLog.getAbsolutePath() + "\"";
-        } else {
-            throw new PhpErrorException(
-                getTemporaryScriptFilename(),
-                "This php-maven version does not support php others than v5 and v6. PHP Version 4 is deprecated.");
-        }
-        
-        if (this.phpUnitArguments != null) {
-            command = command + " " + this.phpUnitArguments;
-        }
-        
-        command += " \"" + file.getAbsolutePath() + "\"";
-        
-        return command;
-    }
-
-    /**
-     * Parses the XML output.
-     *
-     * @param file
-     * @throws SAXException
-     * @throws IOException
-     * @throws ParserConfigurationException
-     */
-    private void parseResultingXML(File file) throws SAXException, IOException, ParserConfigurationException {
-        final DocumentBuilderFactory fact = DocumentBuilderFactory.newInstance();
-        final DocumentBuilder builder = fact.newDocumentBuilder();
-
-        final Document doc = builder.parse(file);
-        final NodeList elementsByTagName = doc.getElementsByTagName("testsuite");
-        for (int i = 0; i < elementsByTagName.getLength(); i++) {
-            final Element e = (Element) elementsByTagName.item(i);
-
-            final SurefireResult surefireResult = new SurefireResult(
-                e.getAttribute("name"),
-                Integer.parseInt(e.getAttribute("tests")),
-                Integer.parseInt(e.getAttribute("failures")),
-                Integer.parseInt(e.getAttribute("errors")), e.getAttribute("time")
-            );
-            getLog().debug(surefireResult.toString());
-            surefireResults.add(surefireResult);
-        }
-    }
-
-    /**
-     * Write message to report file.
-     *
-     * @param testCase
-     * @param targetReportFilePath
-     * @param output
-     * @throws IOException
-     */
-    private void writeFailure(File testCase, File targetReportFilePath, String output) throws IOException {
-        String logFile = targetReportFilePath.getAbsolutePath();
-        logFile = logFile.substring(0, logFile.length() - ".xml".length()) + ".txt";
-
-        getLog().error("Testcase: " + testCase.getName() + " fails.");
-        getLog().error("See log: " + logFile);
-        final FileWriter fstream = new FileWriter(logFile);
-        final BufferedWriter out = new BufferedWriter(fstream);
-        try {
-            out.write(output);
-        } finally {
-            out.close();
         }
     }
 
@@ -584,47 +319,6 @@ public final class PhpTest extends AbstractPhpMojo implements IPhpunitConfigurat
             }
             
             return super.isTestFile(file);
-        }
-    }
-
-    /**
-     * Represents a surefire result parsed from its xml output.
-     */
-    class SurefireResult {
-        private final String name;
-        private final int tests;
-        private final int failure;
-        private final int errors;
-        private final String time;
-
-        public SurefireResult(String name, int tests, int failure, int errors, String time) {
-            super();
-            this.name = name;
-            this.tests = tests;
-            this.failure = failure;
-            this.errors = errors;
-            this.time = time;
-        }
-
-        @Override
-        public String toString() {
-            return "Running " + name + "\n"
-                + "Tests run: " + tests
-                + ", Failures: " + failure
-                + ", Errors: " + errors
-                + ", Time elapsed: " + time;
-        }
-
-        public int getTests() {
-            return tests;
-        }
-
-        public int getFailure() {
-            return failure;
-        }
-
-        public int getErrors() {
-            return errors;
         }
     }
     
