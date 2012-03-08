@@ -33,6 +33,7 @@ import org.codehaus.plexus.util.cli.CommandLineException;
 import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.plexus.util.cli.StreamConsumer;
+import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.plugin.build.FileHelper;
 import org.phpmaven.plugin.build.PhpVersion;
 
@@ -51,11 +52,6 @@ public class PhpMojoHelper implements IPhpExecution {
      * Parameter to let PHP print out its version.
      */
     public static final String PHP_FLAG_VERSION = "-v";
-
-    /**
-     * Parameter to specify the include paths for PHP.
-     */
-    public static final String PHP_FLAG_INCLUDES = "-d include_path";
 
     /**
      * This list describes all keywords which will be printed out by PHP
@@ -335,25 +331,6 @@ public class PhpMojoHelper implements IPhpExecution {
     }
 
     /**
-     * Generates a string which can be used as a parameter for the PHP
-     * executable defining the include paths to use.
-     *
-     * @param paths a list of paths
-     * @return the complete parameter for PHP
-     */
-    public String includePathParameter(String[] paths) {
-        final StringBuilder includePath = new StringBuilder();
-        includePath.append(PHP_FLAG_INCLUDES);
-        includePath.append("=\"");
-        for (String path : paths) {
-            includePath.append(File.pathSeparator);
-            includePath.append(path);
-        }
-        includePath.append("\"");
-        return includePath.toString();
-    }
-
-    /**
      * Retrieves the used PHP version.
      *
      * @return the PHP version
@@ -410,13 +387,15 @@ public class PhpMojoHelper implements IPhpExecution {
 
     /**
      * Unzips all compile dependency sources.
+     * 
+     * @param factory Component factory
+     * @param session maven session
      *
      * @throws IOException if something goes wrong while prepareing the dependencies
      * @throws PhpException php exceptions can fly everywhere..
      */
-    public void prepareCompileDependencies() throws IOException, PhpException {
+    public void prepareCompileDependencies(IComponentFactory factory, MavenSession session) throws IOException, PhpException {
         final List<String> packedElements = new ArrayList<String>();
-        @SuppressWarnings("unchecked")
         final Set<Artifact> deps = this.project.getArtifacts();
         for (final Artifact dep : deps) {
             this.log.info("dependency " + 
@@ -443,19 +422,21 @@ public class PhpMojoHelper implements IPhpExecution {
         // unset additionalPhpParameters temporary for unphar
         final String s = this.additionalPhpParameters;
         this.additionalPhpParameters = "";
-        FileHelper.unzipElements(this.log, this.dependenciesTargetDirectory, packedElements, this);
+        FileHelper.unzipElements(this.log, this.dependenciesTargetDirectory, packedElements, factory, session);
         this.additionalPhpParameters = s; 
     }
 
     /**
      * Unzips all test dependency sources.
+     * 
+     * @param factory Component factory
+     * @param session maven session
      *
      * @throws IOException if something goes wrong while prepareing the dependencies
      * @throws PhpException php exceptions can fly everywhere..
      */
-    public void prepareTestDependencies() throws IOException, PhpException {
+    public void prepareTestDependencies(IComponentFactory factory, MavenSession session) throws IOException, PhpException {
         final List<String> packedElements = new ArrayList<String>();
-        @SuppressWarnings("unchecked")
         final Set<Artifact> deps = this.project.getArtifacts();
         for (final Artifact dep : deps) {
             this.log.info("dependency " + 
@@ -482,7 +463,7 @@ public class PhpMojoHelper implements IPhpExecution {
         // unset additionalPhpParameters temporary for unphar
         final String s = this.additionalPhpParameters;
         this.additionalPhpParameters = "";
-        FileHelper.unzipElements(this.log, this.testDependenciesTargetDirectory, packedElements, this);
+        FileHelper.unzipElements(this.log, this.testDependenciesTargetDirectory, packedElements, factory, session);
         this.additionalPhpParameters = s;
     }
     
@@ -536,66 +517,6 @@ public class PhpMojoHelper implements IPhpExecution {
             command += " " + codeArguments;
         }
         return this.execute(command, snippet);
-    }
-
-    /**
-     * Generated the command line option for default include path (without testing).
-     * 
-     * @param file Optional file that parents directory is used.
-     * 
-     * @return command line option for include path
-     */
-    @Override
-    public String defaultIncludePath(File file) {
-        if (file == null) {
-            return includePathParameter(new String[]{
-                this.targetClassesDirectory.getAbsolutePath(),
-                this.dependenciesTargetDirectory.getAbsolutePath(),
-                // XXX: Hotfix We should really remove this and provide non-corrupt pear-packages :-(
-                new File(this.dependenciesTargetDirectory.getAbsolutePath(), "pear").getAbsolutePath()
-            });
-        }
-        return includePathParameter(new String[]{
-            this.targetClassesDirectory.getAbsolutePath(),
-            this.dependenciesTargetDirectory.getAbsolutePath(),
-            // XXX: Hotfix We should really remove this and provide non-corrupt pear-packages :-(
-            new File(this.dependenciesTargetDirectory.getAbsolutePath(), "pear").getAbsolutePath(),
-            file.getParentFile().getAbsolutePath()
-        });
-    }
-
-    /**
-     * Generated the command line option for default include path (test staging).
-     * 
-     * @param file Optional file that parents directory is used.
-     * 
-     * @return command line option for include path
-     */
-    @Override
-    public String defaultTestIncludePath(File file) {
-        if (file == null) {
-            return includePathParameter(new String[]{
-                this.targetClassesDirectory.getAbsolutePath(),
-                this.targetTestClassesDirectory.getAbsolutePath(),
-                this.dependenciesTargetDirectory.getAbsolutePath(),
-                // XXX: Hotfix We should really remove this and provide non-corrupt pear-packages :-(
-                new File(this.dependenciesTargetDirectory.getAbsolutePath(), "pear").getAbsolutePath(),
-                this.testDependenciesTargetDirectory.getAbsolutePath(),
-                // XXX: Hotfix We should really remove this and provide non-corrupt pear-packages :-(
-                new File(this.testDependenciesTargetDirectory.getAbsolutePath(), "pear").getAbsolutePath()
-            });
-        }
-        return includePathParameter(new String[]{
-            this.targetClassesDirectory.getAbsolutePath(),
-            this.targetTestClassesDirectory.getAbsolutePath(),
-            this.dependenciesTargetDirectory.getAbsolutePath(),
-            // XXX: Hotfix We should really remove this and provide non-corrupt pear-packages :-(
-            new File(this.dependenciesTargetDirectory.getAbsolutePath(), "pear").getAbsolutePath(),
-            this.testDependenciesTargetDirectory.getAbsolutePath(),
-            // XXX: Hotfix We should really remove this and provide non-corrupt pear-packages :-(
-            new File(this.testDependenciesTargetDirectory.getAbsolutePath(), "pear").getAbsolutePath(),
-            file.getParentFile().getAbsolutePath()
-        });
     }
 
 }

@@ -20,7 +20,14 @@ import java.io.IOException;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
+import org.codehaus.plexus.configuration.PlexusConfigurationException;
+import org.phpmaven.core.IComponentFactory;
+import org.phpmaven.exec.IPhpExecutable;
+import org.phpmaven.exec.IPhpExecutableConfiguration;
+import org.phpmaven.exec.PhpException;
 import org.phpmaven.plugin.build.AbstractPhpMojo;
+import org.phpmaven.project.IProjectPhpExecution;
 
 /**
  * executes a php command.
@@ -68,19 +75,37 @@ public final class PhpExec extends AbstractPhpMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        String commandLine = "";
-        if (this.compileIncludePath) {
-            commandLine = getPhpHelper().defaultIncludePath(null) + " ";
-        } else if (this.testIncludePath) {
-            commandLine = getPhpHelper().defaultTestIncludePath(null) + " ";
-        }
-        commandLine += "\"" + this.phpFile.getAbsolutePath() + "\"";
-        if (this.phpFileArguments != null && this.phpFileArguments.length() > 0) {
-            commandLine += " " + this.phpFileArguments;
-        }
-        getLog().info("Executing php: " + commandLine);
         try {
-            final String result = getPhpHelper().execute(commandLine, this.phpFile);
+            IPhpExecutable exec;
+            if (this.testIncludePath) {
+                final IProjectPhpExecution projExec = this.factory.lookup(
+                        IProjectPhpExecution.class,
+                        IComponentFactory.EMPTY_CONFIG,
+                        this.getSession());
+                exec = projExec.getTestExecutionConfiguration().getPhpExecutable(this.getLog());
+            } else if (this.compileIncludePath) {
+                final IProjectPhpExecution projExec = this.factory.lookup(
+                        IProjectPhpExecution.class,
+                        IComponentFactory.EMPTY_CONFIG,
+                        this.getSession());
+                exec = projExec.getExecutionConfiguration().getPhpExecutable(this.getLog());
+            } else {
+                final IPhpExecutableConfiguration config = this.factory.lookup(
+                        IPhpExecutableConfiguration.class,
+                        IComponentFactory.EMPTY_CONFIG,
+                        this.getSession());
+                exec = config.getPhpExecutable(this.getLog());
+            }
+            
+            String commandLine = "";
+            commandLine += "\"" + this.phpFile.getAbsolutePath() + "\"";
+            if (this.phpFileArguments != null && this.phpFileArguments.length() > 0) {
+                commandLine += " " + this.phpFileArguments;
+            }
+            getLog().info("Executing php: " + commandLine);
+            
+            final String result = exec.execute(commandLine, this.phpFile);
+            
             if (this.phpOutToFile != null) {
                 if (!phpOutToFile.getParentFile().exists()) {
                     phpOutToFile.getParentFile().mkdirs();
@@ -90,6 +115,10 @@ public final class PhpExec extends AbstractPhpMojo {
             } else {
                 getLog().info("Result:\n" + result);
             }
+        } catch (ComponentLookupException ex) {
+            throw new MojoFailureException("Failed executing php command", ex);
+        } catch (PlexusConfigurationException ex) {
+            throw new MojoFailureException("Failed executing php command", ex);
         } catch (PhpException ex) {
             throw new MojoFailureException("Failed executing php command", ex);
         } catch (IOException ex) {

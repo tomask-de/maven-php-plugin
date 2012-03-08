@@ -31,13 +31,17 @@ import java.util.jar.JarInputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.wagon.PathUtils;
+import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
+import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.codehaus.plexus.util.DirectoryScanner;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.IOUtil;
-import org.phpmaven.plugin.php.IPhpExecution;
-import org.phpmaven.plugin.php.PhpException;
+import org.phpmaven.core.IComponentFactory;
+import org.phpmaven.exec.PhpException;
+import org.phpmaven.phar.IPharPackagerConfiguration;
 
 import com.google.common.base.Preconditions;
 
@@ -48,46 +52,6 @@ import com.google.common.base.Preconditions;
  * @author Tobias Sarnowski
  */
 public final class FileHelper {
-
-    /**
-     * The code snippet to unphar a phar into given target directory.
-     * 
-     * XXX: There seems to be a bug on some php versions. https://bugs.php.net/bug.php?id=50797
-     * However extractTo should be used for performance. Manually extracting is slow.
-     */
-    private static final String UNPHAR_SNIPPET =
-            /*"$phar = new Phar('$:{pharFile}');\n" +
-            "// $phar->extractTo('$:{targetDir}', null, true);\n" +
-            "foreach ($phar as $file) {\n" +
-            "  $contents = file_get_contents($file->getPathName());\n" +
-            "  $relPath = substr($file->getPathName(), strlen('phar://$:{pharFile}'));\n" +
-            "  $fullPath = '$:{targetDir}'.$relPath;\n" +
-            "  $parentDir = dirname($fullPath);\n" +
-            "  if (!is_dir($parentDir)) mkdirs($parentDir);\n" +
-            "  file_put_contents($fullPath, $contents);\n" +
-            "}\n";*/
-            "$iter = new RecursiveIteratorIterator(new RecursiveDirectoryIterator('phar://$:{pharFile}'), RecursiveIteratorIterator::CHILD_FIRST);\n" +
-            "if (!function_exists('mkdirs')) {\n" +
-            "  function mkdirs($arg) {\n" +
-            "    if (strlen($arg) <= 2) return;\n" +
-            "    if (!is_dir($arg)) {\n" +
-            "      mkdirs(dirname($arg));\n" +
-            "      mkdir($arg);\n" +
-            "    }\n" +
-            "  }\n" +
-            "}\n" +
-            "foreach ($iter as $file) {\n" +
-            "  $relPath = substr($file->getPathName(), strlen('phar://$:{pharFile}'));\n" +
-            "  $fullPath = '$:{targetDir}'.$relPath;\n" +
-            "  if ($iter->isDir()) {\n" +
-            "    mkdirs($fullPath);\n" +
-            "  }\n" +
-            "  else {\n" +
-            "    mkdirs(dirname($fullPath));\n" +
-            "    $contents = file_get_contents($file->getPathName());\n" +
-            "    file_put_contents($fullPath, $contents);\n" +
-            "  }\n" +
-            "}\n";
 
     private FileHelper() {
         // we only have static methods
@@ -124,10 +88,12 @@ public final class FileHelper {
      * @param log Logging
      * @param targetDirectory where to unpack the files to
      * @param elements list of files to unpack
-     * @param exec execution helper used to unphar elements
+     * @param factory component factory
+     * @param session maven session
      * @throws IOException if something goes wrong while copying
      */
-    public static void unzipElements(Log log, File targetDirectory, List<String> elements, IPhpExecution exec)
+    public static void unzipElements(Log log, File targetDirectory, List<String> elements, IComponentFactory factory,
+            MavenSession session)
         throws IOException {
         Preconditions.checkArgument(
             !targetDirectory.exists() || targetDirectory.isDirectory(),
@@ -154,7 +120,7 @@ public final class FileHelper {
                     // for backward compatibility to phpmaven1; there we build jar instead of phar
                     unjar(log, sourceFile, targetDirectory);
                 } else if ("phar".equals(extension)) {
-                    unphar(log, targetDirectory, exec, sourceFile);
+                    unphar(log, targetDirectory, factory, session, sourceFile);
                 } else if ("zip".equals(extension)) {
                     // although jar and zips are compatible to each other this is a implementation detail of jvm.
                     // we should not depend on it. so let us divide it.
@@ -171,21 +137,29 @@ public final class FileHelper {
      * 
      * @param log Logging
      * @param targetDirectory where to unpack the files to
-     * @param exec execution helper used to unphar elements
+     * @param factory component factory
+     * @param session maven session
      * @param sourceFile the jar source file
      * @throws IOException if something goes wrong while copying
      */
-    public static void unphar(Log log, File targetDirectory, IPhpExecution exec,
-            final File sourceFile) throws IOException {
+    public static void unphar(Log log, File targetDirectory, IComponentFactory factory,
+            final MavenSession session, final File sourceFile) throws IOException {
         log.debug("unphar " + sourceFile.getAbsolutePath());
-        final String pharFilenameMasked = sourceFile.getAbsolutePath().replace("\\", "\\\\");
-        final String targetMasked = targetDirectory.getAbsolutePath().replace("\\", "\\\\");
-        final String contents =
-            UNPHAR_SNIPPET.
-            replace("$:{pharFile}", pharFilenameMasked).
-                replace("$:{targetDir}", targetMasked);
         try {
-            exec.executeCode(null, contents);
+            final IPharPackagerConfiguration config = factory.lookup(
+                    IPharPackagerConfiguration.class,
+                    IComponentFactory.EMPTY_CONFIG,
+                    session);
+            
+            config.getPharPackager().extractPharTo(sourceFile, targetDirectory, log);
+        } catch (ComponentLookupException e) {
+            throw new IOException(
+                    "Error while execution unphar script. Unable to extract "
+                    + sourceFile.getAbsolutePath(), e);
+        } catch (PlexusConfigurationException e) {
+            throw new IOException(
+                    "Error while execution unphar script. Unable to extract "
+                    + sourceFile.getAbsolutePath(), e);
         } catch (PhpException e) {
             throw new IOException(
                     "Error while execution unphar script. Unable to extract "

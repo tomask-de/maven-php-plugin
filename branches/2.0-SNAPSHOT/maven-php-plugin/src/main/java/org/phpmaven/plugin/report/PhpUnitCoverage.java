@@ -15,16 +15,16 @@
 package org.phpmaven.plugin.report;
 
 import java.io.File;
-import java.net.URL;
 import java.util.Locale;
 
+import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.reporting.MavenReportException;
-import org.codehaus.plexus.util.FileUtils;
-import org.phpmaven.plugin.build.FileHelper;
-import org.phpmaven.plugin.build.PhpVersion;
+import org.phpmaven.core.IComponentFactory;
+import org.phpmaven.phpunit.IPhpunitConfiguration;
+import org.phpmaven.phpunit.IPhpunitSupport;
+import org.phpmaven.phpunit.IPhpunitTestRequest;
+import org.phpmaven.phpunit.IPhpunitTestResult;
 import org.phpmaven.plugin.php.IPhpunitConfigurationMojo;
-import org.phpmaven.plugin.php.PhpErrorException;
-import org.phpmaven.plugin.php.PhpException;
 import org.phpmaven.plugin.php.PhpUnitTestfileWalker;
 
 /**
@@ -36,6 +36,11 @@ import org.phpmaven.plugin.php.PhpUnitTestfileWalker;
  * @author Martin Eisengardt
  */
 public class PhpUnitCoverage extends AbstractApiDocReport implements IPhpunitConfigurationMojo {
+    
+    /**
+     * Text do ignore test failures.
+     */
+    public static final String IGNORING_TEST_FAILURES_TEXT = "Ignoring test failures.";
 
     /**
      * The output directory of doxygen generated documentation.
@@ -53,6 +58,15 @@ public class PhpUnitCoverage extends AbstractApiDocReport implements IPhpunitCon
      * @readonly
      */
     private File generatedPhpUnitTestsuiteFile;
+
+    /**
+     * Where the test results should be stored.
+     *
+     * Default: target/phpunit-coverage-reports
+     *
+     * @parameter default-value="${project.basedir}/target/phpunit-reports" expression="${resultFolder}"
+     */
+    private File resultFolder;
 
     // properties for IPhpunitConfigurationMojo
 
@@ -135,17 +149,6 @@ public class PhpUnitCoverage extends AbstractApiDocReport implements IPhpunitCon
     }
     
     /**
-     * Set this to "true" to ignore a failure during testing. Its use is NOT RECOMMENDED, but quite convenient on
-     * occasion.
-     * 
-     * @return true to ignore test failures
-     */
-    @Override
-    public boolean isTestFailureIgnore() {
-        return this.testFailureIgnore;
-    }
-    
-    /**
      * Set this to "true" to cause a failure if there are no tests to run. Defaults to "false".
      * 
      * @return true to fail if there are no tests
@@ -153,17 +156,6 @@ public class PhpUnitCoverage extends AbstractApiDocReport implements IPhpunitCon
     @Override
     public boolean isFailIfNoTests() {
         return this.failIfNoTests;
-    }
-    
-    /**
-     * Additional command line arguments for phpunit. Can be used to parse options (for example
-     * the --bootstrap file) but should never be used to set the test file or the xml output script.
-     * 
-     * @return additional phpunit command line arguments
-     */
-    @Override
-    public String getPhpUnitArguments() {
-        return this.getPhpUnitArguments();
     }
     
     // end of methods for IPhpunitConfigurationMojo
@@ -181,41 +173,53 @@ public class PhpUnitCoverage extends AbstractApiDocReport implements IPhpunitCon
     @Override
     protected void executeReport(Locale locale) throws MavenReportException {
         try {
+            
+            getLog().info(
+                    "\n-------------------------------------------------------\n" +
+                    "T E S T S - R E P O R T I N G\n" +
+                    "-------------------------------------------------------\n");
+            
             // test files
             final Iterable<File> files = new PhpUnitTestfileWalker(this).getTestFiles();
             
             // did we get any test file?
             if (files.iterator().hasNext()) {
-                getPhpHelper().prepareTestDependencies();
+                getPhpHelper().prepareTestDependencies(this.factory, this.getSession());
                 
-                final URL mavenUrl = getClass().getResource("Maven.php");
-                final URL testsuiteUrl = getClass().getResource("MavenCoverageTestSuite.php");
-                FileUtils.copyURLToFile(mavenUrl, this.getTemporaryScriptFilename());
+                final IPhpunitConfiguration config = this.factory.lookup(
+                        IPhpunitConfiguration.class,
+                        IComponentFactory.EMPTY_CONFIG,
+                        this.getSession());
                 
-                String snippet = FileHelper.readUrl(testsuiteUrl);
-                final StringBuffer buffer = new StringBuffer();
-                for (final File test : files) {
-                    if (buffer.length() > 0) {
-                        buffer.append(",\n");
-                    }
-                    buffer.append("'");
-                    buffer.append(test.getAbsolutePath().replace("\\", "\\\\").replace("'", "\\'"));
-                    buffer.append("'");
+                final IPhpunitTestRequest request = this.factory.lookup(
+                        IPhpunitTestRequest.class,
+                        IComponentFactory.EMPTY_CONFIG,
+                        this.getSession());
+                for (final File file : files) {
+                    request.addTestFile(file);
                 }
-                snippet = snippet.replace("$:{PHPUNIT_COVERAGE_TEST_FILES}", buffer.toString());
-                snippet = snippet.replace("$:{PHPUNIT_SRC_DIR}",
-                        this.getProject().getTestCompileSourceRoots().get(0).toString());
-                snippet = snippet.replace("$:{PHPUNIT_PHP_FILE_SUFFIX}",
-                        "." + this.getPhpFileEnding());
-                this.generatedPhpUnitTestsuiteFile.getParentFile().mkdirs();
-                FileUtils.fileWrite(this.generatedPhpUnitTestsuiteFile.getAbsolutePath(), snippet);
+                final IPhpunitSupport support = config.getPhpunitSupport();
+                support.setIsSingleTestInvocation(true);
+                support.setPhpunitArguments(this.phpUnitArguments);
+                support.setXmlResult(new File(this.resultFolder, "coverage.phpunit.xml"));
+                support.setResultFolder(this.resultFolder);
+                support.setCoverageResult(this.outputCoverageDirectory);
+                // TODO generatedPhpUnitTestsuiteFile
                 
-                final String commandLine = createCommandLine();
+                getLog().info("Starting tests.");
                 
-                // XXX: parsing result for errors?
-                /*final String result = */getPhpHelper().execute(
-                        commandLine,
-                        this.getTemporaryScriptFilename());
+                final IPhpunitTestResult result = support.executeTests(request, getLog());
+                
+                getLog().info("\n\nResults :\n\n" + result.toString());
+
+                if (!result.isSuccess()) {
+                    if (this.testFailureIgnore) {
+                        getLog().info(IGNORING_TEST_FAILURES_TEXT);
+                    } else {
+                        throw new MojoExecutionException("Test failures");
+                    }
+                }
+                
             }
             writeReport();
         /*CHECKSTYLE:OFF*/
@@ -223,38 +227,6 @@ public class PhpUnitCoverage extends AbstractApiDocReport implements IPhpunitCon
         /*CHECKSTYLE:ON*/
             throw new MavenReportException(e.getMessage(), e);
         }
-    }
-
-    /**
-     * Creates the command line.
-     * 
-     * @return command line
-     * @throws PhpException
-     */
-    private String createCommandLine() throws PhpException {
-        String command = getPhpHelper().defaultTestIncludePath(null);
-        command += " \"" + this.getTemporaryScriptFilename().getAbsolutePath() + "\"";
-        command += " \"" + this.generatedPhpUnitTestsuiteFile.getAbsolutePath() + "\" ";
-        if (this.phpUnitArguments != null) {
-            command += this.phpUnitArguments + " ";
-        }
-        
-        if (getPhpHelper().getPhpVersion() == PhpVersion.PHP5 || getPhpHelper().getPhpVersion() == PhpVersion.PHP6) {
-            command +=
-                "--coverage-html \"" + this.outputCoverageDirectory.
-                    getAbsoluteFile().getPath() + "/" + getFolderName() + "\"";
-        } else {
-            throw new PhpErrorException(
-                getTemporaryScriptFilename(),
-                "This php-maven version does not support php others than v5 and v6. PHP Version 4 is deprecated.");
-        }
-        
-        // Will prevent phpunit from doing silly things.
-        // See https://github.com/sebastianbergmann/phpunit/issues/307 for details
-        // We already did a syntax check on ourself...
-        command += " --no-syntax-check";
-        
-        return command;
     }
 
     /**

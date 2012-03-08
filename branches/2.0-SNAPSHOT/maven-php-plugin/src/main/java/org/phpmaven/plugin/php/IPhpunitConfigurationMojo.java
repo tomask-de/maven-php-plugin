@@ -40,26 +40,10 @@ public interface IPhpunitConfigurationMojo extends IPhpWalkConfigurationMojo {
     boolean isSkipTests();
     
     /**
-     * Set this to "true" to ignore a failure during testing. Its use is NOT RECOMMENDED, but quite convenient on
-     * occasion.
-     * 
-     * @return true to ignore test failures
-     */
-    boolean isTestFailureIgnore();
-    
-    /**
      * Set this to "true" to cause a failure if there are no tests to run. Defaults to "false".
      * 
      * @return true to fail if there are no tests
      */
     boolean isFailIfNoTests();
-    
-    /**
-     * Additional command line arguments for phpunit. Can be used to parse options (for example
-     * the --bootstrap file) but should never be used to set the test file or the xml output script.
-     * 
-     * @return additional phpunit command line arguments
-     */
-    String getPhpUnitArguments();
 
 }

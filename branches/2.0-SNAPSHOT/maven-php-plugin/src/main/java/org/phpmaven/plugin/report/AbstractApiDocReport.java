@@ -22,6 +22,7 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.apache.maven.doxia.siterenderer.Renderer;
+import org.phpmaven.core.IComponentFactory;
 
 /**
  * Abstract base class for api docs.
@@ -45,6 +46,13 @@ public abstract class AbstractApiDocReport extends AbstractPhpReportMojo {
      * @component
      */
     private Renderer siteRenderer;
+    
+    /**
+     * The configuration factory.
+     * @component
+     * @required
+     */
+    protected IComponentFactory factory;
 
     /**
      * Where to store the output.

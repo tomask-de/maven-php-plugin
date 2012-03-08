@@ -152,7 +152,7 @@ public abstract class AbstractPhpResources extends AbstractPhpMojo {
         try {
             // TODO Is this correct?!?
             if (!isIgnoreValidate()) {
-                this.getPhpHelper().prepareCompileDependencies();
+                this.getPhpHelper().prepareCompileDependencies(this.factory, this.getSession());
             }
             getLog().info("Copying php files");
             new PhpWalkHelper(this).goRecursiveAndCall(this.getSourceFolder());

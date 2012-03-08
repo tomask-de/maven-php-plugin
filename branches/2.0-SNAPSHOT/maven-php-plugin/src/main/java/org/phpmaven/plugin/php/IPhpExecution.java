@@ -77,23 +77,5 @@ public interface IPhpExecution {
      * @throws PhpException if the executions fails
      */
     int execute(String arguments, StreamConsumer stdout, StreamConsumer stderr) throws PhpException;
-    
-    /**
-     * Generated the command line option for default include path (without testing).
-     * 
-     * @param file Optional file that parents directory is used.
-     * 
-     * @return command line option for include path
-     */
-    String defaultIncludePath(File file);
-    
-    /**
-     * Generated the command line option for default include path (test staging).
-     * 
-     * @param file Optional file that parents directory is used.
-     * 
-     * @return command line option for include path
-     */
-    String defaultTestIncludePath(File file);
 
 }

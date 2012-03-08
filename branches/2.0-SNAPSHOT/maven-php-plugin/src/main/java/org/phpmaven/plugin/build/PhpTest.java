@@ -50,9 +50,9 @@ public final class PhpTest extends AbstractPhpMojo implements IPhpunitConfigurat
     /**
      * Where the test results should be stored.
      *
-     * Default: target/surefire-reports
+     * Default: target/phpunit-reports
      *
-     * @parameter default-value="${project.basedir}/target/surefire-reports" expression="${resultFolder}"
+     * @parameter default-value="${project.basedir}/target/phpunit-reports" expression="${resultFolder}"
      */
     private File resultFolder;
 
@@ -195,17 +195,6 @@ public final class PhpTest extends AbstractPhpMojo implements IPhpunitConfigurat
     }
     
     /**
-     * Set this to "true" to ignore a failure during testing. Its use is NOT RECOMMENDED, but quite convenient on
-     * occasion.
-     * 
-     * @return true to ignore test failures
-     */
-    @Override
-    public boolean isTestFailureIgnore() {
-        return this.testFailureIgnore;
-    }
-    
-    /**
      * Set this to "true" to cause a failure if there are no tests to run. Defaults to "false".
      * 
      * @return true to fail if there are no tests
@@ -213,17 +202,6 @@ public final class PhpTest extends AbstractPhpMojo implements IPhpunitConfigurat
     @Override
     public boolean isFailIfNoTests() {
         return this.failIfNoTests;
-    }
-    
-    /**
-     * Additional command line arguments for phpunit. Can be used to parse options (for example
-     * the --bootstrap file) but should never be used to set the test file or the xml output script.
-     * 
-     * @return additional phpunit command line arguments
-     */
-    @Override
-    public String getPhpUnitArguments() {
-        return this.getPhpUnitArguments();
     }
     
     // end of methods for IPhpunitConfigurationMojo
@@ -244,7 +222,7 @@ public final class PhpTest extends AbstractPhpMojo implements IPhpunitConfigurat
     
             // did we get a testing file?
             if (files.iterator().hasNext()) {
-                getPhpHelper().prepareTestDependencies();
+                getPhpHelper().prepareTestDependencies(this.factory, this.getSession());
                 
                 getLog().info(
                         "\n-------------------------------------------------------\n" +
