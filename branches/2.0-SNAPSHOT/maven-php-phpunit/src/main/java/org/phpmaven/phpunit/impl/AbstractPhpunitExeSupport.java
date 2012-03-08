@@ -293,8 +293,8 @@ public abstract class AbstractPhpunitExeSupport extends AbstractPhpunitSupport {
         result.setSuccess(true);
 
         // result files
-        final File xmlFile = new File(this.getResultFolder(), "phpunit.xml");
-        final File txtFile = new File(this.getResultFolder(), "phpunit.txt");
+        final File xmlFile = this.getXmlResult();
+        final File txtFile = new File(this.getXmlResult().getAbsolutePath() + ".txt");
         deleteFile(xmlFile);
         deleteFile(txtFile);
         
