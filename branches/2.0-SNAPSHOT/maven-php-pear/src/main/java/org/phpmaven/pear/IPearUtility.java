@@ -94,6 +94,16 @@ public interface IPearUtility {
     IPearChannel channelDiscover(String channelName) throws PhpException;
     
     /**
+     * Adds a pear channel.
+     * 
+     * @param channel channel.xml file.
+     * @return the pear channel.
+     * 
+     * @throws PhpException thrown on php execution errors.
+     */
+    IPearChannel channelDiscoverLocal(File channel) throws PhpException;
+    
+    /**
      * Upgrades the installed packages.
      * 
      * @throws PhpException thrown on php execution errors.

@@ -18,6 +18,8 @@ package org.phpmaven.pear.impl;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +43,6 @@ import org.phpmaven.pear.IRestServer;
 import org.phpmaven.pear.IServer;
 import org.phpmaven.pear.ISoapFunction;
 import org.phpmaven.pear.ISoapServer;
-import org.phpmaven.pear.IVersion;
 import org.phpmaven.pear.IXmlRpcFunction;
 import org.phpmaven.pear.IXmlRpcServer;
 
@@ -103,6 +104,11 @@ public class PearChannel implements IPearChannel {
      * The maintainers.
      */
     private List<IMaintainer> maintainers;
+    
+    /**
+     * The uri we used to read/intialize the channel.
+     */
+    private String uri;
 
     /**
      * {@inheritDoc}
@@ -215,17 +221,20 @@ public class PearChannel implements IPearChannel {
                     new XmlStreamReader(new ByteArrayInputStream(channelXml.getBytes())));
 
             this.pearUtility = utility;
+            this.uri = channelName;
             this.setName(channelName);
             
             for (final Xpp3Dom child : dom.getChildren()) {
-                if ("suggestedName".equals(child.getName())) {
+                if ("name".equals(child.getName())) {
+                    this.setName(child.getValue());
+                } else if ("suggestedalias".equals(child.getName())) {
                     this.alias = child.getValue();
                 } else if ("summary".equals(child.getName())) {
                     this.summary = child.getValue();
                 } else if ("validatepackage".equals(child.getName())) {
                     // TODO
 //                    this.validationPackage = x;
-                } else if ("server".equals(child.getName())) {
+                } else if ("servers".equals(child.getName())) {
                     this.parseServer(child);
                 } else {
                     throw new PhpCoreException("Problems reading channel.xml. Unknown node: " + child.getName());
@@ -241,13 +250,16 @@ public class PearChannel implements IPearChannel {
     /**
      * Parses the server dom node and read the server configuration of a channel.
      * @param domNode dom node.
+     * @throws PhpCoreException thrown on xml errors.
      */
-    private void parseServer(Xpp3Dom domNode) {
+    private void parseServer(Xpp3Dom domNode) throws PhpCoreException {
         for (final Xpp3Dom child : domNode.getChildren()) {
             if ("primary".equals(child.getName())) {
                 this.primaryServer = this.createServer(child);
             } else if ("mirror".equals(child.getName())) {
                 this.mirrors.add(this.createServer(child));
+            } else {
+                throw new PhpCoreException("Problems reading channel.xml. Unknown node: " + child.getName());
             }
         }
     }
@@ -287,6 +299,7 @@ public class PearChannel implements IPearChannel {
                 function.setFunctionName(function.getVersion());
                 xmlRpcServer.addFunction(function);
             }
+            result.setXmlRpc(xmlRpcServer);
         }
         
         final Xpp3Dom restNode = domNode.getChild("rest");
@@ -298,6 +311,7 @@ public class PearChannel implements IPearChannel {
                 url.setBaseUrl(baseUrlNode.getValue());
                 restServer.addBaseUrl(url);
             }
+            result.setRest(restServer);
         }
         
         final Xpp3Dom soapNode = domNode.getChild("soap");
@@ -315,6 +329,7 @@ public class PearChannel implements IPearChannel {
                 function.setFunctionName(function.getVersion());
                 soapServer.addFunction(function);
             }
+            result.setSoap(soapServer);
         }
         
         return result;
@@ -328,7 +343,7 @@ public class PearChannel implements IPearChannel {
         IRestBaseUrl newest = null;
         for (final IRestBaseUrl url : this.primaryServer.getRest().getBaseUrls()) {
             if (version.equals(url.getRestVersion())) {
-                return url.getBaseUrl();
+                return this.toAbsoluteUri(url.getBaseUrl());
             }
             if (newest == null) {
                 newest = url;
@@ -336,7 +351,27 @@ public class PearChannel implements IPearChannel {
                 newest = url;
             }
         }
-        return newest.getBaseUrl();
+        return this.toAbsoluteUri(newest.getBaseUrl());
+    }
+    
+    private String toAbsoluteUri(String localUri) {
+        URI url;
+        try {
+            url = new URI(localUri);
+        } catch (URISyntaxException e) {
+            throw new IllegalStateException(e);
+        }
+        if (url.getScheme() != null) {
+            return localUri;
+        }
+        if (localUri.startsWith("/")) {
+            final int indexOf = this.uri.indexOf("/");
+            if (indexOf == -1) {
+                return this.uri + localUri;
+            }
+            return this.uri.substring(0, indexOf) + localUri;
+        }
+        return this.uri + "/" + localUri;
     }
     
     /**

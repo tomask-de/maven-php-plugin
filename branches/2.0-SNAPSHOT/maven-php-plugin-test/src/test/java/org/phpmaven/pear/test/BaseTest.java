@@ -83,14 +83,18 @@ public class BaseTest extends AbstractTestCase {
                 IComponentFactory.EMPTY_CONFIG,
                 session);
         // assert that we are able to create the util
-        final IPearUtility util = getPearUtility(pearConfig, true);
+        final IPearUtility util = getPearUtility(pearConfig, false);
         
-        final IPearChannel channel = util.channelDiscover(
-                "file://" + 
-                session.getCurrentProject().getBasedir().getAbsolutePath() + 
-                "/pear.php.net/channel.xml");
+        final File pearFolder = new File(
+                session.getCurrentProject().getBasedir(), 
+                "pear.php.net");
+        final IPearChannel channel = util.channelDiscoverLocal(pearFolder);
         assertNotNull(channel);
-        assertNotNull(channel.getRestUrl(IPearChannel.REST_1_3));
+        assertNotNull(channel.getPrimaryServer());
+        assertTrue(channel.getMirrors().iterator().hasNext());
+        final String restServer = channel.getRestUrl(IPearChannel.REST_1_3);
+        assertNotNull(restServer);
+        assertEquals("file://" + pearFolder.getAbsolutePath() + "/rest/", restServer);
         assertEquals("pear.php.net", channel.getName());
         assertEquals("pear", channel.getSuggestedAlias());
         assertEquals("PHP Extension and Application Repository", channel.getSummary());

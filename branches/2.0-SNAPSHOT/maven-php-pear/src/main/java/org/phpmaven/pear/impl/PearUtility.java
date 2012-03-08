@@ -311,6 +311,16 @@ public class PearUtility implements IPearUtility {
      * {@inheritDoc}
      */
     @Override
+    public IPearChannel channelDiscoverLocal(File channel) throws PhpException {
+        final IPearChannel result = new PearChannel();
+        result.initialize(this, "file://" + channel.getAbsolutePath());
+        return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void upgrade() throws PhpException {
         // TODO check result for errors
         this.executePearCmd("upgrade");
