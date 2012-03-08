@@ -17,6 +17,7 @@
 package org.phpmaven.pear.impl;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -28,6 +29,7 @@ import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 import org.codehaus.plexus.configuration.PlexusConfigurationException;
+import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.phpmaven.core.ConfigurationParameter;
 import org.phpmaven.core.IComponentFactory;
@@ -88,7 +90,7 @@ public class PearUtility implements IPearUtility {
      */
     @Override
     public boolean isInstalled() throws PhpException {
-        final File installedFile = new File(this.installDir, "PEAR/pear/Command.php");
+        final File installedFile = new File(this.installDir, "pear/PEAR/Command.php");
         return installedFile.exists();
     }
 
@@ -97,11 +99,58 @@ public class PearUtility implements IPearUtility {
      */
     @Override
     public void installPear(boolean autoUpdatePear) throws PhpException {
-        if (!this.installDir.exists()) {
+        if (this.isInstalled()) {
             return;
         }
         
+        if (!this.installDir.exists()) {
+            this.installDir.mkdirs();
+        }
+        
         this.clearDirectory(this.installDir);
+        
+        final File goPear = new File(this.installDir, "go-pear.phar");
+        try {
+            FileUtils.copyURLToFile(
+                    this.getClass().getResource("/org/phpmaven/pear/gophar/go-pear.phar"),
+                    goPear);
+        } catch (IOException e) {
+            throw new PhpCoreException("failed installing pear", e);
+        }
+        
+        final IPhpExecutable php = this.getExec();
+        final String result = php.executeCode("",
+                "error_reporting(0);\n" +
+                "Phar::loadPhar('" +
+                goPear.getAbsolutePath().replace("\\", "\\\\") + "', 'go-pear.phar');\n" +
+                "require_once 'phar://go-pear.phar/PEAR/Start/CLI.php';\n" +
+                "PEAR::setErrorHandling(PEAR_ERROR_DIE);\n" +
+                "$a = new PEAR_Start_CLI;\n" +
+                "if (OS_WINDOWS) {\n" +
+                "  $a->localInstall = true;\n" +
+                "  $a->pear_conf = '$prefix\\\\pear.ini';\n" +
+                "} else {\n" +
+                "  if (get_current_user() != 'root') {\n" +
+                "    $a->pear_conf = $a->safeGetenv('HOME') . '/.pearrc';\n" +
+                "  }\n" +
+                "}\n" +
+                "if (PEAR::isError($err = $a->locatePackagesToInstall())) {\n" +
+                "  die();\n" +
+                "}\n" +
+                "$a->setupTempStuff();\n" +
+                "if (PEAR::isError($err = $a->postProcessConfigVars())) {\n" +
+                "  die();\n" +
+                "}\n" +
+                "$a->doInstall();\n"
+        );
+        
+        if (!this.isInstalled()) {
+            throw new PhpCoreException("Installation failed.\n" + result);
+        }
+        
+        if (autoUpdatePear) {
+            this.executePearCmd("upgrade-all");
+        }
     }
     
     /**
@@ -173,6 +222,7 @@ public class PearUtility implements IPearUtility {
                     "-C -d date.timezone=UTC -d output_buffering=1 -d safe_mode=0 -d open_basedir=\"\" " +
                     "-d auto_prepend_file=\"\" -d auto_append_file=\"\" -d variables_order=EGPCS " +
                     "-d register_argc_argv=\"On\"");
+            config.setWorkDirectory(this.getInstallDir());
             config.getIncludePath().add(new File(this.installDir, "PEAR").getAbsolutePath());
             
             this.exec = config.getPhpExecutable(this.log);
@@ -190,7 +240,7 @@ public class PearUtility implements IPearUtility {
     @Override
     public String executePearCmd(String arguments) throws PhpException {
         final IPhpExecutable ex = this.getExec();
-        final File pearCmd = new File(this.installDir, "pearcmd.php");
+        final File pearCmd = new File(this.installDir, "pear/pearcmd.php");
         return ex.execute("\"" + pearCmd.getAbsolutePath() + "\" " + arguments, pearCmd);
     }
     
