@@ -14,21 +14,47 @@
  * limitations under the License.
  */
 
-package org.phpmaven.phpdoc;
+package org.phpmaven.phpdoc.impl;
 
+import java.io.File;
+
+import org.phpmaven.phpdoc.IPhpdocEntry;
 
 /**
- * Phpdoc support to generate reports.
+ * A folder entry for phpdoc requests.
  * 
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
-public interface IPhpdocSupport {
+public class PhpdocFolderEntry implements IPhpdocEntry {
+
+    /**
+     * Folder.
+     */
+    private final File file;
     
     /**
-     * Generates a phpdoc report.
-     * @param request phpdoc report.
+     * Constructor to create a new folder entry.
+     * @param file the folder.
      */
-    void generateReport(IPhpdocRequest request);
+    public PhpdocFolderEntry(File file) {
+        this.file = file;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public EntryType getType() {
+        return EntryType.FOLDER;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public File getFile() {
+        return this.file;
+    }
 
 }

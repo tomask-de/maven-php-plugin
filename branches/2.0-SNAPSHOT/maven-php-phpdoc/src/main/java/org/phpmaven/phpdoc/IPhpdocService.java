@@ -19,19 +19,39 @@ package org.phpmaven.phpdoc;
 import org.apache.maven.execution.MavenSession;
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 import org.codehaus.plexus.configuration.PlexusConfigurationException;
+import org.phpmaven.core.IService;
 
 /**
- * TODO Docu
+ * Phpdoc services.
+ * 
+ * <p>
+ * To support additional services create a plexus service implementation.
+ * </p>
  * 
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
-public interface IPhpdocService {
+public interface IPhpdocService extends IService {
     
-    String getServiceName();
+    /**
+     * Creates a default phpdoc support (no specific version).
+     * @param session maven session to be used for configuration.
+     * @return default phpdoc support or {@code null} if this service is not able to create a phpdoc support.
+     * @throws PlexusConfigurationException thrown if configuration fails.
+     * @throws ComponentLookupException thrown if configuration fails.
+     */
+    IPhpdocSupport createDefault(MavenSession session)
+        throws PlexusConfigurationException, ComponentLookupException;
     
-    IPhpdocSupport createDefault(MavenSession session) throws PlexusConfigurationException, ComponentLookupException;
-    
-    IPhpdocSupport createForPhpdocVersion(String version, MavenSession session) throws PlexusConfigurationException, ComponentLookupException;
+    /**
+     * Creates a phpdoc support for given version.
+     * @param version version to be used.
+     * @param session maven session to be used for configuration.
+     * @return phpdoc support or {@code null} if this service is not able to create a phpdoc support.
+     * @throws PlexusConfigurationException thrown if configuration fails.
+     * @throws ComponentLookupException thrown if configuration fails.
+     */
+    IPhpdocSupport createForPhpdocVersion(String version, MavenSession session)
+        throws PlexusConfigurationException, ComponentLookupException;
 
 }

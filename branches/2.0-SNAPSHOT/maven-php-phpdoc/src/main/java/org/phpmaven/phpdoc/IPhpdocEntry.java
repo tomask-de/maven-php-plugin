@@ -19,20 +19,33 @@ package org.phpmaven.phpdoc;
 import java.io.File;
 
 /**
- * TODO Docu
+ * A single entry for phpdoc.
  * 
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
 public interface IPhpdocEntry {
     
+    /**
+     * The entry type.
+     */
     enum EntryType {
+        /** file type. */
         FILE,
+        /** folder type. */
         FOLDER
     }
     
+    /**
+     * Returns the entry type.
+     * @return entry type.
+     */
     EntryType getType();
     
+    /**
+     * Returns the java file.
+     * @return java file (either file or folder).
+     */
     File getFile();
 
 }
