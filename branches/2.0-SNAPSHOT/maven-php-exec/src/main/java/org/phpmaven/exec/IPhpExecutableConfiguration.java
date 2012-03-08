@@ -312,5 +312,17 @@ public interface IPhpExecutableConfiguration {
      * @throws ComponentLookupException  thrown on errors while creating the executable
      */
     IPhpExecutable getPhpExecutable(Log log) throws PlexusConfigurationException, ComponentLookupException;
+    
+    /**
+     * The work directory.
+     * @return work directory.
+     */
+    File getWorkDirectory();
+    
+    /**
+     * Sets the work directory.
+     * @param file work directory.
+     */
+    void setWorkDirectory(File file);
 
 }

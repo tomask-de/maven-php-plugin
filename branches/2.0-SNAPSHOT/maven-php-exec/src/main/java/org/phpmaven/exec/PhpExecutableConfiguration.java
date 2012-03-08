@@ -68,6 +68,12 @@ public class PhpExecutableConfiguration implements IPhpExecutableConfiguration {
     private boolean useCache;
     
     /**
+     * The work directory to be used.
+     */
+    @ConfigurationParameter(name = "workDirectory", expression = "${project.basedir}/target")
+    private File workDirectory;
+    
+    /**
      * Additional environment variables.
      */
     private Map<String, String> env = new HashMap<String, String>();
@@ -394,6 +400,22 @@ public class PhpExecutableConfiguration implements IPhpExecutableConfiguration {
         public String execute(File file) throws PhpException {
             return this.result.execute(file);
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public File getWorkDirectory() {
+        return this.workDirectory;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setWorkDirectory(File file) {
+        this.workDirectory = file;
     }
 
 }

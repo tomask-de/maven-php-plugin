@@ -136,6 +136,8 @@ public final class PhpExecutable implements IPhpExecutable {
      */
     private boolean configured;
 
+    private File workDirectory;
+
     /**
      * Checks if a line (string) contains a PHP error message.
      *
@@ -200,6 +202,13 @@ public final class PhpExecutable implements IPhpExecutable {
         final Commandline commandLine = new Commandline(command);
         for (final Map.Entry<String, String> envVar : this.env.entrySet()) {
             commandLine.addEnvironment(envVar.getKey(), envVar.getValue());
+        }
+        
+        if (this.workDirectory != null) {
+            if (!this.workDirectory.exists()) {
+                this.workDirectory.mkdirs();
+            }
+            commandLine.setWorkingDirectory(this.workDirectory);
         }
 
         try {
@@ -426,6 +435,7 @@ public final class PhpExecutable implements IPhpExecutable {
         this.env = new HashMap<String, String>(config.getEnv());
         this.includePath = new ArrayList<String>(config.getIncludePath());
         this.phpDefines = new HashMap<String, String>(config.getPhpDefines());
+        this.workDirectory = config.getWorkDirectory();
     }
 
     /**
