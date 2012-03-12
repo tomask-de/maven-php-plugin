@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.0a11">
+ <name>File_Archive</name>
+ <summary>File_Archive will let you manipulate easily the tar, gz, tgz, bz2, tbz, zip, ar (or deb) files</summary>
+ <description>This library is strongly object oriented. It makes it very easy to use, writing simple code, yet the library is very powerfull.
+It lets you easily read or generate tar, gz, tgz, bz2, tbz, zip, ar (or deb) archives to files, memory, mail or standard output.
+See http://poocl.la-grotte.org for a tutorial
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>VincentLascaux</user>
+   <name>Vincent Lascaux</name>
+   <email>vincent.lascaux@centraliens.net</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>PFischer</user>
+   <name>Pablo Fischer</name>
+   <email>pfischer@php.net</email>
+   <role>developer</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>1.3.0</version>
+  <date>2005-05-30</date>
+  <license>LGPL</license>
+  <state>stable</state>
+  <notes>+ Add some functions to allow archive modification
+  - File_Archive::appender creates a writer to append files to an existing archive
+  - File_Archive::remove and File_Archive::removeDuplicates removes some files from
+    an existing archive
+  
+  These functions allow to modify archives or even nested archives
+  See http://poocl.la-grotte.org for more detailed examples
+  </notes>
+  <deps>
+   <dep type="php" rel="ge" version="4.3.0"/>
+   <dep type="pkg" rel="has">MIME_Type</dep>
+   <dep type="pkg" rel="has" optional="yes">Mail_Mime</dep>
+   <dep type="pkg" rel="has" optional="yes">Mail</dep>
+  </deps>
+  <provides type="class" name="File_Archive" />
+  <provides type="function" name="File_Archive::readSource" />
+  <provides type="function" name="File_Archive::read" />
+  <provides type="function" name="File_Archive::isKnownExtension" />
+  <provides type="function" name="File_Archive::readArchive" />
+  <provides type="function" name="File_Archive::readMemory" />
+  <provides type="function" name="File_Archive::readMulti" />
+  <provides type="function" name="File_Archive::readConcat" />
+  <provides type="function" name="File_Archive::filter" />
+  <provides type="function" name="File_Archive::predTrue" />
+  <provides type="function" name="File_Archive::predFalse" />
+  <provides type="function" name="File_Archive::predAnd" />
+  <provides type="function" name="File_Archive::predOr" />
+  <provides type="function" name="File_Archive::predNot" />
+  <provides type="function" name="File_Archive::predMinSize" />
+  <provides type="function" name="File_Archive::predMinTime" />
+  <provides type="function" name="File_Archive::predMaxDepth" />
+  <provides type="function" name="File_Archive::predExtension" />
+  <provides type="function" name="File_Archive::predMIME" />
+  <provides type="function" name="File_Archive::predEreg" />
+  <provides type="function" name="File_Archive::predEregi" />
+  <provides type="function" name="File_Archive::predCustom" />
+  <provides type="function" name="File_Archive::toMail" />
+  <provides type="function" name="File_Archive::toFiles" />
+  <provides type="function" name="File_Archive::toMemory" />
+  <provides type="function" name="File_Archive::toVariable" />
+  <provides type="function" name="File_Archive::toMulti" />
+  <provides type="function" name="File_Archive::toOutput" />
+  <provides type="function" name="File_Archive::toArchive" />
+  <provides type="class" name="File_Archive_Predicate" />
+  <provides type="function" name="File_Archive_Predicate::isTrue" />
+  <provides type="class" name="File_Archive_Reader" />
+  <provides type="function" name="File_Archive_Reader::next" />
+  <provides type="function" name="File_Archive_Reader::select" />
+  <provides type="function" name="File_Archive_Reader::getStandardURL" />
+  <provides type="function" name="File_Archive_Reader::getFilename" />
+  <provides type="function" name="File_Archive_Reader::getFileList" />
+  <provides type="function" name="File_Archive_Reader::getStat" />
+  <provides type="function" name="File_Archive_Reader::getMime" />
+  <provides type="function" name="File_Archive_Reader::getDataFilename" />
+  <provides type="function" name="File_Archive_Reader::getData" />
+  <provides type="function" name="File_Archive_Reader::skip" />
+  <provides type="function" name="File_Archive_Reader::rewind" />
+  <provides type="function" name="File_Archive_Reader::close" />
+  <provides type="function" name="File_Archive_Reader::sendData" />
+  <provides type="function" name="File_Archive_Reader::extract" />
+  <provides type="function" name="File_Archive_Reader::extractFile" />
+  <provides type="class" name="File_Archive_Writer" />
+  <provides type="function" name="File_Archive_Writer::newFile" />
+  <provides type="function" name="File_Archive_Writer::newFromTempFile" />
+  <provides type="function" name="File_Archive_Writer::newFileNeedsMIME" />
+  <provides type="function" name="File_Archive_Writer::writeData" />
+  <provides type="function" name="File_Archive_Writer::writeFile" />
+  <provides type="class" name="File_Archive_Predicate_And" extends="File_Archive_Predicate" />
+  <provides type="function" name="File_Archive_Predicate_And::addPredicate" />
+  <provides type="function" name="File_Archive_Predicate_And::isTrue" />
+  <provides type="class" name="File_Archive_Predicate_Current" extends="File_Archive_Predicate" />
+  <provides type="function" name="File_Archive_Predicate_Current::isTrue" />
+  <provides type="class" name="File_Archive_Predicate_Custom" extends="File_Archive_Predicate" />
+  <provides type="function" name="File_Archive_Predicate_Custom::isTrue" />
+  <provides type="class" name="File_Archive_Predicate_Duplicate" extends="File_Archive_Predicate" />
+  <provides type="function" name="File_Archive_Predicate_Duplicate::compare" />
+  <provides type="function" name="File_Archive_Predicate_Duplicate::isTrue" />
+  <provides type="class" name="File_Archive_Predicate_Ereg" extends="File_Archive_Predicate" />
+  <provides type="function" name="File_Archive_Predicate_Ereg::isTrue" />
+  <provides type="class" name="File_Archive_Predicate_Eregi" extends="File_Archive_Predicate" />
+  <provides type="function" name="File_Archive_Predicate_Eregi::isTrue" />
+  <provides type="class" name="File_Archive_Predicate_Extension" extends="File_Archive_Predicate" />
+  <provides type="function" name="File_Archive_Predicate_Extension::isTrue" />
+  <provides type="class" name="File_Archive_Predicate_False" extends="File_Archive_Predicate" />
+  <provides type="function" name="File_Archive_Predicate_False::isTrue" />
+  <provides type="class" name="File_Archive_Predicate_Index" extends="File_Archive_Predicate" />
+  <provides type="function" name="File_Archive_Predicate_Index::isTrue" />
+  <provides type="class" name="File_Archive_Predicate_MaxDepth" extends="File_Archive_Predicate" />
+  <provides type="function" name="File_Archive_Predicate_MaxDepth::isTrue" />
+  <provides type="class" name="File_Archive_Predicate_MIME" extends="File_Archive_Predicate" />
+  <provides type="function" name="File_Archive_Predicate_MIME::isTrue" />
+  <provides type="class" name="File_Archive_Predicate_MinSize" extends="File_Archive_Predicate" />
+  <provides type="function" name="File_Archive_Predicate_MinSize::isTrue" />
+  <provides type="class" name="File_Archive_Predicate_MinTime" extends="File_Archive_Predicate" />
+  <provides type="function" name="File_Archive_Predicate_MinTime::isTrue" />
+  <provides type="class" name="File_Archive_Predicate_Not" extends="File_Archive_Predicate" />
+  <provides type="function" name="File_Archive_Predicate_Not::isTrue" />
+  <provides type="class" name="File_Archive_Predicate_Or" extends="File_Archive_Predicate" />
+  <provides type="function" name="File_Archive_Predicate_Or::File_Archive_Predicate_And" />
+  <provides type="function" name="File_Archive_Predicate_Or::addPredicate" />
+  <provides type="function" name="File_Archive_Predicate_Or::isTrue" />
+  <provides type="class" name="File_Archive_Predicate_True" extends="File_Archive_Predicate" />
+  <provides type="function" name="File_Archive_Predicate_True::isTrue" />
+  <provides type="class" name="File_Archive_Reader_Ar" extends="File_Archive_Reader_Archive" />
+  <provides type="function" name="File_Archive_Reader_Ar::getFilename" />
+  <provides type="function" name="File_Archive_Reader_Ar::close" />
+  <provides type="function" name="File_Archive_Reader_Ar::getStat" />
+  <provides type="function" name="File_Archive_Reader_Ar::next" />
+  <provides type="class" name="File_Archive_Reader_Archive" extends="File_Archive_Reader" />
+  <provides type="function" name="File_Archive_Reader_Archive::next" />
+  <provides type="function" name="File_Archive_Reader_Archive::close" />
+  <provides type="class" name="File_Archive_Reader_Bzip2" extends="File_Archive_Reader_Archive" />
+  <provides type="function" name="File_Archive_Reader_Bzip2::close" />
+  <provides type="function" name="File_Archive_Reader_Bzip2::next" />
+  <provides type="function" name="File_Archive_Reader_Bzip2::getFilename" />
+  <provides type="function" name="File_Archive_Reader_Bzip2::getData" />
+  <provides type="function" name="File_Archive_Reader_Bzip2::rewind" />
+  <provides type="function" name="File_Archive_Reader_Bzip2::makeAppendWriter" />
+  <provides type="function" name="File_Archive_Reader_Bzip2::makeWriterRemoveFiles" />
+  <provides type="function" name="File_Archive_Reader_Bzip2::makeWriterRemoveBlocks" />
+  <provides type="class" name="File_Archive_Reader_AddBaseName" extends="File_Archive_Reader_Relay" />
+  <provides type="class" name="File_Archive_Reader_ChangeBaseName" extends="File_Archive_Reader_Relay" />
+  <provides type="function" name="File_Archive_Reader_AddBaseName::getFilename" />
+  <provides type="function" name="File_Archive_Reader_ChangeBaseName::getFilename" />
+  <provides type="class" name="File_Archive_Reader_Concat" extends="File_Archive_Reader" />
+  <provides type="function" name="File_Archive_Reader_Concat::next" />
+  <provides type="function" name="File_Archive_Reader_Concat::getFilename" />
+  <provides type="function" name="File_Archive_Reader_Concat::getStat" />
+  <provides type="function" name="File_Archive_Reader_Concat::getMime" />
+  <provides type="function" name="File_Archive_Reader_Concat::getData" />
+  <provides type="function" name="File_Archive_Reader_Concat::skip" />
+  <provides type="function" name="File_Archive_Reader_Concat::rewind" />
+  <provides type="function" name="File_Archive_Reader_Concat::close" />
+  <provides type="function" name="File_Archive_Reader_Concat::makeWriter" />
+  <provides type="class" name="File_Archive_Reader_Directory" extends="File_Archive_Reader_Relay" />
+  <provides type="function" name="File_Archive_Reader_Directory::close" />
+  <provides type="function" name="File_Archive_Reader_Directory::next" />
+  <provides type="class" name="File_Archive_Reader_File" extends="File_Archive_Reader" />
+  <provides type="function" name="File_Archive_Reader_File::close" />
+  <provides type="function" name="File_Archive_Reader_File::next" />
+  <provides type="class" name="File_Archive_Reader_Filter" extends="File_Archive_Reader_Relay" />
+  <provides type="function" name="File_Archive_Reader_Filter::next" />
+  <provides type="class" name="File_Archive_Reader_Gzip" extends="File_Archive_Reader_Archive" />
+  <provides type="function" name="File_Archive_Reader_Gzip::close" />
+  <provides type="function" name="File_Archive_Reader_Gzip::next" />
+  <provides type="function" name="File_Archive_Reader_Gzip::getFilename" />
+  <provides type="function" name="File_Archive_Reader_Gzip::getData" />
+  <provides type="function" name="File_Archive_Reader_Gzip::skip" />
+  <provides type="function" name="File_Archive_Reader_Gzip::rewind" />
+  <provides type="function" name="File_Archive_Reader_Gzip::makeAppendWriter" />
+  <provides type="function" name="File_Archive_Reader_Gzip::makeWriterRemoveFiles" />
+  <provides type="function" name="File_Archive_Reader_Gzip::makeWriterRemoveBlocks" />
+  <provides type="class" name="File_Archive_Reader_Memory" extends="File_Archive_Reader" />
+  <provides type="function" name="File_Archive_Reader_Memory::next" />
+  <provides type="function" name="File_Archive_Reader_Memory::getFilename" />
+  <provides type="function" name="File_Archive_Reader_Memory::getStat" />
+  <provides type="function" name="File_Archive_Reader_Memory::getMime" />
+  <provides type="function" name="File_Archive_Reader_Memory::getData" />
+  <provides type="function" name="File_Archive_Reader_Memory::skip" />
+  <provides type="function" name="File_Archive_Reader_Memory::rewind" />
+  <provides type="function" name="File_Archive_Reader_Memory::close" />
+  <provides type="function" name="File_Archive_Reader_Memory::makeAppendWriter" />
+  <provides type="function" name="File_Archive_Reader_Memory::makeWriterRemoveFiles" />
+  <provides type="function" name="File_Archive_Reader_Memory::makeWriterRemoveBlocks" />
+  <provides type="function" name="File_Archive_Reader_GetMime" />
+  <provides type="class" name="File_Archive_Reader_Multi" extends="File_Archive_Reader_Relay" />
+  <provides type="function" name="File_Archive_Reader_Multi::addSource" />
+  <provides type="function" name="File_Archive_Reader_Multi::next" />
+  <provides type="function" name="File_Archive_Reader_Multi::close" />
+  <provides type="class" name="File_Archive_Reader_Relay" extends="File_Archive_Reader" />
+  <provides type="function" name="File_Archive_Reader_Relay::next" />
+  <provides type="function" name="File_Archive_Reader_Relay::getFilename" />
+  <provides type="function" name="File_Archive_Reader_Relay::getStat" />
+  <provides type="function" name="File_Archive_Reader_Relay::getMime" />
+  <provides type="function" name="File_Archive_Reader_Relay::getDataFilename" />
+  <provides type="function" name="File_Archive_Reader_Relay::getData" />
+  <provides type="function" name="File_Archive_Reader_Relay::skip" />
+  <provides type="function" name="File_Archive_Reader_Relay::rewind" />
+  <provides type="function" name="File_Archive_Reader_Relay::close" />
+  <provides type="function" name="File_Archive_Reader_Relay::makeAppendWriter" />
+  <provides type="function" name="File_Archive_Reader_Relay::makeWriterRemoveFiles" />
+  <provides type="function" name="File_Archive_Reader_Relay::makeWriterRemoveBlocks" />
+  <provides type="class" name="File_Archive_Reader_Select" extends="File_Archive_Reader_Relay" />
+  <provides type="function" name="File_Archive_Reader_Select::next" />
+  <provides type="class" name="File_Archive_Reader_Tar" extends="File_Archive_Reader_Archive" />
+  <provides type="function" name="File_Archive_Reader_Tar::skip" />
+  <provides type="function" name="File_Archive_Reader_Tar::rewind" />
+  <provides type="function" name="File_Archive_Reader_Tar::close" />
+  <provides type="function" name="File_Archive_Reader_Tar::getFilename" />
+  <provides type="function" name="File_Archive_Reader_Tar::getStat" />
+  <provides type="function" name="File_Archive_Reader_Tar::next" />
+  <provides type="function" name="File_Archive_Reader_Tar::getData" />
+  <provides type="function" name="File_Archive_Reader_Tar::makeWriterRemoveFiles" />
+  <provides type="function" name="File_Archive_Reader_Tar::makeWriterRemoveBlocks" />
+  <provides type="function" name="File_Archive_Reader_Tar::makeAppendWriter" />
+  <provides type="class" name="File_Archive_Reader_Uncompress" extends="File_Archive_Reader_Relay" />
+  <provides type="function" name="File_Archive_Reader_Uncompress::push" />
+  <provides type="function" name="File_Archive_Reader_Uncompress::next" />
+  <provides type="function" name="File_Archive_Reader_Uncompress::setBaseDir" />
+  <provides type="class" name="File_Archive_Reader_Zip" extends="File_Archive_Reader_Archive" />
+  <provides type="function" name="File_Archive_Reader_Zip::close" />
+  <provides type="function" name="File_Archive_Reader_Zip::getFilename" />
+  <provides type="function" name="File_Archive_Reader_Zip::getStat" />
+  <provides type="function" name="File_Archive_Reader_Zip::nextWithFolders" />
+  <provides type="class" name="File_Archive_Writer_Ar" extends="File_Archive_Writer_Archive" />
+  <provides type="function" name="File_Archive_Writer_Ar::arHeader" />
+  <provides type="function" name="File_Archive_Writer_Ar::arFooter" />
+  <provides type="function" name="File_Archive_Writer_Ar::flush" />
+  <provides type="function" name="File_Archive_Writer_Ar::newFile" />
+  <provides type="function" name="File_Archive_Writer_Ar::close" />
+  <provides type="function" name="File_Archive_Writer_Ar::writeData" />
+  <provides type="function" name="File_Archive_Writer_Ar::writeFile" />
+  <provides type="class" name="File_Archive_Writer_Archive" extends="File_Archive_Writer" />
+  <provides type="function" name="File_Archive_Writer_Archive::getMime" />
+  <provides type="function" name="File_Archive_Writer_Archive::close" />
+  <provides type="class" name="File_Archive_Writer_Bzip2" extends="File_Archive_Writer" />
+  <provides type="function" name="File_Archive_Writer_Bzip2::setCompressionLevel" />
+  <provides type="function" name="File_Archive_Writer_Bzip2::newFile" />
+  <provides type="function" name="File_Archive_Writer_Bzip2::close" />
+  <provides type="function" name="File_Archive_Writer_Bzip2::writeData" />
+  <provides type="class" name="File_Archive_Writer_Files" extends="File_Archive_Writer" />
+  <provides type="function" name="File_Archive_Writer_Files::getFilename" />
+  <provides type="function" name="File_Archive_Writer_Files::mkdirr" />
+  <provides type="class" name="File_Archive_Writer_Gzip" extends="File_Archive_Writer" />
+  <provides type="function" name="File_Archive_Writer_Gzip::setCompressionLevel" />
+  <provides type="function" name="File_Archive_Writer_Gzip::newFile" />
+  <provides type="function" name="File_Archive_Writer_Gzip::close" />
+  <provides type="function" name="File_Archive_Writer_Gzip::writeData" />
+  <provides type="class" name="File_Archive_Writer_Mail" extends="File_Archive_Writer" />
+  <provides type="function" name="File_Archive_Writer_Mail::setHTMLBody" />
+  <provides type="function" name="File_Archive_Writer_Mail::addHTMLImage" />
+  <provides type="function" name="File_Archive_Writer_Mail::writeData" />
+  <provides type="function" name="File_Archive_Writer_Mail::addCurrentData" />
+  <provides type="function" name="File_Archive_Writer_Mail::newFile" />
+  <provides type="function" name="File_Archive_Writer_Mail::newFileNeedsMIME" />
+  <provides type="function" name="File_Archive_Writer_Mail::close" />
+  <provides type="class" name="File_Archive_Writer_Memory" extends="File_Archive_Writer" />
+  <provides type="function" name="File_Archive_Writer_Memory::writeData" />
+  <provides type="function" name="File_Archive_Writer_Memory::newFile" />
+  <provides type="function" name="File_Archive_Writer_Memory::newFileNeedsMIME" />
+  <provides type="function" name="File_Archive_Writer_Memory::getData" />
+  <provides type="function" name="File_Archive_Writer_Memory::clear" />
+  <provides type="function" name="File_Archive_Writer_Memory::isEmpty" />
+  <provides type="function" name="File_Archive_Writer_Memory::makeReader" />
+  <provides type="class" name="File_Archive_Writer_MemoryArchive" extends="File_Archive_Writer_Archive" />
+  <provides type="function" name="File_Archive_Writer_MemoryArchive::newFile" />
+  <provides type="function" name="File_Archive_Writer_MemoryArchive::close" />
+  <provides type="function" name="File_Archive_Writer_MemoryArchive::flush" />
+  <provides type="function" name="File_Archive_Writer_MemoryArchive::writeData" />
+  <provides type="function" name="File_Archive_Writer_MemoryArchive::writeFile" />
+  <provides type="function" name="File_Archive_Writer_MemoryArchive::appendFileData" />
+  <provides type="function" name="File_Archive_Writer_MemoryArchive::sendHeader" />
+  <provides type="function" name="File_Archive_Writer_MemoryArchive::sendFooter" />
+  <provides type="function" name="File_Archive_Writer_MemoryArchive::appendFile" />
+  <provides type="class" name="File_Archive_Writer_Multi" extends="File_Archive_Writer" />
+  <provides type="function" name="File_Archive_Writer_Multi::newFile" />
+  <provides type="function" name="File_Archive_Writer_Multi::newFileNeedsMIME" />
+  <provides type="function" name="File_Archive_Writer_Multi::writeData" />
+  <provides type="function" name="File_Archive_Writer_Multi::writeFile" />
+  <provides type="function" name="File_Archive_Writer_Multi::close" />
+  <provides type="class" name="File_Archive_Writer_Output" extends="File_Archive_Writer" />
+  <provides type="function" name="File_Archive_Writer_Output::newFile" />
+  <provides type="class" name="File_Archive_Writer_Tar" extends="File_Archive_Writer_Archive" />
+  <provides type="function" name="File_Archive_Writer_Tar::tarHeader" />
+  <provides type="class" name="File_Archive_Writer_UniqueAppender" extends="File_Archive_Writer" />
+  <provides type="function" name="File_Archive_Writer_UniqueAppender::newFile" />
+  <provides type="function" name="File_Archive_Writer_UniqueAppender::newFromTempFile" />
+  <provides type="function" name="File_Archive_Writer_UniqueAppender::newFileNeedsMIME" />
+  <provides type="function" name="File_Archive_Writer_UniqueAppender::writeData" />
+  <provides type="function" name="File_Archive_Writer_UniqueAppender::writeFile" />
+  <provides type="function" name="File_Archive_Writer_UniqueAppender::close" />
+  <provides type="class" name="File_Archive_Writer_Zip" extends="File_Archive_Writer_MemoryArchive" />
+  <provides type="function" name="File_Archive_Writer_Zip::setCompressionLevel" />
+  <provides type="function" name="File_Archive_Writer_Zip::setComment" />
+  <provides type="function" name="File_Archive_Writer_Zip::getMTime" />
+  <provides type="function" name="File_Archive_Writer_Zip::alreadyWrittenFile" />
+  <provides type="function" name="File_Archive_Writer_Zip::appendFileData" />
+  <provides type="function" name="File_Archive_Writer_Zip::sendFooter" />
+  <provides type="function" name="File_Archive_Writer_Zip::getMime" />
+  <filelist>
+   <file role="php" md5sum="d02143bb0119a4eb53bd85ae184b38ef" name="File\Archive.php"/>
+   <file role="php" md5sum="09a4dbb822271261f69724ae559f38ad" name="File\Archive\Predicate.php"/>
+   <file role="php" md5sum="20ccb1eb065fa5ea0f9dd95bf03bebb3" name="File\Archive\Reader.php"/>
+   <file role="php" md5sum="db38bb6a849b6131d880d399763ce7c2" name="File\Archive\Writer.php"/>
+   <file role="php" md5sum="143b5a469e43647ac747f51c60912107" name="File\Archive\Predicate\And.php"/>
+   <file role="php" md5sum="c9f5b7e4176e1c55e9f6dfa878bde4ec" name="File\Archive\Predicate\Current.php"/>
+   <file role="php" md5sum="b99f37c754c6e6e3494741c0339e11eb" name="File\Archive\Predicate\Custom.php"/>
+   <file role="php" md5sum="a1c96735a23cd80c6d5cdaf96c0f29b3" name="File\Archive\Predicate\Duplicate.php"/>
+   <file role="php" md5sum="83b91b31185c05650844ec1ba19c0fad" name="File\Archive\Predicate\Ereg.php"/>
+   <file role="php" md5sum="7029b72200fead9b33ea3cdbe365ef57" name="File\Archive\Predicate\Eregi.php"/>
+   <file role="php" md5sum="a9e7e12215e82351293bebd8b0452455" name="File\Archive\Predicate\Extension.php"/>
+   <file role="php" md5sum="e1896dd1bd8c36850f1855bde61348e1" name="File\Archive\Predicate\False.php"/>
+   <file role="php" md5sum="546aa8f0fa09390c860fefc79a4ee9ca" name="File\Archive\Predicate\Index.php"/>
+   <file role="php" md5sum="c4b7b452e7dddca0cc45951c93f14959" name="File\Archive\Predicate\MaxDepth.php"/>
+   <file role="php" md5sum="0c870eaf6c901fe7f9784f309d964d4a" name="File\Archive\Predicate\MIME.php"/>
+   <file role="php" md5sum="d84d07123afe55f65d4afc80fc430537" name="File\Archive\Predicate\MinSize.php"/>
+   <file role="php" md5sum="8ec081662315fcd801ccde0a2875c51b" name="File\Archive\Predicate\MinTime.php"/>
+   <file role="php" md5sum="0e652e8b1619a99251f6bf82d709ae7b" name="File\Archive\Predicate\Not.php"/>
+   <file role="php" md5sum="0915edd899eaccb0138a540ef7e8c11e" name="File\Archive\Predicate\Or.php"/>
+   <file role="php" md5sum="4bc5794c445849b81383144fb3978310" name="File\Archive\Predicate\True.php"/>
+   <file role="php" md5sum="49502a4cc4d51d357261912afe1ebd6f" name="File\Archive\Reader\Ar.php"/>
+   <file role="php" md5sum="702cf1a3dbf834edfeac5eb798590a82" name="File\Archive\Reader\Archive.php"/>
+   <file role="php" md5sum="ad0e516e3ee0ebf4f77ec341d6c6b0c0" name="File\Archive\Reader\Bzip2.php"/>
+   <file role="php" md5sum="19519a5d0f02a388d95a7c5049ed90ee" name="File\Archive\Reader\ChangeName.php"/>
+   <file role="php" md5sum="55a6f168205135e493f5a1f125b313ec" name="File\Archive\Reader\Concat.php"/>
+   <file role="php" md5sum="b7fb39056d01b23aaba7cad5cb448d5e" name="File\Archive\Reader\Directory.php"/>
+   <file role="php" md5sum="6e50a5cd761901587c0163d447284cd6" name="File\Archive\Reader\File.php"/>
+   <file role="php" md5sum="abce1597f77fdfd4bdcb9cde4722fc0e" name="File\Archive\Reader\Filter.php"/>
+   <file role="php" md5sum="0a56b0421d4bce231dd76c2f36a5f25b" name="File\Archive\Reader\Gzip.php"/>
+   <file role="php" md5sum="3e03e0ab200117ada0014958b99178d4" name="File\Archive\Reader\Memory.php"/>
+   <file role="php" md5sum="5abe9540ffc5fb9c2145c2deaeee637d" name="File\Archive\Reader\MimeList.php"/>
+   <file role="php" md5sum="fbab386b05859b8d18ea01b74190f998" name="File\Archive\Reader\Multi.php"/>
+   <file role="php" md5sum="7ecc46dd5e1610ae502065181007608b" name="File\Archive\Reader\Relay.php"/>
+   <file role="php" md5sum="d6c8fc0199fb1fc485f39aee19918186" name="File\Archive\Reader\Select.php"/>
+   <file role="php" md5sum="0deaeeb2a34879dba0954b3b29a833c4" name="File\Archive\Reader\Tar.php"/>
+   <file role="php" md5sum="b45ef89c3a1a114789717e2b8470cb34" name="File\Archive\Reader\Uncompress.php"/>
+   <file role="php" md5sum="4b649b8f311b9d03071e0a154ee03e48" name="File\Archive\Reader\Zip.php"/>
+   <file role="php" md5sum="8b702fa20c108c07e2aa6c2b29063fcf" name="File\Archive\Writer\Ar.php"/>
+   <file role="php" md5sum="c2c7eb09ac08a4aed9154b8606f2357c" name="File\Archive\Writer\Archive.php"/>
+   <file role="php" md5sum="784ff3d7a6c6f57eccc48e62605cf3d7" name="File\Archive\Writer\Bzip2.php"/>
+   <file role="php" md5sum="497109003e0c5f8e161b4fc580b681bb" name="File\Archive\Writer\Files.php"/>
+   <file role="php" md5sum="5ca96d05e5f35e27e106f9e6046779b6" name="File\Archive\Writer\Gzip.php"/>
+   <file role="php" md5sum="26089d668414479b49daeee2ca8e1dc0" name="File\Archive\Writer\Mail.php"/>
+   <file role="php" md5sum="c7cd841aeeb2f535191fb511d983d09e" name="File\Archive\Writer\Memory.php"/>
+   <file role="php" md5sum="8913f46418edd9be5eb16e70effc8dd9" name="File\Archive\Writer\MemoryArchive.php"/>
+   <file role="php" md5sum="0f2a4a47d5476729bc23a3acb8256631" name="File\Archive\Writer\Multi.php"/>
+   <file role="php" md5sum="e7ce13aa2a3cfea6ba2ab1db0ef16d73" name="File\Archive\Writer\Output.php"/>
+   <file role="php" md5sum="814f0b81ce00061683bfa45aa549e56f" name="File\Archive\Writer\Tar.php"/>
+   <file role="php" md5sum="7cea272f9b17705ecc3644b3a721358b" name="File\Archive\Writer\UniqueAppender.php"/>
+   <file role="php" md5sum="112907839df45cae5bc266999932a85f" name="File\Archive\Writer\Zip.php"/>
+   <file role="test" md5sum="8de5a80251a4db60d943a026875f6e3e" name="File/tests/test.php"/>
+   <file role="doc" md5sum="4088b3e5b36808c865462aa43a9114e2" name="File/doc/readme.txt"/>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>1.2.0</version>
+    <date>2005-05-26</date>
+    <state>stable</state>
+    <notes>+ Add an ar (or deb) reader / writer
++ Add a getFileList() on any reader to quickly retrieve file list
++ File_Archive::readArchive properly handles tgz and tbz extensions
++ Better error handling
++ Various bug fixes
+    </notes>
+   </release>
+   <release>
+    <version>1.0.1</version>
+    <date>2005-04-21</date>
+    <state>stable</state>
+    <notes>+ Bug 4192 (&lt;? instead of &lt;?php in some source files)
++ Functions File_Archive::isKnownExtension and File_Archive:;readArchive
+  added. They allow to specify the type of an archive. This is usefull is the extension
+  of the file doesn't reflect its real type.
+    </notes>
+   </release>
+   <release>
+    <version>1.0.0</version>
+    <date>2005-04-17</date>
+    <state>stable</state>
+    <notes>+ Bug 4159 (PHP4 compatibility)
++ Bug 4165 (Better USTAR handling in tar files)
++ The package now use temporary files to reduce the amount of memory used
+  when reading or writing large archives. The following indicates the current
+  memory usage of the different reader / writers
+  - Tar writer: constant memory usage
+  - GZip writer: constant memory usage, temporary file
+  - BZ2 writer: constant memory usage, temporary file
+  - ZIP writer: size of the largest file written to the archive
+  
+  - Tar reader: constant memory usage
+  - GZip reader: constant memory usage, temporary file
+  - BZ2 reader: constant memory usage, temporary file
+  - ZIP reader: size of the largest file read from the archive
+  
+  The temporary files are created in the current directory. Their name start with
+  far, their extension is tmp. They are automatically deleted when the reader / writer
+  is closed.
+    </notes>
+   </release>
+   <release>
+    <version>0.3.0</version>
+    <date>2005-04-08</date>
+    <state>beta</state>
+    <notes>+ Bug 3894
++ The File_Archive::read function does no longer take the optional source parameter
+  A File_Archive::readSource function has been created that takes the source parameter
++ The mail parameter in File_Archive::toMail is now mandatory, but giving a null variable will
+  result in using Mail::factory(&quot;mail&quot;)
++ The File_Archive::toMemory function does no longer take a variable argument
+  A File_Archive::toVariable function has been created for that
+    </notes>
+   </release>
+   <release>
+    <version>0.2.0</version>
+    <date>2005-02-24</date>
+    <state>beta</state>
+    <notes>+ Add a MIME predicate
++ Change the toArchive function to detect the compression format using the extension of the file
+  (Warning: this is not backward compatible since the order of the arguments have changed)
+    </notes>
+   </release>
+   <release>
+    <version>0.1.0</version>
+    <date>2005-02-20</date>
+    <state>alpha</state>
+    <notes>First release
+    </notes>
+   </release>
+ </changelog>
+</package>

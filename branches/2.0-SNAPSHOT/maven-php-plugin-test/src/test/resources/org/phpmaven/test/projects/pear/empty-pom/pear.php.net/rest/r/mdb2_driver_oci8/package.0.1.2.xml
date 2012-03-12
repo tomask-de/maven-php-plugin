@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.1">
+ <name>MDB2_Driver_oci8</name>
+ <summary>oci8 MDB2 driver</summary>
+ <description>This is the Oracle OCI8 MDB2 driver.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>lsmith</user>
+   <name>Lukas Kahwe Smith</name>
+   <email>smith@pooteeweet.org</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>0.1.2</version>
+  <date>2005-10-10</date>
+  <license>BSD License</license>
+  <state>alpha</state>
+  <notes>Warning: this release features numerous BC breaks!
+
+There have been considerable improvements to the datatype, manager and reverse
+modules. Furthermore preliminary support for auto increment and primary keys
+has been added. Please note that making a field auto increment implies a single
+column primary key on this field.
+
+- alterTable now needs the full definition to work (use getTableFieldDefinition
+ from Reverse module if you do not have a definition at hand) this eliminates the need
+ of the declaration part in the alterTable array.
+- fix PHP4.4 breakage
+- fixed typo in unsigned integer declaration handling
+- no need to close() the descriptor according to the docs (we do free() it though)
+- use !empty() instead of isset() in fetchRow to determine if result cols were bound or result types were set
+- expect keys in type arrays the same way as they are passed for the values in execute() and bindParamArray()
+- add s pattern modifier to preg_replace() call for parameter searches in prepare() (bug #5362)
+- moved all private fetch mode fix methods into _fixResultArrayValues() for performance reasons
+- renamed MDB2_PORTABILITY_LOWERCASE to MDB2_PORTABILITY_FIX_CASE and use &apos;field_case&apos; option to determine if to upper- or lowercase (CASE_LOWER/CASE_UPPER)
+- use array_map() instead of array_flip(array_change_key_case(array_flip())) to fix case of array values
+- use array_key_exists() instead of isset() where possible
+- changed structure of field add/remove/change in alterTable() to match MDB2_Schema
+- added createIndex()
+- return 0 for manipulation queries when disable_query is enabled
+- tweaked field changing in alterTable()
+- getTypeDeclaration() in the datatype module is now a public method
+
+open todo items:
+- code to be able to list primary contraints inside listTableIndexes()/dropIndex()
+- handle autoincremement fields in alterTable() and dropTable()
+- using LOBs have a tendency to crash apache (even with the uptodate PECL oci8 ext)
+  </notes>
+  <deps>
+   <dep type="php" rel="ge" version="4.3.0" optional="no"/>
+   <dep type="pkg" rel="ge" version="1.0b1" optional="no">PEAR</dep>
+   <dep type="pkg" rel="ge" version="2.0.0beta6" optional="no">MDB2</dep>
+   <dep type="ext" rel="has" optional="no">oci8</dep>
+  </deps>
+  <provides type="class" name="MDB2_Driver_Datatype_oci8" extends="MDB2_Driver_Datatype_Common" />
+  <provides type="function" name="MDB2_Driver_Datatype_oci8::convertResult" />
+  <provides type="function" name="MDB2_Driver_Datatype_oci8::getTypeDeclaration" />
+  <provides type="class" name="MDB2_Driver_Manager_oci8" extends="MDB2_Driver_Manager_Common" />
+  <provides type="function" name="MDB2_Driver_Manager_oci8::createDatabase" />
+  <provides type="function" name="MDB2_Driver_Manager_oci8::dropDatabase" />
+  <provides type="class" name="MDB2_Driver_Native_oci8" extends="MDB2_Module_Common" />
+  <provides type="class" name="MDB2_Driver_Reverse_oci8" extends="MDB2_Driver_Reverse_Common" />
+  <provides type="function" name="MDB2_Driver_Reverse_oci8::tableInfo" />
+  <provides type="class" name="MDB2_Driver_oci8" extends="MDB2_Driver_Common" />
+  <provides type="function" name="MDB2_Driver_oci8::errorInfo" />
+  <provides type="function" name="MDB2_Driver_oci8::beginTransaction" />
+  <provides type="function" name="MDB2_Driver_oci8::commit" />
+  <provides type="function" name="MDB2_Driver_oci8::rollback" />
+  <provides type="function" name="MDB2_Driver_oci8::connect" />
+  <provides type="function" name="MDB2_Driver_oci8::disconnect" />
+  <provides type="function" name="MDB2_Driver_oci8::standaloneQuery" />
+  <provides type="function" name="MDB2_Driver_oci8::prepare" />
+  <provides type="function" name="MDB2_Driver_oci8::nextID" />
+  <filelist>
+   <file role="php" baseinstalldir="/" md5sum="0dca3fc57980511c23d8e994a55b8ef9" name="MDB2/Driver/Datatype/oci8.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="ac88f75f9c10f0a79054544b37e11c60" name="MDB2/Driver/Manager/oci8.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="70327c1839aaa27151c459110b28aae1" name="MDB2/Driver/Native/oci8.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="d20b45efe5a13a990c49bc8aea57fdb3" name="MDB2/Driver/Reverse/oci8.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="b8306ab26650e68a77643f73d59d224e" name="MDB2/Driver/oci8.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="139c771c174f8bc71980ab21f5cc3604" name="package_oci8.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>0.1.2</version>
+    <date>2005-10-10</date>
+    <license>BSD License</license>
+    <state>alpha</state>
+    <notes>Warning: this release features numerous BC breaks!
+
+There have been considerable improvements to the datatype, manager and reverse
+modules. Furthermore preliminary support for auto increment and primary keys
+has been added. Please note that making a field auto increment implies a single
+column primary key on this field.
+
+- alterTable now needs the full definition to work (use getTableFieldDefinition
+ from Reverse module if you do not have a definition at hand) this eliminates the need
+ of the declaration part in the alterTable array.
+- fix PHP4.4 breakage
+- fixed typo in unsigned integer declaration handling
+- no need to close() the descriptor according to the docs (we do free() it though)
+- use !empty() instead of isset() in fetchRow to determine if result cols were bound or result types were set
+- expect keys in type arrays the same way as they are passed for the values in execute() and bindParamArray()
+- add s pattern modifier to preg_replace() call for parameter searches in prepare() (bug #5362)
+- moved all private fetch mode fix methods into _fixResultArrayValues() for performance reasons
+- renamed MDB2_PORTABILITY_LOWERCASE to MDB2_PORTABILITY_FIX_CASE and use &apos;field_case&apos; option to determine if to upper- or lowercase (CASE_LOWER/CASE_UPPER)
+- use array_map() instead of array_flip(array_change_key_case(array_flip())) to fix case of array values
+- use array_key_exists() instead of isset() where possible
+- changed structure of field add/remove/change in alterTable() to match MDB2_Schema
+- added createIndex()
+- return 0 for manipulation queries when disable_query is enabled
+- tweaked field changing in alterTable()
+- getTypeDeclaration() in the datatype module is now a public method
+
+open todo items:
+- code to be able to list primary contraints inside listTableIndexes()/dropIndex()
+- handle autoincremement fields in alterTable() and dropTable()
+- using LOBs have a tendency to crash apache (even with the uptodate PECL oci8 ext)
+    </notes>
+   </release>
+   <release>
+    <version>0.1.1</version>
+    <date>2005-06-10</date>
+    <license>BSD License</license>
+    <state>alpha</state>
+    <notes>- increased php dependency to 4.3.0 due to the usage of the streams API since beta5
+- fixed typo in _getTextDeclaration()
+    </notes>
+   </release>
+ </changelog>
+</package>

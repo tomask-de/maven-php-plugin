@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>DB</name>
+  <summary>Database Abstraction Layer</summary>
+  <description>DB is a database abstraction layer providing:
+* an OO-style query API
+* portability features that make programs written
+   for one DBMS work with other DBMS's
+* a DSN (data source name) format for specifying
+   database servers
+* prepare/execute (bind) emulation for databases
+   that don't support it natively
+* a result object for each query response
+* portable error codes
+* sequence emulation
+* sequential and non-sequential row fetching as
+   well as bulk fetching
+* formats fetched rows as associative arrays,
+   ordered arrays or objects
+* row limit support
+* transactions support
+* table information interface
+* DocBook and PHPDoc API documentation
+
+DB layers itself on top of PHP's existing
+database extensions.  The currently supported
+extensions are:
+dbase, fbsql, interbase, informix,
+msql, mssql, mysql, mysqli,
+oci8, odbc, pgsql, sqlite and sybase.
+
+DB is compatible with both PHP 4 and PHP 5.</description>
+  <maintainers>
+    <maintainer>
+      <user>ssb</user>
+      <name>Stig Sæther Bakken</name>
+      <email>stig@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>cox</user>
+      <name>Tomas V.V.Cox</name>
+      <email>cox@idecnet.com</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>chagenbu</user>
+      <name>Chuck Hagenbuch</name>
+      <email>chuck@horde.org</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>danielc</user>
+      <name>Daniel Convissor</name>
+      <email>danielc@analysisandsolutions.com</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.6.0</version>
+    <date>2004-02-19</date>
+    <license>PHP License</license>
+    <state>stable</state>
+    <notes>=============
+API CHANGE:
+
+mysql4 was renamed mysqli.  Change your DSN info
+accordingly.  (danielc)
+
+
+=============
+ENHANCEMENTS:
+
+- test suite:
+The test suite now includes a shell script for
+jump starting the process.  Also, the version
+of setup.inc stored in CVS was renamed so you
+don't have to worry about CVS touching or
+committing your locally modified copy.  (danielc)
+
+- all:
+Added DB_PORTABILITY_NULL_TO_EMPTY portability
+mode.  Converts null values to empty strings in
+data output by * get*() and fetch*().  Helpful
+because Oracle doesn't know the difference
+between null and empty.  (danielc)
+
+- ifx:
+Several new error code mappings:
+'Identifier too long' = DB_ERROR_SYNTAX
+'Table already exists' = DB_ERROR_ALREADY_EXISTS
+'duplicate value' = DB_ERROR_CONSTRAINT
+'Could not update a row in the table'
+   = DB_ERROR_CONSTRAINT
+'Missing key in referenced table for referential
+   constraint' = DB_ERROR_CONSTRAINT
+'Character to numeric conversion error'
+   = DB_ERROR_INVALID_NUMBER
+'Syntax disallowed in this database server'
+   = DB_ERROR_SYNTAX
+(danielc)
+
+-ibase, ifx, mssql, oci8, odbc, pgsql,
+sqlite, sybase:
+Map not null constraint errors to
+DB_ERROR_CONSTRAINT_NOT_NULL.  (danielc) 
+
+-mysql, mysqli:
+Map not null constraint error (1048) from
+DB_ERROR_CONSTRAINT to
+DB_ERROR_CONSTRAINT_NOT_NULL when
+portability is on. (danielc)
+
+
+=============
+BUGS FIXED:
+
+- ifx:
+fetchRow() now adds 1 to the requested $rownum
+because ifx_fetch_row() starts at 1.  (peterwb)
+
+- ifx:
+affectedRows() now returns 0 for SELECT
+queries, just like the other DBMS's.  (danielc)
+
+- ibase:
+Remove trans_number argument from rollback()
+method.  No other driver has it and
+ibase_rollback() doesn't accept it.  (danielc)
+
+- sqlite:
+Set $dsn property when connecting.  (danielc)</notes>
+    <deps>
+      <dep type="php" rel="ge" version="4.2.0"/>
+      <dep type="pkg" rel="ge" version="1.0b1">PEAR</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="/" name="DB.php"/>
+      <file role="php" name="DB\common.php"/>
+      <file role="php" name="DB\dbase.php"/>
+      <file role="php" name="DB\fbsql.php"/>
+      <file role="php" name="DB\ibase.php"/>
+      <file role="php" name="DB\ifx.php"/>
+      <file role="php" name="DB\msql.php"/>
+      <file role="php" name="DB\mssql.php"/>
+      <file role="php" name="DB\mysql.php"/>
+      <file role="php" name="DB\mysqli.php"/>
+      <file role="php" name="DB\oci8.php"/>
+      <file role="php" name="DB\odbc.php"/>
+      <file role="php" name="DB\pgsql.php"/>
+      <file role="php" name="DB\sybase.php"/>
+      <file role="php" name="DB\storage.php"/>
+      <file role="php" name="DB\sqlite.php"/>
+      <file role="doc" name="doc\IDEAS"/>
+      <file role="doc" name="doc\MAINTAINERS"/>
+      <file role="doc" name="doc\STATUS"/>
+      <file role="doc" name="doc\TESTERS"/>
+      <file role="test" name="tests\db_error.phpt"/>
+      <file role="test" name="tests\db_parsedsn.phpt"/>
+      <file role="test" name="tests\db_factory.phpt"/>
+      <file role="test" name="tests\db_ismanip.phpt"/>
+      <file role="test" name="tests\db_error2.phpt"/>
+      <file role="test" name="tests\errors.inc"/>
+      <file role="test" name="tests\fetchmode_object.inc"/>
+      <file role="test" name="tests\fetchmodes.inc"/>
+      <file role="test" name="tests\include.inc"/>
+      <file role="test" name="tests\limit.inc"/>
+      <file role="test" name="tests\numcols.inc"/>
+      <file role="test" name="tests\numrows.inc"/>
+      <file role="test" name="tests\prepexe.inc"/>
+      <file role="test" name="tests\run.cvs"/>
+      <file role="test" name="tests\sequences.inc"/>
+      <file role="test" name="tests\simplequery.inc"/>
+      <file role="test" name="tests\transactions.inc"/>
+      <file role="test" name="tests\skipif.inc"/>
+      <file role="test" name="tests\driver\01connect.phpt"/>
+      <file role="test" name="tests\driver\02fetch.phpt"/>
+      <file role="test" name="tests\driver\03simplequery.phpt"/>
+      <file role="test" name="tests\driver\04numcols.phpt"/>
+      <file role="test" name="tests\driver\05sequences.phpt"/>
+      <file role="test" name="tests\driver\06prepexec.phpt"/>
+      <file role="test" name="tests\driver\08affectedrows.phpt"/>
+      <file role="test" name="tests\driver\09numrows.phpt"/>
+      <file role="test" name="tests\driver\10errormap.phpt"/>
+      <file role="test" name="tests\driver\11transactions.phpt"/>
+      <file role="test" name="tests\driver\13limit.phpt"/>
+      <file role="test" name="tests\driver\14fetchmode_object.phpt"/>
+      <file role="test" name="tests\driver\15quote.phpt"/>
+      <file role="test" name="tests\driver\16tableinfo.phpt"/>
+      <file role="test" name="tests\driver\17query.phpt"/>
+      <file role="test" name="tests\driver\18get.phpt"/>
+      <file role="test" name="tests\driver\bug22328.phpt"/>
+      <file role="test" name="tests\driver\connect.inc"/>
+      <file role="test" name="tests\driver\mktable.inc"/>
+      <file role="test" name="tests\driver\run.cvs"/>
+      <file role="test" name="tests\driver\setup.inc.cvs"/>
+      <file role="test" name="tests\driver\skipif.inc"/>
+    </filelist>
+  </release>
+</package>

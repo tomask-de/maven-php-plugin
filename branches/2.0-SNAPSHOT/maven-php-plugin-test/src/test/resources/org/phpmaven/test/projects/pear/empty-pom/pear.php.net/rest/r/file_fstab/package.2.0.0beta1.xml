@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>File_Fstab</name>
+  <summary>Read and write fstab files</summary>
+  <description>File_Fstab is an easy-to-use package which can read &amp; write UNIX fstab files. It presents a pleasant object-oriented interface to the fstab.
+Features:
+* Supports blockdev, label, and UUID specification of mount device.
+* Extendable to parse non-standard fstab formats by defining a new Entry class for that format.
+* Easily examine and set mount options for an entry.
+* Stable, functional interface.
+* Fully documented with PHPDoc.</description>
+  <maintainers>
+    <maintainer>
+      <user>ieure</user>
+      <name>Ian Eure</name>
+      <email>ieure@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>2.0.0beta1</version>
+    <date>2004-05-04</date>
+    <license>PHP License v3.0</license>
+    <state>beta</state>
+    <notes>* Add get/set methods in Entry class, so that a descendent may overload them to provide additional checking or validation.
+* getEntryFor...() methods return PEAR_Error instead of false.
+* save() no longer checks to see if file is writable - fopen() will tell us if there's a problem.</notes>
+    <deps>
+      <dep type="pkg" rel="has">PEAR</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="File" md5sum="c3dd9f2b2c18fa8804c13d43871c2a92" name="Fstab.php">
+        <replace from="@version@" to="version" type="package-info"/>
+        <replace from="@package@" to="package" type="package-info"/>
+      </file>
+      <file role="php" baseinstalldir="File/Fstab" md5sum="75d23245be12debc07e3b5cd9bd6633f" name="Entry.php">
+        <replace from="@version@" to="version" type="package-info"/>
+        <replace from="@package@" to="package" type="package-info"/>
+      </file>
+      <file role="php" baseinstalldir="docs/File_Fstab" md5sum="6cd65db01ab56d3791a20a09f99fbc48" name="example.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>1.0.4</version>
+      <date>2004-05-04</date>
+      <license>PHP License v3.0</license>
+      <state>stable</state>
+      <notes>* save() didn't add line breaks to the output, rendering it invalid.
+* Use @version@ instead of hard-coding it.
+* Remove redundant (commented) 'require_once.'
+</notes>
+    </release>
+    <release>
+      <version>1.0.3</version>
+      <date>2004-04-28</date>
+      <license>PHP License v3.0</license>
+      <state>stable</state>
+      <notes>* update() was calling parse(), which no longer exists.
+</notes>
+    </release>
+    <release>
+      <version>1.0.2</version>
+      <date>2004-04-27</date>
+      <license>PHP License v3.0</license>
+      <state>stable</state>
+      <notes>* Add description to package.xml.
+</notes>
+    </release>
+    <release>
+      <version>1.0.1</version>
+      <date>2004-04-20</date>
+      <license>PHP License v3.0</license>
+      <state>stable</state>
+      <notes>* Split _Entry class into a seperate file.
+* Change function names: parse() -&gt; load() &amp; write() -&gt; save()
+* Don't depend on File, use standard PHP file i/o.
+* Update example.
+</notes>
+    </release>
+    <release>
+      <version>1.0</version>
+      <date>2004-03-30</date>
+      <license>PHP License v3.0</license>
+      <state>stable</state>
+      <notes>* Fix CS: remove stray tabs, if/then/else all have braces now.
+* Minor cleanups: update email addresses etc.
+* Automaticly parse on instantiation.
+* Ability to add entries &amp; manipulate mount options for current entries added.
+* Fixed an issue where mount options were not being set correctly when writing fstab.
+* Fixed an issue where mount options weren't correctly parsed.
+* Allow writing fstab to a different location, e.g. a temp file.
+* Added an example.
+</notes>
+    </release>
+    <release>
+      <version>0.9.1</version>
+      <date>2004-01-16</date>
+      <license>PHP License v2.02</license>
+      <state>stable</state>
+      <notes>Initial PEARification.
+</notes>
+    </release>
+  </changelog>
+</package>

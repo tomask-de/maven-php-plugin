@@ -210,8 +210,16 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         final String tempDirPath = System.getProperty(
                "maven.test.tmpdir", System.getProperty("java.io.tmpdir"));
         final File testDir = new File(tempDirPath, "org/phpmaven/test/projects/" + strTestDir);
-        FileUtils.deleteDirectory(testDir);
-        
+        // try to delete it 5 times (sometimes it silently failes but succeeds the second incovation)
+        for (int i = 0; i < 5; i++) {
+            try {
+                FileUtils.deleteDirectory(testDir);
+            } catch (IOException ex) {
+                if (i == 5) {
+                    throw ex;
+                }
+            }
+        }
         ResourceExtractor.extractResourcePath(
                 getClass(),
                 "/org/phpmaven/test/projects/" + strTestDir,
@@ -311,7 +319,6 @@ public abstract class AbstractTestCase extends PlexusTestCase {
      * @throws VerificationException thrown if the given pom cannot be installed
      * @throws IOException 
      */
-    @SuppressWarnings("unchecked")
     private void installToRepos(final String reposPath, String pom)
         throws VerificationException, IOException {
         File root;

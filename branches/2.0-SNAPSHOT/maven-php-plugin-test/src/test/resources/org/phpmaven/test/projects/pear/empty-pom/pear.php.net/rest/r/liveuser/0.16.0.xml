@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/liveuser">LiveUser</p>
+ <c>pear.php.net</c>
+ <v>0.16.0</v>
+ <st>beta</st>
+ <l>LGPL</l>
+ <m>lsmith</m>
+ <s>User authentication and permission management framework</s>
+ <d>LiveUser is a set of classes for dealing with user authentication
+  and permission management. Basically, there are three main elements that
+  make up this package:
+
+  * The LiveUser class
+  * The Auth containers
+  * The Perm containers
+
+  The LiveUser class takes care of the login process and can be configured
+  to use a certain permission container and one or more different auth containers.
+  That means, you can have your users' data scattered amongst many data containers
+  and have the LiveUser class try each defined container until the user is found.
+  For example, you can have all website users who can apply for a new account online
+  on the webserver's local database. Also, you want to enable all your company's
+  employees to login to the site without the need to create new accounts for all of
+  them. To achieve that, a second container can be defined to be used by the LiveUser class.
+
+  You can also define a permission container of your choice that will manage the rights for
+  each user. Depending on the container, you can implement any kind of permission schemes
+  for your application while having one consistent API.
+
+  Using different permission and auth containers, it's easily possible to integrate
+  newly written applications with older ones that have their own ways of storing permissions
+  and user data. Just make a new container type and you're ready to go!
+
+  Currently available are containers using:
+  PEAR::DB, PEAR::MDB, PEAR::MDB2, PEAR::XML_Tree and PEAR::Auth.
+ 
+</d>
+ <da>2005-06-21 05:40:40</da>
+ <n>- updated MDB2 dependency
+- made readConfig() public
+- use LIVEUSER_STATUS_AUTHINITERROR and LIVEUSER_STATUS_PERMINITERROR
+- removed 'ids' from GLOBALS.php array since this is no longer used in the admin
+- added support for table name aliasing
+- added updateProperty() method
+- dont raise an error when login() was not able to authenticate the user
+- storageFactory() is no longer permission specific
+- only return false in init() method if an error occured
+- always overwrite status with auth failed in login() when the current status is UNKNOWN
+- updated a few status message with clearer messages
+- delay storing of the auth container instance in a property until its clear that
+  the perm container will not produce errors
+- kill _auth and _perm property values at the beginning of login()
+- added new event &quot;onFailedMapping&quot; when an auth user cannot be mapped to a perm user
+
+authentication
+- reworked _readUserData() in the auth containers to optionally read by auth
+  user id instead of by handle/passwd (fairly untested)
+- made _readUserData() public (and renamed it to readUserData()
+- made auth fields dynamic (thx dan)
+- updated to use the new auth config layout due to using admin storage
+- tweaked disconnect to only disconnect when a new connection was made
+- updated Globals.php file (removed all optional fields, added users table alias)
+
+permission
+- cleaned up _readImpliedRights()
+- fixed bug in readUserRights() that would lead to overwriting the proper right keys
+- tweaked disconnect to only disconnect when a new connection was made
+
+installer
+- generate auth and perm schema on the fly (removed pre generated ones from cvs)
+- separated schema generation and schema writing in two methods in the installer
+- forgot to pass 'create' param to installSchema() in installPermSchema()
+- use MDB2_Schema as an optional dependency for the schema installer
+- improved handling of defaults in the installer
+- improved DB seq support in the installer
+- options can now be passed to the installer
+- severely reworked the install API
+- added more infos into the old file names
+- updated code with the new auth config layout and as a result removed
+  generateAuthSchema() and renamed generatePermSchema() to generateSchema()
+- added table name prefix to all indexes, since some rdbms (notably pgsql)
+  dont like it if the same index name is used (bug #4593)
+
+examples
+- example5 was added again
+- demo data for examples 4 and 5 was converted to MDB2_Schema format
+- a script to install database based examples can be found under
+  docs/examples/demodata.php. Type php demodata.php -h for usage.
+- updated examples to use the new auth config layout due to using admin storage
+- tweaked error handling on init() call
+- use MDB2 in the examples instead of DB</n>
+ <f>70164</f>
+ <g>http://pear.php.net/get/LiveUser-0.16.0</g>
+ <x xlink:href="package.0.16.0.xml"/>
+</r>

@@ -241,6 +241,7 @@ public class Package implements IPackage {
                     pkgVersion.initialize(this.pearUtility, this.pearChannel);
                     final IVersion version = new Version();
                     pkgVersion.setVersion(version);
+                    pkgVersion.setPackageName(this.getPackageName());
                     version.setPearVersion(vName);
                     
                     final Xpp3Dom stabilityNode = child.getChild("c");
@@ -379,7 +380,8 @@ public class Package implements IPackage {
                 for (final Xpp3Dom child : dom.getChildren("m")) {
                     final IMaintainer mt = new Maintainer();
                     mt.setName(child.getChild("h").getValue());
-                    mt.setActive("1".equals(child.getChild("a").getValue()));
+                    mt.setActive("1".equals(child.getChild("a").getValue()) ||
+                            "yes".equalsIgnoreCase(child.getChild("a").getValue()));
                     mt.setRole(child.getChild("r").getValue());
                     ms.add(mt);
                 }
@@ -412,6 +414,11 @@ public class Package implements IPackage {
     }
     
     
+    /**
+     * Converts a maven version to a pear version.
+     * @param src maven version
+     * @return pear version
+     */
     public static String convertMavenVersionToPearVersion(String src) {
         int pos = 0;
         final StringBuffer sb = new StringBuffer();

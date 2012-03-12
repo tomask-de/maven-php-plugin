@@ -268,10 +268,13 @@ public class PearUtility implements IPearUtility {
             tokenizer.nextToken();
             
             while (tokenizer.hasMoreTokens()) {
-                final String token = tokenizer.nextToken().trim();
+                final String token = tokenizer.nextToken();
+                if (token.startsWith(" ")) continue;
+                if (token.startsWith("__uri")) continue;
+                // if (token.startsWith("doc.")) continue;
                 final PearChannel channel = new PearChannel();
                 channel.initialize(this, new StringTokenizer(token, " ").nextToken());
-                this.knownChannels.add(channel);
+                channels.add(channel);
             }
         } catch (NoSuchElementException ex) {
             throw new PhpCoreException("Unexpected output from pear:\n" + output, ex);
@@ -357,6 +360,22 @@ public class PearUtility implements IPearUtility {
         }
         this.installDir = dir;
         this.log = logger;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String convertMavenVersionToPearVersion(String src) {
+        return Package.convertMavenVersionToPearVersion(src);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String convertPearVersionToMavenVersion(String src) {
+        return Package.convertPearVersionToMavenVersion(src);
     }
     
     

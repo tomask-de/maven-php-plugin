@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Translation2</name>
+  <summary>Class for multilingual applications management.</summary>
+  <description>This class provides an easy way to retrieve all the strings for a multilingual
+site from a data source (i.e. db).
+The following containers are provided, more will follow:
+- PEAR::DB
+- PEAR::MDB
+- PEAR::MDB2
+- gettext
+- PEAR::DB_DataObject (experimental)
+It is designed to reduce the number of queries to the db, caching the results when possible.
+An Admin class is provided to easily manage translations (add/remove a language, add/remove a string).
+Currently, the following decorators are provided:
+- CacheLiteFunction (for file-based caching)
+- CacheMemory (for memory-based caching)
+- DefaultText (to replace empty strings with their keys)
+- Lang (resort to fallback languages for empty strings)
+- SpecialChars (replace html entities with their hex codes)</description>
+  <maintainers>
+    <maintainer>
+      <user>quipo</user>
+      <name>Lorenzo Alberton</name>
+      <email>l.alberton@quipo.it</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>2.0.0beta1</version>
+    <date>2004-05-05</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>- BC break! Run the example to see what's new
+- refactoring in progress:
+  added a Decorator class and some subclasses to control
+  the output (now you can set a stack of fallback languages,
+  a filter to deal with empty strings, one or more cache layers...)
+- improved gettext support (thanks to Michael Wallner)
+- added gettext admin class
+- fixes in the db admin classes
+- when adding a new string, if it matches one already in the db,
+  the old one is replaced by the new one.
+- added a MDB2 container
+- added a DB_DataObject container (by Alan Knowles)</notes>
+    <deps>
+      <dep type="pkg" rel="has" optional="yes">Cache_Lite</dep>
+      <dep type="pkg" rel="has" optional="yes">DB</dep>
+      <dep type="pkg" rel="has" optional="yes">DB_DataObject</dep>
+      <dep type="pkg" rel="has" optional="yes">MDB</dep>
+      <dep type="pkg" rel="has" optional="yes">MDB2</dep>
+      <dep type="ext" rel="has" optional="yes">gettext</dep>
+      <dep type="pkg" rel="has" optional="yes">File_Gettext</dep>
+    </deps>
+    <filelist>
+      <file role="php" name="Translation2.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Admin.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Container.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Decorator.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Admin\Container\dataobjectsimple.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Admin\Container\db.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Admin\Container\gettext.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Admin\Container\mdb.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Admin\Container\mdb2.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Container\dataobjectsimple.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Container\db.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Container\gettext.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Container\mdb.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Container\mdb2.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Decorator\CacheLiteFunction.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Decorator\CacheMemory.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Decorator\DefaultText.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Decorator\Lang.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Decorator\SpecialChars.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Decorator\UTF8.php"/>
+      <file role="doc" baseinstalldir="Translation2" name="docs\gettext_readme.txt"/>
+      <file role="doc" baseinstalldir="Translation2" name="docs\examples\settings.php"/>
+      <file role="doc" baseinstalldir="Translation2" name="docs\examples\Translation2_example.php"/>
+      <file role="doc" baseinstalldir="Translation2" name="docs\examples\Translation2_example.sql"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>2.0.0beta1</version>
+      <date>2004-05-05</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>- BC break! Run the example to see what's new
+- refactoring in progress:
+  added a Decorator class and some subclasses to control
+  the output (now you can set a stack of fallback languages,
+  a filter to deal with empty strings, one or more cache layers...)
+- improved gettext support (thanks to Michael Wallner)
+- added gettext admin class
+- fixes in the db admin classes
+- when adding a new string, if it matches one already in the db,
+  the old one is replaced by the new one.
+- added a MDB2 container
+- added a DB_DataObject container (by Alan Knowles)
+      
+</notes>
+    </release>
+    <release>
+      <version>2.0.0alpha2</version>
+      <date>2004-02-05</date>
+      <license>PHP License</license>
+      <state>alpha</state>
+      <notes>- added an experimental GNU gettext driver
+- translate() now accepts a third parameter ($pageID)
+- PHP5 fix
+- renamed old getPage() to getRawPage()
+- new getPage() resorts to fallback lang and replaces parameters when needed
+- added error checking/codes
+      
+</notes>
+    </release>
+    <release>
+      <version>0.0.1</version>
+      <date>2004-01-21</date>
+      <license>PHP License</license>
+      <state>alpha</state>
+      <notes>First alpha release
+      
+</notes>
+    </release>
+  </changelog>
+</package>

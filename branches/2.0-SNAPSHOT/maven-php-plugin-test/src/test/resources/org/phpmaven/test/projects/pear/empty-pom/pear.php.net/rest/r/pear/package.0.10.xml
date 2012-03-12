@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>PEAR</name>
+  <summary>PEAR Base System</summary>
+  <description>The PEAR package contains:
+ * the PEAR base class
+ * the PEAR_Error error handling mechanism
+ * the PEAR installer, for creating, distributing
+   and installing packages</description>
+  <maintainers>
+    <maintainer>
+      <user>ssb</user>
+      <name>Stig Sæther Bakken</name>
+      <email>stig@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>cox</user>
+      <name>Tomas V.V.Cox</name>
+      <email>cox@idecnet.com</email>
+      <role>developer</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.10</version>
+    <date>2002-05-26</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>Lots of stuff this time.  0.9 was not actually self-hosting, even
+though it claimed to be.  This version finally is self-hosting
+(really!), meaning you can upgrade the installer with the command
+&quot;pear upgrade PEAR&quot;.
+
+* new config paramers: http_proxy and umask
+* HTTP proxy support when downloading packages
+* generalized command handling code
+* and fixed the bug that would not let commands have the
+  same options as &quot;pear&quot; itself
+* added long options to every command
+* added command shortcuts (&quot;pear help shortcuts&quot;)
+* added stub for Gtk installer
+* some phpdoc fixes
+* added class dependency detector (using ext/tokenizer)
+* dependency handling fixes
+* added OS_Guess class for detecting OS
+* install files with the &quot;platform&quot; attribute set
+  only on matching operating systems
+* PEAR_Remote now falls back to the XML_RPC package
+  if xmlrpc-epi is not available
+* renamed command: package-list -&gt; list
+* new command: package-dependencies
+* lots of minor fixes</notes>
+    <deps>
+      <dep type="php" rel="ge" version="4.1"/>
+      <dep type="pkg" rel="has" version="0.4">Archive_Tar</dep>
+      <dep type="pkg" rel="ge" version="0.11">Console_Getopt</dep>
+    </deps>
+    <filelist>
+      <file role="php" md5sum="ba9de0f6b868111212c41fcc21beb67e" name="PEAR.php"/>
+      <file role="php" md5sum="8200e75e84a53c22910d267a8bb068c2" name="System.php"/>
+      <file role="php" md5sum="d2d6ee883cce725fb0b8650438f66056" name="PEAR/Autoloader.php"/>
+      <file role="php" md5sum="de2c7a3bc89277dbbeac022a5cbc320f" name="PEAR/Command.php"/>
+      <file role="php" md5sum="064f77c77d1b8e658fdd8ec105bafaca" name="PEAR/Command/Auth.php"/>
+      <file role="php" md5sum="f5571f409f7318f429a3a10e3369a4f0" name="PEAR/Command/Common.php"/>
+      <file role="php" md5sum="24b37774f2076ee9aed2946120956f71" name="PEAR/Command/Config.php"/>
+      <file role="php" md5sum="e3d6502beecb1fe1b7f0d282801170e6" name="PEAR/Command/Install.php"/>
+      <file role="php" md5sum="63b0e4f16484e37ebcd58c8fe1e3f2b1" name="PEAR/Command/Package.php"/>
+      <file role="php" md5sum="936d347088c03034142cd9e0b5ffa312" name="PEAR/Command/Registry.php"/>
+      <file role="php" md5sum="2d918f0744028d8a53d3e4ba798f6ee8" name="PEAR/Command/Remote.php"/>
+      <file role="php" md5sum="7d18040a6f1ec4985ea1013462f6a661" name="PEAR/Common.php"/>
+      <file role="php" md5sum="13f452d940aed7ca14a087e424af4df8" name="PEAR/Config.php"/>
+      <file role="php" md5sum="2dc2e26447d6531f1e1863368732e26b" name="PEAR/Dependency.php"/>
+      <file role="php" md5sum="cd4250c0bf03bbd97b0d17505e90a83a" name="PEAR/Frontend/CLI.php"/>
+      <file role="php" md5sum="d0d90f2e2b64a97e08b24cb2291cfcf9" name="PEAR/Frontend/Gtk.php"/>
+      <file role="php" md5sum="004bc26ecb9bee9fcc7e24497938560b" name="PEAR/Installer.php"/>
+      <file role="php" md5sum="9de11ce88253cea0331064853dea4af7" name="PEAR/Packager.php"/>
+      <file role="php" md5sum="4cd901a1ebab55506d68b5700f49e60d" name="PEAR/Registry.php"/>
+      <file role="php" md5sum="e325e44e94d323eeabad653b1fe46cec" name="PEAR/Remote.php"/>
+      <file role="php" md5sum="0168228f4c3e0dd824d2d03f42098406" name="OS/Guess.php"/>
+      <file role="script" baseinstalldir="/" md5sum="7fbc8059355b54557b08b9ff0b216469" install-as="pear" name="scripts/pear.in">
+        <replace from="@prefix@/bin" to="PHP_BINDIR" type="php-const"/>
+      </file>
+      <file role="script" baseinstalldir="/" md5sum="5320c1e5ef95efdff9f21b5a09e0662e" name="scripts/pear.bat"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.9</version>
+      <date>2002-04-07</date>
+      <state>beta</state>
+      <notes>First package release.  Commands implemented:
+   remote-package-info
+   list-upgrades
+   list-remote-packages
+   download
+   config-show
+   config-get
+   config-set
+   list-installed
+   shell-test
+   install
+   uninstall
+   upgrade
+   package
+   package-list
+   package-info
+   login
+   logout</notes>
+    </release>
+  </changelog>
+</package>

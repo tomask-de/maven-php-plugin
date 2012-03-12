@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/http_request2">HTTP_Request2</p>
+ <c>pear.php.net</c>
+ <v>0.6.0</v>
+ <st>alpha</st>
+ <l>BSD License</l>
+ <m>avb</m>
+ <s>Provides an easy way to perform HTTP requests.</s>
+ <d>PHP5 rewrite of HTTP_Request package. Provides cleaner API and pluggable
+Adapters. Currently available are:
+  * Socket adapter, based on old HTTP_Request code,
+  * Curl adapter, wraps around PHP's cURL extension,
+  * Mock adapter, to use for testing packages dependent on HTTP_Request2.
+Supports POST requests with data and file uploads, basic and digest 
+authentication, cookies, proxies, gzip and deflate encodings, redirects,
+monitoring the request progress with Observers...</d>
+ <da>2011-02-14 15:04:39</da>
+ <n>Additions and changes:
+  * Added test suite that interacts with a webserver. Please refer to 
+    tests/NetworkConfig.php.dist for instructions.
+  * Packaging changes: docs/ and tests/ contents are installed without
+    redundant subdirectories.
+  * Added a $replace parameter to HTTP_Request2::setHeader() that controls
+    whether new header value will overwrite previous one or be appended
+    to it (request #17507)
+
+Bugfixes:
+  * Fixed a typo in Curl Adapter that prevented 'strict_redirects' from working
+  * Curl Adapter will throw an exception if CURLOPT_FOLLOWLOCATION can not be
+    enabled due to PHP setup (bug #17450)
+  * Allow parameters in manually set Content-Type headers (bug #17460)
+  * Properly reset redirect limit if multiple requests are performed with the
+    same instance of Socket Adapter (bug #17826)
+  * Response::getBody() no longer tries to decode empty strings (bug #18169)</n>
+ <f>65227</f>
+ <g>http://pear.php.net/get/HTTP_Request2-0.6.0</g>
+ <x xlink:href="package.0.6.0.xml"/>
+</r>

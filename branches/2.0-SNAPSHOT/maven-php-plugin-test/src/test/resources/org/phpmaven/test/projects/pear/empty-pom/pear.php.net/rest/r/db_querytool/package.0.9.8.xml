@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>DB_QueryTool</name>
+  <summary>An OO-interface for easily retreiving and modifying data in a DB.</summary>
+  <description>This package is an OO-abstraction to the SQL-Query language, it provides methods such
+as setWhere, setOrder, setGroup, setJoin, etc. to easily build queries.
+It also provides an easy to learn interface that interacts nicely with HTML-forms using
+arrays that contain the column data, that shall be updated/added in a DB.
+This package bases on an SQL-Builder which lets you easily build
+SQL-Statements and execute them.</description>
+  <maintainers>
+    <maintainer>
+      <user>cain</user>
+      <name>Wolfram Kriesing</name>
+      <email>wolfram@kriesing.de</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.9.8</version>
+    <date>2003-09-23</date>
+    <license>PHP</license>
+    <state>stable</state>
+    <notes>* added new method getQueryString() which returns the rendered query
+* added setDbInstance() which lets you supply an existing DB-instance to work with
+  using this you dont need to pass a DSN to the constructor!</notes>
+    <deps>
+      <dep type="pkg" rel="ge" version="1.7">Log</dep>
+    </deps>
+    <provides type="class" name="DB_QueryTool" extends="DB_QueryTool_EasyJoin" />
+    <provides type="class" name="DB_QueryTool_Query" />
+    <provides type="function" name="DB_QueryTool_Query::connect" />
+    <provides type="function" name="DB_QueryTool_Query::getDbInstance" />
+    <provides type="function" name="DB_QueryTool_Query::setDbInstance" />
+    <provides type="function" name="DB_QueryTool_Query::get" />
+    <provides type="function" name="DB_QueryTool_Query::getMultiple" />
+    <provides type="function" name="DB_QueryTool_Query::getAll" />
+    <provides type="function" name="DB_QueryTool_Query::getCol" />
+    <provides type="function" name="DB_QueryTool_Query::getCount" />
+    <provides type="function" name="DB_QueryTool_Query::getDefaultValues" />
+    <provides type="function" name="DB_QueryTool_Query::getEmptyElement" />
+    <provides type="function" name="DB_QueryTool_Query::getQueryString" />
+    <provides type="function" name="DB_QueryTool_Query::save" />
+    <provides type="function" name="DB_QueryTool_Query::update" />
+    <provides type="function" name="DB_QueryTool_Query::add" />
+    <provides type="function" name="DB_QueryTool_Query::addMultiple" />
+    <provides type="function" name="DB_QueryTool_Query::remove" />
+    <provides type="function" name="DB_QueryTool_Query::removeAll" />
+    <provides type="function" name="DB_QueryTool_Query::removeMultiple" />
+    <provides type="function" name="DB_QueryTool_Query::removePrimary" />
+    <provides type="function" name="DB_QueryTool_Query::setLimit" />
+    <provides type="function" name="DB_QueryTool_Query::getLimit" />
+    <provides type="function" name="DB_QueryTool_Query::setWhere" />
+    <provides type="function" name="DB_QueryTool_Query::getWhere" />
+    <provides type="function" name="DB_QueryTool_Query::addWhere" />
+    <provides type="function" name="DB_QueryTool_Query::addWhereSearch" />
+    <provides type="function" name="DB_QueryTool_Query::setOrder" />
+    <provides type="function" name="DB_QueryTool_Query::addOrder" />
+    <provides type="function" name="DB_QueryTool_Query::getOrder" />
+    <provides type="function" name="DB_QueryTool_Query::setHaving" />
+    <provides type="function" name="DB_QueryTool_Query::getHaving" />
+    <provides type="function" name="DB_QueryTool_Query::addHaving" />
+    <provides type="function" name="DB_QueryTool_Query::setJoin" />
+    <provides type="function" name="DB_QueryTool_Query::setLeftJoin" />
+    <provides type="function" name="DB_QueryTool_Query::addLeftJoin" />
+    <provides type="function" name="DB_QueryTool_Query::setRightJoin" />
+    <provides type="function" name="DB_QueryTool_Query::getJoin" />
+    <provides type="function" name="DB_QueryTool_Query::addJoin" />
+    <provides type="function" name="DB_QueryTool_Query::setTable" />
+    <provides type="function" name="DB_QueryTool_Query::getTable" />
+    <provides type="function" name="DB_QueryTool_Query::setGroup" />
+    <provides type="function" name="DB_QueryTool_Query::getGroup" />
+    <provides type="function" name="DB_QueryTool_Query::setSelect" />
+    <provides type="function" name="DB_QueryTool_Query::addSelect" />
+    <provides type="function" name="DB_QueryTool_Query::getSelect" />
+    <provides type="function" name="DB_QueryTool_Query::setDontSelect" />
+    <provides type="function" name="DB_QueryTool_Query::getDontSelect" />
+    <provides type="function" name="DB_QueryTool_Query::reset" />
+    <provides type="function" name="DB_QueryTool_Query::setOption" />
+    <provides type="function" name="DB_QueryTool_Query::getOption" />
+    <provides type="function" name="DB_QueryTool_Query::debug" />
+    <provides type="function" name="DB_QueryTool_Query::metadata" />
+    <provides type="function" name="DB_QueryTool_Query::getTableShortName" />
+    <provides type="function" name="DB_QueryTool_Query::getTableSpec" />
+    <provides type="function" name="DB_QueryTool_Query::execute" />
+    <provides type="function" name="DB_QueryTool_Query::writeLog" />
+    <provides type="function" name="DB_QueryTool_Query::returnResult" />
+    <provides type="function" name="DB_QueryTool_Query::setIndex" />
+    <provides type="function" name="DB_QueryTool_Query::getIndex" />
+    <provides type="function" name="DB_QueryTool_Query::useResult" />
+    <provides type="function" name="DB_QueryTool_Query::setErrorCallback" />
+    <provides type="function" name="DB_QueryTool_Query::setErrorLogCallback" />
+    <provides type="function" name="DB_QueryTool_Query::setErrorSetCallback" />
+    <provides type="class" name="DB_QueryTool_EasyJoin" extends="DB_QueryTool_Query" />
+    <provides type="function" name="DB_QueryTool_EasyJoin::autoJoin" />
+    <provides type="class" name="DB_QueryTool_Result" />
+    <provides type="function" name="DB_QueryTool_Result::getCount" />
+    <provides type="function" name="DB_QueryTool_Result::getData" />
+    <provides type="function" name="DB_QueryTool_Result::getFirst" />
+    <provides type="function" name="DB_QueryTool_Result::getNext" />
+    <provides type="function" name="DB_QueryTool_Result::hasMore" />
+    <filelist>
+      <file role="php" baseinstalldir="DB" md5sum="1fc3bfbb169bbf448cea8b55c1585efa" name="QueryTool.php"/>
+      <file role="php" baseinstalldir="DB" md5sum="3a81e9d88a279aec08c220ee0d30ccfc" name="QueryTool/Query.php"/>
+      <file role="php" baseinstalldir="DB" md5sum="0b1a0832b4f251591695a088a7da735e" name="QueryTool/EasyJoin.php"/>
+      <file role="php" baseinstalldir="DB" md5sum="52b3afde080321341656d7598dd8a8e0" name="QueryTool/Result.php"/>
+      <file role="doc" baseinstalldir="DB" md5sum="0f56f9584f540e4a8ad27d4cc6c2800f" name="docs/example.php"/>
+      <file role="doc" baseinstalldir="DB" md5sum="7bd8b3c0dde5b2811203e58d4d1bd058" name="docs/mysql.sql"/>
+      <file role="doc" baseinstalldir="DB" md5sum="c0f62bc23d8e438997eb6711820b1242" name="docs/pgsql.sql"/>
+      <file role="doc" baseinstalldir="DB" md5sum="a4ecf8fe13cf2a9267c68ca26a0de5e7" name="tests/Common.php"/>
+      <file role="doc" baseinstalldir="DB" md5sum="75fe73aa8217a359400f35ff05473ca4" name="tests/Get.php"/>
+      <file role="doc" baseinstalldir="DB" md5sum="2914a009d6d9c92590936a5841551d51" name="tests/GetAll.php"/>
+      <file role="doc" baseinstalldir="DB" md5sum="16a7f207ffe46a16a2f132049977975a" name="tests/GetCount.php"/>
+      <file role="doc" baseinstalldir="DB" md5sum="1ebe7c10a0302cd6449ae3c127af45cc" name="tests/GetQueryString.php"/>
+      <file role="doc" baseinstalldir="DB" md5sum="98c3243c80073e24186f912c4f3f22c4" name="tests/index.php"/>
+      <file role="doc" baseinstalldir="DB" md5sum="f6636f72af34ce5eb7009b8a282b21c9" name="tests/Having.php"/>
+      <file role="doc" baseinstalldir="DB" md5sum="075e9e0b6bcbbe39747f492030c0c953" name="tests/Limit.php"/>
+      <file role="doc" baseinstalldir="DB" md5sum="6c2d48d349aae8f297c7320664f6e35b" name="tests/sql.php"/>
+      <file role="doc" baseinstalldir="DB" md5sum="7b6a6279653a5de9692c56e920506e36" name="tests/UnitTest.php"/>
+      <file role="doc" baseinstalldir="DB" md5sum="1f9b862e25a90f86cd48dbbc5095e8f7" name="tests/Where.php"/>
+      <file role="doc" baseinstalldir="DB" md5sum="9e7cc7d7fe2ce171fcb8d3db2d5c101c" name="tests/SetDbInstance.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.9.7</version>
+      <date>2003-09-15</date>
+      <state>stable</state>
+      <notes>* use Log 1.7 API        
+        
+</notes>
+    </release>
+    <release>
+      <version>0.9.6</version>
+      <date>2003-09-12</date>
+      <state>stable</state>
+      <notes>- bugfix in addMultiple()
+- addWhereSearch now only prefixes known columns as it is supposed to be, 
+  otherwise it would also prefix aliases with the table name, which is bull...
+- quirk in the addLeftJoin() method ... not nice, but v1.0 will be, unit tests pass but thats still not enough proof
+- make setLimit also work to unset it
+        
+</notes>
+    </release>
+    <release>
+      <version>0.9.5</version>
+      <date>2003-06-17</date>
+      <state>stable</state>
+      <notes>- bugfix when writing log files, times were wrong
+- bugfix in EasyJoin, which added unnecessary conditions        
+- bugfix in building column alias which is at the end of the string
+- bugfix in addMultiple() which didnt work without primaryCol
+- bugfix in addHaving and unit test, thanks to Johannes Schäfer
+        
+</notes>
+    </release>
+    <release>
+      <version>0.9.4</version>
+      <date>2003-06-06</date>
+      <state>stable</state>
+      <notes>- added set/getLimit(), which set the limit globally, 
+  getAll() and getCol() can still overwrite this temporarily
+- added addOrder()
+- added *Having() methods by Johannes Schaefer
+- added log functionality
+- added condition param to addWhereSearch()
+- fix bug in building group clause for getCount()
+- bug fix in building join
+        
+</notes>
+    </release>
+    <release>
+      <version>0.9.3</version>
+      <date>2003-03-11</date>
+      <state>stable</state>
+      <notes>- new method getCol() which lets you retreive just one column
+- getAll() takes an additional optional parameter, where you can define
+  the method that should be used for firing the query
+- update() does also consider the value of setWhere() when no primary column is given
+  added a _buildUpdateQuery() for that too
+- added umbrello-uml class diagram
+- fixing some typos, esp. for making the useResult() work
+- bugfix in update, use fully qualified table name (Uwe Dörl)
+- bugfix in _buildSelectQuery, enclose column names by &quot;&quot;
+  now Oracle should work and also reserved keywords can be used as column names (Uwe Dörl)
+- some bugfixes and more CS issues
+</notes>
+    </release>
+    <release>
+      <version>0.9.2</version>
+      <date>2003-02-09</date>
+      <state>stable</state>
+      <notes>- now you can customize the sequence name
+- testing on postgres and added example
+- enhancing the constructor to take the error/log callbacks
+- some cleaning up
+</notes>
+    </release>
+    <release>
+      <version>0.9.1</version>
+      <date>2003-01-29</date>
+      <state>stable</state>
+      <notes>maintanence release, fix a lot E_ALL issues and CS issues
+</notes>
+    </release>
+    <release>
+      <version>0.9</version>
+      <date>2003-01-17</date>
+      <state>stable</state>
+      <notes>- initial release in PEAR
+</notes>
+    </release>
+  </changelog>
+</package>

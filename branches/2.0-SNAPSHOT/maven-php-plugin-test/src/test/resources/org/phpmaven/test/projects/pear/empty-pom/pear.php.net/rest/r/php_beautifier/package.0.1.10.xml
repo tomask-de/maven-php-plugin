@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.9">
+ <name>PHP_Beautifier</name>
+ <summary>Beautifier for Php</summary>
+ <description>This program reformat and beautify PHP 4 and PHP 5 source code files automatically. The program is Open Source and distributed under the terms of PHP Licence. It is written in PHP 5 and has a command line tool.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>clbustos</user>
+   <name>Claudio Bustos</name>
+   <email>clbustos+php_beautifier@gmail.com</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>0.1.10</version>
+  <date>2006-06-06</date>
+  <license>PHP License</license>
+  <state>beta</state>
+  <notes>The one NOT before stable: ( The day of the AC!		
+- Bug fix[7818]: Where curly brackets are used to indicate a variable class 
+property, PHP_Beautifier adds extra whitespace as if it were 
+parsing a class method or function.
+- Internal Bug 3: Removed log messages on command line. Use -v to get the verbose output (messages with PEAR_DEBUG_INFO level).
+! Bug 7759 remains open, only when one or more case doesn&apos;t ends with a break.
+  </notes>
+  <deps>
+   <dep type="php" rel="ge" version="5"/>
+   <dep type="pkg" rel="ge" version="1.8" optional="no">Log</dep>
+   <dep type="pkg" rel="gt" version="1" optional="yes">Console_Getopt</dep>
+   <dep type="pkg" rel="ge" version="1.2" optional="yes">Archive_Tar</dep>
+   <dep type="ext" rel="has" version="0" optional="no">tokenizer</dep>
+   <dep type="ext" rel="has" version="0" optional="yes">bz2</dep>
+  </deps>
+  <provides type="class" name="PHP_Beautifier" />
+  <provides type="function" name="PHP_Beautifier::startLog" />
+  <provides type="function" name="PHP_Beautifier::addFilterDirectory" />
+  <provides type="function" name="PHP_Beautifier::getFilterDirectories" />
+  <provides type="function" name="PHP_Beautifier::addFilterObject" />
+  <provides type="function" name="PHP_Beautifier::addFilter" />
+  <provides type="function" name="PHP_Beautifier::removeFilter" />
+  <provides type="function" name="PHP_Beautifier::getFilterDescription" />
+  <provides type="function" name="PHP_Beautifier::addFilterFile" />
+  <provides type="function" name="PHP_Beautifier::getFilterList" />
+  <provides type="function" name="PHP_Beautifier::getFilterListTotal" />
+  <provides type="function" name="PHP_Beautifier::getFilterList_FilterName" />
+  <provides type="function" name="PHP_Beautifier::getIndentChar" />
+  <provides type="function" name="PHP_Beautifier::getIndentNumber" />
+  <provides type="function" name="PHP_Beautifier::getNewLine" />
+  <provides type="function" name="PHP_Beautifier::setIndentChar" />
+  <provides type="function" name="PHP_Beautifier::setIndentNumber" />
+  <provides type="function" name="PHP_Beautifier::setNewLine" />
+  <provides type="function" name="PHP_Beautifier::setInputFile" />
+  <provides type="function" name="PHP_Beautifier::setOutputFile" />
+  <provides type="function" name="PHP_Beautifier::save" />
+  <provides type="function" name="PHP_Beautifier::setInputString" />
+  <provides type="function" name="PHP_Beautifier::resetProperties" />
+  <provides type="function" name="PHP_Beautifier::process" />
+  <provides type="function" name="PHP_Beautifier::getTokenAssoc" />
+  <provides type="function" name="PHP_Beautifier::getTokenAssocText" />
+  <provides type="function" name="PHP_Beautifier::replaceTokenAssoc" />
+  <provides type="function" name="PHP_Beautifier::getTokenFunction" />
+  <provides type="function" name="PHP_Beautifier::processCallback" />
+  <provides type="function" name="PHP_Beautifier::controlToken" />
+  <provides type="function" name="PHP_Beautifier::controlTokenPost" />
+  <provides type="function" name="PHP_Beautifier::pushControlSeq" />
+  <provides type="function" name="PHP_Beautifier::popControlSeq" />
+  <provides type="function" name="PHP_Beautifier::pushControlParenthesis" />
+  <provides type="function" name="PHP_Beautifier::popControlParenthesis" />
+  <provides type="function" name="PHP_Beautifier::setFileType" />
+  <provides type="function" name="PHP_Beautifier::setBeautify" />
+  <provides type="function" name="PHP_Beautifier::show" />
+  <provides type="function" name="PHP_Beautifier::setNoDeletePreviousSpaceHack" />
+  <provides type="function" name="PHP_Beautifier::get" />
+  <provides type="function" name="PHP_Beautifier::getSetting" />
+  <provides type="function" name="PHP_Beautifier::getControlSeq" />
+  <provides type="function" name="PHP_Beautifier::getControlParenthesis" />
+  <provides type="function" name="PHP_Beautifier::setMode" />
+  <provides type="function" name="PHP_Beautifier::unsetMode" />
+  <provides type="function" name="PHP_Beautifier::getMode" />
+  <provides type="function" name="PHP_Beautifier::add" />
+  <provides type="function" name="PHP_Beautifier::pop" />
+  <provides type="function" name="PHP_Beautifier::addIndent" />
+  <provides type="function" name="PHP_Beautifier::setBeforeNewLine" />
+  <provides type="function" name="PHP_Beautifier::addNewLine" />
+  <provides type="function" name="PHP_Beautifier::addNewLineIndent" />
+  <provides type="function" name="PHP_Beautifier::incIndent" />
+  <provides type="function" name="PHP_Beautifier::decIndent" />
+  <provides type="function" name="PHP_Beautifier::getPreviousToken" />
+  <provides type="function" name="PHP_Beautifier::getNextToken" />
+  <provides type="function" name="PHP_Beautifier::isPreviousTokenConstant" />
+  <provides type="function" name="PHP_Beautifier::isPreviousTokenContent" />
+  <provides type="function" name="PHP_Beautifier::isNextTokenConstant" />
+  <provides type="function" name="PHP_Beautifier::isNextTokenContent" />
+  <provides type="function" name="PHP_Beautifier::getPreviousTokenConstant" />
+  <provides type="function" name="PHP_Beautifier::getPreviousTokenContent" />
+  <provides type="function" name="PHP_Beautifier::getNextTokenNonCommentConstant" />
+  <provides type="function" name="PHP_Beautifier::getNextTokenConstant" />
+  <provides type="function" name="PHP_Beautifier::getNextTokenContent" />
+  <provides type="function" name="PHP_Beautifier::getPreviousWhitespace" />
+  <provides type="function" name="PHP_Beautifier::removeWhitespace" />
+  <provides type="function" name="PHP_Beautifier::getToken" />
+  <provides type="class" name="PHP_Beautifier_Filter" />
+  <provides type="function" name="PHP_Beautifier_Filter::addSettingDefinition" />
+  <provides type="function" name="PHP_Beautifier_Filter::getName" />
+  <provides type="function" name="PHP_Beautifier_Filter::on" />
+  <provides type="function" name="PHP_Beautifier_Filter::off" />
+  <provides type="function" name="PHP_Beautifier_Filter::getSetting" />
+  <provides type="function" name="PHP_Beautifier_Filter::setSetting" />
+  <provides type="function" name="PHP_Beautifier_Filter::handleToken" />
+  <provides type="function" name="PHP_Beautifier_Filter::preProcess" />
+  <provides type="function" name="PHP_Beautifier_Filter::postProcess" />
+  <provides type="function" name="PHP_Beautifier_Filter::getDescription" />
+  <provides type="class" name="PHP_Beautifier_Decorator" />
+  <provides type="class" name="PHP_Beautifier_Batch" extends="PHP_Beautifier_Decorator" />
+  <provides type="function" name="PHP_Beautifier_Batch::setRecursive" />
+  <provides type="function" name="PHP_Beautifier_Batch::setCompress" />
+  <provides type="function" name="PHP_Beautifier_Batch::setInputFile" />
+  <provides type="function" name="PHP_Beautifier_Batch::setOutputFile" />
+  <provides type="function" name="PHP_Beautifier_Batch::setInputFilePost" />
+  <provides type="function" name="PHP_Beautifier_Batch::setOutputFilePost" />
+  <provides type="function" name="PHP_Beautifier_Batch::process" />
+  <provides type="function" name="PHP_Beautifier_Batch::getBatchEngine" />
+  <provides type="function" name="PHP_Beautifier_Batch::save" />
+  <provides type="function" name="PHP_Beautifier_Batch::get" />
+  <provides type="function" name="PHP_Beautifier_Batch::show" />
+  <provides type="function" name="PHP_Beautifier_Batch::callBeautifier" />
+  <provides type="function" name="PHP_Beautifier_Batch::getInputFiles" />
+  <provides type="function" name="PHP_Beautifier_Batch::getOutputPath" />
+  <provides type="class" name="PHP_Beautifier_Common" />
+  <provides type="function" name="PHP_Beautifier_Common::normalizeDir" />
+  <provides type="function" name="PHP_Beautifier_Common::getFilesByPattern" />
+  <provides type="function" name="PHP_Beautifier_Common::createDir" />
+  <provides type="function" name="PHP_Beautifier_Common::getSavePath" />
+  <provides type="function" name="PHP_Beautifier_Common::getFilesByGlob" />
+  <provides type="function" name="PHP_Beautifier_Common::getLog" />
+  <provides type="function" name="PHP_Beautifier_Common::wsToString" />
+  <provides type="function" name="PHP_Beautifier_Interface::process" />
+  <provides type="function" name="PHP_Beautifier_Interface::show" />
+  <provides type="function" name="PHP_Beautifier_Interface::get" />
+  <provides type="function" name="PHP_Beautifier_Interface::save" />
+  <provides type="class" name="Exception_PHP_Beautifier_Filter" extends="Exception" />
+  <provides type="function" name="PHP_Beautifier_StreamWrapper_Interface::stream_open" />
+  <provides type="function" name="PHP_Beautifier_StreamWrapper_Interface::stream_close" />
+  <provides type="function" name="PHP_Beautifier_StreamWrapper_Interface::stream_read" />
+  <provides type="function" name="PHP_Beautifier_StreamWrapper_Interface::stream_write" />
+  <provides type="function" name="PHP_Beautifier_StreamWrapper_Interface::stream_eof" />
+  <provides type="function" name="PHP_Beautifier_StreamWrapper_Interface::stream_tell" />
+  <provides type="function" name="PHP_Beautifier_StreamWrapper_Interface::stream_seek" />
+  <provides type="function" name="PHP_Beautifier_StreamWrapper_Interface::stream_flush" />
+  <provides type="function" name="PHP_Beautifier_StreamWrapper_Interface::stream_stat" />
+  <provides type="function" name="PHP_Beautifier_StreamWrapper_Interface::unlink" />
+  <provides type="function" name="PHP_Beautifier_StreamWrapper_Interface::dir_opendir" />
+  <provides type="function" name="PHP_Beautifier_StreamWrapper_Interface::dir_readdir" />
+  <provides type="function" name="PHP_Beautifier_StreamWrapper_Interface::dir_rewinddir" />
+  <provides type="function" name="PHP_Beautifier_StreamWrapper_Interface::dir_closedir" />
+  <provides type="function" name="PHP_Beautifier_Tokeniker_Interface::getTokens" />
+  <provides type="class" name="PHP_Beautifier_Filter_ArrayNested" extends="PHP_Beautifier_Filter" />
+  <provides type="function" name="PHP_Beautifier_Filter_ArrayNested::t_parenthesis_open" />
+  <provides type="function" name="PHP_Beautifier_Filter_ArrayNested::t_parenthesis_close" />
+  <provides type="function" name="PHP_Beautifier_Filter_ArrayNested::t_comma" />
+  <provides type="class" name="PHP_Beautifier_Filter_Default" extends="PHP_Beautifier_Filter" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::off" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_access" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_end_heredoc" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_open_tag" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_close_tag" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_switch" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_control" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_case" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_parenthesis_open" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_parenthesis_close" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_open_brace" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_close_brace" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_semi_colon" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_as" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_new" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_whitespace" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_doc_comment" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_comment" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::comment_short" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::comment_large" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_else" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::detect_colon_after_parenthesis" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_equal" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_logical" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_for" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_comma" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_include" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_language_construct" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_constant_encapsed_string" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_variable" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_question" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_colon" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_double_colon" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_break" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_default" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_end_suffix" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_extends" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_implements" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_instanceof" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_equal_sign" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_assigment" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_assigment_pre" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_array" />
+  <provides type="function" name="PHP_Beautifier_Filter_Default::t_object_operator" />
+  <provides type="class" name="PHP_Beautifier_Filter_ListClassFunction" extends="PHP_Beautifier_Filter" />
+  <provides type="function" name="PHP_Beautifier_Filter_ListClassFunction::t_function" />
+  <provides type="function" name="PHP_Beautifier_Filter_ListClassFunction::includeInList" />
+  <provides type="function" name="PHP_Beautifier_Filter_ListClassFunction::t_class" />
+  <provides type="function" name="PHP_Beautifier_Filter_ListClassFunction::t_comment" />
+  <provides type="function" name="PHP_Beautifier_Filter_ListClassFunction::t_open_tag" />
+  <provides type="function" name="PHP_Beautifier_Filter_ListClassFunction::postProcess" />
+  <provides type="class" name="PHP_Beautifier_Filter_Pear" extends="PHP_Beautifier_Filter" />
+  <provides type="function" name="PHP_Beautifier_Filter_Pear::t_semi_colon" />
+  <provides type="function" name="PHP_Beautifier_Filter_Pear::t_break" />
+  <provides type="function" name="PHP_Beautifier_Filter_Pear::t_open_brace" />
+  <provides type="function" name="PHP_Beautifier_Filter_Pear::t_comment" />
+  <provides type="function" name="PHP_Beautifier_Filter_Pear::t_open_tag" />
+  <provides type="function" name="PHP_Beautifier_Filter_Pear::preProcess" />
+  <provides type="function" name="PHP_Beautifier_Filter_Pear::addHeaderComment" />
+  <provides type="class" name="PHP_Beautifier_Filter_IndentStyles" extends="PHP_Beautifier_Filter" />
+  <provides type="function" name="PHP_Beautifier_Filter_IndentStyles::t_open_brace_bsd" />
+  <provides type="function" name="PHP_Beautifier_Filter_IndentStyles::t_close_brace_bsd" />
+  <provides type="function" name="PHP_Beautifier_Filter_IndentStyles::t_open_brace_ws" />
+  <provides type="function" name="PHP_Beautifier_Filter_IndentStyles::t_close_brace_ws" />
+  <provides type="function" name="PHP_Beautifier_Filter_IndentStyles::t_close_brace_gnu" />
+  <provides type="function" name="PHP_Beautifier_Filter_IndentStyles::t_open_brace_gnu" />
+  <provides type="function" name="PHP_Beautifier_Filter_IndentStyles::t_else" />
+  <provides type="class" name="PHP_Beautifier_Filter_NewLines" extends="PHP_Beautifier_Filter" />
+  <provides type="class" name="PHP_Beautifier_Filter_Lowercase" extends="PHP_Beautifier_Filter" />
+  <provides type="class" name="PHP_Beautifier_Batch_Output" />
+  <provides type="function" name="PHP_Beautifier_Batch_Output::beautifierSetInputFile" />
+  <provides type="function" name="PHP_Beautifier_Batch_Output::beautifierProcess" />
+  <provides type="function" name="PHP_Beautifier_Batch_Output::beautifierGet" />
+  <provides type="function" name="PHP_Beautifier_Batch_Output::beautifierSave" />
+  <provides type="function" name="PHP_Beautifier_Batch_Output::get" />
+  <provides type="function" name="PHP_Beautifier_Batch_Output::save" />
+  <provides type="class" name="PHP_Beautifier_Batch_Output_Directory" extends="PHP_Beautifier_Batch_Output" />
+  <provides type="function" name="PHP_Beautifier_Batch_Output_Directory::save" />
+  <provides type="function" name="PHP_Beautifier_Batch_Output_Directory::get" />
+  <provides type="class" name="PHP_Beautifier_Batch_Output_DirectoryBz2" extends="PHP_Beautifier_Batch_DirectoryTar" />
+  <provides type="function" name="PHP_Beautifier_Batch_Output_DirectoryBz2::getTar" />
+  <provides type="class" name="PHP_Beautifier_Batch_Output_DirectoryGz" extends="PHP_Beautifier_Batch_Output_DirectoryTar" />
+  <provides type="function" name="PHP_Beautifier_Batch_Output_DirectoryGz::getTar" />
+  <provides type="class" name="PHP_Beautifier_Batch_Output_DirectoryTar" extends="PHP_Beautifier_Batch_Output" />
+  <provides type="function" name="PHP_Beautifier_Batch_Output_DirectoryTar::save" />
+  <provides type="function" name="PHP_Beautifier_Batch_Output_DirectoryTar::getTar" />
+  <provides type="class" name="PHP_Beautifier_Batch_Output_Files" extends="PHP_Beautifier_Batch_Output" />
+  <provides type="function" name="PHP_Beautifier_Batch_Output_Files::get" />
+  <provides type="function" name="PHP_Beautifier_Batch_Output_Files::getWithHeader" />
+  <provides type="function" name="PHP_Beautifier_Batch_Output_Files::save" />
+  <provides type="class" name="PHP_Beautifier_Batch_Output_FilesBz2" extends="PHP_Beautifier_Batch_Output_FilesTar" />
+  <provides type="class" name="PHP_Beautifier_Batch_Output_FilesGz" extends="PHP_Beautifier_Batch_Output_FilesTar" />
+  <provides type="class" name="PHP_Beautifier_Batch_Output_FilesTar" extends="PHP_Beautifier_Batch_Output" />
+  <provides type="function" name="PHP_Beautifier_Batch_Output_FilesTar::get" />
+  <provides type="function" name="PHP_Beautifier_Batch_Output_FilesTar::save" />
+  <provides type="class" name="PHP_Beautifier_StreamWrapper_Tarz" />
+  <provides type="function" name="PHP_Beautifier_StreamWrapper_Tarz::stream_open" />
+  <provides type="function" name="PHP_Beautifier_StreamWrapper_Tarz::getTar" />
+  <provides type="function" name="PHP_Beautifier_StreamWrapper_Tarz::stream_close" />
+  <provides type="function" name="PHP_Beautifier_StreamWrapper_Tarz::stream_read" />
+  <provides type="function" name="PHP_Beautifier_StreamWrapper_Tarz::stream_write" />
+  <provides type="function" name="PHP_Beautifier_StreamWrapper_Tarz::stream_eof" />
+  <provides type="function" name="PHP_Beautifier_StreamWrapper_Tarz::stream_tell" />
+  <provides type="function" name="PHP_Beautifier_StreamWrapper_Tarz::stream_seek" />
+  <provides type="function" name="PHP_Beautifier_StreamWrapper_Tarz::stream_flush" />
+  <provides type="function" name="PHP_Beautifier_StreamWrapper_Tarz::stream_stat" />
+  <provides type="function" name="PHP_Beautifier_StreamWrapper_Tarz::unlink" />
+  <provides type="function" name="PHP_Beautifier_StreamWrapper_Tarz::dir_opendir" />
+  <provides type="function" name="PHP_Beautifier_StreamWrapper_Tarz::dir_readdir" />
+  <provides type="function" name="PHP_Beautifier_StreamWrapper_Tarz::dir_rewinddir" />
+  <provides type="function" name="PHP_Beautifier_StreamWrapper_Tarz::dir_closedir" />
+  <provides type="function" name="PHP_Beautifier_StreamWrapper_Tarz::getFileList" />
+  <provides type="function" name="PHP_Beautifier_StreamWrapper_Tarz::tarFileExists" />
+  <filelist>
+   <file role="php" baseinstalldir="PHP" md5sum="cf3973ae10fcc92a7a6831585b1c978b" name="Beautifier.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="PHP" md5sum="4ecd26140a47228d9a395b419ce4328c" name="Beautifier/Filter.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="PHP" md5sum="3dcbe057466ed2aada7a3ecfc7cd759b" name="Beautifier/Decorator.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="PHP" md5sum="41c9e2b52f63f79b197f345adb6f2169" name="Beautifier/Batch.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="PHP" md5sum="1357dc874ef1054c82651bda283bfb19" name="Beautifier/Common.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="PHP" md5sum="396e71d1e4098c685da57cc5dffc2b5c" name="Beautifier/Exception.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="PHP" md5sum="b5cc2ea937ef5e3cc945ce6b7268d5a1" name="Beautifier/StreamWrapper.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="PHP" md5sum="01c72d91426e2279994af383e3128393" name="Beautifier/Tokenizer.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="PHP" md5sum="2039a393b1c5300f448f0eb4fab70758" name="Beautifier/Filter/ArrayNested.filter.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="PHP" md5sum="9ca50154b72ee19a3b635c51d335f2f8" name="Beautifier/Filter/Default.filter.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="PHP" md5sum="80086de94512ea1f19aa6a40f098e47d" name="Beautifier/Filter/ListClassFunction.filter.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="PHP" md5sum="dcf3103aef9fbbc1dee56a8b8121142c" name="Beautifier/Filter/Pear.filter.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="PHP" md5sum="d95016c0debd3a71eed02c13414ac356" name="Beautifier/Filter/IndentStyles.filter.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="PHP" md5sum="b9cb2131fee0f0943e1a4a1fe13d6ce2" name="Beautifier/Filter/NewLines.filter.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="PHP" md5sum="d9776b1b01eb41eb9024f1eef7bf40f4" name="Beautifier/Filter/Lowercase.filter.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="PHP" md5sum="3aa35839ddb8fe36202a97e0d4ef9002" name="Beautifier/Batch/Output.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="PHP" md5sum="16605b1849546c269f4dfd7e16903e51" name="Beautifier/Batch/Output/Directory.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="PHP" md5sum="294cbb7ebce73b640eea413f71f51bb4" name="Beautifier/Batch/Output/DirectoryBz2.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="PHP" md5sum="64341ee46c7c12132ba28c1241e620b9" name="Beautifier/Batch/Output/DirectoryGz.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="PHP" md5sum="b8a871551a0c86ce04528d491c6067bb" name="Beautifier/Batch/Output/DirectoryTar.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="PHP" md5sum="416f254cc49cc9f1405484d4c6e4a9f3" name="Beautifier/Batch/Output/Files.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="PHP" md5sum="fc56bbfd7b1805ad05f22ef3a6e33362" name="Beautifier/Batch/Output/FilesBz2.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="PHP" md5sum="5925f72203adba2d89347ea7682f9e87" name="Beautifier/Batch/Output/FilesGz.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="PHP" md5sum="fcf7c657e4b3bd058e64436c5cbc4dc4" name="Beautifier/Batch/Output/FilesTar.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="PHP" md5sum="0ca7519b2f7d76bb35448819868b7942" name="Beautifier/StreamWrapper/Tarz.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="doc" baseinstalldir="PHP" md5sum="d1c64a1920a161f101dcb8b5fd6a710b" name="examples/run_me.php"/>
+   <file role="doc" baseinstalldir="PHP" md5sum="16b70fb770efb1fb62e04afc0a135f18" name="examples/example_main.php"/>
+   <file role="doc" baseinstalldir="PHP" md5sum="be3e0cda18a01a595cfecd2b07176aa1" name="examples/example_pear.php"/>
+   <file role="doc" baseinstalldir="PHP" md5sum="8c2b1c52f86d091f9c0cf1064cd5b45a" name="examples/example_lowercase.php"/>
+   <file role="doc" baseinstalldir="PHP" md5sum="4be98f42a37b37bf3dc23d3065d1e34e" name="examples/example_array.php"/>
+   <file role="doc" baseinstalldir="PHP" md5sum="f9ad38e9a9bc8c9f73810b23d0d03874" name="examples/example_comments.php"/>
+   <file role="doc" baseinstalldir="PHP" md5sum="d33c75ae10cb6c34275ff2e96298907a" name="examples/example_html.php"/>
+   <file role="data" baseinstalldir="PHP" md5sum="fe3aa1988b807049158a78c8c06987a1" name="licenses/apache.txt"/>
+   <file role="data" baseinstalldir="PHP" md5sum="fc8c4631f1f865199c27cb0c2f561127" name="licenses/bsd.txt"/>
+   <file role="data" baseinstalldir="PHP" md5sum="4ed1d658d8dff39314d33f4f1f12e621" name="licenses/lgpl.txt"/>
+   <file role="data" baseinstalldir="PHP" md5sum="aec129d6e97c0bea17779779a63f7043" name="licenses/php.txt"/>
+   <file role="data" baseinstalldir="PHP" md5sum="5f9fc848e79ca53ceda4f4790f42e997" name="licenses/pear.txt"/>
+   <file role="test" baseinstalldir="PHP" md5sum="9f0169ea26f9d3e8e6c0ade2fe1c7df2" name="tests/Beautifier.phpt">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="test" baseinstalldir="PHP" md5sum="896458dfbfb93db22d4282f0f6941317" name="tests/Beautifier_Common.phpt">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="test" baseinstalldir="PHP" md5sum="c5db8e55547ff7780baeb2c308f62b65" name="tests/Beautifier_Bugs.phpt">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="test" baseinstalldir="PHP" md5sum="7db8cbf4a09699666e278c605e7c028e" name="tests/Beautifier_StreamWrapper.phpt">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="test" baseinstalldir="PHP" md5sum="0592dbe8033112290797d2a48277e309" name="tests/Beautifier_Pear.phpt">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="test" baseinstalldir="PHP" md5sum="7bba162586090a15fa39560b8be9e2ca" name="tests/pear_sample_file.phps">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="script" baseinstalldir="/" md5sum="463d079c24abd0a13a1a0f5dbdf08aed" install-as="php_beautifier" name="scripts/php_beautifier">
+    <replace from="&quot;@php_bin@&quot;" to="php_bin" type="pear-config"/>
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="script" baseinstalldir="/" md5sum="9f74edde62aa91d266be21b576c6c8de" platform="windows" install-as="php_beautifier.bat" name="scripts/php_beautifier.bat">
+    <replace from="&quot;@php_bin@&quot;" to="php_bin" type="pear-config"/>
+    <replace from="&quot;@bin_dir@&quot;" to="bin_dir" type="pear-config"/>
+   </file>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>0.1.10</version>
+    <date>2006-06-06</date>
+    <notes>The one NOT before stable: ( The day of the AC!		
+- Bug fix[7818]: Where curly brackets are used to indicate a variable class 
+property, PHP_Beautifier adds extra whitespace as if it were 
+parsing a class method or function.
+- Internal Bug 3: Removed log messages on command line. Use -v to get the verbose output (messages with PEAR_DEBUG_INFO level).
+! Bug 7759 remains open, only when one or more case doesn&apos;t ends with a break.
+    </notes>
+   </release>
+   <release>
+    <version>0.1.9</version>
+    <date>2006-06-05</date>
+    <state>beta</state>
+    <notes>The one before stable!		
+- Bug fix[Internal 2]: Code to detect default token constant was wrong. This solve strange extra white lines on output.
+- Bug fix[#7305]: add spaces before and after array key-value pair assignator (=&gt;)
+- Bug fix[#7307]: first lines are intended if ListClassFunction is enabled
+- Bug fix[#7308]:  	typo in &quot;How to use PHP_Beautifier&quot;: &apos;standar&apos; should be &apos;standard&apos;
+- Bug fix[#7312]: missing spaces with lower and greater than operator. missing spaces with after ; in for statemants
+- Bug fix[#7759]: Adding a comment after a case statement in a switch causes the
+indenting to be wrong.
++ New Lowercase Filter[requested on #7348]: Lowercase all control structures. Parse the output of this filter with a new instance of the object or with a pipe in a new php_beautifier.
+    </notes>
+   </release>
+   <release>
+    <version>0.1.8</version>
+    <date>2006-04-01</date>
+    <state>beta</state>
+    <notes>Bug fix release
+- Bug fix [#6237]: Extra space before a variable inside a double quote section
+- Bug fix [#5711]: Add newline with indent after class definition, with pear filter.
+    </notes>
+   </release>
+   <release>
+    <version>0.1.7</version>
+    <date>2005-09-14</date>
+    <notes>- Bug fix [Daniel Convissor,June 20] Pear Filter: Switch structures according to coding standars(http://pear.php.net/manual/en/standards.control.php)
+- Bug fix [#4621]: I ran the command line to update my pages and wanted to add the php license to them. The only problem is it only added the license to the
+first file and not the rest of the files.
+- Bug fix [#4931]: Switch again! empty case before a  default statement breaks the indentation
+-
+    </notes>
+   </release>
+   <release>
+    <version>0.1.6</version>
+    <date>2005-06-15</date>
+    <state>beta</state>
+    <notes>- Fixed suite of test, to respond to the changes implemented on v0.1.5
+- Bug fix on PHP_Beautifier_Common::getSavePath : the MCD of the files is based on the complete dirs, not only the last common char.
++ Correct implementation of compressed output files (.tar, .tgz, .tar.bz2). Now, you can do something like
+	$oBeaut = new PHP_Beautifier();
+    $oBatch = new PHP_Beautifier_Batch($oBeaut);
+	$oBatch-&gt;setRecursive(true);
+    $oBatch-&gt;setInputFile(&apos;files/*.php&apos;);
+    $oBatch-&gt;setOutputFile(&apos;files.tar&apos;);
+	$oBatch-&gt;save();
+    $oBatch-&gt;setOutputFile(&apos;files.tar.bz2&apos;);
+	$oBatch-&gt;save();
+    $oBatch-&gt;setOutputFile(&apos;files.tgz&apos;);
+	$oBatch-&gt;save();
++ Using get() or show() on a Batch object send the contents of the files, one after another.
+    </notes>
+   </release>
+   <release>
+    <version>0.1.5</version>
+    <date>2005-06-13</date>
+    <notes>- Bug fix [#4151]: Lot of NOTICES when use IndentStyles filter(silly me!)
+- Bug fix [#4501]: Fixed online docs and command line arguments mismatch
+- Bug fix [#4572]: Verify cli before access to STDOUT on Batch.php
+- Bug fix [#4573]: Removed default indent, to maintain coding standars of PEAR.
+    </notes>
+   </release>
+   <release>
+    <version>0.1.4</version>
+    <date>2005-04-01</date>
+    <state>beta</state>
+    <notes>Improved Filter NewLines release
++ Added support for tokens.
++ Added optional dependency on bz2
+- Bug fix: You could use, now, colons to separate contents and/or tokens
+* Example of use with command line: 
+php_beautifier --filters &quot;NewLines(before=if:switch:T_CLASS,after=T_COMMENT:function)
+! Know issue: the comments have special rules for spacing. So, newlines before a token after a comment won&apos;t be created. ¿Feature? ¿Bug? You decide
+    </notes>
+   </release>
+   <release>
+    <version>0.1.3</version>
+    <date>2005-02-04</date>
+    <notes>Bug fix release for CGI mode
++ Added test on script &apos;php_beautifier&apos;, to verify that the php interpreter is the &apos;cli&apos; one.
+* Bug fix: References of STDIN and STDOUT generates Notices on cgi mode. Reported by Tobias Bielohlawek (ted42 at web.de).
+    </notes>
+   </release>
+   <release>
+    <version>0.1.2</version>
+    <date>2005-02-04</date>
+    <state>beta</state>
+    <notes>1+)New Filter NewLines: Request by Michael Mayer (michael at liquidbytes.net).
+   Allows to include an extra line before/after some contents. Please, use with
+   case, because is a preliminary release.
+2+)New Functions in PHP_Beautifier to support PHP_Beautifier_Files_NewLines:
+   2.1) setBeforeNewLine()
+   2.2) setNoDeletePreviousSpaceHack() : an ominous hack. 
+        Children, don&apos;t do it at home!
+3*)The new &quot;RFC Header Comment Blocks&quot; is a success, so all the headers are
+   changed to adjust. A new license is available on licences, for PEAR Filter.
+4-)Bug fix [3257]: Comments between if and elseif screws up formatting.
+    </notes>
+   </release>
+   <release>
+    <version>0.1.1</version>
+    <date>2005-01-15</date>
+    <state>beta</state>
+    <notes>- Bug fix [3181]: Added dependency for tokenizer extension on package.xml and a test in PHP_Beautifier.php. The tokenizer extension is disabled in FreeBsd, so, if application can&apos;t find de tokenizer, throws an exception.
+- Bug fix [3186]: Replaced custom glob function with standard PHP glob function. Advice: RTFM!
+    </notes>
+   </release>
+   <release>
+    <version>0.1.0</version>
+    <date>2005-01-10</date>
+    <state>beta</state>
+    <notes>Devel state: No bugs reported in months.... The next release will be stable, probably.
+
++ More documentation on PHP_Beautifier, StreamWrapper
++ Added PHP_Beautifier::removeFilter()
++ Added preliminary support for tokenikers. See PHP_Beautifier::process() and PHP_Beautifier_Tokenizer()
+* Test for package can use the version on include path or a local one, on ../Beautifier.php. Useful for debug.
+- Bug fix: HP_Beautifier_Filter_IndentStyles::_call() doesn&apos;t have to return a value on success
+- Bug fix: Addes T_OBJECT_OPERATOR as token and t_object_operator on Default Filter.
+    </notes>
+   </release>
+ </changelog>
+</package>

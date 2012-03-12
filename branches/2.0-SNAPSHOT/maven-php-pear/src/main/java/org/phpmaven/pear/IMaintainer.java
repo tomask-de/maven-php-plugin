@@ -49,6 +49,18 @@ public interface IMaintainer {
     void setName(String name);
     
     /**
+     * Returns the email.
+     * @return the email.
+     */
+    String getEmail();
+    
+    /**
+     * Sets the email.
+     * @param email email.
+     */
+    void setEMail(String email);
+    
+    /**
      * Returns the url.
      * @return url.
      */

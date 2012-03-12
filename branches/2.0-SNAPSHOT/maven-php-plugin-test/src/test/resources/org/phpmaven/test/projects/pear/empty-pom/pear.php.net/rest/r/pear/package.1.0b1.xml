@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>PEAR</name>
+  <summary>PEAR Base System</summary>
+  <description>The PEAR package contains:
+ * the PEAR base class
+ * the PEAR_Error error handling mechanism
+ * the PEAR installer, for creating, distributing
+   and installing packages</description>
+  <maintainers>
+    <maintainer>
+      <user>ssb</user>
+      <name>Stig Sæther Bakken</name>
+      <email>stig@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>cox</user>
+      <name>Tomas V.V.Cox</name>
+      <email>cox@idecnet.com</email>
+      <role>developer</role>
+    </maintainer>
+    <maintainer>
+      <user>mj</user>
+      <name>Martin Jansen</name>
+      <email>mj@php.net</email>
+      <role>helper</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.0b1</version>
+    <date>2002-10-12</date>
+    <license>PHP License</license>
+    <state>stable</state>
+    <notes>New Features, Installer:
+* new command: &quot;pear makerpm&quot;
+* new command: &quot;pear search&quot;
+* new command: &quot;pear upgrade-all&quot;
+* new command: &quot;pear config-help&quot;
+* new command: &quot;pear sign&quot;
+* Windows support for &quot;pear build&quot; (requires
+  msdev)
+* new dependency type: &quot;zend&quot;
+* XML-RPC results may now be cached (see
+  cache_dir and cache_ttl config)
+* HTTP proxy authorization support
+* install/upgrade install-root support
+
+Bugfixes, Installer:
+* fix for XML-RPC bug that made some remote
+  commands fail
+* fix problems under Windows with
+  DIRECTORY_SEPARATOR
+* lots of other minor fixes
+* --force option did not work for &quot;pear install
+  Package&quot;
+* http downloader used &quot;4.2.1&quot; rather than
+  &quot;PHP/4.2.1&quot; as user agent
+* bending over a little more to figure out how
+  PHP is installed
+* &quot;platform&quot; file attribute was not included
+  during &quot;pear package&quot;
+
+New Features, PEAR Library:
+* added PEAR::loadExtension($ext)
+* added PEAR::delExpect()
+* System::mkTemp() now cleans up at shutdown
+* defined PEAR_ZE2 constant (boolean)
+* added PEAR::throwError() with a simpler API
+  than raiseError()
+
+Bugfixes, PEAR Library:
+* ZE2 compatibility fixes
+* use getenv() as fallback for $_ENV</notes>
+    <deps>
+      <dep type="php" rel="ge" version="4.1"/>
+      <dep type="pkg" rel="ge" version="0.4">Archive_Tar</dep>
+      <dep type="pkg" rel="ge" version="0.11">Console_Getopt</dep>
+    </deps>
+    <filelist>
+      <file role="data" md5sum="aed677f6e24314098107785210285a6f" name="package.dtd"/>
+      <file role="data" md5sum="669216e5752acd013f692dfad19f2041" name="template.spec"/>
+      <file role="php" md5sum="979c072c6a976409b8baadb6c4780e00" name="PEAR.php"/>
+      <file role="php" md5sum="85fb9795cb95967e6e69695b984d0dfa" name="System.php"/>
+      <file role="php" md5sum="d2d6ee883cce725fb0b8650438f66056" name="PEAR/Autoloader.php"/>
+      <file role="php" md5sum="83d8be6100cc2d3de4b88efe5742323e" name="PEAR/Command.php"/>
+      <file role="php" md5sum="4675905d718dde81c1ed0877b8963363" name="PEAR/Command/Auth.php"/>
+      <file role="php" md5sum="d74a845524778e2109b4fbc72cd6746f" name="PEAR/Command/Build.php"/>
+      <file role="php" md5sum="947c98ffbb96c00a5890a03de3b041bf" name="PEAR/Command/Common.php"/>
+      <file role="php" md5sum="d04c9010ca9196676dfd2800235b5d8e" name="PEAR/Command/Config.php"/>
+      <file role="php" md5sum="16cd8f000d524584b7fb51cfff1d545c" name="PEAR/Command/Install.php"/>
+      <file role="php" md5sum="3e09b4d66ebb66a4d9746e499541e448" name="PEAR/Command/Package.php"/>
+      <file role="php" md5sum="c3535a8508edaa90407d6a15593c73bc" name="PEAR/Command/Registry.php"/>
+      <file role="php" md5sum="ffefd5e211fd335ecaa8117d04727324" name="PEAR/Command/Remote.php"/>
+      <file role="php" md5sum="5a674fdf2ca0784cc3137e8465b7a50f" name="PEAR/Common.php"/>
+      <file role="php" md5sum="20890b5c517eb72dc1b3b06f2a64c781" name="PEAR/Config.php"/>
+      <file role="php" md5sum="a1fb2298cbae49abb310e796b751f73a" name="PEAR/Dependency.php"/>
+      <file role="php" md5sum="2f7e86d008fa2d70e45cd429bfc236e8" name="PEAR/Frontend/CLI.php"/>
+      <file role="php" md5sum="4137878b18f7db6167f1b24a2e6d4809" name="PEAR/Builder.php"/>
+      <file role="php" md5sum="518b3aa2e28a6a71241303e3faf45906" name="PEAR/Installer.php"/>
+      <file role="php" md5sum="41904f33e377ea91c2d1666bd7e65d13" name="PEAR/Packager.php"/>
+      <file role="php" md5sum="eda8216454f58a3afc619f0be7127dbf" name="PEAR/Registry.php"/>
+      <file role="php" md5sum="c4dd602983ae4988092d2dc8d7bae15e" name="PEAR/Remote.php"/>
+      <file role="php" md5sum="0168228f4c3e0dd824d2d03f42098406" name="OS/Guess.php"/>
+      <file role="script" baseinstalldir="/" md5sum="0c9c2158cb0a554e7ed4c33e2b5bd59a" install-as="pear" name="scripts/pear.in">
+        <replace from="@prefix@/bin" to="PHP_BINDIR" type="php-const"/>
+        <replace from="@pear_version@" to="version" type="package-info"/>
+        <replace from="@include_path@" to="php_dir" type="pear-config"/>
+      </file>
+      <file role="script" baseinstalldir="/" md5sum="6ef9b77d3ae051d7b093744db132c0c8" platform="windows" install-as="pear.bat" name="scripts/pear.bat"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.90</version>
+      <date>2002-05-28</date>
+      <state>beta</state>
+      <notes>* fix: &quot;help&quot; command was broken
+* new command: &quot;info&quot;
+* new command: &quot;config-help&quot;
+* un-indent multi-line data from xml description files
+* new command: &quot;build&quot;
+* fix: config-set did not work with &quot;set&quot; parameters
+* disable magic_quotes_runtime
+* &quot;install&quot; now builds and installs C extensions
+* added PEAR::delExpect()
+* System class no longer inherits PEAR
+* grouped PEAR_Config parameters
+* add --nobuild option to install/upgrade commands
+* new and more generic Frontend API
+
+</notes>
+    </release>
+    <release>
+      <version>0.10</version>
+      <date>2002-05-26</date>
+      <state>beta</state>
+      <notes>Lots of stuff this time.  0.9 was not actually self-hosting, even
+though it claimed to be.  This version finally is self-hosting
+(really!), meaning you can upgrade the installer with the command
+&quot;pear upgrade PEAR&quot;.
+
+* new config paramers: http_proxy and umask
+* HTTP proxy support when downloading packages
+* generalized command handling code
+* and fixed the bug that would not let commands have the
+  same options as &quot;pear&quot; itself
+* added long options to every command
+* added command shortcuts (&quot;pear help shortcuts&quot;)
+* added stub for Gtk installer
+* some phpdoc fixes
+* added class dependency detector (using ext/tokenizer)
+* dependency handling fixes
+* added OS_Guess class for detecting OS
+* install files with the &quot;platform&quot; attribute set
+  only on matching operating systems
+* PEAR_Remote now falls back to the XML_RPC package
+  if xmlrpc-epi is not available
+* renamed command: package-list -&gt; list
+* new command: package-dependencies
+* lots of minor fixes
+
+</notes>
+    </release>
+    <release>
+      <version>0.9</version>
+      <date>2002-04-07</date>
+      <state>beta</state>
+      <notes>First package release.  Commands implemented:
+   remote-package-info
+   list-upgrades
+   list-remote-packages
+   download
+   config-show
+   config-get
+   config-set
+   list-installed
+   shell-test
+   install
+   uninstall
+   upgrade
+   package
+   package-list
+   package-info
+   login
+   logout
+
+</notes>
+    </release>
+  </changelog>
+</package>

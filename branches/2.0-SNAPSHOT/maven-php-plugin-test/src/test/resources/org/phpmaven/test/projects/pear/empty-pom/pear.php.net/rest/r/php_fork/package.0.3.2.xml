@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>PHP_Fork</name>
+ <channel>pear.php.net</channel>
+ <summary>PHP_Fork class. Wrapper around the pcntl_fork() stuff with a API set like Java language</summary>
+ <description>PHP_Fork class. Wrapper around the pcntl_fork() stuff
+with a API set like Java language.
+Practical usage is done by extending this class, and re-defining
+the run() method.
+[see basic example]
+This way PHP developers can enclose logic into a class that extends
+PHP_Fork, then execute the start() method that forks a child process.
+Communications with the forked process is ensured by using a Shared Memory
+Segment; by using a user-defined signal and this shared memory developers
+can access to child process methods that returns a serializable variable.
+The shared variable space can be accessed with the tho methods:
+o void setVariable($name, $value)
+o mixed getVariable($name)
+$name must be a valid PHP variable name;
+$value must be a variable or a serializable object.
+Resources (db connections, streams, etc.) cannot be serialized and so they&apos;re not correctly handled.
+Requires PHP build with --enable-cli --with-pcntl --enable-shmop.
+Only runs on *NIX systems, because Windows lacks of the pcntl ext.
+@example browser_pool.php an interactive tool to perform multiple cuncurrent request over an URL.
+@example simple_controller.php shows how to attach a controller to started pseudo-threads.
+@example exec_methods.php shows a workaround to execute methods into the child process.
+@example passing_vars.php shows variable exchange between the parent process and started pseudo-threads.
+@example basic.php a basic example, only two pseudo-threads that increment a counter simultaneously.</description>
+ <lead>
+  <name>Luca Mariano</name>
+  <user>lucamariano</user>
+  <email>luca.mariano@email.it</email>
+  <active>no</active>
+ </lead>
+ <date>2010-10-25</date>
+ <time>23:32:54</time>
+ <version>
+  <release>0.3.2</release>
+  <api>0.3.1</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.php.net/license">PHP License</license>
+ <notes>
+Automatically built QA release
+Bug #9472 package not installable - cweiske
+ </notes>
+ <contents>
+  <dir baseinstalldir="PHP" name="/">
+   <file baseinstalldir="PHP" md5sum="05832080ff68d875a856f30ad49df650" name="examples/basic.php" role="doc" />
+   <file baseinstalldir="PHP" md5sum="4a1a636db9e55a6a66d7173b42842411" name="examples/browser_pool.php" role="doc" />
+   <file baseinstalldir="PHP" md5sum="53cce154d5a4ad7c6d8197970a3efd9d" name="examples/exec_methods.php" role="doc" />
+   <file baseinstalldir="PHP" md5sum="fe53b8ef0ea963c49628a355aec002ed" name="examples/passing_vars.php" role="doc" />
+   <file baseinstalldir="PHP" md5sum="d898c4001e8a2f24240e9a6836ba9786" name="examples/simple_controller.php" role="doc" />
+   <file baseinstalldir="PHP" md5sum="0d6d101001cb342fd25ae39194d58870" name="Fork.php" role="php" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.0.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <extension>
+    <name>pcntl</name>
+   </extension>
+   <extension>
+    <name>shmop</name>
+   </extension>
+   <extension>
+    <name>posix</name>
+   </extension>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-03-17</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Initial release
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2005-01-04</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Added dependancies into package.xml (bug #2758)
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.3.0</release>
+    <api>0.3.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2005-03-24</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+* Added isActive() facilty to check if the process is into its run() method.
+* Added IPC segments cleanup after the stop() method is called
+  (this totally free up detached shared memory as revealed by the ipcs command).
+* Added a complex usage example (examples/browser_pool.php).
+* Some minor changes into example scripts to accomplish php5 syntax rules.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.3.2</release>
+    <api>0.3.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2010-10-25</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Automatically built QA release
+Bug #9472 package not installable - cweiske
+   </notes>
+  </release>
+ </changelog>
+</package>

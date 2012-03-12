@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.8.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Services_Amazon_SQS</name>
+ <channel>pear.php.net</channel>
+ <summary>PHP API and tools for Amazon SQS (Simple Queue Service)</summary>
+ <description>This package provides an object-oriented interface to the Amazon Simple Queue Service (SQS). Included are client libraries and a command-line script for managing queues. You will need a set of web-service keys from Amazon Web Services that have SQS enabled. You can sign up for an account at: https://aws-portal.amazon.com/gp/aws/developer/registration/index.html.
+
+Note: Although this package has no cost, Amazon&apos;s Web services are not free to use. You will be billed by Amazon for your use of SQS.
+
+This package is derived with permission from the simple-aws package available at http://code.google.com/p/simple-aws/ and written by Mike Brittain.
+
+This package requires PHP 5.2.1. On Red Hat flavored distributions, the &quot;php-xml&quot; package must also be installed.
+
+There are two main ways to use this package. Firstly, it provides an API that may be used to manage queues, and to add and remove messages from queues in PHP scripts. The Services_Amazon_SQS_QueueManager and Services_Amazon_SQS_Queue classes provide these methods.
+
+Secondly, a command-line application for managing SQS queues is provided. This is installed by PEAR as &quot;sqs&quot;. Running this command produces the following output:
+
+A command-line interface to Amazon&apos;s Simple Queue Service (SQS).
+
+Usage:
+  /usr/bin/sqs [options]
+  /usr/bin/sqs [options] &lt;command&gt; [options] [args]
+
+Options:
+  -c config, --config=config  Find configuration in &quot;config&quot;.
+
+Commands:
+  create   Creates a new queue with the specified name. The queue may
+           take up to 60 seconds to become available.
+  delete   Deletes an existing queue by the specified URI. The queue
+           may take up to 60 seconds to become unavailable.
+  help     Displays an overview of available options and commands, or
+           detailed help for a specific command.
+  list     Lists available queues. If a prefix is specified, only
+           queues beginning with the specified prefix are listed.
+  send     Sends input from STDIN to the specified queue. The
+           resulting message identifier is displayed on STDOUT.
+  receive  Receives a message from the specified queue. The message
+           body is displayed on STDOUT. If no message is received,
+           nothing is displayed on STDOUT.
+  version  Displays version information and exits.</description>
+ <lead>
+  <name>Mike Gauthier</name>
+  <user>gauthierm</user>
+  <email>mike@silverorange.com</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Mike Brittain</name>
+  <user>mikebrittain</user>
+  <email>mike@mikebrittain.com</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-06-19</date>
+ <time>10:15:45</time>
+ <version>
+  <release>0.2.0</release>
+  <api>0.2.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</license>
+ <notes>
+Second PEAR release
+ * Implemented Req #15431. Added send and receive commands to the command-line interface
+ * Implemented Req #15451. Use mock-http requests in unit tests
+ * Increased test coverage
+ * Implemented Req #15430. Use Console_CommandLine for command-line interface
+ * Implemented Req #15432. Use Amazon Signature Version 2. See http://developer.amazonwebservices.com/connect/entry.jspa?externalID=1928
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <file baseinstalldir="/" md5sum="8f96a167db17f03f03e644bc6fc95285" name="cfg/sqs-win.ini" role="cfg">
+    <tasks:windowseol />
+   </file>
+   <file baseinstalldir="/" md5sum="a9e2ef1f5fffdf38d4a45116eabffe1e" name="cfg/sqs.ini" role="cfg" />
+   <file baseinstalldir="/" md5sum="96e97688bbefc959819692c59859df88" name="data/cli.xml" role="data">
+    <tasks:replace from="@package-version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="59e2c11c577c9185b4801e123b1787b8" name="scripts/sqs" role="script">
+    <tasks:replace from="@php-bin@" to="php_bin" type="pear-config" />
+   </file>
+   <file baseinstalldir="/" md5sum="bb63bf4e813375584e53cb00de295a0c" name="scripts/sqs.bat" role="script">
+    <tasks:replace from="@php-bin@" to="php_bin" type="pear-config" />
+    <tasks:replace from="@bin-dir@" to="bin_dir" type="pear-config" />
+    <tasks:replace from="@php-dir@" to="php_dir" type="pear-config" />
+    <tasks:windowseol />
+   </file>
+   <file baseinstalldir="/" md5sum="f9d7749f55825bc28cc2485597fb8350" name="Services/Amazon/SQS/Account.php" role="php" />
+   <file baseinstalldir="/" md5sum="7f01a0e533e13ff92ad9d693904ee077" name="Services/Amazon/SQS/CLI.php" role="php">
+    <tasks:replace from="@package-name@" to="name" type="package-info" />
+    <tasks:replace from="@data-dir@" to="data_dir" type="pear-config" />
+   </file>
+   <file baseinstalldir="/" md5sum="bb7ddc51add20a03e6aba6ee2829f78f" name="Services/Amazon/SQS/Exceptions.php" role="php" />
+   <file baseinstalldir="/" md5sum="1d200837516aae9f47358ce912a4c494" name="Services/Amazon/SQS/Queue.php" role="php" />
+   <file baseinstalldir="/" md5sum="7ee9608a6153e3194c288c804346581a" name="Services/Amazon/SQS/QueueManager.php" role="php" />
+   <file baseinstalldir="/" md5sum="3a59ac4be7c693d786aefb9613f11cc6" name="Services/Amazon/SQS/Response.php" role="php" />
+   <file baseinstalldir="/" md5sum="1592da29f740046da4949b725cc094e4" name="Services/Amazon/SQS.php" role="php">
+    <tasks:replace from="@api-version@" to="api-version" type="package-info" />
+    <tasks:replace from="@name@" to="name" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="3c009739e9fcf5a5fc29e661bbaade8a" name="tests/AllTests.php" role="test" />
+   <file baseinstalldir="/" md5sum="645a2d906968318d3ae63f6fbfa40138" name="tests/config.php" role="test" />
+   <file baseinstalldir="/" md5sum="005e217efe46218c3be81b160d02baed" name="tests/TestCase.php" role="test" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.1</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+   <package>
+    <name>PEAR</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>Console_CommandLine</name>
+    <channel>pear.php.net</channel>
+    <min>1.1.0</min>
+   </package>
+   <package>
+    <name>Crypt_HMAC2</name>
+    <channel>pear.php.net</channel>
+    <min>0.2.1</min>
+   </package>
+   <package>
+    <name>Net_URL2</name>
+    <channel>pear.php.net</channel>
+    <min>0.2.0</min>
+   </package>
+   <package>
+    <name>HTTP_Request2</name>
+    <channel>pear.php.net</channel>
+    <min>0.1.0</min>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease>
+  <installconditions>
+   <os>
+    <name>windows</name>
+   </os>
+  </installconditions>
+  <filelist>
+   <install as="sqs" name="scripts/sqs" />
+   <install as="sqs.bat" name="scripts/sqs.bat" />
+   <install as="sqs.ini" name="cfg/sqs-win.ini" />
+   <ignore name="cfg/sqs.ini" />
+  </filelist>
+ </phprelease>
+ <phprelease>
+  <filelist>
+   <install as="sqs" name="scripts/sqs" />
+   <install as="sqs.ini" name="cfg/sqs.ini" />
+   <ignore name="scripts/sqs.bat" />
+   <ignore name="cfg/sqs-win.ini" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2009-06-19</date>
+   <license uri="http://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</license>
+   <notes>
+Second PEAR release
+ * Implemented Req #15431. Added send and receive commands to the command-line interface
+ * Implemented Req #15451. Use mock-http requests in unit tests
+ * Increased test coverage
+ * Implemented Req #15430. Use Console_CommandLine for command-line interface
+ * Implemented Req #15432. Use Amazon Signature Version 2. See http://developer.amazonwebservices.com/connect/entry.jspa?externalID=1928
+   </notes>
+  </release>
+ </changelog>
+</package>

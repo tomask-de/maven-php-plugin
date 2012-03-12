@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Text_Highlighter</name>
+  <summary>Syntax highlighting</summary>
+  <description>Text_Highlighter is a package for syntax highlighting.
+
+It provides a base class provining all the functionality, 
+and a descendent classes geneator class.
+
+The main idea is to simplify creation of subclasses
+implementing syntax highlighting for particular language.
+Subclasses do not implement any new functioanality,
+they just provide syntax highlighting rules.
+The rules sources are in XML format. 
+
+To create a highlighter for a language, there is no need
+to code a new class manually. Simply describe the rules
+in XML file and use Text_Highlighter_Generator to create
+a new class.</description>
+  <maintainers>
+    <maintainer>
+      <user>blindman</user>
+      <name>Andrey Demenev</name>
+      <email>demenev@on-line.jar.ru</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.4.1</version>
+    <date>2004-06-19</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>First beta release</notes>
+    <deps>
+      <dep type="pkg" rel="ge" version="1.0" optional="no">PEAR</dep>
+      <dep type="pkg" rel="ge" version="1.0.1" optional="no">XML_Parser</dep>
+      <dep type="pkg" rel="ge" version="1.0" optional="no">Console_Getopt</dep>
+    </deps>
+    <provides type="class" name="Text_Highlighter_CSS" extends="Text_Highlighter" />
+    <provides type="class" name="Text_Highlighter_DIFF" extends="Text_Highlighter" />
+    <provides type="class" name="Text_Highlighter_DTD" extends="Text_Highlighter" />
+    <provides type="class" name="Text_Highlighter_Generator" extends="XML_Parser" />
+    <provides type="function" name="Text_Highlighter_Generator::declareErrorMessages" />
+    <provides type="function" name="Text_Highlighter_Generator::setInputFile" />
+    <provides type="function" name="Text_Highlighter_Generator::generate" />
+    <provides type="function" name="Text_Highlighter_Generator::getCode" />
+    <provides type="function" name="Text_Highlighter_Generator::saveCode" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_Default" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_Region" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_Block" />
+    <provides type="function" name="Text_Highlighter_Generator::cdataHandler" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_Comment" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_PartClass" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_Keywords" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_Keyword" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_Contains" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_But" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_Onlyin" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_Author" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_Highlight" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_Comment_" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_Region_" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_Keywords_" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_Block_" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_Highlight_" />
+    <provides type="class" name="Text_Highlighter_JAVASCRIPT" extends="Text_Highlighter" />
+    <provides type="class" name="Text_Highlighter_MYSQL" extends="Text_Highlighter" />
+    <provides type="class" name="Text_Highlighter_PHP" extends="Text_Highlighter" />
+    <provides type="class" name="Text_Highlighter_PYTHON" extends="Text_Highlighter" />
+    <provides type="class" name="Text_Highlighter_SQL" extends="Text_Highlighter" />
+    <provides type="class" name="Text_Highlighter_XML" extends="Text_Highlighter" />
+    <provides type="class" name="Text_Highlighter" />
+    <provides type="function" name="Text_Highlighter::factory" />
+    <provides type="function" name="Text_Highlighter::highlight" />
+    <filelist>
+      <file role="php" baseinstalldir="Text" md5sum="8a0c99ef582ba11995f57f3d01ea8c34" name="Highlighter/CSS.php"/>
+      <file role="php" baseinstalldir="Text" md5sum="c05ab1624a0cb555cdb334b097de5406" name="Highlighter/DIFF.php"/>
+      <file role="php" baseinstalldir="Text" md5sum="b315edebb5ee3a2500010018c13cf562" name="Highlighter/DTD.php"/>
+      <file role="php" baseinstalldir="Text" md5sum="46ba8e27f3553487d977fd46b05ddfd2" name="Highlighter/Generator.php"/>
+      <file role="php" baseinstalldir="Text" md5sum="48ac29d19bacb08903cfe35c6026f923" name="Highlighter/JAVASCRIPT.php"/>
+      <file role="php" baseinstalldir="Text" md5sum="f14d5564c57d3080bed946d7309b9585" name="Highlighter/MYSQL.php"/>
+      <file role="php" baseinstalldir="Text" md5sum="09d33889328fc488dd2a33852c2c745b" name="Highlighter/PHP.php"/>
+      <file role="php" baseinstalldir="Text" md5sum="693b9ba66ee40b912c41a71f8879c9f8" name="Highlighter/PYTHON.php"/>
+      <file role="php" baseinstalldir="Text" md5sum="75af0c82947e4c61f94d1debc28d8cfb" name="Highlighter/SQL.php"/>
+      <file role="php" baseinstalldir="Text" md5sum="1b7db1ce86b425a63550a628bc746fd2" name="Highlighter/XML.php"/>
+      <file role="doc" baseinstalldir="Text" md5sum="9345aad79ea0fc594fc90dd53ac57018" name="tutorials/Text_Highlighter/generation.pkg"/>
+      <file role="doc" baseinstalldir="Text" md5sum="0e0afccd165233281a276a9147af9374" name="tutorials/Text_Highlighter/generation_cli.pkg"/>
+      <file role="doc" baseinstalldir="Text" md5sum="054c16eb513fd7262b27172dc71d3a0f" name="tutorials/Text_Highlighter/source.pkg"/>
+      <file role="doc" baseinstalldir="Text" md5sum="2256498002f7e660f520b4c683b03f33" name="tutorials/Text_Highlighter/Text_Highlighter.pkg"/>
+      <file role="doc" baseinstalldir="Text" md5sum="3315accc3c927c022370bb2e08dc3c8e" name="tutorials/Text_Highlighter/Text_Highlighter.pkg.ini"/>
+      <file role="doc" baseinstalldir="Text" md5sum="3b130c85e92f0f2c3aa0ef9ce3dc89a3" name="tutorials/Text_Highlighter/using.pkg"/>
+      <file role="data" baseinstalldir="Text" md5sum="c7e2ea22cd984df12ef4b0cf5e6f6c48" name="css.xml"/>
+      <file role="data" baseinstalldir="Text" md5sum="5c7b84877a4e06584ce7ba6382ee1d24" name="diff.xml"/>
+      <file role="data" baseinstalldir="Text" md5sum="63084194abc5eaa11249ed282050859a" name="dtd.xml"/>
+      <file role="script" baseinstalldir="Text" md5sum="da3c20af10b23f0fb300b729f6199a31" platform="(*ix|*ux)" name="generate">
+        <replace type="pear-config" from="@php_dir@" to="php_dir"/>
+        <replace type="pear-config" from="@php_bin@" to="php_bin"/>
+      </file>
+      <file role="script" baseinstalldir="Text" md5sum="df2add5550a9aec14d932174fb1c6972" platform="windows" name="generate.bat">
+        <replace type="pear-config" from="@php_dir@" to="php_dir"/>
+        <replace type="pear-config" from="@php_bin@" to="php_bin"/>
+      </file>
+      <file role="php" baseinstalldir="Text" md5sum="9d5cc32bb91087e4ad079b59040a8489" name="Highlighter.php"/>
+      <file role="data" baseinstalldir="Text" md5sum="a675e14cb9deebb2eb49bfeb85fe9d46" name="javascript.xml"/>
+      <file role="data" baseinstalldir="Text" md5sum="bd49e18f264d9bf6cfeba838bf79b791" name="mysql.xml"/>
+      <file role="data" baseinstalldir="Text" md5sum="a89b8af60b04cfdd9d397217d549dc82" name="php.xml"/>
+      <file role="data" baseinstalldir="Text" md5sum="f33ab01139953083b1a37ba482fc740b" name="python.xml"/>
+      <file role="data" baseinstalldir="Text" md5sum="f162aecb7bf05280215c098102ffb8af" name="sql.xml"/>
+      <file role="data" baseinstalldir="Text" md5sum="fcebd6c08ec4e4cba76867a06077a49c" name="xml.xml"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.4.1</version>
+      <date>2004-06-19</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>First beta release
+</notes>
+    </release>
+  </changelog>
+</package>

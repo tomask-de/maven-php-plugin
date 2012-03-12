@@ -33,7 +33,11 @@ public interface IDependency {
         /** the pear installer dependency. */
         PEARINSTALLER,
         /** dependency to another package. */
-        PACKAGE
+        PACKAGE,
+        /** subpackage dependency. */
+        SUBPACKAGE,
+        /** extension dependency. */
+        PHP_EXTENSION,
     }
     
     /**
@@ -83,5 +87,41 @@ public interface IDependency {
      * @param min minimum version.
      */
     void setMin(String min);
+    
+    /**
+     * Returns true if the minimum version is included.
+     * @return boolean.
+     */
+    boolean getMinExcluded();
+    
+    /**
+     * Sets the flag to include the minimum version.
+     * @param excluded boolean.
+     */
+    void setMinExcluded(boolean excluded);
+    
+    /**
+     * Returns the maximum version.
+     * @return version the maximum version.
+     */
+    String getMax();
+    
+    /**
+     * Sets the maximum version.
+     * @param max maximum version.
+     */
+    void setMax(String max);
+    
+    /**
+     * Returns true if the maximum version is included.
+     * @return boolean.
+     */
+    boolean getMaxExcluded();
+    
+    /**
+     * Sets the flag to include the maximum version.
+     * @param excluded boolean.
+     */
+    void setMaxExcluded(boolean excluded);
 
 }

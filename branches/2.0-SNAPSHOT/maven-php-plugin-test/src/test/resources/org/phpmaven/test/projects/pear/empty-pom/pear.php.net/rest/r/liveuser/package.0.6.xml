@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>LiveUser</name>
+  <summary>User authentication and permission management framework</summary>
+  <description>Perm_LiveUser is a set of classes for dealing with user authentication
+and permission management. Basically, there are three main elements that
+make up this package:
+* The LoginManager
+* The Auth containers
+* The Perm containers
+The LoginManager class takes care of the login process and can be configured
+to use a certain permission container and one or more different auth containers.
+That means, you can have your users' data scattered amongst many data containers
+and have the LoginManager try each defined container until the user is found.
+For example, you can have all website users who can apply for a new account online
+on the webserver's local database. Also, you want to enable all your company's
+employees to login to the site without the need to create new accounts for all of
+them. To achieve that, a second container can be defined to be used by the LoginManager.
+You can also define a permission container of your choice that will manage the rights for
+each user. Depending on the container, you can implement any kind of permission schemes
+for your application while having one consistent API.
+Using different permission and auth containers, it's easily possible to integrate
+newly written applications with older ones that have their own ways of storing permissions
+and user data. Just make a new container type and you're ready to go!
+Currently available are RDBMS containers using PEAR::DB.
+More are soon to follow.</description>
+  <maintainers>
+    <maintainer>
+      <user>mw21st</user>
+      <name>Markus Wolff</name>
+      <email>mw21st@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>lsmith</user>
+      <name>Lukas Kahwe Smith</name>
+      <email>lsmith@php.net</email>
+      <role>contributor</role>
+    </maintainer>
+    <maintainer>
+      <user>dickmann</user>
+      <name>Christian Dickmann</name>
+      <email>chrisdicki@gmx.de</email>
+      <role>contributor</role>
+    </maintainer>
+    <maintainer>
+      <user>pajoye</user>
+      <name>Pierre-Alain Joye</name>
+      <email>paj@pearfr.org</email>
+      <role>contributor</role>
+    </maintainer>
+    <maintainer>
+      <user>krausbn</user>
+      <name>Björn Kraus</name>
+      <email>krausbn@php.net</email>
+      <role>contributor</role>
+    </maintainer>
+    <maintainer>
+      <user>arnaud</user>
+      <name>Arnaud Limbourg</name>
+      <email>arnaud@limbourg.com</email>
+      <role>contributor</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.6</version>
+    <date>2003-03-17</date>
+    <license>LGPL</license>
+    <state>alpha</state>
+    <notes>Major features in this release:
+           * Fixed some bugs
+           * One new auth container (XML)
+           * Two new permissions container (DB_Simple and XML_Simple)
+           * Added new examples</notes>
+    <deps>
+      <dep type="php" rel="ge" version="4.1.0"/>
+      <dep type="pkg" rel="has">XML_Tree</dep>
+      <dep type="pkg" rel="has">Cache_Lite</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="de7e3a49a1440598252bf1e876682e08" name="LoginManager.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="7a3eca2d163fb53b3bc6c5ff373e8ef8" name="Auth/Common.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="fe214d2319a6f375c608bbf380cd50d6" name="Auth/Container/DB.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="dc0cb1d240f7681ed8ec6afa6cc7b8de" name="Auth/Container/XML.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="47f45d78258fea88bff32aa150551ba7" name="Perm/Common.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="7a4b52ceacdf4158b124309fdac5179e" name="Perm/Container/DB_Complex.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="4a6cd75bca4cd36f37f52751fde3468a" name="Perm/Container/DB_Medium.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="0486f9e05f3b17305e6213c8df71ee36" name="Perm/Container/DB_Simple.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="6f2b43fa2be2aa8b49ef54948914a2e9" name="Perm/Container/XML_Simple.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="2785974dc818162aaacf32b635aed2b2" name="examples/example1/Auth_XML.xml"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="899274cb75186a3d8e62ccaf0ca078e5" name="examples/example1/conf.xml"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="0cf89e4fea311035605525220240f8af" name="examples/example1/example.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="0bc1ec293439383966c79839598846b3" name="examples/example1/index.html"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="0c0e108792d0f6be553ec2abcbf0b3c3" name="examples/example1/loginscreen.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="06cadddc6d8f011dd341ded4278c47ef" name="examples/example2/Auth_XML.xml"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="fe17a6ff2de2a12beb16dab02e3dfa17" name="examples/example2/conf.xml"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="9a7d7961c2ed932e64e3fabb5fd84e2e" name="examples/example2/example.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="d88f0c81c322d483a8586294fc9f786c" name="examples/example2/index.html"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="ac774e943c20e3db016353ca4274afcd" name="examples/example2/loginscreen.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="0de896e0c1ea4fd5a58072390669071e" name="examples/example2/Perm_XML.xml"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="25c8423cc36dc5c51f39fe3c5925aa0f" name="examples/example3/area51.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="7edbdd830b45478007ac02bfe7d18ea5" name="examples/example3/coffeemaker.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="eee7e6b000e23e03c88367b2bee1fef4" name="examples/example3/conf.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="51ee0d77baae9563600064f25c0623f3" name="examples/example3/demodata.sql"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="f95961680df4dea1d1e62f6cbd06ebb7" name="examples/example3/example.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="c978df774a9b9b41ca2132b9992d2468" name="examples/example3/index.html"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="fa534357eb3b304e3746bcb85e8b5ac7" name="examples/example3/loginscreen.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="3b5335121a2622aba9c13179e740dfbe" name="examples/example3/main.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="b17b54326d1f5aa02298b731c6c6efda" name="examples/example3/nav.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="e5c20de538ced4971b0b1aa2f4f9a562" name="examples/example3/testarea.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="000100169e4620936db0c5fee81a1d9a" name="examples/example4/demodata.sql"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="b5d1edf16596d43b5e256be562fa3cce" name="examples/example4/error-page.tpl.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="d418e1520b0a3e855e3103c9bede95ef" name="examples/example4/finish.inc.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="714f12e80626659c1d71231f7426522c" name="examples/example4/functions.js"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="1883c1150206a64763787a0bda36515c" name="examples/example4/index.html"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="7e1d74ed7f059ff728b286f35d8e793a" name="examples/example4/loginform.tpl.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="cd33e89a368f85860e43f4104a6e1369" name="examples/example4/main.inc.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="88a0d465ddffdc9d00ff135d75a35184" name="examples/example4/news_change.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="d91b53a435099fd299901ef0a360c617" name="examples/example4/news_change.tpl.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="93d543744c5fba41b1eec1a59049454d" name="examples/example4/news_new.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="3334ba0b5904baa5835970395a5724b3" name="examples/example4/news_new.tpl.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="e5913a5758e02f4086cee91f03c0d382" name="examples/example4/news_notallowed.tpl.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="3fb2fc1108ff58f679d29e0a65383b18" name="examples/example4/news_view.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="529030ac659db38f030f77a8ce11d8c2" name="examples/example4/news_view.tpl.php"/>
+      <file role="data" baseinstalldir="/LiveUser" md5sum="d006b86e02694a49ee538e448ae651c1" name="sql/Auth_DB.sql"/>
+      <file role="data" baseinstalldir="/LiveUser" md5sum="2afe7e5132d4ffff0ee0e93653bd4648" name="sql/Auth_XML.xml"/>
+      <file role="data" baseinstalldir="/LiveUser" md5sum="0e201513a9019a63fdc2dc755c5806b8" name="sql/Perm_DB_Complex.sql"/>
+      <file role="data" baseinstalldir="/LiveUser" md5sum="39cb1cbbf56038f632c08143d7432298" name="sql/Perm_DB_Simple.sql"/>
+      <file role="data" baseinstalldir="/LiveUser" md5sum="f198320717f126c2bea82e29d38b46b5" name="sql/Perm_XML.xml"/>
+      <file role="script" baseinstalldir="/" md5sum="e817960218bdf853e69561b136e8299c" install-as="liveuser_definegenerator" name="scripts/DefineGenerator"/>
+      <file role="data" baseinstalldir="/LiveUser" md5sum="7fbc338309ac38fefcd64b04bb903e34" name="lgpl.txt"/>
+    </filelist>
+  </release>
+</package>

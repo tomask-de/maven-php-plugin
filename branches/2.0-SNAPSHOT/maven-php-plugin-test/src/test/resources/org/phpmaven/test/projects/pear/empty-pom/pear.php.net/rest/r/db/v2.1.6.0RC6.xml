@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release2
+    http://pear.php.net/dtd/rest.release2.xsd">
+ <p xlink:href="/rest/p/db">DB</p>
+ <c>pear.php.net</c>
+ <v>1.6.0RC6</v>
+ <a>1.6.0RC6</a>
+ <mp>4.3.0</mp>
+ <st>stable</st>
+ <l>PHP License</l>
+ <m>danielc</m>
+ <s>Database Abstraction Layer</s>
+ <d>DB is a database abstraction layer providing:
+* an OO-style query API
+* portability features that make programs written
+   for one DBMS work with other DBMS's
+* a DSN (data source name) format for specifying
+   database servers
+* prepare/execute (bind) emulation for databases
+   that don't support it natively
+* a result object for each query response
+* portable error codes
+* sequence emulation
+* sequential and non-sequential row fetching as
+   well as bulk fetching
+* formats fetched rows as associative arrays,
+   ordered arrays or objects
+* row limit support
+* transactions support
+* table information interface
+* DocBook and PHPDoc API documentation
+
+DB layers itself on top of PHP's existing
+database extensions.  The currently supported
+extensions are:
+dbase, fbsql, interbase, informix,
+msql, mssql, mysql, mysqli,
+oci8, odbc, pgsql, sqlite and sybase.
+
+DB is compatible with both PHP 4 and PHP 5.
+</d>
+ <da>2004-02-11 00:53:45</da>
+ <n>=============
+ENHANCEMENTS:
+
+- all:
+When connecting with an array as the DSN and the
+'dbsyntax' element is not set, parseDSN() now
+sets it to 'phptype', just like what happens when
+parsing a DSN string.  (danielc)
+
+- ifx:
+Add tableInfo().  (peterwb@iafrica.com, danielc)
+
+- mysql, odbc(access):
+Added DB_PORTABILITY_ERRORS portability option
+to ensure consistent mapping of errors between
+DBMS's. In mysql this changes duplicate key
+constraints from DB_ERROR_ALREADY_EXISTS to
+DB_ERROR_CONSTRAINT. In access MS's ODBC
+driver mistakenly reports 'no such field' as
+'too few parameters' so this option maps the
+error back to the standard
+DB_ERROR_NOSUCHFIELD.  (danielc)
+
+- ibase, mssql, odbc, pgsql, sqlite:
+Duplicate key constraint violations mapped to
+DB_ERROR_CONSTRAINT.  (danielc)
+
+
+=============
+BUGS FIXED:
+
+- oci8:
+Change duplicate key constraint mapping from 
+DB_ERROR_ALREADY_EXISTS to DB_ERROR_CONSTRAINT
+for portability with other DBMS's.  Since the
+initial mapping was added in 1.6.0RC1, this
+isn't a backwards compatibility issue.  (danielc)
+
+- oci8:
+Have modifyLimitQuery() quote all identifiers in
+order to avoid problems when certain queries with
+quoted identifiers are passed to limitQuery().
+Bug 679. (danielc)
+
+- all:
+In modifyLimitQuery(), if errors, put bad query
+into last_query to help debugging.  (danielc)
+
+- all:
+In limitQuery(), check if return from
+modifyLimitQuery() is an error and return that
+error if problems.  (danielc)
+
+- all:
+All drivers with tableInfo() methods had bug
+introduced in 1.6.0RC5 that caused
+'undefined function' errors when lowercasing
+portability was off.  Bug 724.  (danielc)
+
+- ibase:
+Resolve 'undefined variable flags' notice when
+using tableInfo() under certain conditions.
+(danielc)
+
+- ibase:
+Use upper case for RELATION_NAME in
+_ibaseFieldFlags() query to make tableInfo() work.
+(danielc)</n>
+ <f>91104</f>
+ <g>http://pear.php.net/get/DB-1.6.0RC6</g>
+ <x xlink:href="package.1.6.0RC6.xml"/>
+</r>

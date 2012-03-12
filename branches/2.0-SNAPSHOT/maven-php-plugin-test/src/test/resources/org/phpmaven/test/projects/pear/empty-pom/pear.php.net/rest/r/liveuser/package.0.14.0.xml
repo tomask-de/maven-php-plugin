@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>LiveUser</name>
+  <summary>User authentication and permission management framework</summary>
+  <description>LiveUser is a set of classes for dealing with user authentication
+and permission management. Basically, there are three main elements that
+make up this package:
+* The LiveUser class
+* The Auth containers
+* The Perm containers
+The LiveUser class takes care of the login process and can be configured
+to use a certain permission container and one or more different auth containers.
+That means, you can have your users' data scattered amongst many data containers
+and have the LiveUser class try each defined container until the user is found.
+For example, you can have all website users who can apply for a new account online
+on the webserver's local database. Also, you want to enable all your company's
+employees to login to the site without the need to create new accounts for all of
+them. To achieve that, a second container can be defined to be used by the LiveUser class.
+You can also define a permission container of your choice that will manage the rights for
+each user. Depending on the container, you can implement any kind of permission schemes
+for your application while having one consistent API.
+Using different permission and auth containers, it's easily possible to integrate
+newly written applications with older ones that have their own ways of storing permissions
+and user data. Just make a new container type and you're ready to go!
+Currently available are containers using:
+PEAR::DB, PEAR::MDB, PEAR::MDB2, PEAR::XML_Tree and PEAR::Auth.</description>
+  <maintainers>
+    <maintainer>
+      <user>mw21st</user>
+      <name>Markus Wolff</name>
+      <email>mw21st@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>arnaud</user>
+      <name>Arnaud Limbourg</name>
+      <email>arnaud@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>lsmith</user>
+      <name>Lukas Kahwe Smith</name>
+      <email>smith@backendmedia.com</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>krausbn</user>
+      <name>Bjoern Kraus</name>
+      <email>krausbn@php.net</email>
+      <role>developer</role>
+    </maintainer>
+    <maintainer>
+      <user>dufuz</user>
+      <name>Helgi Þormar</name>
+      <email>dufuz@php.net</email>
+      <role>developer</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.14.0</version>
+    <date>2004-12-20</date>
+    <license>LGPL</license>
+    <state>beta</state>
+    <notes>- DB containers no longer use CASE in the sql query.
+- lazy loading of PEAR::Log
+- getProperty can now handle mixed case field names, on the auth side.
+- Fixed Bug #2672, #2713, #2714 Typo fixes
+- Bug #2692 some SQL files go installed under pear_folder/LiveUser/sql/
+  which are from now on installed in pear_folder/LiveUser/misc/schema/
+- fixed regenid option
+- refactored client part to the new class layout (using storage containers)
+- fixed example2 to use the new config layout
+- disabled perm caching by default
+- added sessionName param to (un)freeze method calls to the perm container
+- removed options of reading parameters from the superglobals
+- reworked init() method severly
+- remove the callback that catches PEAR_Error errors
+- adding getErrors() method to get the error stack
+- added LiveUser::checkGroup() in order to check for membership in groups
+- added second auth container to example4
+- fix #2678: have more control on callback function
+- added 'session_cookie_params' option
+- LiveUser now expects a true from the auth container unfreeze() method
+- Removed a potential security issue in Auth freeze()
+- added Observers, see the wiki for more information
+- added an observer class in example1 and example4 to show how they work
+- added usage example for multiple auth containers to example4
+- added support for checking arbitrary values in unfreeze()
+  (for example the user agent) to make session high-jacking more difficult)
+- use the new config array
+- moved example3 to the admin package
+- moved connection handling into init() methods that are called inside
+  the factory methods
+- moved error handling over to error stack</notes>
+    <deps>
+      <dep type="pkg" rel="ge" version="1.6.0" optional="yes">DB</dep>
+      <dep type="pkg" rel="ge" version="1.1.4" optional="yes">MDB</dep>
+      <dep type="pkg" rel="has" optional="yes">XML_Tree</dep>
+      <dep type="pkg" rel="has" optional="yes">Crypt_RC4</dep>
+      <dep type="pkg" rel="ge" version="2.0.0beta2" optional="yes">MDB2</dep>
+      <dep type="php" rel="ge" version="4.2.0" optional="no"/>
+      <dep type="pkg" rel="ge" version="1.3.1" optional="no">PEAR</dep>
+      <dep type="pkg" rel="ge" version="1.7.0" optional="yes">Log</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="95373c8a43b339e4b78fa3905d860d4d" name="Auth\Common.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="b2dc8b40b705047b8de4a1eea21479f9" name="Auth\DB.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="df281f8a6481e7e50e3788dce12e17e5" name="Auth\MDB.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="2a6e7d656b843a1fc46439f56b516d2f" name="Auth\MDB2.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="9a270dc305d9453691da06b391694d85" name="Auth\PEARAuth.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="5a1edd18789507c3c3c7401b731d5921" name="Auth\XML.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="b44d7043776c746c142035ecf95c6a32" name="docs\examples\README"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="9f9ea9d1bc2c9532742f63cff8034d0e" name="docs\examples\example1\Auth_XML.xml"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="d7dc48dbc4a5e9b07cab671e4021d485" name="docs\examples\example1\conf.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="34f91190c687758c2f5eecbde83e273a" name="docs\examples\example1\example.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="b01d0f3c21d50545d38b643d7474be31" name="docs\examples\example1\index.html"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="2aefe87155aefdc065bbee14b36c3cea" name="docs\examples\example1\README"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="2fae8164e7f16eb22648ee5eb2b8d194" name="docs\examples\example2\Auth_XML.xml"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="347227bd23810b805ccaacc9e53fef76" name="docs\examples\example2\conf.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="6074b708b8273b90a83565e10a0b5691" name="docs\examples\example2\example.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="60a4e6186a17837014e95284dd441517" name="docs\examples\example2\index.html"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="9ad961f0f18979795ae4584182807795" name="docs\examples\example2\Perm_XML.xml"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="bd2bfa7bf3c79950e5f1358900aa970a" name="docs\examples\example2\README"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="93cce9983f16cbdee1b051334160fd88" name="docs\examples\example4\Auth_XML.xml"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="f80c8b44dfa29e226b9f6a4bee5da33b" name="docs\examples\example4\conf.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="4c42dcbc96200cf3dc78750f94b47205" name="docs\examples\example4\demodata.sql"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="c58e50ba55e3e678b78b6fa0547e9ad6" name="docs\examples\example4\error-page.tpl.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="f3889bfedbd9463c794b8ff60d7792e4" name="docs\examples\example4\finish.inc.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="d1aaf7549a9ec94cf41d608e472abef8" name="docs\examples\example4\functions.js"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="69dfb8440249cb90d5e34b02d6493c4f" name="docs\examples\example4\index.html"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="91a451396c8af18c5582c657671de8a6" name="docs\examples\example4\loginform.tpl.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="832a86d39a98e2f70d5b8d5cd92514d6" name="docs\examples\example4\news_change.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="9e4f8911d079b378253e38d444d8dcd0" name="docs\examples\example4\news_change.tpl.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="f22716105395a815a20ae1655231678b" name="docs\examples\example4\news_new.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="62815cf48eafd2547e17f31a81e4b2b4" name="docs\examples\example4\news_new.tpl.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="bbcdacc6ba3515827cf9f648468b1bc0" name="docs\examples\example4\news_notallowed.tpl.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="a7ddeb7e5fbe37b78735981fc1150d1e" name="docs\examples\example4\news_view.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="49bceda320dd90c542ea97239b469e2f" name="docs\examples\example4\news_view.tpl.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="6428974df775f54e30acc08fd5067f4c" name="docs\examples\example4\style.css"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="b704d76d5205de368198a59d2f837e81" name="Perm\Complex.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="78d01d8033fb053da73c6387f8a74e39" name="Perm\Medium.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="68e474a5a71f52391e6ada002002d178" name="Perm\Simple.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="129a8767da0b75fbf898013f4ec5e4ee" name="Perm\Storage.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="051b9f649c6ed1727800112d203c6c81" name="Perm\Storage\Cache.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="679bcf30de9ae7d718e2ec52409301d8" name="Perm\Storage\DB.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="17864a9b9505f5d27ad6cf63ad8a8557" name="Perm\Storage\MDB.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="64bd76d04c351509f4986eb08dc9b1da" name="Perm\Storage\MDB2.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="2e1f5469eda3173664f8aa6d7d14d0f2" name="Perm\Storage\SQL.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="226f30d73e56737ec79603f90962ce23" name="Perm\Storage\XML.php"/>
+      <file role="data" baseinstalldir="/LiveUser" md5sum="cf7bc826f9d313d68eb432db90c35159" install-as="misc/schema/Auth_DB.sql" name="sql\Auth_DB.sql"/>
+      <file role="data" baseinstalldir="/LiveUser" md5sum="78955378108ffc38721fb0618546eb43" install-as="misc/schema/auth_mdb_schema.xml" name="sql\auth_mdb_schema.xml"/>
+      <file role="data" baseinstalldir="/LiveUser" md5sum="3c61734f5f467042abc04937ffdf03be" install-as="misc/schema/Auth_XML.xml" name="sql\Auth_XML.xml"/>
+      <file role="data" baseinstalldir="/LiveUser" md5sum="1f994af2a528bd08958b697aec2eb43b" install-as="misc/schema/perm_db.sql" name="sql\perm_db.sql"/>
+      <file role="data" baseinstalldir="/LiveUser" md5sum="77f26ec1d189118f50d9ad3b186e39fb" install-as="misc/schema/perm_db_complex.sql" name="sql\perm_db_complex.sql"/>
+      <file role="data" baseinstalldir="/LiveUser" md5sum="7bdaa74f29909dcf089743a4c1970433" install-as="misc/schema/perm_db_medium.sql" name="sql\perm_db_medium.sql"/>
+      <file role="data" baseinstalldir="/LiveUser" md5sum="b7a955a1fa367cdb4a90647285175753" install-as="misc/schema/perm_db_simple.sql" name="sql\perm_db_simple.sql"/>
+      <file role="data" baseinstalldir="/LiveUser" md5sum="06f540d5c5d1ba46e7239a191ca5dd16" name="sql\perm_mdb_schema.xml"/>
+      <file role="data" baseinstalldir="/LiveUser" md5sum="3d13a02e4da4ba43a59f71821420b361" install-as="misc/schema/Perm_XML.xml" name="sql\Perm_XML.xml"/>
+      <file role="data" baseinstalldir="/LiveUser" md5sum="57fc52a57bfa6d92c8f1c03d0fbec8df" install-as="misc/schema/README" name="sql\README"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="03fb004783f456bfd292dde36ab5c489" name="lgpl.txt"/>
+      <file role="php" baseinstalldir="/" md5sum="e5de4b84182b81049f3b9641f6b7d2d5" name="LiveUser.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.14.0</version>
+      <date>2004-12-20</date>
+      <license>LGPL</license>
+      <state>beta</state>
+      <notes>- DB containers no longer use CASE in the sql query.
+- lazy loading of PEAR::Log
+- getProperty can now handle mixed case field names, on the auth side.
+- Fixed Bug #2672, #2713, #2714 Typo fixes
+- Bug #2692 some SQL files go installed under pear_folder/LiveUser/sql/
+  which are from now on installed in pear_folder/LiveUser/misc/schema/
+- fixed regenid option
+- refactored client part to the new class layout (using storage containers)
+- fixed example2 to use the new config layout
+- disabled perm caching by default
+- added sessionName param to (un)freeze method calls to the perm container
+- removed options of reading parameters from the superglobals
+- reworked init() method severly
+- remove the callback that catches PEAR_Error errors
+- adding getErrors() method to get the error stack
+- added LiveUser::checkGroup() in order to check for membership in groups
+- added second auth container to example4
+- fix #2678: have more control on callback function
+- added 'session_cookie_params' option
+- LiveUser now expects a true from the auth container unfreeze() method
+- Removed a potential security issue in Auth freeze()
+- added Observers, see the wiki for more information
+- added an observer class in example1 and example4 to show how they work
+- added usage example for multiple auth containers to example4
+- added support for checking arbitrary values in unfreeze()
+  (for example the user agent) to make session high-jacking more difficult)
+- use the new config array
+- moved example3 to the admin package
+- moved connection handling into init() methods that are called inside
+  the factory methods
+- moved error handling over to error stack
+</notes>
+    </release>
+    <release>
+      <version>0.14</version>
+      <date>2004-11-09</date>
+      <license>LGPL</license>
+      <state>beta</state>
+      <notes>- DB containers no longer use CASE in the sql query.
+- BC break! [de]activateGroup was removed in favor of using the optional array for handling that.
+- BC break! getUsersFromGroup removed in favor of people using searchUsers/getUsers with the option where_group_id
+- lazy loading of PEAR::Log
+- getProperty can now handle fooBar fieldnames, on the auth side.
+- removeUsersFromGroup implanted in Admin Perm *_medium containers
+- removeGroup now uses removeUsersFromGroup as well as revokeGroupRight (previously had it's own identical implantion of those functions)
+- Request #2038 implanted, Admin/Perm getUsers can now filter also by auth_user_id in addition to perm_user_id and group_id
+- Fixed Bug #2672, #2713, #2714 Typo fixes
+- Bug #2692 some SQL files go installed under pear_folder/LiveUser/sql/ which are from now on installed in pear_folder/LiveUser/misc/schema/
+- fixed regenid option
+- refactored client part to the new layout (using storage containers) .. fixed example2 to use the new config layout
+</notes>
+    </release>
+    <release>
+      <version>0.13.3</version>
+      <date>2004-10-23</date>
+      <license>LGPL</license>
+      <state>beta</state>
+      <notes>- Docs for getUsers was updated to reflect that we removed the simple filtering
+- Fixed auth to perm mapping (also taking into account the auth container name)
+- Fix #2538 added LIVEUSER_ERROR_WRONG_CREDENTIALS as an error when credentials are wrong.
+                  The factory method on failure now returns an array of the error stack
+                  if there is one or false.
+- Fix #2528 LiverUser::Factory calls PEAR::isError. The methods return false and not
+  a PEAR_Error so the check is wrong
+- Fix #1957 one to many boolean in the type array in getRights.
+- Fix #2527 have raiseError in the admin class and change the calls from
+  PEAR::raiseError to LiveUser_Admin::raiseError.
+- Fix #2568 LiveUser_Admin::setAdminAuthContainer() returns true on
+  failure
+</notes>
+    </release>
+    <release>
+      <version>0.13.2</version>
+      <date>2004-10-13</date>
+      <license>LGPL</license>
+      <state>beta</state>
+      <notes>- in getGroups() in /Admin/Perm DB groups. was appended to the sql query with implode, which
+  didn't work for the is_active part since CASE needs to be before groups.is_active
+- add check on the third and fourth parameter to avoid a warning from older code in addUser/updateUser in /Admin/Auth
+- addUser() in the Admin class has a BC break since it wasn't synced with addUser of Auth
+- Same goes with updateUser from the Admin Class
+- Making sure that optinalFields and customFields are array in addGroup/editGroup
+- When neither optional nor custom array was supplied to addGroup/editGroup/addUser it would fail.
+- Removed sql parts which used scope, since we removed it from the create table statements
+- Now all implied rights are removed before the right it self is removed
+- Now all subgroup assignments are removed before removing the group it self
+- Now user is removed after all groups that he/she was owner of has set the owner_user_id to NULL
+- When assigning a subgroup now one can't assign a group as it's own parent.
+- Bug #2206 fixed, now more then one level of subgroups is displayed and getGroups has been optiomized,
+  no more intensive database querying.
+- Now if a assigning a subgroup, it gives back a error if the group id and subgroup id have been added before
+  in another record, that is if the group id has been added as a subgroup id for the current subgroup id
+  (confusing when one explains, but the fix stops a potential silly loop in getGroups)
+- Crypt_RC4 wasn't loaded because of a typo
+- fixed direct passing of remember parameter to the LiveUser::factory() method
+  (fix for bug #2491)
+- fixed critical bug in writeable checking inside LiveUser::_storeCookiePasswdId()
+  (fix for bug #2492)
+- The group table was updated so now group_define_name is default NULL and allows NULL values.
+- set proper default type in LiveUser_Admin::addUser()
+</notes>
+    </release>
+    <release>
+      <version>0.13.1</version>
+      <date>2004-10-02</date>
+      <license>LGPL</license>
+      <state>beta</state>
+    </release>
+    <release>
+      <version>0.13.0</version>
+      <date>2004-09-30</date>
+      <license>LGPL</license>
+      <state>beta</state>
+      <notes>- refactored client to use ErrorStack, have a look at http://pear.php.net/manual/en/core.pear.pear-errorstack.php
+- refactored class loading
+- refactored login mechanism
+- removed LiveUser::getAuthAdminObjectByName() (use LiveUser/Admin.php instead)
+- BC Break! getUserFromGroup renamed to getUsersFromGroup to descripe better what the function is doing
+- userExists now should work if checked for password also in MDB[2]
+- added checks if _auth property is an object (fix for bug #1925)
+- added missing ['required'] in _readUserData() method (fix for bug #1925)
+- LiveUser_Admin_Perm_Container*::addUser() method now requires explicitly (instead of implicitly) that an auth container name is passed (fix for bug #1814)
+- fixed several serious bugs in getUsers() (bug #1800)
+- fixed indexes on relationship tables (fixed bug #1609)
+- check if custom authTableCols/groupTableCols conf setting is set before using
+- fixed LiveUser_Admin_Perm_Container_*::getGroups()
+- fixed constructors in the MDB[2] admin containers
+- added simple __toString() method
+- readded isError() until we have moved all the admin code to PEAR_ErrorStack
+- BC break! checkRight/checkRightLevel returns LIVEUSER_MAX_LEVEL when null is
+  passed and not when false is passed as the right_id
+- fixed calls to container: _readUserData() and updateUserData() in
+  LiveUser_Auth_Common
+- prevent infinite loop in LiveUser_Permn_Common::checkRight()
+- empty rights array in LiveUser::checkRight() means that the max right is returned
+- improved error handling in LiveUser_Perm_Container_*_Simple::init() method
+- fixed client directory structure to map &quot;_&quot; in class names to &quot;/&quot; in filenames
+- fixed LiveUser_Admin_Auth_Container_*::addUser()/updateUser()/getUsers()
+  methods to be inline with the recent changes with authTableCols
+- fixed LiveUser_Admin_Auth_Container_*_Medium::addGroup()/updateGroup() methods
+  to be inline with the recent changes with groupTableCols (MDB2? only)
+- fixed result type handling in LiveUser_Admin_Perm_Container_MDB2?_*::getRights()
+- typo fix in LiveUser_Admin_Perm_Container_MDB2_Complex::grantGroupRight()
+- fixed bug in LiveUser_Perm_*_Medium::readGroups()
+- dont default to debug true
+- fixed 'cache_perm' option false
+- don't allow 'reginid' option if a save handler has been defined
+- add optional parameter to only fetch the ID in admin-&gt;perm-&gt;getAuthUserId()
+- improved handling of optional fields in LiveUser_Auth_Container_*::_readUserData()
+- removed shorthand filter option in LiveUser_Admin_Perm_Container_*::getUsers()
+- removed DROP TABLE IF EXISTS in the database schema as well as removing all references to scope
+- removeUser() now removes the user him self the last
+- updated the documents that come with the examples in hope they will be clearer now.
+- improved filter handling in LiveUser_Admin::getUser()
+</notes>
+    </release>
+  </changelog>
+</package>

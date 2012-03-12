@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.7">
+ <name>Net_Monitor</name>
+ <summary>Remote Service Monitor</summary>
+ <description>A unified interface for checking the availability services on external servers and sending meaningful alerts through a variety of media if a service becomes unavailable.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>cyberscribe</user>
+   <name>Robert Peake</name>
+   <email>cyberscribe@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>toggg</user>
+   <name>Bertrand Gugger</name>
+   <email>bertrand@toggg.com</email>
+   <role>developer</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>0.2.4</version>
+  <date>2006-02-18</date>
+  <license>PHP License</license>
+  <state>beta</state>
+  <notes>Actually use the smtp_debug option (passed as debug option to Net_SMTP)
+Withdraw warnings on not existing indexes (isset() or !empty())
+Set a default &quot;from&quot; in Mail and send a warning in this case
+Use PEAR_ERROR_PRINT instead of unusable PEAR_ERROR_EXCEPTION
+Actually print PEAR error messages raised by alerts
+Completed doc and placed it right for DocBook
+Corrected/completed examples
+Put CVS revision in here
+Bump to 2006
+Cut out ?&gt; php tails
+  </notes>
+  <deps>
+   <dep type="pkg" rel="ge" version="1.0.0" optional="no">PEAR</dep>
+   <dep type="pkg" rel="ge" version="1.0.0" optional="yes">Mail</dep>
+   <dep type="pkg" rel="ge" version="0.0.1" optional="yes">Net_SMS</dep>
+   <dep type="pkg" rel="ge" version="1.2.2" optional="yes">Net_SMTP</dep>
+   <dep type="pkg" rel="ge" version="1.2.4" optional="yes">HTTP_Request</dep>
+   <dep type="pkg" rel="ge" version="1.3.0RC1" optional="yes">Net_FTP</dep>
+   <dep type="pkg" rel="ge" version="0.0.3" optional="yes">Net_DNS</dep>
+  </deps>
+  <provides type="class" name="Net_Monitor" />
+  <provides type="function" name="Net_Monitor::setOptions" />
+  <provides type="function" name="Net_Monitor::setServices" />
+  <provides type="function" name="Net_Monitor::setAlerts" />
+  <provides type="function" name="Net_Monitor::checkAll" />
+  <provides type="function" name="Net_Monitor::check" />
+  <provides type="function" name="Net_Monitor::loadClients" />
+  <provides type="function" name="Net_Monitor::loadAlerters" />
+  <provides type="function" name="Net_Monitor::getClient" />
+  <provides type="function" name="Net_Monitor::getAlerter" />
+  <provides type="function" name="Net_Monitor::alert" />
+  <provides type="function" name="Net_Monitor::saveState" />
+  <provides type="function" name="Net_Monitor::getState" />
+  <provides type="function" name="Net_Monitor::stateDiff" />
+  <provides type="function" name="Net_Monitor::resetState" />
+  <provides type="function" name="Net_Monitor::resetHostState" />
+  <provides type="function" name="Net_Monitor::printAlert" />
+  <provides type="class" name="Net_Monitor_Alert" />
+  <provides type="function" name="Net_Monitor_Alert::alert" />
+  <provides type="class" name="Net_Monitor_Service" />
+  <provides type="function" name="Net_Monitor_Service::check" />
+  <provides type="class" name="Net_Monitor_Alert_SMS" extends="Net_Monitor_Alert" />
+  <provides type="function" name="Net_Monitor_Alert_SMS::alert" />
+  <provides type="class" name="Net_Monitor_Alert_SMTP" extends="Net_Monitor_Alert" />
+  <provides type="function" name="Net_Monitor_Alert_SMTP::alert" />
+  <provides type="function" name="Net_Monitor_Alert_SMTP::sendAlert" />
+  <provides type="class" name="Net_Monitor_Service_DNS" extends="Net_Monitor_Service" />
+  <provides type="function" name="Net_Monitor_Service_DNS::check" />
+  <provides type="class" name="Net_Monitor_Service_FTP" extends="Net_Monitor_Service" />
+  <provides type="function" name="Net_Monitor_Service_FTP::check" />
+  <provides type="class" name="Net_Monitor_Service_HTTP" extends="Net_Monitor_Service" />
+  <provides type="function" name="Net_Monitor_Service_HTTP::check" />
+  <provides type="class" name="Net_Monitor_Service_HTTPS" extends="Net_Monitor_Service_HTTP" />
+  <provides type="class" name="Net_Monitor_Service_SMTP" extends="Net_Monitor_Service" />
+  <provides type="function" name="Net_Monitor_Service_SMTP::check" />
+  <filelist>
+   <file role="php" baseinstalldir="Net" md5sum="0371bb1f606396549be5b99208e752f0" name="Monitor.php"/>
+   <file role="php" baseinstalldir="Net" md5sum="f793589882c1cbfa79316a2e7398690e" name="Monitor/Alert.php"/>
+   <file role="php" baseinstalldir="Net" md5sum="075e3cc37b356873cf9dc683d1925a76" name="Monitor/Service.php"/>
+   <file role="php" baseinstalldir="Net" md5sum="e661e19d16e50328fe28c404ee34a3a3" name="Monitor/Alert/SMS.php"/>
+   <file role="php" baseinstalldir="Net" md5sum="4123f4e0cc8f09496b4eb3da21ffa3b6" name="Monitor/Alert/SMTP.php"/>
+   <file role="php" baseinstalldir="Net" md5sum="0812c5a05c62ffca230c9fb9474d63b1" name="Monitor/Service/DNS.php"/>
+   <file role="php" baseinstalldir="Net" md5sum="c3ebcc0bc0bedc369c018f20e1699a32" name="Monitor/Service/FTP.php"/>
+   <file role="php" baseinstalldir="Net" md5sum="75129856beecce04a2b5899fab54fdc2" name="Monitor/Service/HTTP.php"/>
+   <file role="php" baseinstalldir="Net" md5sum="c0b931decb6fd5b2e89a729975188111" name="Monitor/Service/HTTPS.php"/>
+   <file role="php" baseinstalldir="Net" md5sum="a11f9738f1ab835a76f507f9a2d285b9" name="Monitor/Service//SMTP.php"/>
+   <file role="doc" baseinstalldir="Net" md5sum="0ac80bc8442eb6ff3323f8ea7ee270d7" name="doc/README.txt"/>
+   <file role="test" baseinstalldir="Net" md5sum="f015d118196f9d394fdd71df0d314b0e" name="tests/alert.phpt"/>
+   <file role="test" baseinstalldir="Net" md5sum="accefa04f5d4f8e34cd9b9b6869ec41a" name="tests/alertSMS.phpt"/>
+   <file role="test" baseinstalldir="Net" md5sum="27f9673b6f4e77285259460eb8c361a5" name="tests/custom.phpt"/>
+   <file role="test" baseinstalldir="Net" md5sum="9747072466bb4ceba1f9401d9d56cb97" name="tests/diff.phpt"/>
+   <file role="test" baseinstalldir="Net" md5sum="6338064961f092074a77f0902fe48258" name="tests/down.phpt"/>
+   <file role="test" baseinstalldir="Net" md5sum="24c3ee62c1b49fb6748d57e201a50462" name="tests/multiple.phpt"/>
+   <file role="test" baseinstalldir="Net" md5sum="231692c4e2ff4db4830fea8fb50ef364" name="tests/reset.phpt"/>
+   <file role="test" baseinstalldir="Net" md5sum="4988a3df67feb4429665edabd8e1b4eb" name="tests/working.phpt"/>
+   <file role="doc" baseinstalldir="Net" md5sum="32c9cd20b0bc59ef130bafb4ba931048" name="examples/config.ini.php"/>
+   <file role="doc" baseinstalldir="Net" md5sum="f76f593eeae1367460415f4f502df9c8" name="examples/complex.php"/>
+   <file role="doc" baseinstalldir="Net" md5sum="b9a5a01f182f67a5f6406364ed77c65f" name="examples/simple.php"/>
+   <file role="doc" baseinstalldir="Net" md5sum="425584e127655c019b3efed83134e431" name="examples/ini_example.php"/>
+   <file role="doc" baseinstalldir="Net" md5sum="e66790e7b658602374cb910e619d8362" name="examples/SMS.ini.php"/>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>0.2.3</version>
+    <date>2005-04-12</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>Fixed useless dependencies. Added examples and .phpt unit tests
+    </notes>
+   </release>
+   <release>
+    <version>0.2.2</version>
+    <date>2005-03-30</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>Updated a dependencies to reflect new alert types.
+    </notes>
+   </release>
+   <release>
+    <version>0.2.1</version>
+    <date>2005-03-28</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>Minor update to provide compatability with new PHP header DocBlock format
+    </notes>
+   </release>
+   <release>
+    <version>0.2.0</version>
+    <date>2005-03-26</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>Now includes SMS support for clickatell and sms2email gateways
+    </notes>
+   </release>
+   <release>
+    <version>0.1.0</version>
+    <date>2005-01-08</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>Net_SMTP has been completely rewritten to use the Mail class and accept additional server parameters
+    </notes>
+   </release>
+   <release>
+    <version>0.0.7</version>
+    <date>2005-01-05</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>Implements changes proposed by Justin Patrin in his conditional vote (http://pear.php.net/pepr/pepr-vote-show.php?id=171&amp;handle=justinpatrin). Also fixes bug #3102 and implements a test for HTTPS. Monitor now uses references instead of variable copying for manipulation of alerter and client objects, thereby reducing memory overhead (thanks to Ian Eure for this suggestion). Finally, all tests are now in phpt format.
+    </notes>
+   </release>
+   <release>
+    <version>0.0.8</version>
+    <date>2005-01-08</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>Fixes a warning message about pass-by-reference at call-time for the Net_SMTP call in the SMTP alert as well as a few other minor bugs.
+    </notes>
+   </release>
+   <release>
+    <version>0.1.0</version>
+    <date>2005-01-08</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>Net_SMTP has been completely rewritten to use the Mail class and accept additional server parameters
+    </notes>
+   </release>
+ </changelog>
+</package>

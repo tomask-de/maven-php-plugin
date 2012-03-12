@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.7.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Crypt_GPG</name>
+ <channel>pear.php.net</channel>
+ <summary>GNU Privacy Guard (GPG)</summary>
+ <description>This package provides an object oriented interface to GNU Privacy Guard (GPG). It requires the GPG executable to be on the system.
+
+Though GPG can support symmetric-key cryptography, this package is intended only to facilitate public-key cryptography.
+
+This package requires PHP version 5.2.1 or greater.</description>
+ <lead>
+  <name>Mike Gauthier</name>
+  <user>gauthierm</user>
+  <email>mike@silverorange.com</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Nathan Fredrickson</name>
+  <user>nrf</user>
+  <email>nathan@silverorange.com</email>
+  <active>yes</active>
+ </lead>
+ <date>2008-09-23</date>
+ <time>18:01:38</time>
+ <version>
+  <release>0.7.1</release>
+  <api>0.7.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>Small cleanups in generated API documentation. See 0.7.0 release notes:
+
+Brought to you by strace, xdebug, time and phpunit.
+
+API is beta -- there are significant API changes in this release. See the API or end-user documentation for details. Other changes in this release include:
+ * support operations on large strings properly. Bug #13806.
+ * support operations on files (or anything fopen-able). Bug #13586.
+ * encryption speed improvements (went from 10 seconds to encrypt a    1.9 MiB file to 0.1 - 0.2 seconds). There is new file-specific API.    see the API docs for details.
+ * remove GnuPG driver and driver architecture [BC BREAK]. The pecl    extension powering the GnuPG driver is missing features and doesn&apos;t    support any extra features that make it desirable to use. Crypt_GPG    still has nicer error handling, a greater feature set, better    documentation and more comprehensive tests.
+ * split GPG I/O engine into a separate class
+ * support multiple encryption, decryption and signing recipients    [BC BREAK]. Bug #13808. This moves the API towards something more    like the PECL gnupg extension where you add and clear keys for a    particular operation. This also changes the returned value of    verify() from a signature object to an array of signature objects.
+ * use PHP_EOL for detecting line endings.
+ * throw an exception if keychain can not be read or written.    Bug #14645.
+ * split unit tests into separate files.
+ * updated unit tests for new API and features.
+ * throw a KeyNotFound exception if trying to verify a signature when    the public key is not in the keyring.
+ * drop Windows support. PHP bugs and known limitations make it next    to impossible to develop for Windows correctly.</notes>
+ <contents>
+  <dir baseinstalldir="/Crypt" name="/">
+   <file baseinstalldir="/Crypt" md5sum="af7138bda659bbafddb8b186f7a65cbe" name="GPG/DecryptStatusHandler.php" role="php" />
+   <file baseinstalldir="/Crypt" md5sum="63a7ebf12cc86371c9bb11042209e4ac" name="GPG/Engine.php" role="php" />
+   <file baseinstalldir="/Crypt" md5sum="1e87df36d06f6385bdeae49b90be2e4f" name="GPG/Exceptions.php" role="php" />
+   <file baseinstalldir="/Crypt" md5sum="1e58ed41dc2346bb2bd54228016c67be" name="GPG/Key.php" role="php" />
+   <file baseinstalldir="/Crypt" md5sum="f0c6e4f26fa86843607fd5e4714dc59a" name="GPG/Signature.php" role="php" />
+   <file baseinstalldir="/Crypt" md5sum="6bdab82e3ebaa0e9cdb553eb109aa748" name="GPG/SubKey.php" role="php" />
+   <file baseinstalldir="/Crypt" md5sum="7da25e5da4614206a2a60597e0870968" name="GPG/UserId.php" role="php" />
+   <file baseinstalldir="/Crypt" md5sum="09ba7f5368e86d2967194bf8f5758aa3" name="GPG/VerifyStatusHandler.php" role="php" />
+   <file baseinstalldir="/Crypt" md5sum="48a01863f1c45e3343ee6cc0cdac6bf1" name="tests/data-files/testDecryptFile.asc" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="ee957c9ccb21341279f5e7584ee9a24c" name="tests/data-files/testDecryptFileDual.asc" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="bbec6c1b4e4375ad2ff4f1ed74d9a2fe" name="tests/data-files/testDecryptFileDualOnePassphrase.asc" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="6fcdf876a1175b232d031d148974a1fd" name="tests/data-files/testDecryptFileKeyNotFoundException.asc" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="9a285b594b92fc20969b934ebeac5cd7" name="tests/data-files/testDecryptFileNoPassphrase.asc" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="58a11c56a7440982690759d67112da18" name="tests/data-files/testDecryptFileToString.asc" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/data-files/testFileEmpty.plain" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="f96267d87551ee09bfcac16921e351c1" name="tests/data-files/testFileMedium.plain" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="9b6c11bcd2cffbc5b3674ce8df51af96" name="tests/data-files/testFileSmall.plain" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="4221b55e407a9e962a40b5fa94b3ded1" name="tests/data-files/testImportKeyFile_private.asc" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="2d276e67065c4c5348524abb9a44dbcf" name="tests/data-files/testImportKeyFile_public.asc" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="593120b6780677d016c7dae0e4174001" name="tests/data-files/testVerifyFileClearsignedData.asc" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="ca2fed470c88ff04f456d317339d1f65" name="tests/data-files/testVerifyFileDualClearsignedData.asc" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="8fa0301ca4bee6163661e05aed143409" name="tests/data-files/testVerifyFileDualNormalSignedData.asc" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="8ef15a6b3ec9831642fd1a154a1fff2b" name="tests/data-files/testVerifyFileNormalSignedData.asc" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="4b3d0261e7cd53d3f929c310c185f8c6" name="tests/AllTests.php" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="f39f31888e9d0c14d848dda90836d6fe" name="tests/DecryptTestCase.php" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="acdfaef4711b9d768bf0146b2568419a" name="tests/DeletePrivateKeyTestCase.php" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="709295a53b1b6d27be74ff0e607c23b9" name="tests/DeletePublicKeyTestCase.php" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="37d8798cc567fb67ddf004c139f02f87" name="tests/EncryptTestCase.php" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="ba05c7f7a7f7862408db7f510e5e0687" name="tests/ExportPublicKeyTestCase.php" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="6353c3369836a99e40bb38b060199486" name="tests/GeneralTestCase.php" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="bf4858a91ea66e136bb759a54589ba8e" name="tests/GetFingerprintTestCase.php" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="f998432e3fc189751e5c7af2b2cd8223" name="tests/GetKeysTestCase.php" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="64a754c6b3c6adfdc44377a99e9afda7" name="tests/ImportKeyTestCase.php" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="f382a4181518e37ff4a4ba16811a73ff" name="tests/SignTestCase.php" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="afc82b77e578404a8a23a1584da4bdc4" name="tests/TestCase.php" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="0c93ebd4a1c39ba8488d3afb9b8c8d69" name="tests/VerifyTestCase.php" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="10581ad193c290907034185a9a5e742b" name="ChangeLog" role="data" />
+   <file baseinstalldir="/Crypt" md5sum="54e7c85f2cffc3f1a348eaaf73bb7628" name="GPG.php" role="php" />
+   <file baseinstalldir="/Crypt" md5sum="7eb09e6fd83eb49ed22911c3b2f06744" name="LICENSE" role="doc" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.1</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0</min>
+   </pearinstaller>
+   <os>
+    <name>windows</name>
+    <conflicts />
+   </os>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.7.1</release>
+    <api>0.7.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2008-09-23</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Small cleanups in generated API documentation. See 0.7.0 release notes:
+
+Brought to you by strace, xdebug, time and phpunit.
+
+API is beta -- there are significant API changes in this release. See the API or end-user documentation for details. Other changes in this release include:
+ * support operations on large strings properly. Bug #13806.
+ * support operations on files (or anything fopen-able). Bug #13586.
+ * encryption speed improvements (went from 10 seconds to encrypt a    1.9 MiB file to 0.1 - 0.2 seconds). There is new file-specific API.    see the API docs for details.
+ * remove GnuPG driver and driver architecture [BC BREAK]. The pecl    extension powering the GnuPG driver is missing features and doesn&apos;t    support any extra features that make it desirable to use. Crypt_GPG    still has nicer error handling, a greater feature set, better    documentation and more comprehensive tests.
+ * split GPG I/O engine into a separate class
+ * support multiple encryption, decryption and signing recipients    [BC BREAK]. Bug #13808. This moves the API towards something more    like the PECL gnupg extension where you add and clear keys for a    particular operation. This also changes the returned value of    verify() from a signature object to an array of signature objects.
+ * use PHP_EOL for detecting line endings.
+ * throw an exception if keychain can not be read or written.    Bug #14645.
+ * split unit tests into separate files.
+ * updated unit tests for new API and features.
+ * throw a KeyNotFound exception if trying to verify a signature when    the public key is not in the keyring.
+ * drop Windows support. PHP bugs and known limitations make it next    to impossible to develop for Windows correctly.</notes>
+  </release>
+ </changelog>
+</package>

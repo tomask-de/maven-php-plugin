@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.8">
+ <name>Net_SMS</name>
+ <summary>SMS functionality.</summary>
+ <description>This package provides SMS functionality and access to SMS gateways.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>mdjukic</user>
+   <name>Marko Djukic</name>
+   <email>mdjukic@horde.org</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>yunosh</user>
+   <name>Jan Schneider</name>
+   <email>jan@horde.org</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>chagenbu</user>
+   <name>Chuck Hagenbuch</name>
+   <email>chuck@horde.org</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>toggg</user>
+   <name>Bertrand Gugger</name>
+   <email>bertrand@toggg.com</email>
+   <role>developer</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>0.1.0</version>
+  <date>2006-04-12</date>
+  <license>LGPL</license>
+  <state>beta</state>
+  <notes>* Fixed AT&amp;T and Cingular SMTP gateways (Horde Bug #4139).
+* Fixed warnings in sms2email and clickatell drivers.
+* Added WIN driver.
+  </notes>
+  <deps>
+   <dep type="php" rel="ge" version="4.2.0"/>
+   <dep type="ext" rel="has">gettext</dep>
+   <dep type="pkg" rel="has" optional="yes">HTTP_Request</dep>
+   <dep type="pkg" rel="has" optional="yes">Mail</dep>
+  </deps>
+  <provides type="class" name="SMS" />
+  <provides type="class" name="Net_SMS" />
+  <provides type="function" name="Net_SMS::getDrivers" />
+  <provides type="function" name="Net_SMS::getGatewayInfo" />
+  <provides type="function" name="Net_SMS::getGatewayParams" />
+  <provides type="function" name="Net_SMS::getDefaultSendParams" />
+  <provides type="function" name="Net_SMS::hasCapability" />
+  <provides type="function" name="Net_SMS::authenticate" />
+  <provides type="function" name="Net_SMS::send" />
+  <provides type="function" name="Net_SMS::getBalance" />
+  <provides type="function" name="Net_SMS::factory" />
+  <provides type="function" name="Net_SMS::singleton" />
+  <provides type="class" name="Net_SMS_clickatell_http" extends="Net_SMS" />
+  <provides type="function" name="Net_SMS_clickatell_http::getInfo" />
+  <provides type="function" name="Net_SMS_clickatell_http::getParams" />
+  <provides type="function" name="Net_SMS_clickatell_http::getDefaultSendParams" />
+  <provides type="function" name="Net_SMS_clickatell_http::getSendParams" />
+  <provides type="function" name="Net_SMS_clickatell_http::getError" />
+  <provides type="class" name="Net_SMS_generic_smtp" extends="Net_SMS" />
+  <provides type="function" name="Net_SMS_generic_smtp::getInfo" />
+  <provides type="function" name="Net_SMS_generic_smtp::getParams" />
+  <provides type="function" name="Net_SMS_generic_smtp::getAddressTemplate" />
+  <provides type="function" name="Net_SMS_generic_smtp::addCarrier" />
+  <provides type="class" name="Net_SMS_sms2email_http" extends="Net_SMS" />
+  <provides type="function" name="Net_SMS_sms2email_http::addContact" />
+  <provides type="function" name="Net_SMS_sms2email_http::updateContact" />
+  <provides type="function" name="Net_SMS_sms2email_http::deleteContact" />
+  <provides type="function" name="Net_SMS_sms2email_http::getAddressBook" />
+  <provides type="function" name="Net_SMS_sms2email_http::listCreate" />
+  <provides type="function" name="Net_SMS_sms2email_http::listDelete" />
+  <provides type="function" name="Net_SMS_sms2email_http::listUpdate" />
+  <provides type="function" name="Net_SMS_sms2email_http::listRename" />
+  <provides type="function" name="Net_SMS_sms2email_http::getLists" />
+  <provides type="function" name="Net_SMS_sms2email_http::getList" />
+  <provides type="function" name="Net_SMS_sms2email_http::getInfo" />
+  <provides type="function" name="Net_SMS_sms2email_http::getParams" />
+  <provides type="function" name="Net_SMS_sms2email_http::getDefaultSendParams" />
+  <provides type="function" name="Net_SMS_sms2email_http::getSendParams" />
+  <provides type="function" name="Net_SMS_sms2email_http::getError" />
+  <provides type="class" name="Net_SMS_vodafoneitaly_smtp" extends="Net_SMS" />
+  <provides type="function" name="Net_SMS_vodafoneitaly_smtp::getInfo" />
+  <provides type="function" name="Net_SMS_vodafoneitaly_smtp::getParams" />
+  <provides type="function" name="Net_SMS_vodafoneitaly_smtp::getDefaultSendParams" />
+  <provides type="function" name="Net_SMS_vodafoneitaly_smtp::getSendParams" />
+  <provides type="function" name="Net_SMS_vodafoneitaly_smtp::getError" />
+  <provides type="class" name="Net_SMS_win_http" extends="Net_SMS" />
+  <provides type="function" name="Net_SMS_win_http::getInfo" />
+  <provides type="function" name="Net_SMS_win_http::getParams" />
+  <provides type="function" name="Net_SMS_win_http::getDefaultSendParams" />
+  <provides type="function" name="Net_SMS_win_http::getSendParams" />
+  <provides type="function" name="Net_SMS_win_http::getError" />
+  <filelist>
+   <file role="php" baseinstalldir="/Net" md5sum="77350fed7dac72ecd3465cf41de5bbbd" name="SMS.php"/>
+   <file role="php" baseinstalldir="/Net" md5sum="c98dd87656347ad6c5d99343b3fa9f0b" name="SMS/clickatell_http.php"/>
+   <file role="php" baseinstalldir="/Net" md5sum="1a4d2c86a4921ed539515e034ebce84c" name="SMS/generic_smtp.php"/>
+   <file role="php" baseinstalldir="/Net" md5sum="f44035a77c43b28218ed6c88731ba258" name="SMS/sms2email_http.php"/>
+   <file role="php" baseinstalldir="/Net" md5sum="bafffc702e64afce805ae512c09bb19e" name="SMS/vodafoneitaly_smtp.php"/>
+   <file role="php" baseinstalldir="/Net" md5sum="971e5f89649aff0d53deeee4f042a94a" name="SMS/win_http.php"/>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>0.0.1</version>
+    <date>2004-06-04</date>
+    <state>beta</state>
+    <notes>Initial release as a PEAR package
+    </notes>
+   </release>
+   <release>
+    <version>0.0.2</version>
+    <date>2005-04-14</date>
+    <state>beta</state>
+    <notes>Added generic SMTP driver (Ian Eure).
+    </notes>
+   </release>
+ </changelog>
+</package>

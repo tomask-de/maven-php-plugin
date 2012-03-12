@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/db_dataobject_formbuilder">DB_DataObject_FormBuilder</p>
+ <c>pear.php.net</c>
+ <v>0.16.0</v>
+ <st>alpha</st>
+ <l>PHP License</l>
+ <m>justinpatrin</m>
+ <s>Class to automatically build HTML_QuickForm objects from a DB_DataObject-derived class</s>
+ <d>DB_DataObject_FormBuilder will aid you in rapid application development using the packages DB_DataObject and HTML_QuickForm. For having a quick but working prototype of your application, simply model the database, run DataObject's createTable script over it and write a script that passes one of the resulting objects to the FormBuilder class. The FormBuilder will automatically generate a simple but working HTML_QuickForm object that you can use to test your application. It also provides a processing method that will automatically detect if an insert() or update() command has to be executed after the form has been submitted. If you have set up DataObject's links.ini file correctly, it will also automatically detect if a table field is a foreign key and will populate a selectbox with the linked table's entries. There are many optional parameters that you can place in your DataObjects.ini or in the properties of your derived classes, that you can use to fine-tune the form-generation, gradually turning the prototypes into fully-featured forms, and you can take control at any stage of the process.</d>
+ <da>2005-05-20 20:05:15</da>
+ <n>Sorry to bring us back down to alpha, but I just changed the driver architecture. We should be back up to beta within a few releases.
+
+Changes
+* BC Break! The QuickForm driver no longer extends the FormBuilder main class
+** This means that extended versions of FormBuilder are no longer tied to a specific driver, however
+** If you have created your own FormBuilder extended class in the past you now need to alter it to
+** extend DB_DataObject_FormBuilder instead of DB_DataObject_FormBuilder_QuickForm
+
+** If you are instantiation your FormBuilder object with &quot;new&quot; you should switch to using DB_DataObject_FormBuilder::create()
+
+Fixes
+* validateOnProcess no longer fails when linkNewValue is used
+
+New Features
+* There are now callback options to allow custom functions to be set for:
+** preGenerateForm
+** postGenerateForm
+** preProcessForm
+** postProcessForm
+** prepareLinekdDataObject
+
+** Note: useCallTimePassByRef is now needed only if you use the FormBuilder parameter in the getForm callback
+
+* If you set the 'collapse' key of a crossLink array to true, the unselected crossLink records will be hidden until you click the &quot;Show All&quot; link beneath them. This should help a lot for large amounts of records in crossLinks.</n>
+ <f>53457</f>
+ <g>http://pear.php.net/get/DB_DataObject_FormBuilder-0.16.0</g>
+ <x xlink:href="package.0.16.0.xml"/>
+</r>

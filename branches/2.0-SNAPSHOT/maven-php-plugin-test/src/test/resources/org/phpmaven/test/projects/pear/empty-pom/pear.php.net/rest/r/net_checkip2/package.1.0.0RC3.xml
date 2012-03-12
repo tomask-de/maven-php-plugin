@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.7.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Net_CheckIP2</name>
+ <channel>pear.php.net</channel>
+ <summary>A package to determine if an IP (v4) is valid.</summary>
+ <description>Net_CheckIP2 allows you to validate an IPv4 address.
+
+Additionally, using isReserved(), you may check if an IP is from a reserved/private
+IP space (according to RFC 1918). Using getClass(), you may retrieve the IP&apos;s class
+network (A, B, C currently supported).
+
+Net_CheckIP2 is a PHP5 port of the Net_CheckIP package and is almost a drop-in replacement.</description>
+ <lead>
+  <name>Till Klampaeckel</name>
+  <user>till</user>
+  <email>till@php.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Martin Jansen</name>
+  <user>mj</user>
+  <email>mj@php.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-09-30</date>
+ <time>14:44:18</time>
+ <version>
+  <release>1.0.0RC3</release>
+  <api>1.0.0RC3</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/mit-license.html">MIT License</license>
+ <notes>This release introduces a last-minute BC break:
+
+To update your code, please replace the following:
+
+   Net_CheckIP2::check_ip($ip);
+
+... with:
+
+   Net_CheckIP2::isValid($ip);
+
+Changelog:
+
+* introduced getClass() - determine the CLASS network (A, B, C supported)
+* introduced isValid() - replaces check_ip()
+* introduced isReserved() - determine if the IP is from within a reserved space
+* introduced isZeroconf() - determine if the IP is from the zeroconf pool
+* added AllTests and new test suite</notes>
+ <contents>
+  <dir name="/">
+   <file md5sum="bbbd416496dc92bae91ee9f0c0f9cae5" name="Net/CheckIP2.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+    <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+   </file>
+   <file baseinstalldir="Net_CheckIP2" md5sum="c03318de5f798600a15941f938bc9b00" name="examples/check-ip.php" role="doc" />
+   <file baseinstalldir="Net_CheckIP2" md5sum="bdd8cb80aae185d559dd117385bedd68" name="tests/AllTests.php" role="test" />
+   <file baseinstalldir="Net_CheckIP2" md5sum="42ffabc381bf166b15ddde2bee7d2bd7" name="tests/Net_CheckIP2Test.php" role="test" />
+   <file baseinstalldir="Net_CheckIP2" md5sum="d5c6c1f764846f115218c90c516d417b" name="tests/check_ip.phpt" role="test" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0RC2</release>
+    <api>1.0.0RC2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2008-02-02</date>
+   <license uri="http://www.opensource.org/licenses/mit-license.html">MIT License</license>
+   <notes>Added a test.</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC1</release>
+    <api>1.0.0RC1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2007-12-04</date>
+   <license uri="http://www.opensource.org/licenses/mit-license.html">MIT License</license>
+   <notes>Initial PHP5 port of Net_CheckIP.</notes>
+  </release>
+ </changelog>
+</package>

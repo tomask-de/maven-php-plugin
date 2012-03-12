@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>System_ProcWatch</name>
+  <summary>Monitor Processes</summary>
+  <description>With this package you can monitor running processes based upon an XML configuration file, XML string, INI file or an array where you define patterns, conditions and actions.
+
+XML::Parser must be installed to configure System::ProcWatch by XML, additionally Console::Getopt and XML::DTD must be installed if you want to use the shipped shell scripts 'procwatch' and 'procwatch-lint'.
+
+A simple 'ps' fake for WinNT can be found at http://dev.iworks.at/ps/ps.zip</description>
+  <maintainers>
+    <maintainer>
+      <user>mike</user>
+      <name>Michael Wallner</name>
+      <email>mike@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.4.1</version>
+    <date>2004-03-21</date>
+    <license>PHP</license>
+    <state>beta</state>
+    <notes># BUGFIX RELEASE
+* On some systems the output of ps has been truncated due to a specified COLUMNS environment variable (especially SuSE Linux)
+* System_ProcWatch_Parser::getParsedData() didn't honor passed ps arguments
+* Removed System_ProcWatch_Parser::serializeArray() and _quote()
+* Removed __clone() methods (obsolete)</notes>
+    <deps>
+      <dep type="pkg" rel="has" optional="no">PEAR</dep>
+      <dep type="pkg" rel="has" optional="yes">XML_Parser</dep>
+      <dep type="pkg" rel="has" optional="yes">XML_DTD</dep>
+      <dep type="pkg" rel="has" optional="yes">Console_Getopt</dep>
+      <dep type="ext" rel="has" optional="no">pcre</dep>
+      <dep type="php" rel="ge" version="4.0.2" optional="no"/>
+      <dep type="php" rel="ge" version="4.3.0" optional="yes"/>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="System" name="ProcWatch.php"/>
+      <file role="php" baseinstalldir="System" name="ProcWatch\Parser.php"/>
+      <file role="php" baseinstalldir="System" name="ProcWatch\Config.php"/>
+      <file role="php" baseinstalldir="System" name="ProcWatch\Config\Parser.php"/>
+      <file role="script" baseinstalldir="/" install-as="procwatch" name="scripts/system-procwatch.php">
+        <replace type="pear-config" from="@PHP-BIN@" to="php_bin"/>
+        <replace type="package-info" from="@VERSION@" to="version"/>
+        <replace type="package-info" from="@DATE@" to="release_date"/>
+      </file>
+      <file role="script" baseinstalldir="/" install-as="procwatch-lint" name="scripts/system-procwatch_lint.php">
+        <replace type="pear-config" from="@PHP-BIN@" to="php_bin"/>
+        <replace type="pear-config" from="@DATADIR@" to="data_dir"/>
+        <replace type="package-info" from="@VERSION@" to="version"/>
+        <replace type="package-info" from="@DATE@" to="release_date"/>
+      </file>
+      <file role="script" baseinstalldir="/" platform="windows" install-as="procwatch.cmd" name="scripts/system-procwatch.cmd">
+        <replace type="pear-config" from="@PHP-BIN@" to="php_bin"/>
+        <replace type="pear-config" from="@BIN-DIR@" to="bin_dir"/>
+      </file>
+      <file role="script" baseinstalldir="/" platform="windows" install-as="procwatch-lint.cmd" name="scripts/system-procwatch_lint.cmd">
+        <replace type="pear-config" from="@PHP-BIN@" to="php_bin"/>
+        <replace type="pear-config" from="@BIN-DIR@" to="bin_dir"/>
+      </file>
+      <file role="doc" baseinstalldir="System" install-as="README.txt" name="docs/README.txt"/>
+      <file role="doc" baseinstalldir="System" install-as="examples/EXAMPLE.txt" name="docs/examples/EXAMPLE.txt"/>
+      <file role="doc" baseinstalldir="System" install-as="examples/example.xml" name="docs/examples/example.xml">
+        <replace type="pear-config" from="@DATADIR@" to="data_dir"/>
+      </file>
+      <file role="doc" baseinstalldir="System" install-as="examples/example.ini" name="docs/examples/example.ini"/>
+      <file role="data" baseinstalldir="System" install-as="procwatch-1_0.dtd" name="data/procwatch-1_0.dtd"/>
+    </filelist>
+  </release>
+</package>

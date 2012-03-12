@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>File_Passwd</name>
+  <summary>Manipulate many kinds of password files</summary>
+  <description>Provides methods to manipulate standard Unix, SMB server, AuthUser (.htpasswd), AuthDigest (.htdigest) and CVS pserver password files.</description>
+  <maintainers>
+    <maintainer>
+      <user>mike</user>
+      <name>Michael Wallner</name>
+      <email>mike@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.0b1</version>
+    <date>2003-11-04</date>
+    <license>PHP</license>
+    <state>beta</state>
+    <notes>* Stripped deprecated code from File_Passwd.
+* Added encryption constants for NT and LM hash.
+* Refined passwd generation and moved encryption methods to File_Passwd.
+* Fixed a minor bug in File_Passwd_Cvs::save() which added an empty system user.
+* Fixed some major bugs in File_Passwd_Smb, so this extension should work properly now; the following methods have been fixed:
+  o addUser(), modUser()
+  o changePasswd(), verify[Encrypted]Passwd()
+  o staticAuth(), save()
+
+* Added test cases for File_Passwd and File_Passwd_Smb.</notes>
+    <deps>
+      <dep type="pkg" rel="has">Crypt_CHAP</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="File" name="Passwd.php"/>
+      <file role="php" baseinstalldir="File" name="Passwd\Common.php"/>
+      <file role="php" baseinstalldir="File" name="Passwd\Unix.php"/>
+      <file role="php" baseinstalldir="File" name="Passwd\Cvs.php"/>
+      <file role="php" baseinstalldir="File" name="Passwd\Smb.php"/>
+      <file role="php" baseinstalldir="File" name="Passwd\Authbasic.php"/>
+      <file role="php" baseinstalldir="File" name="Passwd\Authdigest.php"/>
+      <file role="test" baseinstalldir="File" name="tests\testsuite.php"/>
+      <file role="test" baseinstalldir="File" name="tests\test_file_passwd.php"/>
+      <file role="test" baseinstalldir="File" name="tests\test_common.php"/>
+      <file role="test" baseinstalldir="File" name="tests\test_unix.php"/>
+      <file role="test" baseinstalldir="File" name="tests\test_smb.php"/>
+      <file role="test" baseinstalldir="File" name="tests\test_cvs.php"/>
+      <file role="test" baseinstalldir="File" name="tests\test_authbasic.php"/>
+      <file role="test" baseinstalldir="File" name="tests\test_authdigest.php"/>
+      <file role="test" baseinstalldir="File" name="tests\README.txt"/>
+      <file role="test" baseinstalldir="File" name="tests\common.txt"/>
+      <file role="test" baseinstalldir="File" name="tests\passwd.unix.txt"/>
+      <file role="test" baseinstalldir="File" name="tests\passwd.cvs.txt"/>
+      <file role="test" baseinstalldir="File" name="tests\passwd.smb.txt"/>
+      <file role="test" baseinstalldir="File" name="tests\passwd.authbasic.txt"/>
+      <file role="test" baseinstalldir="File" name="tests\passwd.authdigest.txt"/>
+    </filelist>
+  </release>
+</package>

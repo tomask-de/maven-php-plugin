@@ -375,10 +375,15 @@ public class PearChannel implements IPearChannel {
     }
     
     /**
-     * Initialize the packages.
-     * @throws PhpException thrown if php execution failes.
+     * Initializes the local packages.
+     * 
+     * @param ignoreUnresolvablePackages true to ignore unresolvable packages.
+     * @param doNotReadInstalled true to not read local installed packages.
+     * 
+     * @throws PhpException thrown on php execution errors.
      */
-    private void initPackages() throws PhpException {
+    public void initializePackages(boolean ignoreUnresolvablePackages, boolean doNotReadInstalled)
+        throws PhpException {
         if (this.installedPackages == null) {
             final List<IPackage> installed = new ArrayList<IPackage>();
             final Map<String, IPackage> allPackages = new HashMap<String, IPackage>();
@@ -392,8 +397,17 @@ public class PearChannel implements IPearChannel {
                 for (final Xpp3Dom child : dom.getChildren("p")) {
                     final IPackage pkg = new Package();
                     pkg.setPackageName(child.getValue());
-                    allPackages.put(child.getValue(), pkg);
                     pkg.initialize(this.pearUtility, this);
+                    if (ignoreUnresolvablePackages) {
+                        // try to resolve. ignore package on errors.
+                        try {
+                            pkg.getKnownVersions();
+                        } catch (PhpException ex) {
+                            // ignore this package
+                            continue;
+                        }
+                    }
+                    allPackages.put(child.getValue(), pkg);
                 }
             } catch (IOException ex) {
                 throw new PhpCoreException("Problems reading packages.xml", ex);
@@ -401,32 +415,42 @@ public class PearChannel implements IPearChannel {
                 throw new PhpCoreException("Problems reading packages.xml", ex);
             }
             
-            final String res = this.pearUtility.executePearCmd("list -c " + this.getName());
-            final StringTokenizer tokenizer = new StringTokenizer(res, "\n");
-            if (tokenizer.nextToken().trim().startsWith("INSTALLED PACKAGES")) {
-                // skip header
-                tokenizer.nextToken();
-                tokenizer.nextToken();
-                while (tokenizer.hasMoreTokens()) {
-                    final String t = tokenizer.nextToken().trim();
-                    final int indexOf = t.indexOf(" ");
-                    final String n = t.substring(0, indexOf);
-                    final IPackage pkg = allPackages.get(n);
-                    if (pkg == null) {
-                        throw new PhpCoreException(
-                                "Installed package " + pkg +
-                                " not found in packages.xml of channel " + this.getName());
+            if (!doNotReadInstalled) {
+                final String res = this.pearUtility.executePearCmd("list -c " + this.getName());
+                final StringTokenizer tokenizer = new StringTokenizer(res, "\n");
+                if (tokenizer.nextToken().trim().startsWith("INSTALLED PACKAGES")) {
+                    // skip header
+                    tokenizer.nextToken();
+                    tokenizer.nextToken();
+                    while (tokenizer.hasMoreTokens()) {
+                        final String t = tokenizer.nextToken().trim();
+                        final int indexOf = t.indexOf(" ");
+                        final String n = t.substring(0, indexOf);
+                        final IPackage pkg = allPackages.get(n);
+                        if (pkg == null) {
+                            throw new PhpCoreException(
+                                    "Installed package " + n +
+                                    " not found in packages.xml of channel " + this.getName());
+                        }
+                        installed.add(pkg);
+                        final String t2 = t.substring(indexOf).trim();
+                        final String pearVersion = t2.substring(0, t2.indexOf(" ")).trim();
+                        pkg.setInstalledVersion(pkg.getVersion(pearVersion));
                     }
-                    installed.add(pkg);
-                    final String t2 = t.substring(indexOf).trim();
-                    final String pearVersion = t2.substring(t2.indexOf(" ")).trim();
-                    pkg.setInstalledVersion(pkg.getVersion(pearVersion));
                 }
             }
             
             this.knownPackages = allPackages;
             this.installedPackages = installed;
         }
+    }
+    
+    /**
+     * Initialize the packages.
+     * @throws PhpException thrown if php execution failes.
+     */
+    private void initPackages() throws PhpException {
+        this.initializePackages(false, false);
     }
 
     /**

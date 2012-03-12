@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>LiveUser</name>
+  <summary>User authentication and permission management framework</summary>
+  <description>LiveUser is a set of classes for dealing with user authentication
+and permission management. Basically, there are three main elements that
+make up this package:
+* The LiveUser class
+* The Auth containers
+* The Perm containers
+The LiveUser class takes care of the login process and can be configured
+to use a certain permission container and one or more different auth containers.
+That means, you can have your users' data scattered amongst many data containers
+and have the LiveUser class try each defined container until the user is found.
+For example, you can have all website users who can apply for a new account online
+on the webserver's local database. Also, you want to enable all your company's
+employees to login to the site without the need to create new accounts for all of
+them. To achieve that, a second container can be defined to be used by the LiveUser class.
+You can also define a permission container of your choice that will manage the rights for
+each user. Depending on the container, you can implement any kind of permission schemes
+for your application while having one consistent API.
+Using different permission and auth containers, it's easily possible to integrate
+newly written applications with older ones that have their own ways of storing permissions
+and user data. Just make a new container type and you're ready to go!
+Currently available are containers using:
+PEAR::DB, PEAR::MDB, PEAR::MDB2, PEAR::XML_Tree and PEAR::Auth.</description>
+  <maintainers>
+    <maintainer>
+      <user>mw21st</user>
+      <name>Markus Wolff</name>
+      <email>mw21st@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>arnaud</user>
+      <name>Arnaud Limbourg</name>
+      <email>arnaud@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>lsmith</user>
+      <name>Lukas Kahwe Smith</name>
+      <email>smith@backendmedia.com</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>krausbn</user>
+      <name>Bjoern Kraus</name>
+      <email>krausbn@php.net</email>
+      <role>developer</role>
+    </maintainer>
+    <maintainer>
+      <user>pajoye</user>
+      <name>Pierre-Alain Joye</name>
+      <email>pajoye@php.net</email>
+      <role>contributor</role>
+    </maintainer>
+    <maintainer>
+      <user>dufuz</user>
+      <name>Helgi Þormar</name>
+      <email>dufuz@php.net</email>
+      <role>developer</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.13.1</version>
+    <date>2004-10-02</date>
+    <license>LGPL</license>
+    <state>beta</state>
+    <notes>- updated depencies
+- In getGroups, changed sizeif(customFields &gt; 0) to count(customFields) &gt; 0
+- Fixed some missing . and ; in the perm containers
+- Came back with the old code for getting of custom getProperty until we make the new
+  code work.
+- Misplacing of a MDB2 quoting in a DB container
+- fixed bug in define_name handling of all admin containers
+- cleaned up usage of LiveUser::status property and added LIVEUSER_STATUS_OK</notes>
+    <deps>
+      <dep type="pkg" rel="ge" version="1.6.0" optional="yes">DB</dep>
+      <dep type="pkg" rel="ge" version="1.1.4" optional="yes">MDB</dep>
+      <dep type="pkg" rel="has" optional="yes">XML_Tree</dep>
+      <dep type="pkg" rel="has" optional="yes">Crypt_RC4</dep>
+      <dep type="pkg" rel="ge" version="2.0.0beta2" optional="yes">MDB2</dep>
+      <dep type="php" rel="ge" version="4.2.0" optional="no"/>
+      <dep type="pkg" rel="ge" version="1.3.1" optional="no">PEAR</dep>
+      <dep type="pkg" rel="ge" version="1.7.0" optional="no">Log</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="/" md5sum="df3311a40d9ffe7b863097b72201177d" install-as="/LiveUser/Admin.php" name="Admin/Admin.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="0bb8fae81c22c7665fe07bb839cb8054" name="Admin/Auth/Common.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="9ce467f604abaf9d0c2514d729ef812b" name="Admin/Auth/Container/DB.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="7985cb736369a20c6839baa39a3fc111" name="Admin/Auth/Container/MDB.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="935ddbf2692894dd239e576a16ada3cb" name="Admin/Auth/Container/MDB2.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="b4abeba22b47723c7b3f49ee1f3ec168" name="Admin/Perm/Common.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="7c9dfe96bc5bdd73d5db43e44f179023" name="Admin/Perm/Container/DB_Complex.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="7edd8ab8036c28e672d8e6e85066269a" name="Admin/Perm/Container/DB_Medium.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="d800687a227ce5c8db0a92a2c6204a7d" name="Admin/Perm/Container/DB_Simple.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="9e4264fd49dc0f79c7690884b58ea03d" name="Admin/Perm/Container/MDB2_Complex.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="e2e9a975518d2d86eaf3da6553f8857c" name="Admin/Perm/Container/MDB2_Medium.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="2e16607ec016004bf94ce5a2fc829ab2" name="Admin/Perm/Container/MDB2_Simple.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="ab601295f6ba9a5e410c842cac410848" name="Admin/Perm/Container/MDB_Complex.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="6389e025db711408cbc45f5ea89d0b63" name="Admin/Perm/Container/MDB_Medium.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="222cffcfa2932530a62f7b099cb7412a" name="Admin/Perm/Container/MDB_Simple.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="2c6cc8744110afc9a3d1c1ee0189cffc" name="Auth/Common.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="e0cd25e8607291eb24e35a781e3b9d18" name="Auth/Container/DB.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="38db6d20d75601a5df49aedf345152d3" name="Auth/Container/MDB.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="01c44500e84bb2b7447ea51855a63184" name="Auth/Container/MDB2.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="226dda04eef2e920b23d0fb147c0593a" name="Auth/Container/PEAR_Auth.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="4b53621a1bf8f1d6374055232015a9ca" name="Auth/Container/XML.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="b1a3fe2538040466fcc889975990cb9b" name="docs/dia_admin_diagram.xml"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="7635ef1d710acb2076aea684cddef227" name="docs/dia_diagram.xml"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="916c2c6a3b4bda44df16ac3a5b3dd34d" name="docs/Perm_DB_Complex.png"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="c353f7c1ebab83215713354f84d2f376" name="docs/Perm_DB_Simple.png"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="b44d7043776c746c142035ecf95c6a32" name="docs/examples/README"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="702fd0e07a33c98b66a192d08c33c840" name="docs/examples/admin_example/create_db.sql"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="7c071f0eededb5d9704509eac9e8e4c4" name="docs/examples/admin_example/README"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="bcdcb2f89398dd80ddd67ebcae502f8a" name="docs/examples/admin_example/DB/admin_example.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="a19bf8c9d94798243132130c811e5e74" name="docs/examples/admin_example/DB/config.inc.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="021203a18d4aca1f9e069e558861ecaa" name="docs/examples/admin_example/MDB/admin_example_mdb.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="e0f67afef994e62d707b82074911a8c7" name="docs/examples/admin_example/MDB/config_mdb.inc.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="4d591a13d620ef079d7f64cee8fad499" name="docs/examples/admin_example/MDB2/admin_example_mdb2.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="7ec9efb6232db56b0163d7b41acbd39e" name="docs/examples/admin_example/MDB2/config_mdb2.inc.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="45fa0fb042d5c1a3bbb6aca691612525" name="docs/examples/example1/Auth_XML.xml"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="f3ffc3d487beded8588219f87b3ce6af" name="docs/examples/example1/conf.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="6625b7b4138ba9a3c713edda71a08d46" name="docs/examples/example1/example.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="b01d0f3c21d50545d38b643d7474be31" name="docs/examples/example1/index.html"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="2aefe87155aefdc065bbee14b36c3cea" name="docs/examples/example1/README"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="c88b3f2d5d953a5079e4feb6e886419d" name="docs/examples/example2/Auth_XML.xml"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="c9fab7429517d86072306813c268b135" name="docs/examples/example2/conf.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="b72f4e0a2cccd20c8494899382724da2" name="docs/examples/example2/example.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="60a4e6186a17837014e95284dd441517" name="docs/examples/example2/index.html"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="fbd1ee23d32089fab0544639974a063d" name="docs/examples/example2/Perm_XML.xml"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="bd2bfa7bf3c79950e5f1358900aa970a" name="docs/examples/example2/README"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="17e46d8195b60144cb7d83491fd54c56" name="docs/examples/example3/area51.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="ee4ab733a8e11eb65ed0d9bc9ebb127f" name="docs/examples/example3/coffeemaker.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="9bb9939e6dd6baedf93fbd525feeb444" name="docs/examples/example3/conf.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="3a2d8d556567edf1e2579051a8fad93b" name="docs/examples/example3/demodata.sql"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="7fa6381a8a3231e7a0cb3acf8de5a85a" name="docs/examples/example3/example.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="309c7ab56f525a6ba777d6cec54cd2a9" name="docs/examples/example3/index.html"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="fdba00fc8da8d08ce3a2d1b2f7fc5bae" name="docs/examples/example3/loginscreen.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="c914ae7436bbd1d385b40eda52360b81" name="docs/examples/example3/main.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="2617d208cef2bad693638c491bc7adb4" name="docs/examples/example3/nav.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="e2af296a6e32a081b597cac67508de3d" name="docs/examples/example3/testarea.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="002d82ca847d5666500297bc9dd837d3" name="docs/examples/example4/conf.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="86bbb6319ea8e803ff3e239d159f8f4a" name="docs/examples/example4/demodata.sql"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="c58e50ba55e3e678b78b6fa0547e9ad6" name="docs/examples/example4/error-page.tpl.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="f3889bfedbd9463c794b8ff60d7792e4" name="docs/examples/example4/finish.inc.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="ca70a552648fc1885a04d3b5fd1d4527" name="docs/examples/example4/functions.js"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="babd70e05b2aa1eba32989dac932a758" name="docs/examples/example4/index.html"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="91a451396c8af18c5582c657671de8a6" name="docs/examples/example4/loginform.tpl.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="11ad1ab0228fdecb295b45e687f34d49" name="docs/examples/example4/news_change.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="9e4f8911d079b378253e38d444d8dcd0" name="docs/examples/example4/news_change.tpl.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="9657b384fd691c4cb7d66cd01569c1a9" name="docs/examples/example4/news_new.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="62815cf48eafd2547e17f31a81e4b2b4" name="docs/examples/example4/news_new.tpl.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="bbcdacc6ba3515827cf9f648468b1bc0" name="docs/examples/example4/news_notallowed.tpl.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="b7fd5704137437d0575bed74e96d57f2" name="docs/examples/example4/news_view.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="49bceda320dd90c542ea97239b469e2f" name="docs/examples/example4/news_view.tpl.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="6428974df775f54e30acc08fd5067f4c" name="docs/examples/example4/style.css"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="e68912f398d7e0b18dd52a0d17bc0950" name="docs/examples/example5/admin.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="307770f8f4ff07fab722358a15e46a5d" name="docs/examples/example5/admin.tpl"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="0caeddb59a4fcde26609de7af12f7d41" name="docs/examples/example5/admin_example.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="de759bc41de36265fb27364d9988baa0" name="docs/examples/example5/conf.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="9f560995729f44434d2542036943a7f5" name="docs/examples/example5/create_db.sql"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="ca0caa54a308a78c8b16ec24edfdde4c" name="docs/examples/example5/home.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="6863c5b16d0d39a931e7177771bc8629" name="docs/examples/example5/home.tpl"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="945f9632ea7de984bbbb683ae3e7bda8" name="docs/examples/example5/index.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="c39bcee5995b0e943f82e619081a24c9" name="docs/examples/example5/layout_frontend.css"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="d4615b81f2328be80c975ee120f2fb8f" name="docs/examples/example5/liveuser_rights.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="35c30c6ebb72d15ae87453b94ebd7dba" name="docs/examples/example5/login_form.tpl"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="cd8dda55050bcfd359d4b3dea2b2036f" name="docs/examples/example5/news.tpl"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="b9f7a2de1be9cab65cf9fc248d4b4789" name="docs/examples/example5/news_edit.tpl"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="76baab96d5fac1862c661d83f19dac80" name="docs/examples/example5/news_list.tpl"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="84000cebab3f5fbc2773d17bd29c8c15" name="docs/examples/example5/README"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="1dce0af3deb6ff8678596c727e2e7db8" name="Perm/Common.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="e0b7a729f66fe829f5a89eb30bc64afd" name="Perm/Container/DB/Complex.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="6e469c503b09f4ec3c1efea2bf0b5407" name="Perm/Container/DB/Medium.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="9b8b94d0929dc38243c49ddae44ba901" name="Perm/Container/DB/Simple.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="f613bc28cb5625b814b805afea17838c" name="Perm/Container/MDB/Complex.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="8bd753b578f6cc51b57976ebb5bb2974" name="Perm/Container/MDB/Medium.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="6a18dbd51fdc87533cfbe9356d4fdee9" name="Perm/Container/MDB/Simple.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="a2829a997cc009605d387032a5bdefec" name="Perm/Container/MDB2/Complex.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="adb695a5f6e48af2020da0f1b8ca631c" name="Perm/Container/MDB2/Medium.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="01f10c426e6ca5c810c64b1b6c8a0206" name="Perm/Container/MDB2/Simple.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="867b6474ae93b45f4fbfa09132ea731e" name="Perm/Container/XML/Simple.php"/>
+      <file role="data" baseinstalldir="/LiveUser" md5sum="f7bfea4c8e28efbb4a88aa3afa68fedb" install-as="misc/schema/Auth_DB.sql" name="sql/Auth_DB.sql"/>
+      <file role="data" baseinstalldir="/LiveUser" md5sum="78955378108ffc38721fb0618546eb43" install-as="misc/schema/auth_mdb_schema.xml" name="sql/auth_mdb_schema.xml"/>
+      <file role="data" baseinstalldir="/LiveUser" md5sum="85f1a254f4c8c296fce0c2915c90bcf2" install-as="misc/schema/Auth_XML.xml" name="sql/Auth_XML.xml"/>
+      <file role="data" baseinstalldir="/LiveUser" md5sum="057e3d53f13f010dfb3a79371a835f90" install-as="misc/schema/perm_db.sql" name="sql/perm_db.sql"/>
+      <file role="data" baseinstalldir="/LiveUser" md5sum="0d95225f32da8ba4f3147ee2c1ac2650" name="sql/perm_db_complex.sql"/>
+      <file role="data" baseinstalldir="/LiveUser" md5sum="b2b3f9311298cae1dbc18bc5c9fbd782" name="sql/perm_db_medium.sql"/>
+      <file role="data" baseinstalldir="/LiveUser" md5sum="3ec8b1de018201b7554afceeeee931b8" name="sql/perm_db_simple.sql"/>
+      <file role="data" baseinstalldir="/LiveUser" md5sum="06f540d5c5d1ba46e7239a191ca5dd16" install-as="misc/schema/perm_mdb_schema.xml" name="sql/perm_mdb_schema.xml"/>
+      <file role="data" baseinstalldir="/LiveUser" md5sum="7d4ddddc32ab8cf3829791de09226188" install-as="misc/schema/Perm_XML.xml" name="sql/Perm_XML.xml"/>
+      <file role="data" baseinstalldir="/LiveUser" md5sum="57fc52a57bfa6d92c8f1c03d0fbec8df" name="sql/README"/>
+      <file role="doc" baseinstalldir="/LiveUser" md5sum="03fb004783f456bfd292dde36ab5c489" name="lgpl.txt"/>
+      <file role="php" baseinstalldir="/" md5sum="067efd0876b2989d89ee47f56a5360cc" name="LiveUser.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.13.1</version>
+      <date>2004-10-02</date>
+      <license>LGPL</license>
+      <state>beta</state>
+      <notes>- updated depencies
+- In getGroups, changed sizeif(customFields &gt; 0) to count(customFields) &gt; 0
+- Fixed some missing . and ; in the perm containers
+- Came back with the old code for getting of custom getProperty until we make the new
+  code work.
+- Misplacing of a MDB2 quoting in a DB container
+- fixed bug in define_name handling of all admin containers
+- cleaned up usage of LiveUser::status property and added LIVEUSER_STATUS_OK
+</notes>
+    </release>
+    <release>
+      <version>0.13.0</version>
+      <date>2004-09-30</date>
+      <license>LGPL</license>
+      <state>beta</state>
+      <notes>- refactored client to use ErrorStack, have a look at http://pear.php.net/manual/en/core.pear.pear-errorstack.php
+- refactored class loading
+- refactored login mechanism
+- removed LiveUser::getAuthAdminObjectByName() (use LiveUser/Admin.php instead)
+- BC Break! getUserFromGroup renamed to getUsersFromGroup to descripe better what the function is doing
+- userExists now should work if checked for password also in MDB[2]
+- added checks if _auth property is an object (fix for bug #1925)
+- added missing ['required'] in _readUserData() method (fix for bug #1925)
+- LiveUser_Admin_Perm_Container*::addUser() method now requires explicitly (instead of implicitly) that an auth container name is passed (fix for bug #1814)
+- fixed several serious bugs in getUsers() (bug #1800)
+- fixed indexes on relationship tables (fixed bug #1609)
+- check if custom authTableCols/groupTableCols conf setting is set before using
+- fixed LiveUser_Admin_Perm_Container_*::getGroups()
+- fixed constructors in the MDB[2] admin containers
+- added simple __toString() method
+- readded isError() until we have moved all the admin code to PEAR_ErrorStack
+- BC break! checkRight/checkRightLevel returns LIVEUSER_MAX_LEVEL when null is
+  passed and not when false is passed as the right_id
+- fixed calls to container: _readUserData() and updateUserData() in
+  LiveUser_Auth_Common
+- prevent infinite loop in LiveUser_Permn_Common::checkRight()
+- empty rights array in LiveUser::checkRight() means that the max right is returned
+- improved error handling in LiveUser_Perm_Container_*_Simple::init() method
+- fixed client directory structure to map &quot;_&quot; in class names to &quot;/&quot; in filenames
+- fixed LiveUser_Admin_Auth_Container_*::addUser()/updateUser()/getUsers()
+  methods to be inline with the recent changes with authTableCols
+- fixed LiveUser_Admin_Auth_Container_*_Medium::addGroup()/updateGroup() methods
+  to be inline with the recent changes with groupTableCols (MDB2? only)
+- fixed result type handling in LiveUser_Admin_Perm_Container_MDB2?_*::getRights()
+- typo fix in LiveUser_Admin_Perm_Container_MDB2_Complex::grantGroupRight()
+- fixed bug in LiveUser_Perm_*_Medium::readGroups()
+- dont default to debug true
+- fixed 'cache_perm' option false
+- don't allow 'reginid' option if a save handler has been defined
+- add optional parameter to only fetch the ID in admin-&gt;perm-&gt;getAuthUserId()
+- improved handling of optional fields in LiveUser_Auth_Container_*::_readUserData()
+- removed shorthand filter option in LiveUser_Admin_Perm_Container_*::getUsers()
+- removed DROP TABLE IF EXISTS in the database schema as well as removing all references to scope
+- removeUser() now removes the user him self the last
+- updated the documents that come with the examples in hope they will be clearer now.
+- improved filter handling in LiveUser_Admin::getUser()
+</notes>
+    </release>
+  </changelog>
+</package>

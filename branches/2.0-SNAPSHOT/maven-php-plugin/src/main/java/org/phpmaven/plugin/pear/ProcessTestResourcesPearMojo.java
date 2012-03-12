@@ -22,8 +22,6 @@ import org.apache.maven.plugin.MojoExecutionException;
  * @goal process-test-resources-pear
  * @phase process-test-resources
  * 
- * TODO migrate
- * 
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
 public class ProcessTestResourcesPearMojo extends DefaultMojo

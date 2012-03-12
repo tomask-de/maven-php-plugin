@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/mdb2_driver_oci8">MDB2_Driver_oci8</p>
+ <c>pear.php.net</c>
+ <v>1.4.1</v>
+ <st>stable</st>
+ <l>BSD License</l>
+ <m>quipo</m>
+ <s>oci8 MDB2 driver</s>
+ <d>This is the Oracle OCI8 MDB2 driver.</d>
+ <da>2007-05-03 14:56:52</da>
+ <n>- return length as &quot;precision,scale&quot; for NUMERIC and DECIMAL fields in mapNativeDatatype()
+- in getTableIndexDefinition() and getTableConstraintDefinition() in the Reverse
+  module, also return the field position in the index/constraint
+- fixed bug #10618: query in listTableIndexes() in the Manager module missing parentheses
+
+note:
+- please use the latest ext/oci8 version from pecl.php.net/oci8
+ (binaries are available from snaps.php.net and pecl4win.php.net)
+- by default this driver emulates the database concept other RDBMS have by this
+  using the &quot;database&quot; instead of &quot;username&quot; in the DSN as the username name.
+  behaviour can be disabled by setting the &quot;emulate_database&quot; option to false.
+- the multi_query test failes because this is not supported by ext/oci8
+- the null LOB test failes because this is not supported by Oracle
+- fixed query in getTableConstraintDefinition() [bug #10548], made the $table
+  parameter optional and added support for Foreign Keys and CHECK constraints
+  (thanks to Hugh Dixon)
+- detect autoincrement fields in getTableFieldDefinition() (thanks to Hugh Dixon)
+- don't return index definition in getTableIndexDefinition() if it's a constraint
+
+open todo items:
+- enable use of read() for LOBs to read a LOB in chunks
+- buffer LOB's when doing buffered queries</n>
+ <f>37027</f>
+ <g>http://pear.php.net/get/MDB2_Driver_oci8-1.4.1</g>
+ <x xlink:href="package.1.4.1.xml"/>
+</r>

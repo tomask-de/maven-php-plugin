@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Crypt_CHAP</name>
+  <summary>Generating CHAP packets.</summary>
+  <description>This package provides Classes for generating CHAP packets.
+Currently these types of CHAP are supported:
+* CHAP-MD5
+* MS-CHAPv1
+* MS-CHAPv2
+For MS-CHAP the mhash extension must be loaded.</description>
+  <maintainers>
+    <maintainer>
+      <user>mbretter</user>
+      <name>Michael Bretterklieber</name>
+      <email>mbretter@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.8.6</version>
+    <date>2003-11-04</date>
+    <license>BSD</license>
+    <state>alpha</state>
+    <notes>* Eliminated notices (Bug #190).
+* Handle Passwords allways as Strings (Bug #193).
+* BugFix: lmPasswordHash() wrong DES-Hashing (Bug #41).</notes>
+    <provides type="class" name="Crypt_CHAP" extends="PEAR" />
+    <provides type="class" name="Crypt_CHAP_MD5" extends="Crypt_CHAP" />
+    <provides type="class" name="Crypt_MSCHAPv1" extends="Crypt_CHAP" />
+    <provides type="class" name="Crypt_MSCHAPv2" extends="Crypt_MSCHAPv1" />
+    <provides type="function" name="Crypt_CHAP::generateChallenge" />
+    <provides type="function" name="Crypt_CHAP::challengeResponse" />
+    <provides type="function" name="Crypt_CHAP_MD5::challengeResponse" />
+    <provides type="function" name="Crypt_MSCHAPv1::ntPasswordHash" />
+    <provides type="function" name="Crypt_MSCHAPv1::str2unicode" />
+    <provides type="function" name="Crypt_MSCHAPv1::challengeResponse" />
+    <provides type="function" name="Crypt_MSCHAPv1::ntChallengeResponse" />
+    <provides type="function" name="Crypt_MSCHAPv1::lmChallengeResponse" />
+    <provides type="function" name="Crypt_MSCHAPv1::lmPasswordHash" />
+    <provides type="function" name="Crypt_MSCHAPv1::response" />
+    <provides type="function" name="Crypt_MSCHAPv2::ntPasswordHashHash" />
+    <provides type="function" name="Crypt_MSCHAPv2::challengeHash" />
+    <provides type="function" name="Crypt_MSCHAPv2::challengeResponse" />
+    <provides type="function" name="des_encrypt_ecb" />
+    <provides type="function" name="des_block_encode" />
+    <provides type="function" name="des_make_subkeys" />
+    <provides type="function" name="des_transform" />
+    <provides type="function" name="des_bits_to_bytes" />
+    <provides type="function" name="des_bytes_to_bits" />
+    <provides type="function" name="des_rotate_left" />
+    <provides type="function" name="des_xor" />
+    <provides type="function" name="des_add_parity" />
+    <filelist>
+      <file role="php" baseinstalldir="Crypt" md5sum="c6bcc6dc26eabcee2f84d0bbaf62be07" name="CHAP.php"/>
+      <file role="php" baseinstalldir="Crypt" md5sum="8ee5b331d36ac8d798a97e77ff4e91f2" name="CHAP_DES.php"/>
+      <file role="test" baseinstalldir="Crypt" md5sum="ccab3ba4fd39724fbef69f58ba5727ac" name="tests/chaptest.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.8.2</version>
+      <date>2003-02-01</date>
+      <state>alpha</state>
+      <notes>* CHAP-MD5 is stable
+* MS-CHAP is currently not completely implemented 
+
+      
+</notes>
+    </release>
+  </changelog>
+</package>

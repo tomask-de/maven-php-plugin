@@ -16,6 +16,8 @@
 
 package org.phpmaven.pear;
 
+import java.io.File;
+
 import org.phpmaven.exec.PhpException;
 
 /**
@@ -215,5 +217,31 @@ public interface IPackageVersion {
      * @param pearChannel the pear channel to be used.
      */
     void initialize(IPearUtility pearUtility, IPearChannel pearChannel);
+    
+    /**
+     * Returns the maintainers.
+     * @return maintainers.
+     * @throws PhpException thrown on php execution errors.
+     */
+    Iterable<IMaintainer> getMaintainers() throws PhpException;
+    
+    /**
+     * Adds a maintainer.
+     * @param maintainer maintainer.
+     * @throws PhpException thrown on php execution errors.
+     */
+    void addMaintainer(IMaintainer maintainer) throws PhpException;
+
+    /**
+     * Installs this version.
+     * @throws PhpException thrown on exceptions.
+     */
+    void install() throws PhpException;
+
+    /**
+     * Gets the php files.
+     * @return php files.
+     */
+    Iterable<File> getPhpFiles();
 
 }

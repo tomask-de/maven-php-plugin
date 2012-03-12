@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/liveuser">LiveUser</p>
+ <c>pear.php.net</c>
+ <v>0.13.0</v>
+ <st>beta</st>
+ <l>LGPL</l>
+ <m>arnaud</m>
+ <s>User authentication and permission management framework</s>
+ <d>LiveUser is a set of classes for dealing with user authentication
+and permission management. Basically, there are three main elements that
+make up this package:
+* The LiveUser class
+* The Auth containers
+* The Perm containers
+The LiveUser class takes care of the login process and can be configured
+to use a certain permission container and one or more different auth containers.
+That means, you can have your users' data scattered amongst many data containers
+and have the LiveUser class try each defined container until the user is found.
+For example, you can have all website users who can apply for a new account online
+on the webserver's local database. Also, you want to enable all your company's
+employees to login to the site without the need to create new accounts for all of
+them. To achieve that, a second container can be defined to be used by the LiveUser class.
+You can also define a permission container of your choice that will manage the rights for
+each user. Depending on the container, you can implement any kind of permission schemes
+for your application while having one consistent API.
+Using different permission and auth containers, it's easily possible to integrate
+newly written applications with older ones that have their own ways of storing permissions
+and user data. Just make a new container type and you're ready to go!
+Currently available are containers using:
+PEAR::DB, PEAR::MDB, PEAR::MDB2, PEAR::XML_Tree and PEAR::Auth.
+</d>
+ <da>2004-09-30 14:46:52</da>
+ <n>- refactored client to use ErrorStack, have a look at http://pear.php.net/manual/en/core.pear.pear-errorstack.php
+- refactored class loading
+- refactored login mechanism
+- removed LiveUser::getAuthAdminObjectByName() (use LiveUser/Admin.php instead)
+- BC Break! getUserFromGroup renamed to getUsersFromGroup to descripe better what the function is doing
+- userExists now should work if checked for password also in MDB[2]
+- added checks if _auth property is an object (fix for bug #1925)
+- added missing ['required'] in _readUserData() method (fix for bug #1925)
+- LiveUser_Admin_Perm_Container*::addUser() method now requires explicitly (instead of implicitly) that an auth container name is passed (fix for bug #1814)
+- fixed several serious bugs in getUsers() (bug #1800)
+- fixed indexes on relationship tables (fixed bug #1609)
+- check if custom authTableCols/groupTableCols conf setting is set before using
+- fixed LiveUser_Admin_Perm_Container_*::getGroups()
+- fixed constructors in the MDB[2] admin containers
+- added simple __toString() method
+- readded isError() until we have moved all the admin code to PEAR_ErrorStack
+- BC break! checkRight/checkRightLevel returns LIVEUSER_MAX_LEVEL when null is
+  passed and not when false is passed as the right_id
+- fixed calls to container: _readUserData() and updateUserData() in
+  LiveUser_Auth_Common
+- prevent infinite loop in LiveUser_Permn_Common::checkRight()
+- empty rights array in LiveUser::checkRight() means that the max right is returned
+- improved error handling in LiveUser_Perm_Container_*_Simple::init() method
+- fixed client directory structure to map &quot;_&quot; in class names to &quot;/&quot; in filenames
+- fixed LiveUser_Admin_Auth_Container_*::addUser()/updateUser()/getUsers()
+  methods to be inline with the recent changes with authTableCols
+- fixed LiveUser_Admin_Auth_Container_*_Medium::addGroup()/updateGroup() methods
+  to be inline with the recent changes with groupTableCols (MDB2? only)
+- fixed result type handling in LiveUser_Admin_Perm_Container_MDB2?_*::getRights()
+- typo fix in LiveUser_Admin_Perm_Container_MDB2_Complex::grantGroupRight()
+- fixed bug in LiveUser_Perm_*_Medium::readGroups()
+- dont default to debug true
+- fixed 'cache_perm' option false
+- don't allow 'reginid' option if a save handler has been defined
+- add optional parameter to only fetch the ID in admin-&gt;perm-&gt;getAuthUserId()
+- improved handling of optional fields in LiveUser_Auth_Container_*::_readUserData()
+- removed shorthand filter option in LiveUser_Admin_Perm_Container_*::getUsers()
+- removed DROP TABLE IF EXISTS in the database schema as well as removing all references to scope
+- removeUser() now removes the user him self the last
+- updated the documents that come with the examples in hope they will be clearer now.
+- improved filter handling in LiveUser_Admin::getUser()</n>
+ <f>178070</f>
+ <g>http://pear.php.net/get/LiveUser-0.13.0</g>
+ <x xlink:href="package.0.13.0.xml"/>
+</r>

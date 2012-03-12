@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>PEAR</name>
+ <channel>pear.php.net</channel>
+ <summary>PEAR Base System</summary>
+ <description>The PEAR package contains:
+ * the PEAR installer, for creating, distributing
+   and installing packages
+ * the beta-quality PEAR_Exception PHP5 error handling mechanism
+ * the beta-quality PEAR_ErrorStack advanced error handling mechanism
+ * the PEAR_Error error handling mechanism
+ * the OS_Guess class for retrieving info about the OS
+   where PHP is running on
+ * the System class for quick handling of common operations
+   with files and directories
+ * the PEAR base class
+
+  New features in a nutshell:
+  * full support for channels
+  * pre-download dependency validation
+  * new package.xml 2.0 format allows tremendous flexibility while maintaining BC
+  * support for optional dependency groups and limited support for sub-packaging
+  * robust dependency support
+  * full dependency validation on uninstall
+  * remote install for hosts with only ftp access - no more problems with
+    restricted host installation
+  * full support for mirroring
+  * support for bundling several packages into a single tarball
+  * support for static dependencies on a url-based package
+  * support for custom file roles and installation tasks
+
+  NOTE: users of PEAR_Frontend_Web/PEAR_Frontend_Gtk must upgrade their installations
+  to the latest version, or PEAR will not upgrade properly</description>
+ <lead>
+  <name>Greg Beaver</name>
+  <user>cellog</user>
+  <email>cellog@php.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Stig Bakken</name>
+  <user>ssb</user>
+  <email>stig@php.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Tomas V.V.Cox</name>
+  <user>cox</user>
+  <email>cox@idecnet.com</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Pierre-Alain Joye</name>
+  <user>pajoye</user>
+  <email>pajoye@pearfr.org</email>
+  <active>yes</active>
+ </lead>
+ <helper>
+  <name>Martin Jansen</name>
+  <user>mj</user>
+  <email>mj@php.net</email>
+  <active>no</active>
+ </helper>
+ <date>2005-09-25</date>
+ <time>15:41:49</time>
+ <version>
+  <release>1.4.1</release>
+  <api>1.4.0</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.php.net/license">PHP License</license>
+ <notes>Major bugfix release.  This is a recommended download for ALL PEAR users
+
+UPGRADING FROM 1.4.0 WILL CAUSE A SERIES OF NOTICES.  IGNORE THEM.
+THIS IS CAUSED BY A BUG IN 1.4.0 THAT IS FIXED IN 1.4.1
+* fix prompt processing in post-install scripts
+* make dual package.xml equivalency stricter when using package.xml/package2.xml
+* fix critical error in validating bogus php dependencies of package.xml 1.0
+  This error has existed for every PEAR version, and allows dependencies like:
+  &lt;dep type=&quot;php&quot; rel=&quot;has&quot;&gt;4.3.0&lt;/dep&gt; to
+  slip through unnoticed
+* re-enable php-const replacements
+* PEAR_PackageFile_v2::getConfigureOptions() was missing!!
+* fix cvsdiff command
+* fix xml encoding issues finally
+* clean up package.xml 1.0 dir/file parsing
+* fix invalid PEAR_Config generation
+* change the user agent from PHP/phpversion to PEAR/pearversion/PHP/phpversion
+* don&apos;t use a bogus uri for licenses on running convert command
+* add &quot;pickle&quot; command for PECL packaging
+* add validation warning if the release date in package.xml is not today when packaging
+* implement progress bar for list-all/remote-list
+* fix Bug #5323: pear search returns odd version numbers
+* fix Bug #5428: pear cvstag package2.xml does not include the package.xml
+* fix Bug #5449: pear makerpm completely broken for package.xml 2.0
+* fix Bug #5462: raiseError method does not return by ref anymore
+* fix Bug #5465: pear install --offline fails to display error
+* fix Bug #5477: Bug in Downloader.php and Dependency2.php
+* fix Bug #5481: &quot;pear install PECLextension&quot; should display warning to use pecl command
+* fix Bug #5482: installation of PECL packages should say add extensions to php.ini
+* fix Bug #5483: pecl uninstall crack fatal error
+* fix Bug #5487: PECL: compiled files are not uninstalled via the uninstall command
+* fix Bug #5488: pecl uninstall package fails if package has a package.xml 1.0
+* fix Bug #5501: the commands list mentions XML-RPC
+* fix Bug #5509: addDependecyGroup does not validate group name
+* fix Bug #5513: PEAR 1.4 does not install non-pear.php.net packages</notes>
+ <contents>
+  <dir name="/">
+   <file md5sum="20348853b14f75d71f7d8ed9fa6152ce" name="OS/Guess.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="a000606e478286910f2437599f5c812b" name="PEAR/ChannelFile/Parser.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="5083c19b5f24d2e1cd4d9ad905f13071" name="PEAR/Command/Auth-init.php" role="php" />
+   <file md5sum="3751ba22d6a9592de6738b1ddad17ea1" name="PEAR/Command/Auth.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="decd82f4ad921d50908dd14d848c3bcf" name="PEAR/Command/Build-init.php" role="php" />
+   <file md5sum="d8a38eb24c29bbcab0ca8da502dc085e" name="PEAR/Command/Build.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="fc57d6b450bf2034b699cfcfcf5c39e8" name="PEAR/Command/Channels-init.php" role="php" />
+   <file md5sum="b717cc23a1e2d2bc6dfdd8979da75509" name="PEAR/Command/Channels.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="4c84d28d9fdaac482e8b231bda571b45" name="PEAR/Command/Common.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="eb4d23073dd6a1f44985de6100fee37f" name="PEAR/Command/Config-init.php" role="php" />
+   <file md5sum="a6f7dcff90e9e6c7251e3ca43060c52d" name="PEAR/Command/Config.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="becd1ebee11fdf429f678f82f54076e4" name="PEAR/Command/Install-init.php" role="php" />
+   <file md5sum="6fdb9d17b25aa095e234ef6ec01bb2fe" name="PEAR/Command/Install.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="d3ac4fae9a60772ae210349a1dfdf5c0" name="PEAR/Command/Mirror-init.php" role="php" />
+   <file md5sum="a8c9728631d08c091b7587a3adca224c" name="PEAR/Command/Mirror.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="67531a9ca3ffd77e2887bac2c62da169" name="PEAR/Command/Package-init.php" role="php" />
+   <file md5sum="1595e03534d928c20d1a95aad2b27356" name="PEAR/Command/Package.php" role="php">
+    <tasks:replace from="@DATA-DIR@" to="data_dir" type="pear-config" />
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="ba931276a1aa298e5474977debfe4092" name="PEAR/Command/Pickle-init.php" role="php" />
+   <file md5sum="6aefd4eddbf475722ccd47955e3e283a" name="PEAR/Command/Pickle.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="77a238612a6a2d8735dc627147c97dc6" name="PEAR/Command/Registry-init.php" role="php" />
+   <file md5sum="f40bc2e8d80601986dc207a129d1bfbe" name="PEAR/Command/Registry.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="af97a033f94ebe84ab505233b7bcea77" name="PEAR/Command/Remote-init.php" role="php" />
+   <file md5sum="aa25e7ca465537633c8b061210a404d9" name="PEAR/Command/Remote.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="5df0a90e24087ff593f78c1176c4796a" name="PEAR/Command/Test-init.php" role="php" />
+   <file md5sum="748c5aa80bfce70753f141ec19d363b6" name="PEAR/Command/Test.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="e397713da10d8a2ea95f98217b17cee6" name="PEAR/Downloader/Package.php" role="php">
+    <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+   </file>
+   <file md5sum="a53308e11794d802d6c96a235477bd8d" name="PEAR/Frontend/CLI.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="878f6c4c1e8ef1f43f159ef003708dd2" name="PEAR/Installer/Role/Common.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="9402217065f767707eeda09ab007847e" name="PEAR/Installer/Role/Data.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="70bace25f6566249af5a40305c8362b0" name="PEAR/Installer/Role/Doc.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="c5134e27ac8045ff58179cc241c15949" name="PEAR/Installer/Role/Ext.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="1414dd6eb99e1094cb2f1a9901d9af6c" name="PEAR/Installer/Role/Php.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="ea2567aa9babb5082913f3f341715e50" name="PEAR/Installer/Role/Script.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="ed3c2aff80d1934bcdd92c024a79bc0a" name="PEAR/Installer/Role/Src.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="d3a6051ad7fe521861938a280d7cc5b9" name="PEAR/Installer/Role/Test.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="79ea56aeabd960c2ae81c4abd8d5f4e7" name="PEAR/Installer/Role.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="1935bd272a1cefe665b59e95f55193dd" name="PEAR/PackageFile/Generator/v1.php" role="php">
+    <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+   </file>
+   <file md5sum="a6d99456ec344dc2e7b4177ca0268c15" name="PEAR/PackageFile/Generator/v2.php" role="php">
+    <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+   </file>
+   <file md5sum="d543126012b9ff4c277f7173e61d9246" name="PEAR/PackageFile/Parser/v1.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="87ab47c78d915382b40d827703326f5d" name="PEAR/PackageFile/Parser/v2.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="c9781b119b5d33272472344d6416c52f" name="PEAR/PackageFile/v2/rw.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="448504e1d8e5a603f35364ac1f1f30f8" name="PEAR/PackageFile/v2/Validator.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="1552489390ea852f69bcb26a043d0891" name="PEAR/PackageFile/v1.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="84c6f8640914d6bbc29880708119a8ae" name="PEAR/PackageFile/v2.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="277e254fbab7cd80c40b55bd42b08501" name="PEAR/REST/10.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="1fbce3a193ceff01e56fd39e000c96c7" name="PEAR/Task/Postinstallscript/rw.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="ac2916a90f87093e9c055c0a25505e4a" name="PEAR/Task/Replace/rw.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="4575309dd3748112cbf5a4e0bed87630" name="PEAR/Task/Unixeol/rw.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="7305a9a809bb586a36ec813596521b5e" name="PEAR/Task/Windowseol/rw.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="953b81d363c74370d7e39beff4d86ace" name="PEAR/Task/Common.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="3b3bc5659e4557eb9d88e799e532130f" name="PEAR/Task/Postinstallscript.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="42f2b4509dfa316981b9c54a98177c57" name="PEAR/Task/Replace.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="3f597749ecd495a81d4e3b9db7c27f03" name="PEAR/Task/Unixeol.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="d2a11d71fffee266fccbb82e98391acf" name="PEAR/Task/Windowseol.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="be29d8fd8b396bc73fe511a8d2472a83" name="PEAR/Validator/PECL.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="027d07e21522f80fbbdd124f3e07ae3c" name="PEAR/Autoloader.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="46926cdd46f887b9ebe67380dd8f96b0" name="PEAR/Builder.php" role="php">
+    <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+   </file>
+   <file md5sum="6cf044bf80f658f811dd6a89487fed55" name="PEAR/ChannelFile.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="6f2ef3c25c78669cf5eeb25ea9c00a72" name="PEAR/Command.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="71dd9b86e60d96d781ce7edbe218455f" name="PEAR/Common.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="1c29faaff1e6de363d8e09d155d1d80f" name="PEAR/Config.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="715c1229620e54405d53d9ea154c2726" name="PEAR/Dependency.php" role="php" />
+   <file md5sum="3fa6be8dd4c101588c4df2b38e3835cb" name="PEAR/DependencyDB.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="b9ea43e05d2306b05d5fc4a2e3820e68" name="PEAR/Dependency2.php" role="php">
+    <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+   </file>
+   <file md5sum="4b491a74227b1b8f6e0aac4d1ee83e54" name="PEAR/Downloader.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="efc1e8079c73856eee100392a8edac22" name="PEAR/ErrorStack.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="57ee777fccddfa79ce1414583ee1671e" name="PEAR/Exception.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="a1cd1c7ad8f98a2edc71e24ffd49bb99" name="PEAR/Frontend.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="f292331cd850f154f8de041c26497092" name="PEAR/Installer.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="2655e3f5954daf2ca74fcb22dc4eea4e" name="PEAR/PackageFile.php" role="php">
+    <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+   </file>
+   <file md5sum="c190b08622bda089c280eb2369d74e7f" name="PEAR/Packager.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="b6f451ec4a897179f1121bdccd5386cd" name="PEAR/Registry.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="4a2236307df5cbfede3e1a88eb318790" name="PEAR/Remote.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="e5a630ad855e0cbc0aba09893ac0930f" name="PEAR/REST.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="5ffd0aa5a4a87e10720993c5212d3ca7" name="PEAR/RunTest.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="38754b952b419e60fbe2ef1d79353052" name="PEAR/Validate.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="9c8a6d62e8a3ae43d1c9423e2d9b5f37" name="PEAR/XMLParser.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="68d2c6a4337347499ec1fd9a1b20689b" name="scripts/pear.bat" role="script">
+    <tasks:replace from="@bin_dir@" to="bin_dir" type="pear-config" />
+    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
+    <tasks:replace from="@include_path@" to="php_dir" type="pear-config" />
+    <tasks:windowseol />
+   </file>
+   <file baseinstalldir="/" md5sum="b2bc13d5f60458b7aefed687c278d954" name="scripts/peardev.bat" role="script">
+    <tasks:replace from="@bin_dir@" to="bin_dir" type="pear-config" />
+    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
+    <tasks:replace from="@include_path@" to="php_dir" type="pear-config" />
+    <tasks:windowseol />
+   </file>
+   <file baseinstalldir="/" md5sum="a508c83de7ca9946dc11de84cd3afd36" name="scripts/pecl.bat" role="script">
+    <tasks:replace from="@bin_dir@" to="bin_dir" type="pear-config" />
+    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
+    <tasks:replace from="@include_path@" to="php_dir" type="pear-config" />
+    <tasks:windowseol />
+   </file>
+   <file baseinstalldir="/" md5sum="a3bc543b3f7174ab74108449496cad8b" name="scripts/pear.sh" role="script">
+    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
+    <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
+    <tasks:replace from="@pear_version@" to="version" type="package-info" />
+    <tasks:replace from="@include_path@" to="php_dir" type="pear-config" />
+    <tasks:unixeol />
+   </file>
+   <file baseinstalldir="/" md5sum="ad285cd6543509b81de6ebe7e19e2d13" name="scripts/peardev.sh" role="script">
+    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
+    <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
+    <tasks:replace from="@pear_version@" to="version" type="package-info" />
+    <tasks:replace from="@include_path@" to="php_dir" type="pear-config" />
+    <tasks:unixeol />
+   </file>
+   <file baseinstalldir="/" md5sum="760eb223e4270c0938075a66b45e01cb" name="scripts/pecl.sh" role="script">
+    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
+    <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
+    <tasks:replace from="@pear_version@" to="version" type="package-info" />
+    <tasks:replace from="@include_path@" to="php_dir" type="pear-config" />
+    <tasks:unixeol />
+   </file>
+   <file baseinstalldir="/" md5sum="60c2312264ec76ee59cd5933d8801118" name="scripts/pearcmd.php" role="php">
+    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
+    <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
+    <tasks:replace from="@pear_version@" to="version" type="package-info" />
+    <tasks:replace from="@include_path@" to="php_dir" type="pear-config" />
+   </file>
+   <file baseinstalldir="/" md5sum="661257ab6f146b74e052dfd712336a04" name="scripts/peclcmd.php" role="php">
+    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
+    <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
+    <tasks:replace from="@pear_version@" to="version" type="package-info" />
+    <tasks:replace from="@include_path@" to="php_dir" type="pear-config" />
+   </file>
+   <file md5sum="b00c16dd9fc7821ca73d9a2465a718b7" name="package.dtd" role="data" />
+   <file md5sum="452528e97701658de460201e62ed0c14" name="PEAR.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="34d22fab23db9609e395c9d59644d314" name="System.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="8a6fe1119e23c0d90feba74202468fc8" name="template.spec" role="data" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.2</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0a12</min>
+   </pearinstaller>
+   <package>
+    <name>Archive_Tar</name>
+    <channel>pear.php.net</channel>
+    <min>1.1</min>
+    <recommended>1.3.1</recommended>
+    <exclude>1.3.0</exclude>
+   </package>
+   <package>
+    <name>Console_Getopt</name>
+    <channel>pear.php.net</channel>
+    <min>1.2</min>
+    <recommended>1.2</recommended>
+   </package>
+   <package>
+    <name>XML_RPC</name>
+    <channel>pear.php.net</channel>
+    <min>1.4.0</min>
+    <recommended>1.4.3</recommended>
+   </package>
+   <package>
+    <name>PEAR_Frontend_Web</name>
+    <channel>pear.php.net</channel>
+    <max>0.5.0</max>
+    <exclude>0.5.0</exclude>
+    <conflicts />
+   </package>
+   <package>
+    <name>PEAR_Frontend_Gtk</name>
+    <channel>pear.php.net</channel>
+    <max>0.4.0</max>
+    <exclude>0.4.0</exclude>
+    <conflicts />
+   </package>
+   <extension>
+    <name>xml</name>
+   </extension>
+   <extension>
+    <name>pcre</name>
+   </extension>
+  </required>
+  <group hint="PEAR&apos;s web-based installer" name="webinstaller">
+   <package>
+    <name>PEAR_Frontend_Web</name>
+    <channel>pear.php.net</channel>
+    <min>0.5.0</min>
+   </package>
+  </group>
+  <group hint="PEAR&apos;s PHP-GTK-based installer" name="gtkinstaller">
+   <package>
+    <name>PEAR_Frontend_Gtk</name>
+    <channel>pear.php.net</channel>
+    <min>0.4.0</min>
+   </package>
+  </group>
+ </dependencies>
+ <phprelease>
+  <installconditions>
+   <os>
+    <name>windows</name>
+   </os>
+  </installconditions>
+  <filelist>
+   <install as="pear.bat" name="scripts/pear.bat" />
+   <install as="peardev.bat" name="scripts/peardev.bat" />
+   <install as="pecl.bat" name="scripts/pecl.bat" />
+   <install as="pearcmd.php" name="scripts/pearcmd.php" />
+   <install as="peclcmd.php" name="scripts/peclcmd.php" />
+   <ignore name="scripts/peardev.sh" />
+   <ignore name="scripts/pear.sh" />
+   <ignore name="scripts/pecl.sh" />
+  </filelist>
+ </phprelease>
+ <phprelease>
+  <filelist>
+   <install as="pear" name="scripts/pear.sh" />
+   <install as="peardev" name="scripts/peardev.sh" />
+   <install as="pecl" name="scripts/pecl.sh" />
+   <install as="pearcmd.php" name="scripts/pearcmd.php" />
+   <install as="peclcmd.php" name="scripts/peclcmd.php" />
+   <ignore name="scripts/pear.bat" />
+   <ignore name="scripts/peardev.bat" />
+   <ignore name="scripts/pecl.bat" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.4.0</release>
+    <api>1.4.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2005-09-18</date>
+   <license uri="http://www.php.net/license/3_0.txt">PHP License</license>
+   <notes>This is a major milestone release for PEAR.  In addition to several killer features,
+every single element of PEAR has a regression test, and so stability is much higher
+than any previous PEAR release.
+New features in a nutshell:
+* full support for channels
+* pre-download dependency validation
+* new package.xml 2.0 format allows tremendous flexibility while maintaining BC
+* support for optional dependency groups and limited support for sub-packaging
+* robust dependency support
+* full dependency validation on uninstall
+* remote install for hosts with only ftp access - no more problems with
+  restricted host installation [through PEAR_RemoteInstaller package]
+* full support for mirroring
+* support for bundling several packages into a single tarball
+* support for static dependencies on a uri-based package
+* support for custom file roles and installation tasks
+NOTE: users of PEAR_Frontend_Web/PEAR_Frontend_Gtk must upgrade their installations
+to the latest version, or PEAR will not upgrade properly</notes>
+  </release>
+ </changelog>
+</package>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Mail_IMAP</name>
+  <summary>Provides a c-client backend for webmail.</summary>
+  <description>Mail_IMAP provides a simplified backend for working with the c-client (IMAP) extension. It serves as an OO wrapper for commonly used c-client functions. It provides structure and header parsing as well as body retrieval.
+Mail_IMAP provides a simple inbox example that demonstrates its ability to parse and view simple and multipart email messages.
+Mail_IMAP also provides a connection wizard to determine the correct protocol and port settings for a remote mail server, all you need to provide is a server, a username and a password.
+Mail_IMAP may be used as a webmail backend or as a component in a mailing list manager.
+This package requires the c-client extension.  To download the latest version of the c-client extension goto: http://www.php.net/imap.</description>
+  <maintainers>
+    <maintainer>
+      <user>richy</user>
+      <name>Richard York</name>
+      <email>richy@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.2.0A</version>
+    <date>2004-03-01</date>
+    <license>PHP</license>
+    <state>alpha</state>
+    <notes>Made part finders truly reversable, specify a text/plain part by
+default, if none is found, tries to find a text/html part instead.. and vise versa.
+Still looks for a text/html part by default.  Minor API changes, $attempt
+argument added to getDefaultPid and getBody methods  BC not broken, as these arguments are
+used internally.
+Minor improvements to CS.
+Minor corrections to documentation.
+MAIL_IMAP_LITERAL_DECODE option added for getBody() $action argument.
+extractMIME method added, allows the user to specify a specific MIME type
+to search for, method will return an associative array containing all PIDs
+found for that MIME type.  PIDs can then be supplied to getBody with
+$action = MAIL_IMAP_LITERAL_DECODE to retrieve specific parts.
+Not much testing on this release so please report bugs!</notes>
+    <deps>
+      <dep type="ext" rel="has">imap</dep>
+      <dep type="pkg" rel="has">Net_URL</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="Mail" name="IMAP.php"/>
+      <file role="doc" baseinstalldir="Mail" name="examples\IMAP.inbox.php"/>
+      <file role="doc" baseinstalldir="Mail" name="examples\IMAP.message.php"/>
+      <file role="doc" baseinstalldir="Mail" name="examples\IMAP.connection_wizard.php"/>
+      <file role="doc" baseinstalldir="Mail" name="examples\IMAP.connection_wizard_example.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.1.0A</version>
+      <date>2004-02-10</date>
+      <state>alpha</state>
+      <notes>First release.
+</notes>
+    </release>
+  </changelog>
+</package>

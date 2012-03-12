@@ -138,5 +138,19 @@ public interface IPearUtility {
      * @throws PhpException thrown on execution errors.
      */
     String executePearCmd(String arguments) throws PhpException;
+    
+    /**
+     * Converts a maven version to a pear version.
+     * @param src maven version
+     * @return pear version
+     */
+    String convertMavenVersionToPearVersion(String src);
+    
+    /**
+     * Converts a pear version to a maven version.
+     * @param src pear version.
+     * @return maven version.
+     */
+    String convertPearVersionToMavenVersion(String src);
 
 }

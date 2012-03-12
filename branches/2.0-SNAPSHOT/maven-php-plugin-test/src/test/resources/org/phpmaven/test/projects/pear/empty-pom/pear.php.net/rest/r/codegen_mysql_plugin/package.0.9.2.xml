@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.7.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>CodeGen_MySQL_Plugin</name>
+ <channel>pear.php.net</channel>
+ <summary>Tool to generate MySQL Pugins from an XML description</summary>
+ <description>CodeGen_MySQL_Pluginis a code generator for MySQL Plugins
+extensions similar to PECL_Gen for PHP. 
+It reads in configuration options, function prototypes and code fragments
+from an XML description file and generates a complete ready-to-compile
+plugin project.</description>
+ <lead>
+  <name>Hartmut Holzgraefe</name>
+  <user>hholzgra</user>
+  <email>hartmut@php.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-02-16</date>
+ <time>10:08:22</time>
+ <version>
+  <release>0.9.2</release>
+  <api>0.9.2</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.php.net/license">PHP</license>
+ <notes>Additions and changes since 0.9.1dev:
+- now supporting system variables (global and session)
+- misc. minor code generation fixes and improvements</notes>
+ <contents>
+  <dir name="/">
+   <file baseinstalldir="CodeGen" md5sum="33ced0914c10ab08bff1994c77060abe" name="MySQL/Plugin/Element/Daemon.php" role="php" />
+   <file baseinstalldir="CodeGen" md5sum="c08b2132a13f5dad949ff27af90ba7b6" name="MySQL/Plugin/Element/Fulltext.php" role="php" />
+   <file baseinstalldir="CodeGen" md5sum="2350b7d39a794168e439fe87760bd810" name="MySQL/Plugin/Element/InformationSchema.php" role="php" />
+   <file baseinstalldir="CodeGen" md5sum="e8710e0179cfa7edb762b2883d2d23a4" name="MySQL/Plugin/Element/StatusVariable.php" role="php" />
+   <file baseinstalldir="CodeGen" md5sum="702ec2b8e6c8a1f4b180130bafbca912" name="MySQL/Plugin/Element/Storage.php" role="php" />
+   <file baseinstalldir="CodeGen" md5sum="3fbaf2a3555a20af9c478154f7e9e9ea" name="MySQL/Plugin/Element/SystemVariable.php" role="php" />
+   <file baseinstalldir="CodeGen" md5sum="8db9e37a8df7123ee23a05da2ad36fb1" name="MySQL/Plugin/Element/Test.php" role="php" />
+   <file baseinstalldir="CodeGen" md5sum="ab4b0f4602bd8ba6611c7cc85b0aa069" name="MySQL/Plugin/Element.php" role="php" />
+   <file baseinstalldir="CodeGen" md5sum="509f18facbc4158ba224e3ccec1dd9c3" name="MySQL/Plugin/Extension.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="CodeGen" md5sum="77dc7e414aa553a6b73304e937bc66db" name="MySQL/Plugin/ExtensionParser.php" role="php" />
+   <file baseinstalldir="CodeGen" md5sum="a8787cf85c272590fc3e7aec73f11b98" name="MySQL/Plugin/Cli.php" role="php" />
+   <file md5sum="8c424a1cbf07d302f1d80c32b8cd9b5a" name="scripts/mysql-plugin-gen.sh" role="script">
+    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
+    <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
+    <tasks:unixeol />
+   </file>
+   <file md5sum="b6aac12a8469ff024f3bdf8fea638392" name="scripts/mysql-plugin-gen.bat" role="script">
+    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
+    <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
+    <tasks:windowseol />
+   </file>
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <package>
+    <name>PEAR</name>
+    <channel>pear.php.net</channel>
+    <min>1.2</min>
+   </package>
+   <package>
+    <name>CodeGen</name>
+    <channel>pear.php.net</channel>
+    <min>1.0.6</min>
+   </package>
+   <package>
+    <name>CodeGen_MySQL</name>
+    <channel>pear.php.net</channel>
+    <min>1.0.0RC1</min>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease>
+  <installconditions>
+   <os>
+    <name>windows</name>
+   </os>
+  </installconditions>
+  <filelist>
+   <install as="mysql-plugin-gen.bat" name="scripts/mysql-plugin-gen.bat" />
+   <ignore name="scripts/mysql-plugin-gen.sh" />
+  </filelist>
+ </phprelease>
+ <phprelease>
+  <filelist>
+   <install as="mysql-plugin-gen" name="scripts/mysql-plugin-gen.sh" />
+   <ignore name="scripts/mysql-plugin-gen.bat" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <date>2007-09-17</date>
+   <version>
+    <release>0.9.1dev</release>
+    <api>0.9.1dev</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.php.net/license">PHP</license>
+   <notes>- added test support
+- #include generation now working</notes>
+  </release>
+  <release>
+   <date>2007-04-18</date>
+   <time>18:17:58</time>
+   <version>
+    <release>0.1.0dev</release>
+    <api>0.1.0dev</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.php.net/license">PHP</license>
+   <notes>initial package release</notes>
+  </release>
+ </changelog>
+</package>

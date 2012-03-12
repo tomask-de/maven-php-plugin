@@ -50,6 +50,11 @@ public class Maintainer implements IMaintainer {
      * maintainer role.
      */
     private String role;
+    
+    /**
+     * email address.
+     */
+    private String email;
 
     /**
      * {@inheritDoc}
@@ -129,6 +134,22 @@ public class Maintainer implements IMaintainer {
     @Override
     public void setRole(String role) {
         this.role = role;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getEmail() {
+        return this.email;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setEMail(String em) {
+        this.email = em;
     }
 
 }

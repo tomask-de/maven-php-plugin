@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.7.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+ <name>PEAR_Size</name>
+ <channel>pear.php.net</channel>
+ <summary>Determine and list how much filespace each installed package consumes.</summary>
+ <description>A commandline tool modeled on &apos;df&apos; that lists how much filespace each installed package consumes. A subset of packages can be specified as can channels.</description>
+ <lead>
+  <name>Ken Guest</name>
+  <user>kguest</user>
+  <email>kguest@php.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2008-04-08</date>
+ <time>01:20:20</time>
+ <version>
+  <release>0.1.2</release>
+  <api>0.1.2</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+ <notes>* bug fix: #13549 - all PEAR roles are supported (including &apos;ext&apos; and &apos;src&apos;)
+* request: #13441 - console/text output is neater
+* request: #13442 - channel summary
+* request: #13527 - CSV output
+* request: #13550 - XML output
+* request: #13572 - move cli processing intelligence from PEAR_Size to separate class
+* request: #13573 - integration with pear command</notes>
+ <contents>
+  <dir baseinstalldir="PEAR" name="/">
+   <file baseinstalldir="PEAR" md5sum="0e1a434ef36f188bb65d03a3cb00f282" name="docs/script-usage.txt" role="doc" />
+   <file baseinstalldir="/" install-as="pearsize.bat" md5sum="415a6f975ca7dd4a641c4f57df47ffea" name="scripts/pearsize.bat" role="script">
+    <tasks:replace from="@PHP-BIN@" to="php_bin" type="pear-config" />
+    <tasks:replace from="@BIN-DIR@" to="bin_dir" type="pear-config" />
+    <tasks:replace from="@PEAR-DIR@" to="php_dir" type="pear-config" />
+    <tasks:replace from="@DATA-DIR@" to="data_dir" type="pear-config" />
+    <tasks:windowseol />
+   </file>
+   <file baseinstalldir="/" install-as="pearsize" md5sum="3b211cf3c3a1ca9b2686b62322bf65db" name="scripts/pearsize.php" role="script">
+    <tasks:replace from="@PHP-BIN@" to="php_bin" type="pear-config" />
+    <tasks:replace from="@PACKAGE_VERSION@" to="version" type="package-info" />
+    <tasks:unixeol />
+   </file>
+   <file baseinstalldir="/" install-as="PEAR/Command/Size.php" md5sum="8dbba59604eaa09f727e8263371ecab7" name="Command/Size.php" role="php">
+    <tasks:replace from="@PACKAGE_VERSION@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" install-as="PEAR/Command/Size.xml" md5sum="c63cb76d9f7ca23f1beb07007e617788" name="Command/Size.xml" role="php">
+    <tasks:replace from="@PACKAGE_VERSION@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" install-as="PEAR/Size.php" md5sum="3587ef578753dc9e9c9e4403b6471ead" name="Size/Size.php" role="php">
+    <tasks:replace from="@PACKAGE_VERSION@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" install-as="PEAR/Size/CLI.php" md5sum="2d136484dd3e5fef52c0542f5c212b04" name="Size/Size_CLI.php" role="php">
+    <tasks:replace from="@PACKAGE_VERSION@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" install-as="PEAR/Size/Exception.php" md5sum="09844157ee44c7a5a9f6f39088b53e10" name="Size/Size_Exception.php" role="php">
+    <tasks:replace from="@PACKAGE_VERSION@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" install-as="PEAR/Size/Factory.php" md5sum="45f302a2bc1388a0d4d2dc74213d4a7d" name="Size/Size_Factory.php" role="php">
+    <tasks:replace from="@PACKAGE_VERSION@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" install-as="PEAR/Size/Output_csv.php" md5sum="d595e7b303c53fc89048d7f398eeed42" name="Size/Size_Output_csv.php" role="php">
+    <tasks:replace from="@PACKAGE_VERSION@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" install-as="PEAR/Size/Output_html.php" md5sum="84eb63e783a3a65d69ff059e218bcf8b" name="Size/Size_Output_html.php" role="php">
+    <tasks:replace from="@PACKAGE_VERSION@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" install-as="PEAR/Size/Output_text.php" md5sum="04106a8736e364827f642126804ffbb2" name="Size/Size_Output_text.php" role="php">
+    <tasks:replace from="@PACKAGE_VERSION@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" install-as="PEAR/Size/Output_xml.php" md5sum="78373b775e56494022165850499d8dc9" name="Size/Size_Output_xml.php" role="php">
+    <tasks:replace from="@PACKAGE_VERSION@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PEAR" md5sum="b7244eecf82cf0cdda550c6f381f66a7" name="TODO" role="doc" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.1.4</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0</min>
+   </pearinstaller>
+   <package>
+    <name>Console_Getargs</name>
+    <channel>pear.php.net</channel>
+    <min>1.3.4</min>
+   </package>
+   <package>
+    <name>Console_Table</name>
+    <channel>pear.php.net</channel>
+    <min>1.0.8</min>
+   </package>
+   <package>
+    <name>HTML_Table</name>
+    <channel>pear.php.net</channel>
+    <min>1.8.2</min>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease>
+  <installconditions>
+   <os>
+    <name>windows</name>
+   </os>
+  </installconditions>
+  <filelist>
+   <install as="pearsize.bat" name="scripts/pearsize.bat" />
+  </filelist>
+ </phprelease>
+ <phprelease>
+  <filelist>
+   <ignore name="scripts/pearsize.bat" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.1.2</release>
+    <api>0.1.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2008-03-31</date>
+   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+   <notes>* request: channel summary
+* request: CSV output
+* request: XML output
+* request: console/text output is neater
+* bug fix: #13549 - all PEAR roles are supported (including &apos;ext&apos; and &apos;src&apos;)</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.1</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2008-03-31</date>
+   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+   <notes>* request: channel summary
+* request: CSV output
+* request: XML output
+* request: console/text output is neater
+* bug fix: all PEAR roles are supported (including &apos;ext&apos; and &apos;src&apos;)</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2008-01-05</date>
+   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+   <notes>Initial version</notes>
+  </release>
+ </changelog>
+</package>

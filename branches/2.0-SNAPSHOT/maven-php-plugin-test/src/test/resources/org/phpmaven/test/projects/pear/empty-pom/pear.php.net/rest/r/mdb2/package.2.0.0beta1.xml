@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>MDB2</name>
+  <summary>database abstraction layer</summary>
+  <description>PEAR MDB2 is a merge of the PEAR DB and Metabase php database abstraction layers.
+
+It provides a common API for all support RDBMS. The main difference to most
+other DB abstraction packages is that MDB2 goes much further to ensure
+portability. Among other things MDB2 features:
+* An OO-style query API
+* A DSN (data source name) or array format for specifying database servers
+* Datatype abstraction and on demand datatype conversion
+* Portable error codes
+* Sequential and non sequential row fetching as well as bulk fetching
+* Ability to make buffered and unbuffered queries
+* Ordered array and associative array for the fetched rows
+* Prepare/execute (bind) emulation
+* Sequence emulation
+* Replace emulation
+* Limited Subselect emulation
+* Row limit support
+* Transactions support
+* Large Object support
+* Index/Unique support
+* Module Framework to load advanced functionality on demand
+* Table information interface
+* RDBMS management methods (creating, dropping, altering)
+* RDBMS independent xml based schema definition management
+* Altering of a DB from a changed xml schema
+* Reverse engineering of xml schemas from an existing DB (currently only MySQL)
+* Full integration into the PEAR Framework
+* PHPDoc API documentation
+
+Currently supported RDBMS:
+MySQL
+PostGreSQL
+Oracle
+Frontbase
+Querysim
+Interbase/Firebird
+MSSQL
+SQLite
+Other soon to follow.</description>
+  <maintainers>
+    <maintainer>
+      <user>lsmith</user>
+      <name>Lukas Kahwe Smith</name>
+      <email>smith@backendmedia.com</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>pgc</user>
+      <name>Paul Cooper</name>
+      <email>pgc@ucecom.com</email>
+      <role>contributor</role>
+    </maintainer>
+    <maintainer>
+      <user>fmk</user>
+      <name>Frank M. Kromann</name>
+      <email>frank@kromann.info</email>
+      <role>contributor</role>
+    </maintainer>
+    <maintainer>
+      <user>quipo</user>
+      <name>Lorenzo Alberton</name>
+      <email>l.alberton@quipo.it</email>
+      <role>contributor</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>2.0.0beta1</version>
+    <date>2004-03-12</date>
+    <license>BSD License</license>
+    <state>alpha</state>
+    <notes>- fixed bug in MDB2::singleton
+- fixed minor bugs in prepare/execute
+- added PEAR::DB wrapper (not working yet)
+- fixed several bugs in the ibase driver
+- fixed several PHP5 related issues
+- fixed bug in sequence creation on MySQL
+- fixed issues with nextid() ondemand handling in conjunction with currId()
+- added native currId() implementation for the Oracle driver
+- fixed sqlite driver (passes all but the REPLACE test due to a conformance issue in sqlite itself)
+- removed decimal_factor property to allow changing of decimal_places option
+- using native escape string methods in sqlite and mysql driver
+- fixed minor conformance issues in tableInfo() in the oci8 and mysql driver
+- removed optimize option and added portability option instead (ported from DB)
+- added quoteIdentifier() method (ported from DB)
+- added STATUS document to make the status of the drivers more transparent
+- fixed a few bugs in querysim driver
+- fixed issue in mysql reverse engineering: ensuring the correct case is used when
+  doing assoc fetches based on portability flag setting
+- updated reverse engineering script to the new MDB2 API
+- removed broken implementations of currId() in the mssql and fbsql driver
+- fixed a few instances of MDB_Common to the new class name of MDB_Driver_Common</notes>
+    <deps>
+      <dep type="php" rel="ge" version="4.2.0" optional="no"/>
+      <dep type="pkg" rel="ge" version="1.0b1" optional="no">PEAR</dep>
+      <dep type="pkg" rel="has" optional="no">XML_Parser</dep>
+    </deps>
+    <filelist>
+      <file role="doc" baseinstalldir="/" name="docs/CONTRIBUTORS"/>
+      <file role="doc" baseinstalldir="/" name="docs/datatypes.html"/>
+      <file role="doc" baseinstalldir="/" name="docs/Driver_Datatype_skeleton.php"/>
+      <file role="doc" baseinstalldir="/" name="docs/Driver_Manager_skeleton.php"/>
+      <file role="doc" baseinstalldir="/" name="docs/Driver_Native_skeleton.php"/>
+      <file role="doc" baseinstalldir="/" name="docs/Driver_Reverse_skeleton.php"/>
+      <file role="doc" baseinstalldir="/" name="docs/Driver_skeleton.php"/>
+      <file role="doc" baseinstalldir="/" name="docs/MAINTAINERS"/>
+      <file role="doc" baseinstalldir="/" name="docs/MDB.dtd"/>
+      <file role="doc" baseinstalldir="/" name="docs/MDB.xsl"/>
+      <file role="doc" baseinstalldir="/" name="docs/querysim_readme.txt"/>
+      <file role="doc" baseinstalldir="/" name="docs/README"/>
+      <file role="doc" baseinstalldir="/" name="docs/STATUS"/>
+      <file role="doc" baseinstalldir="/" name="docs/TODO"/>
+      <file role="doc" baseinstalldir="/" name="docs/xml_schema_documentation.html"/>
+      <file role="doc" baseinstalldir="/" name="docs/examples/example.php"/>
+      <file role="doc" baseinstalldir="/" name="docs/examples/metapear_test_db.schema"/>
+      <file role="doc" baseinstalldir="/" name="docs/examples/peardb_wrapper_example.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Date.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Extended.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Iterator.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/LOB.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/fbsql.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/ibase.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/mssql.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/mysql.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/oci8.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/pgsql.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/querysim.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/sqlite.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/Datatype/Common.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/Datatype/fbsql.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/Datatype/ibase.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/Datatype/mssql.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/Datatype/mysql.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/Datatype/oci8.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/Datatype/pgsql.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/Datatype/sqlite.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/Manager/Common.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/Manager/fbsql.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/Manager/ibase.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/Manager/mssql.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/Manager/mysql.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/Manager/oci8.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/Manager/pgsql.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/Manager/sqlite.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/Native/fbsql.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/Native/ibase.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/Native/mssql.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/Native/mysql.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/Native/oci8.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/Native/pgsql.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/Native/sqlite.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/Reverse/Common.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/Reverse/fbsql.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/Reverse/ibase.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/Reverse/mssql.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/Reverse/mysql.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/Reverse/oci8.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/Reverse/pgsql.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Driver/Reverse/sqlite.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Tools/Manager.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Tools/Parser.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Tools/reverse_engineer_xml_schema.php"/>
+      <file role="php" baseinstalldir="/" name="MDB2/Wrapper/peardb.php"/>
+      <file role="test" baseinstalldir="/" name="tests/clitest.php"/>
+      <file role="test" baseinstalldir="/" name="tests/Console_TestListener.php"/>
+      <file role="test" baseinstalldir="/" name="tests/driver_test.schema"/>
+      <file role="test" baseinstalldir="/" name="tests/HTML_TestListener.php"/>
+      <file role="test" baseinstalldir="/" name="tests/lob_test.schema"/>
+      <file role="test" baseinstalldir="/" name="tests/MDB2_api_testcase.php"/>
+      <file role="test" baseinstalldir="/" name="tests/MDB2_bugs_testcase.php"/>
+      <file role="test" baseinstalldir="/" name="tests/MDB2_manager_testcase.php"/>
+      <file role="test" baseinstalldir="/" name="tests/MDB2_native_testcase.php"/>
+      <file role="test" baseinstalldir="/" name="tests/MDB2_reverse_testcase.php"/>
+      <file role="test" baseinstalldir="/" name="tests/MDB2_usage_testcase.php"/>
+      <file role="test" baseinstalldir="/" name="tests/README"/>
+      <file role="test" baseinstalldir="/" name="tests/test.php"/>
+      <file role="test" baseinstalldir="/" name="tests/test.schema"/>
+      <file role="test" baseinstalldir="/" name="tests/testchoose.php"/>
+      <file role="test" baseinstalldir="/" name="tests/tests.css"/>
+      <file role="test" baseinstalldir="/" name="tests/testUtils.php"/>
+      <file role="test" baseinstalldir="/" name="tests/test_setup.php.dist"/>
+      <file role="test" baseinstalldir="/" name="tests/templates/results.tpl"/>
+      <file role="php" baseinstalldir="/" name="MDB2.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>2.0.0beta1</version>
+      <date>2004-03-12</date>
+      <license>BSD License</license>
+      <state>alpha</state>
+      <notes>- fixed bug in MDB2::singleton
+- fixed minor bugs in prepare/execute
+- added PEAR::DB wrapper (not working yet)
+- fixed several bugs in the ibase driver
+- fixed several PHP5 related issues
+- fixed bug in sequence creation on MySQL
+- fixed issues with nextid() ondemand handling in conjunction with currId()
+- added native currId() implementation for the Oracle driver
+- fixed sqlite driver (passes all but the REPLACE test due to a conformance issue in sqlite itself)
+- removed decimal_factor property to allow changing of decimal_places option
+- using native escape string methods in sqlite and mysql driver
+- fixed minor conformance issues in tableInfo() in the oci8 and mysql driver
+- removed optimize option and added portability option instead (ported from DB)
+- added quoteIdentifier() method (ported from DB)
+- added STATUS document to make the status of the drivers more transparent
+- fixed a few bugs in querysim driver
+- fixed issue in mysql reverse engineering: ensuring the correct case is used when
+  doing assoc fetches based on portability flag setting
+- updated reverse engineering script to the new MDB2 API
+- removed broken implementations of currId() in the mssql and fbsql driver
+- fixed a few instances of MDB_Common to the new class name of MDB_Driver_Common
+</notes>
+    </release>
+    <release>
+      <version>2.0.0alpha1</version>
+      <date>2004-01-05</date>
+      <license>BSD License</license>
+      <state>alpha</state>
+      <notes>This is the first alpha release of MDB2 2.0.
+
+MDB2 2.x breaks backwards compatibility in many ways in order to simplify
+the API for both users and drivers developers.
+
+Please note that currently only the MySQL, the PostGreSQL and the Oracle driver
+have been tested to pass the test suite.
+
+Here follows a short list of the most important changes:
+- all code that is not necessary for basic operation is now separateed
+  into separate modules which can be loaded with the loadModule() method
+- all datatype related methods have been moved to a dataype module with
+  the notable exception of getValue() and the newly introduced getDeclaration()
+- added extended module for highlevel methods
+- all manager method are no longer available in the core class and or
+  now only available in the manager module
+- all reverse engineering methods have been taken from the manager class
+  and are now available through the reverse module
+- a new module has been added to allow the addition of methods with
+  RDBMS specific functionality (like getting the last autoincrement ID)
+- LOB handling has been greatly simplified
+- several methods names have been shortend
+- the fetch.+() methods do not free the result set anymore
+- the Manager and the reverse_engineer_xml_schema have been moved into
+  a Tools directory
+- all parameters are now lowercased with underscores as separators
+- all drivers now support all of the dsn options that PEAR DB supports
+- several methods have been removed because they offered redundant functionality
+- changed prepare API type is now passed to prepare and not to setParam*()
+- results are now wrapped inside objects and all methods which operate
+  on resultsets have been moved into respecitive classes
+- there are two types of result object: buffered (default) and unbuffered
+- totally rewrote buffering and limit emulation
+</notes>
+    </release>
+  </changelog>
+</package>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/liveuser_admin">LiveUser_Admin</p>
+ <c>pear.php.net</c>
+ <v>0.2.0</v>
+ <st>beta</st>
+ <l>LGPL</l>
+ <m>lsmith</m>
+ <s>User authentication and permission management framework</s>
+ <d>LiveUser_Admin is meant to be used with the LiveUser package.
+It is composed of all the classes necessary to administrate
+data used by LiveUser.
+
+You'll be able to add/edit/delete/get things like:
+* Rights
+* Users
+* Groups
+* Areas
+* Applications
+* Subgroups
+* ImpliedRights
+
+And all other entities within LiveUser.
+
+At the moment we support the following storage containers:
+* DB
+* MDB
+* MDB2
+
+But it takes no time to write up your own storage container,
+so if you like to use native mysql functions straight, then it's possible
+to do so in under a hour!
+</d>
+ <da>2005-03-15 07:35:10</da>
+ <n>- perm container now also has a default init() method that is called in the factory
+- delete/update now dont require a filter in the id field
+- delete/update now return the number of affected rows
+- use LiveUser::cryptRC4() for rc4 handling
+- added support to be able to query for single values, columns and rows next to
+  fetching multi dimensional arrays ('select' key in params array of get methods)
+- improved error handling in several places to not trigger on empty results
+- sequences are now named after the table they belong to
+- now requiring MDB2-2.0.0beta3
+- if the &quot;force-seq&quot; option is now set to false in the storage config
+  MDB2 will try to use autoincrement if supported by the RDBMS (you will need
+  to add autoincrement to the id fields in the applications, areas, groups,
+  rights, and perm_users tables yourself)
+- example 1 now outputs all queries using an MDB2 debug handler
+- Subgroups now work
+- ImplyRights now work
+- One can now remove groups recursively by passing recursive = true to 
+  removeGroup in Perm Complex container (before it was hardcoded to true,
+  now defaults to false)
+- Tests for SubGroups and ImplyRights up and running
+- getGroup and getRight now work in Perm Complex Container
+- added DB and MDB permission backends
+- Complex container is now fully implemented.
+- addAreaAdmin and removeAreaAdmin where added to the Complex container
+- Admin.php getUser was removed and searchUser was renamed to getUsers and with
+  new params (BC break!)
+- give each example a unique database name
+- moved selectable tables into property so that they can be overwritten
+- fixed autoinit handling in factoray (bug #3133)
+- added missing PEAR error to error stack conversions
+- return false if we previously ensured that the value is false anyways for clarity
+- call setAdminAuthContainer() in updateUser() and removeUser() to ensure that
+  the proper auth container is affected
+- updated the file headers as per the RFC
+- getGroups() in the complex container was refactored and subgroup handling
+  was reworked (BC break!)</n>
+ <f>44337</f>
+ <g>http://pear.php.net/get/LiveUser_Admin-0.2.0</g>
+ <x xlink:href="package.0.2.0.xml"/>
+</r>

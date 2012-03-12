@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.5">
+ <name>ScriptReorganizer</name>
+ <summary>Library/Tool focusing exclusively on the file size aspect of PHP script optimization.</summary>
+ <description>ScriptReorganizer has the ability to reorganize source code in different (incremental) ways:
+
+- File: one-to-one (Script) or many-to-one (Library) optimization.
+
+- Source: EOL (Route), comment (Quiet) and whitespace (Pack) optimization.
+
+Plugin functionality is available by means of the Decorator Pattern.
+
+It is highly recommended to follow the best practice detailed out below, when using this package:
+
+1. Running of all tests before building releases to deploy.
+
+2. Reorganization of the source code file(s) with ScriptReorganizer.
+
+3. Running of all tests - not only unit tests!
+
+4. Final building of the release to deploy.
+
+If the extreme mode of the pack strategy is used for packaging, a non-ScriptReorganized source code tree should be shipped together with the optimized one, to enable third parties to track down undiscoverd bugs.
+
+Same applies for (complex) applications that are pharized, i.e. optimized and packaged with PHP_Archive, as well as for bcompiled scripts.
+
+ANN: Currently only &apos;pure&apos; PHP code can be reorganized. Look into the folder &lt;root/&gt;PEAR/docs/ScriptReorganizer for more information in depth.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>sfrausch</user>
+   <name>Stefano F. Rausch</name>
+   <email>stefano@rausch-e.net</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>0.4.0</version>
+  <date>2005-11-22</date>
+  <license>LGPL</license>
+  <state>alpha</state>
+  <notes>Final library interface release!
+
++ ScriptReorganizer_Factory: implemented new Factory/Facade for easy &lt;ScriptReorganizer_Type&gt; object creation
+
++ ScriptReorganizer_Factory_Exception: implemented new Factory exception class
+
+* docs/examples/fileSizeReport.php and source/preLibrary.php: updated to reflect the new &lt;ScriptReorganizer_Factory&gt; and &lt;ScriptReorganizer_Factory_Exception&gt; source files
+
+* docs/guide.txt: added new sections Factory (5) and Exceptions(6); rectified section numbering: Best Practice (7), Known Issues (8) and Conclusions (9); changed section 2 and 3: now the &quot;processing of files&apos; import&quot; paragraph correctly shows up in section 2 instead of in section 3; section 4: moved the Decorators Chaining Matrix in front of the annotation; content: corrected some typos
+
+* docs/uml: updated the sketch
+
+* ScriptReorganizer_Type_Decorator_AddFooter: fixed NULL argument handling in the constructor - there was none ;)
+
+* ScriptReorganizer_Type_Decorator_AddHeader: fixed NULL argument handling in the constructor - there was none ;)
+  </notes>
+  <deps>
+   <dep type="php" rel="ge" version="5.0.3"/>
+   <dep type="ext" rel="ge" version="0.6" optional="yes">bcompiler</dep>
+   <dep type="pkg" rel="ge" version="0.5.0" optional="yes">PHP_Archive</dep>
+   <dep type="pkg" rel="ge" version="2.3.0" optional="yes">PHPUnit2</dep>
+  </deps>
+  <provides type="class" name="ScriptReorganizer_Exception" extends="PEAR_Exception" />
+  <provides type="class" name="ScriptReorganizer_Factory" />
+  <provides type="function" name="ScriptReorganizer_Factory::create" />
+  <provides type="function" name="ScriptReorganizer_Factory::importAndCheck" />
+  <provides type="class" name="ScriptReorganizer_Factory_Exception" extends="ScriptReorganizer_Exception" />
+  <provides type="function" name="ScriptReorganizer_Strategy::reformat" />
+  <provides type="class" name="ScriptReorganizer_Strategy_Exception" extends="ScriptReorganizer_Exception" />
+  <provides type="class" name="ScriptReorganizer_Strategy_Pack" />
+  <provides type="function" name="ScriptReorganizer_Strategy_Pack::reformat" />
+  <provides type="class" name="ScriptReorganizer_Strategy_Quiet" />
+  <provides type="function" name="ScriptReorganizer_Strategy_Quiet::reformat" />
+  <provides type="class" name="ScriptReorganizer_Strategy_Route" />
+  <provides type="function" name="ScriptReorganizer_Strategy_Route::reformat" />
+  <provides type="class" name="ScriptReorganizer_Type" />
+  <provides type="function" name="ScriptReorganizer_Type::load" />
+  <provides type="function" name="ScriptReorganizer_Type::reformat" />
+  <provides type="function" name="ScriptReorganizer_Type::save" />
+  <provides type="function" name="ScriptReorganizer_Type::getEolIdentifier" />
+  <provides type="function" name="ScriptReorganizer_Type::initializeIdentifiers" />
+  <provides type="function" name="ScriptReorganizer_Type::maskHeredocs" />
+  <provides type="function" name="ScriptReorganizer_Type::unmaskHeredocs" />
+  <provides type="class" name="ScriptReorganizer_Type_Decorator" extends="ScriptReorganizer_Type" />
+  <provides type="function" name="ScriptReorganizer_Type_Decorator::load" />
+  <provides type="function" name="ScriptReorganizer_Type_Decorator::reformat" />
+  <provides type="function" name="ScriptReorganizer_Type_Decorator::save" />
+  <provides type="class" name="ScriptReorganizer_Type_Decorator_AddFooter" extends="ScriptReorganizer_Type_Decorator" />
+  <provides type="function" name="ScriptReorganizer_Type_Decorator_AddFooter::reformat" />
+  <provides type="class" name="ScriptReorganizer_Type_Decorator_AddHeader" extends="ScriptReorganizer_Type_Decorator" />
+  <provides type="function" name="ScriptReorganizer_Type_Decorator_AddHeader::reformat" />
+  <provides type="class" name="ScriptReorganizer_Type_Decorator_Bcompile" extends="ScriptReorganizer_Type_Decorator" />
+  <provides type="function" name="ScriptReorganizer_Type_Decorator_Bcompile::save" />
+  <provides type="class" name="ScriptReorganizer_Type_Decorator_Exception" extends="ScriptReorganizer_Type_Exception" />
+  <provides type="class" name="ScriptReorganizer_Type_Decorator_Pharize" extends="ScriptReorganizer_Type_Decorator" />
+  <provides type="function" name="ScriptReorganizer_Type_Decorator_Pharize::load" />
+  <provides type="function" name="ScriptReorganizer_Type_Decorator_Pharize::loadFiles" />
+  <provides type="function" name="ScriptReorganizer_Type_Decorator_Pharize::reformat" />
+  <provides type="function" name="ScriptReorganizer_Type_Decorator_Pharize::save" />
+  <provides type="function" name="ScriptReorganizer_Type_Decorator_Pharize::loadContent" />
+  <provides type="class" name="ScriptReorganizer_Type_Exception" extends="ScriptReorganizer_Exception" />
+  <provides type="class" name="ScriptReorganizer_Type_Library" extends="ScriptReorganizer_Type" />
+  <provides type="function" name="ScriptReorganizer_Type_Library::load" />
+  <provides type="function" name="ScriptReorganizer_Type_Library::resolveImports" />
+  <provides type="function" name="ScriptReorganizer_Type_Library::retrieveContent" />
+  <provides type="function" name="ScriptReorganizer_Type_Library::retrieveRealPath" />
+  <provides type="class" name="ScriptReorganizer_Type_Script" extends="ScriptReorganizer_Type" />
+  <filelist>
+   <file role="doc" baseinstalldir="ScriptReorganizer" md5sum="7c3e53d4e64c82bd7a79887ee3298375" install-as="api.tar.gz" name="docs/api.tar.gz"/>
+   <file role="doc" baseinstalldir="ScriptReorganizer" md5sum="1e1cfcf909941c081dfa8fdc75f46fe2" install-as="guide.txt" name="docs/guide.txt">
+    <replace from="@package_version@" to="version" type="package-info"/>
+    <replace from="@release_state@" to="release_state" type="package-info"/>
+   </file>
+   <file role="doc" baseinstalldir="ScriptReorganizer" md5sum="4ea522d35fcd420094cc68ab4f8ff5fa" install-as="examples/compilePackedLibrary.php" name="docs/examples/compilePackedLibrary.php"/>
+   <file role="doc" baseinstalldir="ScriptReorganizer" md5sum="28863a1a676ca06231986748e02791b1" install-as="examples/fileSizeReport.php" name="docs/examples/fileSizeReport.php"/>
+   <file role="doc" baseinstalldir="ScriptReorganizer" md5sum="4966877041ce4017341044875cfe4653" install-as="examples/packLibrary.php" name="docs/examples/packLibrary.php"/>
+   <file role="doc" baseinstalldir="ScriptReorganizer" md5sum="ca5152a8c059fb59e3ccd8831a0a3096" install-as="examples/packLibraryCheck.php" name="docs/examples/packLibraryCheck.php"/>
+   <file role="doc" baseinstalldir="ScriptReorganizer" md5sum="bc1dd5f77f20245986f764a4f6bea345" install-as="examples/source/preLibrary.php" name="docs/examples/source/preLibrary.php"/>
+   <file role="doc" baseinstalldir="ScriptReorganizer" md5sum="a9bae98c043663726d6ca0bba42904c3" install-as="examples/target/Screo-compiledPackedLibrary.php" name="docs/examples/target/Screo-compiledPackedLibrary.php"/>
+   <file role="doc" baseinstalldir="ScriptReorganizer" md5sum="147b86677d562cbc779ffb80caa8e226" install-as="examples/target/Screo-packedLibrary.php" name="docs/examples/target/Screo-packedLibrary.php"/>
+   <file role="doc" baseinstalldir="ScriptReorganizer" md5sum="67c22c4ff7a9f6eccc122c3f00aab624" install-as="maps/project.mm" name="docs/maps/project.mm"/>
+   <file role="doc" baseinstalldir="ScriptReorganizer" md5sum="ded1588a71a27f6200f29531820a0eac" install-as="maps/project-legend.mm" name="docs/maps/project-legend.mm"/>
+   <file role="doc" baseinstalldir="ScriptReorganizer" md5sum="a257544e9f64cbd16e02c51b56af5a03" install-as="maps/project.pdf" name="docs/maps/project.pdf"/>
+   <file role="doc" baseinstalldir="ScriptReorganizer" md5sum="85900d261704e17cc4a65729cb58fb7d" install-as="uml/sketch.pdf" name="docs/uml/sketch.pdf"/>
+   <file role="doc" baseinstalldir="ScriptReorganizer" md5sum="aab22fa3b4b9e4affc98d487d5dfee98" install-as="uml/sketch.zuml" name="docs/uml/sketch.zuml"/>
+   <file role="php" baseinstalldir="ScriptReorganizer" md5sum="208e6658dcdf02a8050a6054ec0a700d" name="Exception.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="ScriptReorganizer" md5sum="850c4ff810810d217f713d0f522c8221" name="Factory.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="ScriptReorganizer" md5sum="e6df9ef0ccb91742d3e715763a77301e" name="Factory/Exception.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="ScriptReorganizer" md5sum="687bc9b13b486f58b5c1c6689864398e" name="GNU.LesserGPL"/>
+   <file role="php" baseinstalldir="ScriptReorganizer" md5sum="90281bef6624e17fd54fa45ff3e80540" name="Strategy.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="ScriptReorganizer" md5sum="078031c70a4a0a05f2c7807adc560c29" name="Strategy/Exception.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="ScriptReorganizer" md5sum="e9c25d79dac8ffb1ff60ff54aaee8a2a" name="Strategy/Pack.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="ScriptReorganizer" md5sum="c79bfd22cc58670865288a16817fd440" name="Strategy/Quiet.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="ScriptReorganizer" md5sum="57e9a861878832ad06784ea73f932cda" name="Strategy/Route.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="ScriptReorganizer" md5sum="60b2441789f9e8c3b2e1e5515b03fe9e" name="Type.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="ScriptReorganizer" md5sum="ac25bc9482fe0ee13e75aad015b2c4be" name="Type/Decorator.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="ScriptReorganizer" md5sum="2e8daee14f94671277445215275f07d1" name="Type/Decorator/AddFooter.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="ScriptReorganizer" md5sum="c6e60e3ef38015ace45096d899cbf4c5" name="Type/Decorator/AddHeader.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="ScriptReorganizer" md5sum="6a510a657900576e9ea1290842efcecb" name="Type/Decorator/Bcompile.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="ScriptReorganizer" md5sum="85ee3eae7ccb35a4a632223461a92259" name="Type/Decorator/Exception.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="ScriptReorganizer" md5sum="5db2ec8e493927ba5a7bf2957cf2756c" name="Type/Decorator/Pharize.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="ScriptReorganizer" md5sum="37ceb19d18f97c80bad661c4a9959207" name="Type/Exception.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="ScriptReorganizer" md5sum="02def323f73a5c223226a1ce8d803d8e" name="Type/Library.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="ScriptReorganizer" md5sum="c60b547251826d8125762e27111a0740" name="Type/Script.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="39e065a545d0fcf234af19dd617da3b7" name="Tests/AllTests.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="989bc1088db084c40c647b2b694304db" name="Tests/FactoryTest.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="32efa4b0c8f9385f0cd5d00bb0c3a173" name="Tests/files/ARequiresB.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="facfba5b6ccce69ef2020be833f38ec6" name="Tests/files/BRequiresA.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="ffe8c15b2a07c841f5e400280459a7b8" name="Tests/files/eol-mac.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="2f5f97680be6c015cfb1938b6a88d736" name="Tests/files/eol-unix.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="6a256cf2686ebc483ba4050f49aa2ad9" name="Tests/files/eol-win.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="019738ec0b3225d786aacc2102bc488a" name="Tests/files/expectedAdvancedPackedHeredoc.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="b99c0d3bf904eb133116b967e203c009" name="Tests/files/expectedDefaultPackedHeredoc.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="bdee4c1e03736e7b1a3f9643381791af" name="Tests/files/expectedDefaultPackedLibrary.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="a7a0019ec067f45722c81e13cab02c43" name="Tests/files/expectedDefaultPackedLibraryHashBang.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="c2b27b98015ec6471d46e153a9ef1ab6" name="Tests/files/expectedDefaultPackedScript.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="070ecfd10f0d7b71c537765c454d42df" name="Tests/files/expectedDefaultPackedScriptHashBang.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="28835f8b2cf9fe02552db8fa2e52b458" name="Tests/files/expectedOneLinerPackedLibrary.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="78ca80ace2ebc2bdb5eb76ec5baf2db8" name="Tests/files/expectedOneLinerPackedScript.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="3ac8845cf7491f372f4120f3dfcbecc3" name="Tests/files/expectedQuietedLibrary.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="4fbbc4545dcd4bc491a8666c0fbe6be2" name="Tests/files/expectedQuietedScript.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="f1e511b581966ca48b27a7793c75dc10" name="Tests/files/expectedRoutedLibrary.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="57d3c314339c938fda38139e9e13953a" name="Tests/files/expectedRoutedScript.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="70086b67fd2752f8050c3ca679b0f0cc" name="Tests/files/hashBang-mac.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="2a18159423d821903b73be192f4b84fe" name="Tests/files/hashBang-unix.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="8e8d3a2ea89630f3dae1bbfe7d1809ca" name="Tests/files/hashBang-win.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="a4799d6cdfea28d42347fa89de828d93" name="Tests/files/hashBangImport.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="8001be1d2fd67515503769ea2633f871" name="Tests/files/heredoc-mac.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="dd82c52cd72cfff5ed752eb4c6886ccc" name="Tests/files/heredoc-unix.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="f37fa1fca75becb2911cb1bbd1a50a5a" name="Tests/files/heredoc-win.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="6d997006c2ffa3569dde47029b3fbba5" name="Tests/files/sample-mac.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="471c9a887d3350ddb8c0e6b1232781ad" name="Tests/files/sample-unix.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="d60ed1c7b83cf753125ed379064b18ff" name="Tests/files/sample-win.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="5c940831914dd9bb4a298ad305e0bf69" name="Tests/files/tree/leaf.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="04fe64baa80bd804c9cd52d709eedf19" name="Tests/files/tree/root.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="7c8a1e0a747ab8a5993daace4b07cc75" name="Tests/files/tree/root.php-FailingImport.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="34d93aaaa13c392bcc0737814ea2aab5" name="Tests/files/tree/subLeaf.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="0d2f9e4a02cb3129f06c0135aa130a9e" name="Tests/files/tree/node/leaf1.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="867ebc6d1d0abaa594fc4788bdfd9b54" name="Tests/files/tree/node/leaf2.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="d27e6da51e81d0922b59cf74394c58c1" name="Tests/Strategy/AllTests.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="ff824621766687633273f9323fe910ff" name="Tests/Strategy/PackTest.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="75acbcd055b7eca98b6124fd3b4167d2" name="Tests/Strategy/QuietTest.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="6e97db26de3c6d4a589027a14d0376ce" name="Tests/Strategy/RouteTest.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="e7142d590619cc42b8449d3ed525a643" name="Tests/Type/AllTests.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="96ee7ca0df3f3a1e8857dd7234227ecf" name="Tests/Type/EolTest.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="f09d5c9d791fc549fd95bf50c74f890e" name="Tests/Type/HashBangTest.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="4433d6b620be88b29f4189b8ca041c6e" name="Tests/Type/HeredocTest.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="da881f54db605ef6965ebbf09b86b3a2" name="Tests/Type/LibraryTest.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="549d19053d9204c21d1756771e9cee30" name="Tests/Type/ScriptTest.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="f06867805b4e525851c600a38e22a6f8" name="Tests/Type/Decorator/AllTests.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="bd5c725de4100060e47d54446c9557e8" name="Tests/Type/Decorator/AddFooterTest.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="2a693fc4a643ddcd09b104e9f1a61cc6" name="Tests/Type/Decorator/AddHeaderTest.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="7d50b4621fcbe636eb25954556f3f722" name="Tests/Type/Decorator/AddHeaderAndFooterTest.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="95e5d22178e8d2d51363921e841398c3" name="Tests/Type/Decorator/BcompileTest.php"/>
+   <file role="test" baseinstalldir="ScriptReorganizer" md5sum="4cfa6cdcc5a83dbdd0b95c7111409d22" name="Tests/Type/Decorator/PharizeTest.php"/>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>0.3.1</version>
+    <date>2005-11-15</date>
+    <state>alpha</state>
+    <notes>* docs/guide.txt: section 4 added Decorators Chaining Matrix; added appendix sections Test-Driven Development and Guide Changes
+
+* ScriptReorganizer_Type: moved property $endOfLineIdentifiers to method getEolIdentifier
+
+* ScriptReorganizer_Type_Decorator_AddFooter: added possibly needed footer&apos;s EOL convertion to the content&apos;s one
+
+* ScriptReorganizer_Type_Decorator_AddHeader: added possibly needed header&apos;s EOL convertion to the content&apos;s one
+
+- ext.dependencies.php: removed from package.xml, its only needed for the local API documentation
+    </notes>
+   </release>
+   <release>
+    <version>0.3.0</version>
+    <date>2005-11-06</date>
+    <state>alpha</state>
+    <notes>This is the first official PEAR release!
+
++ docs/api.tar.gz
+  PhpDocumentor generated API documentation
++ docs/examples
+  A few (self packaging) examples, see the unit
+  tests for standard ones
++ docs/guide.txt
++ docs/maps
+  Mind Map(s) for project management, see:
+  http://sourceforge.net/projects/freemind
++ docs/uml/sketch.pdf
+  For easy reference, should one not have an
+  UML tool installed
++ ext.dependencies.php
+  External dependencies documentation file
++ ScriptReorganizer_Type_Decorator_Bcompile
+  Implemented new decorator for speed
+  optimization, cons: file size increase
++ Access tag: @visibility package restricted
+  for the implementation of the setContent and
+  getContent methods following to a certain
+  extent the RFC::PackageAccess of Lukas Smith,
+  see: http://pear.php.net/pepr/
+  pepr-proposal-show.php?id=228
+
+* Package.xml
+  - Finalized the summary and description
+    section
+  - Now complies with PEAR&apos;s official directory
+    structure docs and tests-wise
+* ScriptReorganizer_Strategy_Route
+  Removed call to function trim - see
+  ScriptReorganizer_Type
+* ScriptReorganizer_Strategy_Pack
+  - Fixed whitespace bug in non-windows files
+  - Removed call to function trim - see
+    ScriptReorganizer_Type
+* ScriptReorganizer_Type
+  - Added processing of the unices&apos; hash-bang
+    directive
+  - Handling of Heredocs now strictly complies
+    with the rules stated in the PHP manual,
+    see:
+    php.net/manual/en/language.types.string.php
+  - Added EOL style autodetection for the
+    primary file being optimized
+  - Streamlined the reformat process, see the
+    changes in ScriptReorganizer_Strategy_Route
+    and ScriptReorganizer_Strategy_Pack
+  - Changed the accessibility of the setContent
+    and getContent methods from public to
+    package restricted, see the access tag
+    addition note above
+* ScriptReorganier_Type_Decorator
+  Changed the accessibility of the setContent
+  and getContent methods from public to package
+  restricted, see the access tag addition note
+  above
+* ScriptReorganizer_Type_Library
+  - Added a best practice comment
+  - simplified the static import identifier&apos;s
+    regex
+* ScriptReorganizer_Tye_Script
+  Added a best practice comment
+* all decorators
+  disabled the autoload feature of the
+  class_exits check
+* ScriptReorganizer_Type_Decorator_AddFooter
+  - Added constraint: decoration of a directly
+    sequencing Pharize-Decorator is not allowed
+* ScriptReorganizer_Type_Decorator_AddHeader
+  - Added constraint: decoration of a directly
+    sequencing Pharize-Decorator is not allowed
+* ScriptReorganizer_Type_Decorator_Pharize
+  - Added a best practice comment
+  - Implemented missing package restricted
+    getContent and setContent methods, see the
+    access tag addition note above
+  - Updated constraint (annotation) to reflect
+    the new available decorator Bcompile too
+  - Both methods load and loadFiles now throw a
+    more detailed exception message
+* all classes with calls to the getContent and
+  setContent methods according to the access
+  tag addition note above
+* AllTests.php in Tests and its subfolders
+  removed PHPUnit2_Extensions_TestFileLoader
+  dependency, due to upgrade to PHPUnit2-2.3.0
+
+- Tests/PHPUnit2_Extensions_TestFileLoader
+  due to upgrade to PHPUnit2-2.3.0:
+  PHPUnit2_Framework_TestSuite now incorporates
+  the method addTestFile ... thanks for
+  accepting my contribution Sebastian ;)
+    </notes>
+   </release>
+   <release>
+    <version>0.2.1</version>
+    <date>2005-06-03</date>
+    <state>alpha</state>
+    <notes>* ScriptReorganizer_Type
+  Fixed Heredoc bug spotted by Davey Shafik
+* ScriptReorganizer_Type_Decorator_Pharize
+  Updated the documentation regarding the best
+  practice to follow - suggested by Greg Beaver
+    </notes>
+   </release>
+   <release>
+    <version>0.2.0</version>
+    <date>2005-05-23</date>
+    <state>alpha</state>
+    <notes>* ScriptReorganizer_Strategy_Pack
+  - Splitted reorganization to accomodate a
+    default and an advanced pack mode
+  - Updated the documentation regarding the bug
+    tracking issue - suggested by Greg Beaver
+    </notes>
+   </release>
+   <release>
+    <version>0.1.1</version>
+    <date>2005-05-18</date>
+    <state>alpha</state>
+    <notes>* ScriptReorganizer_Type_Library
+  Fixed cylic import bug - spotted by Vincent
+  Lascaux
+    </notes>
+   </release>
+   <release>
+    <version>0.1.0</version>
+    <date>2005-05-15</date>
+    <state>alpha</state>
+    <notes>First proposal to the PEAR community
+    </notes>
+   </release>
+ </changelog>
+</package>

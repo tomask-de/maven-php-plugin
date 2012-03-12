@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/liveuser">LiveUser</p>
+ <c>pear.php.net</c>
+ <v>0.9</v>
+ <st>beta</st>
+ <l>LGPL</l>
+ <m>mw21st</m>
+ <s>User authentication and permission management framework</s>
+ <d>Perm_LiveUser is a set of classes for dealing with user authentication
+and permission management. Basically, there are three main elements that
+make up this package:
+* The LiveUser class
+* The Auth containers
+* The Perm containers
+The LiveUser class takes care of the login process and can be configured
+to use a certain permission container and one or more different auth containers.
+That means, you can have your users' data scattered amongst many data containers
+and have the LiveUser class try each defined container until the user is found.
+For example, you can have all website users who can apply for a new account online
+on the webserver's local database. Also, you want to enable all your company's
+employees to login to the site without the need to create new accounts for all of
+them. To achieve that, a second container can be defined to be used by the LiveUser class.
+You can also define a permission container of your choice that will manage the rights for
+each user. Depending on the container, you can implement any kind of permission schemes
+for your application while having one consistent API.
+Using different permission and auth containers, it's easily possible to integrate
+newly written applications with older ones that have their own ways of storing permissions
+and user data. Just make a new container type and you're ready to go!
+Currently available are RDBMS containers using PEAR::DB.
+More are soon to follow.
+</d>
+ <da>2003-10-08 21:07:00</da>
+ <n>- Admin classes
+  * getRights in DB and MDB based admin classes was fixed
+    (it was returning too many rows)
+  * getAllUsers was implemented in DB based Admin Perm classes
+  * lowercased all keys in the authTableCol option to prevent issues with certain DB/MDB container
+  * a user is active by default when adding it with the admin class
+  * fixed missing checks for arrays infront of foreach calls in the admin classes
+  * updateArea now accepts application_id as second parameter
+- LiveUser
+  * fix rememberMe feature
+  * fix issues with using Crypt_RC4 (used optionnally by rememberMe feature)
+  * processLogout logs out if handle and password have been passed to the script
+  * changed PHPSESSION to PHPSESSID which is the php default
+  * when an inactive user is found the auth object is not cached anymore
+  * update sql shema:
+    + password -&gt; passwd because it is a reserved word in some DB
+    + changed all instances of user_id in the schema either to perm_user_id or auth_user_id
+  ###################################################
+  #                   Warning                       #
+  #                                                 #
+  # Some changes were made to the DB schema.        #
+  #                                                 #
+  # A script is provided for MySQL                  #
+  #                                                 #
+  # Go into your PEAR_DATA_DIR/LiveUser/sql and run #
+  #                                                 #
+  #      Perm_DB_Complex_0.8.1-0.9.diff.sql         #
+  #                                                 #
+  # on your database                                #
+  #                                                 #
+  # It should also be noted that some minor BC      #
+  # issues occurred in the admin classes.           #
+  #                                                 #
+  #    ! Please read the above notes carefully !    #
+  ###################################################</n>
+ <f>109443</f>
+ <g>http://pear.php.net/get/LiveUser-0.9</g>
+ <x xlink:href="package.0.9.xml"/>
+</r>

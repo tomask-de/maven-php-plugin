@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.0a4">
+ <name>HTTP_Download</name>
+ <summary>Send HTTP Downloads</summary>
+ <description>Provides an interface to easily send hidden files or any arbitrary data to 
+HTTP clients.  HTTP_Download can gain its data from variables, files or
+stream resources.
+
+It features:
+ - Basic caching capabilities
+ - Basic throttling mechanism
+ - On-the-fly gzip-compression
+ - Ranges (partial downloads and resuming)
+ - Delivery of on-the-fly generated archives through Archive_Tar and Archive_Zip
+ - Sending of PgSQL LOBs without the need to read all data in prior to sending
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>mike</user>
+   <name>Michael Wallner</name>
+   <email>mike@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>1.1.0RC3</version>
+  <date>2005-08-01</date>
+  <license>PHP</license>
+  <state>beta</state>
+  <notes>RC3:
+====
+* Added missing support to set 'max age' for cache control through constructor and setParams()
+* Added missing support to set 'send 404' for missing files through constructor and setParams()
++ Added public sentBytes property, containing the amount of bytes (body only) sent to the client
+
+RC2:
+====
+* Added missing support for proprietary Unless-Modified-Since header (IE)
++ Improved comparisons of last modification date
++ Implemeted modified Request #4754; possibility to define max-age cache control parameter
+
+RC1:
+====
+* Fixed bug #4343: usleep() was called with milliseconds instead of microseconds
+  if throttling was enabled
+* Fixed bug #4049: fatal error if a non-existant file was specified in
+  constructor parameters
+
++ Implemented request #3283 - try to use MIME_Type to guess content type
++ Implemented request #3960 - allow zlib.output_compression in php.ini
+  </notes>
+  <deps>
+   <dep type="pkg" rel="has" optional="no">PEAR</dep>
+   <dep type="pkg" rel="has" optional="no">HTTP_Header</dep>
+   <dep type="pkg" rel="has" optional="yes">Archive_Tar</dep>
+   <dep type="pkg" rel="has" optional="yes">Archive_Zip</dep>
+   <dep type="pkg" rel="has" optional="yes">MIME_Type</dep>
+   <dep type="ext" rel="has" optional="no">pcre</dep>
+   <dep type="ext" rel="has" optional="yes">mime_magic</dep>
+   <dep type="ext" rel="has" optional="yes">pgsql</dep>
+   <dep type="php" rel="ge" version="4.3.0" optional="yes"/>
+   <dep type="php" rel="ge" version="4.2.0" optional="no"/>
+  </deps>
+  <provides type="class" name="HTTP_Download" />
+  <provides type="function" name="HTTP_Download::setParams" />
+  <provides type="class" name="HTTP_Download_PgLOB" />
+  <provides type="function" name="HTTP_Download_PgLOB::setConnection" />
+  <provides type="function" name="HTTP_Download_PgLOB::getConnection" />
+  <provides type="function" name="HTTP_Download_PgLOB::open" />
+  <provides type="function" name="HTTP_Download_PgLOB::stream_open" />
+  <provides type="function" name="HTTP_Download_PgLOB::stream_read" />
+  <provides type="function" name="HTTP_Download_PgLOB::stream_seek" />
+  <provides type="function" name="HTTP_Download_PgLOB::stream_tell" />
+  <provides type="function" name="HTTP_Download_PgLOB::stream_eof" />
+  <provides type="function" name="HTTP_Download_PgLOB::stream_flush" />
+  <provides type="function" name="HTTP_Download_PgLOB::stream_stat" />
+  <provides type="function" name="HTTP_Download_PgLOB::stream_write" />
+  <provides type="function" name="HTTP_Download_PgLOB::stream_close" />
+  <provides type="class" name="HTTP_Download_Archive" />
+  <provides type="function" name="HTTP_Download_Archive::send" />
+  <filelist>
+   <file role="php" baseinstalldir="HTTP" md5sum="52e1e1d6072eed4fd07d678cada82d42" name="Download.php"/>
+   <file role="php" baseinstalldir="HTTP" md5sum="e5f7b252c9d7df6e7db7ea794fbfe2d7" name="Download\PgLOB.php"/>
+   <file role="php" baseinstalldir="HTTP" md5sum="d8ecbf6c91f849e4d5d84d124fa65877" name="Download\Archive.php"/>
+   <file role="test" baseinstalldir="HTTP" md5sum="1aa65d7d9f48e3b050a4c068e6d54db0" install-as="send.php" name="tests/send.php"/>
+   <file role="test" baseinstalldir="HTTP" md5sum="02ef73911508a6e9fde34ec3ddd8ccd0" install-as="testcase.php" name="tests/testcase.php"/>
+   <file role="test" baseinstalldir="HTTP" md5sum="49cb3608e2b33fad6b65df8cb8f49668" install-as="data.txt" name="tests/data.txt"/>
+  </filelist>
+ </release>
+</package>

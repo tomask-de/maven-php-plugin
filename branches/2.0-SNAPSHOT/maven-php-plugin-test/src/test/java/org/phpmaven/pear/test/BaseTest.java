@@ -17,17 +17,21 @@
 package org.phpmaven.pear.test;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.util.Iterator;
 
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.monitor.logging.DefaultLog;
-import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
-import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.codehaus.plexus.logging.console.ConsoleLogger;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.exec.PhpException;
+import org.phpmaven.pear.IMaintainer;
+import org.phpmaven.pear.IPackage;
+import org.phpmaven.pear.IPackageVersion;
 import org.phpmaven.pear.IPearChannel;
 import org.phpmaven.pear.IPearConfiguration;
 import org.phpmaven.pear.IPearUtility;
+import org.phpmaven.pear.impl.Helper;
 import org.phpmaven.test.AbstractTestCase;
 
 /**
@@ -58,16 +62,6 @@ public class BaseTest extends AbstractTestCase {
         final IPearUtility util = pearConfig.getUtility(logger);
         assertNotNull(util);
     }
-    /**
-     * Gets the maven session.
-     * @return gets the maven session.
-     * @throws Exception thrown on pear errors.
-     */
-    private MavenSession getSession() throws Exception {
-        // create the execution config
-        final MavenSession session = this.createSimpleSession("pear/empty-pom");
-        return session;
-    }
 
     /**
      * Tests if the channel.xml can be read.
@@ -75,15 +69,8 @@ public class BaseTest extends AbstractTestCase {
      * @throws Exception thrown on errors
      */
     public void testChannelXml() throws Exception {
-        // look up the component factory
-        final IComponentFactory factory = lookup(IComponentFactory.class);
         final MavenSession session = getSession();
-        final IPearConfiguration pearConfig = factory.lookup(
-                IPearConfiguration.class,
-                IComponentFactory.EMPTY_CONFIG,
-                session);
-        // assert that we are able to create the util
-        final IPearUtility util = getPearUtility(pearConfig, false);
+        final IPearUtility util = getPearUtility(session, false);
         
         final File pearFolder = new File(
                 session.getCurrentProject().getBasedir(), 
@@ -101,17 +88,323 @@ public class BaseTest extends AbstractTestCase {
     }
     
     /**
+     * Tests if the package infos can be fetched.
+     *
+     * @throws Exception thrown on errors
+     */
+    public void testKnownPackages() throws Exception {
+        final IPearChannel channel = getChannel(false);
+        
+        channel.initializePackages(true, true);
+        
+        final Iterable<IPackage> pkgs = channel.getKnownPackages();
+        assertNotNull(pkgs);
+    }
+    
+    /**
+     * Tests if the package infos can be fetched.
+     *
+     * @throws Exception thrown on errors
+     */
+    public void testChannelMaintainers() throws Exception {
+        final IPearChannel channel = getChannel(false);
+        
+        final Iterable<IMaintainer> maintainers = channel.getMaintainers();
+        assertNotNull(maintainers);
+    }
+    
+    /**
+     * Tests if the package infos can be fetched.
+     *
+     * @throws Exception thrown on errors
+     */
+    public void testInstalledPackages() throws Exception {
+        final IPearChannel channel = getChannel(true);
+        
+        channel.initializePackages(true, false);
+        
+        final Iterable<IPackage> pkgs = channel.getInstalledPackages();
+        assertNotNull(pkgs);
+        
+        final Iterator<IPackage> iter = pkgs.iterator();
+        final IPackage pkgArchiveTar = iter.next();
+        final IPackage pkgConsoleGetopt = iter.next();
+        final IPackage pkgPEAR = iter.next();
+        final IPackage pkgStructuresGraph = iter.next();
+        final IPackage pkgXmlUtil = iter.next();
+        assertFalse(iter.hasNext());
+        
+        assertEquals("Archive_Tar", pkgArchiveTar.getPackageName());
+        assertNotNull(pkgArchiveTar.getInstalledVersion());
+        assertEquals("1.3.7", pkgArchiveTar.getInstalledVersion().getVersion().getPearVersion());
+        
+        assertEquals("Console_Getopt", pkgConsoleGetopt.getPackageName());
+        assertNotNull(pkgConsoleGetopt.getInstalledVersion());
+        assertEquals("1.3.0", pkgConsoleGetopt.getInstalledVersion().getVersion().getPearVersion());
+        
+        assertEquals("PEAR", pkgPEAR.getPackageName());
+        assertNotNull(pkgPEAR.getInstalledVersion());
+        assertEquals("1.9.4", pkgPEAR.getInstalledVersion().getVersion().getPearVersion());
+        
+        assertEquals("Structures_Graph", pkgStructuresGraph.getPackageName());
+        assertNotNull(pkgStructuresGraph.getInstalledVersion());
+        assertEquals("1.0.4", pkgStructuresGraph.getInstalledVersion().getVersion().getPearVersion());
+        
+        assertEquals("XML_Util", pkgXmlUtil.getPackageName());
+        assertNotNull(pkgXmlUtil.getInstalledVersion());
+        assertEquals("1.2.1", pkgXmlUtil.getInstalledVersion().getVersion().getPearVersion());
+    }
+    
+    /**
+     * Tests if the package infos can be fetched.
+     *
+     * @throws Exception thrown on errors
+     */
+    public void testKnownPackagesFailed() throws Exception {
+        final IPearChannel channel = getChannel(true);
+        
+        channel.getKnownPackages();
+        final IPackage pkg = channel.getPackage("Net_SSH2");
+        assertNotNull(pkg);
+        
+        try {
+            // will fail because the package cannot be read
+            pkg.getKnownVersions();
+            fail("Expected failures because not all packages are available");
+        } catch (PhpException ex) {
+            // succeeds
+        }
+    }
+    
+    /**
+     * Tests the versions.
+     * 
+     * @throws Exception
+     */
+    public void testVersions() throws Exception {
+        final IPearChannel channel = getChannel(false);
+        
+        channel.initializePackages(true, true);
+        
+        final IPackage pkg = channel.getPackage("Archive_Tar");
+        assertNotNull(pkg.getVersion("1.3.9"));
+        assertNotNull(pkg.getVersion("1.3.8"));
+        assertNotNull(pkg.getVersion("1.3.7"));
+        assertNotNull(pkg.getVersion("1.3.6"));
+        assertNotNull(pkg.getVersion("1.3.5"));
+        assertNotNull(pkg.getVersion("1.3.4"));
+        assertNotNull(pkg.getVersion("1.3.3"));
+        assertNotNull(pkg.getVersion("1.3.2"));
+        assertNotNull(pkg.getVersion("1.3.1"));
+        assertNotNull(pkg.getVersion("1.3.0"));
+        assertNotNull(pkg.getVersion("1.2"));
+        assertNotNull(pkg.getVersion("1.1"));
+        assertNotNull(pkg.getVersion("1.0"));
+        assertNotNull(pkg.getVersion("0.10-b1"));
+        assertNotNull(pkg.getVersion("0.9"));
+        assertNotNull(pkg.getVersion("0.4"));
+        assertNotNull(pkg.getVersion("0.3"));
+    }
+    
+    /**
+     * Tests the package version data.
+     * 
+     * @throws Exception
+     */
+    public void testVersionData() throws Exception {
+        final IPearChannel channel = getChannel(false);
+        
+        channel.initializePackages(true, true);
+        
+        IPackage pkg = channel.getPackage("Archive_Tar");
+        IPackageVersion version = pkg.getVersion("0.3");
+        assertEquals("Tar file management class", version.getSummary());
+        assertEquals(
+                "This class provides handling of tar files in PHP.\n" +
+                "It supports creating, listing, extracting and adding to tar files.\n" +
+                "Gzip support is available if PHP has the zlib extension built-in or\n" +
+                "loaded.", version.getDescription());
+        
+        pkg = channel.getPackage("PHPUnit");
+        version = pkg.getVersion("1.3.2");
+        assertEquals(
+                "! Changed license from PHP License to BSD Style License.",
+                version.getReleaseNotes());
+        assertEquals("2005-11-10 00:00:00", version.getReleaseDate());
+        // TODO assertEquals("BSD License", version.getLicense());
+        assertEquals("stable", version.getStability());
+        assertNotNull(version.getMaintainers());
+        assertTrue(version.getMaintainers().iterator().hasNext());
+    }
+    
+    /**
+     * Tests the versions.
+     * 
+     * @throws Exception 
+     */
+    public void testVersionMapping() throws Exception {
+        final IPearChannel channel = getChannel(false);
+        
+        channel.initializePackages(true, true);
+        
+        IPackage pkg;
+        IPackageVersion version;
+        
+        pkg = channel.getPackage("Archive_Tar");
+        version = pkg.getVersion("0.10-b1");
+        assertEquals("0.10-b1", version.getVersion().getPearVersion());
+        // TODO returns currently 0.10--b1
+        // assertEquals("0.10-beta-1", version.getVersion().getMavenVersion());
+        
+        pkg = channel.getPackage("Auth");
+        version = pkg.getVersion("1.5.0RC1");
+        assertEquals("1.5.0RC1", version.getVersion().getPearVersion());
+        assertEquals("1.5.0-RC1", version.getVersion().getMavenVersion());
+        
+        pkg = channel.getPackage("Auth");
+        version = pkg.getVersion("1.3.0r3");
+        assertEquals("1.3.0r3", version.getVersion().getPearVersion());
+        assertEquals("1.3.0-r3", version.getVersion().getMavenVersion());
+        
+        pkg = channel.getPackage("Auth_PrefManager2");
+        version = pkg.getVersion("2.0.0dev1");
+        assertEquals("2.0.0dev1", version.getVersion().getPearVersion());
+        assertEquals("2.0.0-dev1", version.getVersion().getMavenVersion());
+        
+        pkg = channel.getPackage("Benchmark");
+        version = pkg.getVersion("1.2.2beta1");
+        assertEquals("1.2.2beta1", version.getVersion().getPearVersion());
+        // TODO returns currently 1.2.2beta1
+        // assertEquals("1.2.2-beta-1", version.getVersion().getMavenVersion());
+        
+        pkg = channel.getPackage("CodeGen_MySQL_UDF");
+        version = pkg.getVersion("0.9.7dev");
+        assertEquals("0.9.7dev", version.getVersion().getPearVersion());
+        assertEquals("0.9.7-dev", version.getVersion().getMavenVersion());
+        
+        pkg = channel.getPackage("Console_ProgressBar");
+        version = pkg.getVersion("0.5.2beta");
+        assertEquals("0.5.2beta", version.getVersion().getPearVersion());
+        // TODO returns currently 0.5.2beta
+        // assertEquals("0.5.2-beta", version.getVersion().getMavenVersion());
+        
+        pkg = channel.getPackage("DB");
+        version = pkg.getVersion("1.4b1");
+        assertEquals("1.4b1", version.getVersion().getPearVersion());
+        assertEquals("1.4-beta-1", version.getVersion().getMavenVersion());
+        
+        pkg = channel.getPackage("Date");
+        version = pkg.getVersion("1.5.0a1");
+        assertEquals("1.5.0a1", version.getVersion().getPearVersion());
+        assertEquals("1.5.0-alpha-1", version.getVersion().getMavenVersion());
+    }
+    
+//    public void testDownloader() throws Exception {
+//        final IPearChannel channel = getChannel(false);
+//        
+//        channel.initializePackages(true, true);
+//        
+//        final StringBuffer result = new StringBuffer();
+//        final Iterable<IPackage> pkgs = channel.getKnownPackages();
+//        for (final IPackage pkg : pkgs) {
+//            for (final IPackageVersion version : pkg.getKnownVersions()) {
+//                try {
+//                    final String localname = pkg.getPackageName().toLowerCase() + "/" + version.getVersion().getPearVersion() + ".xml";
+//                    final String content = Helper.getTextFileContents("http://pear.php.net/rest/r/" + localname);
+//                    final File file = new File(
+//                            "C:\\Users\\mepeisen\\git\\maven-php-plugin\\branches\\2.0-SNAPSHOT\\maven-php-plugin-test" +
+//                            "\\src\\test\\resources\\org\\phpmaven\\test\\projects\\pear\\empty-pom" +
+//                            "\\pear.php.net\\rest\\r\\" + localname);
+//                    if (!file.getParentFile().exists()) {
+//                        file.getParentFile().mkdirs();
+//                    }
+//                    final FileWriter writer = new FileWriter(file);
+//                    writer.write(content);
+//                    writer.close();
+//                } catch (Exception ex) {
+//                    result.append(pkg.getPackageName()).append("\n");
+//                }
+//                try {
+//                    final String localname = pkg.getPackageName().toLowerCase() + "/v2." + version.getVersion().getPearVersion() + ".xml";
+//                    final String content = Helper.getTextFileContents("http://pear.php.net/rest/r/" + localname);
+//                    final File file = new File(
+//                            "C:\\Users\\mepeisen\\git\\maven-php-plugin\\branches\\2.0-SNAPSHOT\\maven-php-plugin-test" +
+//                            "\\src\\test\\resources\\org\\phpmaven\\test\\projects\\pear\\empty-pom" +
+//                            "\\pear.php.net\\rest\\r\\" + localname);
+//                    if (!file.getParentFile().exists()) {
+//                        file.getParentFile().mkdirs();
+//                    }
+//                    final FileWriter writer = new FileWriter(file);
+//                    writer.write(content);
+//                    writer.close();
+//                } catch (Exception ex) {
+//                    result.append(pkg.getPackageName()).append("\n");
+//                }
+//                try {
+//                    final String localname = pkg.getPackageName().toLowerCase() + "/package." + version.getVersion().getPearVersion() + ".xml";
+//                    final String content = Helper.getTextFileContents("http://pear.php.net/rest/r/" + localname);
+//                    final File file = new File(
+//                            "C:\\Users\\mepeisen\\git\\maven-php-plugin\\branches\\2.0-SNAPSHOT\\maven-php-plugin-test" +
+//                            "\\src\\test\\resources\\org\\phpmaven\\test\\projects\\pear\\empty-pom" +
+//                            "\\pear.php.net\\rest\\r\\" + localname);
+//                    if (!file.getParentFile().exists()) {
+//                        file.getParentFile().mkdirs();
+//                    }
+//                    final FileWriter writer = new FileWriter(file);
+//                    writer.write(content);
+//                    writer.close();
+//                } catch (Exception ex) {
+//                    result.append(pkg.getPackageName()).append("\n");
+//                }
+//            }
+//        }
+//        fail(result.toString());
+//    }
+    
+    /**
+     * Pear channel.
+     * @param install 
+     * @return 
+     * @throws Exception 
+     */
+    private IPearChannel getChannel(final boolean install)
+        throws Exception {
+        final MavenSession session = getSession();
+        final IPearUtility util = getPearUtility(session, install);
+        
+        final File pearFolder = new File(
+                session.getCurrentProject().getBasedir(), 
+                "pear.php.net");
+        final IPearChannel channel = util.channelDiscoverLocal(pearFolder);
+        return channel;
+    }
+    
+    /**
+     * Gets the maven session.
+     * @return gets the maven session.
+     * @throws Exception thrown on pear errors.
+     */
+    private MavenSession getSession() throws Exception {
+        // create the execution config
+        final MavenSession session = this.createSimpleSession("pear/empty-pom");
+        return session;
+    }
+    
+    /**
      * Returns the pear utility.
-     * @param pearConfig
+     * @param session 
      * @param install
      * @return
-     * @throws PlexusConfigurationException
-     * @throws ComponentLookupException
-     * @throws PhpException
+     * @throws Exception
      */
-    private IPearUtility getPearUtility(final IPearConfiguration pearConfig, final boolean install)
-        throws PlexusConfigurationException, ComponentLookupException,
-            PhpException {
+    private IPearUtility getPearUtility(final MavenSession session, final boolean install)
+        throws Exception {
+        final IComponentFactory factory = lookup(IComponentFactory.class);
+        final IPearConfiguration pearConfig = factory.lookup(
+                IPearConfiguration.class,
+                IComponentFactory.EMPTY_CONFIG,
+                session);
+
         final DefaultLog logger = new DefaultLog(new ConsoleLogger());
         final IPearUtility util = pearConfig.getUtility(logger);
         

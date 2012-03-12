@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release2
+    http://pear.php.net/dtd/rest.release2.xsd">
+ <p xlink:href="/rest/p/db_dataobject">DB_DataObject</p>
+ <c>pear.php.net</c>
+ <v>1.3</v>
+ <a>1.3</a>
+ <mp>4.3.0</mp>
+ <st>stable</st>
+ <l>PHP License</l>
+ <m>alan_k</m>
+ <s>An SQL Builder, Object Interface to Database Tables</s>
+ <d>DataObject performs 2 tasks:
+  1. Builds SQL statements based on the objects vars and the builder methods.
+  2. acts as a datastore for a table row.
+  The core class is designed to be extended for each of your tables so that you put the
+  data logic inside the data classes.
+  included is a Generator to make your configuration files and your base classes.
+  nd
+</d>
+ <da>2003-11-14 21:47:30</da>
+ <n>New Features
+- Inserts and updates do not use keys in the data creation part of the query
+  (Markus Wolff)
+
+- MsSQL native get_last_insert ID using SELECT @@IDENTITY
+  ** you may want to consider using this with transactions eg.
+  $dataobject-&gt;query('BEGIN') and $dataobject-&gt;query('COMMIT')
+  to ensure thread safety. (Markus Wolff)
+  
+- DB_DataObject_Cast - a experimental generic casting feature for assigning variables
+  * Common usages:
+    // blobs
+    $dataObject-&gt;someblobfield = DB_DataObject_Cast::blob(file_get_contents('xxx.jpg'));
+    $dataObject-&gt;someblobfield = DB_DataObject_Cast::string('xxxxx');
+    
+  
+     // dates?
+    $dataObject-&gt;at_date = DB_DataObject_Cast::date('12/12/2000'); //Human
+    $dataObject-&gt;at_date = DB_DataObject_Cast::date('2000-12-12'); //ISO
+    $dataObject-&gt;at_date = DB_DataObject_Cast::date(2000,12,12); //YYYY,dd,mm
+    $d2 = DB_DataObject_Cast::date(); // today!
+    // some addition
+    $dataObject-&gt;expires = DB_DataObject_Cast::date($d1-&gt;year, $d1-&gt;month+30, $d1-&gt;day+30);
+     
+  
+    // raw sql????
+    $dataObject-&gt;maxids = DB_DataObject_Cast::sql('max(id) &gt; 12');
+    $dataObject-&gt;emptyfield = DB_DataObject_Cast::sql('NULL');
+    
+    You can extend this object to provide your own datatypes..
+     
+  
+- PHP5 Compatibility
+  Return values should work with PHP5beta2
+  Overload (__call) should work with PHP5beta2
+
+- table() and keys() Allow setting of data with a value
+  (so you can use dataobjects without extended instances.)
+  
+- factory/ getLinks and autoloading
+  Will use the full path location in config to check if the file exists,
+  after that it is included without warnings turned off..
+  (autoloading check to see if class exists first - should be faster)
+
+Fixes:
+- Validate is an optional dependency (Arnaud Limbourg)
+- Bug #228, BOOL type on postgresql correctly quoted.
+- Bug #133, No error is raised when calling fetch with no data returned, 
+  just produces a debug warning now
+- Bug #172,Turning of Overload
+  If you define DB_DATAOBJECT_NO_OVERLOAD to any value, then dataobjects will not be overloaded,
+  This is usefull when working with ZendOptimizer, that may segfault with certain optimization levels</n>
+ <f>32780</f>
+ <g>http://pear.php.net/get/DB_DataObject-1.3</g>
+ <x xlink:href="package.1.3.xml"/>
+</r>

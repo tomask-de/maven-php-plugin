@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>HTML_Menu</name>
+  <summary>Generates HTML menus from multidimensional hashes.</summary>
+  <description>With the HTML_Menu class one can easily create and maintain a 
+navigation structure for websites, configuring it via a multidimensional 
+hash structure. Different modes for the HTML output are supported.</description>
+  <maintainers>
+    <maintainer>
+      <user>uw</user>
+      <name>Ulf Wendel</name>
+      <email>ulf.wendel@phpdoc.de</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>avb</user>
+      <name>Alexey Borzov</name>
+      <email>borz_off@cs.msu.su</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>2.1.1</version>
+    <date>2004-05-19</date>
+    <license>PHP License</license>
+    <state>stable</state>
+    <notes>Fixed #784 (Notice was raised if 'current' URL wasn't found in the menu).</notes>
+    <deps>
+      <dep type="pkg" rel="has" optional="yes">HTML_Template_Sigma</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="HTML" name="Menu.php"/>
+      <file role="php" baseinstalldir="HTML" name="MenuBrowser.php"/>
+      <file role="php" baseinstalldir="HTML" name="Menu/Renderer.php"/>
+      <file role="php" baseinstalldir="HTML" name="Menu/ArrayRenderer.php"/>
+      <file role="php" baseinstalldir="HTML" name="Menu/DirectRenderer.php"/>
+      <file role="php" baseinstalldir="HTML" name="Menu/DirectTreeRenderer.php"/>
+      <file role="php" baseinstalldir="HTML" name="Menu/SigmaRenderer.php"/>
+      <file role="php" baseinstalldir="HTML" name="Menu/SigmaTreeRenderer.php"/>
+      <file role="doc" baseinstalldir="HTML" name="examples/directtree.php"/>
+      <file role="doc" baseinstalldir="HTML" name="examples/types.php"/>
+      <file role="doc" baseinstalldir="HTML" name="examples/sigma.php"/>
+      <file role="doc" baseinstalldir="HTML" name="examples/sigmatree.php"/>
+      <file role="doc" baseinstalldir="HTML" name="examples/data/menu.php"/>
+      <file role="doc" baseinstalldir="HTML" name="examples/templates/sigma.html"/>
+      <file role="doc" baseinstalldir="HTML" name="examples/templates/sigmatree.html"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>2.1</version>
+      <date>2004-01-18</date>
+      <state>stable</state>
+      <notes>* Implemented #504, (Possibilty to set prefix for URLs, method setUrlPrefix())
+* Added two new renderers: DirectTree and SigmaTree, that allow to render
+  menus of type 'tree' and 'sitemap' where level is shown by tags nesting
+  rather than indentation (Thanks to Uwe Mindrup for the idea and the
+  initial implementation of DirectTree renderer).
+* If entries in the initial menu structure contain keys other than 'sub',
+  'url' and 'title' then renderers will try to assign them to the placeholders
+  with the same names in the template (Thanks to Didier Galland for the idea)
+      
+</notes>
+    </release>
+    <release>
+      <version>2.0pl1</version>
+      <date>2003-09-16</date>
+      <state>stable</state>
+      <notes>Fix packaging: HTML_Template_Sigma should be optional dependency (thanks to Stephan Schmidt)
+      
+</notes>
+    </release>
+    <release>
+      <version>2.0</version>
+      <date>2003-09-16</date>
+      <state>stable</state>
+      <notes>HTML_Menu class does not contain output logic itself anymore. Output is now done via
+external Renderer classes. This will cause BC break if you extended HTML_Menu to customize
+its output.
+
+Additions and changes:
+- Added Direct renderer: based on old code but it is possible to customize its output
+- Added Sigma renderer that uses an instance of HTML_Template_Sigma for output
+- Added Array renderer that creates an array of menu's visible entries
+- Added usage examples
+- Changed 'prevnext' menu generation, previous element is now the one closest to the current.
+      
+</notes>
+    </release>
+    <release>
+      <version>1.0</version>
+      <date>2003-08-25</date>
+      <state>stable</state>
+      <notes>Legacy release: CVS code with some small cleanups applied.
+</notes>
+    </release>
+  </changelog>
+</package>

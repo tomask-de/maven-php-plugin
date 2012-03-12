@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.6">
+ <name>MDB2_Schema</name>
+ <summary>XML based database schema manager</summary>
+ <description>PEAR::MDB2_Schema enables users to maintain RDBMS independant schema
+files in XML that can be used to create, alter and drop database entities
+and insert data into a database. Reverse engineering database schemas from
+existing databases is also supported. The format is compatible with both
+PEAR::MDB and Metabase.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>lsmith</user>
+   <name>Lukas Kahwe Smith</name>
+   <email>smith@pooteeweet.org</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>0.4.2</version>
+  <date>2006-01-14</date>
+  <license>BSD License</license>
+  <state>beta</state>
+  <notes>- added ability to dump sql instead of commiting it to the database in the example
+- fix for bug in handling of boolean default values (bug #6397)
+- default to notnull = false in the schema parser
+- several fixes for database alterations (thx Matthias)
+- default for autoincrement can be &apos;0&apos; or 0 in the parser
+- set default 0 for autoincrement columns when reverse engineering a schema
+- expect MDB2_ERROR_ALREADY_EXISTS when creating a database (bug #6481)
+
+open todo items:
+- better handling for NULL values in the xml schema format
+  </notes>
+  <deps>
+   <dep type="php" rel="ge" version="4.2.0" optional="no"/>
+   <dep type="pkg" rel="ge" version="1.0b1" optional="no">PEAR</dep>
+   <dep type="pkg" rel="has" optional="no">XML_Parser</dep>
+   <dep type="pkg" rel="ge" version="2.0.0RC1" optional="no">MDB2</dep>
+   <dep type="pkg" rel="has" optional="yes">XML_DTD</dep>
+  </deps>
+  <provides type="class" name="MDB2_Schema_Parser" extends="XML_Parser" />
+  <provides type="function" name="MDB2_Schema_Parser::startHandler" />
+  <provides type="function" name="MDB2_Schema_Parser::endHandler" />
+  <provides type="function" name="MDB2_Schema_Parser::validateFieldValue" />
+  <provides type="function" name="MDB2_Schema_Parser::raiseError" />
+  <provides type="function" name="MDB2_Schema_Parser::isBoolean" />
+  <provides type="function" name="MDB2_Schema_Parser::cdataHandler" />
+  <provides type="class" name="MDB2_Schema_Writer" />
+  <provides type="function" name="MDB2_Schema_Writer::raiseError" />
+  <provides type="function" name="MDB2_Schema_Writer::dumpSequence" />
+  <provides type="function" name="MDB2_Schema_Writer::dumpDatabase" />
+  <provides type="class" name="MDB2_Schema" extends="PEAR" />
+  <provides type="class" name="MDB2_Schema_Error" extends="PEAR_Error" />
+  <provides type="function" name="MDB2_Schema::apiVersion" />
+  <provides type="function" name="MDB2_Schema::resetWarnings" />
+  <provides type="function" name="MDB2_Schema::getWarnings" />
+  <provides type="function" name="MDB2_Schema::setOption" />
+  <provides type="function" name="MDB2_Schema::getOption" />
+  <provides type="function" name="MDB2_Schema::factory" />
+  <provides type="function" name="MDB2_Schema::connect" />
+  <provides type="function" name="MDB2_Schema::disconnect" />
+  <provides type="function" name="MDB2_Schema::parseDatabaseDefinitionFile" />
+  <provides type="function" name="MDB2_Schema::getDefinitionFromDatabase" />
+  <provides type="function" name="MDB2_Schema::createTableIndexes" />
+  <provides type="function" name="MDB2_Schema::createTable" />
+  <provides type="function" name="MDB2_Schema::initializeTable" />
+  <provides type="function" name="MDB2_Schema::createSequence" />
+  <provides type="function" name="MDB2_Schema::createDatabase" />
+  <provides type="function" name="MDB2_Schema::compareDefinitions" />
+  <provides type="function" name="MDB2_Schema::compareTableFieldsDefinitions" />
+  <provides type="function" name="MDB2_Schema::compareTableIndexesDefinitions" />
+  <provides type="function" name="MDB2_Schema::compareTableDefinitions" />
+  <provides type="function" name="MDB2_Schema::compareSequenceDefinitions" />
+  <provides type="function" name="MDB2_Schema::verifyAlterDatabase" />
+  <provides type="function" name="MDB2_Schema::alterDatabaseIndexes" />
+  <provides type="function" name="MDB2_Schema::alterDatabaseTables" />
+  <provides type="function" name="MDB2_Schema::alterDatabaseSequences" />
+  <provides type="function" name="MDB2_Schema::alterDatabase" />
+  <provides type="function" name="MDB2_Schema::dumpDatabaseChanges" />
+  <provides type="function" name="MDB2_Schema::dumpDatabase" />
+  <provides type="function" name="MDB2_Schema::writeInitialization" />
+  <provides type="function" name="MDB2_Schema::updateDatabase" />
+  <provides type="function" name="MDB2_Schema::errorMessage" />
+  <provides type="function" name="MDB2_Schema::raiseError" />
+  <provides type="function" name="MDB2_Schema::isError" />
+  <filelist>
+   <file role="doc" baseinstalldir="/" md5sum="248d29b04ab1e634f503a8e73e4d800b" name="docs/examples/example.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="doc" baseinstalldir="/" md5sum="175c39961f74f1f57f8517754c020d7a" name="docs/MDB.dtd">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="doc" baseinstalldir="/" md5sum="53aeac5b92b38e9efc3c4792d7493bf0" name="docs/MDB.xsl">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="doc" baseinstalldir="/" md5sum="671c5fa1deb3d21549cf7855ce74c252" name="docs/xml_schema_documentation.html">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="cd10819a684f83f23637829a2399bcfe" name="MDB2/Schema/Parser.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="a2f41c85cecf98139ca466bf90290236" name="MDB2/Schema/Writer.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="38ce94d8f46ae98d2ee5e0cd61af9058" name="MDB2/Schema.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="test" baseinstalldir="/" md5sum="1652c17d6dbedd371b63b05bf5d6394c" name="tests/clitest.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="test" baseinstalldir="/" md5sum="2a2c534ab4afb0c05ca9d7ca47815bf5" name="tests/Console_TestListener.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="test" baseinstalldir="/" md5sum="4fdf1fd4b8ccec7e1380c988b51a2373" name="tests/driver_test.schema">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="test" baseinstalldir="/" md5sum="d46a8f267dbd54f0c7ff55e479d33e7e" name="tests/HTML_TestListener.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="test" baseinstalldir="/" md5sum="db0d1da90dbea53f2c1215816630f01a" name="tests/lob_test.schema">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="test" baseinstalldir="/" md5sum="850a1a9ccfa3ecd93d64ac9d468e56cc" name="tests/MDB2_Schema_testcase.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="test" baseinstalldir="/" md5sum="2945d8390f8bf5420049235158c7781c" name="tests/README">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="test" baseinstalldir="/" md5sum="662b04f0b50b581b4df7c4d39b55976b" name="tests/test.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="test" baseinstalldir="/" md5sum="dc05c6cc4540981d350ccac2005c2578" name="tests/testchoose.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="test" baseinstalldir="/" md5sum="3c4d2c9d89398c5692d36299d98f9c6e" name="tests/tests.css">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="test" baseinstalldir="/" md5sum="fc624785ab567f03ac1e05e886942eb7" name="tests/testUtils.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="test" baseinstalldir="/" md5sum="5141f789b25925c89dfeced9691041a3" name="tests/test_setup.php.dist">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>0.4.2</version>
+    <date>2006-01-14</date>
+    <license>BSD License</license>
+    <state>beta</state>
+    <notes>- added ability to dump sql instead of commiting it to the database in the example
+- fix for bug in handling of boolean default values (bug #6397)
+- default to notnull = false in the schema parser
+- several fixes for database alterations (thx Matthias)
+- default for autoincrement can be &apos;0&apos; or 0 in the parser
+- set default 0 for autoincrement columns when reverse engineering a schema
+- expect MDB2_ERROR_ALREADY_EXISTS when creating a database (bug #6481)
+
+open todo items:
+- better handling for NULL values in the xml schema format
+    </notes>
+   </release>
+   <release>
+    <version>0.4.1</version>
+    <date>2005-12-30</date>
+    <license>BSD License</license>
+    <state>beta</state>
+    <notes>- fixed bug in updateDatabase() when using a file as the previous schema
+  (bug was introduced in last release)
+- fixed install roles for test files
+    </notes>
+   </release>
+   <release>
+    <version>0.4.0</version>
+    <date>2005-12-21</date>
+    <license>BSD License</license>
+    <state>beta</state>
+    <notes>- Silence a &quot;error&quot; when there is auto increment and a primary key index defined
+  on the same field, since auto increment implies a primary key
+- support column length in create index (mysql only feature, but a nice touch,
+  emulating it with substring is not feasible though)
+- use exec() for INSERT statement
+- add extra debug info better use of the var_dump package if present in example
+- fixed bug in verifyAlterDatabase() when checking table alterations (bug #5977)
+- fixed typo in getTableConstraintDefinition() method name (removed additional &quot;s&quot;) (bug #6054)
+- expect and ignore MDB2_ERROR_NOT_FOUND when calling getTableConstraintDefinition()
+  and getTableIndexDefinition() (bug #6055)
+- fixed typo in verifyAlterDatabase() (bug #6053)
+- fixed typo in alterDatabaseSequences() (bug #6053)
+- added test suite
+- fixed issue in createDatabase() with portability fix case turned
+- ensure that all primary/unique/foreign key handling is only in the contraint methods
+- optionally allow schemas to be passed as an array to updateDatabase() (thx Matthias)
+    </notes>
+   </release>
+   <release>
+    <version>0.3.0</version>
+    <date>2005-10-10</date>
+    <license>BSD License</license>
+    <state>beta</state>
+    <notes>Warning: this is an intermediary release to address php 4.4/5.0.5. Some of the
+new features still need a bit more tweaking.
+
+- use MDB2::factory() by default instead of MDB2::connect()
+- added support for auto increment and primary key in schema.
+- alterTable now needs the full definition to work (use getTableFieldDefinition
+ from Reverse module if you do not have a definition at hand) this eliminates the need
+ of the declaration part in the alterTable array.
+- typo fix (bug #4620)
+- php 4.4.x/5.0.5 fixes
+- updated getTableFieldDefinition() call to accomodate API changes in MDB2
+- MDB2_Schema has its own error class and error codes
+- made it easier to add new database backend to the example
+- better handle removing of indexes on renamed columns in alterDatabaseTables()
+- use array_key_exists() instead of isset() where possible
+- restructured changes array to fix bugs due to inconsistency in the handling of array keys
+- added ability to disable query for the alterDatabase()/createDatabase() call
+  in updateDatabase(). this is useful to generate an RDBMS specific SQL file
+  using a custom debug callback
+- prefer &quot;true&quot; and &quot;false&quot; over &quot;1&quot; and &quot;0&quot;
+- an emty default tag now implies NULL for nullable columns and an empty string
+  for NOT NULL columns
+    </notes>
+   </release>
+   <release>
+    <version>0.2.0</version>
+    <date>2005-04-29</date>
+    <license>BSD License</license>
+    <state>beta</state>
+    <notes>- fixed error handling in updateDatabase()
+- use MDB2::raiseError
+- always copy schema file in updateDatabase()
+- cosmetic fixes and tweaks
+- improved overwrite to check via list*() before creating (bug #3857, #4101)
+- updated MDB2 dependency
+- fixed sequence dumping
+- moved schema documentation, xml_reverse_engineering.php, MDB.dtd
+  and MDB.xls from MDB package
+- added optional support for PEAR::XML_DTD based validation of schema files
+- index can be defined on fields that dont explicity prohibit null values
+- dont disable sequence dumping when implicit sequences have been found
+- added code to support dumping of lobs (MDB2 really should move to streams)
+- added writeInitialization() method (untested)
+- is_boolean() =&gt; isBoolean() in parser (CS fix)
+- added MDB2_Schema::factory()
+- Parser: if set grab definition of a table from the strucure property if set
+    </notes>
+   </release>
+   <release>
+    <version>0.1.0</version>
+    <date>2005-04-07</date>
+    <license>BSD License</license>
+    <state>beta</state>
+    <notes>This is the first unbundled release of the old MDB2_Tools_Manager class that was
+previously part of MDB2 until 2.0.0beta4. Due to the name change the package
+does not collide with previous versions of MDB2.
+
+Also the following changes were made in the process:
+- fixed index alteration in the Manager (bug #3710)
+- fixed bug in the Manager when upgrading a database that doesnt exist
+- moved logic to compareDefinitions from the Manager into the Datatype module
+- removed default_values property from the Manager
+  (the user will now need to set the proper defaults himself)
+- do not require that not null fields have a default set in the Manager (bug #3997)
+- use MDB2::raiseError() instead of MDB2_Driver_Common::raiseError()
+- cleanedup connect() method to ensure that only MDB2 connections can be
+  assigned to the db property
+- fixed bug in connect() method that prevented overwriting of options
+- several cleanups and fixes to the example.php (used to be called
+  reverse_engineer_xml_schema.php)
+- added apiVersion()
+- use PEAR::raiseError()
+    </notes>
+   </release>
+ </changelog>
+</package>

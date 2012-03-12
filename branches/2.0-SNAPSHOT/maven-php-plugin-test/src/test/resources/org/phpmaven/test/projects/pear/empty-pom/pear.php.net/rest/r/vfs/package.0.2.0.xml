@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.7.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>VFS</name>
+ <channel>pear.php.net</channel>
+ <summary>Virtual File System API</summary>
+ <description>This package provides a Virtual File System API, with backends for:
+
+* SQL
+* FTP
+* Local filesystems
+* Hybrid SQL and filesystem
+* Samba
+* SSH2/SFTP
+
+Reading, writing and listing of files are all supported, and there are both object-based and array-based interfaces to directory listings.</description>
+ <lead>
+  <name>Chuck Hagenbuch</name>
+  <user>chagenbu</user>
+  <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>yunosh</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2008-02-16</date>
+ <time>16:39:24</time>
+ <version>
+  <release>0.2.0</release>
+  <api>0.2.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>* Fix listing of folders with whitespace in the name using the SSH2 VFS driver (Horde Bug #6227).
+* Fix some string parsing on systems that don&apos;t have the &apos;en&apos; or &apos;en_US&apos; locales installed (Horde Bug #6194).
+* PHP 4.3.0+ is now required and we make unconditional use of file_get_contents().
+* Use strlen() instead of empty() to check for paths and filenames being set, to allow for potential names of 0 (zero).
+* Converted to package.xml 2.0.
+* Fix saving files in the root directory of an SQL backend.
+* Never generate paths with double slashes in them (//) (Horde Bug #5821)
+* Improve Netware FTP support (Horde Bug #5821)
+* Add read stream support to some backends (Horde Bug #5913)
+* Make the smb backend compatible with samba versions after samba-3.0.25-pre2 (felix.leimbach@gmx.net, Horde Bug #5931)</notes>
+ <contents>
+  <dir name="/">
+   <file md5sum="e38d1929da102a197d772b5ac1e151f5" name="data/VFS/muvfs.sql" role="data" />
+   <file md5sum="422ef802092307fda7cec05c4757425d" name="data/VFS/vfs.oci8.sql" role="data" />
+   <file md5sum="0213c3eb6d332296895e9bc17f62b1d4" name="data/VFS/vfs.pgsql.sql" role="data" />
+   <file md5sum="3ed1b630fddd512407436659b8526c77" name="data/VFS/vfs.sql" role="data" />
+   <file md5sum="91e39963fff1e266c01bd3a0590f6337" name="scripts/VFS/vfs.php" role="script">
+    <replace from="@php_bin@" to="php_bin" type="pear-config" />
+   </file>
+   <file md5sum="d73907e8f040dd81d6b26c9a1d5e6854" name="lib/VFS/Browser.php" role="php" />
+   <file md5sum="8cb9fb7ac172338ae30042f6c1030137" name="lib/VFS/file.php" role="php" />
+   <file md5sum="fdeb311713462ef9632838a29cbb5c41" name="lib/VFS/ftp.php" role="php" />
+   <file md5sum="341954e22ce566da65f84e2bcbc5f3f5" name="lib/VFS/GC.php" role="php" />
+   <file md5sum="abdc873aefcee6af2719a599317782f4" name="lib/VFS/horde.php" role="php" />
+   <file md5sum="8c0afabf409148425707a647a2d0e915" name="lib/VFS/ListItem.php" role="php" />
+   <file md5sum="381f0c2aa3ef2796b299abaea669b64b" name="lib/VFS/musql.php" role="php" />
+   <file md5sum="e952c32f8e8d2cbe92ff37640e2c5938" name="lib/VFS/Object.php" role="php" />
+   <file md5sum="5afb4021e2d6461ded60f614d081dfef" name="lib/VFS/smb.php" role="php" />
+   <file md5sum="52d223466ea968e76877e3be0f5e09bf" name="lib/VFS/sql.php" role="php" />
+   <file md5sum="4895fb107901018bf3c6f774b70e5061" name="lib/VFS/sql_file.php" role="php" />
+   <file md5sum="73a92120a63f24dd590072de23af74d1" name="lib/VFS/ssh2.php" role="php" />
+   <file md5sum="7b6977e73a18d44bc2e5538ef4c89a17" name="lib/VFS.php" role="php" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <package>
+    <name>Log</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <extension>
+    <name>gettext</name>
+   </extension>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="vfs" name="scripts/VFS/vfs.php" />
+   <install as="VFS/Browser.php" name="lib/VFS/Browser.php" />
+   <install as="VFS/file.php" name="lib/VFS/file.php" />
+   <install as="VFS/ftp.php" name="lib/VFS/ftp.php" />
+   <install as="VFS/GC.php" name="lib/VFS/GC.php" />
+   <install as="VFS/horde.php" name="lib/VFS/horde.php" />
+   <install as="VFS/ListItem.php" name="lib/VFS/ListItem.php" />
+   <install as="VFS/musql.php" name="lib/VFS/musql.php" />
+   <install as="VFS/Object.php" name="lib/VFS/Object.php" />
+   <install as="VFS/smb.php" name="lib/VFS/smb.php" />
+   <install as="VFS/sql.php" name="lib/VFS/sql.php" />
+   <install as="VFS/sql_file.php" name="lib/VFS/sql_file.php" />
+   <install as="VFS/ssh2.php" name="lib/VFS/ssh2.php" />
+   <install as="VFS.php" name="lib/VFS.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-04-12</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>* SQL drivers now return empty values if the particular parameter does not exist on the server (instead of &apos;-&apos;).
+* Add initial VFS quota support.
+* Fix autocreatePath() to work with directory paths that begin with the base directory.
+* Add &apos;maplocalids&apos; and &apos;timeout&apos; parameters to the FTP driver.
+* In SQL driver, allow &apos;/&apos; to indicate the base directory.
+* Fix return value of deleteFile() in File and SQLFile drivers (PEAR Bug #4425).
+* Fix listFolders() in File driver (PEAR Bug #4533).
+* Add size() and readByteRange(), with File and SQL implementations.
+* Add support for NetWare FTP server listings (Lukas Macura &lt;macura@opf.slu.cz&gt;).
+* Add support for separate read and write DB servers for the SQL driver.
+* Add copy() and move() fallback implementations for all drivers.
+* Add parameters to copy() and move() to automatically create destination directories.
+* Add SSH2/SFTP driver (Cliff Green &lt;green@umdnj.edu&gt;).
+* Let rename() automatically create the destination path.
+* Make sure copy/move doesn&apos;t result in infinite recursion (Horde Bug #3680).</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.5</release>
+    <api>0.0.5</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2005-04-07</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>* Fix typo that prevented the sql_file driver to load its parameters.
+* PHP 5 compatibility fixes.
+* Add &apos;pasv&apos; parameter for FTP driver.
+* Add writeData() method to sql_file driver.
+* Support ~/path when a &apos;home&apos; parameter is defined.
+* Add a CLI script for accessing and modifying VFS backends.
+* Added getCurrentDirectory() method.
+* phpdoc has been updated and should now generate correctly in all files.
+* Return error if trying to copy a file onto itself with the file driver (http://bugs.horde.org/ticket/?id=168).
+* Several bug fixes to listFolders() method in SQL drivers.
+* A PEAR Log object can now be specified for logging messages to.
+* Added getParam() method.
+* Allow recursive listings in listFolder().
+* Several fixes with zero length files.
+* Fixed autocreating of directories and updating of existing files in the sql_file VFS driver (http://bugs.horde.org/ticket/?id=1552, http://bugs.horde.org/ticket/?id=1553).
+* Added SQL scripts to create tables for SQL backends.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.4</release>
+    <api>0.0.4</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2003-09-09</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>* Default ftp driver to port 21.
+* Distinguish between connection and authentication errors in the ftp driver.
+* Clean up temporary files if the FTP driver wasn&apos;t able to retrieve a file.
+* Add exists() method.
+* Add emptyFolder() method.
+* Add $recursive parameter to all deleteFolder() implementations.
+* Add FTPS support.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.3</release>
+    <api>0.0.3</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2003-07-03</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Added a class for providing garbage collection; removed all Horde dependancies.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.2</release>
+    <api>0.0.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2002-10-22</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Added an ObjectVFS wrapper class, returns a ListItem on each call to listFolder, until no items are left.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2002-09-24</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>Initial release as a PEAR package</notes>
+  </release>
+ </changelog>
+</package>

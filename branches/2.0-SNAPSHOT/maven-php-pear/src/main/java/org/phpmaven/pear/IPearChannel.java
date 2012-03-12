@@ -137,6 +137,16 @@ public interface IPearChannel {
     String getRestUrl(String version);
     
     /**
+     * Initializes the local packages.
+     * 
+     * @param ignoreUnresolvablePackages true to ignore unresolvable packages.
+     * @param doNotReadInstalled true to not read local installed packages.
+     * 
+     * @throws PhpException thrown on php execution errors.
+     */
+    void initializePackages(boolean ignoreUnresolvablePackages, boolean doNotReadInstalled) throws PhpException;
+    
+    /**
      * Returns the known packages.
      * 
      * @return Iterable of the known packages.

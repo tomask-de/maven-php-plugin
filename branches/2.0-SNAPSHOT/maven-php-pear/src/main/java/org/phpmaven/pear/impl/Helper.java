@@ -35,7 +35,7 @@ import org.apache.http.util.EntityUtils;
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
-final class Helper {
+public final class Helper {
     
     /**
      * Hidden constructor.
@@ -51,12 +51,14 @@ final class Helper {
      * @return the files content.
      * @throws IOException thrown on errors.
      */
-    static String getTextFileContents(String channelName, String sub) throws IOException {
+    public static String getTextFileContents(String channelName, String sub) throws IOException {
         // is it inside the local filesystem?
         if (channelName.startsWith("file://")) {
             return getTextFileContents("file://" + new File(channelName.substring(7), sub).getAbsolutePath());
         }
-        return getTextFileContents("http://" + channelName + "/" + sub);
+        return getTextFileContents(channelName.startsWith("http://") ?
+                (channelName + "/" + sub) :
+                ("http://" + channelName + "/" + sub));
     }
     
     /**
@@ -65,7 +67,7 @@ final class Helper {
      * @return the files content.
      * @throws IOException thrown on errors.
      */
-    static String getTextFileContents(String uri) throws IOException {
+    public static String getTextFileContents(String uri) throws IOException {
         // is it inside the local filesystem?
         if (uri.startsWith("file://")) {
             final File channelFile = new File(uri.substring(7));

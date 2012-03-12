@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>PEAR_PackageFileManager</name>
+  <summary>PEAR_PackageFileManager takes an existing package.xml file and updates it with a new filelist and changelog</summary>
+  <description>This package revolutionizes the maintenance of PEAR packages.  With a few parameters,
+the entire package.xml is automatically updated with a listing of all files in a package.
+Features include
+ - reads in an existing package.xml file, and only changes the release/changelog
+ - a plugin system for retrieving files in a directory.  Currently two plugins
+   exist, one for standard recursive directory content listing, and one that
+   reads the CVS/Entries files and generates a file listing based on the contents
+   of a checked out CVS repository
+ - incredibly flexible options for assigning install roles to files/directories
+ - ability to ignore any file based on a * ? wildcard-enabled string(s)
+ - ability to include only files that match a * ? wildcard-enabled string(s)
+ - ability to manage dependencies
+ - can output the package.xml in any directory, and read in the package.xml
+   file from any directory.
+ - can specify a different name for the package.xml file
+ 
+As of version 1.2.0, PEAR_PackageFileManager is fully unit tested.</description>
+  <maintainers>
+    <maintainer>
+      <user>cellog</user>
+      <name>Greg Beaver</name>
+      <email>cellog@users.sourceforge.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.2.1</version>
+    <date>2004-04-27</date>
+    <license>PHP License</license>
+    <state>stable</state>
+    <notes>Fix bug 1217: file listing stops on files or directories named 0</notes>
+    <deps>
+      <dep type="pkg" rel="ge" version="1.1" optional="no">PEAR</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="PEAR" name="examples\createPhpDocumentor_package.xml.php"/>
+      <file role="php" baseinstalldir="PEAR" name="examples\generatePackage.xml.php"/>
+      <file role="php" baseinstalldir="PEAR" name="PackageFileManager\Cvs.php"/>
+      <file role="php" baseinstalldir="PEAR" name="PackageFileManager\File.php"/>
+      <file role="php" baseinstalldir="PEAR" name="PackageFileManager\XMLOutput.php"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\Bad_file.php"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\HTML_TestListener.php"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\PEAR_PackageFileManager_CVS_TestCase_dirList.php"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\PEAR_PackageFileManager_Cvs_TestCase_general.php"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\PEAR_PackageFileManager_File_TestCase_checkIgnore.php"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\PEAR_PackageFileManager_File_TestCase_dirList.php"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\PEAR_PackageFileManager_File_TestCase_getFileList.php"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\PEAR_PackageFileManager_File_TestCase_getRegExpableSearchString.php"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\PEAR_PackageFileManager_File_TestCase_setDir.php"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\PEAR_PackageFileManager_File_TestCase_setupDirs.php"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\PEAR_PackageFileManager_File_TestCase_setupIgnore.php"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\PEAR_PackageFileManager_TestCase_addConfigureOption.php"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\PEAR_PackageFileManager_TestCase_addDependency.php"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\PEAR_PackageFileManager_TestCase_addMaintainer.php"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\PEAR_PackageFileManager_TestCase_addReplacement.php"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\PEAR_PackageFileManager_TestCase_addRole.php"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\PEAR_PackageFileManager_TestCase_generateNewPackageXML.php"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\PEAR_PackageFileManager_TestCase_getExistingPackageXML.php"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\PEAR_PackageFileManager_TestCase_setOptions.php"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\PEAR_PackageFileManager_XMLOutput_TestCase_1.php"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\stylesheet.css"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\test1_package.xml"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\testsuite.php"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\TestUnit.php"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\Test_file.php"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\footest\.test"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\footest\test1.txt"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\footest\test2.txt"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\footest\blarfoo\blartest.txt"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\footest\subfoo\test11.txt"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\footest\subfoo\test12.txt"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\footest\subfoo\subsubfoo\boo.txt"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\footest\testCVS\testEntries"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\footest\testCVS\testEntries.Extra"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\test_bug1217\0"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\test_bug1217\firstfile.php"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\test_bug1217\fourthfile.php"/>
+      <file role="test" baseinstalldir="PEAR" name="tests\test_bug1217\secondfile.php"/>
+      <file role="php" baseinstalldir="PEAR" name="PackageFileManager.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.1</version>
+      <date>2003-07-21</date>
+      <license>PHP License</license>
+      <state>alpha</state>
+      <notes>First release of PEAR_PackageFileManager
+</notes>
+    </release>
+    <release>
+      <version>0.2</version>
+      <date>2003-07-21</date>
+      <license>PHP License</license>
+      <state>alpha</state>
+      <notes>Generation of package.xml from scratch is now supported.  In addition,
+generation of &lt;provides&gt; is supported and so is addition of
+maintainers and configure options
+
+- Fixed a bug in &lt;release&gt; generation
+- Added _addProvides() to generate a &lt;provides&gt; section
+</notes>
+    </release>
+    <release>
+      <version>0.3</version>
+      <date>2003-07-22</date>
+      <license>PHP License</license>
+      <state>alpha</state>
+      <notes>bugfix release
+
+- &lt;!DOCTYPE package SYSTEM &quot;http://pear.php.net/dtd/package-1.0&quot;&gt; is added
+  if it isn't present
+- fixed ignoring of license option
+- added documentation of the options
+- if package, summary or description are passed in the options,
+  they will overwrite the existing ones even if the package.xml
+  already exists
+- fixed progressive addition of newlines to changelog release notes
+  due to bug in the package.xml parser
+</notes>
+    </release>
+    <release>
+      <version>0.4</version>
+      <date>2003-07-23</date>
+      <license>PHP License</license>
+      <state>alpha</state>
+      <notes>Bugfix release
+
+- Fixed bug in testing of output
+- new option allows specifying the doctype,
+  default is &quot;http://pear.php.net/dtd/package-1.0&quot;
+</notes>
+    </release>
+    <release>
+      <version>0.5</version>
+      <date>2003-07-23</date>
+      <license>PHP License</license>
+      <state>alpha</state>
+      <notes>Bugfix release
+
+- Fixed bug in type=&quot;php&quot; dependency generation,
+- Fixed bug if the package.xml doesn't yet exist
+</notes>
+    </release>
+    <release>
+      <version>0.6</version>
+      <date>2003-07-23</date>
+      <license>PHP License</license>
+      <state>alpha</state>
+      <notes>Bugfix release
+
+- When reading in an existing package.xml, if a file
+  has been removed, several warnings were emitted by
+  PEAR_Common attempting to examine the source of a
+  non-existent file
+- Fixed warning if release notes were empty in a
+  previous changelog
+</notes>
+    </release>
+    <release>
+      <version>0.7</version>
+      <date>2003-07-23</date>
+      <license>PHP License</license>
+      <state>alpha</state>
+      <notes>Bugfix release
+
+- Fixed bug in CVS reading, if files have been added/removed
+  but not yet committed, it would try to add them to the package.xml
+</notes>
+    </release>
+    <release>
+      <version>0.8</version>
+      <date>2003-07-23</date>
+      <license>PHP License</license>
+      <state>alpha</state>
+      <notes>Bugfix release
+
+- Fixed bug in ignore, ignoring an explicit full path with
+  or without wildcards would not work
+</notes>
+    </release>
+    <release>
+      <version>0.9</version>
+      <date>2003-07-24</date>
+      <license>PHP License</license>
+      <state>alpha</state>
+      <notes>Bugfix release
+
+- Fixed bug in reading a package.xml with no changelog entry, it now
+  auto-generates a changelog entry from the existing &lt;release&gt; tag if
+  there never was a changelog
+</notes>
+    </release>
+    <release>
+      <version>0.10</version>
+      <date>2003-07-25</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>With the release of 0.10, PEAR_PackageFileManager is
+essentially feature-complete.  It handles all possible package.xml settings
+for PEAR, and is extensible through the 'pearcommonclass' option
+
+- changed to using strnatcasecmp for version numbers
+  in the search through ChangeLog, so 0.10 &gt; 0.1
+- added md5sum attribute to filelist
+- added use of PEAR_Common::validatePackage() to catch odd
+  errors
+- fixed incorrect handling of PEAR_Error in File::getFileList()
+- added handling of filelist platform attribute
+- added handling of filelist install-as attribute
+- added handling of filelist replacements options
+</notes>
+    </release>
+    <release>
+      <version>0.11</version>
+      <date>2003-07-25</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>Bugfix release
+
+- exceptions option should be matching relative path of a file, not just the filename
+- exceptions were ignored if dir_roles was specified for the directory containing the file
+- fixed documentation error
+- added validation of file role
+- fixed directory role so that it checks values passed in before using the parent
+  directory's role
+- removed stupid use of eval, replaced with call_user_func
+- added new complex example that uses almost every option
+</notes>
+    </release>
+    <release>
+      <version>0.12</version>
+      <date>2003-07-28</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>Bugfix release
+
+- added fix, if no existing changelog for current package.xml,
+  but has old changelog, a new one is auto-generated from the release.
+- added new switch to specify order of changelog entries
+  &quot;changelogoldtonew&quot; default true.  Set to false to have the
+  newest entry listed first
+</notes>
+    </release>
+    <release>
+      <version>0.13</version>
+      <date>2003-08-02</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>Bugfix release
+
+- add warning if you attempt to add a dependency on PHP as a package
+- switched to usage of PEAR_Common::getUserRoles()
+
+- added optional dependency support
+- added script phase support (unimplemented in PEAR)
+</notes>
+    </release>
+    <release>
+      <version>0.14</version>
+      <date>2003-08-04</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>Bugfix release
+
+- fix warning if you attempt to add a dependency on PHP as a package
+</notes>
+    </release>
+    <release>
+      <version>0.15</version>
+      <date>2003-08-06</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>Bugfix release
+
+- erroneous blank &lt;release&gt; tag in changelog for generation of a new
+package.xml
+</notes>
+    </release>
+    <release>
+      <version>1.0</version>
+      <date>2003-08-21</date>
+      <license>PHP License</license>
+      <state>stable</state>
+      <notes>First stable release
+
+No changes from 0.15
+</notes>
+    </release>
+    <release>
+      <version>1.1.0</version>
+      <date>2003-12-11</date>
+      <license>PHP License</license>
+      <state>stable</state>
+      <notes>unit-tested with 1 new feature: include
+
+- fixed #8: notices if a package has no dependencies
+- fixed #261: package.xml files shouldn't be included in the package file list
+- fixed #155: warning emitted if CVS/ is packaged
+- fixed #260: .cvsignore files should be excluded from package file lists
+- new feature, &quot;include&quot; option.  This works just like &quot;ignore&quot; except it
+  excludes all files that do not match the names passed in.  &quot;ignore&quot; includes
+  only files that do not match the names passed in.  Suggested by Stan Lemon
+</notes>
+    </release>
+    <release>
+      <version>1.2.0</version>
+      <date>2004-02-07</date>
+      <license>PHP License</license>
+      <state>stable</state>
+      <notes>*fully* unit-tested with 2 new features: simpleoutput and addhiddenfiles
+
+- new feature, &quot;simpleoutput&quot; option.  This eliminates output of
+  md5sum and provides tags for readability, and outputs &lt;dir&gt; tags.
+- each &lt;/dir&gt; close tag has a &lt;!-- comment --&gt; containing the full
+  directory name that was concluded
+- new feature, &quot;addhiddenfiles&quot; option.  This allows addition of
+  files that begin with . like .bashrc
+</notes>
+    </release>
+    <release>
+      <version>1.2.1</version>
+      <date>2004-04-27</date>
+      <license>PHP License</license>
+      <state>stable</state>
+      <notes>Fix bug 1217: file listing stops on files or directories named 0
+</notes>
+    </release>
+  </changelog>
+</package>

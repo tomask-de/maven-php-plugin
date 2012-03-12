@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release2
+    http://pear.php.net/dtd/rest.release2.xsd">
+ <p xlink:href="/rest/p/db">DB</p>
+ <c>pear.php.net</c>
+ <v>1.6.0RC4</v>
+ <a>1.6.0RC4</a>
+ <mp>4.3.0</mp>
+ <st>beta</st>
+ <l>PHP License</l>
+ <m>danielc</m>
+ <s>Database Abstraction Layer</s>
+ <d>DB is a database abstraction layer providing:
+* an OO-style query API
+* a DSN (data source name) format for specifying
+   database servers
+* prepare/execute (bind) emulation for databases
+   that don't support it natively
+* a result object for each query response
+* portable error codes
+* sequence emulation
+* sequential and non-sequential row fetching as well
+   as bulk fetching
+* ordered array, associative array and object
+   formats supported for the fetched rows
+* row limit support
+* transactions support
+* table information interface
+* DocBook and PHPDoc API documentation
+* Compatible with PHP 4 and PHP 5
+
+DB layers itself on top of PHP's existing database
+extensions.  The currently supported extensions are:
+dbase, fbsql, interbase, informix, msql, mssql, mysql,
+mysqli, oci8, odbc, pgsql, sqlite and sybase (DB style
+interfaces to LDAP servers and MS ADO (using COM)
+are also avaible from a separate package).
+</d>
+ <da>2004-02-04 01:56:54</da>
+ <n>=============
+ENHANCEMENTS:
+
+Speed up getAll() a tad.  (danielc)
+
+
+=============
+BUGS FIXED:
+
+-mysql4
+Change exentsion check from mysql to mysqli.
+(chagenbu)
+
+All normal $dsninfo array elements are now set in
+parseDSN(), eliminating the need to check them in
+each driver's connect() method.  This also eliminates
+a bug introduced in 1.6.0RC3 which caused
+&quot;undefined index&quot; notices when using an
+array for the DSN when connecting.  (danielc, chagenbu)
+
+All methods that return by reference always return
+a variable.  This avoids memory corruption in PHP 4.
+This has been gradually implemented during all of the
+1.6.0 RC's up to this point.  Bug 361.  (danielc)
+
+15quote test now works correctly for boolean types.
+(danielc)</n>
+ <f>87788</f>
+ <g>http://pear.php.net/get/DB-1.6.0RC4</g>
+ <x xlink:href="package.1.6.0RC4.xml"/>
+</r>

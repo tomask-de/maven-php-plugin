@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.0b1">
+ <name>Image_Color</name>
+ <summary>Manage and handles color data and conversions.</summary>
+ <description>Manage and handles color data and conversions.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>drewish</user>
+   <name>Andrew Morton</name>
+   <email>drewish@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>jasonlotito</user>
+   <name>Jason Lotito</name>
+   <email>jason@lehighweb.com</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>uw</user>
+   <name>Ulf Wendel</name>
+   <email>ulf.wendel@phpdoc.de</email>
+   <role>developer</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>1.0.2</version>
+  <date>2005-09-12</date>
+  <license>PHP License</license>
+  <state>stable</state>
+  <notes>* FIXED: percentageColor2RGB() was dropping first character of each number
+  instead of the percent sign at the end.
+* FIXED: mixColors() and percentageColor2RGB() weren't rounding the values
+  correctly. 50% of 255 is 127.5 and should round to 128 instead of 127.
+* FIXED: setColors(). If the second parameter was omitted it would take on a
+  random-ish value. I changed the implementation of so that colors are only set
+  when they're provided.
+* FIXED: _makeWebSafe() was rounding values incorrectly. Significantly
+  simplified the implementation in the process.
+* Removed the private, unused Image_Color::$websafe member.
+* Marked Image_Color::$color1 and $color2 as public. It made no sense that they
+  were private considering that if you called changeLightness() the only way to
+  find the result was using $color1 and $color2.
+* Deprecated the _returnColor() function. All it was doing was converting RGB
+  arrays to hex strings. The more aptly named rgb2hex() was calling
+  _returnColor() which made no sense. _returnColor() now calls rgb2hex() and
+  will probably disappear after the next release.
+* Made major improvements to the comments and documentation and corrected
+  several violations of the PEAR coding standards.
+  </notes>
+  <deps>
+   <dep type="ext" rel="has">gd</dep>
+  </deps>
+  <provides type="class" name="Image_Color" />
+  <provides type="function" name="Image_Color::mixColors" />
+  <provides type="function" name="Image_Color::setWebSafe" />
+  <provides type="function" name="Image_Color::setColors" />
+  <provides type="function" name="Image_Color::getRange" />
+  <provides type="function" name="Image_Color::changeLightness" />
+  <provides type="function" name="Image_Color::getTextColor" />
+  <provides type="function" name="Image_Color::rgb2hex" />
+  <provides type="function" name="Image_Color::hex2rgb" />
+  <provides type="function" name="Image_Color::hsv2rgb" />
+  <provides type="function" name="Image_Color::hsv2hex" />
+  <provides type="function" name="Image_Color::allocateColor" />
+  <provides type="function" name="Image_Color::color2RGB" />
+  <provides type="function" name="Image_Color::namedColor2RGB" />
+  <provides type="function" name="Image_Color::percentageColor2RGB" />
+  <filelist>
+   <file role="php" baseinstalldir="Image" md5sum="0a3867be550124574f04ac7142f54059" name="Color.php"/>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>1.0.1</version>
+    <date>2004-05-25</date>
+    <state>stable</state>
+    <notes>* Removed newline at end of file.
+    </notes>
+   </release>
+   <release>
+    <version>1.0.0</version>
+    <date>2004-04-17</date>
+    <notes>+ Added color2RGB() method.
+
+  (Contribution by Laurent Laville &lt;pear@laurent-laville.org&gt;)
+
+* allocateColor() now works with both color names and
+  hex color codes.
+    </notes>
+   </release>
+   <release>
+    <version>0.4</version>
+    <date>2003-01-02</date>
+    <notes>* Made namedColor2RGB() method static.
+    </notes>
+   </release>
+   <release>
+    <version>0.3</version>
+    <date>2002-04-08</date>
+    <notes>* First independent PEAR release.
+
+* Renamed RGB(.php) to Color(.php).
+
+* Merged in functionality from Experimental/Color_Helper.
+    </notes>
+   </release>
+   <release>
+    <version>0.2</version>
+    <date>2002-03-14</date>
+    <notes>Added support for HSV2RGB and HSV2HEX - Thanks to Jurgen Schwietering
+    </notes>
+   </release>
+ </changelog>
+</package>

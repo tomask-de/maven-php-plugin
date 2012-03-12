@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>HTML_Progress2</name>
+  <summary>How to include a loading bar in your XHTML documents quickly and easily.</summary>
+  <description>This package provides a way to add a loading bar fully customizable in existing XHTML documents.
+Your browser should accept DHTML feature.
+
+Features:
+- create horizontal, vertival bar and also circle, ellipse and polygons (square, rectangle).
+- allows usage of existing external StyleSheet and/or JavaScript.
+- all elements (progress, cells, labels) are customizable by their html properties.
+- percent/labels are floating all around the progress meter.
+- compliant with all CSS/XHMTL standards.
+- integration with all template engines is very easy.
+- implements Observer design pattern. It is possible to add Listeners.
+- adds a customizable monitor pattern to display a progress bar.
+  User-end can abort progress at any time.
+- allows many progress meter on same page without uses of iframe solution.
+- error handling system that support native PEAR_Error, but also PEAR_ErrorStack, and
+  any other system you might want to plug-in.
+- PHP 5 ready.</description>
+  <maintainers>
+    <maintainer>
+      <user>farell</user>
+      <name>Laurent Laville</name>
+      <email>pear@laurent-laville.org</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>2.0.0RC2</version>
+    <date>2005-08-01</date>
+    <license>PHP License 3.0</license>
+    <state>beta</state>
+    <notes>---
+  i will open another one month timeframe until stable release, or if a bug is found
+  until third release candidate.
+  Please, test it as much as possible, and report all you think important.
+---
+
+* bugs
+- fixed Monitor stops before end when setMaximum is set to value higher than 200 (bug #4885)
+  Thanks to Roman Stachura.
+
+* changes
+- observer pattern is now built with Event_Dispatcher package
+- removes all HTML_CSS dependencies
+- getStyle() and getScript() optimized now when its request the html stream generation
+  (raw data only or data with script tags)
+
+* improvements
+- generation of stylesheet is (average) 20 times faster without HTML_CSS
+
+* QA
+- dependencies has been revisited to higher level
+- all Examples are now back into main package. No more additional package.
+- Fix wrong project links into documentation (README, ReleaseVersion)
+  Thanks to Christian Roy to have noticed me.</notes>
+    <deps>
+      <dep type="php" rel="ge" version="4.2.0" optional="no"/>
+      <dep type="pkg" rel="ge" version="1.4.1" optional="no">PHP_Compat</dep>
+      <dep type="pkg" rel="ge" version="1.2.1" optional="no">HTML_Common</dep>
+      <dep type="pkg" rel="ge" version="0.9.1" optional="no">Event_Dispatcher</dep>
+      <dep type="pkg" rel="ge" version="1.3.5" optional="yes">PEAR</dep>
+      <dep type="pkg" rel="gt" version="3.2.4" optional="yes">HTML_QuickForm</dep>
+      <dep type="pkg" rel="ge" version="1.0.4" optional="yes">HTML_QuickForm_Controller</dep>
+      <dep type="pkg" rel="ge" version="1.0.1" optional="yes">Image_Color</dep>
+      <dep type="pkg" rel="ge" version="0.5.0" optional="yes">HTML_Page2</dep>
+      <dep type="pkg" rel="ge" version="1.1" optional="yes">HTML_Template_IT</dep>
+      <dep type="pkg" rel="ge" version="1.1.2" optional="yes">HTML_Template_Sigma</dep>
+      <dep type="pkg" rel="ge" version="1.8.7" optional="yes">Log</dep>
+      <dep type="ext" rel="has" optional="yes">gd</dep>
+    </deps>
+    <provides type="class" name="HTML_Progress2_Error" extends="PEAR_Error" />
+    <provides type="function" name="HTML_Progress2_Error::getLevel" />
+    <provides type="function" name="HTML_Progress2_Error::log" />
+    <provides type="function" name="HTML_Progress2_Error::sprintContextExec" />
+    <provides type="class" name="HTML_Progress2_Generator" extends="HTML_QuickForm_Controller" />
+    <provides type="function" name="HTML_Progress2_Generator::createTabs" />
+    <provides type="function" name="HTML_Progress2_Generator::createButtons" />
+    <provides type="function" name="HTML_Progress2_Generator::enableButton" />
+    <provides type="function" name="HTML_Progress2_Generator::disableButton" />
+    <provides type="function" name="HTML_Progress2_Generator::createProgressBar" />
+    <provides type="function" name="HTML_Progress2_Generator::createProgressStructure" />
+    <provides type="class" name="HTML_Progress2_Monitor" />
+    <provides type="function" name="HTML_Progress2_Monitor::addListener" />
+    <provides type="function" name="HTML_Progress2_Monitor::removeListener" />
+    <provides type="function" name="HTML_Progress2_Monitor::isStarted" />
+    <provides type="function" name="HTML_Progress2_Monitor::isCanceled" />
+    <provides type="function" name="HTML_Progress2_Monitor::run" />
+    <provides type="function" name="HTML_Progress2_Monitor::setProgressElement" />
+    <provides type="function" name="HTML_Progress2_Monitor::getProgressElement" />
+    <provides type="function" name="HTML_Progress2_Monitor::getStyle" />
+    <provides type="function" name="HTML_Progress2_Monitor::getScript" />
+    <provides type="function" name="HTML_Progress2_Monitor::toHtml" />
+    <provides type="class" name="ActionDisplay" extends="HTML_QuickForm_Action_Display" />
+    <provides type="class" name="Property1" extends="HTML_QuickForm_Page" />
+    <provides type="class" name="Property2" extends="HTML_QuickForm_Page" />
+    <provides type="class" name="Property3" extends="HTML_QuickForm_Page" />
+    <provides type="class" name="Property4" extends="HTML_QuickForm_Page" />
+    <provides type="class" name="Preview" extends="HTML_QuickForm_Page" />
+    <provides type="class" name="Save" extends="HTML_QuickForm_Page" />
+    <provides type="function" name="Property1::buildForm" />
+    <provides type="function" name="Property2::buildForm" />
+    <provides type="function" name="Property3::buildForm" />
+    <provides type="function" name="Property4::buildForm" />
+    <provides type="function" name="Preview::buildForm" />
+    <provides type="function" name="Save::buildForm" />
+    <provides type="class" name="ActionPreview" extends="HTML_QuickForm_Action" />
+    <provides type="function" name="ActionPreview::perform" />
+    <provides type="class" name="ActionProcess" extends="HTML_QuickForm_Action" />
+    <provides type="function" name="ActionProcess::perform" />
+    <provides type="function" name="ActionProcess::sprintCSS" />
+    <provides type="function" name="ActionProcess::sprintPHP" />
+    <provides type="function" name="ActionProcess::exportOutput" />
+    <provides type="class" name="HTML_Progress2" extends="HTML_Common" />
+    <provides type="function" name="HTML_Progress2::apiVersion" />
+    <provides type="function" name="HTML_Progress2::isIndeterminate" />
+    <provides type="function" name="HTML_Progress2::setIndeterminate" />
+    <provides type="function" name="HTML_Progress2::isBorderPainted" />
+    <provides type="function" name="HTML_Progress2::setBorderPainted" />
+    <provides type="function" name="HTML_Progress2::getMinimum" />
+    <provides type="function" name="HTML_Progress2::setMinimum" />
+    <provides type="function" name="HTML_Progress2::getMaximum" />
+    <provides type="function" name="HTML_Progress2::setMaximum" />
+    <provides type="function" name="HTML_Progress2::getIncrement" />
+    <provides type="function" name="HTML_Progress2::setIncrement" />
+    <provides type="function" name="HTML_Progress2::getValue" />
+    <provides type="function" name="HTML_Progress2::setValue" />
+    <provides type="function" name="HTML_Progress2::incValue" />
+    <provides type="function" name="HTML_Progress2::moveStep" />
+    <provides type="function" name="HTML_Progress2::moveNext" />
+    <provides type="function" name="HTML_Progress2::getPercentComplete" />
+    <provides type="function" name="HTML_Progress2::getOrientation" />
+    <provides type="function" name="HTML_Progress2::setOrientation" />
+    <provides type="function" name="HTML_Progress2::getFillWay" />
+    <provides type="function" name="HTML_Progress2::setFillWay" />
+    <provides type="function" name="HTML_Progress2::getCellCount" />
+    <provides type="function" name="HTML_Progress2::setCellCount" />
+    <provides type="function" name="HTML_Progress2::getCellAttributes" />
+    <provides type="function" name="HTML_Progress2::setCellAttributes" />
+    <provides type="function" name="HTML_Progress2::getCellCoordinates" />
+    <provides type="function" name="HTML_Progress2::setCellCoordinates" />
+    <provides type="function" name="HTML_Progress2::getBorderAttributes" />
+    <provides type="function" name="HTML_Progress2::setBorderAttributes" />
+    <provides type="function" name="HTML_Progress2::getFrameAttributes" />
+    <provides type="function" name="HTML_Progress2::setFrameAttributes" />
+    <provides type="function" name="HTML_Progress2::getLabelAttributes" />
+    <provides type="class" name="HTML_Progress2_Lite" />
+    <provides type="function" name="ob_get_clean" />
+    <filelist>
+      <file role="doc" baseinstalldir="HTML" md5sum="a864a469ad0898bb5ab509790678083c" name="docs/errorHandlerGuide.txt"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="10a44dde22dfe9ed092914e0525f6ec1" name="docs/gettingStartedGuide.txt"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="941f1e634c105d4747328fb58a60fe96" name="docs/migrationGuide.txt"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="614ff746d69d272ada8d68660f614eb6" name="docs/progress2LiteGuide.txt"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="69b40b8890ac48fbeb64c01f2ca06f3b" name="examples/circle/circle.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="8032908c2e374c8befd94643915dc1b8" name="examples/circle/ellipse.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="d203da1823d9eaf54e22d9cb33949e24" name="examples/errorhandling/errorbasic.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="3cfba228aa8f8d5958cfb8ab8cffe5f0" name="examples/errorhandling/errorcustom.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="b4468b0f37c0cc0ccf6757862b8d1cc8" name="examples/errorhandling/errorignore.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="cf9fe615069c021c32452f1d493aeecb" name="examples/errorhandling/errorlogger.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="439a77fbfbc50fc00efa53e8313c9aeb" name="examples/errorhandling/errorstackcustom.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="37a6e91b43000130dff230bf1fd7e51e" name="examples/errorhandling/errorstackignore.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="8bc2cddc919e7f75e40d2de579fa954c" name="examples/errorhandling/errorstacklogger.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="772ae9f3a389f7a12aedafaa5a181a04" name="examples/generator/generatorcus.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="972d500e332816ac7809449c9b4a02e4" name="examples/generator/generatordef.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="21d7120b3855d7a7d1b4e92174f375f8" name="examples/generator/itdynamic.html"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="ebba1a76e4df5c37a8f93d4370e1e5b2" name="examples/horizontal/ancestor.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="28d62d39319b968b8456426370a8f56f" name="examples/horizontal/bgimages.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="7ad05830a65abc8621b9e315bdae1ec2" name="examples/horizontal/bluesand.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="939be38a27765c0601c67b0762983f12" name="examples/horizontal/bullit.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="99f3b5b8f7483a21ed8d8571314e1798" name="examples/horizontal/download.gif"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="8f968931312f610875b99d9fde002699" name="examples/horizontal/javadanse.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="203aaf5960814ce11acc36ef09d030cb" name="examples/horizontal/nostring.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="e32fbc25fe2c1eb3b0fd2b7a47db119f" name="examples/horizontal/progress2_number.js"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="421ec649a2180be4727eb6a4c804e712" name="examples/horizontal/userstring.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="fd3067be8feebf10cb02bcc7ca7941ee" name="examples/indeterminate/half.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="4880406b679f2258b4c002173a03130f" name="examples/indeterminate/monitor.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="ed5d4c242e2f4459f2fee0774ce9f621" name="examples/label/mixed.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="6f51619060f07bc74fd636f1c64b341b" name="examples/label/percent1.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="3886bea9d386950297df5053235773f3" name="examples/label/percent2.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="0af22f3332592f7600ab07c2ae5263e5" name="examples/label/text1.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="e7aae14253a77ea025c258d096c9565b" name="examples/label/text2.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="36bc708c9d175ea3954c377077bed6fd" name="examples/label/windowstyle.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="ddfb9bbd56036fef7454547ef3c23b7b" name="examples/lite/liteall.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="142149f00ccb58786f9aca8351ffc462" name="examples/lite/litebasic.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="2c9952e213209e98bd245bf229f9333e" name="examples/lite/mailer2.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="9d2b5aaabf2e63d05c9e353e8513dfbd" name="examples/lite/windowstyle2.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="efb307808ef536aa624296ffeeee3227" name="examples/monitor/itdynamic.html"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="2af064c07b58ab84d97e003fa23414a5" name="examples/monitor/monitorcus.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="f075a6e656f2d45a14c9c59850c70370" name="examples/monitor/monitordef.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="60315f68342ad892cee80f6d7e8dcdfe" name="examples/monitor/monitordyn.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="96022c75da350067e5e5351c4296ca27" name="examples/monitor/monitorlog.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="df0ca6b19de3cee2446f7e008db4e3d2" name="examples/monitor/monitorpg2.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="e9b895bfb5e050a69b9a4839441635fa" name="examples/multiple/mixed.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="7eb5554191dab3054f07e8baf226e9b5" name="examples/multiple/vertical.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="459743389294ccde7f7d6138fd31a326" name="examples/observer/observer1.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="cb63cf29217702bd040da0368b67a853" name="examples/observer/observer2.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="e551856a03b21ea7f954e00aaa63bff3" name="examples/polygonal/rectangle.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="bc2938e45782a1a6dfb7fcf6a784fdd6" name="examples/polygonal/square.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="9c15a15b93da4fdd11e2bb0d507d11fe" name="examples/polygonal/squareback.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="33723d448d9f0c4a5d8011f79e549ba3" name="examples/preload/hidden.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="aea8226b3b29c9bb033fd885b9ed97e7" name="examples/preload/mailer1.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="5f341cbf1a8ae533d137fccb844717e1" name="examples/preload/swf.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="375f1ee898ce636a52cacc94631fb6a6" name="examples/template/cross.png"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="73990e1c0db36759ab310b0198f143be" name="examples/template/itxstatic.html"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="c69e4008e9c5d063ff18251c62adc86a" name="examples/template/itxstatic.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="a443fabc9611ad9def5d1a70f8b2b0f0" name="examples/template/wizard.png"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="ca05a305816929de498c72bba6c1006a" name="examples/vertical/vlimit.php"/>
+      <file role="php" baseinstalldir="HTML" md5sum="f88c32e7e2c14e96b38a4f55d7192f9b" name="Progress2/Error.php">
+        <replace type="package-info" from="@package_version@" to="version"/>
+      </file>
+      <file role="php" baseinstalldir="HTML" md5sum="0fe9502c217894511815bf2fbdf447eb" name="Progress2/Generator.php">
+        <replace type="package-info" from="@package_version@" to="version"/>
+      </file>
+      <file role="php" baseinstalldir="HTML" md5sum="ea9e3dea48b2523cc85e0b1491d0726b" name="Progress2/Monitor.php">
+        <replace type="package-info" from="@package_version@" to="version"/>
+      </file>
+      <file role="php" baseinstalldir="HTML" md5sum="295694dc985fe3b0011be19f0dbcac3f" name="Progress2/Generator/Default.php">
+        <replace type="package-info" from="@package_version@" to="version"/>
+      </file>
+      <file role="php" baseinstalldir="HTML" md5sum="3c7407b4b2d74958363faae2810de146" name="Progress2/Generator/HTMLPage2.php">
+        <replace type="package-info" from="@package_version@" to="version"/>
+      </file>
+      <file role="php" baseinstalldir="HTML" md5sum="ce218bed5b945ace5786cc2d0b63be69" name="Progress2/Generator/ITDynamic.php">
+        <replace type="package-info" from="@package_version@" to="version"/>
+      </file>
+      <file role="php" baseinstalldir="HTML" md5sum="0d47389a5100d980dcf31e147a3d3365" name="Progress2/Generator/pages.php">
+        <replace type="package-info" from="@package_version@" to="version"/>
+      </file>
+      <file role="php" baseinstalldir="HTML" md5sum="9a898b33b9daa0b8e5698e9cbb3a28bb" name="Progress2/Generator/Preview.php">
+        <replace type="package-info" from="@package_version@" to="version"/>
+      </file>
+      <file role="php" baseinstalldir="HTML" md5sum="0936ce0c7b258119b3b3db35e9313158" name="Progress2/Generator/Process.php">
+        <replace type="package-info" from="@package_version@" to="version"/>
+      </file>
+      <file role="php" baseinstalldir="HTML" md5sum="e30bd16dcfe798ac3816dc61c3745ece" name="Progress2/Generator/SmartyDynamic.php">
+        <replace type="package-info" from="@package_version@" to="version"/>
+      </file>
+      <file role="test" baseinstalldir="HTML" md5sum="8c8534d0c3b40b24f93421ca5829e22e" name="tests/HTML_Progress2_Bug28.php"/>
+      <file role="test" baseinstalldir="HTML" md5sum="f61fa87bbff7a513cc782753d534c151" name="tests/HTML_Progress2_TestCase_addLabel.php"/>
+      <file role="test" baseinstalldir="HTML" md5sum="ce32de46dd4c42edc2ea050462ac64ac" name="tests/HTML_Progress2_TestCase_addListener.php"/>
+      <file role="test" baseinstalldir="HTML" md5sum="00192c45d0657b4486c64dc41642689a" name="tests/HTML_Progress2_TestCase_drawCircleSegments.php"/>
+      <file role="test" baseinstalldir="HTML" md5sum="1f6eb67f68db35c06a86ff78dba8cddb" name="tests/HTML_Progress2_TestCase_getBorderAttributes.php"/>
+      <file role="test" baseinstalldir="HTML" md5sum="6b76d7a3b5603e29ee9353c984c4992f" name="tests/HTML_Progress2_TestCase_getCellAttributes.php"/>
+      <file role="test" baseinstalldir="HTML" md5sum="86bc72dd2612d531eaa0be462d707ad4" name="tests/HTML_Progress2_TestCase_getFrameAttributes.php"/>
+      <file role="test" baseinstalldir="HTML" md5sum="ce7265b501c10c6da8040cd29b010462" name="tests/HTML_Progress2_TestCase_getLabelAttributes.php"/>
+      <file role="test" baseinstalldir="HTML" md5sum="a15c5289a99caafed352fea253b791eb" name="tests/HTML_Progress2_TestCase_getPercentComplete.php"/>
+      <file role="test" baseinstalldir="HTML" md5sum="e2918f877beda875d004ad840deea4be" name="tests/HTML_Progress2_TestCase_getProgressAttributes.php"/>
+      <file role="test" baseinstalldir="HTML" md5sum="b30fb5b8d6d7ffcad7a055864a488edd" name="tests/HTML_Progress2_TestCase_moveStep.php"/>
+      <file role="test" baseinstalldir="HTML" md5sum="f08487bf385989854dbe12a66a6a7e9a" name="tests/HTML_Progress2_TestCase_removeLabel.php"/>
+      <file role="test" baseinstalldir="HTML" md5sum="53f9b483955e19d6704048ad6ba1bb89" name="tests/HTML_Progress2_TestCase_removeListener.php"/>
+      <file role="test" baseinstalldir="HTML" md5sum="2c56b1e13082da6e5cfe5dfe4c448292" name="tests/HTML_Progress2_TestCase_setAnimSpeed.php"/>
+      <file role="test" baseinstalldir="HTML" md5sum="7550bede13bc9f4f3720c8be7aee6934" name="tests/HTML_Progress2_TestCase_setBorderPainted.php"/>
+      <file role="test" baseinstalldir="HTML" md5sum="df6d59ddf8cf9bdd7c7b730771b74989" name="tests/HTML_Progress2_TestCase_setCellAttributes.php"/>
+      <file role="test" baseinstalldir="HTML" md5sum="ab3ef84b442f831f53646fd98f36fd4e" name="tests/HTML_Progress2_TestCase_setCellCoordinates.php"/>
+      <file role="test" baseinstalldir="HTML" md5sum="e29943f22dcac5e194fc7ac783802015" name="tests/HTML_Progress2_TestCase_setCellCount.php"/>
+      <file role="test" baseinstalldir="HTML" md5sum="004dc5b320ad1a4a1be3bc7a135f634d" name="tests/HTML_Progress2_TestCase_setFillWay.php"/>
+      <file role="test" baseinstalldir="HTML" md5sum="0b2b1830f7489281f93d01954c37e5ab" name="tests/HTML_Progress2_TestCase_setFrameAttributes.php"/>
+      <file role="test" baseinstalldir="HTML" md5sum="9e96c3ed90f0571effb1b50ece3328cf" name="tests/HTML_Progress2_TestCase_setIncrement.php"/>
+      <file role="test" baseinstalldir="HTML" md5sum="c019a41c24d4d02e31f35c993899fbc5" name="tests/HTML_Progress2_TestCase_setIndeterminate.php"/>
+      <file role="test" baseinstalldir="HTML" md5sum="d3444313856ed9cca3d2240e324cf1ae" name="tests/HTML_Progress2_TestCase_setLabelAttributes.php"/>
+      <file role="test" baseinstalldir="HTML" md5sum="db0ac26035dc93c7ff9261b442e2796f" name="tests/HTML_Progress2_TestCase_setMaximum.php"/>
+      <file role="test" baseinstalldir="HTML" md5sum="4c9467a3026f42e2a73f0d3cec4d040f" name="tests/HTML_Progress2_TestCase_setMinimum.php"/>
+      <file role="test" baseinstalldir="HTML" md5sum="f4772fe2ae05b2840cbc8b338c4061b7" name="tests/HTML_Progress2_TestCase_setOrientation.php"/>
+      <file role="test" baseinstalldir="HTML" md5sum="021078de6e271d8cd4ae6219b969f258" name="tests/HTML_Progress2_TestCase_setProgressHandler.php"/>
+      <file role="test" baseinstalldir="HTML" md5sum="530ce70b1b4bd86c0224984037e10345" name="tests/HTML_Progress2_TestCase_setScript.php"/>
+      <file role="test" baseinstalldir="HTML" md5sum="5987bc88294ac9b842e2a0be2f947ada" name="tests/HTML_Progress2_TestCase_setString.php"/>
+      <file role="test" baseinstalldir="HTML" md5sum="bec9123a5f80871f70ababdf852b8768" name="tests/HTML_Progress2_TestCase_setValue.php"/>
+      <file role="test" baseinstalldir="HTML" md5sum="bac69c107f14750f9ce17469242c6fa4" name="tests/HTML_TestListener.php"/>
+      <file role="test" baseinstalldir="HTML" md5sum="fcc6f34ae686e4debff16bb696088a4f" name="tests/index.php"/>
+      <file role="test" baseinstalldir="HTML" md5sum="e8b32903d1632ef61e17150d5b0937e3" name="tests/progress2.js"/>
+      <file role="test" baseinstalldir="HTML" md5sum="9b4ce60cb54673e5cef00305a8cb90f7" name="tests/styles.css"/>
+      <file role="test" baseinstalldir="HTML" md5sum="7d7f90f72e6b5153869540275cefd0c0" name="tests/TestUnit.php"/>
+      <file role="php" baseinstalldir="HTML" md5sum="6a0c942bc0daee609c808ae55acc9bb4" name="Progress2.php">
+        <replace type="package-info" from="@package_version@" to="version"/>
+      </file>
+      <file role="php" baseinstalldir="HTML" md5sum="1bd3fe3c227b1ac361585b82adab93c6" name="Progress2_Lite.php">
+        <replace type="package-info" from="@package_version@" to="version"/>
+      </file>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>2.0.0RC2</version>
+      <date>2005-08-01</date>
+      <license>PHP License 3.0</license>
+      <state>beta</state>
+      <notes>---
+  i will open another one month timeframe until stable release, or if a bug is found
+  until third release candidate.
+  Please, test it as much as possible, and report all you think important.
+---
+
+* bugs
+- fixed Monitor stops before end when setMaximum is set to value higher than 200 (bug #4885)
+  Thanks to Roman Stachura.
+
+* changes
+- observer pattern is now built with Event_Dispatcher package
+- removes all HTML_CSS dependencies
+- getStyle() and getScript() optimized now when its request the html stream generation
+  (raw data only or data with script tags)
+
+* improvements
+- generation of stylesheet is (average) 20 times faster without HTML_CSS
+
+* QA
+- dependencies has been revisited to higher level
+- all Examples are now back into main package. No more additional package.
+- Fix wrong project links into documentation (README, ReleaseVersion)
+  Thanks to Christian Roy to have noticed me.
+
+</notes>
+    </release>
+    <release>
+      <version>2.0.0RC1</version>
+      <date>2005-06-23</date>
+      <license>PHP License 3.0</license>
+      <state>beta</state>
+      <notes>---
+  It is important to notice that even if i will continue to maintains the HTML_Progress
+  for possible bugs, no features will be added in this package. Even if it will not marks
+  as deprecated, i suggest to migrate to HTML_Progress2 (see docs/migrationGuide.txt).
+---
+* news
+- The HTML_Progress2 package has now a series of mini guides (see docs/ directory)
+- The HTML_Progress2_Lite class is recommended to users that does not want to install PEAR.
+  This class has no dependencies.
+- News examples are available: See Multiple, Label, Lite version, Preload.
+- Adds the *autorun* option on HTML_Progress2_Monitor to run a progress monitor
+  without need to push the Start button.
+
+* changes
+- DM and UI classes (from HTML_Progress 1.x) were merged into the main class.
+- Model class (from HTML_Progress 1.x) was removed.
+- A new error handling system that support native PEAR_Error (default), but also PEAR_ErrorStack,
+  and any other system you might want to plug-in.
+- Progress2 and Generator does not support anymore external pre-set config file.
+- All examples have been revisited (removed those who have the same goals).
+- HTML_Progress2::getPercentComplete() method has an optional parameter.
+  Return may be float (default) or integer.
+- HTML_Progress2 API changed a bit to include the new label system:
+  . setCellCount() accept now zero as minimum value for smooth progress meter
+    (see also HTML_Progress2_Lite).
+  . moveNext() should replace incValue() (still exists)
+  . moveStep() should replace setValue() (still exists)
+  . setLabelAttributes() replaced setStringAttributes() (was removed)
+  . isStringPainted() and setStringPainted() were removed
+  . getString() was also removed
+  . setString() was removed and replaced by addLabel()
+- HTML_Progress2_Monitor::callProgressHandler() public method was removed.
+- HTML_Progress2 included now the features of HTML_Progress_Lite:
+  window frame, buttons, labels (text, step, crossbar).
+
+* improvements
+- Generator ActionProcess got two new methods to easily get PHP and/or CSS source code generated.
+- More compatibilities with PHP5 (adds __construct method).
+
+* QA
+- Updates headers comment block on all files
+- Dependencies has been revisited to higher level
+- Examples were removed from main package and moved into the optional package
+  available at http://pear.laurent-laville.org/HTML_Progress2/
+</notes>
+    </release>
+  </changelog>
+</package>

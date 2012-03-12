@@ -1,0 +1,914 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.7.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>HTML_Progress2</name>
+ <channel>pear.php.net</channel>
+ <extends>HTML_Progress</extends>
+ <summary>How to include a loading bar in your XHTML documents quickly and easily.</summary>
+ <description>This package provides a way to add a loading bar fully customizable in existing XHTML documents.
+Your browser should accept DHTML feature.
+
+Features:
+- create horizontal, vertival bar and also circle, ellipse and polygons (square, rectangle).
+- allows usage of existing external StyleSheet and/or JavaScript.
+- all elements (progress, cells, labels) are customizable by their html properties.
+- percent/labels are floating all around the progress meter.
+- compliant with all CSS/XHMTL standards.
+- integration with all template engines is very easy.
+- implements Observer design pattern. It is possible to add Listeners.
+- adds a customizable monitor pattern to display a progress bar.
+  User-end can abort progress at any time.
+- allows many progress meter on same page without uses of iframe solution.
+- error handling system that support native PEAR_Error, but also PEAR_ErrorStack, and
+  any other system you might want to plug-in.
+- PHP 5 ready.</description>
+ <lead>
+  <name>Laurent Laville</name>
+  <user>farell</user>
+  <email>pear@laurent-laville.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2008-07-24</date>
+ <time>22:23:13</time>
+ <version>
+  <release>2.4.1</release>
+  <api>2.4.0</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+ <notes>This release is really necessary if you use HTML_Progress2_Generator.
+
+* bugs
+- fix parser error on Generator/Process.php file</notes>
+ <contents>
+  <dir baseinstalldir="HTML" name="/">
+   <file baseinstalldir="HTML" md5sum="342e95befbb0f584494171392412fcbf" name="docs/TDG/img/admons/caution.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="35141eb4af645587add91414843b7c92" name="docs/TDG/img/admons/important.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="1c348618a4bc617acc4ae72a5ef323dd" name="docs/TDG/img/admons/note.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="e34b78eb63e49c94ba7f4c9463f5c128" name="docs/TDG/img/admons/tip.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="bc599bf850e13c3176ec8770b4792895" name="docs/TDG/img/admons/warning.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="4f8cd5ee2dd2f251833efeae6e6483ce" name="docs/TDG/img/basic1.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="4a43348186be6c09d2872a772470cbe7" name="docs/TDG/img/border1.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="579a67cb09e0287222597154a0031803" name="docs/TDG/img/bullit.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="04eb71bf68f7b18af80f0f533e5e6211" name="docs/TDG/img/created-with-docbook.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="1003149b5096c511dadba6bf938aa53a" name="docs/TDG/img/example.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="03a644220a5ce2445cdfd1225fa12d8d" name="docs/TDG/img/external-link.gif" role="doc" />
+   <file baseinstalldir="HTML" md5sum="546ffa931cdceceb58207f211b515d26" name="docs/TDG/img/generator0.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="1597ae5ac7d1d4d123d1c192b3a315db" name="docs/TDG/img/generator0b.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="0adcf7656339c8a2e1f7b61abfa21fd2" name="docs/TDG/img/generator1.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="aacc686e3947e3a9a281b2a4a1e7ac00" name="docs/TDG/img/generator21.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="887129e9f51a49af9e2d3ab48c49e5ca" name="docs/TDG/img/indeterminate1.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="3b6f9e58203efe6c5e6760b329348aca" name="docs/TDG/img/indeterminate2.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="5382173517d7cfb01acf22668955277a" name="docs/TDG/img/mixed2.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="349697bdb1b1d45869124f843f862268" name="docs/TDG/img/monitor0.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="0d0e615aa624e2982ab0b01abced92db" name="docs/TDG/img/monitor1.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="36b63d9182bc5cffb7a24799afe9b414" name="docs/TDG/img/monitor2.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="d1051f7754afd81fbdbbf0bf706ab1d0" name="docs/TDG/img/observer3.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="44d31c0ff8e57ff3ec42fdd8428b419c" name="docs/TDG/img/pear_progress2.gif" role="doc" />
+   <file baseinstalldir="HTML" md5sum="1a9ad8f45ec022ceaef9328a9b813d9e" name="docs/TDG/img/vertical1.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="56398e76be6355ad5999b262208a17c9" name="docs/TDG/blank.gif" role="doc" />
+   <file baseinstalldir="HTML" md5sum="fbc2e3055a2f5aa3191f2ced0adb4644" name="docs/TDG/book.css" role="doc" />
+   <file baseinstalldir="HTML" md5sum="8685ea3f95b8e64306c30e1ae3915703" name="docs/TDG/ch01.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="a9c0022c590cce81509482dab43c00b0" name="docs/TDG/ch01s02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="463653f3b94978bfe7c57a40b56255ac" name="docs/TDG/ch01s03.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="b10828126588ca309e8e868323bab893" name="docs/TDG/ch02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="54ada50dfc556e920e4e8e222590456a" name="docs/TDG/ch02s02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="31b5edc9392aa24f5a3450a5a68394c0" name="docs/TDG/ch02s03.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="73416977865a076d7dfbfb74e7527001" name="docs/TDG/ch02s04.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="00ae1720d8856f007f74212c87d61152" name="docs/TDG/ch02s05.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="3835061f9b79703fc7e19a53e7ac3064" name="docs/TDG/ch03.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="20df48eb73765dcd86df015c11267bba" name="docs/TDG/ch04.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="446230775d305140f416519ff1c05460" name="docs/TDG/ch05.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="e1f81d9f5ac691120a77d4c26e6ca912" name="docs/TDG/ch05s02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="e02d3b93a7774c8e46829ede4794d874" name="docs/TDG/ch05s03.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="cc711c7a9c632cb7ae10921e35638f09" name="docs/TDG/ch06.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="dbd074969b548d2d8764e20c239293ab" name="docs/TDG/ch06s02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="7bd99bf5acbeb67dfa40e87f68206f2c" name="docs/TDG/ch07.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="d5811515d432e417219049bd6d628abf" name="docs/TDG/ch07s02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="de8f9d877c071bf1d3e2c32b921857c7" name="docs/TDG/ch08.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="79a9d365d93bcd9924269cc8c67b1031" name="docs/TDG/ch08s02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="91056a0b1e27484ceba8332604569e52" name="docs/TDG/ch08s03.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="ce35abe20691c3139233965d9712260b" name="docs/TDG/ch08s04.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="d7781dbd2cfd3bd8b11e3137a28a723e" name="docs/TDG/ch09.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="de5836af8c70ddc49dd8accaaa092b38" name="docs/TDG/ch09s02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="254c748e617585c47deb4c1bf7bb8475" name="docs/TDG/ch09s03.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="1fdc4e014018480c14d69f201159b1ea" name="docs/TDG/ch10.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="b03b93542f1d600e21eada059fe03c35" name="docs/TDG/ch10s02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="e8d6f4715067dd256a1c7716bebcda36" name="docs/TDG/ch10s03.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="c544666aa9c9299d5600ed430db33c6b" name="docs/TDG/ch10s04.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="277c2002e19eb26dd5f2f7eb3ef01b84" name="docs/TDG/ch10s05.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="bfcf932182541a20b3560b5d6ffe2aab" name="docs/TDG/ch10s06.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="67229a87d3c341fcb2f800ddc7903058" name="docs/TDG/ch11.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="d94dd44546c8007b9610d72b7f7ebed5" name="docs/TDG/ch11s02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="f099f9c3038ef91e0bc1cd052b5f995f" name="docs/TDG/ch11s03.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="ca0ffae54423313f35c10de2d220bd36" name="docs/TDG/ch11s04.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="444038c2b8a3889aa24796e9cb1a994a" name="docs/TDG/ch12.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="cf468d47abe8a5998d50d17e3559bf83" name="docs/TDG/ch12s02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="007e3f243766321a47844c02889b3e8f" name="docs/TDG/ch12s03.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="98151c239b3f5f3ec3813a92a760d317" name="docs/TDG/ch13.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="bd910c04f0b5f68b4cb715bb502fdb10" name="docs/TDG/ch13s02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="3162f7629602a4d6612ef7ddc64b0b30" name="docs/TDG/ch13s03.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="16ec27da701702bd7836a27e36b7b096" name="docs/TDG/ch14.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="bc5d3a54dbe4e28ef87a617e3f918bba" name="docs/TDG/ch14s02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="f367828cae4c0b848c23e76e0e449731" name="docs/TDG/ch14s03.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="dec7b61ada4f1feb4eb8c55816826b81" name="docs/TDG/ch15.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="b3a80cc64a0093fad3e8ed6c63ad58bb" name="docs/TDG/ch16.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="4236a7c26687e55f78d53847fa6eeea7" name="docs/TDG/ch16s02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="d8f319f493afcb136df6ecfd83d43007" name="docs/TDG/ch16s03.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="1204057819b4f28cad7fc40caf76c876" name="docs/TDG/ch16s04.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="89a5faedc220771aab383681a7cd5b76" name="docs/TDG/ch16s05.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="5d675a740b10f94e3b06acc40c8a4439" name="docs/TDG/ch17.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="ddb6f07d0eb9f8b626dcd9a1a749227c" name="docs/TDG/ch17s02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="f1bfa0c5b9e607e9986b54b7883f23a3" name="docs/TDG/ch18.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="4edd62ff5bde6252481c480d32e22e99" name="docs/TDG/ch18s02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="3b8461536bef7f32345bd76fcf521c7b" name="docs/TDG/ch19.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="3c0c8a6a0897116880ee485ee095a5d9" name="docs/TDG/ch19s02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="a13679ae93e6bc10f67e5321330f1645" name="docs/TDG/ch19s03.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="8d1d2b94959ad7c841c7bb3223e2c87d" name="docs/TDG/ch19s04.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="75cb02178993e0059a2523767403e243" name="docs/TDG/ch19s05.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="8ebdddec2fdcf5133f7de671597ae830" name="docs/TDG/ch20.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="71ba25c64e60a2dfcfec151155c81390" name="docs/TDG/ch21.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="343e001318519080bed81b803c910b71" name="docs/TDG/ch21s02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="7badb63cc6b2f9cf4a93f66f848c7d08" name="docs/TDG/ch21s03.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="5ff4f52fcaf6c51942a8ba7e8bf78f60" name="docs/TDG/ch21s04.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="b9218d5df3250c0d06164565ed66b4ec" name="docs/TDG/ch21s05.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="0ac36d6e483a58f40a763d0334eae6fb" name="docs/TDG/ch21s06.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="016fc8f9c0f1e77cb0d76fd998e1ce2e" name="docs/TDG/index.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="66b0f4f0c980466337f105c9b38b2916" name="docs/TDG/pngbehavior.htc" role="doc" />
+   <file baseinstalldir="HTML" md5sum="4b6a7808571b5a35deec27930d5c0b0f" name="docs/TDG/pr01.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="deaee70f3c1a958249e705811158290e" name="docs/TDG/pr01s02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="9870fbeab960c61a6c4fadf6c6755f41" name="docs/TDG/pt01.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="5d50735f6bde60931c53e06695de3559" name="docs/TDG/pt02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="d668e09bdf32f1e2cb36d71b11b6de8b" name="docs/TDG/pt03.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="d689c55f0d27a718b9b8d651e7d88d42" name="docs/TDG/pt04.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="56c2ba06b71adae69130523c1b2c462c" name="docs/TDG/pt05.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="25dbb94cd04bb700876557f32901d8b9" name="docs/TDG/re01.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="aae56db623504bf083398f16751f0e70" name="docs/TDG/re02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="20ff4889ee29c22d08095e455dd1595d" name="docs/TDG/re03.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="854365262af1dacb67926a6bfc01416b" name="docs/TDG/re04.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="319fa430a44ec3764922f3d41b356fe4" name="docs/TDG/re05.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="1bc5925b8d9804d33cd9f3b124410b15" name="docs/TDG/re06.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="4a639eaa866f1d5ba844ea5799852249" name="docs/TDG/re07.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="4a8b38da0010e1b23fadd54848858c01" name="docs/TDG/re08.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="40cd2408cd4c2b237339de2d07fbc5ca" name="docs/TDG/re09.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="2237a8323009bbd2f8a417f94cbaeac0" name="docs/TDG/re10.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="14d07a85f221a6d8908c1192f46973f9" name="docs/TDG/re11.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="bd5e404b43c7ddf317c31a41d3a7c236" name="docs/TDG/re12.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="304d8c73c9afb766259af619d99d445f" name="docs/TDG/re13.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="e964b0290111f553325ad30601e57a39" name="docs/TDG/re14.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="57baceb65adf7f50c4c6009f692db67d" name="docs/TDG/re15.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="fd12c859823b8e5ad714ca3b7d10816b" name="docs/TDG/re16.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="72e604d97d13cfa81a77167e012b6c07" name="docs/TDG/re17.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="8d998c9143c0ce7846907e0e0c4cdfb6" name="docs/TDG/re18.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="8ef84eed35206276e80a897dafa3f49e" name="docs/TDG/re19.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="12c05ebb3b511c970819ce1cd96a9f9f" name="docs/TDG/re20.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="a760163209041f14c301f768b57b62af" name="docs/TDG/re21.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="e82157fa3f0c304aee35d6dda89fd38e" name="docs/TDG/re22.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="daba67a1fd50bc7d9cfc29b6004fdcbd" name="docs/TDG/re23.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="2cf14f440897df14ff58de1fcd96d6f4" name="docs/TDG/re24.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="a5d8ce0ff8881765a7e981d4450d8ccb" name="docs/TDG/re25.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="c7892271895d542fd0d8c6289ab05385" name="docs/TDG/re26.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="a938206eb20968a6c99f8087239b7bfc" name="docs/TDG/re27.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="a8bdb0d9756d198bb67e0be4f09cfeeb" name="docs/TDG/re28.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="6fa9415e88163cb5404975031902852e" name="docs/TDG/re29.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="d877aa8f899f3d1dd871a48c3418f95e" name="docs/TDG/re30.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="b347697fb1c9a0c0960061b42431f762" name="docs/TDG/re31.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="5cc0a2e3453df67d21b84b8a47c3fbca" name="docs/TDG/re32.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="685c2df3d232eeebd869e766c23fed47" name="docs/TDG/re33.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="0fd11c687a2f6da3f5711084d5bbc6cc" name="docs/TDG/re34.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="861628617cc02869af311e464bf0619b" name="docs/TDG/re35.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="9bc7086a1efe98102cb2bdf8214a91c8" name="docs/TDG/re36.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="b1936f5a6724454860dc6439ac78a3e6" name="docs/TDG/re37.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="2988b6852544dccc61e031f1b84d8159" name="docs/TDG/re38.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="085f5f94475261a51f574eded3072c81" name="docs/TDG/re39.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="a4cfa0914df5e99ae87abf2a4fa7506b" name="docs/TDG/re40.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="1648ef8d624cf0353d2790b0335e6fc4" name="docs/TDG/re41.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="63fb82f0b9861b3c750cbfe2fa32b4df" name="docs/TDG/re42.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="c9c0a4b64ad4e2dd948ee02176962062" name="docs/TDG/re43.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="88fba06f333e77001270fce58020e1a6" name="docs/TDG/re44.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="4c49b4c8a61a50feddc2fd8dca5b8281" name="docs/TDG/re45.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="8518de8206134cd4645940d08a16d096" name="docs/TDG/re46.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="a21ef69f039d0b7a0bed713d57704b41" name="docs/TDG/re47.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="f0e8acefd61c1bbcf4626e16497d7270" name="docs/TDG/re48.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="c9dc884bf3217c46efc76d200df9a607" name="docs/TDG/re49.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="d2416bebb6c077cd776e515cfd15a5de" name="docs/TDG/re50.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="2fc5fd2b10b917aee74b02644c18bbf0" name="docs/TDG/re51.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="ef4335b63fb12403205ac47d3f7a6439" name="docs/TDG/re52.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="37cb6657943dd8f8894416f004f0ec14" name="docs/TDG/re53.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="6d9c27d1d4d70c14f4789640dcf35723" name="docs/TDG/re54.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="c9d5ce48d9147cb7b73a167d79d59208" name="docs/TDG/re55.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="8796057feb5a3c02a318328fb72d4c7f" name="examples/aflax/aflax.js" role="doc" />
+   <file baseinstalldir="HTML" md5sum="8b64307ee8d8fc292f16c49bc684f3fc" name="examples/aflax/aflax.swf" role="doc" />
+   <file baseinstalldir="HTML" md5sum="b7262bc4a12df1837d4d505d37ac7025" name="examples/aflax/fileupload1.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="fe5dd4fabc58f3bf1cb10559beb873f5" name="examples/aflax/fileupload2.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="2c6e4f03b04a71748f830dbbfbb601ca" name="examples/aflax/fileupload3.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="a85ccef2caed40a6c5e09892da34b6f2" name="examples/aflax/HTML_Progress2.js" role="doc" />
+   <file baseinstalldir="HTML" md5sum="06059c3811fde2b59c8394f313ea0b28" name="examples/aflax/HTML_Progress2_AFLAX.js" role="doc" />
+   <file baseinstalldir="HTML" md5sum="3d6ea799de2f28bffdd0b75a31885a83" name="examples/aflax/http_upload.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="8f27a6fcadb33240aa584a9a48f8b13a" name="examples/aflax/upload.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="be6dba6cd4a57fc1dade9b547fc614d9" name="examples/ajax/scriptaculous-js-1.7.0/effects.js" role="doc" />
+   <file baseinstalldir="HTML" md5sum="76a7817d74e1ade50d87167b13a443db" name="examples/ajax/scriptaculous-js-1.7.0/prototype.js" role="doc" />
+   <file baseinstalldir="HTML" md5sum="211d955609da0b228a65487384b95722" name="examples/ajax/scriptaculous-js-1.7.0/scriptaculous.js" role="doc" />
+   <file baseinstalldir="HTML" md5sum="9ca1a51f69d5eb69559a630f577342ad" name="examples/ajax/upload/apc5_upload1.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="15a4022edf468fb6701b334e2f998537" name="examples/ajax/upload/apc5_upload2.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="bb06c76bf76d6a5238abc06c25862d1a" name="examples/ajax/upload/apc5_upload3.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="d41bd487269af605c419feadf7cc9193" name="examples/ajax/upload/apc5_upload4.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="615ec3b5482c293dc7e5b77b9b8f21a3" name="examples/ajax/upload/auto_server.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="5b8b08f7e02f0a54ede360d16b169621" name="examples/ajax/upload/degrade.jpg" role="doc" />
+   <file baseinstalldir="HTML" md5sum="7c48dd7cc88e61b7306f860876c8c3f3" name="examples/ajax/upload/HTML_Progress2.js" role="doc" />
+   <file baseinstalldir="HTML" md5sum="79f192a5f97d7bbd1d274dbd594546e3" name="examples/ajax/upload/http_upload.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="109abe7a94f980e368999fa45667175d" name="examples/ajax/upload/MyUploadProgressMeterStatus.class.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="3772103de61864438ed8445037791569" name="examples/ajax/upload/pave-blanc-24.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="aa24add9d54ac5783e2b4d9d38150dd7" name="examples/ajax/upload/upm5_upload.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="73146ee843d7e285311fb047ffd5acfc" name="examples/ajax/auto_server.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="f52a9caf298abd0d9d9633e7a41ad911" name="examples/ajax/bluesand2.css" role="doc" />
+   <file baseinstalldir="HTML" md5sum="c8e1031f722caa25fecd2f26b21221a9" name="examples/ajax/default1.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="3bb73d53c4dadb9e599150fbc0e73ad6" name="examples/ajax/default2.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="271d384d01085e5d472c2437e1962bd7" name="examples/ajax/default3.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="99f3b5b8f7483a21ed8d8571314e1798" name="examples/ajax/download.gif" role="doc" />
+   <file baseinstalldir="HTML" md5sum="d52c2062f675809b7a29012846f2c58c" name="examples/ajax/HTML_Progress2.js" role="doc" />
+   <file baseinstalldir="HTML" md5sum="3887341af56e462e3c05b84a9281c2f2" name="examples/ajax/phpcb_server1.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="693b096ca8fe00114eb616904c5f0015" name="examples/ajax/phpcb_server2.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="f04a514a8075107bdc1956723f822cd5" name="examples/ajax/RequestStatus.class.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="74c020b1cab594f4f40017b4c2439e05" name="examples/ajax/scriptaculous1.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="371008ed0fb272c5c92029034fcff162" name="examples/ajax/scriptaculous2.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="68a263871c56417008c7eda0e6909c58" name="examples/ajax/simple_server.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="981afce7b9921f0f9b6e1d8575b7ea81" name="examples/circle/circle.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="4fb2a7873b38da31b8f556eb9b288d0c" name="examples/circle/ellipse.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="c4a416b67c2ff33bec8123ccbb4fcbdb" name="examples/errorhandling/errorbasic.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="1483dfb014073b31ba5af3ac1dea72a6" name="examples/errorhandling/errorcustom.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="16a8e603ccec269cb28da4ec8922261b" name="examples/errorhandling/errorignore.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="340f2c208be90e60171b75ca64f5a244" name="examples/errorhandling/errorlogger.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="8c9975892d0b2c4cfbbcd4c2b80dd266" name="examples/errorhandling/errorstackcustom.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="0d7f5769f5e305e2322443ba25cdc461" name="examples/errorhandling/errorstackignore.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="88ce3e267d75172d19ae2f3f2dc17c7b" name="examples/errorhandling/errorstacklogger.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="4c95b045267637fbed81718d5ec292b2" name="examples/generator/generator.css" role="doc" />
+   <file baseinstalldir="HTML" md5sum="9a37e73ba6d30dbe2e0a91d06695daa7" name="examples/generator/generatorcus.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="7acc600d3a8f6b2cadbff4a53af3dd07" name="examples/generator/generatorcus2.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="35c3cc7ebffd70df0930c60e63608cd0" name="examples/generator/generatordef.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="5ff6ee2365ece060cf3b6898ee69316e" name="examples/generator/itdynamic.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="d74e6896f1fed9d585537f42fbeee01b" name="examples/generator/pearix.jpg" role="doc" />
+   <file baseinstalldir="HTML" md5sum="102c0d6bad7cb7bb184b6ebfce5ec53b" name="examples/generator/smarty-dynamic.tpl" role="doc" />
+   <file baseinstalldir="HTML" md5sum="325d5d19b261fa5545dfbefa904386d3" name="examples/horizontal/ancestor.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="6994ef114692b35784a21cb829a28530" name="examples/horizontal/bgimages.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="b60ba44bac76a831ced4d282766f1649" name="examples/horizontal/bgimagesEnh.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="4b0af6defb66877ac80bb92ecdadfb47" name="examples/horizontal/bluesand.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="9dc7032389d5dc4776116383b5e058dc" name="examples/horizontal/bullit.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="5b8b08f7e02f0a54ede360d16b169621" name="examples/horizontal/degrade.jpg" role="doc" />
+   <file baseinstalldir="HTML" md5sum="99f3b5b8f7483a21ed8d8571314e1798" name="examples/horizontal/download.gif" role="doc" />
+   <file baseinstalldir="HTML" md5sum="795994e1a36aa2e99ce894fe8fd0bcb3" name="examples/horizontal/javadanse.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="abe2c695ed6962dbfd8dee3f98ff2d39" name="examples/horizontal/nostring.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="3772103de61864438ed8445037791569" name="examples/horizontal/pave-blanc-24.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="063daf3f253ebef732dc67a82470fe22" name="examples/horizontal/progress2_number.js" role="doc" />
+   <file baseinstalldir="HTML" md5sum="7de51bf902cd9c873f1624d870cf5acb" name="examples/horizontal/userstring.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="a933b599e73f1863ebad8e882cbaaa3f" name="examples/indeterminate/half.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="1a69a198229c4bae143c4459463d5055" name="examples/indeterminate/monitor.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="c366d83690da60e83b9ec5990e867f8c" name="examples/label/mixed.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="bc3d60fd8c13291bca3853af6ccf4bb5" name="examples/label/percent1.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="0861c813c223439b7cac46e6f4b243a4" name="examples/label/percent2.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="302112801fdc2b392c55665e21672d9d" name="examples/label/text1.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="3baea0d28bd570d34901a85056c475eb" name="examples/label/text2.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="33afa3eebdb2dd7ef9ec1af5b2c606be" name="examples/label/windowstyle.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="599ed1bd0c34f51c4b1338be589ac870" name="examples/lite/liteall.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="f2e1c3badf65333b24fbed016ee546d2" name="examples/lite/litebasic.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="3444a94b13e53427fecb62e2c9506a22" name="examples/lite/mailer2.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="207f656bc9394c8b0ebdd652b584959b" name="examples/lite/windowstyle2.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="d633227fe44021c9cb7183fe3dc103b1" name="examples/monitor/itdynamic.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="1a574c575867379ea5e2e357fde03ddc" name="examples/monitor/monitorcus.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="f652bc264b3b8781c7ced7231a6ef603" name="examples/monitor/monitordef.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="b3b0a821d7bf41470713fbc4ef4b3c88" name="examples/monitor/monitordyn.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="c52fc941b15aabf72016f65cc8dc5d08" name="examples/monitor/monitorlog.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="2780f3499437641ba85207b88df1e518" name="examples/monitor/monitorpg2.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="ea5c0fe80e19cc46252a14ab9fe64552" name="examples/multiple/mixed.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="00570c5084376f539b91fb7b7e46e187" name="examples/multiple/vertical.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="dea98aa63ffcd716b82cb4afef26564b" name="examples/observer/observer1.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="f804a592b4f71e0703f2a8561dcbc493" name="examples/observer/observer2.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="aface7e9c904401affd7652c986d759b" name="examples/observer/observer3.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="47960b18e857ea5e04bec9f08238799a" name="examples/polygonal/rectangle.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="b5d0413de745bd9eac77e03181e89177" name="examples/polygonal/square.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="a5383810c202a2b579231d90aa48fe7a" name="examples/polygonal/squareback.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="4ee90921ac8ddf40b87c097e039c34c9" name="examples/preload/hidden.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="12e458dfa53c64bff4bedd4e2c6d68f0" name="examples/preload/mailer1.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="49cd93baa4d8eb9ed6f64e80f2d4d748" name="examples/preload/notification.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="64519cd938bdf99f1e8fccb6ed0e3dff" name="examples/preload/swf.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="375f1ee898ce636a52cacc94631fb6a6" name="examples/template/cross.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="79551297f0fc1fa8c2ce1dc827cb7ea0" name="examples/template/itxstatic.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="05b710cd89950541ac3d2de5ed3087e7" name="examples/template/itxstatic.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="a443fabc9611ad9def5d1a70f8b2b0f0" name="examples/template/wizard.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="c29054f728653e84df66a1dfd8a98e57" name="examples/vertical/vlimit.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="db3429eaa71926467e467d18d147e8be" name="Progress2/Generator/Default.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+    <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+    <tasks:replace from="@package_name@" to="name" type="package-info" />
+   </file>
+   <file baseinstalldir="HTML" md5sum="5ee538c98ee97cd21232dbf78726f463" name="Progress2/Generator/Dump.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="HTML" md5sum="51e46595e4ea2bbd0fac6672bde0a08f" name="Progress2/Generator/HTMLPage2.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+    <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+    <tasks:replace from="@package_name@" to="name" type="package-info" />
+   </file>
+   <file baseinstalldir="HTML" md5sum="e65906bff2ff02d30b41e35c2add17ef" name="Progress2/Generator/ITDynamic.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+    <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+    <tasks:replace from="@package_name@" to="name" type="package-info" />
+   </file>
+   <file baseinstalldir="HTML" md5sum="04a8982e72e411407de7035f0622295e" name="Progress2/Generator/pages.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="HTML" md5sum="b44a2a324a6c1a4f6cce08a380cdf1c1" name="Progress2/Generator/Preview.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="HTML" md5sum="f9710481c97be4f2a599fae9ed679304" name="Progress2/Generator/Process.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="HTML" md5sum="b2b5446c532f3dd0f0486d4f6108b620" name="Progress2/Generator/SmartyDynamic.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+    <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+    <tasks:replace from="@package_name@" to="name" type="package-info" />
+   </file>
+   <file baseinstalldir="HTML" md5sum="ae979a2c78309e3842cd9d62ed372fa2" name="Progress2/Generator/Tableless.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+    <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+    <tasks:replace from="@package_name@" to="name" type="package-info" />
+   </file>
+   <file baseinstalldir="HTML" md5sum="3e33bf5fba0fc5ee550ef71492660c20" name="Progress2/Error.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="HTML" md5sum="2f066fe9570b6f65fe0e247ef19aca83" name="Progress2/Generator.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="HTML" md5sum="59d7497f1dda4552a3f521da432f663b" name="Progress2/Monitor.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="HTML" md5sum="aa6863422a8e41f135ef083910f2df5f" name="Progress2/Upload.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="HTML" md5sum="e238f0b50a4c633a234f8b70788d8514" name="tests/HTML_Progress2_Bug28.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="3e9836f9f85c61d095c0e29f3c136c68" name="tests/HTML_Progress2_TestCase_addLabel.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="6a60cafdba5467ce40d9a6dc7ebc26a4" name="tests/HTML_Progress2_TestCase_addListener.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="28eaee48a451cc5f0d065f44746700ca" name="tests/HTML_Progress2_TestCase_drawCircleSegments.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="4d0549cbf2dc351c4f9438d82c08b455" name="tests/HTML_Progress2_TestCase_getBorderAttributes.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="43e45e204f698d3178268d836fce6f3c" name="tests/HTML_Progress2_TestCase_getCellAttributes.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="5437adf4b125a6130d71f6c1df13d080" name="tests/HTML_Progress2_TestCase_getFrameAttributes.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="bb5031a86cd2a9f66cf26236843e3ed0" name="tests/HTML_Progress2_TestCase_getLabelAttributes.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="20a4a2824eda03c4209056b5b96fc469" name="tests/HTML_Progress2_TestCase_getPercentComplete.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="a60e5d2dd46c2f26d3205ea82e4effee" name="tests/HTML_Progress2_TestCase_getProgressAttributes.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="3e8a35a8a45476cca2743c475abde221" name="tests/HTML_Progress2_TestCase_moveStep.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="58f5f3a2893650a715addc0a04b5e948" name="tests/HTML_Progress2_TestCase_removeLabel.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="922b6b81c5a5a7b6dcc0d82da14ff20a" name="tests/HTML_Progress2_TestCase_removeListener.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="c8b06428fe2461bb49e00dbaaa9ad8aa" name="tests/HTML_Progress2_TestCase_setAnimSpeed.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="e0a0377acd962c29b92efaecb483300e" name="tests/HTML_Progress2_TestCase_setBorderPainted.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="be1c43859ae1219450f1e25bd8012611" name="tests/HTML_Progress2_TestCase_setCellAttributes.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="2ba106a3355ca4ab6ab885edb1fb3d15" name="tests/HTML_Progress2_TestCase_setCellCoordinates.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="2f20ad9c87326d3925e5f2faa4869929" name="tests/HTML_Progress2_TestCase_setCellCount.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="f4c0cfce42efea308850ffaf12a48654" name="tests/HTML_Progress2_TestCase_setFillWay.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="15d1ec4cc9ffef9f9333a30fce661fc5" name="tests/HTML_Progress2_TestCase_setFrameAttributes.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="290a3fbde52d8640682a9b9e0c84ec3e" name="tests/HTML_Progress2_TestCase_setIncrement.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="8ce82fc2e9135ab20c2592b2cd15d92e" name="tests/HTML_Progress2_TestCase_setIndeterminate.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="9b72e7e847b1803ab59475fcfe32f4e8" name="tests/HTML_Progress2_TestCase_setLabelAttributes.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="01bbfffe981de49182f60cacaf1c024a" name="tests/HTML_Progress2_TestCase_setMaximum.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="8a64d58ad8dfaf24573c66cf42b4296e" name="tests/HTML_Progress2_TestCase_setMinimum.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="a13c3b1b2899bcf0bc7a9e10aaa79f06" name="tests/HTML_Progress2_TestCase_setOrientation.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="feee21857236ee95edfb38f0a8c14b38" name="tests/HTML_Progress2_TestCase_setProgressHandler.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="54872fa98cab578132ac4006632b209e" name="tests/HTML_Progress2_TestCase_setScript.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="dedd0dc70be46dcd98fcfe68eeb5e4a1" name="tests/HTML_Progress2_TestCase_setString.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="73811f79324305ad39f858f61e6c2f62" name="tests/HTML_Progress2_TestCase_setValue.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="6a3fcff6c51846a555daaa4bd58566b4" name="tests/HTML_TestListener.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="f0bd06b3d4e150480a462dad76b385b1" name="tests/index.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="e8b32903d1632ef61e17150d5b0937e3" name="tests/progress2.js" role="test" />
+   <file baseinstalldir="HTML" md5sum="9b4ce60cb54673e5cef00305a8cb90f7" name="tests/styles.css" role="test" />
+   <file baseinstalldir="HTML" md5sum="45562348363f83390c4566f40666221b" name="tests/TestUnit.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="8796057feb5a3c02a318328fb72d4c7f" name="aflax.js" role="data" />
+   <file baseinstalldir="HTML" md5sum="8b64307ee8d8fc292f16c49bc684f3fc" name="aflax.swf" role="data" />
+   <file baseinstalldir="HTML" md5sum="b47e4a1abab1239926857afaee01432c" name="ChangeLog" role="doc" />
+   <file baseinstalldir="HTML" md5sum="d3c73a579b0361a878cf2ef149a2120e" name="default.css" role="data" />
+   <file baseinstalldir="HTML" md5sum="f597330b31fbf709aff3834901bdf470" name="htmlpage2.css" role="data" />
+   <file baseinstalldir="HTML" md5sum="45009446e8f92b17293ad035b0b70a00" name="HTML_Progress2.js" role="data" />
+   <file baseinstalldir="HTML" md5sum="6503f9debab4258265457f356f74fc90" name="HTML_Progress2_AFLAX.js" role="data" />
+   <file baseinstalldir="HTML" md5sum="8193652973f7b4693449778eb0bc9287" name="itdynamic.css" role="data" />
+   <file baseinstalldir="HTML" md5sum="7881a87ecc94b5585c0b271d6baea821" name="NEWS" role="doc" />
+   <file baseinstalldir="HTML" md5sum="a09017ae82293ba604bfded9964c84da" name="Progress2.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+    <tasks:replace from="@api_version@" to="api-version" type="package-info" />
+    <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+    <tasks:replace from="@package_name@" to="name" type="package-info" />
+   </file>
+   <file baseinstalldir="HTML" md5sum="20e5fb0049f97c43c4d3fa6c639f71a2" name="Progress2_Lite.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="HTML" md5sum="e8d4d5764e7a4229e99a038e942a23d6" name="smartydynamic.css" role="data" />
+   <file baseinstalldir="HTML" md5sum="fc9e05c0f9c704107b298711dac1a740" name="tableless.css" role="data" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.3.10</min>
+   </php>
+   <pearinstaller>
+    <min>1.5.4</min>
+   </pearinstaller>
+   <package>
+    <name>HTML_Common</name>
+    <channel>pear.php.net</channel>
+    <min>1.2.1</min>
+   </package>
+   <package>
+    <name>Event_Dispatcher</name>
+    <channel>pear.php.net</channel>
+    <min>0.9.1</min>
+   </package>
+   <package>
+    <name>HTML_CSS</name>
+    <channel>pear.php.net</channel>
+    <min>1.1.2</min>
+   </package>
+  </required>
+  <optional>
+   <package>
+    <name>PHP_Compat</name>
+    <channel>pear.php.net</channel>
+    <min>1.4.1</min>
+   </package>
+   <package>
+    <name>HTML_QuickForm</name>
+    <channel>pear.php.net</channel>
+    <min>3.2.6</min>
+   </package>
+   <package>
+    <name>HTML_QuickForm_Controller</name>
+    <channel>pear.php.net</channel>
+    <min>1.0.6</min>
+   </package>
+   <package>
+    <name>Image_Color</name>
+    <channel>pear.php.net</channel>
+    <min>1.0.1</min>
+   </package>
+   <package>
+    <name>HTML_Page2</name>
+    <channel>pear.php.net</channel>
+    <min>0.5.0beta</min>
+   </package>
+   <package>
+    <name>HTML_Template_IT</name>
+    <channel>pear.php.net</channel>
+    <min>1.1</min>
+   </package>
+   <package>
+    <name>HTML_Template_Sigma</name>
+    <channel>pear.php.net</channel>
+    <min>1.1.2</min>
+   </package>
+   <package>
+    <name>Log</name>
+    <channel>pear.php.net</channel>
+    <min>1.8.7</min>
+   </package>
+   <package>
+    <name>HTML_QuickForm_Renderer_Tableless</name>
+    <channel>pear.php.net</channel>
+    <min>0.3.2</min>
+   </package>
+   <package>
+    <name>HTML_AJAX</name>
+    <channel>pear.php.net</channel>
+    <min>0.5.0</min>
+   </package>
+   <extension>
+    <name>gd</name>
+   </extension>
+  </optional>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>2.4.1</release>
+    <api>2.4.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2008-07-24</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>This release is really necessary if you use HTML_Progress2_Generator.
+
+* bugs
+- fix parser error on Generator/Process.php file</notes>
+  </release>
+  <release>
+   <version>
+    <release>2.4.0</release>
+    <api>2.4.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2008-04-24</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>* news
+- implement request #12532 : Add addional info to apc5 info
+
+* changes
+- drop support of UPM4 backend in HTML_Progress2_Upload (PHP4 patch for upload)
+
+* bugs
+- #13664 : setLabelAttributes does not work
+
+* QA
+- fix lot of CS, following recommandation of PHP_CodeSniffer 1.0.1
+- fix PHP minimum requirement (4.3.10)
+- require now at least PEAR installer 1.5.4 rather than 1.3.4
+(security vulnerability fixes)</notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.0</release>
+    <api>2.3.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-06-12</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>* bugs
+- Fixed Doc Bug #10879 : Problem with HTML_Progress2::setCellCount()
+
+* changes
+- No code changes since previous release (RC1), but change license
+from PHP 3.01 to new BSD (give more freedom)</notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.0RC1</release>
+    <api>2.3.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2007-02-12</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+   <notes>* IMPORTANT
+Final stable release 2.3.0 is plan for February 23rd.
+Please test this version as much as possible on all platform and report to me (by mail,
+or PEAR bug tracker) all problem/bug found.
+
+* Features list added since 2.3.0 alpha 2 version:
+- simple AJAX progress bar ; see Request #3985
+- file upload support for PHP4/5 with AFLAX (the AJAX for Adobe Flash Platform 8 or greater)
+- file upload support with HTML_AJAX and multiple backend
+(PHP5 and APC,  PHP5 and uploadprogress extension, PHP 4 patch)</notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.0a3</release>
+    <api>2.3.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2007-02-02</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+   <notes>IMPORTANT
+User Guide(s) (offline and online) will not be update until final stable release 2.3.0
+If you want some informations about AJAX progress bar, and how to do it, please
+read the mini guide HOWTO_AJAX.txt (available only for alpha releases of version 2.3.0).
+See also examples in directory examples/ajax.
+
+HTML_Progress2 2.3.0 requires now minimum PHP version 4.3.0 to work.
+
+* news
+- add file upload support for PHP4/5 with AFLAX (the AJAX for Adobe Flash Platform 8 or greater)
+  See 3 basic examples (fileupload?.php) in examples/aflax directory
+- HTML_Progress2::toArray() return now settings on AFLAX client/server
+
+* changes
+- improve multi-label system and allow more free combination</notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.0a2</release>
+    <api>2.3.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2007-01-23</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+   <notes>IMPORTANT
+User Guide(s) (offline and online) will not be update until final stable release 2.3.0
+If you want some informations about AJAX progress bar, and how to do it, please
+read the mini guide HOWTO_AJAX.txt (available only for alpha releases of version 2.3.0).
+See also examples in directory examples/ajax.
+
+Contribution to improve part of guide are welcome ! Do not hesitate to give your
+feedback.
+
+HTML_Progress2 2.3.0 requires now minimum PHP version 4.3.0 to work.
+
+* news
+- all alpha releases of version 2.3.0 are related to request #3985: Ajax progress bar
+- add PEAR::HTML_AJAX 0.5.0 as an optional dependency
+- HTML_Progress2::getScript() method has a new (optional) parameter to handle
+  custom HTML_Progress2 package installation.
+  If you do not used PEAR installer, parameter #2 ($path) identify location of
+  directory where to find the HTML_Progress2.js file.
+  It will search first in PEAR/data dir, then in same directory where HTML_Progress2
+  is installed or in your user dir ($path).
+  DO NOT add a trailing directory separator at end of the path !
+
+  Credit: on a cool idea of HTML_AJAX !
+
+* changes
+- clean-up old implementation of AJAX progress bar; used now package HTML_AJAX
+- Javascript function calls used now OOP notation
+- Javascript code PB handler is now externalized into file HTML_Progress2.js
+- new method  setupAJAX()
+- new implementation of method registerAJAX() (renamed too)</notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.0a1</release>
+    <api>2.3.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2007-01-17</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+   <notes>IMPORTANT
+User Guide(s) (offline and online) will not be update until final stable release 2.3.0
+If you want some informations about Ajax progress bar, and how to do it, please
+read the mini guide HOWTO_AJAX.txt (available only for alpha releases of version 2.3.0).
+See also the two examples in directory examples/ajax.
+Contribution to improve part of guide and perharps drivers are welcome !
+
+HTML_Progress2 2.3.0 requires now minimum PHP version 4.3.0 to work.
+
+* news
+- request #3985: Ajax progress bar
+
+* changes
+- drop support of cell id mask identifier (begin private)
+- a progress bar widget (div) is now identified only by {see HTML_Progress2::getIdent()}
+  rather than &quot;tfrm&quot; + {HTML_Progress2::getIdent()}
+- Default progress bar identifier (without prefix &quot;tfrm&quot;) cannot be numeric (xhtml compliant)
+- Improve Javascript function setProgress() which does not need anymore the third parameter.
+- Improve Javascript function call to setElementStyle() and removed unecessary arguments
+- fix typo error (millisecond term) in phpdoc tags
+- add two new error code for ajax drivers: HTML_PROGRESS2_ERROR_INVALID_RESOURCE, HTML_PROGRESS2_ERROR_ABSTRACT
+- add new methods :  registerAjax(), and fileExists()
+- add new classes: HTML_Progress2_Ajax_Common, HTML_Progress2_Ajax_StdDOMxml</notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.0</release>
+    <api>2.2.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-01-03</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+   <notes>* news
+- add new function importStyle() to give ability to import an existing stylesheet
+and separate PHP code from HTML layout (with CSS)
+
+* changes
+- improved javascript custom handler for JavaDanse example related to version 2.1.1 (bug fixed #8684)
+
+* QA
+- include a new revision of User Guide (TDG) that cover all versions 2.x.x
+  see http://pear.laurent-laville.org/HTML_Progress2 for more format to download.</notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>2.1.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-12-22</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+   <notes>* bugs
+- fixed bug #8684 : Problem with generated JavaScript
+- fixed &quot;examples/generatorcus.php&quot; to use new architecture with external stylesheet introduced on August 11, 2006.
+
+* news (improved code)
+- used now &quot;className&quot; property rather than &quot;visibility&quot;
+and reduced div tags count used to build a progress bar (only 10 rather than 20 )
+- apply more CS (space code indent, ...)
+- add &quot;alt&quot; attribute to img html-tag to be more xhtml compliant
+- JS function &quot;hideProgress&quot; lose its second parameter (no more needed)</notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.0</release>
+    <api>2.1.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-08-12</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+   <notes>* bugs
+- fixed bug #8265 HTML_Page2 dependency
+- fixed typo error in removeListener() function from HTML_Progress2 and HTML_Progress2_Monitor classes
+
+* news
+- rewrites of HTML_Progress2_Generator to fully separate code from design
+its now easy to change skin with a simple stylesheet (see examples/generator/generatorcus2.php)
+- add alpha version of QF tableless renderer for HTML_Progress2_Generator
+- addListener() and removeListener() signatures changed. Adds notification name serves as a filter.
+- new methods get and set StyleSheet into default QF renderer (Generator/Default.php)
+- All renderers (Default, Tableless, HTMLPage2, ITDynamic, SmartyDynamic) used now the new architecture with external stylesheet
+- All remaining code (css class selector still in default renderer was moved to external CSS file: &apos;default.css&apos;)
+- fixed value return by apiVersion()
+- progress meter use now its own event dispatcher (called &quot;ProgressMeter&quot;)
+
+* Quality Assurance
+- updates copyright date
+- removed dupplicates entries in package xml 1.0
+- The Definitive Guide is up-to-date with FAQ, Appendixes new examples, and the guide for Progress Generator</notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>2.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-05-24</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+   <notes>* bugs
+- fixes closing html style tag to avoid javascript error; see console of Firefox.
+- fixes Bug #7437 : wrong text in Doc (thanks to Stefan Valouch for reading it carefully)
+
+* news
+- PEAR::PHP_Compat package begin optional dependency (only required for PHP4)
+- upgrade license from PHP 3.0 to 3.01
+
+* Quality Assurance
+- The Definitive Guide revision number will now follow the package release version.
+- All examples (closing html style tag) were fixed (offline and online).</notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0</release>
+    <api>2.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2005-10-01</date>
+   <license>PHP License 3.0</license>
+   <notes>* news (HTML_Progress)
+- active cell, and background progress meter support now
+background-image, background-repeat, background-position attributes
+
+* news (HTML_Progress_Lite)
+- add font-style attribute for all label categories
+(ability to use italic for percent and text labels)
+
+* improvements
+- standardized observer notify interface for all events
+
+* bugs
+- Fixed my first bug in HTML_Progress2_Lite::setLabelAttributes() method
+related to font group attributes.
+- Fixed bug in moveNext() method: avoid exceed max limit
+- Fixed bug setBorderPainted(false) inefficient with setBorderAttributes()
+
+* Quality Assurance
+The Definitive (User) Guide:
+- include a complete english guide for both beginners and expert users.
+  This is the many html files version. Others format are
+  available to download at URI http://pear.laurent-laville.org/HTML_Progress2/docs
+More W3C/CSS standard compliance:
+- background-color attribute has transparent rather than null string by default
+- frame attribute border renamed to border-width
+API documentation generation:
+- updates headers comment block (package and methods)
+- added @example tag to have ability to display (highlight) source code
+- added @link tag to have ability to display a screenshot (PNG image)
+- removed all @tutorial tag
+- added @ignore tag on all unit testcases and some others files
+to avoid includes in API docs
+
+
+Live demos, screenshots, source codes and much more are available on my
+project homepage at http://pear.laurent-laville.org/HTML_Progress2</notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0RC2</release>
+    <api>2.0.0RC2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2005-08-01</date>
+   <license uri="http://www.example.com">PHP License 3.0</license>
+   <notes>---
+  i will open another one month timeframe until stable release, or if a bug is found
+  until third release candidate.
+  Please, test it as much as possible, and report all you think important.
+---
+
+* bugs
+- fixed Monitor stops before end when setMaximum is set to value higher than 200 (bug #4885)
+  Thanks to Roman Stachura.
+
+* changes
+- observer pattern is now built with Event_Dispatcher package
+- removes all HTML_CSS dependencies
+- getStyle() and getScript() optimized now when its request the html stream generation
+  (raw data only or data with script tags)
+
+* improvements
+- generation of stylesheet is (average) 20 times faster without HTML_CSS
+
+* QA
+- dependencies has been revisited to higher level
+- all Examples are now back into main package. No more additional package.
+- Fix wrong project links into documentation (README, ReleaseVersion)
+  Thanks to Christian Roy to have noticed me.</notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0RC1</release>
+    <api>2.0.0RC1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2005-06-23</date>
+   <license uri="http://www.example.com">PHP License 3.0</license>
+   <notes>---
+  It is important to notice that even if i will continue to maintains the HTML_Progress
+  for possible bugs, no features will be added in this package. Even if it will not marks
+  as deprecated, i suggest to migrate to HTML_Progress2 (see docs/migrationGuide.txt).
+---
+* news
+- The HTML_Progress2 package has now a series of mini guides (see docs/ directory)
+- The HTML_Progress2_Lite class is recommended to users that does not want to install PEAR.
+  This class has no dependencies.
+- News examples are available: See Multiple, Label, Lite version, Preload.
+- Adds the *autorun* option on HTML_Progress2_Monitor to run a progress monitor
+  without need to push the Start button.
+
+* changes
+- DM and UI classes (from HTML_Progress 1.x) were merged into the main class.
+- Model class (from HTML_Progress 1.x) was removed.
+- A new error handling system that support native PEAR_Error (default), but also PEAR_ErrorStack,
+  and any other system you might want to plug-in.
+- Progress2 and Generator does not support anymore external pre-set config file.
+- All examples have been revisited (removed those who have the same goals).
+- HTML_Progress2::getPercentComplete() method has an optional parameter.
+  Return may be float (default) or integer.
+- HTML_Progress2 API changed a bit to include the new label system:
+  . setCellCount() accept now zero as minimum value for smooth progress meter
+    (see also HTML_Progress2_Lite).
+  . moveNext() should replace incValue() (still exists)
+  . moveStep() should replace setValue() (still exists)
+  . setLabelAttributes() replaced setStringAttributes() (was removed)
+  . isStringPainted() and setStringPainted() were removed
+  . getString() was also removed
+  . setString() was removed and replaced by addLabel()
+- HTML_Progress2_Monitor::callProgressHandler() public method was removed.
+- HTML_Progress2 included now the features of HTML_Progress_Lite:
+  window frame, buttons, labels (text, step, crossbar).
+
+* improvements
+- Generator ActionProcess got two new methods to easily get PHP and/or CSS source code generated.
+- More compatibilities with PHP5 (adds __construct method).
+
+* QA
+- Updates headers comment block on all files
+- Dependencies has been revisited to higher level
+- Examples were removed from main package and moved into the optional package
+  available at http://pear.laurent-laville.org/HTML_Progress2/</notes>
+  </release>
+ </changelog>
+</package>

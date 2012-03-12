@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Net_DNS</name>
+  <summary>Resolver library used to communicate with a DNS server</summary>
+  <description>A resolver library used to communicate with a name server to perform DNS queries, zone transfers, dynamic DNS updates, etc.  Creates an object hierarchy from a DNS server's response, which allows you to view all of the information given by the DNS server.  It bypasses the system's resolver library and communicates directly with the server.</description>
+  <maintainers>
+    <maintainer>
+      <user>ekilfoil</user>
+      <name>Eric Kilfoil</name>
+      <email>eric@ypass.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>cox</user>
+      <name>Tomas V.V.Cox</name>
+      <email>cox@idecnet.com</email>
+      <role>contributor</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.0.0b3</version>
+    <date>2005-04-08</date>
+    <license>LGPL 2.1</license>
+    <state>beta</state>
+    <notes>Fixed all pending bugs
+Ensured php5 compatibility</notes>
+    <deps>
+      <dep type="php" rel="ge" version="4.2"/>
+      <dep type="ext" rel="has">mhash</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="Net" md5sum="a90f6d699c100a2f1f629fcca1c15b45" name="DNS.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="124057168f9523301f6ad850074d1abf" name="DNS/Packet.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="80e214ee57c79ab7ab382ac555e03e3a" name="DNS/Header.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="b32b08ba3b32c2e7e29c0959d4dadafb" name="DNS/Question.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="2ffbe5aad53f51c8553b2258f53ff503" name="DNS/Resolver.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="ece5777ce6a71b95f1b4c3bb44837e56" name="DNS/RR.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="2acf0c2c0339bfcf6300a10b7b0dff05" name="DNS/RR/A.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="e49983dfecddf3acdbc5de4388942d99" name="DNS/RR/NS.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="06915d56d8c0ac4598e46fb291c13462" name="DNS/RR/CNAME.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="5368e01f19ecb8e31e5a25daab488adc" name="DNS/RR/MX.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="12ffac7249e2db7c85058ce7e407b461" name="DNS/RR/SOA.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="652d0df7cc8aad887244cf84633c6a5d" name="DNS/RR/PTR.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="bb4d97b66139a53cd5e3d7529258614c" name="DNS/RR/TSIG.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="6763755bf535427b1edae4c30ad350e4" name="DNS/RR/AAAA.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="56ce3f39654b2dacd30afad476fe14a6" name="DNS/RR/HINFO.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="618b53f78233fc8a074ca6afeb4aa5bc" name="DNS/RR/NAPTR.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="ce99c4205319ee571ab451d91c94baef" name="DNS/RR/SRV.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="1a1a36db72da9fc6bc9b3ba6fbc6655b" name="DNS/RR/TXT.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>1.00b2</version>
+      <date>2003-06-10</date>
+      <license>LGPL 2.1</license>
+      <state>beta</state>
+      <notes>- More RR types supported: AAAA, HINFO, NAPTR, SRV, and TXT (Sara Goleman).
+- Fixed bug 23812 (as well as other unreported bugs)
+- Added capability for extracting arbritrary lables from a packet (Sara Goleman).
+    
+</notes>
+    </release>
+    <release>
+      <version>1.00b1</version>
+      <date>2003-02-24</date>
+      <license>LGPL 2.1</license>
+      <state>beta</state>
+      <notes>- Tested with PHP 4.3.0
+- Should have no warnings under with maximum error_reporting setting
+- Fixed bug: did not understand name server responses using the one-answer zone transfer format
+- Fixed more problems with PHP warning about uninitialized variables
+
+Note that the interface to the axfr function has changed.  Software relying on the old (buggy) style of axfr queries will need to be updated to call axfr_old() instead of axfr().  The new axfr() function will not return a DNS packet, but an array of RRs ONLY.
+      
+</notes>
+    </release>
+    <release>
+      <version>0.03</version>
+      <date>2002-08-15</date>
+      <license>LGPL 2.1</license>
+      <state>beta</state>
+      <notes>Now has stable support of DNS queries, socket handling, and packet parsing/generating. Any problems at this point should be considered bugs and should be reported ASAP. Running this code with E_ALL should be acceptable -- any warnings generated should be submitted to eric@ypass.net.
+      
+</notes>
+    </release>
+    <release>
+      <version>0.02</version>
+      <date>2002-08-15</date>
+      <license>LGPL 2.1</license>
+      <state>beta</state>
+      <notes>Supports TSIG signed DNS packets for generating DNS update packets (re: rfc2485)
+</notes>
+    </release>
+    <release>
+      <version>0.01</version>
+      <date>2002-05-14</date>
+      <license>LGPL 2.1</license>
+      <state>devel</state>
+      <notes>Currently only supports A, CNAME, NS, PTR, MX, and SOA records.
+</notes>
+    </release>
+  </changelog>
+</package>

@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>MDB</name>
+  <summary>database abstraction layer</summary>
+  <description>Documentation can be found at: http://www.backendmedia.com/MDB/docs/
+
+    PEAR MDB is a merge of the PEAR DB and Metabase php database abstraction layers.
+
+    It provides a common API for all support RDBMS. The main difference to most other DB abstraction packages is that MDB goes much further to ensure portability. Among other things MDB features:
+    * An OO-style query API
+    * A DSN (data source name) or array format for specifying database servers
+    * Datatype abstraction and on demand datatype conversion
+    * Portable error codes
+    * Sequential and non sequential row fetching as well as bulk fetching
+    * Ordered array and associative array for the fetched rows
+    * Prepare/execute (bind) emulation
+    * Sequence emulation
+    * Replace emulation
+    * Limited Subselect emulation
+    * Row limit support
+    * Transactions support
+    * Large Object support
+    * Index/Unique support
+    * Module Framework to load advanced functionality on demand
+    * Table information interface
+    * RDBMS management methods (creating, dropping, altering)
+    * RDBMS independent xml based schema definition management
+    * Altering of a DB from a changed xml schema
+    * Reverse engineering of xml schemas from an existing DB (currently only MySQL)
+    * Full integration into the PEAR Framework
+    * Wrappers for the PEAR DB and Metabase APIs
+    * PHPDoc API documentation
+
+    Currently supported RDBMS:
+    MySQL
+    PostGreSQL
+    Oracle
+    Frontbase
+    Querysim
+    Interbase
+    Firebird
+    Other soon to follow.</description>
+  <maintainers>
+    <maintainer>
+      <user>lsmith</user>
+      <name>Lukas Kahwe Smith</name>
+      <email>lsmith@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>dickmann</user>
+      <name>Christian Dickmann</name>
+      <email>chrisdicki@gmx.de</email>
+      <role>contributor</role>
+    </maintainer>
+    <maintainer>
+      <user>pgc</user>
+      <name>Paul Cooper</name>
+      <email>pgc@ucecom.com</email>
+      <role>contributor</role>
+    </maintainer>
+    <maintainer>
+      <user>ssb</user>
+      <name>Stig Sæther Bakken</name>
+      <email>stig@php.net</email>
+      <role>contributor</role>
+    </maintainer>
+    <maintainer>
+      <user>cox</user>
+      <name>Tomas V.V.Cox</name>
+      <email>cox@php.net</email>
+      <role>contributor</role>
+    </maintainer>
+    <maintainer>
+      <user>manuel</user>
+      <name>Manuel Lemos</name>
+      <email>mlemos@acm.org</email>
+      <role>contributor</role>
+    </maintainer>
+    <maintainer>
+      <user>fmk</user>
+      <name>Frank M. Kromann</name>
+      <email>frank@kromann.info</email>
+      <role>contributor</role>
+    </maintainer>
+    <maintainer>
+      <user>quipo</user>
+      <name>Lorenzo Alberton</name>
+      <email>l.alberton@quipo.it</email>
+      <role>contributor</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.1.2</version>
+    <date>2003-04-23</date>
+    <license>BSD style</license>
+    <state>stable</state>
+    <notes>- This is mainly a bug fix release
+- 4 new driver were added
+    Oracle (still Beta)
+    Frontbase (still Alpha)
+    Interbase/Firebird (still Alpha, due to missing features)
+    Querysim
+- All get*Value() methods (excet get*lobValue() for now) will convert a php NULL into an SQL NULL
+  (resulting in API changes in the NULL handling of the get*Value() and replace() methods)
+- REPLACE emulation now works more similar to how MySQLs REPLACE works
+- Moved code from the Common constructor into MDB::connect()
+- Moved code from the Driver constructor into the drivers connect method
+- PostGreSQL reverse engineering partly implemented
+- Made the MDB_Date classe behave more similar to PEAR::Date (especially in regards to daylight saving time)</notes>
+    <deps>
+      <dep type="php" rel="ge" version="4.1.0"/>
+      <dep type="pkg" rel="ge" version="1.0b1">PEAR</dep>
+      <dep type="pkg" rel="has">XML_Parser</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="/" md5sum="2a2b54205eb2d205989eab855712279b" name="MDB.php"/>
+      <file role="doc" md5sum="41c0d8702e54137f47774d3b45bb9312" name="README"/>
+      <file role="doc" md5sum="3f635d89514c79e6e3fdf5ea46c3eddb" name="MAINTAINERS"/>
+      <file role="doc" md5sum="9c58583d2cb69a5596bf81ac24557776" name="TODO"/>
+      <file role="php" md5sum="108205ac23e48a7de589019829f92a97" name="MDB/Common.php"/>
+      <file role="php" md5sum="0aae9d5d2b877f3c8f96453b399b66a0" name="MDB/querysim.php"/>
+      <file role="php" md5sum="33cd4ea323d3facc61c2cb209aebbc74" name="MDB/ibase.php"/>
+      <file role="php" md5sum="de9d8495fca3b331b782d7d4d2ff4af5" name="MDB/oci8.php"/>
+      <file role="php" md5sum="2109def8bcad78e1164696514f306edf" name="MDB/fbsql.php"/>
+      <file role="php" md5sum="215110d1df82ca7aadbd7ed05b724940" name="MDB/mysql.php"/>
+      <file role="php" md5sum="21076b32d294f5f679d7b7b4ed75d3fd" name="MDB/pgsql.php"/>
+      <file role="php" md5sum="09736cb8da79d8879da64eb81b9478cf" name="MDB/Date.php"/>
+      <file role="php" md5sum="1783f833c78457aec2a2162ef08775eb" name="MDB/Manager.php"/>
+      <file role="php" md5sum="7caa72b9fbac549105f09d3a8eb748f5" name="MDB/Parser.php"/>
+      <file role="php" md5sum="d406558b9a55ff8ac83510de415367ce" name="MDB/metabase_wrapper.php"/>
+      <file role="php" md5sum="2440d7b8b3caac0c7209ac366eff047d" name="MDB/peardb_wrapper.php"/>
+      <file role="php" md5sum="63b16599b4866f9b219543056578b609" name="MDB/reverse_engineer_xml_schema.php"/>
+      <file role="php" md5sum="9aa8d0b941db9a9c6e94f94c64caf10b" name="MDB/Modules/LOB.php"/>
+      <file role="php" md5sum="71abd7f927fd916c68d540cd6b02f46a" name="MDB/Modules/Manager/Common.php"/>
+      <file role="php" md5sum="619604f14136fce4fd9d16922bdc9c33" name="MDB/Modules/Manager/ibase.php"/>
+      <file role="php" md5sum="a46b7b66ad4e45c75f2fb7a188dc0380" name="MDB/Modules/Manager/oci8.php"/>
+      <file role="php" md5sum="1ff8eef988c662f7d033854d228abca9" name="MDB/Modules/Manager/fbsql.php"/>
+      <file role="php" md5sum="72486c5d9d0af82c8bfb8105aec4b5b4" name="MDB/Modules/Manager/mysql.php"/>
+      <file role="php" md5sum="38ba3d2ed69c9e245514778f54d8ff68" name="MDB/Modules/Manager/pgsql.php"/>
+      <file role="doc" md5sum="0bfec3397a3327a7787340113d96e522" name="doc/tutorial.html"/>
+      <file role="doc" md5sum="8259e91ec336ad6efdd93a0a4a946067" name="doc/datatypes.html"/>
+      <file role="doc" md5sum="887ae14192e25dc5da0f6b8aae7515d0" name="doc/xml_schema_documentation.html"/>
+      <file role="doc" md5sum="3ec71140c00ee5ec725bee460584a283" name="doc/xml_schema.xsl"/>
+      <file role="doc" md5sum="ac61fe199afad32a7a0302d805c8a71d" name="doc/skeleton.php"/>
+      <file role="doc" md5sum="e82a740d5984d051e756a782c49d2244" name="doc/Modules_Manager_skeleton.php"/>
+      <file role="test" md5sum="59f2441ab897a919b75acc4409597a10" name="tests/README"/>
+      <file role="test" md5sum="ba1353e00682ea4ecc91772176fa26c8" name="tests/test.php"/>
+      <file role="test" md5sum="e0a9bac402cb4f7bbb73a430e0c98782" name="tests/clitest.php"/>
+      <file role="test" md5sum="d57022c9e39641852736abe6048e5915" name="tests/testchoose.php"/>
+      <file role="test" md5sum="b6aaa9f7c85dc1f82beca95da640979d" name="tests/MDB_api_testcase.php"/>
+      <file role="test" md5sum="357d44540cf79370cab2d22d292da3a7" name="tests/MDB_manager_testcase.php"/>
+      <file role="test" md5sum="256a71f340d884c538839462e7a33f67" name="tests/MDB_usage_testcase.php"/>
+      <file role="test" md5sum="b1b2836f11b5e252bda42c6c4b09a8da" name="tests/MDB_bugs_testcase.php"/>
+      <file role="test" md5sum="d46a8f267dbd54f0c7ff55e479d33e7e" name="tests/HTML_TestListener.php"/>
+      <file role="test" md5sum="f1c2db11efba79d9a76b9a64e5ecff7b" name="tests/Console_TestListener.php"/>
+      <file role="test" md5sum="b454a16942b3ec1ba40445f1fad1e477" name="tests/tests.css"/>
+      <file role="test" md5sum="f53340294ec6415f683e5759091012bc" name="tests/testUtils.php"/>
+      <file role="test" md5sum="9d11cdf7d1c55a89fa2ffdc2850b419d" name="tests/test_setup.php.dist"/>
+      <file role="test" md5sum="0661a5415b6043c029a1fecc26e74f66" name="tests/test.schema"/>
+      <file role="test" md5sum="29ae3c5e3b3d861500c0dea47e5170d6" name="tests/MDB_test.php"/>
+      <file role="test" md5sum="fa7b3de83b058ca4558b03af388c8a2c" name="tests/MDB_pear_wrapper_test.php"/>
+      <file role="test" md5sum="05b01138edd732b1432e05066c02dbc5" name="tests/metapear_test_db.schema"/>
+      <file role="test" md5sum="17c6a6446eb376a338cd3f3fb7cdd649" name="tests/driver_test_config.php"/>
+      <file role="test" md5sum="8d44c938172dd4f723abe4541832e013" name="tests/driver_test.php"/>
+      <file role="test" md5sum="26d09f746b99d2fc91c64c3843f6867b" name="tests/setup_test.php"/>
+      <file role="test" md5sum="5463b13429416c33669527d5f45b8149" name="tests/driver_test.schema"/>
+      <file role="test" md5sum="1ed25d937a483037a70f5535dfd1c80a" name="tests/lob_test.schema"/>
+      <file role="test" md5sum="f243a1982517f94f116f23d21fa9d794" name="tests/templates/results.tpl"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>1.1.1</version>
+      <date>2002-11-26</date>
+      <state>stable</state>
+      <notes>Since the changelog for the 1.1.0 release was incomplete here follows the complete list of changes from the 1.0 release:
+Minor bugfixes and PHPDoc enhancements
+PEAR-ized directory structure and class names
+Added PHPUnit test suite (browser and cli)
+Manager.php does not load MDB.php anymore (include MDB.php instead and use MDB::loadFile())
+MDB::connect() does not need to be modified anymore to add support for a new driver
+API changes:
+- MDB_common::loadExtension renamed to MDB_common::loadModule
+- MDB::assertExtension was dropped in favor of PEAR::loadExtension
+- MDB::loadFile was added to load additional files (from now on only MDB.php will be included directly)
+</notes>
+    </release>
+    <release>
+      <version>1.1.0</version>
+      <date>2002-11-24</date>
+      <state>devel</state>
+      <notes>PEAR-ized directory structure and class names
+Added PHPUnit test suite (browser and cli)
+Minor bugfixes and API changes
+</notes>
+    </release>
+    <release>
+      <version>1.1.0pl1</version>
+      <date>2002-11-25</date>
+      <state>devel</state>
+      <notes>Fixed issue of metapear_test_db.schema being in the wrong dir
+</notes>
+    </release>
+    <release>
+      <version>1.0.1RC1</version>
+      <date>2002-11-14</date>
+      <state>devel</state>
+      <notes>PEAR-ized directory structure and class names
+Added PHPUnit test suite
+Minor bugfixes and API changes
+</notes>
+    </release>
+    <release>
+      <version>1.0</version>
+      <date>2002-09-08</date>
+      <state>stable</state>
+      <notes>First stable release (repackaged RC4). Added Paul Cooper to the list of contributors. Please see README.txt for details.
+</notes>
+    </release>
+    <release>
+      <version>1.0_RC4</version>
+      <date>2002-09-07</date>
+      <state>devel</state>
+      <notes>Just minor bugs fixes and beautifications in several places. Added skeleton drivers to help driver authors.
+</notes>
+    </release>
+    <release>
+      <version>1.0_RC3</version>
+      <date>2002-09-05</date>
+      <state>devel</state>
+      <notes>this is release candidate 3 for MDB 1.0 featuring: major fixes and improvements to the MDB manager; bug fixes to the parser and date; both the mysql and the postgresql driver can now run query() without being connected to a specific database; added xsl that can render xml schema files to html; added initial version of a tutorial
+</notes>
+    </release>
+    <release>
+      <version>1.0_RC2</version>
+      <date>2002-08-21</date>
+      <state>devel</state>
+      <notes>this is release candidate 2 for MDB 1.0 featuring: major fixes and improvements to the MDB manager; totaly new XML_Parser based parser with much improved speed; moved date functions to a seperate class
+</notes>
+    </release>
+    <release>
+      <version>1.0_RC1</version>
+      <date>2002-08-11</date>
+      <state>devel</state>
+      <notes>this is the first release candidate for MDB 1.0; it contains mostly cosmetic changes but also improvements to reverse engineering of xml schemas from existing MySQL DBs.
+</notes>
+    </release>
+    <release>
+      <version>0.9.11</version>
+      <date>2002-08-05</date>
+      <state>devel</state>
+      <notes>made feature improvements and bug fixs to the manager; pgsql core driver now passes the driver test suite; lob support cleanup considerably
+</notes>
+    </release>
+    <release>
+      <version>0.9.10</version>
+      <date>2002-07-30</date>
+      <state>devel</state>
+      <notes>cleanups all over MDB; large improvements to the MDB manager
+</notes>
+    </release>
+    <release>
+      <version>0.9.9</version>
+      <date>2002-07-17</date>
+      <state>beta</state>
+      <notes>Further cleanups to the API;fixes to the pgsql driver; manager can now reverse engineer sequences into an xml schema
+</notes>
+    </release>
+    <release>
+      <version>0.9.8</version>
+      <date>2002-07-04</date>
+      <state>beta</state>
+      <notes>Further cleanups to the API (especially for sending the types of to be fetched data);added initial pgsql manager class; formatting and eol fixes
+</notes>
+    </release>
+    <release>
+      <version>0.9.7.1</version>
+      <date>2002-06-20</date>
+      <state>beta</state>
+      <notes>Bugfix release: fetchInto in the pgsql driver and baseFetchInto fixed to handle when now run numbers is passed to the method; mysql subselect emulation now returns NULL if no data is found;
+</notes>
+    </release>
+    <release>
+      <version>0.9.7</version>
+      <date>2002-06-20</date>
+      <state>beta</state>
+      <notes>PHPDoc have now been added to all methods in common.php; some API changes, mostly to the transaction methods; introduced a simple subselect emulation; added postgresql driver; fix fetchInto in the pear db wrapper
+</notes>
+    </release>
+    <release>
+      <version>0.9.6</version>
+      <date>2002-06-12</date>
+      <state>beta</state>
+      <notes>fixed a serious bug in parser.php that prevented tables from being initialized correctly; added several new methods to better match the PEAR DB feature set; added PHPDoc comments to most methods in common.php; more formating improvements
+</notes>
+    </release>
+    <release>
+      <version>0.9.5</version>
+      <date>2002-06-05</date>
+      <state>beta</state>
+      <notes>added autofree option; dropped setup() infavor of class contructors; minor changes to the API; improvements to the Metabase wrapper
+</notes>
+    </release>
+    <release>
+      <version>0.9.4</version>
+      <date>2002-05-31</date>
+      <state>beta</state>
+      <notes>Moved all DB management methods into a seperate class that is loaded on demand; MDB manager can now create an xml schema file from an existing DB;Improvements to the error handling, XMl schema manager and Metabase Wrapper as well as general formatting tweaks
+</notes>
+    </release>
+    <release>
+      <version>0.9.3</version>
+      <date>2002-05-17</date>
+      <state>beta</state>
+      <notes>MDB now uses the currect include path in all situations; improvements to the error handling (thx to Christian Dickmann) and  the pear wrapper were made
+</notes>
+    </release>
+    <release>
+      <version>0.9.1</version>
+      <date>2002-05-03</date>
+      <state>beta</state>
+      <notes>fixed errors in package.xml
+</notes>
+    </release>
+    <release>
+      <version>0.9</version>
+      <date>2002-05-03</date>
+      <state>beta</state>
+      <notes>First packaged release of MDB
+</notes>
+    </release>
+  </changelog>
+</package>

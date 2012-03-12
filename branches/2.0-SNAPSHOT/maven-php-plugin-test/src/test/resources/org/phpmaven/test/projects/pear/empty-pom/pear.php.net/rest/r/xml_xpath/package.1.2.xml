@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>XML_XPath</name>
+  <summary>The PEAR::XML_XPath class provided an XPath/DOM XML manipulation, maneuvering and query interface.</summary>
+  <description>The PEAR::XML_XPath class provided an XPath/DOM XML manipulation, maneuvering and 
+    query interface.
+
+    The class allows for easy manipulation, maneuvering and querying of a domxml tree using
+    both xpath queries and DOM walk functions.  It uses an internal pointer for all
+    methods on which the action is performed.  Results from an dom/xpath query are returned
+    as an XPath_Result object, which contains an internal array of DOM nodes and which extends 
+    the common DOM class and hence contains all the DOM functions from the main object to run
+    on each of the elements in the internal array.  This class tries to hold as close as possible       to the DOM Recommendation.  You MUST have the domxml extension to use this class.
+
+    The XML_XPath class was inspired by a class maintained by Nigel Swinson called phpxpath.
+    The phpxpath class does not rely on PHP xmldom functions and is therefore a sibling to
+    this class: http://sourceforge.net/projects/phpxpath</description>
+  <maintainers>
+    <maintainer>
+      <user>dallen</user>
+      <name>Dan Allen</name>
+      <email>dallen@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.2</version>
+    <date>2002-06-07</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>* Very important to note that the DOM step functions do not take an optional xpath query.  The
+  reason I designed it this way is because the outcome would be too difficult to deal with, since
+  one of 4 different scenarios could take place.  Plus, it just doesn't make any sense. 
+  * Significant speed enhancements (almost 100% faster)
+  Major changes:
+  * getAttribute('foo', true) now puts you on the attribute, not the element node
+  * cleaned up the XML_XPath_result initialization (no longer create an StdClass when calling class)
+  * fixed sorting for childNodes() and getElementsByTagName() generated result objects
+  * cleaned up sorting in result object, and added comments (so I don't forget again how I did it)
+  * major speed enhancements (calling user defined functions methods is slow, so tried to trim that down)
+  * don't create a result object in the _quick_evaluate function since we don't need it anyway
+  * enabled relative xpath queries differently, in_xpathQuery = array(query, node) for relative...
+  * added relative xpath queries for the _quick_evaluate feature</notes>
+    <deps>
+      <dep type="php" rel="ge" version="4.2.1"/>
+      <dep type="ext" rel="has">domxml</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="XML" md5sum="da25623e2f8faae28d3e17ba7c0c4af4" name="XPath.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="f60588f88d78131aeb2e0b842cd5f2fd" name="XPath/common.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="b64fcc6ba6d78629f3e1406c8228d484" name="XPath/result.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="b2fbc65ece57c16071ca0ea435853174" name="XPath/error.php"/>
+      <file role="doc" baseinstalldir="XML" md5sum="b2690e33e9938e5548f1880def20748d" name="docs/XML_XPath_example.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>1.0</version>
+      <date>2002-05-23</date>
+      <state>beta</state>
+      <notes>This is the initial independent PEAR release.</notes>
+    </release>
+    <release>
+      <version>1.1</version>
+      <date>2002-06-06</date>
+      <state>beta</state>
+      <notes>This version brings major enhancements to the API
+ * childNode(), siblingNode() removed and features are relocated
+ * added childNodes() which returns an XML_XPath_result object of all children
+ * added getElementByTagName which returns an XML_XPath_result object of all matching tags
+ * step functions in result object are now next(), end(), rewind() and nextByNode(Name|Type)
+ * calling next() after rewind() in the result object counts the first object again, so a regular
+   while loop can be used
+ * relative XPath queries are now enabled (getNodePath() provides this functionality) 
+ * better error reports generated and will continue to improve with the domxml extension
+ * setNodeIndex() in result object removed</notes>
+    </release>
+    <release>
+      <version>1.2</version>
+      <date>2002-06-07</date>
+      <state>beta</state>
+      <notes>* Very important to note that the DOM step functions do not take an optional xpath query.  The
+  reason I designed it this way is because the outcome would be too difficult to deal with, since
+  one of 4 different scenarios could take place.  Plus, it just doesn't make any sense. 
+  * Significant speed enhancements (almost 100% faster)
+  Major changes:
+  * getAttribute('foo', true) now puts you on the attribute, not the element node
+  * cleaned up the XML_XPath_result initialization (no longer create an StdClass when calling class)
+  * fixed sorting for childNodes() and getElementsByTagName() generated result objects
+  * cleaned up sorting in result object, and added comments (so I don't forget again how I did it)
+  * major speed enhancements (calling user defined functions methods is slow, so tried to trim that down)
+  * don't create a result object in the _quick_evaluate function since we don't need it anyway
+  * enabled relative xpath queries differently, in_xpathQuery = array(query, node) for relative...
+  * added relative xpath queries for the _quick_evaluate feature</notes>
+    </release>
+  </changelog>
+</package>

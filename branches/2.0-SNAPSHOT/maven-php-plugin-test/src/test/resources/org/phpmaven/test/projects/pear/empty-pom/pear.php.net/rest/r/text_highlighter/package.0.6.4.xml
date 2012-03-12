@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Text_Highlighter</name>
+  <summary>Syntax highlighting</summary>
+  <description>Text_Highlighter is a package for syntax highlighting.
+
+It provides a base class provining all the functionality, 
+and a descendent classes geneator class.
+
+The main idea is to simplify creation of subclasses
+implementing syntax highlighting for particular language.
+Subclasses do not implement any new functioanality,
+they just provide syntax highlighting rules.
+The rules sources are in XML format. 
+
+To create a highlighter for a language, there is no need
+to code a new class manually. Simply describe the rules
+in XML file and use Text_Highlighter_Generator to create
+a new class.</description>
+  <maintainers>
+    <maintainer>
+      <user>blindman</user>
+      <name>Andrey Demenev</name>
+      <email>demenev@gmail.com</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.6.4</version>
+    <date>2005-04-16</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>- Fixed bug reported privately by Alex Bosman : &lt;&lt; operator breaks C++ highlighting. Actually, this bug could potentially cause more problems with other highlighters.
+- Moved &quot;true&quot; and &quot;false&quot; to &quot;reserved&quot; section in C++ highlighter
+- Contents of C/C++ preprocessor directives are now highlighted</notes>
+    <deps>
+      <dep type="pkg" rel="ge" version="1.0" optional="no">PEAR</dep>
+      <dep type="pkg" rel="ge" version="1.0.1" optional="no">XML_Parser</dep>
+      <dep type="pkg" rel="ge" version="1.0" optional="no">Console_Getopt</dep>
+    </deps>
+    <provides type="class" name="Text_Highlighter_CPP" extends="Text_Highlighter" />
+    <provides type="class" name="Text_Highlighter_CSS" extends="Text_Highlighter" />
+    <provides type="class" name="Text_Highlighter_DIFF" extends="Text_Highlighter" />
+    <provides type="class" name="Text_Highlighter_DTD" extends="Text_Highlighter" />
+    <provides type="class" name="Text_Highlighter_Generator" extends="XML_Parser" />
+    <provides type="function" name="Text_Highlighter_Generator::setInputFile" />
+    <provides type="function" name="Text_Highlighter_Generator::generate" />
+    <provides type="function" name="Text_Highlighter_Generator::getCode" />
+    <provides type="function" name="Text_Highlighter_Generator::saveCode" />
+    <provides type="function" name="Text_Highlighter_Generator::hasErrors" />
+    <provides type="function" name="Text_Highlighter_Generator::getErrors" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_Default" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_Region" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_Block" />
+    <provides type="function" name="Text_Highlighter_Generator::cdataHandler" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_Comment" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_PartGroup" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_PartClass" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_Keywords" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_Keyword" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_Contains" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_But" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_Onlyin" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_Author" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_Highlight" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_Comment_" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_Region_" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_Keywords_" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_Block_" />
+    <provides type="function" name="Text_Highlighter_Generator::xmltag_Highlight_" />
+    <provides type="class" name="Text_Highlighter_HTML" extends="Text_Highlighter" />
+    <provides type="class" name="Text_Highlighter_JAVASCRIPT" extends="Text_Highlighter" />
+    <provides type="class" name="Text_Highlighter_MYSQL" extends="Text_Highlighter" />
+    <provides type="class" name="Text_Highlighter_PERL" extends="Text_Highlighter" />
+    <provides type="class" name="Text_Highlighter_PHP" extends="Text_Highlighter" />
+    <provides type="class" name="Text_Highlighter_PYTHON" extends="Text_Highlighter" />
+    <provides type="class" name="Text_Highlighter_Renderer" />
+    <provides type="function" name="Text_Highlighter_Renderer::reset" />
+    <provides type="function" name="Text_Highlighter_Renderer::preprocess" />
+    <provides type="function" name="Text_Highlighter_Renderer::acceptToken" />
+    <provides type="function" name="Text_Highlighter_Renderer::finalize" />
+    <provides type="function" name="Text_Highlighter_Renderer::getOutput" />
+    <provides type="class" name="Text_Highlighter_RUBY" extends="Text_Highlighter" />
+    <provides type="class" name="Text_Highlighter_SQL" extends="Text_Highlighter" />
+    <provides type="class" name="Text_Highlighter_XML" extends="Text_Highlighter" />
+    <provides type="class" name="Text_Highlighter_Renderer_Console" extends="Text_Highlighter_Renderer" />
+    <provides type="function" name="Text_Highlighter_Renderer_Console::preprocess" />
+    <provides type="function" name="Text_Highlighter_Renderer_Console::reset" />
+    <provides type="function" name="Text_Highlighter_Renderer_Console::acceptToken" />
+    <provides type="function" name="Text_Highlighter_Renderer_Console::finalize" />
+    <provides type="function" name="Text_Highlighter_Renderer_Console::getOutput" />
+    <provides type="class" name="Text_Highlighter_Renderer_Html" extends="Text_Highlighter_Renderer" />
+    <provides type="function" name="Text_Highlighter_Renderer_Html::preprocess" />
+    <provides type="function" name="Text_Highlighter_Renderer_Html::reset" />
+    <provides type="function" name="Text_Highlighter_Renderer_Html::acceptToken" />
+    <provides type="function" name="Text_Highlighter_Renderer_Html::finalize" />
+    <provides type="function" name="Text_Highlighter_Renderer_Html::getOutput" />
+    <provides type="class" name="Text_Highlighter" />
+    <provides type="function" name="Text_Highlighter::factory" />
+    <provides type="function" name="Text_Highlighter::setRenderer" />
+    <provides type="function" name="Text_Highlighter::highlight" />
+    <filelist>
+      <file role="php" baseinstalldir="Text" md5sum="5354501358607dd981661963f324fac3" name="Highlighter/CPP.php">
+        <replace type="package-info" from="@package_version@" to="version"/>
+      </file>
+      <file role="php" baseinstalldir="Text" md5sum="3c171f909193e3d466b6b69067134705" name="Highlighter/CSS.php">
+        <replace type="package-info" from="@package_version@" to="version"/>
+      </file>
+      <file role="php" baseinstalldir="Text" md5sum="9ac37389c4d516870e851a265406f561" name="Highlighter/DIFF.php">
+        <replace type="package-info" from="@package_version@" to="version"/>
+      </file>
+      <file role="php" baseinstalldir="Text" md5sum="19ecc1c3bdde340ad314ab673af25aa0" name="Highlighter/DTD.php">
+        <replace type="package-info" from="@package_version@" to="version"/>
+      </file>
+      <file role="php" baseinstalldir="Text" md5sum="ef9f9e23a6ba711a26b4cc1d3509ce07" name="Highlighter/Generator.php">
+        <replace type="package-info" from="@package_version@" to="version"/>
+      </file>
+      <file role="php" baseinstalldir="Text" md5sum="48ee3d5b1d71c8f2e2fd7f29fd8ff7ba" name="Highlighter/HTML.php">
+        <replace type="package-info" from="@package_version@" to="version"/>
+      </file>
+      <file role="php" baseinstalldir="Text" md5sum="d10672554a7935751b2156316532ea36" name="Highlighter/JAVASCRIPT.php">
+        <replace type="package-info" from="@package_version@" to="version"/>
+      </file>
+      <file role="php" baseinstalldir="Text" md5sum="47c6848bc32ba067a8d03325a99e9a75" name="Highlighter/MYSQL.php">
+        <replace type="package-info" from="@package_version@" to="version"/>
+      </file>
+      <file role="php" baseinstalldir="Text" md5sum="87255914eddcf3fb02b2e63bf4319c6e" name="Highlighter/PERL.php">
+        <replace type="package-info" from="@package_version@" to="version"/>
+      </file>
+      <file role="php" baseinstalldir="Text" md5sum="c27b615e16464b8ec0b88b6b94907679" name="Highlighter/PHP.php">
+        <replace type="package-info" from="@package_version@" to="version"/>
+      </file>
+      <file role="php" baseinstalldir="Text" md5sum="03b8be2ad241c0c7aa2922c0e41281a4" name="Highlighter/PYTHON.php">
+        <replace type="package-info" from="@package_version@" to="version"/>
+      </file>
+      <file role="php" baseinstalldir="Text" md5sum="4d549b94755acb4835806462db88fdb8" name="Highlighter/Renderer.php">
+        <replace type="package-info" from="@package_version@" to="version"/>
+      </file>
+      <file role="php" baseinstalldir="Text" md5sum="656adde063280fbd04edb5bfb406584b" name="Highlighter/RUBY.php">
+        <replace type="package-info" from="@package_version@" to="version"/>
+      </file>
+      <file role="php" baseinstalldir="Text" md5sum="7f0f35c0d3de7e5cbbd4dd5188603698" name="Highlighter/SQL.php">
+        <replace type="package-info" from="@package_version@" to="version"/>
+      </file>
+      <file role="php" baseinstalldir="Text" md5sum="e60477c17bf4a8a4098ce4618b316c00" name="Highlighter/XML.php">
+        <replace type="package-info" from="@package_version@" to="version"/>
+      </file>
+      <file role="php" baseinstalldir="Text" md5sum="4564b285458c603c29e0692f624733d2" name="Highlighter/Renderer/Console.php">
+        <replace type="package-info" from="@package_version@" to="version"/>
+      </file>
+      <file role="php" baseinstalldir="Text" md5sum="37cfb983b22d4c594966cd7f56a40ca5" name="Highlighter/Renderer/Html.php">
+        <replace type="package-info" from="@package_version@" to="version"/>
+      </file>
+      <file role="data" baseinstalldir="Text" md5sum="9ada8fd0a5f9ee8d391537b46bc9823a" name="cpp.xml"/>
+      <file role="data" baseinstalldir="Text" md5sum="4e86c0a11843917d5e7365f8ad252aed" name="css.xml"/>
+      <file role="data" baseinstalldir="Text" md5sum="8dcee423956d06827c72449922e06c4e" name="diff.xml"/>
+      <file role="data" baseinstalldir="Text" md5sum="fc3ee380b94d3f5abf9ca2c2f51a62d3" name="dtd.xml"/>
+      <file role="script" baseinstalldir="Text/Highlighter" md5sum="088bb2d27559a40250035a8198060cb1" platform="(*ix|*ux)" name="generate">
+        <replace type="pear-config" from="@php_dir@" to="php_dir"/>
+        <replace type="pear-config" from="@php_bin@" to="php_bin"/>
+      </file>
+      <file role="script" baseinstalldir="Text/Highlighter" md5sum="9637b793f50011bd65f981eaad38df9a" platform="windows" name="generate.bat">
+        <replace type="pear-config" from="@php_dir@" to="php_dir"/>
+        <replace type="pear-config" from="@php_bin@" to="php_bin"/>
+      </file>
+      <file role="php" baseinstalldir="Text" md5sum="5c07584570c4b9c6a7535dc7d34e3d7a" name="Highlighter.php">
+        <replace type="package-info" from="@package_version@" to="version"/>
+      </file>
+      <file role="data" baseinstalldir="Text" md5sum="b84717275b43773c84a07ffeb11aa331" name="html.xml"/>
+      <file role="data" baseinstalldir="Text" md5sum="3139bc1e1b5d82ce57e5bbe0e28051d1" name="javascript.xml"/>
+      <file role="data" baseinstalldir="Text" md5sum="595a4a52e381af768601c56e767b686c" name="mysql.xml"/>
+      <file role="data" baseinstalldir="Text" md5sum="6b4f755a10b7ee315afb53e815d237e2" name="perl.xml"/>
+      <file role="data" baseinstalldir="Text" md5sum="ebfc4ddcf7dae4a21fbcb3d931847363" name="php.xml"/>
+      <file role="data" baseinstalldir="Text" md5sum="ac1b287f6fece08e02ad37ac89c49ba6" name="python.xml"/>
+      <file role="doc" baseinstalldir="Text" md5sum="cea32e8605cbe2f2526632d5287001b2" name="README"/>
+      <file role="data" baseinstalldir="Text" md5sum="a14600ba6aca8d800f3de0b9cca1d5d7" name="ruby.xml"/>
+      <file role="data" baseinstalldir="Text" md5sum="9d2e0fcdae976072c298d452891ecffd" name="sql.xml"/>
+      <file role="data" baseinstalldir="Text" md5sum="f520d82f5fc6d570b4d49c2d0e67b99f" name="svn-commit.tmp"/>
+      <file role="data" baseinstalldir="Text" md5sum="81955db307e8e79e65a4e246d4b3b815" name="xml.xml"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.4.1</version>
+      <date>2004-06-19</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>First beta release
+</notes>
+    </release>
+    <release>
+      <version>0.5.0</version>
+      <date>2004-10-08</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>- fixed #1991 Output is not W3C compliant (&lt;/li&gt; missing!)
+- new highlighters : perl, c/c++, ruby
+- removed dependency on ErrorStack
+- added renderers support (default HTML renderer and Console renderer are available)
+- removed PHPDoc tutorials. I am too lazy to maintain those XML files. See documentation in README
+</notes>
+    </release>
+    <release>
+      <version>0.5.1</version>
+      <date>2004-10-31</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>- fixed HTML renderer to work correctly with IE (bug reported by Laurent Laville)
+</notes>
+    </release>
+    <release>
+      <version>0.6.0</version>
+      <date>2004-11-11</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>[-] fixed #2588 : Missing nbsp in first line
+[+] new, much faster, highlighting engine
+</notes>
+    </release>
+    <release>
+      <version>0.6.1</version>
+      <date>2005-02-04</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>bugfix release
+
+[-] fixed bug #2730 : Notice: Undefined offset in Highlighter.php
+</notes>
+    </release>
+    <release>
+      <version>0.6.2</version>
+      <date>2005-02-04</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>- fixed Bug #3060 : Wrong render with HL_NUMBERS_TABLE option
+- fixed Bug #3063 : Output buffer is not cleared before rendering in HTML renderer
+</notes>
+    </release>
+    <release>
+      <version>0.6.3</version>
+      <date>2005-03-14</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>Fixed Bug #3797 : Extra span close tag
+</notes>
+    </release>
+    <release>
+      <version>0.6.4</version>
+      <date>2005-04-16</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>- Fixed bug reported privately by Alex Bosman : &lt;&lt; operator breaks C++ highlighting. Actually, this bug could potentially cause more problems with other highlighters.
+- Moved &quot;true&quot; and &quot;false&quot; to &quot;reserved&quot; section in C++ highlighter
+- Contents of C/C++ preprocessor directives are now highlighted
+</notes>
+    </release>
+  </changelog>
+</package>
