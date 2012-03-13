@@ -221,7 +221,9 @@ public class PearUtility implements IPearUtility {
             config.setAdditionalPhpParameters(
                     "-C -d date.timezone=UTC -d output_buffering=1 -d safe_mode=0 -d open_basedir=\"\" " +
                     "-d auto_prepend_file=\"\" -d auto_append_file=\"\" -d variables_order=EGPCS " +
-                    "-d register_argc_argv=\"On\"");
+                    "-d register_argc_argv=\"On\" " +
+                    // the following parameter is required for the susohin plugin (typically present under debian)
+                    "-d suhosin.executor.include.whitelist=\"phar\"");
             config.setWorkDirectory(this.getInstallDir());
             config.getIncludePath().add(new File(this.installDir, "PEAR").getAbsolutePath());
             
