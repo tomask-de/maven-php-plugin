@@ -189,8 +189,8 @@ public abstract class AbstractTestCase extends PlexusTestCase {
             "../maven-php-core",
             "../maven-php-exec",
             "../maven-php-project",
-            "../maven-php-pear",
             "../maven-php-phar",
+            "../maven-php-pear",
             "../maven-php-phpunit",
             "../maven-php-phpdoc",
             "../maven-php-validate-lint",
@@ -331,14 +331,14 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         }
         
         final File pomFile = new File(root, pom);
-        final File logFile = new File(root, "../../../dev/log.txt");
-        final String relLogPath = this.relativePath(pomFile.getCanonicalPath(), logFile.getCanonicalPath()); 
+        // final File logFile = new File(root, "../../../dev/log.txt");
+        // final String relLogPath = this.relativePath(pomFile.getCanonicalPath(), logFile.getCanonicalPath()); 
         
         final Verifier verifier = new Verifier(pomFile.getAbsolutePath());
         verifier.setLocalRepo(reposPath);
         verifier.setAutoclean(false);
         verifier.setForkJvm(true);
-        verifier.setLogFileName(relLogPath);
+        // verifier.setLogFileName(relLogPath);
         verifier.addCliOption("-P");
         verifier.addCliOption("php-maven-testing-profile");
         verifier.executeGoal("install");
