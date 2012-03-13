@@ -36,6 +36,7 @@ package org.phpmaven.plugin.pear;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.phpmaven.plugin.build.AbstractPhpMojo;
 
 /**
  * Goal to test.
@@ -47,7 +48,7 @@ import org.apache.maven.plugin.MojoFailureException;
  * 
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-public class TestPearMojo extends DefaultMojo
+public class TestPearMojo extends AbstractPhpMojo
 {
 	
     /**

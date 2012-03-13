@@ -20,6 +20,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -148,7 +149,16 @@ public class PackageVersion implements IPackageVersion {
      */
     private List<IMaintainer> maintainers;
 
+    /**
+     * The file contents.
+     */
     private Map<String, List<File>> fileContents;
+    
+    /**
+     * The name of the extension if this is a php extension.
+     * @return name of the extension or {@code null} for php modules.
+     */
+    private String providesExtension;
 
     /**
      * {@inheritDoc}
@@ -451,107 +461,7 @@ public class PackageVersion implements IPackageVersion {
                 final Xpp3Dom dom = Xpp3DomBuilder.build(
                         new XmlStreamReader(new ByteArrayInputStream(channelXml.getBytes())));
                 
-                for (final Xpp3Dom child : dom.getChildren()) {
-                    if ("name".equals(child.getName())) {
-                        // skip
-                    } else if ("channel".equals(child.getName())) {
-                        // skip
-                    } else if ("extends".equals(child.getName())) {
-                        // TODO
-                    } else if ("summary".equals(child.getName())) {
-                        // TODO summary already read from initializeData()
-                    } else if ("description".equals(child.getName())) {
-                        // TODO description already read from initializeData()
-                    } else if ("lead".equals(child.getName())) {
-                        final IMaintainer maintainer = new Maintainer();
-                        maintainer.setRole("lead");
-                        for (final Xpp3Dom mmchild : child.getChildren()) {
-                            fetchMaintainer(maintainer, mmchild);
-                        }
-                        maintain.add(maintainer);
-                    } else if ("developer".equals(child.getName())) {
-                        final IMaintainer maintainer = new Maintainer();
-                        maintainer.setRole("developer");
-                        for (final Xpp3Dom mmchild : child.getChildren()) {
-                            fetchMaintainer(maintainer, mmchild);
-                        }
-                        maintain.add(maintainer);
-                    } else if ("contributor".equals(child.getName())) {
-                        final IMaintainer maintainer = new Maintainer();
-                        maintainer.setRole("constributor");
-                        for (final Xpp3Dom mmchild : child.getChildren()) {
-                            fetchMaintainer(maintainer, mmchild);
-                        }
-                        maintain.add(maintainer);
-                    } else if ("helper".equals(child.getName())) {
-                        final IMaintainer maintainer = new Maintainer();
-                        maintainer.setRole("helper");
-                        for (final Xpp3Dom mmchild : child.getChildren()) {
-                            fetchMaintainer(maintainer, mmchild);
-                        }
-                        maintain.add(maintainer);
-                    } else if ("maintainers".equals(child.getName())) {
-                        for (final Xpp3Dom mchild : child.getChildren()) {
-                            final IMaintainer maintainer = new Maintainer();
-                            if ("maintainer".equals(mchild.getName())) {
-                                for (final Xpp3Dom mmchild : mchild.getChildren()) {
-                                    fetchMaintainer(maintainer, mmchild);
-                                }
-                            } else {
-                                throw new PhpCoreException("Unknown name in package.xml: " + mchild.getName());
-                            }
-                            maintain.add(maintainer);
-                        }
-                    } else if ("date".equals(child.getName())) {
-                        // TODO
-                    } else if ("release".equals(child.getName())) {
-                        for (final Xpp3Dom rchild : child.getChildren()) {
-                            if ("version".equals(rchild.getName())) {
-                                // TODO
-                            } else if ("date".equals(rchild.getName())) {
-                                // TODO
-                            } else if ("license".equals(rchild.getName())) {
-                                // TODO
-                            } else if ("state".equals(rchild.getName())) {
-                                // TODO
-                            } else if ("notes".equals(rchild.getName())) {
-                                // TODO
-                            } else if ("provides".equals(rchild.getName())) {
-                                // TODO
-                            } else if ("filelist".equals(rchild.getName())) {
-                                // TODO
-                            } else if ("deps".equals(rchild.getName())) {
-                                fetchOldDeps(required, optional, rchild);
-                            } else {
-                                throw new PhpCoreException("Unknown name in package.xml: " + rchild.getName());
-                            }
-                        }
-                    } else if ("time".equals(child.getName())) {
-                        // TODO
-                    } else if ("version".equals(child.getName())) {
-                        // TODO
-                    } else if ("stability".equals(child.getName())) {
-                        // TODO
-                    } else if ("license".equals(child.getName())) {
-                        // TODO
-                    } else if ("notes".equals(child.getName())) {
-                        // TODO
-                    } else if ("contents".equals(child.getName())) {
-                        processContents(files, child);
-                    } else if ("compatible".equals(child.getName())) {
-                        // TODO
-                    } else if ("dependencies".equals(child.getName())) {
-                        processDeps(required, optional, child);
-                    } else if ("usesrole".equals(child.getName())) {
-                        // TODO
-                    } else if ("phprelease".equals(child.getName())) {
-                        // TODO
-                    } else if ("changelog".equals(child.getName())) {
-                        // TODO
-                    } else {
-                        throw new PhpCoreException("Unknown name in package.xml: " + child.getName());
-                    }
-                }
+                processPackageXml(required, optional, maintain, files, dom);
             } catch (IOException ex) {
                 throw new PhpCoreException("Problems reading version.xml", ex);
             } catch (XmlPullParserException ex) {
@@ -562,6 +472,222 @@ public class PackageVersion implements IPackageVersion {
             this.maintainers = maintain;
             this.fileContents = files;
         }
+    }
+
+    private void processPackageXml(
+            final List<IDependency> required, final List<IDependency> optional, 
+            final List<IMaintainer> maintain, final Map<String, List<File>> files, 
+            final Xpp3Dom dom)
+        throws PhpException {
+        for (final Xpp3Dom child : dom.getChildren()) {
+            if ("name".equals(child.getName())) {
+                // skip
+            } else if ("channel".equals(child.getName())) {
+                // skip
+            } else if ("extends".equals(child.getName())) {
+                // TODO
+            } else if ("summary".equals(child.getName())) {
+                // TODO summary already read from initializeData()
+            } else if ("description".equals(child.getName())) {
+                // TODO description already read from initializeData()
+            } else if ("lead".equals(child.getName())) {
+                fetchLead(maintain, child);
+            } else if ("developer".equals(child.getName())) {
+                fetchDeveloper(maintain, child);
+            } else if ("contributor".equals(child.getName())) {
+                fetchContributor(maintain, child);
+            } else if ("helper".equals(child.getName())) {
+                fetchHelper(maintain, child);
+            } else if ("maintainers".equals(child.getName())) {
+                fetchMaintainers(maintain, child);
+            } else if ("date".equals(child.getName())) {
+                // TODO
+            } else if ("release".equals(child.getName())) {
+                fetchRelease(required, optional, files, child);
+            } else if ("time".equals(child.getName())) {
+                // TODO
+            } else if ("version".equals(child.getName())) {
+                // TODO
+            } else if ("stability".equals(child.getName())) {
+                // TODO
+            } else if ("license".equals(child.getName())) {
+                // TODO
+            } else if ("notes".equals(child.getName())) {
+                // TODO
+            } else if ("contents".equals(child.getName())) {
+                processContents(files, child);
+            } else if ("compatible".equals(child.getName())) {
+                // TODO
+            } else if ("dependencies".equals(child.getName())) {
+                processDeps(required, optional, child);
+            } else if ("usesrole".equals(child.getName())) {
+                // TODO
+            } else if ("phprelease".equals(child.getName())) {
+                // TODO
+            } else if ("changelog".equals(child.getName())) {
+                // TODO
+            } else if ("extsrcrelease".equals(child.getName())) {
+                // TODO
+            } else if ("providesextension".equals(child.getName())) {
+                this.providesExtension = child.getValue();
+            } else if ("changelog".equals(child.getName())) {
+                // TODO
+            } else {
+                throw new PhpCoreException("Unknown name in package.xml: " + child.getName());
+            }
+        }
+    }
+
+    private void fetchRelease(
+            final List<IDependency> required,
+            final List<IDependency> optional,
+            final Map<String, List<File>> files,
+            final Xpp3Dom child)
+        throws PhpCoreException {
+        for (final Xpp3Dom rchild : child.getChildren()) {
+            if ("version".equals(rchild.getName())) {
+                // TODO
+            } else if ("date".equals(rchild.getName())) {
+                // TODO
+            } else if ("license".equals(rchild.getName())) {
+                // TODO
+            } else if ("state".equals(rchild.getName())) {
+                // TODO
+            } else if ("notes".equals(rchild.getName())) {
+                // TODO
+            } else if ("provides".equals(rchild.getName())) {
+                // TODO
+            } else if ("filelist".equals(rchild.getName())) {
+                for (final Xpp3Dom fchild : rchild.getChildren()) {
+                    if ("file".equals(fchild.getName())) {
+                        this.fetchFile(files, fchild, null, null, "");
+                    } else if ("dir".equals(fchild.getName())) {
+                        this.fetchDir(files, fchild, null, null, "");
+                    } else {
+                        throw new PhpCoreException("Unknown name in package.xml: " + fchild.getName());
+                    }
+                }
+            } else if ("deps".equals(rchild.getName())) {
+                fetchOldDeps(required, optional, rchild);
+            } else {
+                throw new PhpCoreException("Unknown name in package.xml: " + rchild.getName());
+            }
+        }
+    }
+
+    /**
+     * Fetches a file tag.
+     * @param files files
+     * @param dom the dom
+     * @param baseInstallDir the base install dir
+     * @param defaultRole the default role
+     * @param namePrefix
+     */
+    private void fetchFile(
+            Map<String, List<File>> files, Xpp3Dom dom, String baseInstallDir,
+            String defaultRole, String namePrefix)
+        throws PhpCoreException {
+        // TODO parse children:
+        // <file baseinstalldir="HTML/QuickForm" md5sum="dd09365612fce002f74e0a3489f3b0de" name="advmultiselect.php" role="php">
+        //    <tasks:replace from="@package_version@" to="version" type="package-info" />
+        // </file>
+        final String role = dom.getAttribute("role") == null ? defaultRole : dom.getAttribute("role");
+        final String fname = dom.getAttribute("name");
+        final String dir = dom.getAttribute("baseinstalldir");
+        final String basedir = dir == null ? (baseInstallDir == null ? "" : baseInstallDir + "/") : dir + "/";
+        final String path = namePrefix + basedir + fname;
+        if (role == null) {
+            throw new PhpCoreException("Unknown file role: " + fname);
+        }
+        List<File> filesList = files.get(role);
+        if (filesList == null) {
+            filesList = new ArrayList<File>();
+            files.put(role, filesList);
+        }
+        File file;
+        try {
+            file = new File(this.pearUtility.getInstallDir(), "pear/" + path).getCanonicalFile();
+        } catch (IOException e) {
+            throw new PhpCoreException(e);
+        }
+        filesList.add(file);
+    }
+
+    /**
+     * Fetches a dir tag.
+     * @param files files
+     * @param dom the dom
+     * @param baseInstallDir the base install dir
+     * @param defaultRole the default role
+     * @param namePrefix
+     */
+    private void fetchDir(
+            Map<String, List<File>> files, Xpp3Dom dom, String baseInstallDir,
+            String defaultRole, String namePrefix)
+        throws PhpCoreException {
+        final String role = dom.getAttribute("role") == null ? defaultRole : dom.getAttribute("role");
+        final String fname = dom.getAttribute("name");
+        final String dir = dom.getAttribute("baseinstalldir");
+        final String basedir = dir == null ? baseInstallDir : dir;
+        for (final Xpp3Dom fchild : dom.getChildren()) {
+            if ("dir".equals(fchild.getName())) {
+                fetchDir(files, fchild, basedir, role, namePrefix + fname + "/");
+            } else if ("file".equals(fchild.getName())) {
+                fetchFile(files, fchild, basedir, role, namePrefix + fname + "/");
+            } else {
+                throw new PhpCoreException("Unknown name in package.xml: " + fchild.getName());
+            }
+        }
+    }
+
+    private void fetchMaintainers(final List<IMaintainer> maintain, final Xpp3Dom child) throws PhpCoreException {
+        for (final Xpp3Dom mchild : child.getChildren()) {
+            final IMaintainer maintainer = new Maintainer();
+            if ("maintainer".equals(mchild.getName())) {
+                for (final Xpp3Dom mmchild : mchild.getChildren()) {
+                    fetchMaintainer(maintainer, mmchild);
+                }
+            } else {
+                throw new PhpCoreException("Unknown name in package.xml: " + mchild.getName());
+            }
+            maintain.add(maintainer);
+        }
+    }
+
+    private void fetchHelper(final List<IMaintainer> maintain, final Xpp3Dom child) throws PhpCoreException {
+        final IMaintainer maintainer = new Maintainer();
+        maintainer.setRole("helper");
+        for (final Xpp3Dom mmchild : child.getChildren()) {
+            fetchMaintainer(maintainer, mmchild);
+        }
+        maintain.add(maintainer);
+    }
+
+    private void fetchContributor(final List<IMaintainer> maintain, final Xpp3Dom child) throws PhpCoreException {
+        final IMaintainer maintainer = new Maintainer();
+        maintainer.setRole("constributor");
+        for (final Xpp3Dom mmchild : child.getChildren()) {
+            fetchMaintainer(maintainer, mmchild);
+        }
+        maintain.add(maintainer);
+    }
+
+    private void fetchDeveloper(final List<IMaintainer> maintain, final Xpp3Dom child) throws PhpCoreException {
+        final IMaintainer maintainer = new Maintainer();
+        maintainer.setRole("developer");
+        for (final Xpp3Dom mmchild : child.getChildren()) {
+            fetchMaintainer(maintainer, mmchild);
+        }
+        maintain.add(maintainer);
+    }
+
+    private void fetchLead(final List<IMaintainer> maintain, final Xpp3Dom child) throws PhpCoreException {
+        final IMaintainer maintainer = new Maintainer();
+        maintainer.setRole("lead");
+        for (final Xpp3Dom mmchild : child.getChildren()) {
+            fetchMaintainer(maintainer, mmchild);
+        }
+        maintain.add(maintainer);
     }
 
     /**
@@ -652,6 +778,11 @@ public class PackageVersion implements IPackageVersion {
                     dep.setMax(version);
                     dep.setMinExcluded(false);
                     dep.setMaxExcluded(false);
+                } else if ("eq".equals(rel)) {
+                    dep.setMin(version);
+                    dep.setMax(version);
+                    dep.setMinExcluded(false);
+                    dep.setMaxExcluded(false);
                 } else if ("ge".equals(rel)) {
                     dep.setMin(version);
                     dep.setMinExcluded(false);
@@ -726,6 +857,8 @@ public class PackageVersion implements IPackageVersion {
                 dep.setMin(dchild.getValue());
             } else if ("max".equals(dchild.getName())) {
                 dep.setMax(dchild.getValue());
+            } else if ("providesextension".equals(dchild.getName())) {
+                // TODO  
             } else if ("recommended".equals(dchild.getName())) {
                 // TODO
             } else if ("conflicts".equals(dchild.getName())) {
@@ -810,10 +943,23 @@ public class PackageVersion implements IPackageVersion {
     /**
      * {@inheritDoc}
      */
+    @SuppressWarnings("unchecked")
     @Override
-    public Iterable<File> getPhpFiles() {
-        // TODO Auto-generated method stub
-        return null;
+    public Iterable<File> getPhpFiles() throws PhpException {
+        this.initializeExtendedData();
+        if (this.fileContents.containsKey("php")) {
+            return this.fileContents.get("php");
+        }
+        return Collections.EMPTY_LIST;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String providesExtension() throws PhpException {
+        this.initializeExtendedData();
+        return this.providesExtension;
     }
 
 }

@@ -241,7 +241,15 @@ public interface IPackageVersion {
     /**
      * Gets the php files.
      * @return php files.
+     * @throws PhpException thrown on execution errors
      */
-    Iterable<File> getPhpFiles();
+    Iterable<File> getPhpFiles() throws PhpException;
+
+    /**
+     * Returns the name of the extension this version provides.
+     * @return name of the extension or {@code null} if this is a php extension.
+     * @throws PhpException thrown on execution errors
+     */
+    String providesExtension() throws PhpException;
 
 }

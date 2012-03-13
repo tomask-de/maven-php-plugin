@@ -130,18 +130,23 @@ public class ProcessResourcesPearMojo extends AbstractPhpMojo
         final String pearAbsPath = pearPath.getAbsolutePath();
         this.getLog().info("copying content");
         
-        for (final File file : version.getPhpFiles()) {
-            try {
-                final String absPath = file.getCanonicalFile().getAbsolutePath();
-                if (!absPath.startsWith(pearAbsPath)) {
-                    throw new MojoExecutionException(
-                            "Detected file outside pear root: " + pearAbsPath + " <-> " + absPath);
+        try {
+            for (final File file : version.getPhpFiles()) {
+                try {
+                    final String absPath = file.getCanonicalFile().getAbsolutePath();
+                    if (!absPath.startsWith(pearAbsPath)) {
+                        throw new MojoExecutionException(
+                                "Detected file outside pear root: " + pearAbsPath + " <-> " + absPath);
+                    }
+                    final String relativeName = absPath.substring(pearAbsPath.length() + 1);
+                    getLog().debug("copying " + absPath + " to " + relativeName);
+                    FileUtils.copyFile(file, new File(this.getProject().getBuild().getOutputDirectory(), relativeName));
+                } catch (IOException e) {
+                    throw new MojoExecutionException("Problems copying resource " + file, e);
                 }
-                final String relativeName = absPath.substring(pearAbsPath.length() + 1);
-                FileUtils.copyFile(file, new File(this.getProject().getBuild().getOutputDirectory(), relativeName));
-            } catch (IOException e) {
-                throw new MojoExecutionException("Problems copying resource " + file, e);
             }
+        } catch (PhpException e) {
+            throw new MojoExecutionException("Problems reading php package.", e);
         }
 	}
     
