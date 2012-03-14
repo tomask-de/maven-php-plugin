@@ -200,7 +200,7 @@ public abstract class AbstractPhpunitExeSupport extends AbstractPhpunitSupport {
     protected String getForkInvocationCommand(final IPhpunitEntry entry,
             final File xmlFile) {
         String command =
-            this.getLogXmlArgument() + " \"" + xmlFile.getAbsolutePath() + "\" " + this.getExtraArguments();
+            this.getLogXmlArgument() + " \"" + xmlFile.getAbsolutePath() + "\" " + this.getExtraArguments() + " ";
         if (this.getCoverageResult() != null) {
             command += "--coverage-html \"" + this.getCoverageResult().getAbsolutePath() + "\" ";
         }
@@ -375,7 +375,7 @@ public abstract class AbstractPhpunitExeSupport extends AbstractPhpunitSupport {
      */
     protected String getSingleInvocationCommand(final File xmlFile) {
         String command =
-            this.getLogXmlArgument() + " \"" + xmlFile.getAbsolutePath() + "\" " + this.getExtraArguments();
+            this.getLogXmlArgument() + " \"" + xmlFile.getAbsolutePath() + "\" " + this.getExtraArguments() + " ";
         if (this.getCoverageResult() != null) {
             command += "--coverage-html \"" + this.getCoverageResult().getAbsolutePath() + "\" ";
         }
