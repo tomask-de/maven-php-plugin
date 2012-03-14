@@ -24,6 +24,7 @@ import org.codehaus.plexus.logging.console.ConsoleLogger;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.exec.IPhpExecutable;
 import org.phpmaven.exec.IPhpExecutableConfiguration;
+import org.phpmaven.exec.PhpErrorException;
 import org.phpmaven.exec.PhpWarningException;
 import org.phpmaven.test.AbstractTestCase;
 
@@ -79,15 +80,17 @@ public class IncludesTest extends AbstractTestCase {
         // assert that the environment variable is mapped correctly
         final IPhpExecutable exec = execConfig.getPhpExecutable(new DefaultLog(new ConsoleLogger()));
         try {
+            // we will either expect a php warning or a php error.
+            // depends on php.ini and php version.
             exec.execute(includeTestPhp);
             fail("Exception expected");
-        // CHECKSTYLE:OFF
-        // checkstyle does not like empty catches
         } catch (PhpWarningException ex) {
             // ignore; we expect this exception
             assertTrue(ex.getMessage().contains("Warning: require_once(existing.php)"));
+        } catch (PhpErrorException ex) {
+            // ignore; we expect this exception
+            assertTrue(ex.getMessage().contains("Fatal error: require_once()"));
         }
-        // CHECKSTYLE:ON
     }
 //
 //    /**
