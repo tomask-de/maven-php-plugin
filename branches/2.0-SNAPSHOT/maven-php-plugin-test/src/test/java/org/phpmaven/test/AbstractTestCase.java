@@ -213,6 +213,19 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         }
         return testDir;
     }
+    
+    /**
+     * Returns the test dir.
+     * @param strTestDir local path to test folder.
+     * @return absolute test dir in temporary path.
+     * @throws IOException io exception.
+     */
+    protected File getTestDir(String strTestDir) throws IOException {
+        final String tempDirPath = System.getProperty(
+                "maven.test.tmpdir", System.getProperty("java.io.tmpdir"));
+        final File testDir = new File(tempDirPath, "org/phpmaven/test/projects/" + strTestDir);
+        return testDir;
+    }
 
     private File prepareResources(final String strTestDir) throws IOException {
         
@@ -265,6 +278,23 @@ public abstract class AbstractTestCase extends PlexusTestCase {
     protected Verifier getVerifier(final String strTestDir)
         throws IOException, VerificationException {
         final File testDir = this.prepareResources(strTestDir);
+        final File localReposFile = this.getLocalReposDir();
+        final Verifier verifier = new Verifier(testDir.getAbsolutePath());
+        verifier.setLocalRepo(localReposFile.getAbsolutePath());
+        verifier.addCliOption("-nsu");
+        return verifier;
+    }
+    
+    /**
+     * Prepares a verifier and installs php maven to a local repository.
+     * @param strTestDir strTestDir The local test directory for the project to be tested
+     * @return The verifier to be used for testing
+     * @throws VerificationException 
+     * @throws IOException 
+     */
+    protected Verifier getVerifierWithoutPrepare(final String strTestDir)
+        throws IOException, VerificationException {
+        final File testDir = this.getTestDir(strTestDir);
         final File localReposFile = this.getLocalReposDir();
         final Verifier verifier = new Verifier(testDir.getAbsolutePath());
         verifier.setLocalRepo(localReposFile.getAbsolutePath());
@@ -328,7 +358,7 @@ public abstract class AbstractTestCase extends PlexusTestCase {
      * @throws VerificationException thrown if the given pom cannot be installed
      * @throws IOException 
      */
-    private void installToRepos(final String reposPath, String pom)
+    protected void installToRepos(final String reposPath, String pom)
         throws VerificationException, IOException {
         File root;
         try {
