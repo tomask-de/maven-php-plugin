@@ -43,5 +43,17 @@ public interface IPhpunitTestRequest {
      * @return request entries.
      */
     Iterable<IPhpunitEntry> getEntries();
+    
+    /**
+     * Returns the phpunit xml file to be used.
+     * @return phpunit xml file or {@code null} to create a default test suite
+     */
+    File getPhpunitXml();
+    
+    /**
+     * Sets the phpunit xml file to be used.
+     * @param phpUnitXml phpunit xml file to be used.
+     */
+    void setPhpunitXml(File phpUnitXml);
 
 }

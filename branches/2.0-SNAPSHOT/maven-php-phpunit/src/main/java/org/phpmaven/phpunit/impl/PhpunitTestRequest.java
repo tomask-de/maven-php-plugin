@@ -37,6 +37,11 @@ public class PhpunitTestRequest implements IPhpunitTestRequest {
      * Test entries.
      */
     private List<IPhpunitEntry> entries = new ArrayList<IPhpunitEntry>();
+    
+    /**
+     * The phpunit xml file to be used.
+     */
+    private File phpUnitXml;
 
     /**
      * {@inheritDoc}
@@ -60,6 +65,22 @@ public class PhpunitTestRequest implements IPhpunitTestRequest {
     @Override
     public Iterable<IPhpunitEntry> getEntries() {
         return this.entries;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public File getPhpunitXml() {
+        return this.phpUnitXml;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setPhpunitXml(File phpUnitXml) {
+        this.phpUnitXml = phpUnitXml;
     }
 
 }
