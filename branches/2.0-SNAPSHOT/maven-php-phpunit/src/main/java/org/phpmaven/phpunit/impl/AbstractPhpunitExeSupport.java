@@ -72,6 +72,16 @@ public abstract class AbstractPhpunitExeSupport extends AbstractPhpunitSupport {
      * @return extra arguments.
      */
     protected abstract String getExtraArguments();
+
+    /**
+     * Returns the IPhpunitTestRequest.
+     * @return IPhpunitTestRequest
+     */
+    private IPhpunitTestRequest testRequest;
+    
+    protected IPhpunitTestRequest getTestRequest() {
+        return this.testRequest;
+    }
     
     /**
      * {@inheritDoc}
@@ -80,6 +90,7 @@ public abstract class AbstractPhpunitExeSupport extends AbstractPhpunitSupport {
     public IPhpunitTestResult executeTests(IPhpunitTestRequest request, Log log)
         throws PhpException {
         try {
+            this.testRequest = request;
             final IPhpExecutable exec = this.getExec(log);
             final IPhpunitTestResult result = new PhpunitTestResult();
             
