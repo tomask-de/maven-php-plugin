@@ -88,6 +88,9 @@ public class ProcessResourcesPearMojo extends AbstractPhpMojo
                     this.getSession());
             config.setInstallDir(new File(this.getProject().getBuild().getDirectory(), "pear"));
             final IPearUtility utility = config.getUtility(this.getLog());
+            if (!utility.isInstalled()) {
+                utility.installPear(true);
+            }
             for (final String channel : pearChannels) {
                 utility.channelDiscover(channel);
             }
