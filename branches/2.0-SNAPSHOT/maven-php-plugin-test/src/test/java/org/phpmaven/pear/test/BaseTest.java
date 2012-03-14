@@ -132,7 +132,18 @@ public class BaseTest extends AbstractTestCase {
         final IPackage pkgPEAR = iter.next();
         final IPackage pkgStructuresGraph = iter.next();
         final IPackage pkgXmlUtil = iter.next();
-        assertFalse(iter.hasNext());
+        if (iter.hasNext()) {
+            final StringBuffer packages = new StringBuffer();
+            packages.append(pkgArchiveTar.getPackageName() + "\n");
+            packages.append(pkgConsoleGetopt.getPackageName() + "\n");
+            packages.append(pkgPEAR.getPackageName() + "\n");
+            packages.append(pkgStructuresGraph.getPackageName() + "\n");
+            packages.append(pkgXmlUtil.getPackageName() + "\n");
+            while (iter.hasNext()) {
+                packages.append(iter.next().getPackageName() + "\n");
+            }
+            fail("Unexpected installed packages:\n" + packages);
+        }
         
         assertEquals("Archive_Tar", pkgArchiveTar.getPackageName());
         assertNotNull(pkgArchiveTar.getInstalledVersion());

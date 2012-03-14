@@ -921,6 +921,7 @@ public class PackageVersion implements IPackageVersion {
      */
     @Override
     public Iterable<IMaintainer> getMaintainers() throws PhpException {
+        this.initializeExtendedData();
         return this.maintainers;
     }
 
@@ -929,6 +930,7 @@ public class PackageVersion implements IPackageVersion {
      */
     @Override
     public void addMaintainer(IMaintainer maintainer) throws PhpException {
+        this.initializeExtendedData();
         this.maintainers.add(maintainer);
     }
 

@@ -75,7 +75,7 @@ public class V345Test extends AbstractVersionTestCase {
                 session);
         final File testFile = new File(
                 session.getCurrentProject().getBasedir(),
-                "target/test-classes/FooTest.php");
+                "test-classes/FooTest.php");
         request.addTestFile(testFile);
         
         final DefaultLog logger = new DefaultLog(new ConsoleLogger());

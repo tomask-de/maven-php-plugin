@@ -13,7 +13,7 @@ class FooTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testFoo()
 	{
-		include "MyClass.php";
+		include __DIR__."/MyClass.php";
 		$this->assertEquals("foo", MyMavenTestClass::getFoo());
 	}
 	

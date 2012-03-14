@@ -64,6 +64,15 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         final File tempDir = new File(System.getProperty("java.io.tmpdir", "/temp"));
         return new File(tempDir, "local-repos");
     }
+    
+    /**
+     * Local repository directory.
+     * @return local repos dir
+     */
+    protected File getLocalLogFile() {
+        final File tempDir = new File(System.getProperty("java.io.tmpdir", "/temp"));
+        return new File(tempDir, "log.txt");
+    }
 
     /**
      * Creates a maven session with given test directory (name relative to package org/phpmaven/test/projects).
@@ -338,7 +347,11 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         verifier.setLocalRepo(reposPath);
         verifier.setAutoclean(false);
         verifier.setForkJvm(true);
-        // verifier.setLogFileName(relLogPath);
+        final File target = new File(pomFile, "target");
+        if (!target.exists()) {
+            target.mkdir();
+        }
+        verifier.setLogFileName("target/log.txt");
         verifier.addCliOption("-P");
         verifier.addCliOption("php-maven-testing-profile");
         verifier.executeGoal("install");

@@ -36,7 +36,7 @@ public class SiteTest extends AbstractTestCase {
      * @throws Exception 
      */
     public void testSite() throws Exception {
-        final Verifier verifier = this.getPhpMavenVerifier("mojos-site/site-all");
+        final Verifier verifier = this.getPhpMavenVerifier("mojos-sites/site-all");
         
         // delete the pom from previous runs
         verifier.deleteArtifact("org.phpmaven.test", "site-all", "0.0.1", "pom");
