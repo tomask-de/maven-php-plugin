@@ -558,15 +558,7 @@ public class PackageVersion implements IPackageVersion {
             } else if ("provides".equals(rchild.getName())) {
                 // TODO
             } else if ("filelist".equals(rchild.getName())) {
-                for (final Xpp3Dom fchild : rchild.getChildren()) {
-                    if ("file".equals(fchild.getName())) {
-                        this.fetchFile(files, fchild, null, null, "");
-                    } else if ("dir".equals(fchild.getName())) {
-                        this.fetchDir(files, fchild, null, null, "");
-                    } else {
-                        throw new PhpCoreException("Unknown name in package.xml: " + fchild.getName());
-                    }
-                }
+                processContents(files, rchild);
             } else if ("deps".equals(rchild.getName())) {
                 fetchOldDeps(required, optional, rchild);
             } else {
@@ -688,10 +680,18 @@ public class PackageVersion implements IPackageVersion {
      * processes the file contents node.
      * @param files files
      * @param child child dom node
+     * @throws PhpCoreException 
      */
-    private void processContents(Map<String, List<String>> files, Xpp3Dom child) {
-        // TODO Auto-generated method stub
-        
+    private void processContents(Map<String, List<String>> files, Xpp3Dom child) throws PhpCoreException {
+        for (final Xpp3Dom fchild : child.getChildren()) {
+            if ("file".equals(fchild.getName())) {
+                this.fetchFile(files, fchild, null, null, "");
+            } else if ("dir".equals(fchild.getName())) {
+                this.fetchDir(files, fchild, null, null, "");
+            } else {
+                throw new PhpCoreException("Unknown name in package.xml: " + fchild.getName());
+            }
+        }
     }
 
     private void processDeps(final List<IDependency> required,
