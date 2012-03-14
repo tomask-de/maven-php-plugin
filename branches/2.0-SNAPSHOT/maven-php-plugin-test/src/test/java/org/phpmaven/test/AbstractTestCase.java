@@ -262,7 +262,7 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         throws IOException, VerificationException {
         final File testDir = this.preparePhpMavenLocalRepos(strTestDir);
         final File localReposFile = this.getLocalReposDir();
-        final Verifier verifier = new Verifier(testDir.getAbsolutePath());
+        final Verifier verifier = new Verifier(testDir.getAbsolutePath(), true);
         verifier.setLocalRepo(localReposFile.getAbsolutePath());
         verifier.addCliOption("-nsu");
         return verifier;
@@ -279,7 +279,7 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         throws IOException, VerificationException {
         final File testDir = this.prepareResources(strTestDir);
         final File localReposFile = this.getLocalReposDir();
-        final Verifier verifier = new Verifier(testDir.getAbsolutePath());
+        final Verifier verifier = new Verifier(testDir.getAbsolutePath(), true);
         verifier.setLocalRepo(localReposFile.getAbsolutePath());
         verifier.addCliOption("-nsu");
         return verifier;
@@ -296,7 +296,7 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         throws IOException, VerificationException {
         final File testDir = this.getTestDir(strTestDir);
         final File localReposFile = this.getLocalReposDir();
-        final Verifier verifier = new Verifier(testDir.getAbsolutePath());
+        final Verifier verifier = new Verifier(testDir.getAbsolutePath(), true);
         verifier.setLocalRepo(localReposFile.getAbsolutePath());
         verifier.addCliOption("-nsu");
         return verifier;
@@ -373,7 +373,7 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         // final File logFile = new File(root, "../../../dev/log.txt");
         // final String relLogPath = this.relativePath(pomFile.getCanonicalPath(), logFile.getCanonicalPath()); 
         
-        final Verifier verifier = new Verifier(pomFile.getAbsolutePath());
+        final Verifier verifier = new Verifier(pomFile.getAbsolutePath(), true);
         verifier.setLocalRepo(reposPath);
         verifier.setAutoclean(false);
         verifier.setForkJvm(true);

@@ -110,7 +110,7 @@ public abstract class AbstractVersionTestCase extends AbstractTestCase {
         final DefaultLog logger = new DefaultLog(new ConsoleLogger());
 
         for (final Pkg p : packages) {
-            final Verifier verifier = new Verifier(v.getBasedir());
+            final Verifier verifier = new Verifier(v.getBasedir(), true);
             verifier.getSystemProperties().put(
                     "artifact",
                     p.getGroupId() + ":" +
