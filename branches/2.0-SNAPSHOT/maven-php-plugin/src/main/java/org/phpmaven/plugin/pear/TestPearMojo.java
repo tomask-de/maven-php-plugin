@@ -68,7 +68,7 @@ public class TestPearMojo extends AbstractPhpMojo
 		else
 		{
 			// TODO implement pear testing
-			this.getLog().error("Testing pear currently not supported."); //$NON-NLS-1$
+			this.getLog().warn("Testing pear currently not supported."); //$NON-NLS-1$
 		}
     }
 
