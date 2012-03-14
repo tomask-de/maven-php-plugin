@@ -104,11 +104,13 @@ public class BaseTest extends AbstractTestCase {
         exec.packagePhar(request, logger);
         assertTrue(pharFile.exists());
         
-        // check the phar
-        final IPhpExecutable phpExec = factory.lookup(
+        final IPhpExecutableConfiguration phpConfig = factory.lookup(
                 IPhpExecutableConfiguration.class,
                 IComponentFactory.EMPTY_CONFIG,
-                session).getPhpExecutable(logger);
+                session);
+        phpConfig.setAdditionalPhpParameters("-d suhosin.executor.include.whitelist=\"phar\"");
+        // check the phar
+        final IPhpExecutable phpExec = phpConfig.getPhpExecutable(logger);
         assertEquals("INSIDE FILE.PHP\n", phpExec.execute(new File(
                 session.getCurrentProject().getBasedir(), "testphar.php")));
         
