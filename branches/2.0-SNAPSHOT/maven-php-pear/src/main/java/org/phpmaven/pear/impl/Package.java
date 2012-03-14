@@ -199,9 +199,9 @@ public class Package implements IPackage {
         }
         
         final String cmd = "install " +
-                (ignoreDeps ? " --loose" : "") +
-                (forceInstall ? " --force" : "") + 
-                " --alldeps" +
+                (ignoreDeps ? "--loose " : "") +
+                (forceInstall ? "--force " : "") + 
+                "--alldeps " +
                 this.pearChannel.getName() + "/" +
                 this.getPackageName() + "-" + 
                 version.getVersion().getPearVersion();
@@ -299,10 +299,10 @@ public class Package implements IPackage {
         }
         
         final String cmd = "uninstall " +
+                (ignoreDeps ? "--nodeps " : "") +
                 this.pearChannel.getName() + "/" +
                 this.getPackageName() + "-" + 
-                this.installedVersion.getVersion().getPearVersion() +
-                (ignoreDeps ? " --nodeps" : "");
+                this.installedVersion.getVersion().getPearVersion();
         final String result = this.pearUtility.executePearCmd(cmd);
         // TODO Parse result
         this.installedVersion = null;
