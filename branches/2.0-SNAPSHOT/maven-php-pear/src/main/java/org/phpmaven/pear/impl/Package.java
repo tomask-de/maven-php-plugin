@@ -199,12 +199,12 @@ public class Package implements IPackage {
         }
         
         final String cmd = "install " +
-                this.pearChannel.getName() + "/" +
-                this.getPackageName() + "-" + 
-                version.getVersion().getPearVersion() +
                 (ignoreDeps ? " --loose" : "") +
                 (forceInstall ? " --force" : "") + 
-                " --alldeps";
+                " --alldeps" +
+                this.pearChannel.getName() + "/" +
+                this.getPackageName() + "-" + 
+                version.getVersion().getPearVersion();
         final String result = this.pearUtility.executePearCmd(cmd);
         // TODO Parse result
         this.installedVersion = version;
@@ -459,33 +459,52 @@ public class Package implements IPackage {
         int pos = 0;
         final StringBuffer sb = new StringBuffer();
         final char[] chars = src.toCharArray();
+        boolean startingExtra = true;
         for (int i = 0; i < chars.length; i++) {
             final char c = chars[i];
-            if (pos == 3) {
+            if (startingExtra && (c == 'a' || c == 'A')) {
+                if (pos != 3) {
+                    sb.append("-");
+                    pos = 3;
+                }
+                if (i < chars.length - 4 && "alpha".equalsIgnoreCase(src.substring(i, i + 5))) {
+                    i += 4;
+                }
+                if (i + 1 == chars.length) {
+                    sb.append("alpha");
+                } else if (Character.isDigit(chars[i + 1])) {
+                    sb.append("alpha-");
+                } else {
+                    sb.append(c);
+                }
+                startingExtra = false;
+            } else if (startingExtra && (c == 'b' || c == 'B')) {
+                if (pos != 3) {
+                    sb.append("-");
+                    pos = 3;
+                }
+                if (i < chars.length - 3 && "beta".equalsIgnoreCase(src.substring(i, i + 4))) {
+                    i += 3;
+                }
+                if (i + 1 == chars.length) {
+                    sb.append("beta");
+                } else if (Character.isDigit(chars[i + 1])) {
+                    sb.append("beta-");
+                } else {
+                    sb.append(c);
+                }
+                startingExtra = false;
+            } else if (pos == 3) {
+                startingExtra = false;
                 sb.append(c);
             } else if (Character.isDigit(c)) {
                 sb.append(c);
             } else if (c == '.') {
                 sb.append(c);
                 pos++;
-            } else if (c == 'a' || c == 'A') {
+            } else if (c == '-') {
+                sb.append("-");
                 pos = 3;
-                if (i + 1 == chars.length) {
-                    sb.append("-alpha");
-                } else if (Character.isDigit(chars[i + 1])) {
-                    sb.append("-alpha-");
-                } else {
-                    sb.append(c);
-                }
-            } else if (c == 'b' || c == 'B') {
-                pos = 3;
-                if (i + 1 == chars.length) {
-                    sb.append("-beta");
-                } else if (Character.isDigit(chars[i + 1])) {
-                    sb.append("-beta-");
-                } else {
-                    sb.append(c);
-                }
             } else {
                 pos = 3;
                 sb.append("-");
@@ -529,6 +548,11 @@ public class Package implements IPackage {
     public IPackageVersion getVersion(String pearVersion) throws PhpException {
         this.initializeVersions();
         return this.versions.get(pearVersion);
+    }
+
+    @Override
+    public IPearChannel getChannel() {
+        return this.pearChannel;
     }
 
 }

@@ -211,5 +211,11 @@ public interface IPearChannel {
      * @throws PhpException thrown on php execution errors.
      */
     void addMaintainer(IMaintainer maintainer) throws PhpException;
+
+    /**
+     * Returns the pear utility.
+     * @return pear utility.
+     */
+    IPearUtility getPearUtility();
     
 }

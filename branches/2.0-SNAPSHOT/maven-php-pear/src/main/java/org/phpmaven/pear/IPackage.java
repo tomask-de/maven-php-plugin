@@ -151,4 +151,10 @@ public interface IPackage {
      */
     void initialize(IPearUtility utility, IPearChannel channel);
 
+    /**
+     * Returns the pear channel.
+     * @return pear channel.
+     */
+    IPearChannel getChannel();
+
 }

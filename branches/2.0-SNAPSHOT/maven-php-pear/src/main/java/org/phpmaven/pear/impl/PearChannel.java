@@ -588,4 +588,9 @@ public class PearChannel implements IPearChannel {
         this.maintainers.add(maintainer);
     }
 
+    @Override
+    public IPearUtility getPearUtility() {
+        return this.pearUtility;
+    }
+
 }

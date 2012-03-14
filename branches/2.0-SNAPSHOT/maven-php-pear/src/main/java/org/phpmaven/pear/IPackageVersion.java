@@ -16,8 +16,6 @@
 
 package org.phpmaven.pear;
 
-import java.io.File;
-
 import org.phpmaven.exec.PhpException;
 
 /**
@@ -243,7 +241,7 @@ public interface IPackageVersion {
      * @return php files.
      * @throws PhpException thrown on execution errors
      */
-    Iterable<File> getPhpFiles() throws PhpException;
+    Iterable<String> getPhpFiles() throws PhpException;
 
     /**
      * Returns the name of the extension this version provides.
@@ -251,5 +249,11 @@ public interface IPackageVersion {
      * @throws PhpException thrown on execution errors
      */
     String providesExtension() throws PhpException;
+
+    /**
+     * Returns the pear package.
+     * @return pear package.
+     */
+    IPackage getPackage();
 
 }

@@ -152,5 +152,68 @@ public interface IPearUtility {
      * @return maven version.
      */
     String convertPearVersionToMavenVersion(String src);
+    
+    /**
+     * returns the temp dir.
+     * @return temp dir.
+     * @throws PhpException thrown on problems while reading the conf.
+     */
+    File getTempDir() throws PhpException;
+    
+    /**
+     * returns the temp download dir.
+     * @return temp download dir.
+     * @throws PhpException thrown on problems while reading the conf.
+     */
+    File getDownloadDir() throws PhpException;
+    
+    /**
+     * returns the bin dir.
+     * @return bin dir.
+     * @throws PhpException thrown on problems while reading the conf.
+     */
+    File getBinDir() throws PhpException;
+    
+    /**
+     * returns the php dir.
+     * @return php dir.
+     * @throws PhpException thrown on problems while reading the conf.
+     */
+    File getPhpDir() throws PhpException;
+    
+    /**
+     * returns the doc dir.
+     * @return doc dir.
+     * @throws PhpException thrown on problems while reading the conf.
+     */
+    File getDocDir() throws PhpException;
+    
+    /**
+     * returns the data dir.
+     * @return data dir.
+     * @throws PhpException thrown on problems while reading the conf.
+     */
+    File getDataDir() throws PhpException;
+    
+    /**
+     * returns the cfg dir.
+     * @return cfg dir.
+     * @throws PhpException thrown on problems while reading the conf.
+     */
+    File getCfgDir() throws PhpException;
+    
+    /**
+     * returns the www dir.
+     * @return www dir.
+     * @throws PhpException thrown on problems while reading the conf.
+     */
+    File getWwwDir() throws PhpException;
+    
+    /**
+     * returns the test dir.
+     * @return test dir.
+     * @throws PhpException thrown on problems while reading the conf.
+     */
+    File getTestDir() throws PhpException;
 
 }

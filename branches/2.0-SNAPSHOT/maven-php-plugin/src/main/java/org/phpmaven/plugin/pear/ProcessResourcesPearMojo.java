@@ -121,28 +121,17 @@ public class ProcessResourcesPearMojo extends AbstractPhpMojo
      * @throws MojoExecutionException 
      */
     private void fetchPackage(IPackageVersion version) throws MojoExecutionException {
-        File pearPath;
-        try {
-            pearPath = new File(this.getProject().getBuild().getDirectory(), "pear/pear").getCanonicalFile();
-        } catch (IOException ex) {
-            throw new MojoExecutionException("Problems copying resources", ex);
-        }
-        final String pearAbsPath = pearPath.getAbsolutePath();
         this.getLog().info("copying content");
         
         try {
-            for (final File file : version.getPhpFiles()) {
+            for (final String relativeName : version.getPhpFiles()) {
                 try {
-                    final String absPath = file.getCanonicalFile().getAbsolutePath();
-                    if (!absPath.startsWith(pearAbsPath)) {
-                        throw new MojoExecutionException(
-                                "Detected file outside pear root: " + pearAbsPath + " <-> " + absPath);
-                    }
-                    final String relativeName = absPath.substring(pearAbsPath.length() + 1);
-                    getLog().debug("copying " + absPath + " to " + relativeName);
-                    FileUtils.copyFile(file, new File(this.getProject().getBuild().getOutputDirectory(), relativeName));
+                    final File file = new File(version.getPackage().getChannel().getPearUtility().getPhpDir(), relativeName);
+                    final File destination = new File(this.getProject().getBuild().getOutputDirectory(), relativeName);
+                    getLog().debug("copying " + file.getAbsolutePath() + " to " + destination.getAbsolutePath());
+                    FileUtils.copyFile(file, destination);
                 } catch (IOException e) {
-                    throw new MojoExecutionException("Problems copying resource " + file, e);
+                    throw new MojoExecutionException("Problems copying resource " + relativeName, e);
                 }
             }
         } catch (PhpException e) {

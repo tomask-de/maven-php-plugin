@@ -17,7 +17,6 @@
 package org.phpmaven.pear.test;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.util.Iterator;
 
 import org.apache.maven.execution.MavenSession;
@@ -31,7 +30,6 @@ import org.phpmaven.pear.IPackageVersion;
 import org.phpmaven.pear.IPearChannel;
 import org.phpmaven.pear.IPearConfiguration;
 import org.phpmaven.pear.IPearUtility;
-import org.phpmaven.pear.impl.Helper;
 import org.phpmaven.test.AbstractTestCase;
 
 /**
@@ -249,6 +247,28 @@ public class BaseTest extends AbstractTestCase {
     }
     
     /**
+     * Tests if the packages can be installed and the files can be found.
+     * @throws Exception exception
+     */
+    public void testPackageInstallation() throws Exception {
+        final IPearChannel channel = getChannel(true);
+        final IPackage pkg = channel.getPackage("Config");
+        final IPackageVersion version = pkg.getVersion("0.3.1");
+        assertNull(pkg.getInstalledVersion());
+        version.install();
+        assertEquals("0.3.1", pkg.getInstalledVersion().getVersion().getMavenVersion());
+        
+        assertTrue(
+                channel.getPearUtility().getPhpDir().getAbsolutePath().startsWith(
+                        channel.getPearUtility().getInstallDir().getAbsolutePath()));
+        final Iterable<String> files = version.getPhpFiles();
+        for (final String fname : files) {
+            final File file = new File(channel.getPearUtility().getPhpDir(), fname);
+            assertTrue(file.exists());
+        }
+    }
+    
+    /**
      * Tests the versions.
      * 
      * @throws Exception 
@@ -264,8 +284,7 @@ public class BaseTest extends AbstractTestCase {
         pkg = channel.getPackage("Archive_Tar");
         version = pkg.getVersion("0.10-b1");
         assertEquals("0.10-b1", version.getVersion().getPearVersion());
-        // TODO returns currently 0.10--b1
-        // assertEquals("0.10-beta-1", version.getVersion().getMavenVersion());
+        assertEquals("0.10-beta-1", version.getVersion().getMavenVersion());
         
         pkg = channel.getPackage("Auth");
         version = pkg.getVersion("1.5.0RC1");
@@ -285,8 +304,7 @@ public class BaseTest extends AbstractTestCase {
         pkg = channel.getPackage("Benchmark");
         version = pkg.getVersion("1.2.2beta1");
         assertEquals("1.2.2beta1", version.getVersion().getPearVersion());
-        // TODO returns currently 1.2.2beta1
-        // assertEquals("1.2.2-beta-1", version.getVersion().getMavenVersion());
+        assertEquals("1.2.2-beta-1", version.getVersion().getMavenVersion());
         
         pkg = channel.getPackage("CodeGen_MySQL_UDF");
         version = pkg.getVersion("0.9.7dev");
@@ -296,8 +314,7 @@ public class BaseTest extends AbstractTestCase {
         pkg = channel.getPackage("Console_ProgressBar");
         version = pkg.getVersion("0.5.2beta");
         assertEquals("0.5.2beta", version.getVersion().getPearVersion());
-        // TODO returns currently 0.5.2beta
-        // assertEquals("0.5.2-beta", version.getVersion().getMavenVersion());
+        assertEquals("0.5.2-beta", version.getVersion().getMavenVersion());
         
         pkg = channel.getPackage("DB");
         version = pkg.getVersion("1.4b1");
@@ -309,69 +326,7 @@ public class BaseTest extends AbstractTestCase {
         assertEquals("1.5.0a1", version.getVersion().getPearVersion());
         assertEquals("1.5.0-alpha-1", version.getVersion().getMavenVersion());
     }
-    
-//    public void testDownloader() throws Exception {
-//        final IPearChannel channel = getChannel(false);
-//        
-//        channel.initializePackages(true, true);
-//        
-//        final StringBuffer result = new StringBuffer();
-//        final Iterable<IPackage> pkgs = channel.getKnownPackages();
-//        for (final IPackage pkg : pkgs) {
-//            for (final IPackageVersion version : pkg.getKnownVersions()) {
-//                try {
-//                    final String localname = pkg.getPackageName().toLowerCase() + "/" + version.getVersion().getPearVersion() + ".xml";
-//                    final String content = Helper.getTextFileContents("http://pear.php.net/rest/r/" + localname);
-//                    final File file = new File(
-//                            "C:\\Users\\mepeisen\\git\\maven-php-plugin\\branches\\2.0-SNAPSHOT\\maven-php-plugin-test" +
-//                            "\\src\\test\\resources\\org\\phpmaven\\test\\projects\\pear\\empty-pom" +
-//                            "\\pear.php.net\\rest\\r\\" + localname);
-//                    if (!file.getParentFile().exists()) {
-//                        file.getParentFile().mkdirs();
-//                    }
-//                    final FileWriter writer = new FileWriter(file);
-//                    writer.write(content);
-//                    writer.close();
-//                } catch (Exception ex) {
-//                    result.append(pkg.getPackageName()).append("\n");
-//                }
-//                try {
-//                    final String localname = pkg.getPackageName().toLowerCase() + "/v2." + version.getVersion().getPearVersion() + ".xml";
-//                    final String content = Helper.getTextFileContents("http://pear.php.net/rest/r/" + localname);
-//                    final File file = new File(
-//                            "C:\\Users\\mepeisen\\git\\maven-php-plugin\\branches\\2.0-SNAPSHOT\\maven-php-plugin-test" +
-//                            "\\src\\test\\resources\\org\\phpmaven\\test\\projects\\pear\\empty-pom" +
-//                            "\\pear.php.net\\rest\\r\\" + localname);
-//                    if (!file.getParentFile().exists()) {
-//                        file.getParentFile().mkdirs();
-//                    }
-//                    final FileWriter writer = new FileWriter(file);
-//                    writer.write(content);
-//                    writer.close();
-//                } catch (Exception ex) {
-//                    result.append(pkg.getPackageName()).append("\n");
-//                }
-//                try {
-//                    final String localname = pkg.getPackageName().toLowerCase() + "/package." + version.getVersion().getPearVersion() + ".xml";
-//                    final String content = Helper.getTextFileContents("http://pear.php.net/rest/r/" + localname);
-//                    final File file = new File(
-//                            "C:\\Users\\mepeisen\\git\\maven-php-plugin\\branches\\2.0-SNAPSHOT\\maven-php-plugin-test" +
-//                            "\\src\\test\\resources\\org\\phpmaven\\test\\projects\\pear\\empty-pom" +
-//                            "\\pear.php.net\\rest\\r\\" + localname);
-//                    if (!file.getParentFile().exists()) {
-//                        file.getParentFile().mkdirs();
-//                    }
-//                    final FileWriter writer = new FileWriter(file);
-//                    writer.write(content);
-//                    writer.close();
-//                } catch (Exception ex) {
-//                    result.append(pkg.getPackageName()).append("\n");
-//                }
-//            }
-//        }
-//        fail(result.toString());
-//    }
-    
+     
     /**
      * Pear channel.
      * @param install 

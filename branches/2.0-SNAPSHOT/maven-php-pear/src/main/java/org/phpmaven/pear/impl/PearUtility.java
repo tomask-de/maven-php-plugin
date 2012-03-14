@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
@@ -32,6 +33,7 @@ import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.phpmaven.core.ConfigurationParameter;
+import org.phpmaven.core.DeserializePhp;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.exec.IPhpExecutable;
 import org.phpmaven.exec.IPhpExecutableConfiguration;
@@ -85,13 +87,32 @@ public class PearUtility implements IPearUtility {
     @ConfigurationParameter(name = "session", expression = "${session}")
     private MavenSession session;
 
+    private File tempDir;
+
+    private File binDir;
+
+    private File phpDir;
+
+    private File docDir;
+
+    private File dataDir;
+
+    private File cfgDir;
+
+    private File wwwDir;
+
+    private File testDir;
+
+    private File downloadDir;
+
     /**
      * {@inheritDoc}
      */
     @Override
     public boolean isInstalled() throws PhpException {
-        final File installedFile = new File(this.installDir, "pear/PEAR/Command.php");
-        return installedFile.exists();
+        final File installedFile = new File(this.installDir, "pear.conf");
+        final File installedFile2 = new File(this.installDir, "pear.ini");
+        return installedFile.exists() || installedFile2.exists();
     }
 
     /**
@@ -126,6 +147,7 @@ public class PearUtility implements IPearUtility {
                 "require_once 'phar://go-pear.phar/PEAR/Start/CLI.php';\n" +
                 "PEAR::setErrorHandling(PEAR_ERROR_DIE);\n" +
                 "$a = new PEAR_Start_CLI;\n" +
+                "$a->prefix = getcwd();\n" +
                 "if (OS_WINDOWS) {\n" +
                 "  $a->localInstall = true;\n" +
                 "  $a->pear_conf = '$prefix\\\\pear.ini';\n" +
@@ -214,6 +236,9 @@ public class PearUtility implements IPearUtility {
             config.getEnv().put(
                     "PHP_PEAR_BIN_DIR",
                     this.installDir.getAbsolutePath());
+            config.getEnv().put(
+                    "PHP_PEAR_SYSCONF_DIR",
+                    this.installDir.getAbsolutePath());
             // TODO PHP_BIN ???
             /*config.getEnv().put(
                     "PHP_PEAR_PHP_BIN",
@@ -242,7 +267,7 @@ public class PearUtility implements IPearUtility {
     @Override
     public String executePearCmd(String arguments) throws PhpException {
         final IPhpExecutable ex = this.getExec();
-        final File pearCmd = new File(this.installDir, "pear/pearcmd.php");
+        final File pearCmd = new File(this.getPhpDir(), "pearcmd.php");
         return ex.execute("\"" + pearCmd.getAbsolutePath() + "\" " + arguments, pearCmd);
     }
     
@@ -378,6 +403,92 @@ public class PearUtility implements IPearUtility {
     @Override
     public String convertPearVersionToMavenVersion(String src) {
         return Package.convertPearVersionToMavenVersion(src);
+    }
+    
+    private void initConfig() throws PhpException {
+        if (this.tempDir == null) {
+            final File cfgFile = new File(this.getInstallDir(), "pear.conf");
+            final File cfgFile2 = new File(this.getInstallDir(), "pear.ini");
+            try {
+                String cfgFileContents = FileUtils.fileRead(cfgFile.exists() ? cfgFile : cfgFile2);
+                while (cfgFileContents.startsWith("#")) {
+                    final int indexOf = cfgFileContents.indexOf("\n");
+                    if (indexOf == -1) {
+                        cfgFileContents = "";
+                    } else {
+                        cfgFileContents = cfgFileContents.substring(indexOf).trim();
+                    }
+                }
+                final DeserializePhp parser = new DeserializePhp(cfgFileContents);
+                @SuppressWarnings("unchecked")
+                final Map<String, Object> value = (Map<String, Object>) parser.parse();
+                this.tempDir = new File((String) value.get("temp_dir"));
+                this.downloadDir = new File((String) value.get("download_dir"));
+                this.binDir = new File((String) value.get("bin_dir"));
+                this.phpDir = new File((String) value.get("php_dir"));
+                this.docDir = new File((String) value.get("doc_dir"));
+                this.dataDir = new File((String) value.get("data_dir"));
+                this.cfgDir = new File((String) value.get("cfg_dir"));
+                this.wwwDir = new File((String) value.get("www_dir"));
+                this.testDir = new File((String) value.get("test_dir"));
+            } catch (Exception ex) {
+                throw new PhpCoreException("Problems reading and parsing pear configuration", ex);
+            }
+        }
+    }
+
+    @Override
+    public File getTempDir() throws PhpException {
+        this.initConfig();
+        return this.tempDir;
+    }
+
+    @Override
+    public File getDownloadDir() throws PhpException {
+        this.initConfig();
+        return this.downloadDir;
+    }
+
+    @Override
+    public File getBinDir() throws PhpException {
+        this.initConfig();
+        return this.binDir;
+    }
+
+    @Override
+    public File getPhpDir() throws PhpException {
+        this.initConfig();
+        return this.phpDir;
+    }
+
+    @Override
+    public File getDocDir() throws PhpException {
+        this.initConfig();
+        return this.docDir;
+    }
+
+    @Override
+    public File getDataDir() throws PhpException {
+        this.initConfig();
+        return this.dataDir;
+    }
+
+    @Override
+    public File getCfgDir() throws PhpException {
+        this.initConfig();
+        return this.cfgDir;
+    }
+
+    @Override
+    public File getWwwDir() throws PhpException {
+        this.initConfig();
+        return this.wwwDir;
+    }
+
+    @Override
+    public File getTestDir() throws PhpException {
+        this.initConfig();
+        return this.testDir;
     }
     
     

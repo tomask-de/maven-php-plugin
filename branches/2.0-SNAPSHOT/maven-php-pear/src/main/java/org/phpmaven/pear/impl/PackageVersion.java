@@ -17,7 +17,6 @@
 package org.phpmaven.pear.impl;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,6 +35,7 @@ import org.phpmaven.exec.PhpException;
 import org.phpmaven.pear.IDependency;
 import org.phpmaven.pear.IDependency.DependencyType;
 import org.phpmaven.pear.IMaintainer;
+import org.phpmaven.pear.IPackage;
 import org.phpmaven.pear.IPackageVersion;
 import org.phpmaven.pear.IPearChannel;
 import org.phpmaven.pear.IPearUtility;
@@ -152,7 +152,7 @@ public class PackageVersion implements IPackageVersion {
     /**
      * The file contents.
      */
-    private Map<String, List<File>> fileContents;
+    private Map<String, List<String>> fileContents;
     
     /**
      * The name of the extension if this is a php extension.
@@ -454,7 +454,7 @@ public class PackageVersion implements IPackageVersion {
             final List<IDependency> required = new ArrayList<IDependency>();
             final List<IDependency> optional = new ArrayList<IDependency>();
             final List<IMaintainer> maintain = new ArrayList<IMaintainer>();
-            final Map<String, List<File>> files = new HashMap<String, List<File>>();
+            final Map<String, List<String>> files = new HashMap<String, List<String>>();
             try {
                 final String channelXml = Helper.getTextFileContents(this.packageXml);
                 // TODO http://pear.php.net/manual/en/guide.developers.package2.intro.php
@@ -476,7 +476,7 @@ public class PackageVersion implements IPackageVersion {
 
     private void processPackageXml(
             final List<IDependency> required, final List<IDependency> optional, 
-            final List<IMaintainer> maintain, final Map<String, List<File>> files, 
+            final List<IMaintainer> maintain, final Map<String, List<String>> files, 
             final Xpp3Dom dom)
         throws PhpException {
         for (final Xpp3Dom child : dom.getChildren()) {
@@ -541,7 +541,7 @@ public class PackageVersion implements IPackageVersion {
     private void fetchRelease(
             final List<IDependency> required,
             final List<IDependency> optional,
-            final Map<String, List<File>> files,
+            final Map<String, List<String>> files,
             final Xpp3Dom child)
         throws PhpCoreException {
         for (final Xpp3Dom rchild : child.getChildren()) {
@@ -584,7 +584,7 @@ public class PackageVersion implements IPackageVersion {
      * @param namePrefix
      */
     private void fetchFile(
-            Map<String, List<File>> files, Xpp3Dom dom, String baseInstallDir,
+            Map<String, List<String>> files, Xpp3Dom dom, String baseInstallDir,
             String defaultRole, String namePrefix)
         throws PhpCoreException {
         // TODO parse children:
@@ -599,18 +599,12 @@ public class PackageVersion implements IPackageVersion {
         if (role == null) {
             throw new PhpCoreException("Unknown file role: " + fname);
         }
-        List<File> filesList = files.get(role);
+        List<String> filesList = files.get(role);
         if (filesList == null) {
-            filesList = new ArrayList<File>();
+            filesList = new ArrayList<String>();
             files.put(role, filesList);
         }
-        File file;
-        try {
-            file = new File(this.pearUtility.getInstallDir(), "pear/" + path).getCanonicalFile();
-        } catch (IOException e) {
-            throw new PhpCoreException(e);
-        }
-        filesList.add(file);
+        filesList.add(path);
     }
 
     /**
@@ -622,7 +616,7 @@ public class PackageVersion implements IPackageVersion {
      * @param namePrefix
      */
     private void fetchDir(
-            Map<String, List<File>> files, Xpp3Dom dom, String baseInstallDir,
+            Map<String, List<String>> files, Xpp3Dom dom, String baseInstallDir,
             String defaultRole, String namePrefix)
         throws PhpCoreException {
         final String role = dom.getAttribute("role") == null ? defaultRole : dom.getAttribute("role");
@@ -695,7 +689,7 @@ public class PackageVersion implements IPackageVersion {
      * @param files files
      * @param child child dom node
      */
-    private void processContents(Map<String, List<File>> files, Xpp3Dom child) {
+    private void processContents(Map<String, List<String>> files, Xpp3Dom child) {
         // TODO Auto-generated method stub
         
     }
@@ -947,7 +941,7 @@ public class PackageVersion implements IPackageVersion {
      */
     @SuppressWarnings("unchecked")
     @Override
-    public Iterable<File> getPhpFiles() throws PhpException {
+    public Iterable<String> getPhpFiles() throws PhpException {
         this.initializeExtendedData();
         if (this.fileContents.containsKey("php")) {
             return this.fileContents.get("php");
@@ -962,6 +956,16 @@ public class PackageVersion implements IPackageVersion {
     public String providesExtension() throws PhpException {
         this.initializeExtendedData();
         return this.providesExtension;
+    }
+
+    @Override
+    public IPackage getPackage() {
+        try {
+            return this.pearChannel.getPackage(this.name);
+        } catch (PhpException ex) {
+            // should never happen
+            throw new IllegalStateException(ex);
+        }
     }
 
 }
