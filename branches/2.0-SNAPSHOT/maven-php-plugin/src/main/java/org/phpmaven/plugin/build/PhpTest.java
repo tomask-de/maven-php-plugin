@@ -156,6 +156,13 @@ public final class PhpTest extends AbstractPhpMojo implements IPhpunitConfigurat
      */
     private String phpUnitArguments;
     
+    /**
+     * Set this to change the default phpunit.xml configuration path. (src/test/phpunit.xml)
+     * 
+     * @parameter expression="${phpUnitXmlConfigurationPath}" default-value="${project.basedir}/src/test/phpunit.xml"
+     */
+    private File phpUnitXmlConfigurationPath;
+    
     // end of properties for IPhpunitConfigurationMojo
 
     public PhpTest() {
@@ -248,6 +255,9 @@ public final class PhpTest extends AbstractPhpMojo implements IPhpunitConfigurat
                         this.getSession());
                 for (final File file : files) {
                     request.addTestFile(file);
+                }
+                if (phpUnitXmlConfigurationPath.exists()) {
+                    request.setPhpunitXml(phpUnitXmlConfigurationPath);
                 }
                 final IPhpunitSupport support = config.getPhpunitSupport();
                 support.setIsSingleTestInvocation(this.singleTestInvocation);
