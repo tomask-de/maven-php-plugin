@@ -21,6 +21,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 import org.codehaus.plexus.configuration.PlexusConfigurationException;
+import org.codehaus.plexus.component.configurator.expression.ExpressionEvaluationException;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.phpunit.IPhpunitConfiguration;
 import org.phpmaven.phpunit.IPhpunitSupport;
@@ -222,8 +223,15 @@ public final class PhpTest extends AbstractPhpMojo implements IPhpunitConfigurat
     
             // did we get a testing file?
             if (files.iterator().hasNext()) {
-                getPhpHelper().prepareTestDependencies(this.factory, this.getSession());
-                
+                try {
+                    getPhpHelper().prepareTestDependencies(this.factory, this.getSession());
+                } catch (ComponentLookupException ex) {
+                    throw new MojoExecutionException(ex.getMessage(), ex);
+                } catch (ExpressionEvaluationException ex) {
+                    throw new MojoExecutionException(ex.getMessage(), ex);
+                } catch (PlexusConfigurationException ex) {
+                    throw new MojoExecutionException(ex.getMessage(), ex);
+                }
                 getLog().info(
                         "\n-------------------------------------------------------\n" +
                         "T E S T S\n" +
