@@ -24,6 +24,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.execution.MavenSession;
+import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuilder;
@@ -49,6 +50,7 @@ import com.google.common.base.Preconditions;
  * @author Christian Wiedemann
  * @author Tobias Sarnowski
  * @author Martin Eisengardt
+ * @author Erik Dannenberg
  */
 public class PhpMojoHelper implements IPhpExecution {
     
@@ -399,13 +401,20 @@ public class PhpMojoHelper implements IPhpExecution {
      * @throws PhpException php exceptions can fly everywhere..
      */
     public void prepareCompileDependencies(IComponentFactory factory, MavenSession session)
-            throws IOException, PhpException, ComponentLookupException, ExpressionEvaluationException, PlexusConfigurationException {
+            throws IOException, PhpException, MojoExecutionException {
         final List<String> packedElements = new ArrayList<String>();
         final Set<Artifact> deps = this.project.getArtifacts();
-        final IProjectPhpExecution config = factory.lookup(
+        IProjectPhpExecution config = null;
+        try {
+            config = factory.lookup(
                 IProjectPhpExecution.class,
                 IComponentFactory.EMPTY_CONFIG,
                 session);
+        } catch (ComponentLookupException ex) {
+            throw new MojoExecutionException(ex.getMessage(), ex);
+        } catch (PlexusConfigurationException ex) {
+            throw new MojoExecutionException(ex.getMessage(), ex);
+        }
         for (final Artifact dep : deps) {
             this.log.info("dependency " + 
                 dep.getGroupId() + ":" + 
@@ -428,7 +437,11 @@ public class PhpMojoHelper implements IPhpExecution {
             }
             packedElements.add(dep.getFile().getAbsolutePath());
         }
-        FileHelper.unzipElements(this.log, config.getDepsDir(), packedElements, factory, session);
+        try {
+            FileHelper.unzipElements(this.log, config.getDepsDir(), packedElements, factory, session);
+        } catch (ExpressionEvaluationException ex) {
+            throw new MojoExecutionException(ex.getMessage(), ex);
+        }
     }
 
     /**
@@ -441,13 +454,20 @@ public class PhpMojoHelper implements IPhpExecution {
      * @throws PhpException php exceptions can fly everywhere..
      */
     public void prepareTestDependencies(IComponentFactory factory, MavenSession session)
-            throws IOException, PhpException, ComponentLookupException, ExpressionEvaluationException, PlexusConfigurationException {
+            throws IOException, PhpException, MojoExecutionException {
         final List<String> packedElements = new ArrayList<String>();
         final Set<Artifact> deps = this.project.getArtifacts();
-        final IProjectPhpExecution config = factory.lookup(
+        IProjectPhpExecution config = null;
+        try {
+            config = factory.lookup(
                 IProjectPhpExecution.class,
                 IComponentFactory.EMPTY_CONFIG,
                 session);
+        } catch (ComponentLookupException ex) {
+            throw new MojoExecutionException(ex.getMessage(), ex);
+        } catch (PlexusConfigurationException ex) {
+            throw new MojoExecutionException(ex.getMessage(), ex);
+        }
         for (final Artifact dep : deps) {
             this.log.info("dependency " + 
                 dep.getGroupId() + ":" + 
@@ -470,7 +490,11 @@ public class PhpMojoHelper implements IPhpExecution {
             }
             packedElements.add(dep.getFile().getAbsolutePath());
         }
-        FileHelper.unzipElements(this.log, config.getTestDepsDir(), packedElements, factory, session);
+        try {
+            FileHelper.unzipElements(this.log, config.getTestDepsDir(), packedElements, factory, session);
+        } catch (ExpressionEvaluationException ex) {
+            throw new MojoExecutionException(ex.getMessage(), ex);
+        }
     }
     
     /**
