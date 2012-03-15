@@ -39,6 +39,7 @@ import org.phpmaven.plugin.php.PhpUnitTestfileWalker;
  * @goal test
  * @author Christian Wiedemann
  * @author Tobias Sarnowski
+ * @author Erik Dannenberg
  */
 public final class PhpTest extends AbstractPhpMojo implements IPhpunitConfigurationMojo {
     
@@ -155,6 +156,13 @@ public final class PhpTest extends AbstractPhpMojo implements IPhpunitConfigurat
      */
     private String phpUnitArguments;
     
+    /**
+     * Set this to change the default phpunit.xml configuration path. (src/test/phpunit.xml)
+     * 
+     * @parameter expression="${phpUnitXmlConfigurationPath}" default-value="${project.basedir}/src/test/phpunit.xml"
+     */
+    private File phpUnitXmlConfigurationPath;
+    
     // end of properties for IPhpunitConfigurationMojo
 
     public PhpTest() {
@@ -223,7 +231,6 @@ public final class PhpTest extends AbstractPhpMojo implements IPhpunitConfigurat
             // did we get a testing file?
             if (files.iterator().hasNext()) {
                 getPhpHelper().prepareTestDependencies(this.factory, this.getSession());
-                
                 getLog().info(
                         "\n-------------------------------------------------------\n" +
                         "T E S T S\n" +
@@ -240,6 +247,9 @@ public final class PhpTest extends AbstractPhpMojo implements IPhpunitConfigurat
                         this.getSession());
                 for (final File file : files) {
                     request.addTestFile(file);
+                }
+                if (phpUnitXmlConfigurationPath.exists()) {
+                    request.setPhpunitXml(phpUnitXmlConfigurationPath);
                 }
                 final IPhpunitSupport support = config.getPhpunitSupport();
                 support.setIsSingleTestInvocation(this.singleTestInvocation);

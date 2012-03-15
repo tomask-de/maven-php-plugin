@@ -18,6 +18,7 @@ package org.phpmaven.phpunit.impl;
 
 import org.codehaus.plexus.component.annotations.Component;
 import org.phpmaven.phpunit.IPhpunitSupport;
+import java.io.File;
 
 /**
  * Phpunit support for > 3.6.0.
@@ -75,7 +76,11 @@ public class PhpunitSupport360 extends AbstractPhpunitExeSupport {
      */
     @Override
     protected String getExtraArguments() {
-        return "";
+        if (getTestRequest().getPhpunitXml() != null) {
+            return "--configuration \"" + getTestRequest().getPhpunitXml() + "\"";
+        } else {
+            return "";
+        }
     }
 
 }

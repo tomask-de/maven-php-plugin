@@ -24,16 +24,21 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.execution.MavenSession;
+import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuilder;
 import org.apache.maven.project.ProjectBuildingException;
 import org.apache.maven.project.ProjectBuildingRequest;
+import org.codehaus.plexus.component.configurator.expression.ExpressionEvaluationException;
+import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
+import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.codehaus.plexus.util.cli.CommandLineException;
 import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.phpmaven.core.IComponentFactory;
+import org.phpmaven.project.IProjectPhpExecution;
 import org.phpmaven.plugin.build.FileHelper;
 import org.phpmaven.plugin.build.PhpVersion;
 
@@ -45,6 +50,7 @@ import com.google.common.base.Preconditions;
  * @author Christian Wiedemann
  * @author Tobias Sarnowski
  * @author Martin Eisengardt
+ * @author Erik Dannenberg
  */
 public class PhpMojoHelper implements IPhpExecution {
     
@@ -394,9 +400,21 @@ public class PhpMojoHelper implements IPhpExecution {
      * @throws IOException if something goes wrong while prepareing the dependencies
      * @throws PhpException php exceptions can fly everywhere..
      */
-    public void prepareCompileDependencies(IComponentFactory factory, MavenSession session) throws IOException, PhpException {
+    public void prepareCompileDependencies(IComponentFactory factory, MavenSession session)
+            throws IOException, PhpException, MojoExecutionException {
         final List<String> packedElements = new ArrayList<String>();
         final Set<Artifact> deps = this.project.getArtifacts();
+        IProjectPhpExecution config = null;
+        try {
+            config = factory.lookup(
+                IProjectPhpExecution.class,
+                IComponentFactory.EMPTY_CONFIG,
+                session);
+        } catch (ComponentLookupException ex) {
+            throw new MojoExecutionException(ex.getMessage(), ex);
+        } catch (PlexusConfigurationException ex) {
+            throw new MojoExecutionException(ex.getMessage(), ex);
+        }
         for (final Artifact dep : deps) {
             this.log.info("dependency " + 
                 dep.getGroupId() + ":" + 
@@ -419,11 +437,11 @@ public class PhpMojoHelper implements IPhpExecution {
             }
             packedElements.add(dep.getFile().getAbsolutePath());
         }
-        // unset additionalPhpParameters temporary for unphar
-        final String s = this.additionalPhpParameters;
-        this.additionalPhpParameters = "";
-        FileHelper.unzipElements(this.log, this.dependenciesTargetDirectory, packedElements, factory, session);
-        this.additionalPhpParameters = s; 
+        try {
+            FileHelper.unzipElements(this.log, config.getDepsDir(), packedElements, factory, session);
+        } catch (ExpressionEvaluationException ex) {
+            throw new MojoExecutionException(ex.getMessage(), ex);
+        }
     }
 
     /**
@@ -435,9 +453,21 @@ public class PhpMojoHelper implements IPhpExecution {
      * @throws IOException if something goes wrong while prepareing the dependencies
      * @throws PhpException php exceptions can fly everywhere..
      */
-    public void prepareTestDependencies(IComponentFactory factory, MavenSession session) throws IOException, PhpException {
+    public void prepareTestDependencies(IComponentFactory factory, MavenSession session)
+            throws IOException, PhpException, MojoExecutionException {
         final List<String> packedElements = new ArrayList<String>();
         final Set<Artifact> deps = this.project.getArtifacts();
+        IProjectPhpExecution config = null;
+        try {
+            config = factory.lookup(
+                IProjectPhpExecution.class,
+                IComponentFactory.EMPTY_CONFIG,
+                session);
+        } catch (ComponentLookupException ex) {
+            throw new MojoExecutionException(ex.getMessage(), ex);
+        } catch (PlexusConfigurationException ex) {
+            throw new MojoExecutionException(ex.getMessage(), ex);
+        }
         for (final Artifact dep : deps) {
             this.log.info("dependency " + 
                 dep.getGroupId() + ":" + 
@@ -460,11 +490,11 @@ public class PhpMojoHelper implements IPhpExecution {
             }
             packedElements.add(dep.getFile().getAbsolutePath());
         }
-        // unset additionalPhpParameters temporary for unphar
-        final String s = this.additionalPhpParameters;
-        this.additionalPhpParameters = "";
-        FileHelper.unzipElements(this.log, this.testDependenciesTargetDirectory, packedElements, factory, session);
-        this.additionalPhpParameters = s;
+        try {
+            FileHelper.unzipElements(this.log, config.getTestDepsDir(), packedElements, factory, session);
+        } catch (ExpressionEvaluationException ex) {
+            throw new MojoExecutionException(ex.getMessage(), ex);
+        }
     }
     
     /**
