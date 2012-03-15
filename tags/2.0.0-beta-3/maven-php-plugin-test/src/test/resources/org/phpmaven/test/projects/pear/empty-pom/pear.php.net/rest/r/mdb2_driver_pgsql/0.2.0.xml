@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/mdb2_driver_pgsql">MDB2_Driver_pgsql</p>
+ <c>pear.php.net</c>
+ <v>0.2.0</v>
+ <st>beta</st>
+ <l>BSD License</l>
+ <m>lsmith</m>
+ <s>pgsql MDB2 driver</s>
+ <d>This is the PostGreSQL MDB2 driver.
+ 
+</d>
+ <da>2005-12-21 06:25:27</da>
+ <n>- do not fix case in listUsers()
+- unified case fixing in the list*() methods
+- tweaked text handling in mapNativeDatatype()
+- use getConnection() to access connection property
+- split index and constraint handling
+- quote identifiers where possible inside the manager methods depending on
+  the new 'quote_identifier' option (defaults to off)
+- refactored get*Declaration() methods to use getTypeDeclaration()
+- added support for table and column renaming as well as default and nullability
+  changing in alterTable()
+- setting in_transaction to false on disconnect
+- added new Function modules to handle difference in SQL functions
+- force rollback() with open transactions on disconnect
+- escape floats to make sure they do not contain evil characters (bug #5608)
+- split off manipulation queries into exec() method from the query() method *BC BREAK*
+- if result_types is set to false in prepare() method the query will be handled as a DML statement *BC BREAK*
+- use a proper default value if a field is set to not null in _getDeclaration*() (bug #5930)
+- added ability to determine unsigned in mapNativeDatatype()
+  (only really implemented in the mysql(i) drivers) (bug #6054)
+- use MDB2_ERROR_NOT_FOUND in getTableConstraintDefinition() and getTableIndexDefinition() (bug #6055)
+- added getServerVersion()
+- unified array structure in mapNativeDatatype() *BC BREAK*
+- added 'mdbtype' to tableInfo() output that is generated from mapNativeDatatype()
+- changed 'len' to 'length' in tableInfo() output *BC BREAK*
+
+open todo items:
+- implement native prepared queries
+- migrate away from OID's to bytea, since this is encourage since version 8
+  and is also what PDO expects
+- testgettablefielddefinition and testnow test cases fail</n>
+ <f>18281</f>
+ <g>http://pear.php.net/get/MDB2_Driver_pgsql-0.2.0</g>
+ <x xlink:href="package.0.2.0.xml"/>
+</r>

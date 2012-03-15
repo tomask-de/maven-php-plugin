@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release2
+    http://pear.php.net/dtd/rest.release2.xsd">
+ <p xlink:href="/rest/p/liveuser">LiveUser</p>
+ <c>pear.php.net</c>
+ <v>0.16.8</v>
+ <a>0.16.8</a>
+ <mp>4.3.0</mp>
+ <st>beta</st>
+ <l>LGPL</l>
+ <m>lsmith</m>
+ <s>User authentication and permission management framework</s>
+ <d>LiveUser is a set of classes for dealing with user authentication
+  and permission management. Basically, there are three main elements that
+  make up this package:
+
+  * The LiveUser class
+  * The Auth containers
+  * The Perm containers
+
+  The LiveUser class takes care of the login process and can be configured
+  to use a certain permission container and one or more different auth containers.
+  That means, you can have your users' data scattered amongst many data containers
+  and have the LiveUser class try each defined container until the user is found.
+  For example, you can have all website users who can apply for a new account online
+  on the webserver's local database. Also, you want to enable all your company's
+  employees to login to the site without the need to create new accounts for all of
+  them. To achieve that, a second container can be defined to be used by the LiveUser class.
+
+  You can also define a permission container of your choice that will manage the rights for
+  each user. Depending on the container, you can implement any kind of permission schemes
+  for your application while having one consistent API.
+
+  Using different permission and auth containers, it's easily possible to integrate
+  newly written applications with older ones that have their own ways of storing permissions
+  and user data. Just make a new container type and you're ready to go!
+
+  Currently available are containers using:
+  PEAR::DB, PEAR::MDB, PEAR::MDB2, PEAR::XML_Tree and PEAR::Auth.
+ 
+</d>
+ <da>2005-12-21 06:27:16</da>
+ <n>- clearer status and error messages
+- fix a bug with the passed Log object being discarded
+- extra debug info when the auth container is instantiated
+- more helpful error message when the class cannot be loaded
+- make the PEAR::Auth wrapper use the passed handle and password
+- fixed phpdoc typo in singleton method (bug #5668)
+- fixed ability to call singleton() with only the conf parameter set, even if
+  singleton was never called before (bug #5669)
+- fixed issue in factoryStorage() that would lead to modifying the config array (bug #5526)
+- added ability to disable executing the sql commands on installSchema()
+- set status after logging out not before
+- tweaked error messages for failed factory method calls
+- fix for calling singleton without a signature string (bug #5905)
+- attempt at checking if it is safe to start the session, add an error to the stack if not and return
+- minor performance tweak in login()
+- reordered code inside login() to make onFailedMapping events more powerful
+- improved handling of INACTIVE status
+- stop using backendArrayIndex infavor of containerName property in the auth instance
+- removed loginTimeout feature (disable lastlogin if you are concerned about
+  the cost of updating the lastlogin time)
+- handle option user data properties in readUserData() in the PEAR::Auth wrapper
+- added a few return true's for method that returned void so far
+- tons of phpdoc and whitespace fixes and additions
+- add missing css file in example5
+- only read remember me cookie in login() if remember was passed as true (bug #6215)
+- handle and password are passed to reeadUserData in the PEARAuth container
+- reworked file loading in loadClass() to work around issues in safe_mode with
+  LiveUser::fileExists() (bug #6226)
+- moved all explict handling of logout() and login() out of the init() method *BC BREAK*
+- made setRememberCookie(), readRememberCookie() and deleteRememberCookie public
+- setRememberCookie() no longer accepts a remember parameter
+- added PDO backend and optional pdo based config for example5</n>
+ <f>74181</f>
+ <g>http://pear.php.net/get/LiveUser-0.16.8</g>
+ <x xlink:href="package.0.16.8.xml"/>
+</r>

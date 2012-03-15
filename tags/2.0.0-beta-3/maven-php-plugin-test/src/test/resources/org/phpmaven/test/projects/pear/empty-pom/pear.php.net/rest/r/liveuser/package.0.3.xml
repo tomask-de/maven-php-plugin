@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>LiveUser</name>
+  <summary>User authentication and permission management framework</summary>
+  <description>Perm_LiveUser ist a set of classes for dealing with user authentication
+and permission management. Basically, there are three main elements that
+make up this package:
+
+* The LoginManager
+* The Auth containers
+* The Perm containers
+
+The LoginManager class takes care of the login process and can be configured
+to use a certain permission container and one or more different auth containers.
+That means, you can have your users' data scattered amongst many data containers
+and have the LoginManager try each defined container until the user is found.
+For example, you can have all website users who can apply for a new account online
+on the webserver's local database. Also, you want to enable all your company's
+employees to login to the site without the need to create new accounts for all of
+them. To achieve that, a second container can be defined to be used by the LoginManager.
+
+You can also define a permission container of your choice that will manage the rights for
+each user. Depending on the container, you can implement any kind of permission schemes
+for your application while having one consistent API.
+
+Using different permission and auth containers, it's easily possible to integrate
+newly written applications with older ones that have their own ways of storing permissions
+and user data. Just make a new container type and you're ready to go!
+
+Currently available are RDBMS containers using both PEAR::DB and PEAR::MDB.
+More are soon to follow.</description>
+  <maintainers>
+    <maintainer>
+      <user>mw21st</user>
+      <name>Markus Wolff</name>
+      <email>mw21st@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>lsmith</user>
+      <name>Lukas Kahwe Smith</name>
+      <email>lsmith@php.net</email>
+      <role>contributor</role>
+    </maintainer>
+    <maintainer>
+      <user>dickmann</user>
+      <name>Christian Dickmann</name>
+      <email>chrisdicki@gmx.de</email>
+      <role>contributor</role>
+    </maintainer>
+    <maintainer>
+      <user>pajoye</user>
+      <name>Pierre-Alain Joye</name>
+      <email>paj@pearfr.org</email>
+      <role>contributor</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.3</version>
+    <date>2002-09-15</date>
+    <license>LGPL</license>
+    <state>alpha</state>
+    <notes>Initial package release</notes>
+    <deps>
+      <dep type="php" rel="ge" version="4.1.0"/>
+      <dep type="pkg" rel="has">XML_Tree</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="/Auth" md5sum="7d9d33fc2e0779b470a0310409db3167" name="LoginManager.php"/>
+      <file role="php" baseinstalldir="/Auth" md5sum="e417e7867ca6c7fc343752469a5d505f" name="Auth/Common.php"/>
+      <file role="php" baseinstalldir="/Auth" md5sum="156a014e9871e16d3d89095a5a6c0e2c" name="Auth/Container/DB.php"/>
+      <file role="php" baseinstalldir="/Auth" md5sum="fa2862fdf4e850a42147fd3179b931d6" name="Perm/Common.php"/>
+      <file role="php" baseinstalldir="/Auth" md5sum="c63bb9c78e9b8143e23e7e1dade66c79" name="Perm/Container/DB_Complex.php"/>
+      <file role="test" baseinstalldir="/Auth" md5sum="8e7d7b5b8e33728bc215a95fe63b8c02" name="examples/example.php"/>
+      <file role="test" baseinstalldir="/Auth" md5sum="eea0b44fe1665fb5f51323e79f4d7b6c" name="examples/example.htm"/>
+      <file role="data" baseinstalldir="/Auth" md5sum="adfad0e76c96c0c2e4db902dc2344a95" name="sql/Auth_DB.sql"/>
+      <file role="data" baseinstalldir="/Auth" md5sum="37d8b1cbde4de21e61b909256a56f3ed" name="sql/Auth_DB_Demodata.sql"/>
+      <file role="data" baseinstalldir="/Auth" md5sum="b6c0ffaa4b3c60ddd3b52286157248eb" name="sql/Perm_DB_Complex.sql"/>
+      <file role="data" baseinstalldir="/Auth" md5sum="3bac856bdd2435385946477fa5c5e4fa" name="sql/Perm_DB_Complex_Demodata.sql"/>
+    </filelist>
+  </release>
+</package>

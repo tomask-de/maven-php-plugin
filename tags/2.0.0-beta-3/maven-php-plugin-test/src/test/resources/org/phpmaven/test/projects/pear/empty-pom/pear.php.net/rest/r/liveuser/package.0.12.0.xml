@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>LiveUser</name>
+  <summary>User authentication and permission management framework</summary>
+  <description>LiveUser is a set of classes for dealing with user authentication
+and permission management. Basically, there are three main elements that
+make up this package:
+* The LiveUser class
+* The Auth containers
+* The Perm containers
+The LiveUser class takes care of the login process and can be configured
+to use a certain permission container and one or more different auth containers.
+That means, you can have your users' data scattered amongst many data containers
+and have the LiveUser class try each defined container until the user is found.
+For example, you can have all website users who can apply for a new account online
+on the webserver's local database. Also, you want to enable all your company's
+employees to login to the site without the need to create new accounts for all of
+them. To achieve that, a second container can be defined to be used by the LiveUser class.
+You can also define a permission container of your choice that will manage the rights for
+each user. Depending on the container, you can implement any kind of permission schemes
+for your application while having one consistent API.
+Using different permission and auth containers, it's easily possible to integrate
+newly written applications with older ones that have their own ways of storing permissions
+and user data. Just make a new container type and you're ready to go!
+Currently available are containers using:
+PEAR::DB, PEAR::MDB, PEAR::MDB2, PEAR::XML_Tree and PEAR::Auth.</description>
+  <maintainers>
+    <maintainer>
+      <user>mw21st</user>
+      <name>Markus Wolff</name>
+      <email>mw21st@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>arnaud</user>
+      <name>Arnaud Limbourg</name>
+      <email>arnaud@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>lsmith</user>
+      <name>Lukas Kahwe Smith</name>
+      <email>smith@backendmedia.com</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>krausbn</user>
+      <name>Bjoern Kraus</name>
+      <email>krausbn@php.net</email>
+      <role>developer</role>
+    </maintainer>
+    <maintainer>
+      <user>pajoye</user>
+      <name>Pierre-Alain Joye</name>
+      <email>pajoye@php.net</email>
+      <role>contributor</role>
+    </maintainer>
+    <maintainer>
+      <user>dufuz</user>
+      <name>Helgi Þormar</name>
+      <email>dufuz@php.net</email>
+      <role>developer</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.12.0</version>
+    <date>2004-06-19</date>
+    <license>LGPL</license>
+    <state>beta</state>
+    <notes>- fixed several issues in the PEAR_Auth container (BC break in the configuration
+  settings, see the documentation at the top of the container for details)
+- fixed bug in inactive setting
+- cleaned up error handling inside the LiveUser class (ErrorStack might be the
+  better long term solution)
+- added LiveUser::statusMessage() to fix ambigutity inside LiveUser::errorMessage()
+- removed broken LiveUser::getRights() method (use LiveUser::getProperty() instead)
+- LiveUser::checkRight() now returns LIVEUSER_MAX_LEVEL if the rights parameter
+  is exactly (===) false, or if the right evaluates to false and the user is
+  logged in
+- simplified LiveUser::checkRightLevel() to use LiveUser::checkRight()
+- fixed issue in the 'regenid' handling of the 'destroy' configuration, which
+  would lead to regeneration of session ID's if 'destroy' is set to true
+- don't execute any logout callbacks if a logout was initiated to do a new login
+  (fix for bug #1122)
+- added LIVEUSER_STATUS_AUTHFAILED constant to denote when no auth container was
+  able to recognize the login as valid (fix for bug #1276)
+- readded group_define_name field
+- cleaned up unique setting of *_define_name fields (fix for bug #1131)
+- don't fetch rights with a right level of below 0 in the simple perm containers
+  (a similar fix may have to be applied to the medium container)
+- remove setting of the authName property in the permission containers in the
+  LiveUser_Admin class because it can lead to inconsistent data
+- use the perm_user_id inside the LiveUser_Admin class to uniquely identify users
+  (people who dont use the perm container can obviously just call the auth container
+  methods directly instead)
+- expanded LiveUser_Admin::setAdminContainers() to also accept an authName
+- removed native_name field from liveuser_languages table (use the translation
+  table instead)
+- added group_type field to liveuser_groups to optionally be able to
+  differentiate between user groups and roles)
+- unified the handling of customfields in all relevant methods
+- added getUserFromGroup() method into the perm medium admin containers
+- removed the updateAuthUserId() method infavor of updateUser() in the perm
+  simple admin containers that can also handle the perm type field
+- removed liveuser_users create statements from the examples (need to update
+  the documentation in the examples)
+- added ability to disable caching of perm information in the session
+  by setting the 'cache_perm' option to false (untested)
+- cleaned up schema sql files (fix bug #1532)
+- fixed issues in Admin.php addUser() and updateUser() (fix bug #1560)
+- reworked customfield handling (fix bug #1554) :
+    the array for table columns configuration was changed due to a problem
+    in the custom fields handling. This incurs a BC break. It will enable us
+    and you to cope with change more easily in the future and will give users
+    a flexible way of fetching and inserting custom fields. It is hopefully
+    the BC break to end BC breaks.
+- instances of user_id where renamed auth_user_id where appropriate
+- improved error messages for method stubs in the interface classes (common.php)
+- fixed naming inconsistency for LiveUser_Auth_Common:_updateUserData() (fix bug #1661)
+- dont read data from the container if no perm user was found (fix bug #1654)
+- examples were updated to reflect recent changes
+  (tested under PHP5 RC3/MySQL 4.0.x and PHP 4.3.x/MySQL 3.23.x)
+
+* Know issues:
+ - MDB uses a column name of 'sequence' for sequences where as DB uses 'id'
+   thus when switching between containers you have to rename the column</notes>
+    <deps>
+      <dep type="pkg" rel="ge" version="1.6" optional="yes">DB</dep>
+      <dep type="pkg" rel="ge" version="1.1.4" optional="yes">MDB</dep>
+      <dep type="pkg" rel="has" optional="yes">XML_Tree</dep>
+      <dep type="pkg" rel="has" optional="yes">Crypt_RC4</dep>
+      <dep type="pkg" rel="ge" version="2.0.0beta2" optional="yes">MDB2</dep>
+      <dep type="php" rel="ge" version="4.2.0" optional="no"/>
+      <dep type="pkg" rel="has" optional="no">PEAR</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="/" install-as="/LiveUser/Admin.php" name="Admin/Admin.php"/>
+      <file role="php" baseinstalldir="/LiveUser" name="Admin/Auth/Common.php"/>
+      <file role="php" baseinstalldir="/LiveUser" name="Admin/Auth/Container/DB.php"/>
+      <file role="php" baseinstalldir="/LiveUser" name="Admin/Auth/Container/MDB.php"/>
+      <file role="php" baseinstalldir="/LiveUser" name="Admin/Auth/Container/MDB2.php"/>
+      <file role="php" baseinstalldir="/LiveUser" name="Admin/Perm/Common.php"/>
+      <file role="php" baseinstalldir="/LiveUser" name="Admin/Perm/Container/DB_Complex.php"/>
+      <file role="php" baseinstalldir="/LiveUser" name="Admin/Perm/Container/DB_Medium.php"/>
+      <file role="php" baseinstalldir="/LiveUser" name="Admin/Perm/Container/DB_Simple.php"/>
+      <file role="php" baseinstalldir="/LiveUser" name="Admin/Perm/Container/MDB2_Complex.php"/>
+      <file role="php" baseinstalldir="/LiveUser" name="Admin/Perm/Container/MDB2_Medium.php"/>
+      <file role="php" baseinstalldir="/LiveUser" name="Admin/Perm/Container/MDB2_Simple.php"/>
+      <file role="php" baseinstalldir="/LiveUser" name="Admin/Perm/Container/MDB_Complex.php"/>
+      <file role="php" baseinstalldir="/LiveUser" name="Admin/Perm/Container/MDB_Medium.php"/>
+      <file role="php" baseinstalldir="/LiveUser" name="Admin/Perm/Container/MDB_Simple.php"/>
+      <file role="php" baseinstalldir="/LiveUser" name="Auth/Common.php"/>
+      <file role="php" baseinstalldir="/LiveUser" name="Auth/Container/DB.php"/>
+      <file role="php" baseinstalldir="/LiveUser" name="Auth/Container/MDB.php"/>
+      <file role="php" baseinstalldir="/LiveUser" name="Auth/Container/MDB2.php"/>
+      <file role="php" baseinstalldir="/LiveUser" name="Auth/Container/PEAR_Auth.php"/>
+      <file role="php" baseinstalldir="/LiveUser" name="Auth/Container/XML.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/dia_admin_diagram.xml"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/dia_diagram.xml"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/Perm_DB_Complex.png"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/Perm_DB_Simple.png"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/README"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/admin_example/create_db.sql"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/admin_example/README"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/admin_example/DB/admin_example.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/admin_example/DB/config.inc.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/admin_example/MDB/admin_example_mdb.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/admin_example/MDB/config_mdb.inc.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/admin_example/MDB2/admin_example_mdb2.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/admin_example/MDB2/config_mdb2.inc.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example1/Auth_XML.xml"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example1/conf.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example1/example.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example1/index.html"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example1/README"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example2/Auth_XML.xml"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example2/conf.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example2/example.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example2/index.html"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example2/Perm_XML.xml"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example2/README"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example3/area51.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example3/coffeemaker.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example3/conf.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example3/demodata.sql"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example3/example.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example3/index.html"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example3/loginscreen.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example3/main.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example3/nav.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example3/testarea.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example4/conf.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example4/demodata.sql"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example4/error-page.tpl.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example4/finish.inc.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example4/functions.js"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example4/index.html"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example4/loginform.tpl.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example4/news_change.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example4/news_change.tpl.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example4/news_new.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example4/news_new.tpl.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example4/news_notallowed.tpl.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example4/news_view.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example4/news_view.tpl.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example4/style.css"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example5/admin.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example5/admin.tpl"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example5/admin_example.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example5/conf.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example5/config.inc.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example5/create_db.sql"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example5/home.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example5/home.tpl"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example5/index.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example5/layout_frontend.css"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example5/liveuser_rights.php"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example5/login_form.tpl"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example5/news.tpl"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example5/news_edit.tpl"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example5/news_list.tpl"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="docs/examples/example5/README"/>
+      <file role="php" baseinstalldir="/LiveUser" name="Perm/Common.php"/>
+      <file role="php" baseinstalldir="/LiveUser" name="Perm/Container/DB_Complex.php"/>
+      <file role="php" baseinstalldir="/LiveUser" name="Perm/Container/DB_Medium.php"/>
+      <file role="php" baseinstalldir="/LiveUser" name="Perm/Container/DB_Simple.php"/>
+      <file role="php" baseinstalldir="/LiveUser" name="Perm/Container/MDB2_Complex.php"/>
+      <file role="php" baseinstalldir="/LiveUser" name="Perm/Container/MDB2_Medium.php"/>
+      <file role="php" baseinstalldir="/LiveUser" name="Perm/Container/MDB2_Simple.php"/>
+      <file role="php" baseinstalldir="/LiveUser" name="Perm/Container/MDB_Complex.php"/>
+      <file role="php" baseinstalldir="/LiveUser" name="Perm/Container/MDB_Medium.php"/>
+      <file role="php" baseinstalldir="/LiveUser" name="Perm/Container/MDB_Simple.php"/>
+      <file role="php" baseinstalldir="/LiveUser" name="Perm/Container/XML_Simple.php"/>
+      <file role="data" baseinstalldir="/LiveUser" install-as="misc/schema/Auth_DB.sql" name="sql/Auth_DB.sql"/>
+      <file role="data" baseinstalldir="/LiveUser" install-as="misc/schema/auth_mdb_schema.xml" name="sql/auth_mdb_schema.xml"/>
+      <file role="data" baseinstalldir="/LiveUser" install-as="misc/schema/Auth_XML.xml" name="sql/Auth_XML.xml"/>
+      <file role="data" baseinstalldir="/LiveUser" install-as="misc/schema/perm_db.sql" name="sql/perm_db.sql"/>
+      <file role="data" baseinstalldir="/LiveUser" install-as="misc/schema/perm_mdb_schema.xml" name="sql/perm_mdb_schema.xml"/>
+      <file role="data" baseinstalldir="/LiveUser" install-as="misc/schema/Perm_XML.xml" name="sql/Perm_XML.xml"/>
+      <file role="doc" baseinstalldir="/LiveUser" name="lgpl.txt"/>
+      <file role="php" baseinstalldir="/" name="LiveUser.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.12.0</version>
+      <date>2004-06-19</date>
+      <license>LGPL</license>
+      <state>beta</state>
+      <notes>- fixed several issues in the PEAR_Auth container (BC break in the configuration
+  settings, see the documentation at the top of the container for details)
+- fixed bug in inactive setting
+- cleaned up error handling inside the LiveUser class (ErrorStack might be the
+  better long term solution)
+- added LiveUser::statusMessage() to fix ambigutity inside LiveUser::errorMessage()
+- removed broken LiveUser::getRights() method (use LiveUser::getProperty() instead)
+- LiveUser::checkRight() now returns LIVEUSER_MAX_LEVEL if the rights parameter
+  is exactly (===) false, or if the right evaluates to false and the user is
+  logged in
+- simplified LiveUser::checkRightLevel() to use LiveUser::checkRight()
+- fixed issue in the 'regenid' handling of the 'destroy' configuration, which
+  would lead to regeneration of session ID's if 'destroy' is set to true
+- don't execute any logout callbacks if a logout was initiated to do a new login
+  (fix for bug #1122)
+- added LIVEUSER_STATUS_AUTHFAILED constant to denote when no auth container was
+  able to recognize the login as valid (fix for bug #1276)
+- readded group_define_name field
+- cleaned up unique setting of *_define_name fields (fix for bug #1131)
+- don't fetch rights with a right level of below 0 in the simple perm containers
+  (a similar fix may have to be applied to the medium container)
+- remove setting of the authName property in the permission containers in the
+  LiveUser_Admin class because it can lead to inconsistent data
+- use the perm_user_id inside the LiveUser_Admin class to uniquely identify users
+  (people who dont use the perm container can obviously just call the auth container
+  methods directly instead)
+- expanded LiveUser_Admin::setAdminContainers() to also accept an authName
+- removed native_name field from liveuser_languages table (use the translation
+  table instead)
+- added group_type field to liveuser_groups to optionally be able to
+  differentiate between user groups and roles)
+- unified the handling of customfields in all relevant methods
+- added getUserFromGroup() method into the perm medium admin containers
+- removed the updateAuthUserId() method infavor of updateUser() in the perm
+  simple admin containers that can also handle the perm type field
+- removed liveuser_users create statements from the examples (need to update
+  the documentation in the examples)
+- added ability to disable caching of perm information in the session
+  by setting the 'cache_perm' option to false (untested)
+- cleaned up schema sql files (fix bug #1532)
+- fixed issues in Admin.php addUser() and updateUser() (fix bug #1560)
+- reworked customfield handling (fix bug #1554) :
+    the array for table columns configuration was changed due to a problem
+    in the custom fields handling. This incurs a BC break. It will enable us
+    and you to cope with change more easily in the future and will give users
+    a flexible way of fetching and inserting custom fields. It is hopefully
+    the BC break to end BC breaks.
+- instances of user_id where renamed auth_user_id where appropriate
+- improved error messages for method stubs in the interface classes (common.php)
+- fixed naming inconsistency for LiveUser_Auth_Common:_updateUserData() (fix bug #1661)
+- dont read data from the container if no perm user was found (fix bug #1654)
+- examples were updated to reflect recent changes
+  (tested under PHP5 RC3/MySQL 4.0.x and PHP 4.3.x/MySQL 3.23.x)
+
+* Know issues:
+ - MDB uses a column name of 'sequence' for sequences where as DB uses 'id'
+   thus when switching between containers you have to rename the column
+</notes>
+    </release>
+    <release>
+      <version>0.11.1</version>
+      <date>2004-04-28</date>
+      <license>LGPL</license>
+      <state>beta</state>
+      <notes>- minor fixes on the examples
+</notes>
+    </release>
+    <release>
+      <version>0.11.0</version>
+      <date>2004-04-28</date>
+      <license>LGPL</license>
+      <state>beta</state>
+      <notes>- only disconnect when the disconnect option is set to true (default: null)
+- fixed bug in call in init() in combination with direct passing of handle and password
+- added ability to set the login/logout method to false to disable the feature
+- login/logout method can now be post, get and request (the last one is new)
+- fixed all the examples, should be mostly bug free now, method =&gt; get is now
+  used in logout, example 5 uses the newly added method singleton, all sql files
+  were updated and work now after they broke when last release was made.
+- two_letter_name in liveuser_languages and right_define_name in liveuser_rights
+  were made unique in perm_db.sql
+- change all quote() to quoteSmart() in DB container since quote() is deprecated
+  as of DB 1.6, so new dependancy of DB 1.6 is added.
+- added ability to pass and array as the value of the owner_user_id parameter
+  in checkRightLevel()
+- if you use addUser in the admin perm containers then you have to state the
+  auth container name else you get error msg back
+- SHA1 encryption option added, PHP4.3 is needed if SHA1 encryption is used
+- RC4 encryption added, Crypt_RC4 must be installed to use this
+- added function getUser to all Auth containers in /Admin, this function gets
+  all info requested for given user and returns it in a array.
+- _getPermUserId made public, now is getPermUserId Perm containers in /Admin
+  also added getAuthUserId in the same Perm containers
+- customFields have been added to addUser and editUser (also in Admin class)
+  Note type is optional for DB, thus it's needed for MDB and MDB2,
+  we recommend that you use type even though you use DB, so if you change to MDB[2],
+  it will be no problem for you.
+  usage example for Admin class:
+    $custom = array(
+       array('name' =&gt; 'name', 'value' =&gt; 'asdf', 'type' =&gt; 'text'),
+       array('name' =&gt; 'email', 'value' =&gt; 'fleh@example.com', 'type' =&gt; 'text')
+   );
+   $user_id = $admin-&gt;adduser('johndoe', 'dummypass', true, null, null, null, $custom);
+   using the auth container straight would be:
+   $user_id = $admin-&gt;addUser('johndoe', 'dummypass', true, null, null,
+                                           null, $custom);
+- Admin Class
+   - addUser now works with DB/MDB/MDB2
+   - removeUser now works with DB/MDB/MDB2
+   - updateUser now works with DB/MDB/MDB2
+   - getUser now works with DB/MDB/MDB2
+   - searchUser now works with DB/MDB/MDB2
+  Please test the Admin class for us and report any issue that you encounter if any.
+  Note. it's still experimental.
+- customFields have been added to addGroup, editGroup and getGroups and this is used in
+  the same way as customFields for addUser/editUser
+- checkRight() and checkRightLevel() both return the level of the given right or false
+- checkRightLevel() can now check multiple right id's similar to how checkRight() can
+- Admin Class
+   - tweaked setAdminContainers() method
+   - fixed issues with non numeric keys in $this-&gt;_conf['authContainers'] in
+     side setAdminAuthContainer() and setAdminContainers()
+   - applied several fixes to auth getUsers() to fix the custom field support
+   - expanded filter support in perm getUsers() to also allow group_id filtering
+   - made group_id param option in perm removeUserFromGroup()
+- Removed group_define_name from perm_db.sql and from code since this was apart of the
+  old language system.
+- fixed remember me (bug #570) and unified remember me passing
+- database container can now accept an options array
+- fixed a bug in readGroupRights() which would result in lower level's
+  potentially overwriting higher levels
+</notes>
+    </release>
+    <release>
+      <version>0.xx</version>
+      <date>2004-04-28</date>
+      <license>LGPL</license>
+      <state>beta</state>
+    </release>
+    <release>
+      <version>0.10.1</version>
+      <date>2004-04-21</date>
+      <license>LGPL</license>
+      <state>beta</state>
+      <notes>- only disconnect when the disconnect option is set to true (default: null)
+- fixed bug in call in init() in combination with direct passing of handle and password
+- added ability to set the login/logout method to false to disable the feature
+- login/logout method can now be post, get and request (the last one is new)
+- fixed all the examples, should be mostly bug free now, method =&gt; get is now
+  used in logout, example 5 uses the newly added method singleton, all sql files
+  were updated and work now after they broke when last release was made.
+- two_letter_name in liveuser_languages and right_define_name in liveuser_rights 
+  were made unique in perm_db.sql
+- change all quote() to quoteSmart() in DB container since quote() is deprecated
+  as of DB 1.6, so new dependancy of DB 1.6 is added.
+- added ability to pass and array as the value of the owner_user_id parameter
+  in checkRightLevel()
+- if you use addUser in the admin perm containers then you have to state the
+  auth container name else you get error msg back
+- SHA1 encryption option added, PHP4.3 is needed if SHA1 encryption is used
+- RC4 encryption added, Crypt_RC4 must be installed to use this
+- added function getUser to all Auth containers in /Admin, this function gets
+  all info requested for given user and returns it in a array.
+- _getPermUserId made public, now is getPermUserId Perm containers in /Admin
+  also added getAuthUserId in the same Perm containers
+- customFields have been added to addUser and editUser (also in Admin class)
+  Note type is optional for DB, thus it's needed for MDB and MDB2, 
+  we recommend that you use type even though you use DB, so if you change to MDB[2],
+  it will be no problem for you.
+  usage example for Admin class:
+    $custom = array(
+       array('name' =&gt; 'name', 'value' =&gt; 'asdf', 'type' =&gt; 'text'),
+       array('name' =&gt; 'email', 'value' =&gt; 'fleh@example.com', 'type' =&gt; 'text')
+   );
+   
+   $user_id = $admin-&gt;adduser('johndoe', 'dummypass', true, null, null, null, $custom);
+   using the auth container straight would be:
+   $user_id = $admin-&gt;addUser('johndoe', 'dummypass', true, null, null, 
+                                           null, $custom);
+- Admin Class
+   - addUser now works with DB/MDB/MDB2
+   - removeUser now works with DB/MDB/MDB2
+   - updateUser now works with DB/MDB/MDB2
+   - getUser now works with DB/MDB/MDB2
+   - searchUser now works with DB/MDB/MDB2
+   
+  Please test the Admin class for us and report any issue that you encounter if any.
+  Note. it's still experimental.
+
+- customFields have been added to addGroup, editGroup and getGroups and this is used in
+  the same way as customFields for addUser/editUser
+- checkRight() and checkRightLevel() both return the level of the given right or false
+- checkRightLevel() can now check multiple right id's similar to how checkRight() can
+- Admin Class
+   - tweaked setAdminContainers() method
+   - fixed issues with non numeric keys in $this-&gt;_conf['authContainers'] in
+     side setAdminAuthContainer() and setAdminContainers()
+   - applied several fixes to auth getUsers() to fix the custom field support
+   - expanded filter support in perm getUsers() to also allow group_id filtering
+   - made group_id param option in perm removeUserFromGroup()
+</notes>
+    </release>
+    <release>
+      <version>0.10.0</version>
+      <date>2004-03-11</date>
+      <license>LGPL</license>
+      <state>beta</state>
+      <notes>* General notes
+  + SQL queries are now standards compliant
+    IMPORTANT : DB Schema change !
+    Since 'comment' is reserved in Oracle, the field was renamed
+    'description' in the translations table
+    The file you should use for the permissions setting is
+      perm_db.sql
+  + added MDB2 container
+  + added class to provide a unified interface to the Auth and Perm container
+* Auth admin containers :
+  + fixed countless bugs and added several missing methods
+* Perm admin containers :
+  + restuctured class hirarchy to Common &lt;- Simple &lt;- Medium &lt;- Complex
+  + it was not possible to update a group without resetting 'is_active'
+  + method to update the auth_user_id used in the auth/perm_user_id mapping (updateAuthUserId)
+  + getPermUserId() now also optionally expects an auth container name
+  + all methods (expect for getPermUserId()) now expect a permUserId instead of an authUserId
+  + fixed countless bugs and added several missing methods
+  + perm containers now follow the following inheritance structure (complex extends medium extends simple)
+* Client part changes
+  + totaly reworked session handling
+    - objects are no more serialized only the relevant property values
+    - ressources are not freed automatically anymore (use the new disconnect method)
+    - added 'session_save_handler' option to allow custom session handler
+  + fixed a bunch if bugs and typos
+  + restuctured class hirarchy to Common &lt;- Simple &lt;- Medium &lt;- Complex
+  + totally reworked parts of the perm db containers (especially in the complex container)
+  + rights the user gets through being an areaadmin are now directly added to the rights array
+  + keys (maybe a string now) in the authContainers array are now used to unique identify the auth container
+  + upon sucessful login the status remained to WRONG_LOGIN thus calling
+    the login function if force_login was set to true
+  + fixed bugs in the remember me feature
+  + added sanity checks in unfreeze()
+  + if the force login option is set to true the custom login function is called twice.
+    Add a check to not call the login function in tryLogin if force login is set to true
+  + a basic unified admin class made its way into this version. It is pretty simple
+    but will provide means to have high-level methods like addUser which will
+    add a user to bother containers (auth and admin).
+  + Setting 'passwordEncryptionMode' in the configuration array has no
+    effect for the database auth container
+  + using LIVEUSER_MAX_LEVEL constant for default right level instead of hardcoding level 3
+  + relying on status property alone in isInactive()
+  + ensuring that in all method that write to the status property, the status is never overwritten with incorrect information
+  + added a new status constant for when the user was logged out
+  + removed now unneeded idled and expired property
+  + removed deprecated constants
+  + all constants related to error codes are now prefixed with LIVEUSER_ERROR
+  + removed getHandle() method as it provided no value over getProperty('handle')
+  + change install location for LiveUser/LiveUser.php (now include 'LiveUser.php')
+  + change install location for LiveUser/Admin/Admin.php (now include 'LiveUser/Admin.php')
+  + added the ability to specify a logout method and logout varname
+  + added MDB xml schema files
+  + fixed several minor issues in the sql files
+  + renamed all instances of owner_perm_user_id to owner_user_id
+  + all files from the old sql dir are now installed into data/misc/schema
+  + examples no longer contain liveuser schema related statements; use the
+    generic LiveUser schema files instead
+</notes>
+    </release>
+  </changelog>
+</package>

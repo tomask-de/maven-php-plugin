@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>System_ProcWatch</name>
+ <channel>pear.php.net</channel>
+ <summary>Monitor Processes</summary>
+ <description>With this package you can monitor running processes based upon an XML configuration file, XML string, INI file or an array where you define patterns, conditions and actions.
+
+XML::Parser must be installed to configure System::ProcWatch by XML, additionally Console::Getopt and XML::DTD must be installed if you want to use the shipped shell scripts &apos;procwatch&apos; and &apos;procwatch-lint&apos;.
+
+A simple &apos;ps&apos; fake for WinNT can be found at http://dev.iworks.at/ps/ps.zip</description>
+ <lead>
+  <name>Michael Wallner</name>
+  <user>mike</user>
+  <email>mike@php.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2010-10-10</date>
+ <time>13:59:34</time>
+ <version>
+  <release>0.4.3</release>
+  <api>0.4.2</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.php.net/license">PHP</license>
+ <notes>
+QA release
+Fixed package.xml
+SVN layout
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <file baseinstalldir="System" md5sum="43423e26a2f610fe7112719a8d234969" name="data/procwatch-1_0.dtd" role="data" />
+   <file baseinstalldir="System" md5sum="53d301ccdb54a5768bfc035587ba74f6" name="docs/README.txt" role="doc" />
+   <file baseinstalldir="System" md5sum="53e255f3575ee0ea45f4d57631545cdc" name="docs/examples/example.ini" role="doc" />
+   <file baseinstalldir="System" md5sum="402e00d04f45472a4488186e24789b71" name="docs/examples/EXAMPLE.txt" role="doc" />
+   <file baseinstalldir="System" md5sum="9546cc58d51734c2d3bce25800d41ca5" name="docs/examples/example.xml" role="doc">
+    <tasks:replace from="@DATADIR@" to="data_dir" type="pear-config" />
+   </file>
+   <file baseinstalldir="" md5sum="44afaaa13d332e39c1f1cdbb8604c314" name="scripts/system-procwatch.cmd" role="script">
+    <tasks:replace from="@PHP-BIN@" to="php_bin" type="pear-config" />
+    <tasks:replace from="@BIN-DIR@" to="bin_dir" type="pear-config" />
+   </file>
+   <file baseinstalldir="" md5sum="76dd82bd56b4eb96492c3b847601f5de" name="scripts/system-procwatch.php" role="script">
+    <tasks:replace from="@PHP-BIN@" to="php_bin" type="pear-config" />
+    <tasks:replace from="@VERSION@" to="version" type="package-info" />
+    <tasks:replace from="@DATE@" to="release_date" type="package-info" />
+   </file>
+   <file baseinstalldir="" md5sum="c6d1e5475d746e8c3211c78a082dd4a7" name="scripts/system-procwatch_lint.cmd" role="script">
+    <tasks:replace from="@PHP-BIN@" to="php_bin" type="pear-config" />
+    <tasks:replace from="@BIN-DIR@" to="bin_dir" type="pear-config" />
+   </file>
+   <file baseinstalldir="" md5sum="81d47713d215d263012009267666a94a" name="scripts/system-procwatch_lint.php" role="script">
+    <tasks:replace from="@PHP-BIN@" to="php_bin" type="pear-config" />
+    <tasks:replace from="@DATADIR@" to="data_dir" type="pear-config" />
+    <tasks:replace from="@VERSION@" to="version" type="package-info" />
+    <tasks:replace from="@DATE@" to="release_date" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="c5b8bfec9385a448a0da2cf1e948556c" name="System/ProcWatch.php" role="php" />
+   <file baseinstalldir="/" md5sum="c299ba875c2d3876ecf725331f41dc8e" name="System/ProcWatch/Config.php" role="php" />
+   <file baseinstalldir="/" md5sum="4d4460512cf38886bf571ed0e82292f4" name="System/ProcWatch/Parser.php" role="php" />
+   <file baseinstalldir="/" md5sum="fd8f33816679b1de4b3719b673850cec" name="System/ProcWatch/Config/Parser.php" role="php" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.0.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <package>
+    <name>PEAR</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <extension>
+    <name>pcre</name>
+   </extension>
+  </required>
+  <optional>
+   <package>
+    <name>XML_Parser</name>
+    <channel>pear.php.net</channel>
+    <min>1.1.0</min>
+   </package>
+   <package>
+    <name>XML_DTD</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>Console_Getopt</name>
+    <channel>pear.php.net</channel>
+   </package>
+  </optional>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="procwatch" name="scripts/system-procwatch.php" />
+   <install as="procwatch-lint" name="scripts/system-procwatch_lint.php" />
+   <install as="README.txt" name="docs/README.txt" />
+   <install as="examples/EXAMPLE.txt" name="docs/examples/EXAMPLE.txt" />
+   <install as="examples/example.xml" name="docs/examples/example.xml" />
+   <install as="examples/example.ini" name="docs/examples/example.ini" />
+   <install as="procwatch-1_0.dtd" name="data/procwatch-1_0.dtd" />
+   <install as="system-procwatch.cmd" name="scripts/system-procwatch.cmd" />
+   <install as="system-procwatch_lint.cmd" name="scripts/system-procwatch_lint.cmd" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.4.2</release>
+    <api>0.4.2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2010-10-10</date>
+   <license uri="http://www.php.net/license">PHP</license>
+   <notes>
+QA release
+Fixed package.xml
+SVN layout
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.4.3</release>
+    <api>0.4.2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2010-10-10</date>
+   <license uri="http://www.php.net/license">PHP</license>
+   <notes>
+QA release
+Fixed package.xml
+SVN layout
+   </notes>
+  </release>
+ </changelog>
+</package>

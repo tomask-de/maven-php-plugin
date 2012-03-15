@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/translation2">Translation2</p>
+ <c>pear.php.net</c>
+ <v>2.0.0beta4</v>
+ <st>beta</st>
+ <l>PHP License</l>
+ <m>quipo</m>
+ <s>Class for multilingual applications management.</s>
+ <d>This class provides an easy way to retrieve all the strings for a multilingual
+site from a data source (i.e. db).
+The following containers are provided, more will follow:
+- PEAR::DB
+- PEAR::MDB
+- PEAR::MDB2
+- gettext
+- XML
+- PEAR::DB_DataObject (experimental)
+It is designed to reduce the number of queries to the db, caching the results when possible.
+An Admin class is provided to easily manage translations (add/remove a language, add/remove a string).
+Currently, the following decorators are provided:
+- CacheLiteFunction (for file-based caching)
+- CacheMemory (for memory-based caching)
+- DefaultText (to replace empty strings with their keys)
+- Iconv (to switch from/to different encodings)
+- Lang (resort to fallback languages for empty strings)
+- SpecialChars (replace html entities with their hex codes)
+- UTF-8 (to convert UTF-8 strings to ISO-8859-1)
+</d>
+ <da>2004-11-20 06:17:22</da>
+ <n>- added a complete TestSuite
+- updated gettext docs
+- fixed typo in error code (TRANSLATION_ERROR_UNKNOWN_LANG =&gt; TRANSLATION2_ERROR_UNKNOWN_LANG)
+- fixed typo in the MDB Admin container [quote() =&gt; getTextValue()]
+- fixed typo in db admin containers ($this-&gt;queries =&gt; $this-&gt;_queries)
+- in the gettext admin container 
+- fixed many bugs in the gettext admin container:
+  * fixed old field [remove &quot;windows&quot;, add &quot;encoding&quot;]
+  * fixed error in remove() [can't pass by reference]
+  * fixed typo in update() [$stingID =&gt; $stringID]
+  * in _add(), create the domains on demand
+  * handle stale cache
+- many fixes/updates to the xml container:
+  * init() accepts an array as parameter (not a string)
+  * added 'save_on_shutdown' option
+    (you can choose to save in real time, now)
+  * return Translation2 errors with numeric codes
+  * added 'encoding' field
+  * added removeLang()
+  * other minor fixes and tweaks</n>
+ <f>43116</f>
+ <g>http://pear.php.net/get/Translation2-2.0.0beta4</g>
+ <x xlink:href="package.2.0.0beta4.xml"/>
+</r>

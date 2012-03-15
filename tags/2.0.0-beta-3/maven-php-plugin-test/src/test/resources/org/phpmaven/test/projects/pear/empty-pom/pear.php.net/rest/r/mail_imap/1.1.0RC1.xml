@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/mail_imap">Mail_IMAP</p>
+ <c>pear.php.net</c>
+ <v>1.1.0RC1</v>
+ <st>beta</st>
+ <l>PHP</l>
+ <m>richy</m>
+ <s>Provides a c-client backend for webmail.</s>
+ <d>Mail_IMAP provides a simplified backend for working with the c-client (IMAP) extension. It serves as an OO wrapper for commonly used c-client functions. It provides structure and header parsing as well as body retrieval.
+Mail_IMAP provides a simple inbox example that demonstrates its ability to parse and view simple and multipart email messages.
+Mail_IMAP also provides a connection wizard to determine the correct protocol and port settings for a remote mail server, all you need to provide is a server, a username and a password.
+Mail_IMAP may be used as a webmail backend or as a component in a mailing list manager.
+This package requires the c-client extension.  To download the latest version of the c-client extension goto: http://www.php.net/imap.
+</d>
+ <da>2004-05-09 11:03:07</da>
+ <n>Bug #1350 multipart/related messages containing attachments not parsed correctly.
+    - Adjusted Mail_IMAP::_scanMultipart, Mail_IMAP::getDefaultPid,
+    Mail_IMAP::_checkIfParsed, added Mail_IMAP::_isMultipartRelated,
+    $defaultPid member variable (this is to cut back on calls to
+    Mail_IMAP::getDefaultPid).
+Added debug functions. Debug functions can be called automatically if
+using a URI abstraction.
+Fallback pids added for Mail_IMAP::getBody, Mail_IMAP::getRawHeaders,
+Mail_IMAP::getHeaders. Mail_IMAP::getBody will fallback on pid = '1'
+or the first message part.  Mail_IMAP::getRawHeaders and
+Mail_IMAP::getHeaders will fallback on pid = '0', or the top-level
+headers.
+$option member variable added, replaces and deprecates various $options
+arguments used in the various methods (All of these will be removed in 2.0.0).
+Mail_IMAP::setOptions method added to set-up some default usages of optional
+arguments.
+Mail_IMAP::getRawHeaders now returns the headers by default and has a new
+$rtn argument that toggles between returning the headers and not returning
+them.
+Mail_IMAP::getHeaders now returns the header array (no toggle here).
+Expanded embedded docs.
+Added $error_reporting argument to the constructor, this is used to
+determine where hacks are being used which is useful for debugging.
+Error text made more consistent.
+Net_URL made an optional dependancy.
+messageCount, removed call to imap_errors.
+Added $this-&gt;mailboxInfo['host'] and Mail_IMAP::getMailboxes() which
+wraps imap_list.
+Fixed leading slash making its way into $this-&gt;mailboxInfo['folder'].
+Mail_IMAP::getQuota now falls back on $this-&gt;mailboxInfo['folder'], if
+a connection URI is used, uses 'INBOX' if no value is passed by argument
+or no value is present for $this-&gt;mailboxInfo['folder'].</n>
+ <f>20009</f>
+ <g>http://pear.php.net/get/Mail_IMAP-1.1.0RC1</g>
+ <x xlink:href="package.1.1.0RC1.xml"/>
+</r>

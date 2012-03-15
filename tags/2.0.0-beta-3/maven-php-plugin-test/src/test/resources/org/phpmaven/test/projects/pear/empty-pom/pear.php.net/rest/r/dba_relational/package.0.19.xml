@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>DBA_Relational</name>
+  <summary>Berkely-style database abstraction class</summary>
+  <description>Table management extension to DBA</description>
+  <maintainers>
+    <maintainer>
+      <user>busterb</user>
+      <name>Brent Cook</name>
+      <email>busterb@mail.utexas.edu</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.19</version>
+    <date>2002-09-29</date>
+    <license>LGPL</license>
+    <state>devel</state>
+    <notes>This is the first release as a separate package from DBA. A notable change is that the format of the schema as stored on disk has changed. Now, we either use php's serialize() or wddx_serialize_value(), rather than a custom algorithm. These should be better for supporting DBA_Relational across programming languages, be faster and remove complexity. However, this is not compatible with old databases, so be sure to dump your old data before upgrading beyond DBA 0.18! Comments on this change are very welcome.
+
+In the works are many improvements to the query algorithms and the long-awaited
+sequence support.</notes>
+    <deps>
+      <dep type="php" rel="ge" version="4.0.4pl1"/>
+      <dep type="pkg" rel="has">DBA</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="/DBA" md5sum="227406012bcc796bcf8f9ef72c2fc0fb" name="Relational.php"/>
+      <file role="php" baseinstalldir="/DBA" md5sum="2155edcdd716089552ad204417c5e0ca" name="Table.php"/>
+      <file role="php" baseinstalldir="/DBA" md5sum="4b49423278187dba93a9071e2c9cea47" name="Toolbox.php"/>
+      <file role="test" baseinstalldir="/DBA" md5sum="6287afaac5aa96824a4540788e8d1199" name="tests/empSchema.php"/>
+      <file role="test" baseinstalldir="/DBA" md5sum="efc537620154416d04fb6b85813d6517" name="tests/hatSchema.php"/>
+      <file role="test" baseinstalldir="/DBA" md5sum="ceda3ad838f714485839eb83a244bfb9" name="tests/test_relational.php"/>
+      <file role="test" baseinstalldir="/DBA" md5sum="28122238d563ee4bdc5e67c34ae8885a" name="tests/test_table.php"/>
+      <file role="doc" baseinstalldir="/DBA" md5sum="a1f8b9b265f74df5bfbbad52c547f313" name="docs/Examples.txt"/>
+    </filelist>
+  </release>
+</package>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>Net_SmartIRC</name>
+  <summary>Net_SmartIRC is a PHP class for communication with IRC networks</summary>
+  <description>Net_SmartIRC is a PHP class for communication with IRC networks,
+which conforms to the RFC 2812 (IRC protocol).
+It's an API that handles all IRC protocol messages.
+This class is designed for creating IRC bots, chats and show irc related info on webpages.
+
+Featurelist:
+- actionhandler for the API
+- messagehandler for the API
+- send/receive floodprotection
+- detects and changes nickname on nickname collisions
+- time events
+- full object oriented programmed
+- autoreconnect
+- debugging/logging system
+- supports fsocks and PHP socket extension
+- supports PHP 4.1.x to 4.3.0
+- sendbuffer with priority levels
+- channel synching (tracking of users/modes/topic etc in variables)
+- IRC functions:
+  op
+  deop
+  voice
+  devoice
+  ban
+  unban
+  join
+  part
+  action
+  message
+  query
+  ctcp
+  mode
+  topic
+  nick
+  invite</description>
+  <maintainers>
+    <maintainer>
+      <user>meebey</user>
+      <name>Mirco MEEBEY Bauer</name>
+      <email>mail@meebey.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.5.0</version>
+    <date>2003-01-06</date>
+    <license>LGPL</license>
+    <state>beta</state>
+    <notes>Initial release as PEAR package
+this project is former known as phpSmartIRCclass
+(beta because of first release in PEAR, the project itself is stable)
+
+ChangeLog:
+  fixes:
+  - copyright year
+  - fixed critical bug in the main _rawreceive() for() loop, messages were lost.
+  
+  changes:
+  - changed documentation tags in front of all methods to the phpDocumentator compatible format.
+  - improved connect() errorhandling.
+  - changed login() parameters to $nick, $realname, $usermode = 0, $username = null, $password = null.
+  - changed join() parameters to $channelarray, $key = null.
+  - changed kick() parameters to $channel, $nicknamearray, $reason = null.
+  - changed listenFor() parameters to $messagetype
+    return value is now the result, instead the of a reference to the result parameter.
+  - sendbuffer has now 3 queues: high, medium and low
+    high sends 2 messages, then 1 of medium
+    low is only send if high _and_ medium is empty.
+  - select() call for sockets is strongly optimized
+  
+  new:
+  - phpDocumentator package tags.
+  - include() for messagehandler.php (needed for the new API).
+  - setChannelSynching() method, for enabling the channel synching.
+  - setCtcpVersion() method, for changing the ctcp version reply string.
+  - setReceiveTimeout() method, for changing the receive timeout.
+  - setTransmitTimeout() method, for changing the transmit timeout.
+  - setAutoReconnect() method, for enabling the autoreconnect feature.
+  - channel variable, a reference to _channels because $object-&gt;channel(&quot;#chan&quot;)-&gt;topic is not possible in PHP4 (ZE1).
+  - reconnect() method, it will reconnect and also join all channels.
+  - channel() method, getting a reference to the channel, only if channelsynching is on.
+  - added ident, host, messageex and rawmessageex variables to the Net_SmartIRC_data class.
+  - class Net_SmartIRC_user, stores info about one user, only used if channelsynching is on.
+  - class Net_SmartIRC_channel, stores info about one channel, only used if channelsynching is on.</notes>
+    <filelist>
+      <file role="php" baseinstalldir="Net" md5sum="823b5fb394dfdaed20bd469c01cfb58a" name="SmartIRC.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="aba810602c8d3b3c97f36ecd8bca3638" name="SmartIRC/defines.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="815150ca52ef2fff7213a99679fa63d3" name="SmartIRC/messagehandler.php"/>
+      <file role="doc" baseinstalldir="Net" md5sum="d260eaa3ecb6a5c1508a9688b7bb4654" name="SmartIRC/example.php"/>
+      <file role="doc" baseinstalldir="Net" md5sum="c066d0385467dc89b20bd7f123c2be96" name="SmartIRC/example2.php"/>
+      <file role="doc" baseinstalldir="Net" md5sum="daffb0494cb33a91da5e1caea82a1c89" name="SmartIRC/example3.php"/>
+      <file role="doc" baseinstalldir="Net" md5sum="63a9813b8443b6116682a941efdc6c9f" name="SmartIRC/example4.php"/>
+      <file role="doc" baseinstalldir="Net" md5sum="0f3194c23b1c17ee3284e1a397a92555" name="SmartIRC/CHANGELOG"/>
+      <file role="doc" baseinstalldir="Net" md5sum="14e70e616e2a9bd16f95d794ce52ff3d" name="SmartIRC/CREDITS"/>
+      <file role="doc" baseinstalldir="Net" md5sum="85729167cae640da96a460935ae79cb1" name="SmartIRC/DOCUMENTATION"/>
+      <file role="doc" baseinstalldir="Net" md5sum="7d53ce990740f0adac8bfd8306d9e3ac" name="SmartIRC/README"/>
+      <file role="doc" baseinstalldir="Net" md5sum="268c1c10866db57cc3fa6f6d1aab4885" name="SmartIRC/HOWTO"/>
+      <file role="doc" baseinstalldir="Net" md5sum="089d3422c459896d74c54fe1fbde2db2" name="SmartIRC/FEATURES"/>
+      <file role="doc" baseinstalldir="Net" md5sum="437fe7e85a691be7254f367fc4cc1325" name="SmartIRC/LICENSE"/>
+      <file role="doc" baseinstalldir="Net" md5sum="5212a4dbdf79330199b17e03eed5b0c9" name="SmartIRC/docs/errors.html"/>
+      <file role="doc" baseinstalldir="Net" md5sum="9123e50831bb6c2d05dc6cea97fbb8e0" name="SmartIRC/docs/index.html"/>
+      <file role="doc" baseinstalldir="Net" md5sum="c2c5a77dfd92585e3a4988bf873c5acf" name="SmartIRC/docs/layout.css"/>
+      <file role="doc" baseinstalldir="Net" md5sum="e853beabcc33b4d626ea745b7f132758" name="SmartIRC/docs/classtrees_Net_SmartIRC.html"/>
+      <file role="doc" baseinstalldir="Net" md5sum="9123e50831bb6c2d05dc6cea97fbb8e0" name="SmartIRC/docs/li_Net_SmartIRC.html"/>
+      <file role="doc" baseinstalldir="Net" md5sum="635a9a449ce2e632aad690501bded500" name="SmartIRC/docs/elementindex.html"/>
+      <file role="doc" baseinstalldir="Net" md5sum="3d709372d8b1ebd88ff7fdc1a8ef6c39" name="SmartIRC/docs/elementindex_Net_SmartIRC.html"/>
+      <file role="doc" baseinstalldir="Net" md5sum="9e8d4d4df19a857b4e0913f64461071b" name="SmartIRC/docs/style.css"/>
+      <file role="doc" baseinstalldir="Net" md5sum="c0ff2fb903a470f1ddf9154fed7311ff" name="SmartIRC/docs/Net_SmartIRC/Net_SmartIRC.html"/>
+      <file role="doc" baseinstalldir="Net" md5sum="58ebe722fe6e00a29eb7c0d23be234b6" name="SmartIRC/docs/Net_SmartIRC/Net_SmartIRC_actionhandler.html"/>
+      <file role="doc" baseinstalldir="Net" md5sum="686cf3a406993d607af0eb9010ab2c27" name="SmartIRC/docs/Net_SmartIRC/Net_SmartIRC_channel.html"/>
+      <file role="doc" baseinstalldir="Net" md5sum="72d42a57b385290d07c7cf15b3a9b26e" name="SmartIRC/docs/Net_SmartIRC/Net_SmartIRC_data.html"/>
+      <file role="doc" baseinstalldir="Net" md5sum="a4fe0957c8d41b39ec1ec9ee2ec3a8dc" name="SmartIRC/docs/Net_SmartIRC/Net_SmartIRC_listenfor.html"/>
+      <file role="doc" baseinstalldir="Net" md5sum="810fecdd92cfbad404318a8379d67d04" name="SmartIRC/docs/Net_SmartIRC/Net_SmartIRC_messagehandler.html"/>
+      <file role="doc" baseinstalldir="Net" md5sum="5b0fbd85e5ff191222756c24a682963a" name="SmartIRC/docs/Net_SmartIRC/Net_SmartIRC_timehandler.html"/>
+      <file role="doc" baseinstalldir="Net" md5sum="efc615ddcf071dbc793336cd7ee176c5" name="SmartIRC/docs/Net_SmartIRC/Net_SmartIRC_user.html"/>
+      <file role="doc" baseinstalldir="Net" md5sum="5886648cfe9812eb554b7912daf34441" name="SmartIRC/docs/Net_SmartIRC/mybot.html"/>
+      <file role="doc" baseinstalldir="Net" md5sum="9dd9b50d60830e8d4d368e18fe1c93c9" name="SmartIRC/docs/Net_SmartIRC/_SmartIRC_SmartIRC_php.html"/>
+      <file role="doc" baseinstalldir="Net" md5sum="7b92d7628a3d3870996d3511fae401e3" name="SmartIRC/docs/Net_SmartIRC/_SmartIRC_SmartIRC_defines_php.html"/>
+      <file role="doc" baseinstalldir="Net" md5sum="d15689c7114dc350c9aca5a2a568b122" name="SmartIRC/docs/Net_SmartIRC/_SmartIRC_SmartIRC_example2_php.html"/>
+      <file role="doc" baseinstalldir="Net" md5sum="6a2cce5d2795125443a84a4771b11499" name="SmartIRC/docs/Net_SmartIRC/_SmartIRC_SmartIRC_example3_php.html"/>
+      <file role="doc" baseinstalldir="Net" md5sum="9cf4bb6f5daad2a05eda939428a9f0be" name="SmartIRC/docs/Net_SmartIRC/_SmartIRC_SmartIRC_example4_php.html"/>
+      <file role="doc" baseinstalldir="Net" md5sum="5bec29369d6d3880c38fa7bc53e1d6a2" name="SmartIRC/docs/Net_SmartIRC/_SmartIRC_SmartIRC_example5_php.html"/>
+      <file role="doc" baseinstalldir="Net" md5sum="60091241d138b5e3b8ec84f8ff1f090a" name="SmartIRC/docs/Net_SmartIRC/_SmartIRC_SmartIRC_example6_php.html"/>
+      <file role="doc" baseinstalldir="Net" md5sum="530f591e1bb4397495af10939b418f6c" name="SmartIRC/docs/Net_SmartIRC/_SmartIRC_SmartIRC_example_php.html"/>
+      <file role="doc" baseinstalldir="Net" md5sum="73a37e872a2540c044cb74cc9c6a04a4" name="SmartIRC/docs/Net_SmartIRC/_SmartIRC_SmartIRC_messagehandler_php.html"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.5.0</version>
+      <date>2003-01-06</date>
+      <state>beta</state>
+      <notes>fixes:
+  - copyright year
+  - fixed critical bug in the main _rawreceive() for() loop, messages were lost.
+  
+  changes:
+  - changed documentation tags in front of all methods to the phpDocumentator compatible format.
+  - improved connect() errorhandling.
+  - changed login() parameters to $nick, $realname, $usermode = 0, $username = null, $password = null.
+  - changed join() parameters to $channelarray, $key = null.
+  - changed kick() parameters to $channel, $nicknamearray, $reason = null.
+  - changed listenFor() parameters to $messagetype
+    return value is now the result, instead the of a reference to the result parameter.
+  - sendbuffer has now 3 queues: high, medium and low
+    high sends 2 messages, then 1 of medium
+    low is only send if high _and_ medium is empty.
+  - select() call for sockets is strongly optimized
+  
+  new:
+  - phpDocumentator package tags.
+  - include() for messagehandler.php (needed for the new API).
+  - setChannelSynching() method, for enabling the channel synching.
+  - setCtcpVersion() method, for changing the ctcp version reply string.
+  - setReceiveTimeout() method, for changing the receive timeout.
+  - setTransmitTimeout() method, for changing the transmit timeout.
+  - setAutoReconnect() method, for enabling the autoreconnect feature.
+  - channel variable, a reference to _channels because $object-&gt;channel(&quot;#chan&quot;)-&gt;topic is not possible in PHP4 (ZE1).
+  - reconnect() method, it will reconnect and also join all channels.
+  - channel() method, getting a reference to the channel, only if channelsynching is on.
+  - added ident, host, messageex and rawmessageex variables to the Net_SmartIRC_data class.
+  - class Net_SmartIRC_user, stores info about one user, only used if channelsynching is on.
+  - class Net_SmartIRC_channel, stores info about one channel, only used if channelsynching is on.</notes>
+    </release>
+  </changelog>
+</package>

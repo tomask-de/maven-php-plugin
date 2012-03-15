@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/xml_xpath">XML_XPath</p>
+ <c>pear.php.net</c>
+ <v>1.2</v>
+ <st>beta</st>
+ <l>PHP License</l>
+ <m>dallen</m>
+ <s>The PEAR::XML_XPath class provided an XPath/DOM XML manipulation, maneuvering and query interface.</s>
+ <d>The PEAR::XML_XPath class provided an XPath/DOM XML manipulation, maneuvering and 
+    query interface.
+
+    The class allows for easy manipulation, maneuvering and querying of a domxml tree using
+    both xpath queries and DOM walk functions.  It uses an internal pointer for all
+    methods on which the action is performed.  Results from an dom/xpath query are returned
+    as an XPath_Result object, which contains an internal array of DOM nodes and which extends 
+    the common DOM class and hence contains all the DOM functions from the main object to run
+    on each of the elements in the internal array.  This class tries to hold as close as possible       to the DOM Recommendation.  You MUST have the domxml extension to use this class.
+
+    The XML_XPath class was inspired by a class maintained by Nigel Swinson called phpxpath.
+    The phpxpath class does not rely on PHP xmldom functions and is therefore a sibling to
+    this class: http://sourceforge.net/projects/phpxpath
+</d>
+ <da>2002-06-07 23:24:00</da>
+ <n>* Very important to note that the DOM step functions do not take an optional xpath query.  The
+  reason I designed it this way is because the outcome would be too difficult to deal with, since
+  one of 4 different scenarios could take place.  Plus, it just doesn't make any sense. 
+  * Significant speed enhancements (almost 100% faster)
+  Major changes:
+  * getAttribute('foo', true) now puts you on the attribute, not the element node
+  * cleaned up the XML_XPath_result initialization (no longer create an StdClass when calling class)
+  * fixed sorting for childNodes() and getElementsByTagName() generated result objects
+  * cleaned up sorting in result object, and added comments (so I don't forget again how I did it)
+  * major speed enhancements (calling user defined functions methods is slow, so tried to trim that down)
+  * don't create a result object in the _quick_evaluate function since we don't need it anyway
+  * enabled relative xpath queries differently, in_xpathQuery = array(query, node) for relative...
+  * added relative xpath queries for the _quick_evaluate feature</n>
+ <f>17826</f>
+ <g>http://pear.php.net/get/XML_XPath-1.2</g>
+ <x xlink:href="package.1.2.xml"/>
+</r>

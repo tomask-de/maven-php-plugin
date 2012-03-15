@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.10.0beta1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>PEAR_PackageFileManager2</name>
+ <channel>pear.php.net</channel>
+ <summary>PEAR_PackageFileManager2 takes an existing v2 package.xml file and updates it with a new filelist and changelog</summary>
+ <description>This package revolutionizes the maintenance of PEAR packages.  With a few parameters,
+the entire v2 package.xml is automatically updated with a listing of all files in a package.
+Features include
+ - manages the new package.xml 2.0 format in PEAR 1.4.0
+ - can detect PHP and extension dependencies using PHP_CompatInfo
+ - reads in an existing package.xml file, and only changes the release/changelog
+ - a plugin system for retrieving files in a directory.  Currently four plugins
+   exist, one for standard recursive directory content listing, one that
+   reads the CVS/Entries files and generates a file listing based on the contents
+   of a checked out CVS repository, one that reads Subversion entries files, and
+   one that queries a Perforce repository.
+ - incredibly flexible options for assigning install roles to files/directories
+ - ability to ignore any file based on a * ? wildcard-enabled string(s)
+ - ability to include only files that match a * ? wildcard-enabled string(s)
+ - ability to manage dependencies
+ - can output the package.xml in any directory, and read in the package.xml
+   file from any directory.
+ - can specify a different name for the package.xml file</description>
+ <lead>
+  <name>Helgi Thormar Thorbjoernsson</name>
+  <user>dufuz</user>
+  <email>dufuz@php.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Greg Beaver</name>
+  <user>cellog</user>
+  <email>cellog@php.net</email>
+  <active>no</active>
+ </lead>
+ <lead>
+  <name>Tim Jackson</name>
+  <user>timj</user>
+  <email>tim@timj.co.uk</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Laurent Laville</name>
+  <user>farell</user>
+  <email>farell@php.net</email>
+  <active>no</active>
+ </lead>
+ <developer>
+  <name>Arnaud Limbourg</name>
+  <user>Arnaud</user>
+  <email>arnaud@limbourg.com</email>
+  <active>no</active>
+ </developer>
+ <date>2011-03-28</date>
+ <time>03:01:59</time>
+ <version>
+  <release>1.0.2</release>
+  <api>1.0.0</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+ <notes>
+* Fixed Bug #16406: addReplacement does not look for files in packagedirectory [patch by Sune Jensen, dufuz]
+* Fixed Bug #17451: Misleading error message about PHP_Compat/PHP_CompatInfo [dufuz]
+* Fixed Bug #17990: PHP Notice: Undefined index: date in PackageFileManager2.php [dufuz]
+* Directory &quot;scripts&quot; is now mapped to role script
+ </notes>
+ <contents>
+  <dir baseinstalldir="PEAR" name="/">
+   <file baseinstalldir="PEAR" md5sum="48114efbe28f942ec031416c018f16cf" name="examples/basicConvert.php" role="doc" />
+   <file baseinstalldir="PEAR" md5sum="2ff33bda827a9debef36f7e3de134748" name="examples/detectDependencies.php" role="doc" />
+   <file baseinstalldir="PEAR" md5sum="e1c0d69701459a71482b4f9221918ec5" name="examples/easyMigration.php" role="doc" />
+   <file baseinstalldir="PEAR" md5sum="d30aae5f35b4df2c25503d15efaabbc0" name="examples/makepackage.php" role="doc" />
+   <file baseinstalldir="PEAR" md5sum="2ac3296958acbfb0fd91322ba17e3e6b" name="examples/updatepackage.php" role="doc" />
+   <file baseinstalldir="PEAR" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/PEAR_PackageFileManager2/addIgnore/bug13747/conf/a.php" role="test" />
+   <file baseinstalldir="PEAR" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/PEAR_PackageFileManager2/addIgnore/bug13747/config/xml.php" role="test" />
+   <file baseinstalldir="PEAR" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/PEAR_PackageFileManager2/addIgnore/bug13747/templates/confirm.php" role="test" />
+   <file baseinstalldir="PEAR" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/PEAR_PackageFileManager2/addIgnore/bug13747/something.php" role="test" />
+   <file baseinstalldir="PEAR" md5sum="d7e6cfc4b364850c54bb15bd179e959d" name="tests/PEAR_PackageFileManager2/addIgnore/test_bug13747.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/PEAR_PackageFileManager2/addReplacement/bug16406/Class.php" role="test" />
+   <file baseinstalldir="PEAR" md5sum="4d2621de2cf436e0994ad3f1c8a5a278" name="tests/PEAR_PackageFileManager2/addReplacement/test_bug16406.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="fdf1295b6fae2c158e5cbc6699460747" name="tests/PEAR_PackageFileManager2/importFromPackageFile1/packagefiles/package_foo.xml" role="test" />
+   <file baseinstalldir="PEAR" md5sum="7f61bc801721528ff6b2e614997b588b" name="tests/PEAR_PackageFileManager2/importFromPackageFile1/setup.php.inc" role="test" />
+   <file baseinstalldir="PEAR" md5sum="bfa6e747662345b5ffefede58ad05dd8" name="tests/PEAR_PackageFileManager2/importFromPackageFile1/test.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="a34514ed1eb23249d3c971426fcad174" name="tests/PEAR_PackageFileManager2/importOptions/packagefiles/package_bug17990.xml" role="test" />
+   <file baseinstalldir="PEAR" md5sum="ea7b0f2cf333ca038ad008b1f013d71b" name="tests/PEAR_PackageFileManager2/importOptions/packagefiles/package_foo.xml" role="test" />
+   <file baseinstalldir="PEAR" md5sum="7f61bc801721528ff6b2e614997b588b" name="tests/PEAR_PackageFileManager2/importOptions/setup.php.inc" role="test" />
+   <file baseinstalldir="PEAR" md5sum="57612a256bac0cead4e375396e5ddf7c" name="tests/PEAR_PackageFileManager2/importOptions/test.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="6076a2271459a592e9169d8c05f50a89" name="tests/PEAR_PackageFileManager2/importOptions/test_bug17990.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="626c1584c23d983545b1f7ae23a437cf" name="tests/PEAR_PackageFileManager2/setOptions/existingpackagexml/package_changelog.xml" role="test" />
+   <file baseinstalldir="PEAR" md5sum="7b0c77295c5516f5667f2f8eea5e2b7b" name="tests/PEAR_PackageFileManager2/setOptions/existingpackagexml/package_nochangelog.xml" role="test" />
+   <file baseinstalldir="PEAR" md5sum="7f61bc801721528ff6b2e614997b588b" name="tests/PEAR_PackageFileManager2/setOptions/setup.php.inc" role="test" />
+   <file baseinstalldir="PEAR" md5sum="357254461a8a7850e879930529c61770" name="tests/PEAR_PackageFileManager2/setOptions/test_existingpackagexml_changelog.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="0ddd78fa01d4746111745d2589fa07f3" name="tests/PEAR_PackageFileManager2/setOptions/test_existingpackagexml_nochangelog.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="8ee9d3a1c7fb65ee010855425cd5ea63" name="tests/PEAR_PackageFileManager2/setOptions/test_existingpackagexml_unknownchannel.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="0911913e8777f2cc3c8b9b426d832b9a" name="tests/PEAR_PackageFileManager2/setOptions/test_newpackagexml.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="928681f8b0015d14b1bb3cc8a0b93582" name="tests/PEAR_PackageFileManager2/setOptions/test_nobaseinstalldir.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="d9d98d286e162b7c7d81f03d08ab855f" name="tests/PEAR_PackageFileManager2/setOptions/test_nonrealpackagedirectory.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="111bf0df5f4aded83c6da65fd33a73db" name="tests/PEAR_PackageFileManager2/setOptions/test_nopackagedirectory.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="44df1ae6aee58440aa5a63a8a6d67004" name="tests/PEAR_PackageFileManager2/writePackageFile/packagefiles/package1.xml" role="test" />
+   <file baseinstalldir="PEAR" md5sum="ccd913d7beeb2f9bc16b4964b2d7c44c" name="tests/PEAR_PackageFileManager2/writePackageFile/packagefiles/Server.php" role="test" />
+   <file baseinstalldir="PEAR" md5sum="7f61bc801721528ff6b2e614997b588b" name="tests/PEAR_PackageFileManager2/writePackageFile/setup.php.inc" role="test" />
+   <file baseinstalldir="PEAR" md5sum="0c335362b369cc58a45c8844615bf2f5" name="tests/PEAR_PackageFileManager2/writePackageFile/test_addchangelog.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="4fa636c36b88268c8d1a3b5a0a111dae" name="tests/PEAR_PackageFileManager2/writePackageFile/test_updatechangelog.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="a4be2b5082e436b8600632c3a89aa5d8" name="tests/phpt_test.php.inc" role="test" />
+   <file baseinstalldir="PEAR" md5sum="0b51358aa8e93cdc811dafb319d5766a" name="tests/setup.php.inc" role="test" />
+   <file baseinstalldir="PEAR" md5sum="6612d445b35cb0a080485b90a73ad11f" name="LICENSE" role="doc" />
+   <file baseinstalldir="PEAR" md5sum="cfd93e4786e705bef5ceea095d387c38" name="PackageFileManager2.php" role="php">
+    <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+   </file>
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.8.0</min>
+   </pearinstaller>
+   <package>
+    <name>PEAR_PackageFileManager_Plugins</name>
+    <channel>pear.php.net</channel>
+   </package>
+  </required>
+  <optional>
+   <package>
+    <name>PHP_CompatInfo</name>
+    <channel>pear.php.net</channel>
+    <min>1.4.0</min>
+   </package>
+  </optional>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-03-28</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>
+* Fixed Bug #16406: addReplacement does not look for files in packagedirectory [patch by Sune Jensen, dufuz]
+* Fixed Bug #17451: Misleading error message about PHP_Compat/PHP_CompatInfo [dufuz]
+* Fixed Bug #17990: PHP Notice: Undefined index: date in PackageFileManager2.php [dufuz]
+* Directory &quot;scripts&quot; is now mapped to role script
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2010-02-04</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>
+Fix bug #16535: Mistyped variable name in usergeneratordir code [cweiske]
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2009-04-15</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>
+No changes since beta1
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api>
+   </stability>
+   <date>2009-03-25</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>
+* Removed exportCompatiblePackageFile1() since it is deprecated and would require PFM1 to work.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>stable</api>
+   </stability>
+   <date>2009-03-09</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>
+* Implemented Request #10945 Ignore should take directory into consideration [dufuz]
+* Implemented Request #12820 Add glob functionality to PackageFileManager::addReplacement() patch provided by izi (David Jean Louis)
+* Implemented Request #12932 .in files should have the src role [dufuz]
+* Fixed Bug #13312 Please specify SimpleXML extension dependency [dufuz]
+    XML_Serializer is now a required dep and simplexml is a optional one
+
+Split from plugins and PFM1 for easier maintenance
+   </notes>
+  </release>
+ </changelog>
+</package>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release2
+    http://pear.php.net/dtd/rest.release2.xsd">
+ <p xlink:href="/rest/p/html_quickform">HTML_QuickForm</p>
+ <c>pear.php.net</c>
+ <v>3.0Beta1</v>
+ <a>3.0Beta1</a>
+ <mp>4.3.0</mp>
+ <st>beta</st>
+ <l>PHP License</l>
+ <m>mansion</m>
+ <s>The PEAR::HTML_QuickForm package provides methods for creating, validating, processing HTML forms.</s>
+ <d>The PEAR::HTML_QuickForm package provides methods for creating, validating, processing HTML forms.
+Features:
+* Creates xHTML compliant form elements of various type.
+* Allows you to choose an unlimited number of html attributes.
+* Allows you to create your own custom elements using your own classes.
+* Process form values (you should override the process method).
+* Creates javascript validation code using regular expression.
+* Server-side validation too.
+* Allows you to create your own validation rules.
+* Manages file uploads.
+* Allows you to freeze some elements in your form.
+* Allows you to customize the look of your form in many ways.
+* Template-like form elements customization...
+</d>
+ <da>2003-04-17 11:58:00</da>
+ <n>* Major changes in this release
+
+- Renderers
+   QuickForm now uses external renderers to output the form. Currently 
+   available renderers are: Default - based on old toHtml() code, 
+   Array - based on old toArray() code, ITStatic and ITDynamic - these work
+   through an ITX/Sigma template engine. More renderers are expected to follow. 
+- Validation
+   Validation rules are tested in the order they are set. Groups can 
+   now be validated with custom functions. File validation only happens 
+   if a file is required. It is also tested if the file has been uploaded.
+- Static elements
+   Headers and Data (html) elements are treated like other form elements. 
+   Headers can have a name, this makes it possible to use different templates
+   for different headers.
+- XHTML
+   HTML_Common and QuickForm have been reworked to be more XHTML compliant.
+
+* Migration to 3.0
+
+Incompatibilities:
+
+- Filters registration is not used anymore. Just give applyFilter() the function name as a parameter.
+- toArray() now returns a different structure and calls an external renderer: elements in groups are rendered as seperate elements, every element has a numeric index for key.
+- Validation rules are validated in the order they were set.
+- File validation happens only when the file is required.
+- Direct calls to onQuickFormEvent() with 'setDefault' and 'setConstant' events won't work anymore, these events have been replaced by an 'updateValue' event.
+- Grouped elements index is now a numeric key only. This can break some group rules if you used their associative key in addGroupRule().
+- Groups must have a name. If you don't want the name to be appended to the elements names, set the appendName parameter to false.
+
+Deprecated features:
+- addHeader() and addData(), while still there, are deprecated. Use addElement('header') and addElement('html').
+- If you want to customize form output, do so by using a renderer object. setElementTemplate() and the like are now deprecated.
+
+* Changes
+
+- Added support for external renderers, added a default and an array renderer based on old QuickForm code (Alexey Borzov)
+- Added a dynamic ITX/Sigma renderer with examples (Alexey Borzov)
+- Added a static ITX/Sigma renderer with examples (Bertrand Mansion)
+
+- Added possibility to validate a group with a function using addRule() (Bertrand Mansion)
+- Added possibility to validate groups when appendName is false (Bertrand Mansion)
+- Rules are validated in the order they are set (Bertrand Mansion)
+- Fixed problems when validating a file not uploaded (Frederic Poeydomenge, Bertrand Mansion)
+
+- addHeader() and addData() now call addElement(), added new 'header' and 'html' elements (Alexey Borzov)
+- Got rid of registering filters, now only function existence is checked. First parameter to applyFilter can be an array (Alexey Borzov)
+- Automatically generate a name for group element when no name given. Added possibility to append the group name or not to grouped elements (Alexey Borzov)
+- process() now accepts a callback function to process the form (Bertrand Mansion)
+
+- Added XHTML compliant labels in radio and checkboxes (Alexey Borzov, Alexander Radivanovich)
+- XHTML for form tag (Bertrand Mansion)
+
+- Elements values are now set through a uniform 'updateValue' event (Alexey Borzov)
+- Elements with value 0 are not considered empty when validating (Bertrand Mansion)
+- Fix warning with uploaded files (Frederic Poeydomenge)
+- Changed _findElementValue to work with appendName (Bertrand Mansion)
+
+- Added Polish date names in date element (Robert Janeczek)
+- Added Hungarian date names in date element (Kovacs Gergely)
+- Added Russian date names in date element (Alexey Borzov)
+
+- Optimized select element addOption() and toHtml() methods (Alexey Borzov)
+- Added method getElementName() in group element (Bertrand Mansion)
+- Fix bug when setting attributes in date element (Bertrand Mansion)
+- Removed method display(), exists in parent class (Bertrand Mansion)</n>
+ <f>52104</f>
+ <g>http://pear.php.net/get/HTML_QuickForm-3.0Beta1</g>
+ <x xlink:href="package.3.0Beta1.xml"/>
+</r>

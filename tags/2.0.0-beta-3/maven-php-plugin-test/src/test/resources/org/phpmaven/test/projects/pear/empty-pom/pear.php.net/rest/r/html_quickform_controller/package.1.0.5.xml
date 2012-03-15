@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.3">
+ <name>HTML_QuickForm_Controller</name>
+ <summary>The add-on to HTML_QuickForm package that allows building of multipage forms</summary>
+ <description>The package is essentially an implementation of a PageController pattern.
+Architecture:
+* Controller class that examines HTTP requests and manages form values persistence across requests.
+* Page class (subclass of QuickForm) representing a single page of the form.
+* Business logic is contained in subclasses of Action class.
+Cool features:
+* Includes several default Actions that allow easy building of multipage forms.
+* Includes usage examples for common usage cases (single-page form, wizard, tabbed form).
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>avb</user>
+   <name>Alexey Borzov</name>
+   <email>borz_off@cs.msu.su</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>mansion</user>
+   <name>Bertrand Mansion</name>
+   <email>bmansion@mamasam.com</email>
+   <role>developer</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>1.0.5</version>
+  <date>2005-11-04</date>
+  <license>PHP License</license>
+  <state>stable</state>
+  <notes>This is a recommended upgrade for users running HTML_QuickForm 3.2.5
+
+* Fixed bug #3443: honour session.use_only_cookies setting by not passing
+  session ID in URL when it is on.
+* Fixed bug #5615: some elements&apos; values not displayed properly after
+  browsing back to a form page (see also bug #5625)
+* Fixed bug #5641: unwanted target=&quot;_self&quot; form attribute
+* Fixed bug #5743: wrong element name in example file statemachine.php
+
+* Implemented request #4973: internal values may be filtered from the
+  array returned by HTML_QuickForm_Page::exportValues()
+* Redone tabbed.php example to use a common base class instead of
+  braindead copy-paste technique (see also request #5234)
+  </notes>
+  <deps>
+   <dep type="pkg" rel="ge" version="3.2.5">HTML_QuickForm</dep>
+  </deps>
+  <provides type="class" name="HTML_QuickForm_Action" />
+  <provides type="function" name="HTML_QuickForm_Action::perform" />
+  <provides type="class" name="HTML_QuickForm_Controller" />
+  <provides type="function" name="HTML_QuickForm_Controller::container" />
+  <provides type="function" name="HTML_QuickForm_Controller::run" />
+  <provides type="function" name="HTML_QuickForm_Controller::addAction" />
+  <provides type="function" name="HTML_QuickForm_Controller::addPage" />
+  <provides type="function" name="HTML_QuickForm_Controller::getPage" />
+  <provides type="function" name="HTML_QuickForm_Controller::handle" />
+  <provides type="function" name="HTML_QuickForm_Controller::isModal" />
+  <provides type="function" name="HTML_QuickForm_Controller::isValid" />
+  <provides type="function" name="HTML_QuickForm_Controller::getPrevName" />
+  <provides type="function" name="HTML_QuickForm_Controller::getNextName" />
+  <provides type="function" name="HTML_QuickForm_Controller::findInvalid" />
+  <provides type="function" name="HTML_QuickForm_Controller::getActionName" />
+  <provides type="function" name="HTML_QuickForm_Controller::setDefaults" />
+  <provides type="function" name="HTML_QuickForm_Controller::setConstants" />
+  <provides type="function" name="HTML_QuickForm_Controller::applyDefaults" />
+  <provides type="function" name="HTML_QuickForm_Controller::exportValues" />
+  <provides type="function" name="HTML_QuickForm_Controller::exportValue" />
+  <provides type="class" name="HTML_QuickForm_Page" extends="HTML_QuickForm" />
+  <provides type="function" name="HTML_QuickForm_Page::addAction" />
+  <provides type="function" name="HTML_QuickForm_Page::handle" />
+  <provides type="function" name="HTML_QuickForm_Page::getButtonName" />
+  <provides type="function" name="HTML_QuickForm_Page::loadValues" />
+  <provides type="function" name="HTML_QuickForm_Page::buildForm" />
+  <provides type="function" name="HTML_QuickForm_Page::isFormBuilt" />
+  <provides type="function" name="HTML_QuickForm_Page::setDefaultAction" />
+  <provides type="function" name="HTML_QuickForm_Page::exportValues" />
+  <provides type="class" name="HTML_QuickForm_Action_Back" extends="HTML_QuickForm_Action" />
+  <provides type="function" name="HTML_QuickForm_Action_Back::perform" />
+  <provides type="class" name="HTML_QuickForm_Action_Direct" extends="HTML_QuickForm_Action" />
+  <provides type="function" name="HTML_QuickForm_Action_Direct::perform" />
+  <provides type="class" name="HTML_QuickForm_Action_Display" extends="HTML_QuickForm_Action" />
+  <provides type="function" name="HTML_QuickForm_Action_Display::perform" />
+  <provides type="class" name="HTML_QuickForm_Action_Jump" extends="HTML_QuickForm_Action" />
+  <provides type="function" name="HTML_QuickForm_Action_Jump::perform" />
+  <provides type="class" name="HTML_QuickForm_Action_Next" extends="HTML_QuickForm_Action" />
+  <provides type="function" name="HTML_QuickForm_Action_Next::perform" />
+  <provides type="class" name="HTML_QuickForm_Action_Submit" extends="HTML_QuickForm_Action" />
+  <provides type="function" name="HTML_QuickForm_Action_Submit::perform" />
+  <filelist>
+   <file role="php" baseinstalldir="HTML/QuickForm" md5sum="95a28cdcc15d5b905465d3e33aba81dc" name="Action.php"/>
+   <file role="php" baseinstalldir="HTML/QuickForm" md5sum="e393ae29ca3d33de10d740b314c9a62d" name="Controller.php"/>
+   <file role="php" baseinstalldir="HTML/QuickForm" md5sum="973e2388c73ca7b63b5d53768d02d389" name="Page.php"/>
+   <file role="php" baseinstalldir="HTML/QuickForm" md5sum="e203fa8af329a1c8f24977395f6124c4" name="Action/Back.php"/>
+   <file role="php" baseinstalldir="HTML/QuickForm" md5sum="a1858712e239d94ff894bafca15f5b88" name="Action/Direct.php"/>
+   <file role="php" baseinstalldir="HTML/QuickForm" md5sum="3bc97ee813d314d091af7fbd8d4f09ef" name="Action/Display.php"/>
+   <file role="php" baseinstalldir="HTML/QuickForm" md5sum="6e98260c48f82119791273fc1a34be3d" name="Action/Jump.php"/>
+   <file role="php" baseinstalldir="HTML/QuickForm" md5sum="fbc4192e96cb044bf8f8af59e277a73b" name="Action/Next.php"/>
+   <file role="php" baseinstalldir="HTML/QuickForm" md5sum="5f52ef06bbda554018435a23e6fb4a2f" name="Action/Submit.php"/>
+   <file role="doc" baseinstalldir="HTML/QuickForm" md5sum="b6a57ff6ba6bbde44a1633986bfbf023" name="examples/simple.php"/>
+   <file role="doc" baseinstalldir="HTML/QuickForm" md5sum="5c3bff7299f30e988b76b805a9e918f8" name="examples/tabbed.php"/>
+   <file role="doc" baseinstalldir="HTML/QuickForm" md5sum="93e76cc9d55fe927a18254f48f704f0d" name="examples/wizard.php"/>
+   <file role="doc" baseinstalldir="HTML/QuickForm" md5sum="fa6ee47ec439ee212e397f279117895b" name="examples/regWizard.php"/>
+   <file role="doc" baseinstalldir="HTML/QuickForm" md5sum="456125f6d09b5d76435a3ea38b8eb44e" name="examples/upload.php"/>
+   <file role="doc" baseinstalldir="HTML/QuickForm" md5sum="99642214788c3f64ea8267feceb6cdc0" name="examples/templates/upload.html"/>
+   <file role="doc" baseinstalldir="HTML/QuickForm" md5sum="e8d81b6c4a8ddac5d044511b7d9353e4" name="examples/statemachine.php"/>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>1.0.4</version>
+    <date>2004-12-30</date>
+    <license>PHP License</license>
+    <state>stable</state>
+    <notes>* perform() methods of all Action subclasses now consistently return 
+  values (bug #2689)
+    </notes>
+   </release>
+   <release>
+    <version>1.0.3</version>
+    <date>2004-10-01</date>
+    <license>PHP License</license>
+    <state>stable</state>
+    <notes>* Fixed an error in regWizard.php example (bug #1154)
+* It is no longer possible to go to a page of a modal form unless all the 
+  previous pages are valid (bug #2323)
+* Controller&apos;s setDefaults() and setConstants() methods now accept filters,
+  like corresponding HTML_QuickForm&apos;s methods do (request #1547)
+    </notes>
+   </release>
+   <release>
+    <version>1.0.2</version>
+    <date>2004-03-23</date>
+    <license>PHP License</license>
+    <state>stable</state>
+    <notes>* HTML_QuickForm_Controller does not rely on form&apos;s &quot;name&quot; attribute anymore
+  (XHTML compliance fix, see also bug #925)
+* Use new HTML_QuickForm::arrayMerge() method in place of PHP&apos;s builtin
+  array_merge(), depend on QuickForm 3.2.2
+* Applied patch from #929, exportValues() does not overwrite elements with
+  the same names from different pages.
+    </notes>
+   </release>
+   <release>
+    <version>1.0.1</version>
+    <date>2003-12-11</date>
+    <license>PHP License</license>
+    <state>stable</state>
+    <notes>* Added a new example showing how to proceed to either of the two pages
+  based on user input (Donald Lobo).
+    </notes>
+   </release>
+   <release>
+    <version>1.0</version>
+    <date>2003-11-05</date>
+    <license>PHP License</license>
+    <state>stable</state>
+    <notes>This release is done to update package&apos;s status to &apos;stable&apos;. The code is now
+considered mature and tested enough to be used in production.
+
+Changes:
+* No changes to classes since 0.9.3
+* Added an example of wizard with file upload (Bertrand Mansion)
+* Depend on newest version of HTML_QuickForm
+    </notes>
+   </release>
+   <release>
+    <version>0.9.3</version>
+    <date>2003-10-24</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>* Controller now differentiates between invalid and not-yet-validated pages. False is stored
+in container&apos;s [&apos;valid&apos;][$pageName] field for the former, null for the latter. This is
+a POTENTIAL BC BREAK, so pay attention if you wrote your own Actions.
+* Back action in modal forms does not validate the page anymore (the previous behaviour was
+non-intuitive, thanks to Bob Van Zant for reporting).
+    </notes>
+   </release>
+   <release>
+    <version>0.9.2</version>
+    <date>2003-10-02</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>Added Page::setDefaultAction() method to fix the Controller&apos;s behaviour when user presses
+Enter instead of clicking on one of submit buttons. Thanks to Mike Carter for reporting this.
+    </notes>
+   </release>
+   <release>
+    <version>0.9.1</version>
+    <date>2003-09-19</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>Changes and additions:
+* Added Controller::exportValue() method (thanks to Arnaud Limbourg)
+* Controller::exportValues() can return values for the single page (thanks to Arnaud Limbourg)
+* Added a parameter for Controller::container() that forces the container reset
+* Added a new example: registration wizard (Bertrand Mansion)
+
+Fixes:
+* Action_Next on the last page validates the whole form, not just the page itself
+    </notes>
+   </release>
+   <release>
+    <version>0.9</version>
+    <date>2003-08-29</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>Initial PEAR release
+    </notes>
+   </release>
+ </changelog>
+</package>

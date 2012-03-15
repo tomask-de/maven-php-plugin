@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>File_IMC</name>
+  <summary>Create and parse Internet Mail Consortium-style files (like vCard and vCalendar)</summary>
+  <description>Allows you to programmatically create a vCard or vCalendar, and fetch the text.
+
+IMPORTANT: The array structure has changed slightly from Contact_Vcard_Parse.
+See the example output for the new structure.  Also different from Contact_Vcard
+is the use of a factory pattern.  Again, see the examples.</description>
+  <maintainers>
+    <maintainer>
+      <user>pmjones</user>
+      <name>Paul M. Jones</name>
+      <email>pjones@ciaweb.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>mroch</user>
+      <name>Marshall Roch</name>
+      <email>mroch@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.3</version>
+    <date>2003-09-30</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>* Added file_exists() check to prevent E_NOTICE errors in factory if file doesn't exist (thanks, Davey)
+* Cleaned up error handling to let the user app have control (File_IMC_Build::raiseError() no longer passes a PEAR_ERROR_* to PEAR::raiseError()) (thanks, Greg)
+* Minor documentation additions/modifications (thanks, Greg)</notes>
+    <provides type="class" name="File_IMC" />
+    <provides type="function" name="File_IMC::build" />
+    <provides type="function" name="File_IMC::parse" />
+    <provides type="function" name="File_IMC::raiseError" />
+    <provides type="class" name="File_IMC_Parse" />
+    <provides type="function" name="File_IMC_Parse::fromFile" />
+    <provides type="function" name="File_IMC_Parse::fromText" />
+    <provides type="function" name="File_IMC_Parse::convertLineEndings" />
+    <provides type="function" name="File_IMC_Parse::splitBySemi" />
+    <provides type="function" name="File_IMC_Parse::splitByComma" />
+    <provides type="function" name="File_IMC_Parse::unescape" />
+    <provides type="class" name="File_IMC_Build" />
+    <provides type="function" name="File_IMC_Build::File_IMC_Build_vCard" />
+    <provides type="function" name="File_IMC_Build::reset" />
+    <provides type="function" name="File_IMC_Build::setVersion" />
+    <provides type="function" name="File_IMC_Build::getVersion" />
+    <provides type="function" name="File_IMC_Build::escape" />
+    <provides type="function" name="File_IMC_Build::addParam" />
+    <provides type="function" name="File_IMC_Build::validateParam" />
+    <provides type="function" name="File_IMC_Build::getMeta" />
+    <provides type="function" name="File_IMC_Build::setValue" />
+    <provides type="function" name="File_IMC_Build::addValue" />
+    <provides type="function" name="File_IMC_Build::getValue" />
+    <provides type="function" name="File_IMC_Build::getParam" />
+    <provides type="function" name="File_IMC_Build::setFromArray" />
+    <provides type="function" name="File_IMC_Build::fetch" />
+    <provides type="function" name="File_IMC_Build::raiseError" />
+    <provides type="function" name="is_a" />
+    <provides type="class" name="File_IMC_Parse_vCard" />
+    <provides type="class" name="File_IMC_Parse_vCalendar" />
+    <provides type="class" name="File_IMC_Build_vCard" />
+    <provides type="function" name="File_IMC_Build_vCard::setVersion" />
+    <provides type="function" name="File_IMC_Build_vCard::validateParam" />
+    <provides type="function" name="File_IMC_Build_vCard::setName" />
+    <provides type="function" name="File_IMC_Build_vCard::getName" />
+    <provides type="function" name="File_IMC_Build_vCard::setFormattedName" />
+    <provides type="function" name="File_IMC_Build_vCard::getFormattedName" />
+    <provides type="function" name="File_IMC_Build_vCard::setSource" />
+    <provides type="function" name="File_IMC_Build_vCard::getSource" />
+    <provides type="function" name="File_IMC_Build_vCard::setSourceName" />
+    <provides type="function" name="File_IMC_Build_vCard::getSourceName" />
+    <provides type="function" name="File_IMC_Build_vCard::setPhoto" />
+    <provides type="function" name="File_IMC_Build_vCard::getPhoto" />
+    <provides type="function" name="File_IMC_Build_vCard::setLogo" />
+    <provides type="function" name="File_IMC_Build_vCard::getLogo" />
+    <provides type="function" name="File_IMC_Build_vCard::setSound" />
+    <provides type="function" name="File_IMC_Build_vCard::getSound" />
+    <provides type="function" name="File_IMC_Build_vCard::setKey" />
+    <provides type="function" name="File_IMC_Build_vCard::getKey" />
+    <provides type="function" name="File_IMC_Build_vCard::setBirthday" />
+    <provides type="function" name="File_IMC_Build_vCard::getBirthday" />
+    <provides type="function" name="File_IMC_Build_vCard::setTZ" />
+    <provides type="function" name="File_IMC_Build_vCard::getTZ" />
+    <provides type="function" name="File_IMC_Build_vCard::setMailer" />
+    <provides type="function" name="File_IMC_Build_vCard::getMailer" />
+    <provides type="function" name="File_IMC_Build_vCard::setNote" />
+    <provides type="function" name="File_IMC_Build_vCard::getNote" />
+    <provides type="function" name="File_IMC_Build_vCard::setTitle" />
+    <provides type="function" name="File_IMC_Build_vCard::getTitle" />
+    <provides type="function" name="File_IMC_Build_vCard::setRole" />
+    <provides type="function" name="File_IMC_Build_vCard::getRole" />
+    <provides type="function" name="File_IMC_Build_vCard::setURL" />
+    <provides type="function" name="File_IMC_Build_vCard::getURL" />
+    <provides type="function" name="File_IMC_Build_vCard::setClass" />
+    <provides type="function" name="File_IMC_Build_vCard::getClass" />
+    <provides type="function" name="File_IMC_Build_vCard::setSortString" />
+    <provides type="function" name="File_IMC_Build_vCard::getSortString" />
+    <provides type="function" name="File_IMC_Build_vCard::setProductID" />
+    <provides type="function" name="File_IMC_Build_vCard::getProductID" />
+    <provides type="function" name="File_IMC_Build_vCard::setRevision" />
+    <provides type="function" name="File_IMC_Build_vCard::getRevision" />
+    <provides type="function" name="File_IMC_Build_vCard::setUniqueID" />
+    <provides type="function" name="File_IMC_Build_vCard::getUniqueID" />
+    <provides type="function" name="File_IMC_Build_vCard::setAgent" />
+    <provides type="function" name="File_IMC_Build_vCard::getAgent" />
+    <provides type="function" name="File_IMC_Build_vCard::setGeo" />
+    <provides type="function" name="File_IMC_Build_vCard::getGeo" />
+    <provides type="function" name="File_IMC_Build_vCard::addAddress" />
+    <provides type="function" name="File_IMC_Build_vCard::getAddress" />
+    <provides type="function" name="File_IMC_Build_vCard::addLabel" />
+    <provides type="function" name="File_IMC_Build_vCard::getLabel" />
+    <provides type="function" name="File_IMC_Build_vCard::addTelephone" />
+    <provides type="function" name="File_IMC_Build_vCard::getTelephone" />
+    <provides type="function" name="File_IMC_Build_vCard::addEmail" />
+    <provides type="function" name="File_IMC_Build_vCard::getEmail" />
+    <provides type="function" name="File_IMC_Build_vCard::addNickname" />
+    <provides type="function" name="File_IMC_Build_vCard::getNickname" />
+    <provides type="function" name="File_IMC_Build_vCard::addCategories" />
+    <provides type="function" name="File_IMC_Build_vCard::getCategories" />
+    <provides type="function" name="File_IMC_Build_vCard::addOrganization" />
+    <provides type="function" name="File_IMC_Build_vCard::getOrganization" />
+    <provides type="function" name="File_IMC_Build_vCard::fetch" />
+    <filelist>
+      <file role="doc" md5sum="d04622f54f14940dde0c7786bb4df2a5" name="vcard_build_example.php"/>
+      <file role="doc" md5sum="fcd603ed3f5f8bf18699dea665af20de" name="vcard_parse_example.php"/>
+      <file role="doc" md5sum="65c02ab186e169fd08f4928bb362cc4b" name="vcalendar_parse_example.php"/>
+      <file role="doc" md5sum="d8728c1529e800ad8a9e787cbc6d2367" name="sample.vcf"/>
+      <file role="doc" md5sum="979a799108053f25ce3d78bf1f58ed05" name="sample.vcs"/>
+      <file role="php" md5sum="38d6370139eaec6280ca5653c2c22d3a" name="File/IMC.php"/>
+      <file role="php" md5sum="36a90934ed168185fc709bd871f30a01" name="File/IMC/Parse.php"/>
+      <file role="php" md5sum="2405f318e23db5562b884bff2bd132c0" name="File/IMC/Build.php"/>
+      <file role="php" md5sum="95979d2ab54bc8c111da3121f0c79006" name="File/IMC/Parse/vCard.php"/>
+      <file role="php" md5sum="8b23f92568559ae73b31abee8d38ff83" name="File/IMC/Parse/vCalendar.php"/>
+      <file role="php" md5sum="92081e61aa700e52e77d05d1dc6c33e8" name="File/IMC/Build/vCard.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.2</version>
+      <date>2003-09-22</date>
+      <state>beta</state>
+      <notes>* Added preliminary vCalendar parsing support.  Has yet to be tested with complex input files.
+* Added vCard build support from Contact_Vcard_Build.
+* File_IMC_Parse can now handle nested BEGIN/END blocks (to support vCal).
+* Included example scripts and sample vCard and vCalendar files.
+
+IMPORTANT: The array structure has changed slightly from Contact_Vcard_Parse.
+See the example output for the new structure.  Also different from Contact_Vcard
+is the use of a factory pattern.  Again, see the examples.
+    
+</notes>
+    </release>
+    <release>
+      <version>0.1</version>
+      <date>2003-09-20</date>
+      <state>beta</state>
+      <notes>Initial release, moved from Contact_Vcard_Parse
+</notes>
+    </release>
+  </changelog>
+</package>

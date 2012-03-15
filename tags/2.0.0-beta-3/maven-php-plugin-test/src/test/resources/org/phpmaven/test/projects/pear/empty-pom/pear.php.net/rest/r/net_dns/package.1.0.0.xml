@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.5.0a1">
+ <name>Net_DNS</name>
+ <summary>Resolver library used to communicate with a DNS server.</summary>
+ <description>A resolver library used to communicate with a name server to perform DNS queries, zone transfers, dynamic DNS updates, etc.
+Creates an object hierarchy from a DNS server response, which allows you to view all of the information given by the DNS server. It bypasses the system resolver library and communicates directly with the server.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>bate</user>
+   <name>Marco Kaiser</name>
+   <email>bate@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>fa</user>
+   <name>Florian Anderiasch</name>
+   <email>fa@php.net</email>
+   <role>developer</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>1.0.0</version>
+  <date>2006-10-25</date>
+  <license>PHP License 3.01</license>
+  <state>stable</state>
+  <notes>some minor bugfixes and a security fix.
+$phpdns_basedir was removed an require_once statements
+related to this variable are now hardcoded.
+Bugfix #9162
+  </notes>
+  <deps>
+   <dep type="php" rel="ge" version="4.2" optional="no"/>
+   <dep type="ext" rel="has" optional="no">mhash</dep>
+  </deps>
+  <provides type="class" name="Net_DNS_RR_A" extends="Net_DNS_RR" />
+  <provides type="function" name="Net_DNS_RR_A::rdatastr" />
+  <provides type="function" name="Net_DNS_RR_A::rr_rdata" />
+  <provides type="class" name="Net_DNS_RR_AAAA" extends="Net_DNS_RR" />
+  <provides type="function" name="Net_DNS_RR_AAAA::rdatastr" />
+  <provides type="function" name="Net_DNS_RR_AAAA::rr_rdata" />
+  <provides type="function" name="Net_DNS_RR_AAAA::ipv6_compress" />
+  <provides type="function" name="Net_DNS_RR_AAAA::ipv6_decompress" />
+  <provides type="class" name="Net_DNS_RR_CNAME" extends="Net_DNS_RR" />
+  <provides type="function" name="Net_DNS_RR_CNAME::rdatastr" />
+  <provides type="function" name="Net_DNS_RR_CNAME::rr_rdata" />
+  <provides type="class" name="Net_DNS_RR_HINFO" extends="Net_DNS_RR" />
+  <provides type="function" name="Net_DNS_RR_HINFO::rdatastr" />
+  <provides type="function" name="Net_DNS_RR_HINFO::rr_rdata" />
+  <provides type="class" name="Net_DNS_RR_MX" extends="Net_DNS_RR" />
+  <provides type="function" name="Net_DNS_RR_MX::rdatastr" />
+  <provides type="function" name="Net_DNS_RR_MX::rr_rdata" />
+  <provides type="class" name="Net_DNS_RR_NAPTR" extends="Net_DNS_RR" />
+  <provides type="function" name="Net_DNS_RR_NAPTR::rdatastr" />
+  <provides type="function" name="Net_DNS_RR_NAPTR::rr_rdata" />
+  <provides type="class" name="Net_DNS_RR_NS" extends="Net_DNS_RR" />
+  <provides type="function" name="Net_DNS_RR_NS::rdatastr" />
+  <provides type="function" name="Net_DNS_RR_NS::rr_rdata" />
+  <provides type="class" name="Net_DNS_RR_PTR" extends="Net_DNS_RR" />
+  <provides type="function" name="Net_DNS_RR_PTR::rdatastr" />
+  <provides type="function" name="Net_DNS_RR_PTR::rr_rdata" />
+  <provides type="class" name="Net_DNS_RR_SOA" extends="Net_DNS_RR" />
+  <provides type="function" name="Net_DNS_RR_SOA::rdatastr" />
+  <provides type="function" name="Net_DNS_RR_SOA::rr_rdata" />
+  <provides type="class" name="Net_DNS_RR_SRV" extends="Net_DNS_RR" />
+  <provides type="function" name="Net_DNS_RR_SRV::rdatastr" />
+  <provides type="function" name="Net_DNS_RR_SRV::rr_rdata" />
+  <provides type="class" name="Net_DNS_RR_TSIG" extends="Net_DNS_RR" />
+  <provides type="function" name="Net_DNS_RR_TSIG::rdatastr" />
+  <provides type="function" name="Net_DNS_RR_TSIG::rr_rdata" />
+  <provides type="function" name="Net_DNS_RR_TSIG::error" />
+  <provides type="class" name="Net_DNS_RR_TXT" extends="Net_DNS_RR" />
+  <provides type="function" name="Net_DNS_RR_TXT::rdatastr" />
+  <provides type="function" name="Net_DNS_RR_TXT::rr_rdata" />
+  <provides type="class" name="Net_DNS_Header" />
+  <provides type="function" name="Net_DNS_Header::display" />
+  <provides type="function" name="Net_DNS_Header::string" />
+  <provides type="function" name="Net_DNS_Header::data" />
+  <provides type="class" name="Net_DNS_Packet" />
+  <provides type="function" name="Net_DNS_Packet::buildQuestion" />
+  <provides type="function" name="Net_DNS_Packet::parse" />
+  <provides type="function" name="Net_DNS_Packet::data" />
+  <provides type="function" name="Net_DNS_Packet::dn_comp" />
+  <provides type="function" name="Net_DNS_Packet::dn_expand" />
+  <provides type="function" name="Net_DNS_Packet::label_extract" />
+  <provides type="function" name="Net_DNS_Packet::parse_question" />
+  <provides type="function" name="Net_DNS_Packet::parse_rr" />
+  <provides type="function" name="Net_DNS_Packet::display" />
+  <provides type="function" name="Net_DNS_Packet::string" />
+  <provides type="class" name="Net_DNS_Question" />
+  <provides type="function" name="Net_DNS_Question::display" />
+  <provides type="function" name="Net_DNS_Question::string" />
+  <provides type="function" name="Net_DNS_Question::data" />
+  <provides type="class" name="Net_DNS_Resolver" />
+  <provides type="function" name="Net_DNS_Resolver::res_init" />
+  <provides type="function" name="Net_DNS_Resolver::read_config" />
+  <provides type="function" name="Net_DNS_Resolver::read_env" />
+  <provides type="function" name="Net_DNS_Resolver::string" />
+  <provides type="function" name="Net_DNS_Resolver::nextid" />
+  <provides type="function" name="Net_DNS_Resolver::nameservers" />
+  <provides type="function" name="Net_DNS_Resolver::cname_addr" />
+  <provides type="function" name="Net_DNS_Resolver::search" />
+  <provides type="function" name="Net_DNS_Resolver::rawQuery" />
+  <provides type="function" name="Net_DNS_Resolver::query" />
+  <provides type="function" name="Net_DNS_Resolver::send" />
+  <provides type="function" name="Net_DNS_Resolver::printhex" />
+  <provides type="function" name="Net_DNS_Resolver::send_tcp" />
+  <provides type="function" name="Net_DNS_Resolver::send_udp_no_sock_lib" />
+  <provides type="function" name="Net_DNS_Resolver::send_udp_with_sock_lib" />
+  <provides type="function" name="Net_DNS_Resolver::send_udp" />
+  <provides type="function" name="Net_DNS_Resolver::make_query_packet" />
+  <provides type="function" name="Net_DNS_Resolver::axfr_old" />
+  <provides type="function" name="Net_DNS_Resolver::axfr" />
+  <provides type="function" name="Net_DNS_Resolver::axfr_start" />
+  <provides type="function" name="Net_DNS_Resolver::axfr_next" />
+  <provides type="function" name="Net_DNS_Resolver::read_tcp" />
+  <provides type="class" name="Net_DNS_RR" />
+  <provides type="function" name="Net_DNS_RR::factory" />
+  <provides type="function" name="Net_DNS_RR::new_from_data" />
+  <provides type="function" name="Net_DNS_RR::new_from_string" />
+  <provides type="function" name="Net_DNS_RR::new_from_array" />
+  <provides type="function" name="Net_DNS_RR::display" />
+  <provides type="function" name="Net_DNS_RR::string" />
+  <provides type="function" name="Net_DNS_RR::rdatastr" />
+  <provides type="function" name="Net_DNS_RR::rdata" />
+  <provides type="function" name="Net_DNS_RR::rr_rdata" />
+  <provides type="function" name="Net_DNS_RR::data" />
+  <provides type="class" name="Net_DNS" />
+  <provides type="function" name="Net_DNS::opcodesbyname" />
+  <provides type="function" name="Net_DNS::opcodesbyval" />
+  <provides type="function" name="Net_DNS::rcodesbyname" />
+  <provides type="function" name="Net_DNS::rcodesbyval" />
+  <provides type="function" name="Net_DNS::typesbyname" />
+  <provides type="function" name="Net_DNS::typesbyval" />
+  <provides type="function" name="Net_DNS::classesbyname" />
+  <provides type="function" name="Net_DNS::classesbyval" />
+  <filelist>
+   <file role="php" baseinstalldir="Net" md5sum="3bd6d557dd0eda20a9999245aecbd2e1" name="DNS/RR/A.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+    <replace type="pear-config" from="@data_dir@" to="data_dir"/>
+   </file>
+   <file role="php" baseinstalldir="Net" md5sum="0ff95e75841e10d3c796b406e75b85d9" name="DNS/RR/AAAA.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+    <replace type="pear-config" from="@data_dir@" to="data_dir"/>
+   </file>
+   <file role="php" baseinstalldir="Net" md5sum="92232cd2fc5e1cc1377ef8a0a9e0bc35" name="DNS/RR/CNAME.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+    <replace type="pear-config" from="@data_dir@" to="data_dir"/>
+   </file>
+   <file role="php" baseinstalldir="Net" md5sum="349b96830a67b09a96d512c8aa645165" name="DNS/RR/HINFO.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+    <replace type="pear-config" from="@data_dir@" to="data_dir"/>
+   </file>
+   <file role="php" baseinstalldir="Net" md5sum="e8a44f5f773f8f3990dbb62ed21962f4" name="DNS/RR/MX.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+    <replace type="pear-config" from="@data_dir@" to="data_dir"/>
+   </file>
+   <file role="php" baseinstalldir="Net" md5sum="494de46414b44de8e93559145f1afdba" name="DNS/RR/NAPTR.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+    <replace type="pear-config" from="@data_dir@" to="data_dir"/>
+   </file>
+   <file role="php" baseinstalldir="Net" md5sum="dd8cb8b9b7d29144e67014955371ec58" name="DNS/RR/NS.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+    <replace type="pear-config" from="@data_dir@" to="data_dir"/>
+   </file>
+   <file role="php" baseinstalldir="Net" md5sum="2a481f218048f9f995740cdabfaa583d" name="DNS/RR/PTR.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+    <replace type="pear-config" from="@data_dir@" to="data_dir"/>
+   </file>
+   <file role="php" baseinstalldir="Net" md5sum="e6ba4e35dcfbb389a78dfe78f7f57cde" name="DNS/RR/SOA.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+    <replace type="pear-config" from="@data_dir@" to="data_dir"/>
+   </file>
+   <file role="php" baseinstalldir="Net" md5sum="c9aedf777c33388ba25b4dbff5148d17" name="DNS/RR/SRV.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+    <replace type="pear-config" from="@data_dir@" to="data_dir"/>
+   </file>
+   <file role="php" baseinstalldir="Net" md5sum="7d56c6b283c1e5cfee863583c574c30e" name="DNS/RR/TSIG.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+    <replace type="pear-config" from="@data_dir@" to="data_dir"/>
+   </file>
+   <file role="php" baseinstalldir="Net" md5sum="a68c4cbee7d724de4a9cd80784b16829" name="DNS/RR/TXT.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+    <replace type="pear-config" from="@data_dir@" to="data_dir"/>
+   </file>
+   <file role="php" baseinstalldir="Net" md5sum="1999a958b762c2d3c5a88e59053f6d61" name="DNS/Header.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+    <replace type="pear-config" from="@data_dir@" to="data_dir"/>
+   </file>
+   <file role="php" baseinstalldir="Net" md5sum="87bc38b5b0746b80298613b0227298cb" name="DNS/Packet.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+    <replace type="pear-config" from="@data_dir@" to="data_dir"/>
+   </file>
+   <file role="php" baseinstalldir="Net" md5sum="8cb9639f0e28ae1440b93f1790ae4e03" name="DNS/Question.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+    <replace type="pear-config" from="@data_dir@" to="data_dir"/>
+   </file>
+   <file role="php" baseinstalldir="Net" md5sum="bddc375c1a7dc4050153fc032ac53de0" name="DNS/Resolver.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+    <replace type="pear-config" from="@data_dir@" to="data_dir"/>
+   </file>
+   <file role="php" baseinstalldir="Net" md5sum="f5f9ee71dd6b1d5913619a9522f47eed" name="DNS/RR.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+    <replace type="pear-config" from="@data_dir@" to="data_dir"/>
+   </file>
+   <file role="php" baseinstalldir="Net" md5sum="6c620523e305a35d9c29b9b8fda65da3" name="DNS.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+    <replace type="pear-config" from="@data_dir@" to="data_dir"/>
+   </file>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>1.0.0rc2</version>
+    <date>2005-11-30</date>
+    <license>PHP License 3.01</license>
+    <state>beta</state>
+    <notes>* Fixed all pending bugs
+* Fixed coding styles
+* Added class documentation
+    </notes>
+   </release>
+   <release>
+    <version>1.0.0rc3</version>
+    <date>2005-12-01</date>
+    <license>PHP License 3.01</license>
+    <state>beta</state>
+    <notes>* Added new parameter for class constructor
+  array with configuration values for the
+  Net_DNS_Resolver() class
+    </notes>
+   </release>
+   <release>
+    <version>1.0.0RC4</version>
+    <date>2006-02-01</date>
+    <license>PHP License 3.01</license>
+    <state>beta</state>
+    <notes>* BUGFIX #5339
+* BUGFIX #6107
+    </notes>
+   </release>
+   <release>
+    <version>1.0.0</version>
+    <date>2006-10-25</date>
+    <license>PHP License 3.01</license>
+    <state>stable</state>
+    <notes>some minor bugfixes and a security fix.
+$phpdns_basedir was removed an require_once statements
+related to this variable are now hardcoded.
+Bugfix #9162
+    </notes>
+   </release>
+ </changelog>
+</package>

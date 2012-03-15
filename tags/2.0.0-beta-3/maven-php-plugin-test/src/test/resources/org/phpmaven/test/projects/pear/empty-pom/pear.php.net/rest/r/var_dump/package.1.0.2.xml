@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Var_Dump</name>
+  <summary>Provides methods for dumping structured information about a variable.</summary>
+  <description>The Var_Dump class is a wrapper for the var_dump function.
+
+The var_dump function displays structured information about expressions that includes its type and value. Arrays are explored recursively with values indented to show structure.
+
+The Var_Dump class captures the output of the var_dump function, by using output control functions, and then uses external renderer classes for displaying the result in various graphical ways :
+* Simple text,
+* HTML/XHTML text,
+* HTML/XHTML table,
+* XML,
+* ...</description>
+  <maintainers>
+    <maintainer>
+      <user>fredericpoeydomenge</user>
+      <name>Poeydomenge Frederic</name>
+      <email>fpoeydomenge at free dot fr</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.0.2</version>
+    <date>2005-02-09</date>
+    <license>PHP License</license>
+    <state>stable</state>
+    <notes>- Corrected Bug #3416, PHP5 Protected and private attributes not shown.
+- Corrected Bug #1646, possibility to ignore some variables, for instance when Var_Dump'ing classes with DB/MDB/MDB2 objects in them.
+- Corrected Bug #3396, Var_Dump::toString() sets object variables.
+- Added extra parameters to display() method, to be able to access every options (display mode, ignore list, ...) with a single static call (requested by Lukas Smith, lsmith at php dot net).
+- $options parameter can be expressed as a simple string corresponding to the renderer name e.g. Var_Dump::display($var, FALSE, 'XHTML_Table');
+- Removed spurious &quot;unset&quot; in the code.</notes>
+    <deps>
+      <dep type="php" rel="ge" version="4.0.4" optional="no"/>
+      <dep type="ext" rel="has" optional="no">pcre</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="" md5sum="9dbc6fbb8c140b6f4a23f861273caada" install-as="Var_Dump.php" name="php/Var_Dump.php"/>
+      <file role="php" baseinstalldir="Var_Dump" md5sum="0ebda21f612f0a69abb0ac64091c944b" install-as="Renderer.php" name="php/Var_Dump/Renderer.php"/>
+      <file role="php" baseinstalldir="Var_Dump/Renderer" md5sum="2a258e7e5073e2ad8a499f82d2565d19" install-as="Common.php" name="php/Var_Dump/Renderer/Common.php"/>
+      <file role="php" baseinstalldir="Var_Dump/Renderer" md5sum="76e71d5ee98a12ece0f3d3cd8492cb31" install-as="Text.php" name="php/Var_Dump/Renderer/Text.php"/>
+      <file role="php" baseinstalldir="Var_Dump/Renderer" md5sum="1069360a72412f86ae3874df132d7ac9" install-as="Table.php" name="php/Var_Dump/Renderer/Table.php"/>
+      <file role="php" baseinstalldir="Var_Dump/Renderer" md5sum="888e426f5d540e8bb08c8d6605d8a0bf" install-as="HTML4_Table.php" name="php/Var_Dump/Renderer/HTML4_Table.php"/>
+      <file role="php" baseinstalldir="Var_Dump/Renderer" md5sum="a64c0edd484e4b46f87f8876dd5b90af" install-as="HTML4_Text.php" name="php/Var_Dump/Renderer/HTML4_Text.php"/>
+      <file role="php" baseinstalldir="Var_Dump/Renderer" md5sum="e87e3c763e53d6b7fd2c053706c27cf0" install-as="XHTML_Table.php" name="php/Var_Dump/Renderer/XHTML_Table.php"/>
+      <file role="php" baseinstalldir="Var_Dump/Renderer" md5sum="229ac66dba0d59b237e760d4379e4244" install-as="XHTML_Text.php" name="php/Var_Dump/Renderer/XHTML_Text.php"/>
+      <file role="php" baseinstalldir="Var_Dump/Renderer" md5sum="0e06a4b02a298d6b852c1c467bdf818c" install-as="XML.php" name="php/Var_Dump/Renderer/XML.php"/>
+      <file role="doc" baseinstalldir="" md5sum="297118f932e375aeda877329c904b8f6" install-as="example-1.php" name="docs/example-1.php"/>
+      <file role="doc" baseinstalldir="" md5sum="00eb3001008535de48419290e66f335f" install-as="example-2.php" name="docs/example-2.php"/>
+      <file role="doc" baseinstalldir="" md5sum="123f8339b5b66453efbb0c79181b9e59" install-as="example-3.php" name="docs/example-3.php"/>
+      <file role="doc" baseinstalldir="" md5sum="dbfe7798442d1085e1d3defb7070b70b" install-as="example-4.php" name="docs/example-4.php"/>
+      <file role="doc" baseinstalldir="" md5sum="d8cf32c0da32e17879fabb2ff0785e8d" install-as="example-5.php" name="docs/example-5.php"/>
+      <file role="doc" baseinstalldir="" md5sum="38be004c5725961be87379f6b88bf9f2" install-as="example-6.php" name="docs/example-6.php"/>
+      <file role="test" baseinstalldir="" md5sum="3cc19f77ae0f5c9f70aa99af49a7603b" install-as="bug1321.phpt" name="tests/bug1321.phpt"/>
+      <file role="test" baseinstalldir="" md5sum="efb1637ee426bc3f1ffaec3ab40783e4" install-as="bug490.phpt" name="tests/bug490.phpt"/>
+      <file role="test" baseinstalldir="" md5sum="9100ec637b302ed3db89546d0054ac80" install-as="bug3396.phpt" name="tests/bug3396.phpt"/>
+      <file role="test" baseinstalldir="" md5sum="2b65d92229fc9266c2896eff31e0d53a" install-as="bug3416.phpt" name="tests/bug3416.phpt"/>
+      <file role="test" baseinstalldir="" md5sum="df177bc1e53fd3f194fbac04005c436f" install-as="ignore-list.phpt" name="tests/ignore-list.phpt"/>
+      <file role="test" baseinstalldir="" md5sum="df9860188338540ff1330201f884c6ad" install-as="renderer-html4_table.phpt" name="tests/renderer-html4_table.phpt"/>
+      <file role="test" baseinstalldir="" md5sum="2a55f9df1979a7bc20632957174be739" install-as="renderer-html4_text.phpt" name="tests/renderer-html4_text.phpt"/>
+      <file role="test" baseinstalldir="" md5sum="6f78c0bf7667c591e07168b8572a2a48" install-as="renderer-table.phpt" name="tests/renderer-table.phpt"/>
+      <file role="test" baseinstalldir="" md5sum="04611049e9f057731bd000e695603938" install-as="renderer-text.phpt" name="tests/renderer-text.phpt"/>
+      <file role="test" baseinstalldir="" md5sum="6a33b0ef3269e8f7f1ebd453d340cfed" install-as="renderer-xhtml_table.phpt" name="tests/renderer-xhtml_table.phpt"/>
+      <file role="test" baseinstalldir="" md5sum="ce0fe099c05f16a9d2ff429744a0247b" install-as="renderer-xhtml_text.phpt" name="tests/renderer-xhtml_text.phpt"/>
+      <file role="test" baseinstalldir="" md5sum="a0f2ff08fb48b2093b66af46e48f1423" install-as="renderer-xml.phpt" name="tests/renderer-xml.phpt"/>
+      <file role="test" baseinstalldir="" md5sum="c52f6f218a9456cda285f0bbce1e55a8" install-as="text-compact_mode.phpt" name="tests/text-compact_mode.phpt"/>
+      <file role="test" baseinstalldir="" md5sum="f18a2f8b16255a782275ec3fd832c34b" install-as="text-normal_mode.phpt" name="tests/text-normal_mode.phpt"/>
+      <file role="test" baseinstalldir="" md5sum="49a3021b213962badd5ab21a3b4e844b" install-as="text-wide_mode.phpt" name="tests/text-wide_mode.phpt"/>
+      <file role="test" baseinstalldir="" md5sum="42eb2ab73127614ec3ba098ce9b9ab77" install-as="toString-array.phpt" name="tests/toString-array.phpt"/>
+      <file role="test" baseinstalldir="" md5sum="241bee6fabb26da6efb28d522dd27788" install-as="toString-bool.phpt" name="tests/toString-bool.phpt"/>
+      <file role="test" baseinstalldir="" md5sum="c1ad5eca124f8623ea48e973693cc088" install-as="toString-float.phpt" name="tests/toString-float.phpt"/>
+      <file role="test" baseinstalldir="" md5sum="f6b85308fcfe8960147687b7dc733c8b" install-as="toString-int.phpt" name="tests/toString-int.phpt"/>
+      <file role="test" baseinstalldir="" md5sum="d7d9b1ef617e86670ac535787f4119b5" install-as="toString-null.phpt" name="tests/toString-null.phpt"/>
+      <file role="test" baseinstalldir="" md5sum="07da7b37d0c534925a60e09a1fde4654" install-as="toString-object.phpt" name="tests/toString-object.phpt"/>
+      <file role="test" baseinstalldir="" md5sum="9c6eee3cd04258f56a1419e11b2a279f" install-as="toString-resource.phpt" name="tests/toString-resource.phpt"/>
+      <file role="data" baseinstalldir="" md5sum="07cb14bae9005f11166b1db389d30009" install-as="renderer-xml.dtd" name="data/renderer-xml.dtd"/>
+      <file role="data" baseinstalldir="" md5sum="90b4786333962602c699b65479985c37" install-as="memory-usage.txt" name="data/memory-usage.txt"/>
+    </filelist>
+  </release>
+</package>

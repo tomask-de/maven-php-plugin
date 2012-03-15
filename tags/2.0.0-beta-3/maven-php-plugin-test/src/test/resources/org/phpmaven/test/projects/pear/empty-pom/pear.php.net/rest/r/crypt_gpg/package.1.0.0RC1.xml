@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.7.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Crypt_GPG</name>
+ <channel>pear.php.net</channel>
+ <summary>GNU Privacy Guard (GPG)</summary>
+ <description>This package provides an object oriented interface to GNU Privacy Guard (GPG). It requires the GPG executable to be on the system.
+
+Though GPG can support symmetric-key cryptography, this package is intended only to facilitate public-key cryptography.
+
+This package requires PHP version 5.2.1 or greater.</description>
+ <lead>
+  <name>Mike Gauthier</name>
+  <user>gauthierm</user>
+  <email>mike@silverorange.com</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Nathan Fredrickson</name>
+  <user>nrf</user>
+  <email>nathan@silverorange.com</email>
+  <active>yes</active>
+ </lead>
+ <date>2008-11-17</date>
+ <time>02:35:31</time>
+ <version>
+  <release>1.0.0RC1</release>
+  <api>1.0.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>RC1. API is stable. Changes include:
+ * add support for initializing user ids, signatures and sub-keys from    an array of fields.
+ * clean up unit tests to work with PEAR&apos;s continuous integration    server.
+ * add unit tests for exception, user id, signature, key and sub-key    classes.
+ * rename the &apos;gpgBinary&apos; option in the constructor to just &apos;binary&apos;.    the old option name is deprecated but still works.
+ * rename Signature::setIsValid() to Signature::setValid() to match    methods on UserId.
+ * remove unused exceptions: &apos;DuplicateKeyImportException&apos;,    &apos;UnsignedKeyException&apos;, and &apos;MissingSelfSignatureException&apos;.
+ * Fix ISO 8601 timestamp parsing when E_STRICT is used.</notes>
+ <contents>
+  <dir baseinstalldir="/Crypt" name="/">
+   <file baseinstalldir="/Crypt" md5sum="af7138bda659bbafddb8b186f7a65cbe" name="GPG/DecryptStatusHandler.php" role="php" />
+   <file baseinstalldir="/Crypt" md5sum="3ac4399faa1111ad913e2bcd3d217353" name="GPG/Engine.php" role="php" />
+   <file baseinstalldir="/Crypt" md5sum="a3211a98f2ae082588eb03ca8ac7fbc0" name="GPG/Exceptions.php" role="php" />
+   <file baseinstalldir="/Crypt" md5sum="1e58ed41dc2346bb2bd54228016c67be" name="GPG/Key.php" role="php" />
+   <file baseinstalldir="/Crypt" md5sum="bdf831aa31d3f260a88f392ab993f36a" name="GPG/Signature.php" role="php" />
+   <file baseinstalldir="/Crypt" md5sum="c539daba2eafbab62b4a57276bc520a2" name="GPG/SubKey.php" role="php" />
+   <file baseinstalldir="/Crypt" md5sum="1ceebceebd82b24ce1d5f5dd1a374e04" name="GPG/UserId.php" role="php" />
+   <file baseinstalldir="/Crypt" md5sum="11e80bc98d24acdc7e145b4ee2522b67" name="GPG/VerifyStatusHandler.php" role="php" />
+   <file baseinstalldir="/Crypt" md5sum="48a01863f1c45e3343ee6cc0cdac6bf1" name="tests/data-files/testDecryptFile.asc" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="ee957c9ccb21341279f5e7584ee9a24c" name="tests/data-files/testDecryptFileDual.asc" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="bbec6c1b4e4375ad2ff4f1ed74d9a2fe" name="tests/data-files/testDecryptFileDualOnePassphrase.asc" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="6fcdf876a1175b232d031d148974a1fd" name="tests/data-files/testDecryptFileKeyNotFoundException.asc" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="9a285b594b92fc20969b934ebeac5cd7" name="tests/data-files/testDecryptFileNoPassphrase.asc" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="58a11c56a7440982690759d67112da18" name="tests/data-files/testDecryptFileToString.asc" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/data-files/testFileEmpty.plain" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="f96267d87551ee09bfcac16921e351c1" name="tests/data-files/testFileMedium.plain" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="9b6c11bcd2cffbc5b3674ce8df51af96" name="tests/data-files/testFileSmall.plain" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="4221b55e407a9e962a40b5fa94b3ded1" name="tests/data-files/testImportKeyFile_private.asc" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="2d276e67065c4c5348524abb9a44dbcf" name="tests/data-files/testImportKeyFile_public.asc" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="593120b6780677d016c7dae0e4174001" name="tests/data-files/testVerifyFileClearsignedData.asc" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="ca2fed470c88ff04f456d317339d1f65" name="tests/data-files/testVerifyFileDualClearsignedData.asc" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="8fa0301ca4bee6163661e05aed143409" name="tests/data-files/testVerifyFileDualNormalSignedData.asc" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="8ef15a6b3ec9831642fd1a154a1fff2b" name="tests/data-files/testVerifyFileNormalSignedData.asc" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="b5fdee0c900a85fad42e93721befa909" name="tests/AllTests.php" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="8229da7fb4fa56c353befffa3ed41472" name="tests/DecryptTestCase.php" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="e8cacae07a6eac89616b8667fdad6c9d" name="tests/DeletePrivateKeyTestCase.php" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="51e1320797d41b272ebd83fd69f5336f" name="tests/DeletePublicKeyTestCase.php" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="89b741eb31262a9a4122b2370ddddece" name="tests/EncryptTestCase.php" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="22de8b7d24705abd4787405b3c11e5b2" name="tests/ExceptionsTestCase.php" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="9c7912baba0c557b9d93232fecfbafbf" name="tests/ExportPublicKeyTestCase.php" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="346f08422db37e1ff85663bf19940013" name="tests/GeneralTestCase.php" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="8938b8434b30c1aef8c5acc57531c8da" name="tests/GetFingerprintTestCase.php" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="073bdaa694f5491ffd9eb0142b90b718" name="tests/GetKeysTestCase.php" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="1b75d50b7ecd427ca83525fbb624246c" name="tests/ImportKeyTestCase.php" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="2830435ac903f1785c51db9dd4aa7532" name="tests/KeyTestCase.php" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="491df69179ec6f87b98d15c39166f5c1" name="tests/SignatureTestCase.php" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="2dc4473a5e2bd91bee9ad80efcedaa57" name="tests/SignTestCase.php" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="c05e5379c767e7fbda80511886bda744" name="tests/SubKeyTestCase.php" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="9c99251c0518f78090e14d99ad9aa870" name="tests/TestCase.php" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="1dfbfb0031eba4dcbe49450f2cfe5ef7" name="tests/UserIdTestCase.php" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="bb8919729ec81210de6b1e491f737e8b" name="tests/VerifyTestCase.php" role="test" />
+   <file baseinstalldir="/Crypt" md5sum="10581ad193c290907034185a9a5e742b" name="ChangeLog" role="data" />
+   <file baseinstalldir="/Crypt" md5sum="9b802b0f66c5d117f751654ce6bfd16b" name="GPG.php" role="php" />
+   <file baseinstalldir="/Crypt" md5sum="7eb09e6fd83eb49ed22911c3b2f06744" name="LICENSE" role="doc" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.1</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0</min>
+   </pearinstaller>
+   <os>
+    <name>windows</name>
+    <conflicts />
+   </os>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0RC1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api>
+   </stability>
+   <date>2008-11-17</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>RC1. API is stable. Changes include:
+ * add support for initializing user ids, signatures and sub-keys from    an array of fields.
+ * clean up unit tests to work with PEAR&apos;s continuous integration    server.
+ * add unit tests for exception, user id, signature, key and sub-key    classes.
+ * rename the &apos;gpgBinary&apos; option in the constructor to just &apos;binary&apos;.    the old option name is deprecated but still works.
+ * rename Signature::setIsValid() to Signature::setValid() to match    methods on UserId.
+ * remove unused exceptions: &apos;DuplicateKeyImportException&apos;,    &apos;UnsignedKeyException&apos;, and &apos;MissingSelfSignatureException&apos;.
+ * Fix ISO 8601 timestamp parsing when E_STRICT is used.</notes>
+  </release>
+ </changelog>
+</package>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.7.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>CodeGen_MySQL_UDF</name>
+ <channel>pear.php.net</channel>
+ <summary>Tool to generate MySQL UDF extensions from an XML description</summary>
+ <description>CodeGen_MySQL_UDF is a code generator for MySQL User Defined Function (UDF)
+extensions similar to PECL_Gen for PHP. 
+It reads in configuration options, function prototypes and code fragments
+from an XML description file and generates a complete ready-to-compile
+UDF extension.
+Preliminary documentation can be found here:
+http://talks.php.net/show/UDF_Gen</description>
+ <lead>
+  <name>Hartmut Holzgraefe</name>
+  <user>hholzgra</user>
+  <email>hartmut@php.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-02-11</date>
+ <time>10:14:15</time>
+ <version>
+  <release>1.0.0RC1</release>
+  <api>1.0.0RC1</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.php.net/license">PHP</license>
+ <notes>First release candidate ...
+
+changes since 0.9.8:
+- removed plugin_dir detection magic as it can never be reliable
+  specifying the right --libdir is now back in the developers field
+- added &quot;html&quot; and &quot;pdf&quot; make targets
+- rely on &quot;autreconf&quot; instead of running autotools one by one
+- support of &lt;group&gt; tags and conditional compilation
+- now generating variables for parameter attributes
+- udf-gen script now works on windows, too
+- Windows related code generation fixes
+- generating .def file for Windows builds now
+- &lt;udf&gt; is now an alias of &lt;extension&gt;</notes>
+ <contents>
+  <dir name="/">
+   <file baseinstalldir="/" md5sum="68d07e6972b885679c5f2ae92d7f4b41" name="docs/examples/corr.xml" role="doc" />
+   <file baseinstalldir="/" md5sum="072ef08b9900a4c600c193479fc30cd0" name="docs/examples/example.xml" role="doc" />
+   <file baseinstalldir="/" md5sum="7b6ce982ab23129ff4904d62e32219c7" name="docs/examples/gc_dist.xml" role="doc" />
+   <file baseinstalldir="/" md5sum="8ac437f4fcd5fe34eb25f123665edfdd" name="docs/examples/rlimit.xml" role="doc" />
+   <file baseinstalldir="/" md5sum="6462f94fcec30a14307fbe4248151938" name="docs/manual.html" role="doc" />
+   <file baseinstalldir="CodeGen" md5sum="b71f84a162750d1d0580a1cb5fc356c9" name="MySQL/UDF/Element/Function.php" role="php" />
+   <file baseinstalldir="CodeGen" md5sum="84102daa7268e36ca906f483731e8db9" name="MySQL/UDF/Element/Test.php" role="php" />
+   <file baseinstalldir="CodeGen" md5sum="3eacdf86f50d4e05d4265279d670d8af" name="MySQL/UDF/Extension.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="CodeGen" md5sum="57f0c3b24243acc5ac9956b1e658fe82" name="MySQL/UDF/ExtensionParser.php" role="php" />
+   <file baseinstalldir="CodeGen" md5sum="748c6a5414629e678855c09bc104ac64" name="MySQL/UDF/Cli.php" role="php" />
+   <file md5sum="82afa93d95c43998b7ceb66b43afdcfa" name="scripts/udf-gen.sh" role="script">
+    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
+    <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
+    <tasks:unixeol />
+   </file>
+   <file md5sum="68b2d12607c84bdf3320b01d0cb020f4" name="scripts/udf-gen.bat" role="script">
+    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
+    <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
+    <tasks:windowseol />
+   </file>
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <package>
+    <name>PEAR</name>
+    <channel>pear.php.net</channel>
+    <min>1.2</min>
+   </package>
+   <package>
+    <name>CodeGen</name>
+    <channel>pear.php.net</channel>
+    <min>1.0.5</min>
+   </package>
+   <package>
+    <name>CodeGen_MySQL</name>
+    <channel>pear.php.net</channel>
+    <min>1.0.0RC1</min>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease>
+  <installconditions>
+   <os>
+    <name>windows</name>
+   </os>
+  </installconditions>
+  <filelist>
+   <install as="udf-gen.bat" name="scripts/udf-gen.bat" />
+   <ignore name="scripts/udf-gen.sh" />
+  </filelist>
+ </phprelease>
+ <phprelease>
+  <filelist>
+   <install as="udf-gen" name="scripts/udf-gen.sh" />
+   <ignore name="scripts/udf-gen.bat" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <date>2007-05-10</date>
+   <version>
+    <release>0.9.8</release>
+    <api>0.9.8</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <notes>still trying to stabelize for release
+changes since 0.9.7:
+- now generates meaningfull INSTALL and README
+- started to generate DocBook documentation from
+  which html and pdf may be generated</notes>
+  </release>
+  <release>
+   <date>2007-04-19</date>
+   <version>
+    <release>0.9.7dev</release>
+    <api>0.9.7dev</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <notes>still trying to stabelize for release
+changes since 0.9.6:
+- packaging fixes</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.9.6dev</release>
+    <api>0.9.6dev</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-11-24</date>
+   <license uri="http://www.php.net/license">PHP</license>
+   <notes>still trying to stabelize for release
+changes since 0.9.5:
+ - added CodeGen_MySQL dependency
+ - removed &apos;static&apos; attributes from some functions
+   to play nice with PHP 5.2
+ - CS fixes
+ - workaround for missing DROP FUNCTION IF EXISTS in tests
+ - fixed php binary path substitution in udf-gen script</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.9.5dev</release>
+    <api>0.9.5dev</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-05-06</date>
+   <license uri="http://www.php.net/license">PHP</license>
+   <notes>trying to stabelize for release</notes>
+  </release>
+ </changelog>
+</package>

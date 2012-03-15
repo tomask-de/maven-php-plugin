@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release2
+    http://pear.php.net/dtd/rest.release2.xsd">
+ <p xlink:href="/rest/p/db_nestedset">DB_NestedSet</p>
+ <c>pear.php.net</c>
+ <v>1.3.1</v>
+ <a>1.3.1</a>
+ <mp>4.3.0</mp>
+ <st>beta</st>
+ <l>PHP License</l>
+ <m>datenpunk</m>
+ <s>API to build and query nested sets</s>
+ <d>DB_NestedSet let's you create trees with infinite depth
+inside a relational database.
+The package provides a way to
+o create/update/delete nodes
+o query nodes, trees and subtrees
+o copy (clone) nodes, trees and subtrees
+o move nodes, trees and subtrees
+o call event handlers on specific events like
+  on node deletion
+o output the tree with
+  - PEAR::HTML_TreeMenu
+  - TigraMenu (http://www.softcomplex.com/products/tigra_menu/)
+o It also features caching of SQL queries using PEAR::Cache
+</d>
+ <da>2003-11-26 17:08:07</da>
+ <n>- Extended Unit Tests
+- Added the CoolMenu output driver by Andy Crain
+- Added Andy Crain's patch which fixes 
+  + the can't move a rootnode below another rootnode bug
+  + the 'Parent id not updated on move' bug 
+  + a bug which led to wrong l/r values on tree operations
+- Replaces non ANSI (mysql specific) queries.
+  PLEASE test with other RDBMS than mySQL - this should work now
+* Coding style fixes
+* Took out a few of the abstract methods and _getmicrotime() to try and cut down on the size of the class.
+* Optimized the query for createRootNode() slightly
+* Fixed createRootNode() to work when only required parameters are passed, so that now 
+  $db-&gt;createRootNode($node) will successfully create a root node at the end of the tree instead of erroring out.
+- Fixed [Bug #138]: moveTree doesn't return anything
+  (Thanks to [thomas at bytefreak dot de] for the report)
+- Applied Lukas Smith's MDB patch - MDB support is back again!
+- Adopted unit tests for MDB
+- Changed the name of the property _flparams back to flparams as some applications may rely on this.</n>
+ <f>42840</f>
+ <g>http://pear.php.net/get/DB_NestedSet-1.3.1</g>
+ <x xlink:href="package.1.3.1.xml"/>
+</r>

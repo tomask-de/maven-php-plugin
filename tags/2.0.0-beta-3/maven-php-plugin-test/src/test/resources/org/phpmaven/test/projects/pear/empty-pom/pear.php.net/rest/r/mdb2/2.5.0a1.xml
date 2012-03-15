@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/mdb2">MDB2</p>
+ <c>pear.php.net</c>
+ <v>2.5.0a1</v>
+ <st>alpha</st>
+ <l>BSD License</l>
+ <m>quipo</m>
+ <s>database abstraction layer</s>
+ <d>PEAR MDB2 is a merge of the PEAR DB and Metabase php database abstraction layers.
+
+It provides a common API for all supported RDBMS. The main difference to most
+other DB abstraction packages is that MDB2 goes much further to ensure
+portability. MDB2 provides most of its many features optionally that
+can be used to construct portable SQL statements:
+* Object-Oriented API
+* A DSN (data source name) or array format for specifying database servers
+* Datatype abstraction and on demand datatype conversion
+* Various optional fetch modes to fix portability issues
+* Portable error codes
+* Sequential and non sequential row fetching as well as bulk fetching
+* Ability to make buffered and unbuffered queries
+* Ordered array and associative array for the fetched rows
+* Prepare/execute (bind) named and unnamed placeholder emulation
+* Sequence/autoincrement emulation
+* Replace emulation
+* Limited sub select emulation
+* Row limit emulation
+* Transactions/savepoint support
+* Large Object support
+* Index/Unique Key/Primary Key support
+* Pattern matching abstraction
+* Module framework to load advanced functionality on demand
+* Ability to read the information schema
+* RDBMS management methods (creating, dropping, altering)
+* Reverse engineering schemas from an existing database
+* SQL function call abstraction
+* Full integration into the PEAR Framework
+* PHPDoc API documentation</d>
+ <da>2007-10-28 15:25:58</da>
+ <n>- fixed bug #10024: Security fix for LOBs. Added an option to turn lob_allow_url_include off by default
+- fixed bug #11179: prepared statements with named placeholders fail if extra values are provided
+- request #11297: added support for &quot;schema.table&quot; (or &quot;owner.table&quot;) notation in the Reverse module
+- initial support for FOREIGN KEY and CHECK constraints in the Reverse and Manager modules
+- fixed bug #11428: propagate quote() errors with invalid data types
+- added new test cases in the test suite
+- added LENGTH() function in the Function module
+- fixed bug #11612: raiseError() must be compatible with PEAR::raiseError() [PHP6]
+- fixed bug #11790: avoid array_diff() because it has a memory leak in PHP 5.1.x
+- fixed bug #11906: quoteIdentifier fails for names with dots
+- fixed bug #11975: Extended::autoExecute() does not work with Oracle when using LOBs
+  (patch by Pieter Meulen, van der)
+- fixed some E_STRICT errors with PHP5
+- fixed bug #12083: createTable() in the Manager module now returns MDB2_OK on success,
+  as documented
+- fixed bug #12246: wrong check in MDB2::isStatement() (thanks to zaa@zaa.pp.ru)
+
+open todo items:
+- handle autoincrement fields in alterTable()
+- add length handling to LOB reverse engineering
+- add EXPLAIN abstraction
+- add cursor support along the lines of PDO (Request #3660 etc.)
+- add PDO based drivers, especially a driver to support SQLite 3 (Request #6907)
+- add support to export/import in CSV format
+- add more functions to the Function module (MD5(), IFNULL(), etc.)
+- add support for database/table/row LOCKs
+- add support for CHECK (ENUM as possible mysql fallback) constraints
+- generate STATUS file from test suite results and allow users to submit test results
+- add support for full text index creation and querying
+- add tests to check if the RDBMS specific handling with portability options
+  disabled behaves as expected
+- handle implicit commits (like for DDL) in any affected driver (mysql, sqlite..)
+- add a getTableFieldsDefinitions() method to be used in tableInfo()
+- drop ILIKE from matchPattern() and instead add a second parameter to
+  handle case sensitivity with arbitrary operators
+- add charset and collation support to field declaration in all drivers
+- handle LOBs in buffered result sets (Request #8793)</n>
+ <f>123779</f>
+ <g>http://pear.php.net/get/MDB2-2.5.0a1</g>
+ <x xlink:href="package.2.5.0a1.xml"/>
+</r>

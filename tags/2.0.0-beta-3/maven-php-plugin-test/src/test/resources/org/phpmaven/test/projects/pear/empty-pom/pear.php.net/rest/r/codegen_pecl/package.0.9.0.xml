@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>CodeGen_PECL</name>
+  <summary>Tool to generate PECL extensions from an XML description</summary>
+  <description>CodeGen_PECL (formerly known as PECL_Gen) is a pure PHP replacement 
+for the ext_skel shell script that comes with the PHP 4 source. 
+It reads in configuration options, function prototypes and code fragments
+from an XML description file and generates a complete ready-to-compile
+PECL extension.</description>
+  <maintainers>
+    <maintainer>
+      <user>hholzgra</user>
+      <name>Hartmut Holzgraefe</name>
+      <email>hartmut@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>rasmus</user>
+      <name>Rasmus Lerdorf</name>
+      <email>rasmus@php.net</email>
+      <role>contributor</role>
+    </maintainer>
+    <maintainer>
+      <user>pajoye</user>
+      <name>Pierre-Alain Joye</name>
+      <email>pajoye@php.net</email>
+      <role>helper</role>
+    </maintainer>
+    <maintainer>
+      <user>hartmann</user>
+      <name>Johann Peter Hartmann</name>
+      <email>hartmann@php.net</email>
+      <role>helper</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.9.0</version>
+    <date>2005-08-11</date>
+    <license>PHP</license>
+    <state>beta</state>
+    <notes>Milestone 0.9
+-------------
+
+- copy &lt;changelog&gt; to generated package.xml    - done
+
+- rewrite the function prototype parser
+  - object type specification (as in resources)      - done
+  - default values                                   - done
+  - 'void' treatment                                 - done
+  - '...' not handled                                - done
+  - array() as default value                         - done
+  - code generation for 'pass by refecence'          - for zval based types yet
+  - '...' code generation                            - if first parameter yet
+
+FREE_RESOURCE macro                                  - done
+
+allow defined PHP constants as default value         - done
+
+&lt;define&gt; tag -&gt; #define + &lt;constant&gt;? - done 
+
+allow for embedded base64 or uu encoded logo specs   - done
+
+changeable function prefix?                          - done
+
+trick parser to verbatim pass on docbook contentent  - done
+
+add configure compile test for &lt;resource&gt;      -done
+to check whether a given payload is a valid type?
+
+SYSTEM Entity and XInclude support                   - done 
+
+support for multiple &lt;with&gt; tags with distinct 
+names, name defaults to extension name if not given  - done
+
+added version attribute to &lt;extension&gt;
+to control parser features (replaces -x switch)      - done
+
+support &lt;?code ... ?&gt; as alternative to CDATA  - done 
+
+check whether &lt;header&gt; checks work             - done
+
+test files are not yet added to package.xml          - done
+
+documentation up to date for all 0.9 features        - done
+
+examples and test cases added                        - done</notes>
+    <deps>
+      <dep type="php" rel="ge" version="5"/>
+      <dep type="pkg" rel="ge" version="0.1">CodeGen</dep>
+    </deps>
+    <filelist>
+      <file role="doc" baseinstalldir="/" md5sum="20d0ec05aee0e7a32ef92f3ceae1971b" name="docs/manual.html"/>
+      <file role="doc" baseinstalldir="/" md5sum="83076ec7252b94e86c7871740b101ae5" name="docs/examples/minimal.xml"/>
+      <file role="doc" baseinstalldir="/" md5sum="370406fb4d7c77260c4485c3741f3d59" name="docs/examples/release.xml"/>
+      <file role="doc" baseinstalldir="/" md5sum="50667cf7a238980874877760577a69f5" name="docs/examples/logo.xml"/>
+      <file role="doc" baseinstalldir="/" md5sum="fd4dd652e7ede8cbb9792ace5d133496" name="docs/examples/logo_inline.xml"/>
+      <file role="doc" baseinstalldir="/" md5sum="40299b1d36b34592bc69d8e380cafb64" name="docs/examples/api_functions.xml"/>
+      <file role="script" baseinstalldir="/" md5sum="d8ffbcd0ff47a2c9aa85bde14438a3d5" name="pecl-gen">
+        <replace from="/usr/local/bin" to="PHP_BINDIR" type="php-const"/>
+        <replace from="@php_dir@" to="php_dir" type="pear-config"/>
+      </file>
+      <file role="php" baseinstalldir="CodeGen" md5sum="b297a379ad66b56b80020b0e5a7a60a9" name="PECL/Extension.php"/>
+      <file role="php" baseinstalldir="CodeGen" md5sum="653f022bc26227d5f978d23b30802678" name="PECL/Release.php"/>
+      <file role="php" baseinstalldir="CodeGen" md5sum="696a4365d32a06fdfd350e39df1abcb9" name="PECL/Maintainer.php"/>
+      <file role="php" baseinstalldir="CodeGen" md5sum="14f947b51cc62098a2ef24918a50f2a7" name="PECL/Element.php"/>
+      <file role="php" baseinstalldir="CodeGen" md5sum="921d129378f656877292ed89cfe9f7c3" name="PECL/Command.php"/>
+      <file role="php" baseinstalldir="CodeGen" md5sum="e949e0d4ba2196130d0e9501705749c3" name="PECL/Element/Constant.php"/>
+      <file role="php" baseinstalldir="CodeGen" md5sum="b701bfd358fa2f18329563f3ec583240" name="PECL/Element/Function.php"/>
+      <file role="php" baseinstalldir="CodeGen" md5sum="e4fb8a9a013e85ace4ec3c4da172ab96" name="PECL/Element/Global.php"/>
+      <file role="php" baseinstalldir="CodeGen" md5sum="135a287c305387b6d9cb17160d31d360" name="PECL/Element/Ini.php"/>
+      <file role="php" baseinstalldir="CodeGen" md5sum="8164f8e3d482f5714ac79bf86f35250f" name="PECL/Element/Logo.php"/>
+      <file role="php" baseinstalldir="CodeGen" md5sum="040d197c71efc8f574d8f78edfe1e2e2" name="PECL/Element/Resource.php"/>
+      <file role="php" baseinstalldir="CodeGen" md5sum="a4b67f301d1344f5872011e227fc7894" name="PECL/Element/Test.php"/>
+      <file role="php" baseinstalldir="CodeGen" md5sum="143667ce6912d7e80c0340b2684a5dfa" name="PECL/Element/Class.php"/>
+      <file role="php" baseinstalldir="CodeGen" md5sum="325538c9a9042010abdb9b1d1518769e" name="PECL/Element/Method.php"/>
+      <file role="php" baseinstalldir="CodeGen" md5sum="553284d46aa014447b74c9cf31513378" name="PECL/Element/Property.php"/>
+      <file role="php" baseinstalldir="CodeGen" md5sum="a08e27e42376083f3a668a01383ecea8" name="PECL/Element/ClassConstant.php"/>
+      <file role="php" baseinstalldir="CodeGen" md5sum="27a8ab8a09eb1b31f550fff9f1cd40c6" name="PECL/Element/Stream.php"/>
+      <file role="php" baseinstalldir="CodeGen" md5sum="f5f3e9226ac55ce59e4ad8f0e2e934eb" name="PECL/Dependency/With.php"/>
+      <file role="php" baseinstalldir="CodeGen" md5sum="67acaddd46d393fe9ee8e6daaa34efb7" name="PECL/Dependency/Lib.php"/>
+      <file role="php" baseinstalldir="CodeGen" md5sum="8089adc8dc76918525959e985515dfe1" name="PECL/Dependency/Header.php"/>
+      <file role="php" baseinstalldir="CodeGen" md5sum="6bb9c6f962e071c7f1e9377b7351103a" name="PECL/Dependency/Extension.php"/>
+      <file role="php" baseinstalldir="CodeGen" md5sum="1004af94f2837af9121f1a36c418ed84" name="PECL/Dependency/Platform.php"/>
+      <file role="php" baseinstalldir="CodeGen" md5sum="62b42e5142dca44f1e2d13c2f0164f2a" name="PECL/ExtensionParser.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.9.0rc5</version>
+      <date>2005-08-03</date>
+      <state>beta</state>
+      <notes>- implemeted new proto parser, activate with --experimental
+      
+</notes>
+    </release>
+    <release>
+      <version>0.8.5</version>
+      <date>2004-11-11</date>
+      <state>beta</state>
+      <notes>- fixed method renaming inconsistencies introduced with 0.8.4
+- config.m4 additions can now be placed at 'top' or 'bottom' of config.m4
+- '--force' does not remove the target directory anymore
+- '#include &lt;php.h&gt;' moved out of #ifdef block to allow static builds
+- 'extern &quot;C&quot;' specifications added on C++ builds
+- container tags like &lt;functions&gt; or &lt;globals&gt; are now optional
+- pecl-gen will now set exit status on errors
+
+      
+</notes>
+    </release>
+    <release>
+      <version>0.8.4</version>
+      <date>2004-05-16</date>
+      <state>beta</state>
+      <notes>This is the first release living in PECL insteat of PEAR.
+
+Technical changes are: 
+
+- improved PECL CS compliance of generated code
+- generated config.m4 supports both shared and static build
+- code snippets may be read from files instead of beeing 
+  embedded in CDATA sections
+- improved resource parameter handling
+- shortcuts for constants that just mimic C constants
+- global 'code' tag finally works as documented
+- files can be added using 'file' tag in 'deps'
+- ...
+      
+</notes>
+    </release>
+    <release>
+      <version>0.8.3</version>
+      <date>2004-04-01</date>
+      <state>beta</state>
+      <notes>- this release was completely broken for unknown reasons,
+  might be realted to the move from PEAR to PECL ...?
+      
+</notes>
+    </release>
+    <release>
+      <version>0.8.2</version>
+      <date>2003-10-13</date>
+      <state>beta</state>
+      <notes>- fixed a bug in the parser that rendered 0.8.1 almost useless :(
+      
+</notes>
+    </release>
+    <release>
+      <version>0.8.1</version>
+      <date>2003-10-12</date>
+      <state>beta</state>
+      <notes>- custom test generation added
+- minor DTD changes
+- code reformatted for better PEAR coding standards compliance
+- additional tools for whitespace and indentation management
+      
+</notes>
+    </release>
+    <release>
+      <version>0.8.0</version>
+      <date>2003-07-13</date>
+      <state>beta</state>
+      <notes>- added documentation
+- check for reserved words 
+- check for duplicate names
+- config,m4 header files check added
+- config.m4 support for makefile fragments
+      
+</notes>
+    </release>
+    <release>
+      <version>0.7.0</version>
+      <date>2003-07-03</date>
+      <state>beta</state>
+      <notes>- a README file is written containing information on
+  how to continue after an extension was generated
+- --function=&quot;proto&quot; writes function stub to stdout
+- --stubs=filename now supported in ext_skel BC mode
+- added --help and --version options
+- added a short feedback howto message 
+  (can be disabled using --quiet)  
+- --with-xml works again 
+  (ext_skel compatibility)
+- will now only purge and overwrite existing target directory
+  if '--force' is requested on cmd line
+- .cvsignore created with platform-specific entries
+- PEARifying error reporting finished
+      
+</notes>
+    </release>
+    <release>
+      <version>0.6.1</version>
+      <date>2003-06-29</date>
+      <state>beta</state>
+      <notes>typo fix in package.xml dependencies entry for XML_Parser
+</notes>
+    </release>
+    <release>
+      <version>0.6.0</version>
+      <date>2003-06-28</date>
+      <state>beta</state>
+      <notes>Moved from php5/scripts to PEAR.
+</notes>
+    </release>
+  </changelog>
+</package>

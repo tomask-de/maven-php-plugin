@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/net_ldap">Net_LDAP</p>
+ <c>pear.php.net</c>
+ <v>0.6.3</v>
+ <st>beta</st>
+ <l>GPL License</l>
+ <m>tarjei</m>
+ <s>OO interface for searching and manipulating LDAP-entries</s>
+ <d>Net Ldap is a clone of Perls Net::LDAP object interface to 
+ldapservers. It does not contain all of Net::LDAPs features, 
+but has:
+* A simple OO-interface to connections, searches and entries.
+* Support for tls and ldap v3.
+* Simple modification, deletion and creation of ldapentries.
+* Support for schema handling.
+
+Net_LDAP layers itself on top of PHP's existing ldap extensions.
+</d>
+ <da>2003-11-13 04:05:50</da>
+ <n>It seems that 0.6.2 was out too fast. So this is mainly a bugfix release:   
+- Removed remaining Net_LDAP::UTF8Encode and Net_LDAP::UTF8Decode calls in Net_LDAP_Entry,
+  which stopped attributes() and get_entry() from working
+- The UTF8 functions somehow got outside the Net_LDAP class ... FIXED.
+- The usuage example of the last release was wrong. We decided to move UTF8 handling into Net_LDAP.
+  Handling should be done this way:
+
+$attr = $ldap-&gt;utf8Encode($attr);
+$entry-&gt;modify($attr);
+$attr = $ldap-&gt;utf8Decode( $entry-&gt;attributes() );
+- This means Net_LDAP_Util is useless right now, but will be extended in the future.
+- Jan did a complete overhaul of the phpdoc stuff. Everything seems to be fine now with phpDocumentor.</n>
+ <f>22056</f>
+ <g>http://pear.php.net/get/Net_LDAP-0.6.3</g>
+ <x xlink:href="package.0.6.3.xml"/>
+</r>

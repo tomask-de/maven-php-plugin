@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release2
+    http://pear.php.net/dtd/rest.release2.xsd">
+ <p xlink:href="/rest/p/mdb">MDB</p>
+ <c>pear.php.net</c>
+ <v>1.1.4RC6</v>
+ <a>1.1.4RC6</a>
+ <mp>4.3.0</mp>
+ <st>devel</st>
+ <l>BSD style</l>
+ <m>lsmith</m>
+ <s>database abstraction layer</s>
+ <d>PEAR MDB is a merge of the PEAR DB and Metabase php database abstraction layers.
+It provides a common API for all support RDBMS. The main difference to most other DB abstraction packages is that MDB goes much further to ensure portability. Among other things MDB features:
+* An OO-style query API
+* A DSN (data source name) or array format for specifying database servers
+* Datatype abstraction and on demand datatype conversion
+* Portable error codes
+* Sequential and non sequential row fetching as well as bulk fetching
+* Ordered array and associative array for the fetched rows
+* Prepare/execute (bind) emulation
+* Sequence emulation
+* Replace emulation
+* Limited Subselect emulation
+* Row limit support
+* Transactions support
+* Large Object support
+* Index/Unique support
+* Module Framework to load advanced functionality on demand
+* Table information interface
+* RDBMS management methods (creating, dropping, altering)
+* RDBMS independent xml based schema definition management
+* Altering of a DB from a changed xml schema
+* Reverse engineering of xml schemas from an existing DB (currently only MySQL)
+* Full integration into the PEAR Framework
+* Wrappers for the PEAR DB and Metabase APIs
+* PHPDoc API documentation
+Currently supported RDBMS:
+MySQL
+PostGreSQL
+Oracle
+Frontbase
+Querysim
+Interbase/Firebird
+MSSQL
+Other soon to follow.
+</d>
+ <da>2003-12-22 12:12:08</da>
+ <n>All:
+- fixed issues with PHP5
+- cosmetic fixes
+MDB Class:
+- added MDB::isConnection()
+- fixed issues in MDB::singleton() if instances of MDB have been disconnected
+test suite:
+- minor improvements to the test suite
+- fixed most CS issues in the test suite
+- fixed bug in test suite (user_id was incorrectly set to type text instead of integer)
+- added a test for MDB::singleton()
+MDB_Common:
+- fixed bug in support() that would result in always returning true
+- fixed bug in getValue() when $type is empty
+- fixed bug in getDSN() incorrect handling of port value
+- fixed bug in currID() which would result in a fatal error
+- fixed the common implementation of fetchInto()
+- added MDB_FETCHMODE_ASSOC to the common implementation of fetchInto()
+All drivers:
+- backported several fixes from HEAD to each of the drivers
+- fixed bug in extension detection in all drivers
+- fixed bug 22328
+- added notes at the top of the driver regarding driver specfic issues
+- disconnect now unsets instead of overwriting with '' in $GLOBALS['_MDB_databases']
+- added optimize option
+- lowercase keys in associative results if optimize option is set to portability
+MySQL driver:
+- fixed bug in the transaction support detection in the manager class
+Interbase driver:
+- now passes all but the transaction test
+- now also supports associative fetching
+- added missing getTypeDeclaration() method
+- fixed replace emulation
+- fixed bug in interbase driver LOB handling
+- fixed autofree in fetchInto()
+Oracle driver:
+- fixed autofree in fetchInto()
+- fixed a typo in convertResult()
+MSSQL driver:
+- now passes all tests
+- numerous bug fixes
+FBSQL driver:
+- numerous bug fixes to all parts of the driver (especially to the connection handling,
+datatype abstraction, limit support and manager class)
+PGSQL driver:
+- fixed a bug in the error code mapping due to changes in recent PostGreSQL versions</n>
+ <f>214932</f>
+ <g>http://pear.php.net/get/MDB-1.1.4RC6</g>
+ <x xlink:href="package.1.1.4RC6.xml"/>
+</r>

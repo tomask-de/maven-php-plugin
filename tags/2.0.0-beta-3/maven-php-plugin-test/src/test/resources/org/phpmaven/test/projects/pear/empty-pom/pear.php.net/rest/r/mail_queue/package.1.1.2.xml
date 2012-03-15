@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Mail_Queue</name>
+  <summary>Class for put mails in queue and send them later in background.</summary>
+  <description>Class to handle mail queue managment.
+Wrapper for PEAR::Mail and PEAR::DB (or PEAR::MDB/MDB2).
+It can load, save and send saved mails in background
+and also backup some mails.
+
+The Mail_Queue class puts mails in a temporary container,
+waiting to be fed to the MTA (Mail Transport Agent),
+and sends them later (e.g. a certain amount of mails
+every few minutes) by crontab or in other way.</description>
+  <maintainers>
+    <maintainer>
+      <user>chief</user>
+      <name>Radek Maciaszek</name>
+      <email>chief@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>quipo</user>
+      <name>Lorenzo Alberton</name>
+      <email>quipo@php.net</email>
+      <role>contributor</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.1.2</version>
+    <date>2004-07-22</date>
+    <license>PHP</license>
+    <state>stable</state>
+    <notes>- Use PHP's date() function instead of a mysql-specific
+  NOW() call in the DB container
+- Added pgsql schema in the /docs/ dir (thanks Alan Knowles)
+- Fixed integer quoting in the DB container (bug #1917) (thanks Alan Knowles)
+- DB error reporting now uses toString() (bug #1918) (thanks Alan Knowles)</notes>
+    <deps>
+      <dep type="pkg" rel="has">Mail</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="Mail" name="Queue.php"/>
+      <file role="php" baseinstalldir="Mail" name="Queue\Body.php"/>
+      <file role="php" baseinstalldir="Mail" name="Queue\Container.php"/>
+      <file role="php" baseinstalldir="Mail" name="Queue\Container\db.php"/>
+      <file role="php" baseinstalldir="Mail" name="Queue\Container\mdb.php"/>
+      <file role="php" baseinstalldir="Mail" name="Queue\Container\mdb2.php"/>
+      <file role="doc" baseinstalldir="Mail" name="docs\add_example.php"/>
+      <file role="doc" baseinstalldir="Mail" name="docs\base.php"/>
+      <file role="doc" baseinstalldir="Mail" name="docs\mdb_mail_queue_schema.xml"/>
+      <file role="doc" baseinstalldir="Mail" name="docs\mysql.sql"/>
+      <file role="doc" baseinstalldir="Mail" name="docs\pgsql.sql"/>
+      <file role="doc" baseinstalldir="Mail" name="docs\send_example.php"/>
+      <file role="doc" baseinstalldir="Mail" name="docs\TODO"/>
+      <file role="doc" baseinstalldir="Mail" name="docs\README"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>1.1.1</version>
+      <date>2004-07-22</date>
+      <license>PHP</license>
+      <state>stable</state>
+      <notes>- Fixed a buggy implementation of the preload() method
+  which was causing several problems
+- Use DB::modifyLimitQuery() instead of a mysql-specific
+  LIMIT clause in the DB container
+- Added a new MDB2 container
+    
+</notes>
+    </release>
+    <release>
+      <version>1.1</version>
+      <date>2004-03-05</date>
+      <license>PHP</license>
+      <state>stable</state>
+      <notes>- Error management has been rewritten. New error constants are used,
+  so custom error mgmt is now possible.
+- Added a &quot;pearErrorMode&quot; option to specify what to do with Pear_Error
+  (was: PEAR_ERROR_PRINT by default)
+- Added a &quot;sequence&quot; container option to specify the name of the sequence table.
+- Moved Mail_Queue_Error class from Mail/Queue/Error.php to Mail/Queue.php.
+- Preloading management has been rewritten. The amount of memory used by the
+  internal buffer can be limited to any chosen value via the setBufferSize() method.
+- The put() methods now returns last_inserted_id instead of true
+- Fixed error in factorySendMail()
+- Fixed: mails weren't set as send when bypassing the queue using sendMailById()
+- Fixed: Mail_Queue_Container_mdb didn't accept a 'dsn' as option
+- PHP 5 fixes
+        
+</notes>
+    </release>
+    <release>
+      <version>1.0</version>
+      <date>2002-12-13</date>
+      <state>stable</state>
+      <notes>First stable release. Added Lorenzo Alberton to the list of contributors.
+Fixed getMailById() in db.php.
+Added new container: Mail_Queue_Container_mdb - Storage driver for fetching mail
+queue data from a PEAR_MDB database.
+	  
+</notes>
+    </release>
+    <release>
+      <version>0.9</version>
+      <date>2002-09-21</date>
+      <state>beta</state>
+      <notes>This is the initial release of the Mail_Queue package.
+</notes>
+    </release>
+  </changelog>
+</package>

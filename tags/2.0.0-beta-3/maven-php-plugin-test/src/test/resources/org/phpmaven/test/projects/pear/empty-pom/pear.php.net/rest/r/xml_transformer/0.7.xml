@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/xml_transformer">XML_Transformer</p>
+ <c>pear.php.net</c>
+ <v>0.7</v>
+ <st>stable</st>
+ <l>PHP License</l>
+ <m>sebastian</m>
+ <s>XML Transformations in PHP</s>
+ <d>With the XML/Transformer class one can easily bind PHP
+functionality to XML tags, thus transforming the input XML tree
+into an output XML tree without the need for XSLT.
+</d>
+ <da>2002-09-22 07:08:00</da>
+ <n>+ Added Anchor namespace handler.
+
+  The Anchor namespace handler implements a database of
+  indirect links. These links can be maintained centrally
+  in a single location, and can be used using
+
+    &lt;a:iref iref=&quot;name&quot;&gt;...&lt;/a&gt;
+
+  &lt;a:random/&gt; selects a single random link from the database.
+
++ Added Image namespace handler.
+
+    + &lt;img:img/&gt; is a replacement for XHTML's &lt;img/&gt; and
+      automatically determines the size of the image.
+
+      For this, the image must be in a format that is
+      understood by getimagesize().
+  
+    + &lt;img:gtext /&gt; is a container that renders its contents
+      as a PNG graphics using ImageTTFText().
+
+      For this to work, a cache directory below DocumentRoot
+      that is writeable by the Webserver owner is necessary.
+      The default is /cache/gtext.
+  
+    + &lt;img:gtextdefault /&gt; understands the same attributes as
+      &lt;img:gtext /&gt; and supplies these to all subsequent calls
+      of &lt;img:gtext /&gt;.
+
++ Namespace handlers can now use getLock() to disable other
+  namespace handlers for the time of their transformation.
+  releaseLock() is used to enable all namespace handlers
+  again.
+
++ Added a caching version of the XML_Transformer that uses
+  the Cache_Lite PEAR package to cache the result of XML
+  transformations.
+
++ Added automatic loading of namespace handlers that are
+  stored in the XML/Transformer/Namespace directory.
+
++ Added new tags to the PHP Namespace Handler:
+
+    + &lt;php:namespace name=&quot;a&quot;&gt;
+       &lt;php:define name=&quot;b&quot;&gt;
+        &lt;p&gt;The attribute x is $x and the content is $content.&lt;/p&gt;
+       &lt;/php:define&gt;
+      &lt;/php:namespace&gt;
+
+      This will define a new namespace a with a single tag b in it
+      (You may put multiple defines into a namespace). If you use
+      &lt;a:b x=&quot;text&quot;&gt;sometext&lt;/a:b&gt;, the variable $x will be replaced
+      with the text, and the variable $content will be replaced with
+      the content.
+
+    + &lt;php:cookievariable name=&quot;&quot;/&gt; inserts the contents of a given
+      HTTP Cookie into the output XML tree.
+
+    + &lt;php:servervariable name=&quot;&quot;/&gt; inserts the contents of a
+      given server variable into the output XML tree.
+
+    + &lt;php:logic/&gt; executes a given block of PHP code and stores
+      its output into the output XML tree.
+
+* Refactored the XML_Transformer class into
+
+    * XML_Transformer.
+
+    * XML_Transformer_CallbackRegistry.
+
+      This class faciliates the registration of new callbacks
+      on-the-fly inside the transformation's recursion.
+
+    * XML_Transformer_OutputBuffer.
+
+      This class decouples the XML transformation from the output
+      buffering.
+
+    * XML_Transformer_Util.
+
+      Static utility methods.
+
+* Deprecated overloading of single XML elements.
+
+  By overloading a special namespace, &amp;MAIN, the old behaviour can
+  be achieved.
+
+* setDefaultCallback() and unsetDefaultCallback() are deprecated.
+
+  By overloading the newly introduced &amp;MAIN namespace with a class
+  that provides default element handlers the old behaviour can
+  be achieved.</n>
+ <f>13302</f>
+ <g>http://pear.php.net/get/XML_Transformer-0.7</g>
+ <x xlink:href="package.0.7.xml"/>
+</r>

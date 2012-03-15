@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/liveuser">LiveUser</p>
+ <c>pear.php.net</c>
+ <v>0.13.2</v>
+ <st>beta</st>
+ <l>LGPL</l>
+ <m>lsmith</m>
+ <s>User authentication and permission management framework</s>
+ <d>LiveUser is a set of classes for dealing with user authentication
+and permission management. Basically, there are three main elements that
+make up this package:
+* The LiveUser class
+* The Auth containers
+* The Perm containers
+The LiveUser class takes care of the login process and can be configured
+to use a certain permission container and one or more different auth containers.
+That means, you can have your users' data scattered amongst many data containers
+and have the LiveUser class try each defined container until the user is found.
+For example, you can have all website users who can apply for a new account online
+on the webserver's local database. Also, you want to enable all your company's
+employees to login to the site without the need to create new accounts for all of
+them. To achieve that, a second container can be defined to be used by the LiveUser class.
+You can also define a permission container of your choice that will manage the rights for
+each user. Depending on the container, you can implement any kind of permission schemes
+for your application while having one consistent API.
+Using different permission and auth containers, it's easily possible to integrate
+newly written applications with older ones that have their own ways of storing permissions
+and user data. Just make a new container type and you're ready to go!
+Currently available are containers using:
+PEAR::DB, PEAR::MDB, PEAR::MDB2, PEAR::XML_Tree and PEAR::Auth.
+</d>
+ <da>2004-10-13 10:12:42</da>
+ <n>- in getGroups() in /Admin/Perm DB groups. was appended to the sql query with implode, which
+  didn't work for the is_active part since CASE needs to be before groups.is_active
+- add check on the third and fourth parameter to avoid a warning from older code in addUser/updateUser in /Admin/Auth
+- addUser() in the Admin class has a BC break since it wasn't synced with addUser of Auth
+- Same goes with updateUser from the Admin Class
+- Making sure that optinalFields and customFields are array in addGroup/editGroup
+- When neither optional nor custom array was supplied to addGroup/editGroup/addUser it would fail.
+- Removed sql parts which used scope, since we removed it from the create table statements
+- Now all implied rights are removed before the right it self is removed
+- Now all subgroup assignments are removed before removing the group it self
+- Now user is removed after all groups that he/she was owner of has set the owner_user_id to NULL
+- When assigning a subgroup now one can't assign a group as it's own parent.
+- Bug #2206 fixed, now more then one level of subgroups is displayed and getGroups has been optiomized,
+  no more intensive database querying.
+- Now if a assigning a subgroup, it gives back a error if the group id and subgroup id have been added before
+  in another record, that is if the group id has been added as a subgroup id for the current subgroup id
+  (confusing when one explains, but the fix stops a potential silly loop in getGroups)
+- Crypt_RC4 wasn't loaded because of a typo
+- fixed direct passing of remember parameter to the LiveUser::factory() method
+  (fix for bug #2491)
+- fixed critical bug in writeable checking inside LiveUser::_storeCookiePasswdId()
+  (fix for bug #2492)
+- The group table was updated so now group_define_name is default NULL and allows NULL values.
+- set proper default type in LiveUser_Admin::addUser()</n>
+ <f>173325</f>
+ <g>http://pear.php.net/get/LiveUser-0.13.2</g>
+ <x xlink:href="package.0.13.2.xml"/>
+</r>

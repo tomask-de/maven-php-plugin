@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.8">
+ <name>Date_Holidays</name>
+ <summary>Driver based class to calculate holidays.</summary>
+ <description>Date_Holidays helps you calculating the dates and titles of holidays and other special celebrations. The calculation is driver-based so it is easy to add new drivers that calculate a country&apos;s holidays. The methods of the class can be used to get a holiday&apos;s date and title in various languages.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>luckec</user>
+   <name>Carsten Lucke</name>
+   <email>luckec@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>schst</user>
+   <name>Stephan Schmidt</name>
+   <email>schst@php.net</email>
+   <role>developer</role>
+  </maintainer>
+  <maintainer>
+   <user>wiesemann</user>
+   <name>Mark Wiesemann</name>
+   <email>wiesemann@php.net</email>
+   <role>contributor</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>0.15.2</version>
+  <date>2006-04-02</date>
+  <license>PHP License</license>
+  <state>alpha</state>
+  <notes>- Fixed bug #7193 : signature of isHoliday() in composite driver was incorrect (schst)
+- Fixed bug #6729 : Veteran&apos;s Day wrong (schst)
+- minor refactorings (luckec)
+  </notes>
+  <deps>
+   <dep type="pkg" rel="ge" version="1.3.1" optional="no">PEAR</dep>
+   <dep type="pkg" rel="has" optional="no">Date</dep>
+   <dep type="pkg" rel="has" optional="no">XML_Serializer</dep>
+   <dep type="pkg" rel="has" optional="yes">Console_Getargs</dep>
+  </deps>
+  <provides type="class" name="Date_Holidays_Driver_Christian" extends="Date_Holidays_Driver" />
+  <provides type="function" name="Date_Holidays_Driver_Christian::calcEaster" />
+  <provides type="class" name="Date_Holidays_Driver_Composite" extends="Date_Holidays_Driver" />
+  <provides type="function" name="Date_Holidays_Driver_Composite::addDriver" />
+  <provides type="function" name="Date_Holidays_Driver_Composite::removeDriver" />
+  <provides type="function" name="Date_Holidays_Driver_Composite::getHoliday" />
+  <provides type="function" name="Date_Holidays_Driver_Composite::getHolidayDate" />
+  <provides type="function" name="Date_Holidays_Driver_Composite::getHolidayDates" />
+  <provides type="function" name="Date_Holidays_Driver_Composite::getHolidayForDate" />
+  <provides type="function" name="Date_Holidays_Driver_Composite::getHolidays" />
+  <provides type="function" name="Date_Holidays_Driver_Composite::getHolidayTitle" />
+  <provides type="function" name="Date_Holidays_Driver_Composite::getHolidayTitles" />
+  <provides type="function" name="Date_Holidays_Driver_Composite::getYear" />
+  <provides type="function" name="Date_Holidays_Driver_Composite::setYear" />
+  <provides type="function" name="Date_Holidays_Driver_Composite::isHoliday" />
+  <provides type="function" name="Date_Holidays_Driver_Composite::setLocale" />
+  <provides type="class" name="Date_Holidays_Driver_Germany" extends="Date_Holidays_Driver_Christian" />
+  <provides type="class" name="Date_Holidays_Driver_Jewish" extends="Date_Holidays_Driver" />
+  <provides type="class" name="Date_Holidays_Driver_PHPdotNet" extends="Date_Holidays_Driver" />
+  <provides type="class" name="Date_Holidays_Driver_Sweden" extends="Date_Holidays_Driver" />
+  <provides type="function" name="Date_Holidays_Driver_Sweden::calcEaster" />
+  <provides type="class" name="Date_Holidays_Driver_UNO" extends="Date_Holidays_Driver" />
+  <provides type="class" name="Date_Holidays_Driver_USA" extends="Date_Holidays_Driver" />
+  <provides type="class" name="Date_Holidays_Filter_Germany_BadenWuerttemberg" extends="Date_Holidays_Filter_Whitelist" />
+  <provides type="class" name="Date_Holidays_Filter_Germany_Bavaria" extends="Date_Holidays_Filter_Whitelist" />
+  <provides type="class" name="Date_Holidays_Filter_Germany_Berlin" extends="Date_Holidays_Filter_Whitelist" />
+  <provides type="class" name="Date_Holidays_Filter_Germany_Brandenburg" extends="Date_Holidays_Filter_Whitelist" />
+  <provides type="class" name="Date_Holidays_Filter_Germany_Bremen" extends="Date_Holidays_Filter_Whitelist" />
+  <provides type="class" name="Date_Holidays_Filter_Germany_Hamburg" extends="Date_Holidays_Filter_Whitelist" />
+  <provides type="class" name="Date_Holidays_Filter_Germany_Hesse" extends="Date_Holidays_Filter_Whitelist" />
+  <provides type="class" name="Date_Holidays_Filter_Germany_LowerSaxony" extends="Date_Holidays_Filter_Whitelist" />
+  <provides type="class" name="Date_Holidays_Filter_Germany_MecklenburgWesternPomerania" extends="Date_Holidays_Filter_Whitelist" />
+  <provides type="class" name="Date_Holidays_Filter_Germany_NorthRhineWestphalia" extends="Date_Holidays_Filter_Whitelist" />
+  <provides type="class" name="Date_Holidays_Filter_Germany_Official" extends="Date_Holidays_Filter_Whitelist" />
+  <provides type="class" name="Date_Holidays_Filter_Germany_RhinelandPalatinate" extends="Date_Holidays_Filter_Whitelist" />
+  <provides type="class" name="Date_Holidays_Filter_Germany_Saarland" extends="Date_Holidays_Filter_Whitelist" />
+  <provides type="class" name="Date_Holidays_Filter_Germany_Saxony" extends="Date_Holidays_Filter_Whitelist" />
+  <provides type="class" name="Date_Holidays_Filter_Germany_SaxonyAnhalt" extends="Date_Holidays_Filter_Whitelist" />
+  <provides type="class" name="Date_Holidays_Filter_Germany_SchleswigHolstein" extends="Date_Holidays_Filter_Whitelist" />
+  <provides type="class" name="Date_Holidays_Filter_Germany_Thuringia" extends="Date_Holidays_Filter_Whitelist" />
+  <provides type="class" name="Date_Holidays_Filter_Blacklist" extends="Date_Holidays_Filter" />
+  <provides type="function" name="Date_Holidays_Filter_Blacklist::accept" />
+  <provides type="class" name="Date_Holidays_Filter_Composite" extends="Date_Holidays_Filter" />
+  <provides type="function" name="Date_Holidays_Filter_Composite::accept" />
+  <provides type="function" name="Date_Holidays_Filter_Composite::addFilter" />
+  <provides type="function" name="Date_Holidays_Filter_Composite::removeFilter" />
+  <provides type="class" name="Date_Holidays_Filter_Whitelist" extends="Date_Holidays_Filter" />
+  <provides type="function" name="Date_Holidays_Filter_Whitelist::accept" />
+  <provides type="class" name="Date_Holidays_Driver" />
+  <provides type="function" name="Date_Holidays_Driver::setYear" />
+  <provides type="function" name="Date_Holidays_Driver::getYear" />
+  <provides type="function" name="Date_Holidays_Driver::addDriver" />
+  <provides type="function" name="Date_Holidays_Driver::removeDriver" />
+  <provides type="function" name="Date_Holidays_Driver::getInternalHolidayNames" />
+  <provides type="function" name="Date_Holidays_Driver::getHolidayTitles" />
+  <provides type="function" name="Date_Holidays_Driver::getHolidayTitle" />
+  <provides type="function" name="Date_Holidays_Driver::getHolidayProperties" />
+  <provides type="function" name="Date_Holidays_Driver::getHolidays" />
+  <provides type="function" name="Date_Holidays_Driver::getHoliday" />
+  <provides type="function" name="Date_Holidays_Driver::isHoliday" />
+  <provides type="function" name="Date_Holidays_Driver::getHolidayForDate" />
+  <provides type="function" name="Date_Holidays_Driver::getHolidaysForDatespan" />
+  <provides type="function" name="Date_Holidays_Driver::addTranslationFile" />
+  <provides type="function" name="Date_Holidays_Driver::addCompiledTranslationFile" />
+  <provides type="function" name="Date_Holidays_Driver::getHolidayDate" />
+  <provides type="function" name="Date_Holidays_Driver::getHolidayDates" />
+  <provides type="function" name="Date_Holidays_Driver::setLocale" />
+  <provides type="function" name="Date_Holidays_Driver::dateSloppyCompare" />
+  <provides type="class" name="Date_Holidays_Filter" />
+  <provides type="function" name="Date_Holidays_Filter::getFilteredHolidays" />
+  <provides type="function" name="Date_Holidays_Filter::setFilteredHolidays" />
+  <provides type="function" name="Date_Holidays_Filter::accept" />
+  <provides type="class" name="Date_Holidays_Holiday" />
+  <provides type="function" name="Date_Holidays_Holiday::getInternalName" />
+  <provides type="function" name="Date_Holidays_Holiday::getTitle" />
+  <provides type="function" name="Date_Holidays_Holiday::getDate" />
+  <provides type="function" name="Date_Holidays_Holiday::setInternalName" />
+  <provides type="function" name="Date_Holidays_Holiday::setTitle" />
+  <provides type="function" name="Date_Holidays_Holiday::setDate" />
+  <provides type="function" name="Date_Holidays_Holiday::toArray" />
+  <provides type="function" name="Date_Holidays_Holiday::getProperties" />
+  <provides type="class" name="Date_Holidays" />
+  <provides type="function" name="Date_Holidays::factory" />
+  <provides type="function" name="Date_Holidays::getInstalledDrivers" />
+  <provides type="function" name="Date_Holidays::getInstalledFilters" />
+  <provides type="function" name="Date_Holidays::getErrorStack" />
+  <provides type="function" name="Date_Holidays::raiseError" />
+  <provides type="function" name="Date_Holidays::isError" />
+  <provides type="function" name="Date_Holidays::errorsOccurred" />
+  <provides type="function" name="Date_Holidays::getErrors" />
+  <provides type="function" name="Date_Holidays::staticSetProperty" />
+  <provides type="function" name="Date_Holidays::staticGetProperty" />
+  <filelist>
+   <file role="doc" baseinstalldir="Date" md5sum="0bc9d9f1a1a1b881c03e479980515df3" name="examples/addingTranslations.php"/>
+   <file role="doc" baseinstalldir="Date" md5sum="b9d5fd2caf6b138d47f9c23d52d16173" name="examples/creating_drivers.php"/>
+   <file role="doc" baseinstalldir="Date" md5sum="f1d0de2b6403e3fdc55162df3f8b388a" name="examples/fetchingInstalledDrivers.php"/>
+   <file role="doc" baseinstalldir="Date" md5sum="6b09558abedcf5b2e55f6c3f4d86a2fa" name="examples/languagefile-with-properties.xml"/>
+   <file role="doc" baseinstalldir="Date" md5sum="3fa043bcf9e28fa370ae12d7d4822463" name="examples/usingCompositeDriver.php"/>
+   <file role="doc" baseinstalldir="Date" md5sum="4f09e654c832a53dcfd356344d9a94d3" name="examples/usingStandaloneDriver.php"/>
+   <file role="php" baseinstalldir="Date" md5sum="33c5a59d3061de7e486954275737111b" name="Holidays/Driver/Christian.php"/>
+   <file role="php" baseinstalldir="Date" md5sum="3bfe365c0cbe693c4831212eb38f306c" name="Holidays/Driver/Composite.php"/>
+   <file role="php" baseinstalldir="Date" md5sum="5fed69071851c8e7d25f9878e2cdd0e7" name="Holidays/Driver/Germany.php"/>
+   <file role="php" baseinstalldir="Date" md5sum="f091d6b00035209b67a009538c0c93db" name="Holidays/Driver/Jewish.php"/>
+   <file role="php" baseinstalldir="Date" md5sum="7997cda3bfbc5e1d1793157c2f94c060" name="Holidays/Driver/PHPdotNet.php"/>
+   <file role="php" baseinstalldir="Date" md5sum="678c90c160c9039de1d4493bb6b504b4" name="Holidays/Driver/Sweden.php"/>
+   <file role="php" baseinstalldir="Date" md5sum="158d76619df2beff8108bed3c1589e21" name="Holidays/Driver/UNO.php"/>
+   <file role="php" baseinstalldir="Date" md5sum="6a312e004ad26b1aaeab16d327f273a6" name="Holidays/Driver/USA.php"/>
+   <file role="php" baseinstalldir="Date" md5sum="f358f4b4cd21c002f439168cd48fada9" name="Holidays/Filter/Germany/BadenWuerttemberg.php"/>
+   <file role="php" baseinstalldir="Date" md5sum="34cf378ed133116c040c03c2da63af50" name="Holidays/Filter/Germany/Bavaria.php"/>
+   <file role="php" baseinstalldir="Date" md5sum="f3c9661bbf44793b53b32599b0d633ca" name="Holidays/Filter/Germany/Berlin.php"/>
+   <file role="php" baseinstalldir="Date" md5sum="521f68928d1afcf547861548040ea737" name="Holidays/Filter/Germany/Brandenburg.php"/>
+   <file role="php" baseinstalldir="Date" md5sum="08c8c879b6d138b921cf948b7c6ef19b" name="Holidays/Filter/Germany/Bremen.php"/>
+   <file role="php" baseinstalldir="Date" md5sum="3774b54e2f3c9ab1c0fcdd921ea7dd97" name="Holidays/Filter/Germany/Hamburg.php"/>
+   <file role="php" baseinstalldir="Date" md5sum="3fb650f42ef38bd910b83ade43111e6c" name="Holidays/Filter/Germany/Hesse.php"/>
+   <file role="php" baseinstalldir="Date" md5sum="35628373d1e23f7ba6ab3d028fb007c8" name="Holidays/Filter/Germany/LowerSaxony.php"/>
+   <file role="php" baseinstalldir="Date" md5sum="a75118ef20d4f301d6859ea15fb592aa" name="Holidays/Filter/Germany/MecklenburgWesternPomerania.php"/>
+   <file role="php" baseinstalldir="Date" md5sum="803f497529fcdd7ad8d64d32936d9c25" name="Holidays/Filter/Germany/NorthRhineWestphalia.php"/>
+   <file role="php" baseinstalldir="Date" md5sum="0c559ba7a67c00e7647d6e8318fb5d90" name="Holidays/Filter/Germany/Official.php"/>
+   <file role="php" baseinstalldir="Date" md5sum="b8405ae2668af0dc5855ce37c8ab92e5" name="Holidays/Filter/Germany/RhinelandPalatinate.php"/>
+   <file role="php" baseinstalldir="Date" md5sum="6fbec4284809d6b16c728731902c6c68" name="Holidays/Filter/Germany/Saarland.php"/>
+   <file role="php" baseinstalldir="Date" md5sum="fbb957cebd945980cc622537162098e7" name="Holidays/Filter/Germany/Saxony.php"/>
+   <file role="php" baseinstalldir="Date" md5sum="ec907100c12e0f124b5de38bdd03753d" name="Holidays/Filter/Germany/SaxonyAnhalt.php"/>
+   <file role="php" baseinstalldir="Date" md5sum="30fa92cdee863f1b81bafc8965cd97a1" name="Holidays/Filter/Germany/SchleswigHolstein.php"/>
+   <file role="php" baseinstalldir="Date" md5sum="d472d0015d969ab4d2c98beed50d40be" name="Holidays/Filter/Germany/Thuringia.php"/>
+   <file role="php" baseinstalldir="Date" md5sum="762927f7027cf2bbf0ad0e0fcd4eb58c" name="Holidays/Filter/Blacklist.php"/>
+   <file role="php" baseinstalldir="Date" md5sum="0b8cb722b6b802694105aae011aaafc8" name="Holidays/Filter/Composite.php"/>
+   <file role="php" baseinstalldir="Date" md5sum="a686e756f6a5e04688e90cae2c62fb42" name="Holidays/Filter/Whitelist.php"/>
+   <file role="php" baseinstalldir="Date" md5sum="20660012e78269d440fe57a720344277" name="Holidays/Driver.php"/>
+   <file role="php" baseinstalldir="Date" md5sum="c6e3866f5d6995502de128c704ec3028" name="Holidays/Filter.php"/>
+   <file role="php" baseinstalldir="Date" md5sum="0c3965e6a8f197d46f345eddb5530b99" name="Holidays/Holiday.php"/>
+   <file role="data" baseinstalldir="Date" md5sum="fa2b80448136059e9eea6ea7db0e10ad" name="lang/Christian/de_DE.ser"/>
+   <file role="data" baseinstalldir="Date" md5sum="18d2daf1665c0352fa57609de3208da6" name="lang/Christian/de_DE.xml"/>
+   <file role="data" baseinstalldir="Date" md5sum="f018ad713c2b614070562e3664cc9fe8" name="lang/Christian/en_EN.ser"/>
+   <file role="data" baseinstalldir="Date" md5sum="33056f58d7fa37e0d165291fe7b63eb4" name="lang/Christian/en_EN.xml"/>
+   <file role="data" baseinstalldir="Date" md5sum="b6d194114d4f1daacb197412456f55a0" name="lang/Christian/fr_FR.ser"/>
+   <file role="data" baseinstalldir="Date" md5sum="609797c0597f8a216cd9c67c381b781a" name="lang/Christian/fr_FR.xml"/>
+   <file role="data" baseinstalldir="Date" md5sum="4a2c942cc2f9e7d7adda1d424fcbaac2" name="lang/Christian/it_IT.ser"/>
+   <file role="data" baseinstalldir="Date" md5sum="aae95aeb177d97edd4d63ee00e45e609" name="lang/Christian/it_IT.xml"/>
+   <file role="data" baseinstalldir="Date" md5sum="9b3abeef718f4ed91f84fbb1e816c63a" name="lang/Germany/de_DE.ser"/>
+   <file role="data" baseinstalldir="Date" md5sum="9d7d4cfe576bbd74d8d18fce9a930c9f" name="lang/Germany/de_DE.xml"/>
+   <file role="data" baseinstalldir="Date" md5sum="b2d1b9e09e32cecc0b0e49e60d200569" name="lang/Germany/en_EN.ser"/>
+   <file role="data" baseinstalldir="Date" md5sum="d4586329954c5bca0c94557807e11cce" name="lang/Germany/en_EN.xml"/>
+   <file role="data" baseinstalldir="Date" md5sum="54ea7080074aa0d0ad08e9b91f6334fd" name="lang/Germany/fr_FR.ser"/>
+   <file role="data" baseinstalldir="Date" md5sum="5c989b4e8bd6ecb9a0b5eed489583c8d" name="lang/Germany/fr_FR.xml"/>
+   <file role="data" baseinstalldir="Date" md5sum="e7700d05190f35c0b77661c25b45396b" name="lang/Sweden/de_DE.ser"/>
+   <file role="data" baseinstalldir="Date" md5sum="fa8f1790d0d8c822421c9ae0a8ed190a" name="lang/Sweden/de_DE.xml"/>
+   <file role="data" baseinstalldir="Date" md5sum="ae9a6c1a883e8fcf3d6351b9b6175c34" name="lang/Sweden/en_EN.ser"/>
+   <file role="data" baseinstalldir="Date" md5sum="f023f63a0cc712b0640f26410aef8a89" name="lang/Sweden/en_EN.xml"/>
+   <file role="data" baseinstalldir="Date" md5sum="44e044306fef43bd4260091ceb7fdf65" name="lang/UNO/de_DE.ser"/>
+   <file role="data" baseinstalldir="Date" md5sum="0032ef607dc610674578cce8a8c36fb7" name="lang/UNO/de_DE.xml"/>
+   <file role="data" baseinstalldir="Date" md5sum="77efa6ab3102dc7bdce9ffff9dbe99aa" name="lang/UNO/en_EN.ser"/>
+   <file role="data" baseinstalldir="Date" md5sum="eb18d4485ddcf807868c610f8d441dcb" name="lang/UNO/en_EN.xml"/>
+   <file role="data" baseinstalldir="Date" md5sum="ffa3bc758f19587a058616da6be43553" name="lang/USA/de_DE.ser"/>
+   <file role="data" baseinstalldir="Date" md5sum="1780920938caaf3b178ab6750b83046d" name="lang/USA/de_DE.xml"/>
+   <file role="data" baseinstalldir="Date" md5sum="131f8ee5fb77b7f16689e1a875438b49" name="lang/USA/en_EN.ser"/>
+   <file role="data" baseinstalldir="Date" md5sum="b2ff4cfe7235d25221025e1eef688086" name="lang/USA/en_EN.xml"/>
+   <file role="test" baseinstalldir="Date" md5sum="6cf8dae307348f01c207754420eef251" name="tests/AllTests.php">
+    <replace from="@data_dir@" to="data_dir" type="pear-config"/>
+   </file>
+   <file role="test" baseinstalldir="Date" md5sum="091e341e8006ee1767e724612af4d852" name="tests/Date_Holidays_Driver_Christian_TestSuite.php"/>
+   <file role="test" baseinstalldir="Date" md5sum="22bb61147debe3389e89d055461bdae7" name="tests/Date_Holidays_Driver_Germany_TestSuite.php"/>
+   <file role="test" baseinstalldir="Date" md5sum="6338e24cafaa01206cd43b13189c0a78" name="tests/Date_Holidays_Driver_Jewish_TestSuite.php"/>
+   <file role="test" baseinstalldir="Date" md5sum="6743cbdd35627871e59c0c6e0db13318" name="tests/Date_Holidays_Driver_PHPdotNet_TestSuite.php"/>
+   <file role="test" baseinstalldir="Date" md5sum="451dece970ae8867ebdc1e0306a51c1d" name="tests/Date_Holidays_Driver_Sweden_TestSuite.php"/>
+   <file role="test" baseinstalldir="Date" md5sum="0172eb78ac0988a3b93dc8186915318b" name="tests/Date_Holidays_Driver_TestSuite.php"/>
+   <file role="test" baseinstalldir="Date" md5sum="f76d7e90804cc0f1a2cdab03a3faf0f7" name="tests/Date_Holidays_Driver_TestSuite.xml"/>
+   <file role="test" baseinstalldir="Date" md5sum="4b80f786394eec9f418bc29d0baf9d80" name="tests/Date_Holidays_Driver_UNO_TestSuite.php"/>
+   <file role="test" baseinstalldir="Date" md5sum="debda28bc4336b79e5a7867fbc865243" name="tests/Date_Holidays_Driver_USA_TestSuite.php"/>
+   <file role="test" baseinstalldir="Date" md5sum="2d09616f6d39a6db34ccf1831e2160c4" name="tests/Example.php"/>
+   <file role="php" baseinstalldir="Date" md5sum="66932a759dfee31a2d3f06fd699d7577" name="Holidays.php"/>
+   <file role="script" baseinstalldir="/" md5sum="8e2c395b8e5e1ad6df16bc8096eee07d" name="pear-dh-compile-translationfile"/>
+   <file role="script" baseinstalldir="/" md5sum="044bd570dc063f896f1388e1da35be06" name="pear-dh-ini2xml"/>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>0.9.0</version>
+    <date>2004-08-20</date>
+    <license>PHP License</license>
+    <state>alpha</state>
+    <notes>initial pear release
+    </notes>
+   </release>
+   <release>
+    <version>0.10.0</version>
+    <date>2004-08-30</date>
+    <license>PHP License</license>
+    <state>alpha</state>
+    <notes>added optional $restrict-param for Date_Holidays_Driver::isHoliday()
+    </notes>
+   </release>
+   <release>
+    <version>0.11.0</version>
+    <date>2004-11-03</date>
+    <license>PHP License</license>
+    <state>alpha</state>
+    <notes>Added driver and English languagefile for USA built by Kevin English.
+    </notes>
+   </release>
+   <release>
+    <version>0.12.0</version>
+    <date>2004-12-29</date>
+    <license>PHP License</license>
+    <state>alpha</state>
+    <notes>- added Italian languagefile for Christian holidays (thx 2 quipo)
+- added performance-fix for getHolidayForDate() (thx 2 quipo)
+- added German translation for USA-holidays
+    </notes>
+   </release>
+   <release>
+    <version>0.13.0</version>
+    <date>2005-02-14</date>
+    <license>PHP License</license>
+    <state>alpha</state>
+    <notes>- added Filters (Blacklist, Whitelist, Composite, Germany_Official)
+- improved Date_Holidays_Driver_Composite (allows executing setYear() now) 
+- added new driver PHPdotNet
+- several cosmetic changes
+    </notes>
+   </release>
+   <release>
+    <version>0.14.0</version>
+    <date>2005-10-16</date>
+    <license>PHP License</license>
+    <state>alpha</state>
+    <notes>- Switched from using INI files for translation to XML files
+- Added script to convert INI files to XML files
+- Added script to compile XML based language files
+- Holidays can now have various properties (see &quot;languagefile-with-properties.xml&quot; in examples-directory)
+- removed &quot;againstNoiseDay&quot; !BC break! from Germany driver, cannot be calculated automatically
+- new driver-methods:
+   = addCompiledTranslationFile(), allows adding compiled language-data files for performance improvements
+   = getHolidaysForDatespan(), returns holidays within a given time span
+- several bugfixes
+- Added filters for german federal states (contributed by Mark Wiesemann)
+    </notes>
+   </release>
+   <release>
+    <version>0.15.0</version>
+    <date>2006-01-06</date>
+    <license>PHP License</license>
+    <state>alpha</state>
+    <notes>- Implemented request #5764 : Methods to get installed drivers and filters (schst)
+    - Added driver for calculation of Swedish holidays, feature-request: #6350  (luckec)
+    - Added unit-tests to package, added dynamic replacement of PEAR data-dir for language-files (luckec)
+    </notes>
+   </release>
+   <release>
+    <version>0.15.1</version>
+    <date>2006-01-15</date>
+    <license>PHP License</license>
+    <state>alpha</state>
+    <notes>- added Midsummer Eve for Date_Holidays_Driver_Sweden (luckec)
+    </notes>
+   </release>
+   <release>
+    <version>0.15.2</version>
+    <date>2006-04-02</date>
+    <license>PHP License</license>
+    <state>alpha</state>
+    <notes>- Fixed bug #7193 : signature of isHoliday() in composite driver was incorrect (schst)
+- Fixed bug #6729 : Veteran&apos;s Day wrong (schst)
+- minor refactorings (luckec)
+    </notes>
+   </release>
+ </changelog>
+</package>

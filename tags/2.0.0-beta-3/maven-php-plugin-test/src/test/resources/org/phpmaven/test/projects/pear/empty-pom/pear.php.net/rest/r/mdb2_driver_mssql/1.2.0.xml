@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/mdb2_driver_mssql">MDB2_Driver_mssql</p>
+ <c>pear.php.net</c>
+ <v>1.2.0</v>
+ <st>stable</st>
+ <l>BSD License</l>
+ <m>davidc</m>
+ <s>mssql MDB2 driver</s>
+ <d>This is the MS SQL Server MDB2 driver.</d>
+ <da>2007-03-14 08:19:31</da>
+ <n>- added ability to escape wildcard characters in escape() and quote()
+- added setTransactionIsolation()
+- added savepoint support to beginTransaction(), commit() and rollback()
+- added debug() call at the end of a query/prepare/execute calling (Request #7933)
+- added context array parameter to debug() and make use of it whereever sensible
+- added optional method name parameter to raiseError() and use whereever possible
+- added ability to escape wildcard characters in escape() and quote()
+- added debug() call at the end of a query/prepare/execute calling (Request #7933)
+- added 'nativetype' output to tableInfo() and getTableFieldDefinition()
+- added 'mdb2type' output to getTableFieldDefinition()
+- reworked tableInfo() to use a common implementation based on getTableFieldDefinition()
+  when a table name is passed (Bug #8124)
+- fixed incorrect regex in mapNativeDatatype() (Bug #8256) (thx ioz at ionosfera dot com)
+- use old DSN when rolling back open transactions in disconnect()
+- MSSQL requires making columns exlicitly NULLable (Bug #8359)
+- do not list empty contraints and indexes
+- added support for autoincrement via IDENTITY in getDeclaration()
+- ALTER TABLE bug when adding more than 1 column (Bug #8373)
+- fixed handling return values when disable_query is set in _doQuery() and _execute()
+- added dropIndex() to the manager module
+- increased MDB2 dependency to XXX
+- renamed valid_types property to valid_default_values in the Datatype module
+- increased PHP dependency due to bug #31195
+- using 'ADD COLUMN' syntax instead of just 'ADD' in alterTable()
+- fixed bug #9024: typo in error checking
+- fixed inheritance structure of convertResult()
+- added support for new 'disable_iso_date' date DSN option (Request #8739)
+- fix typos in error handling in a few places (bug #9024)
+- do not skip id generation in nextId() when creating a sequence on demand
+  because this prevents lastInsertID() from working
+- added support for more error codes (patch by Adam Harvey)
+- migrated to package.xml version 2
+- implemented getTableFieldDefinition() in the Reverse module
+- implemented getTableIndexDefinition() in the Reverse module
+- implemented getTableConstraintDefinition() in the Reverse module
+- implemented getTriggerDefinition() in the Reverse module
+- implemented listTableConstraints() in the Manager module
+- implemented listFunctions() in the Manager module
+- implemented listDatabases() in the Manager module
+- implemented listUsers() in the Manager module
+- implemented guid() in the Function module [globally unique identifier]
+- implemented a fallback mechanism within getTableIndexDefinition() in the Reverse
+  module to ignore the 'idxname_format' option and use the index name as provided
+  in case of failure before returning an error
+- added a 'nativetype_map_callback' option to map native data declarations back to
+  custom data types (thanks to Andrew Hill).
+- added missing integer data types and their length in _mapNativeDatatype()
+- phpdoc fixes
+
+open todo items:
+- explore fast limit/offset emulation (Request #4544)</n>
+ <f>29185</f>
+ <g>http://pear.php.net/get/MDB2_Driver_mssql-1.2.0</g>
+ <x xlink:href="package.1.2.0.xml"/>
+</r>

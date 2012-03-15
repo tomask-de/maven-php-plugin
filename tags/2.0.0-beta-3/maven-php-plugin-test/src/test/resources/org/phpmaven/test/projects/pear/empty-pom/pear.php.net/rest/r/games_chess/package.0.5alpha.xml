@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Games_Chess</name>
+  <summary>Construct and validate a logical chess game, does not display</summary>
+  <description>The logic of handling a chessboard and parsing standard
+FEN (Farnsworth-Edwards Notation) for describing a position as well as SAN
+(Standard Algebraic Notation) for describing individual moves is handled.  This
+class can be used as a backend driver for playing chess, or for validating
+and/or creating PGN files using the File_ChessPGN package.
+
+Although this package is alpha, it is fully unit-tested.  The code works, but
+the API is fluid, and may change dramatically as it is put into use and better
+ways are found to use it.  When the API stabilizes, the stability will increase.</description>
+  <maintainers>
+    <maintainer>
+      <user>cellog</user>
+      <name>Greg Beaver</name>
+      <email>cellog@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.5alpha</version>
+    <date>2003-10-26</date>
+    <license>PHP License</license>
+    <state>alpha</state>
+    <notes>Added new module for Loser's chess (ICC wild 16)
+
+- added gameOver() method, returns color of winner, or D for draw, or false</notes>
+    <deps>
+      <dep type="php" rel="ge" version="4.2.0" optional="no"/>
+    </deps>
+    <provides type="class" name="Games_Chess_Losers" extends="Games_Chess_Standard" />
+    <provides type="function" name="Games_Chess_Losers::gameOver" />
+    <provides type="class" name="Games_Chess_Standard" extends="Games_Chess" />
+    <provides type="function" name="Games_Chess_Standard::blankBoard" />
+    <provides type="function" name="Games_Chess_Standard::addPiece" />
+    <provides type="function" name="Games_Chess_Standard::toArray" />
+    <provides type="function" name="Games_Chess_Standard::inCheck" />
+    <provides type="function" name="Games_Chess_Standard::isBishop" />
+    <provides type="function" name="Games_Chess_Standard::isRook" />
+    <provides type="function" name="Games_Chess_Standard::isPawn" />
+    <provides type="function" name="Games_Chess_Standard::isKing" />
+    <provides type="class" name="Games_Chess" />
+    <provides type="function" name="Games_Chess::blankBoard" />
+    <provides type="function" name="Games_Chess::resetGame" />
+    <provides type="function" name="Games_Chess::moveSAN" />
+    <provides type="function" name="Games_Chess::moveSquare" />
+    <provides type="function" name="Games_Chess::getMoveList" />
+    <provides type="function" name="Games_Chess::gameOver" />
+    <provides type="function" name="Games_Chess::inCheckMate" />
+    <provides type="function" name="Games_Chess::inStaleMate" />
+    <provides type="function" name="Games_Chess::inDraw" />
+    <provides type="function" name="Games_Chess::inRepetitionDraw" />
+    <provides type="function" name="Games_Chess::in50MoveDraw" />
+    <provides type="function" name="Games_Chess::inBasicDraw" />
+    <provides type="function" name="Games_Chess::renderFen" />
+    <provides type="function" name="Games_Chess::addPiece" />
+    <provides type="function" name="Games_Chess::toArray" />
+    <provides type="function" name="Games_Chess::isPromoteMove" />
+    <provides type="function" name="Games_Chess::toMove" />
+    <provides type="function" name="Games_Chess::canCastleKingside" />
+    <provides type="function" name="Games_Chess::canCastleQueenside" />
+    <provides type="function" name="Games_Chess::getPossibleMoves" />
+    <provides type="function" name="Games_Chess::getPieceLocations" />
+    <provides type="function" name="Games_Chess::getPossibleKnightMoves" />
+    <provides type="function" name="Games_Chess::getPossibleBishopMoves" />
+    <provides type="function" name="Games_Chess::getPossibleRookMoves" />
+    <provides type="function" name="Games_Chess::getPossibleQueenMoves" />
+    <provides type="function" name="Games_Chess::getPossiblePawnMoves" />
+    <provides type="function" name="Games_Chess::getPossibleKingMoves" />
+    <provides type="function" name="Games_Chess::getDiagonalColor" />
+    <provides type="function" name="Games_Chess::raiseError" />
+    <provides type="function" name="Games_Chess::getMessage" />
+    <provides type="function" name="Games_Chess::isError" />
+    <provides type="function" name="Games_Chess::startTransaction" />
+    <provides type="function" name="Games_Chess::commitTransaction" />
+    <provides type="function" name="Games_Chess::rollbackTransaction" />
+    <filelist>
+      <file role="php" baseinstalldir="Games" md5sum="078100603ccdd52076baafd8b5c9161c" name="Chess/Losers.php"/>
+      <file role="php" baseinstalldir="Games" md5sum="ef46106e40f7f6da714b29142e8252e6" name="Chess/Standard.php"/>
+      <file role="data" baseinstalldir="Games" md5sum="8393cdbf229aee906aba80fbcccf1a97" name="examples/HTMLChess.php"/>
+      <file role="data" baseinstalldir="Games" md5sum="a847ef7d029f5f9c608fa5166268437d" name="examples/images/B.gif"/>
+      <file role="data" baseinstalldir="Games" md5sum="c9ee061f36289f8faca053b5d9064562" name="examples/images/blank.gif"/>
+      <file role="data" baseinstalldir="Games" md5sum="41b6871dd5591a3ecb235fc6720a1818" name="examples/images/K.gif"/>
+      <file role="data" baseinstalldir="Games" md5sum="1713880fd9cbc1b5c28ebfc049c47c1f" name="examples/images/N.gif"/>
+      <file role="data" baseinstalldir="Games" md5sum="e8dde345f489a7d3c5a76f018a94ba00" name="examples/images/P.gif"/>
+      <file role="data" baseinstalldir="Games" md5sum="3334b0e912084403dcf79fee727e62ca" name="examples/images/Q.gif"/>
+      <file role="data" baseinstalldir="Games" md5sum="f63487caff4a223b13fdab4384270b53" name="examples/images/R.gif"/>
+      <file role="data" baseinstalldir="Games" md5sum="8f9dd9b5e11b0d99673c3a08b26cab17" name="examples/images/dark/b.gif"/>
+      <file role="data" baseinstalldir="Games" md5sum="c9ee061f36289f8faca053b5d9064562" name="examples/images/dark/blank.gif"/>
+      <file role="data" baseinstalldir="Games" md5sum="ab32ae187ffe55910de5adaf895bcba4" name="examples/images/dark/k.gif"/>
+      <file role="data" baseinstalldir="Games" md5sum="e3dd0206913f96a83771b5c40bdfe0fd" name="examples/images/dark/n.gif"/>
+      <file role="data" baseinstalldir="Games" md5sum="f43c43879224759e27d4283c0eb9c5ff" name="examples/images/dark/p.gif"/>
+      <file role="data" baseinstalldir="Games" md5sum="a5ab27171a3346b17ff59e05876234b4" name="examples/images/dark/q.gif"/>
+      <file role="data" baseinstalldir="Games" md5sum="ab04b1a7cbdbf94a25d2f1e778963225" name="examples/images/dark/r.gif"/>
+      <file role="test" baseinstalldir="Games" md5sum="e662acf6f1a7953f7d8fc1b419e1642b" name="tests/Games_Chess_TestCase_addPiece.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="a436bd79f2dd06cd7cde253a783c9e43" name="tests/Games_Chess_TestCase_bugdxc3.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="6a165353721fedb15cddcbac4d596134" name="tests/Games_Chess_TestCase_bugEnPassant.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="af6ad473dc7a2ff8c7c7da5f9bc2008c" name="tests/Games_Chess_TestCase_bugpromotion.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="0fc78f51224055ca35fdf6cc9ff10484" name="tests/Games_Chess_TestCase_convertSquareToSAN.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="e9dcd5b962ea3db8cdbab80d2aaa49da" name="tests/Games_Chess_TestCase_getAllPieceLocations.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="1c04016669b392607b07e576fadc4f33" name="tests/Games_Chess_TestCase_getAllPieceSquares.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="b7b5a857d94b3c0e56ff4666c09b8d83" name="tests/Games_Chess_TestCase_getDiagonal.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="c1a63923cdf5ae246d68b0e386790b87" name="tests/Games_Chess_TestCase_getDiagonalColor.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="e57aabf5669a304cf3fee338ecffdcc1" name="tests/Games_Chess_TestCase_getKingSquares.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="66f0e0a1a9a1eef56455d737f04998d0" name="tests/Games_Chess_TestCase_getKnightSquares.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="82d16550f91202a7ff427f73db383157" name="tests/Games_Chess_TestCase_getPathToKing.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="4896b5fd2de622bfdacbbf402c7e3fa0" name="tests/Games_Chess_TestCase_getPieceTypes.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="9e632225380c454a4c88d8ad2b4cbcfb" name="tests/Games_Chess_TestCase_getPossibleBishopMoves.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="e16d2256265474b6c59800982c318783" name="tests/Games_Chess_TestCase_getPossibleChecks.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="9af8a9549625cbeca6902f1fa4227fb8" name="tests/Games_Chess_TestCase_getPossibleKingMoves.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="dac625b426c09f9396cb050bd48b8c55" name="tests/Games_Chess_TestCase_getPossibleKnightMoves.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="07a77d8bc20936cdfbdbf4fbbabdde99" name="tests/Games_Chess_TestCase_getPossibleMoves.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="50f91ecfd3dbfe33501cec85ba80695c" name="tests/Games_Chess_TestCase_getPossiblePawnMoves.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="d49b651b94c1c1b5bc16820e5bbfa359" name="tests/Games_Chess_TestCase_getPossibleQueenMoves.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="4b8d1061d62c4ef5294295643e4e8125" name="tests/Games_Chess_TestCase_getPossibleRookMoves.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="028bd1da4767ddd3c62c6a7da4b5d843" name="tests/Games_Chess_TestCase_getRookSquares.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="d08825327be1e66035fb00ca617b4acd" name="tests/Games_Chess_TestCase_getSquareFromParsedMove.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="2eff603926926d3d7447838f11c2d76e" name="tests/Games_Chess_TestCase_inBasicDraw.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="49778bfade565bbe5338937f1fa3c516" name="tests/Games_Chess_TestCase_inCheck.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="53b79575bf712e10d9b90b8e30f26bb5" name="tests/Games_Chess_TestCase_inCheckMate.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="982f6aecd9585464647ddf36bfd1e11d" name="tests/Games_Chess_TestCase_inStaleMate.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="848ab93211aa8ec16e9ba58176183cfb" name="tests/Games_Chess_TestCase_interposeOrCapture.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="76f558d95c8b87ab418422aa3449e792" name="tests/Games_Chess_TestCase_moveAlgebraic.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="9c872285db40bebbc899d14d77ff392c" name="tests/Games_Chess_TestCase_movePiece.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="21b45511243c22f35e41d06d456ff4eb" name="tests/Games_Chess_TestCase_moveSAN.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="9322b498ff8f887e071d58d5bba6ea97" name="tests/Games_Chess_TestCase_parseFen.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="8ced54ba49bb0ab0e6a06c84d61e8f4b" name="tests/Games_Chess_TestCase_parseMove.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="f966b7cacdf3b28f5e58d4a1a48a7427" name="tests/Games_Chess_TestCase_squareToPiece.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="a3c866af9d8708280004b4176c9267b8" name="tests/Games_Chess_TestCase_validMove.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="5b3da8e748e4be3505aec0955394483e" name="tests/HTML_TestListener.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="00e5090950407f9b844887c0951dccba" name="tests/stylesheet.css"/>
+      <file role="test" baseinstalldir="Games" md5sum="18869de6d8addeea037f20aa657eef62" name="tests/testsuite.php"/>
+      <file role="test" baseinstalldir="Games" md5sum="e414efac9d52381d8a9836f444338611" name="tests/TestUnit.php"/>
+      <file role="php" baseinstalldir="Games" md5sum="caa0873ad837417f687b7586482b3755" name="Chess.php">
+        <replace type="package-info" from="@VER@" to="version"/>
+      </file>
+      <file role="doc" baseinstalldir="Games" md5sum="d471bf1c3b38de5e83f8c0bda73e7e8a" name="LICENSE"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.1</version>
+      <date>2003-10-08</date>
+      <license>PHP License</license>
+      <state>alpha</state>
+      <notes>Initial test release
+</notes>
+    </release>
+    <release>
+      <version>0.2</version>
+      <date>2003-10-08</date>
+      <license>PHP License</license>
+      <state>alpha</state>
+      <notes>Fixed a few bugs:
+
+- 1. e4 e5 2. Nf3 Nc6 3. Bc4 Nf6 4. Nc3 Bb4 5. 
+a3 Bxc3 6. dxc3 was fine through moveSAN(), but not through moveSquare('d2', 'c3')
+- en passant didn't actually delete the captured pawn
+</notes>
+    </release>
+    <release>
+      <version>0.3</version>
+      <date>2003-10-09</date>
+      <license>PHP License</license>
+      <state>alpha</state>
+      <notes>Fixed a few bugs:
+
+- example works in Mozilla now
+- promotion was endless loop in example
+- promotion didn't change the pawn to the promoted piece
+</notes>
+    </release>
+    <release>
+      <version>0.4alpha</version>
+      <date>2003-10-26</date>
+      <license>PHP License</license>
+      <state>alpha</state>
+      <notes>Added new module for Loser's chess (ICC wild 16)
+
+- added gameOver() method, returns color of winner, or D for draw, or false
+</notes>
+    </release>
+    <release>
+      <version>0.5alpha</version>
+      <date>2003-10-26</date>
+      <license>PHP License</license>
+      <state>alpha</state>
+      <notes>Added new module for Loser's chess (ICC wild 16)
+
+- added gameOver() method, returns color of winner, or D for draw, or false
+</notes>
+    </release>
+  </changelog>
+</package>

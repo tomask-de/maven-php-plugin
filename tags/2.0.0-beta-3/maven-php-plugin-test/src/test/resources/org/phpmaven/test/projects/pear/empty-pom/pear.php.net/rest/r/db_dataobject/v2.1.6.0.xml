@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release2
+    http://pear.php.net/dtd/rest.release2.xsd">
+ <p xlink:href="/rest/p/db_dataobject">DB_DataObject</p>
+ <c>pear.php.net</c>
+ <v>1.6.0</v>
+ <a>1.6.0</a>
+ <mp>4.3.0</mp>
+ <st>stable</st>
+ <l>PHP License</l>
+ <m>alan_k</m>
+ <s>An SQL Builder, Object Interface to Database Tables</s>
+ <d>DataObject performs 2 tasks:
+  1. Builds SQL statements based on the objects vars and the builder methods.
+  2. acts as a datastore for a table row.
+  The core class is designed to be extended for each of your tables so that you put the
+  data logic inside the data classes.
+  included is a Generator to make your configuration files and your base classes.
+  nd
+</d>
+ <da>2004-06-02 11:26:31</da>
+ <n>Minor Feature Release and many bug fixes..
+
+* DB_DataObject_Error added to enable testing for dataobject errors
+* Date fixes - needs latest date package.
+* Generator fails with clear message if backend doesnt support tableInfo
+* added cidr, inet, macaddr for postgres
+* new options to filter generation of classes
+  generator_include_regex = /foo_.*/i
+  generator_exclude_regex = /tmp_.*/i
+* result column list is now stored for all queries (in the result object)
+  so toArray() allways relates to the query.
+* php version correted in package file.
+* getLinks called before other database call fixed.
+* Updating without changing things, no longer raises a pear error,
+  it just returns 0 (eg. no rows affected)
+* now Depends on 1.4 DB - escapeSimple is now used
+* extra option to disable assumtions to use pear db's nextID
+  dont_use_pear_sequences = true
+* DebugLevel($val) if $val is not an integer - it is assumed to be a callback.
+* fixed clearing of data results after last fetch (reduces memory consumption 
+  when doing many queries)
+* strtolower any class name tests.
+* count accepts 1 or 2 arguments
+  $countWhat or $whereAddonly, or $countWhat and $whereAddonly
+  eg. $countWhat = &quot;distinct id&quot;
+  eg. $countWhat = true (means $whereAdd = true)
+* selectAdd() returns existing value, so you can modify it.
+* most debugging &amp; raiseError calls are dynamic, so you can overload them.
+* numbers allowed in tablenames.
+* ini filename uses database_{projectname} =&gt; {projectname}.ini so
+  database names are portable, and multiple projects are theoretically feasible.
+* __clone is replaced with clone() for PHP5 compaitiblity.
+* use PEAR::getStaticProperty(&quot;DB&quot;,&quot;options&quot;) for oracle portablity settings.
+* null checked against not null spec.
+
+And probably a few more - as it's been quite a while since the last release..</n>
+ <f>42651</f>
+ <g>http://pear.php.net/get/DB_DataObject-1.6.0</g>
+ <x xlink:href="package.1.6.0.xml"/>
+</r>

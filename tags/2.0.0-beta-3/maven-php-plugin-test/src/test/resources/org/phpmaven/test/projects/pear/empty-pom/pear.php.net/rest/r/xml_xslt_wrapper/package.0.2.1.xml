@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>XML_XSLT_Wrapper</name>
+  <summary>Provides a single interface to the different XSLT interface or commands</summary>
+  <description>This package was written to provide a simpler, cross-library and cross commands interface to doing XSL transformations.
+It provides :
+
+* support for :
+  - DOM XSLT php extension
+  - XSLT php extension
+  - XSLT command line tool (xsltproc)
+  - MSXML using COM php extension
+  - XT command line (http://www.blnz.com/xt/xt-20020426a-src/butorindex.html)
+  - Sablotron command line (http://www.gingerall.com/charlie/ga/act/gadoc.act?pg=sablot#i__1940)
+  Planned interface :
+  - XT java interface
+  - xml.apache.org java and C interface (http://xml.apache.org)
+  - Instant Saxon (http://users.iclway.co.uk/mhkay/saxon/instant.html)
+* Batch mode
+ - XML: multiple transformations of a single XML file
+ - XSL: multiple transformations of multiple XML files using a single XSL
+
+See http://www.pearfr.org/xslt_wrapper/ for samples and documentation</description>
+  <maintainers>
+    <maintainer>
+      <user>pajoye</user>
+      <name>Pierre-Alain Joye</name>
+      <email>pajoye@pearfr.org</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>arnaud</user>
+      <name>Arnaud Limbourg</name>
+      <email>arnaud.limbourg@club-internet.fr</email>
+      <role>contributor</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.2.1</version>
+    <date>2003-07-26</date>
+    <license>PHP License</license>
+    <state>alpha</state>
+    <notes>- package fix only</notes>
+    <provides type="class" name="XML_XSLT_Wrapper" />
+    <provides type="class" name="XML_XSLT_Common" extends="PEAR" />
+    <provides type="class" name="XML_XSLT_Error" extends="PEAR_Error" />
+    <provides type="function" name="XML_XSLT_Wrapper::factory" />
+    <provides type="function" name="XML_XSLT_Wrapper::Init" />
+    <provides type="function" name="XML_XSLT_Wrapper::errorMessage" />
+    <provides type="function" name="XML_XSLT_Wrapper::isError" />
+    <provides type="function" name="XML_XSLT_Common::raiseError" />
+    <provides type="function" name="XML_XSLT_Common::setXML" />
+    <provides type="function" name="XML_XSLT_Common::setXSL" />
+    <provides type="function" name="XML_XSLT_Common::setParams" />
+    <provides type="function" name="XML_XSLT_Common::setParam" />
+    <provides type="function" name="XML_XSLT_Common::setOutputEconding" />
+    <provides type="function" name="XML_XSLT_Common::setOptions" />
+    <provides type="function" name="XML_XSLT_Common::setOption" />
+    <provides type="function" name="XML_XSLT_Common::setOuputMode" />
+    <provides type="function" name="XML_XSLT_Common::ResultDumpFile" />
+    <provides type="function" name="XML_XSLT_Common::ResultDumpMem" />
+    <provides type="function" name="XML_XSLT_Common::ResultDumpOut" />
+    <provides type="function" name="XML_XSLT_Common::batchXML" />
+    <provides type="function" name="XML_XSLT_Common::batchXSL" />
+    <provides type="class" name="XML_XSLT_Backend_XSLT_ext" extends="XML_XSLT_Common" />
+    <provides type="function" name="XML_XSLT_Backend_XSLT_ext::Backend_XSLT_ext" />
+    <provides type="function" name="XML_XSLT_Backend_XSLT_ext::buildParams" />
+    <provides type="function" name="XML_XSLT_Backend_XSLT_ext::process" />
+    <provides type="function" name="XML_XSLT_Backend_XSLT_ext::ResultDumpOut" />
+    <provides type="function" name="XML_XSLT_Backend_XSLT_ext::ResultDumpMem" />
+    <provides type="function" name="XML_XSLT_Backend_XSLT_ext::ResultDumpFile" />
+    <provides type="function" name="XML_XSLT_Backend_XSLT_ext::batchXML" />
+    <provides type="function" name="XML_XSLT_Backend_XSLT_ext::batchXSL" />
+    <provides type="function" name="XML_XSLT_Backend_XSLT_ext::free" />
+    <provides type="class" name="XML_XSLT_Backend_Sablotron" extends="XML_XSLT_Common" />
+    <provides type="function" name="XML_XSLT_Backend_Sablotron::initXSL" />
+    <provides type="function" name="XML_XSLT_Backend_Sablotron::initXML" />
+    <provides type="function" name="XML_XSLT_Backend_Sablotron::process" />
+    <provides type="function" name="XML_XSLT_Backend_Sablotron::ResultDumpMem" />
+    <provides type="function" name="XML_XSLT_Backend_Sablotron::ResultDumpFile" />
+    <provides type="function" name="XML_XSLT_Backend_Sablotron::ResultDumpOut" />
+    <provides type="function" name="XML_XSLT_Backend_Sablotron::batchXML" />
+    <provides type="function" name="XML_XSLT_Backend_Sablotron::batchXSL" />
+    <provides type="function" name="XML_XSLT_Backend_Sablotron::free" />
+    <provides type="class" name="XML_XSLT_Backend_XT" extends="XML_XSLT_Common" />
+    <provides type="function" name="XML_XSLT_Backend_XT::Backend_XT" />
+    <provides type="function" name="XML_XSLT_Backend_XT::initXSL" />
+    <provides type="function" name="XML_XSLT_Backend_XT::initXML" />
+    <provides type="function" name="XML_XSLT_Backend_XT::process" />
+    <provides type="function" name="XML_XSLT_Backend_XT::ResultDumpMem" />
+    <provides type="function" name="XML_XSLT_Backend_XT::ResultDumpFile" />
+    <provides type="function" name="XML_XSLT_Backend_XT::ResultDumpOut" />
+    <provides type="function" name="XML_XSLT_Backend_XT::batchXML" />
+    <provides type="function" name="XML_XSLT_Backend_XT::batchXSL" />
+    <provides type="function" name="XML_XSLT_Backend_XT::free" />
+    <provides type="class" name="XML_XSLT_Backend_MSXSL_Com" extends="XML_XSLT_Common" />
+    <provides type="function" name="XML_XSLT_Backend_MSXSL_Com::process" />
+    <provides type="function" name="XML_XSLT_Backend_MSXSL_Com::ResultDumpMem" />
+    <provides type="function" name="XML_XSLT_Backend_MSXSL_Com::ResultDumpFile" />
+    <provides type="function" name="XML_XSLT_Backend_MSXSL_Com::ResultDumpOut" />
+    <provides type="function" name="XML_XSLT_Backend_MSXSL_Com::batchXML" />
+    <provides type="function" name="XML_XSLT_Backend_MSXSL_Com::batchXSL" />
+    <provides type="function" name="XML_XSLT_Backend_MSXSL_Com::free" />
+    <provides type="class" name="XML_XSLT_Backend_DOM_XSL" extends="XML_XSLT_Common" />
+    <provides type="function" name="XML_XSLT_Backend_DOM_XSL::process" />
+    <provides type="function" name="XML_XSLT_Backend_DOM_XSL::ResultDumpOut" />
+    <provides type="function" name="XML_XSLT_Backend_DOM_XSL::ResultDumpMem" />
+    <provides type="function" name="XML_XSLT_Backend_DOM_XSL::ResultDumpFile" />
+    <provides type="function" name="XML_XSLT_Backend_DOM_XSL::batchXML" />
+    <provides type="function" name="XML_XSLT_Backend_DOM_XSL::batchXSL" />
+    <provides type="function" name="XML_XSLT_Backend_DOM_XSL::free" />
+    <provides type="class" name="XML_XSLT_Backend_XSLTPROC" extends="XML_XSLT_Common" />
+    <provides type="function" name="XML_XSLT_Backend_XSLTPROC::initXSL" />
+    <provides type="function" name="XML_XSLT_Backend_XSLTPROC::initXML" />
+    <provides type="function" name="XML_XSLT_Backend_XSLTPROC::process" />
+    <provides type="function" name="XML_XSLT_Backend_XSLTPROC::ResultDumpMem" />
+    <provides type="function" name="XML_XSLT_Backend_XSLTPROC::ResultDumpFile" />
+    <provides type="function" name="XML_XSLT_Backend_XSLTPROC::ResultDumpOut" />
+    <provides type="function" name="XML_XSLT_Backend_XSLTPROC::batchXML" />
+    <provides type="function" name="XML_XSLT_Backend_XSLTPROC::batchXSL" />
+    <provides type="function" name="XML_XSLT_Backend_XSLTPROC::free" />
+    <filelist>
+      <file role="php" baseinstalldir="XML/XSLT" md5sum="6c29dad17149bfb4e533e4e8f8aa4647" install-as="Wrapper.php" name="XSLT_Wrapper.php"/>
+      <file role="doc" baseinstalldir="XML/XSLT" md5sum="af6fdd11a9e407f8fcd7cd9eebfe47ce" name="TODO"/>
+      <file role="php" baseinstalldir="XML/XSLT/Wrapper" md5sum="febe960c2c9171271459dfa8d7d4c5e1" name="Backend/XSLT_ext.php"/>
+      <file role="php" baseinstalldir="XML/XSLT/Wrapper" md5sum="58bae7fa78dceffa9b67b1941884c2d5" name="Backend/Sablotron.php"/>
+      <file role="php" baseinstalldir="XML/XSLT/Wrapper" md5sum="458c57b9b8700c2b19310dcdc1064ca9" name="Backend/XT.php"/>
+      <file role="php" baseinstalldir="XML/XSLT/Wrapper" md5sum="6b69dca3e7a69a7c168c463c105fada9" name="Backend/MSXSL_Com.php"/>
+      <file role="php" baseinstalldir="XML/XSLT/Wrapper" md5sum="49ccb5677da35fcc1cbb61c434432571" name="Backend/DOM_XSL.php"/>
+      <file role="php" baseinstalldir="XML/XSLT/Wrapper" md5sum="44df41f2f2b3fbdfe7aa286266e52dbd" name="Backend/XSLTPROC.php"/>
+      <file role="doc" baseinstalldir="XML/XSLT/Wrapper" md5sum="e9ad7e9765815550a7c31f69459bf245" name="examples/test.php"/>
+      <file role="data" baseinstalldir="XML/XSLT/Wrapper" md5sum="b77c48bdbcfb2dba2ec26b7d9a6961a0" name="examples/table.xsl"/>
+      <file role="data" baseinstalldir="XML/XSLT/Wrapper" md5sum="56e43dbcfe8d073b2b35219a58e53abf" name="examples/table2.xsl"/>
+      <file role="data" baseinstalldir="XML/XSLT/Wrapper" md5sum="66f8598775f4a8d39b137c7a28e8b901" name="examples/items1.xml"/>
+      <file role="data" baseinstalldir="XML/XSLT/Wrapper" md5sum="8f3d8a4605ef3a2892205143c59b4cb7" name="examples/items2.xml"/>
+    </filelist>
+  </release>
+</package>

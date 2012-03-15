@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/php_fork">PHP_Fork</p>
+ <c>pear.php.net</c>
+ <v>0.1</v>
+ <st>beta</st>
+ <l>PHP License</l>
+ <m>lucamariano</m>
+ <s>PHP_Fork class. Wrapper around the pcntl_fork() stuff with a API set like Java language</s>
+ <d>PHP_Fork class. Wrapper around the pcntl_fork() stuff
+with a API set like Java language.
+Practical usage is done by extending this class, and re-defining
+the run() method.
+[see basic example]
+This way PHP developers can enclose logic into a class that extends
+PHP_Fork, then execute the start() method that forks a child process.
+Communications with the forked process is ensured by using a Shared Memory
+Segment; by using a user-defined signal and this shared memory developers
+can access to child process methods that returns a serializable variable.
+The shared variable space can be accessed with the tho methods:
+o void setVariable($name, $value)
+o mixed getVariable($name)
+$name must be a valid PHP variable name;
+$value must be a variable or a serializable object.
+Resources (db connections, streams, etc.) cannot be serialized and so they're not correctly handled.
+Requires PHP build with --enable-cli --with-pcntl --enable-shmop.
+Only runs on *NIX systems, because Windows lacks of the pcntl ext.
+@example simple_controller.php shows how to attach a controller to started pseudo-threads.
+@example exec_methods.php shows a workaround to execute methods into the child process.
+@example passing_vars.php shows variable exchange between the parent process and started pseudo-threads.
+@example basic.php a basic example, only two pseudo-threads that increment a counter simultaneously.
+</d>
+ <da>2004-03-18 05:52:46</da>
+ <n>Initial release</n>
+ <f>10695</f>
+ <g>http://pear.php.net/get/PHP_Fork-0.1</g>
+ <x xlink:href="package.0.1.xml"/>
+</r>

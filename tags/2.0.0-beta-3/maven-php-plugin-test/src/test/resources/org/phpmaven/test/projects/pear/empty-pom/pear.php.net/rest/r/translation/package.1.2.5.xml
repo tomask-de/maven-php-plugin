@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>Translation</name>
+  <summary>Class for creating multilingual webistes.</summary>
+  <description>Class allows to store and retrieve all the strings on multilingual site in the database. Class connects to any database using PHP PEAR extension. The object should be created for every page. While creation all the strings connected with specific page and the strings connected with all the pages on the site are loaded into variable, so access to them is quite fast and does not overload database server connection.</description>
+  <maintainers>
+    <maintainer>
+      <user>Voyteck</user>
+      <name>Wojciech Zieliñski</name>
+      <email>voyteck@caffe.com.pl</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.2.5</version>
+    <date>2003-07-30</date>
+    <license>PHP License</license>
+    <state>stable</state>
+    <notes>The version 1.2.5 is new feature:
+- the new $Params parameters added allowing to control the parameter in the stroing prefix and postfix: ParameterPrefix and ParameterPostfix
+- added support class that allows to retrieve the UTF8 strings - TranslationUTF8</notes>
+    <deps>
+      <dep type="pkg" rel="has">DB</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="Translation" md5sum="85d90db5361e81814f632d370c2f047e" name="translation.class.php"/>
+      <file role="php" baseinstalldir="Translation" md5sum="18cf60f23cc1af4020842d2424557f57" name="translation.str_mgmt.php"/>
+      <file role="php" baseinstalldir="Translation" md5sum="4849697f2c489041dc079653f04c9ec2" name="translationutf8.class.php"/>
+      <file role="doc" baseinstalldir="Translation" md5sum="535c7303a3b1ff631a550f4fc5f06249" name="doc\Translation.html"/>
+      <file role="doc" baseinstalldir="Translation" md5sum="7fd5866a5f0d1d580b90c348e9947146" name="doc\Translation_strmgmt.html"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>1.2.4</version>
+      <date>2003-07-17</date>
+      <state>stable</state>
+      <notes>The version 1.2.4 is bugfix:
+- when trying to use the custom table or column name for avalable languages - the class did not used the specified variables
+</notes>
+    </release>
+    <release>
+      <version>1.2.3</version>
+      <date>2003-02-03</date>
+      <state>stable</state>
+      <notes>The version 1.2.3 is mostly bugfix and one additional feature added:
+- The serious bug from version 1.2.2 concerned with translating feature has been removed
+- Some minor bugfixes
+- The strings from another then selected Page_ID may be accessed using PAGE_ID.STRING_ID construction
+This version has been tested on PHP 4.2.3 and DB Engines: MySQL, PostgreSQL, MSSQL, Oracle.
+</notes>
+    </release>
+    <release>
+      <version>1.2.2</version>
+      <date>2003-01-28</date>
+      <state>stable</state>
+      <notes>The version 1.2.2 is intermediate for 1.3 version and has all the features that will appear in 1.2.2 but the gettext support:
+- Custom error handling for each language
+- Tablenames and table columns in the DB can now be customized
+- Constructor that detects if the connection parameter is actual connection handle or the DB connection string
+- More ways to get the strings from DB - including the search optimized for DB engines that supports nested queries
+- Some bugfixes found during the tests
+- The strings management routines separated into another file
+This version has been tested on PHP 4.2.3 and DB Engines: MySQL, PostgreSQL, MSSQL, Oracle.
+</notes>
+    </release>
+    <release>
+      <version>1.2</version>
+      <date>2002-05-27</date>
+      <state>beta</state>
+      <notes>This is the first PEAR release.
+</notes>
+    </release>
+  </changelog>
+</package>

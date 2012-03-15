@@ -34,13 +34,26 @@
         </site>
     </distributionManagement>
     
-    <modules>
-        <module>java-parent</module>
-        <module>site-parent</module>
-        <module>archetypes</module>
-        <module>maven-php-plugin</module>
-        <module>maven-php-plugin-test</module>
-    </modules>
+    <profiles>
+    	<profile>
+    		<id>maven-php-include-defaults</id>
+    		<modules>
+    			<module>java-parent</module>
+        		<module>site-parent</module>
+    			<module>archetypes</module>
+        		<module>maven-php-plugin</module>
+    		</modules>
+    		<activation>
+    			<activeByDefault>true</activeByDefault>
+    		</activation>
+    	</profile>
+    	<profile>
+    		<id>maven-php-include-maven-php-plugin-test</id>
+    		<modules>
+    			<module>maven-php-plugin-test</module>
+    		</modules>
+    	</profile>
+    </profiles>
     
     <build>
         <plugins>

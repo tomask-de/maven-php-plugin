@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Mail_IMAP</name>
+  <summary>Provides a c-client backend for webmail.</summary>
+  <description>Mail_IMAP provides a simplified backend for working with the c-client (IMAP) extension. It serves as an OO wrapper for commonly used c-client functions. It provides structure and header parsing as well as body retrieval.
+Mail_IMAP provides a simple inbox example that demonstrates its ability to parse and view simple and multipart email messages.
+Mail_IMAP also provides a connection wizard to determine the correct protocol and port settings for a remote mail server, all you need to provide is a server, a username and a password.
+Mail_IMAP may be used as a webmail backend or as a component in a mailing list manager.
+This package requires the c-client extension.  To download the latest version of the c-client extension goto: http://www.php.net/imap.</description>
+  <maintainers>
+    <maintainer>
+      <user>richy</user>
+      <name>Richard York</name>
+      <email>richy@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.3.0A</version>
+    <date>2004-03-12</date>
+    <license>PHP</license>
+    <state>alpha</state>
+    <notes>Expanded API -- new methods and functionality.. however BC
+has been preserved.
+Added getQuota() and setFlags() methods.
+Private methods added to simplify the class.
+Added _checkIfParsed() method.
+Added _scanMultipart() method -- which reduced the file size slightly
+and merged/centralized most of the parsing mechanism for body retrieval and
+inline/attach member variable creating.
+Rearranged some code for logic and preformance.
+Added a count check of parts in getParts() method to automatically return
+if there is only one message part.
+Net_URL removed as a prequisite -- This is only required if the user
+isn't supplying an already established IMAP stream.  (Class is now
+included in the connect() method).  This ought to reduce the memory
+footprint for those forming the IMAP Stream and passing it to the class.
+If using a URI abstraction or connection wizard, Net_URL is required.
+(Since Net_URL could be used, it remains in the dependencies list)
+Added check of resource passed to constructor, to verify it an imap stream.
+Optional $seperator argument added for errors() and alerts() methods to
+eliminate HTML if the user doesn't want HTML.
+Package now tested with IMAP and POP3 protocols.  (NNTP testing still
+needed).
+This release should be relatively stable.
+Beta release should be just around the corner!</notes>
+    <deps>
+      <dep type="ext" rel="has">imap</dep>
+      <dep type="pkg" rel="has">Net_URL</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="Mail" name="IMAP.php"/>
+      <file role="doc" baseinstalldir="Mail" name="examples\IMAP.inbox.php"/>
+      <file role="doc" baseinstalldir="Mail" name="examples\IMAP.message.php"/>
+      <file role="doc" baseinstalldir="Mail" name="examples\IMAP.connection_wizard.php"/>
+      <file role="doc" baseinstalldir="Mail" name="examples\IMAP.connection_wizard_example.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.1.0A</version>
+      <date>2004-02-10</date>
+      <state>alpha</state>
+      <notes>First release.
+</notes>
+    </release>
+  </changelog>
+</package>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.6">
+ <name>File_SearchReplace</name>
+ <summary>Performs search and replace routines</summary>
+ <description>Provides various functions to perform search/replace
+on files. Preg/Ereg regex supported along with faster
+but more basic str_replace routine.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>richard</user>
+   <name>Richard Heyes</name>
+   <email>richard@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>techtonik</user>
+   <name>Anatoly Techtonik</name>
+   <email>techtonik@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>1.1.1</version>
+  <date>2006-07-12</date>
+  <license>BSD</license>
+  <state>stable</state>
+  <notes>- Bug #8103: unnecessary warning on empty files
+* Test suite adjusted to handle the bug and to be more friendly
+  </notes>
+  <provides type="class" name="File_SearchReplace" />
+  <provides type="function" name="File_SearchReplace::getNumOccurences" />
+  <provides type="function" name="File_SearchReplace::getLastError" />
+  <provides type="function" name="File_SearchReplace::setFind" />
+  <provides type="function" name="File_SearchReplace::setReplace" />
+  <provides type="function" name="File_SearchReplace::setFiles" />
+  <provides type="function" name="File_SearchReplace::setDirectories" />
+  <provides type="function" name="File_SearchReplace::setIncludeSubdir" />
+  <provides type="function" name="File_SearchReplace::setIgnoreLines" />
+  <provides type="function" name="File_SearchReplace::setSearchFunction" />
+  <provides type="function" name="File_SearchReplace::search" />
+  <provides type="function" name="File_SearchReplace::quickSearch" />
+  <provides type="function" name="File_SearchReplace::pregSearch" />
+  <provides type="function" name="File_SearchReplace::eregSearch" />
+  <provides type="function" name="File_SearchReplace::writeout" />
+  <provides type="function" name="File_SearchReplace::doFiles" />
+  <provides type="function" name="File_SearchReplace::doDirectories" />
+  <provides type="function" name="File_SearchReplace::doSearch" />
+  <provides type="function" name="File_SearchReplace::doReplace" />
+  <filelist>
+   <file role="php" baseinstalldir="File" md5sum="81f23c64d5149e14cc0f47ec575f632d" name="SearchReplace.php"/>
+   <file role="test" baseinstalldir="/" md5sum="579922ef3bc5ab74177d0bf12f23d6fa" name="tests/setup.php"/>
+   <file role="test" baseinstalldir="/" md5sum="bd00f05d586828272c4ae251431aec2c" name="tests/01onefile.phpt"/>
+   <file role="test" baseinstalldir="/" md5sum="232649456869b69b6e8129aa4ab0d8d6" name="tests/02manyfiles.phpt"/>
+   <file role="test" baseinstalldir="/" md5sum="a505cb47125b93194976a7fe6ddd5cb5" name="tests/03normal_mm.phpt"/>
+   <file role="test" baseinstalldir="/" md5sum="4ba28357628451fb98ffad4e69f3c62b" name="tests/04normal_bof.phpt"/>
+   <file role="test" baseinstalldir="/" md5sum="89395f0693f69935a701d43c8294ac7f" name="tests/05quick_mm.phpt"/>
+   <file role="test" baseinstalldir="/" md5sum="e6296af4f554c87fb2aa64973e6ee4e3" name="tests/06quick_sa_rs.phpt"/>
+   <file role="test" baseinstalldir="/" md5sum="01b468e005dda27954688a3c91932e9c" name="tests/07preg_ss_rs.phpt"/>
+   <file role="test" baseinstalldir="/" md5sum="3d998548f1af577bf174ae9fcf90c748" name="tests/08preg_sa_ra.phpt"/>
+   <file role="test" baseinstalldir="/" md5sum="9d4f6579eaef5f334a0cedbc03aa214d" name="tests/09ereg_mm.phpt"/>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>1.1.0</version>
+    <date>2005-03-13</date>
+    <license>BSD</license>
+    <state>stable</state>
+    <notes>+ Introduced doReplace method - use it instead of doSearch, because 
+  functionality of doSearch will likely to be changed to operate in
+  read-only mode in future versions
++ Now search and replace arguments can be arrays (even in ereg mode)
++ In PHP5 use new features to count occurences
+* Memory optimizations for normal, quick and preg modes
+- Reset occurences counter on every call to doSearch
+    </notes>
+   </release>
+   <release>
+    <version>1.0.1</version>
+    <date>2002-07-27</date>
+    <state>stable</state>
+    <notes>License change
+    </notes>
+   </release>
+   <release>
+    <version>1.0</version>
+    <date>2002-04-21</date>
+    <state>stable</state>
+    <notes>Initial release
+    </notes>
+   </release>
+ </changelog>
+</package>

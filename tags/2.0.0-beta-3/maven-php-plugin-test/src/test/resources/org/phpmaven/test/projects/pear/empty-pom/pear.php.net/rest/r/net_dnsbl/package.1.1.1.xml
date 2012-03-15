@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.8">
+ <name>Net_DNSBL</name>
+ <summary>Checks if a given Host or URL is listed on an DNS-based Blackhole List (DNSBL, Real-time Blackhole List or RBL) or Spam URI Realtime Blocklist (SURBL)</summary>
+ <description>Checks if a given Host or URL is listed on an DNS-based Blackhole List (DNSBL, Real-time Blackhole List or RBL) or Spam URI Realtime Blocklist (SURBL)
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>nohn</user>
+   <name>Sebastian Nohn</name>
+   <email>sebastian@nohn.net</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>ammarmi</user>
+   <name>Ammar Ibrahim</name>
+   <email>ammar@gnuix.com</email>
+   <role>developer</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>1.1.1</version>
+  <date>2006-05-20</date>
+  <license>PHP License</license>
+  <state>stable</state>
+  <notes>* &quot;Fix&quot; #7656 (unit tests &quot;fail&quot;)
+  </notes>
+  <deps>
+   <dep type="pkg" rel="ge" version="1.4.1">Cache_Lite</dep>
+   <dep type="pkg" rel="ge" version="1.1">Net_CheckIP</dep>
+   <dep type="pkg" rel="ge" version="1.2.3">HTTP_Request</dep>
+   <dep type="php" rel="ge" version="4.3.11"/>
+  </deps>
+  <provides type="class" name="Net_DNSBL" />
+  <provides type="function" name="Net_DNSBL::setBlacklists" />
+  <provides type="function" name="Net_DNSBL::getBlacklists" />
+  <provides type="function" name="Net_DNSBL::getDetails" />
+  <provides type="function" name="Net_DNSBL::getListingBl" />
+  <provides type="function" name="Net_DNSBL::getListingRecord" />
+  <provides type="function" name="Net_DNSBL::isListed" />
+  <provides type="function" name="Net_DNSBL::getHostForLookup" />
+  <provides type="function" name="Net_DNSBL::buildLookUpHost" />
+  <provides type="function" name="Net_DNSBL::reverseIp" />
+  <provides type="class" name="Net_DNSBL_SURBL" extends="Net_DNSBL" />
+  <provides type="function" name="Net_DNSBL_SURBL::isDoubleCcTld" />
+  <provides type="function" name="Net_DNSBL_SURBL::getHostForLookup" />
+  <filelist>
+   <file role="php" baseinstalldir="Net" md5sum="f29e557c90b5ee97e8e6ce57064069ea" name="DNSBL.php"/>
+   <file role="php" baseinstalldir="Net" md5sum="4600c1937e8413eb4d1c4b411ec43a8b" name="DNSBL/SURBL.php"/>
+   <file role="test" baseinstalldir="Net" md5sum="f0c0a249d0f65a9998771e36a1e6c194" name="tests/testNetDNSBL.php"/>
+   <file role="test" baseinstalldir="Net" md5sum="b19263797250a3aef58444bfc7cc110f" name="tests/testNetDNSBLSURBL.php"/>
+  </filelist>
+ </release>
+</package>

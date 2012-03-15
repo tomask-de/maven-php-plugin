@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/db_nestedset">DB_NestedSet</p>
+ <c>pear.php.net</c>
+ <v>1.2.1</v>
+ <st>stable</st>
+ <l>PHP License</l>
+ <m>datenpunk</m>
+ <s>API to build and query nested sets</s>
+ <d>DB_NestedSet let's you create trees with infinite depth
+inside a relational database.
+The package provides a way to
+o create/update/delete nodes
+o query nodes, trees and subtrees
+o copy (clone) nodes, trees and subtrees
+o move nodes, trees and subtrees
+o call event handlers on specific events like
+  on node deletion
+o output the tree with 
+  - PEAR::HTML_TreeMenu
+  - TigraMenu (http://www.softcomplex.com/products/tigra_menu/)
+o It also features caching of SQL queries using PEAR::Cache
+</d>
+ <da>2003-05-25 01:48:00</da>
+ <n>- NEW FEATURES
+o Now $NeSe-&gt;setAttr() allows a PEAR function cache object to be passed using
+  $NeSe-&gt;setAttr(array('cache'=&gt;$cache_object));
+  if this object is set, the class will use it to cache database queries.
+  It will also flush this cache if the structure changes.
+o All tree query methods now support an additional array named $addSQL.
+  This can be used to pass additional params to a query.
+  Means: You may now use joins to other tables.
+  
+- FIXES
+o createRightNode() returned the node object instead of the new node id, which
+  caused problems whith some internal method calls.
+o TreeMenu and TigraMenu output drivers contained a bug which made them not
+  create the whole tree under certain circumstances
+  Thanks to Alain Petignat for reporting this
+o Some minor E_ALL fixes (The package shouldn't produce notices/warnings with
+  E_ALL set)
+o Added TigraMenu.php to the package which was missing in the last release</n>
+ <f>23397</f>
+ <g>http://pear.php.net/get/DB_NestedSet-1.2.1</g>
+ <x xlink:href="package.1.2.1.xml"/>
+</r>

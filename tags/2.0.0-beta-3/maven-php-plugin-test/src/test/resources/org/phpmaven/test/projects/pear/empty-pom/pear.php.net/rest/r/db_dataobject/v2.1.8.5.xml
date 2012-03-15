@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release2
+    http://pear.php.net/dtd/rest.release2.xsd">
+ <p xlink:href="/rest/p/db_dataobject">DB_DataObject</p>
+ <c>pear.php.net</c>
+ <v>1.8.5</v>
+ <a>1.8.5</a>
+ <mp>4.3.0</mp>
+ <st>stable</st>
+ <l>PHP License</l>
+ <m>alan_k</m>
+ <s>An SQL Builder, Object Interface to Database Tables</s>
+ <d>DataObject performs 2 tasks:
+  1. Builds SQL statements based on the objects vars and the builder methods.
+  2. acts as a datastore for a table row.
+  The core class is designed to be extended for each of your tables so that you put the
+  data logic inside the data classes.
+  included is a Generator to make your configuration files and your base classes.
+ 
+</d>
+ <da>2006-12-14 23:13:37</da>
+ <n>Minor Bugfix and Minor Feature addition release
+    * #8876 - call free() after count - hopefully this will not break anything!
+    * #8736 - auto_increment check for MDB2 backend
+    * #8628 - tableInfo fix for MDB2
+    * #7792 - add integer[] and boolean[] support
+    * #7702 - memory leaks on getLinks() , free() is called
+        within    getLinks(), - you still need to call free() after doing a
+        getLink() - as I suspect automagically doing that would cause
+        problems..
+    * #7409 - ibase support for filename based database names - not sure if this works, but 
+         will ask reporter to test it..
+    * #7353 - postgres incorrect testing of t/f for booleans
+    * #7114 = generator of sequence keys and defaults using generator_no_ini
+    * #3773 - change last_value to currval - need to confirm this is the correct fix.
+    * #3152 -  joinAdd requires join column to be in links.ini file
+    
+    Feature Requests:
+    * Feature Request #4266 - Allow joins with multiple keys
+    
+    Minor Changes:
+    * dont flush on debugging html output
+    * links.ini code generation based on schema (mysql[i] only) -
+        option:generate_links=true - thanks to Pacal Schoni    
+    * add warning about unknown types in generator.
+    * only prefix database name, in joins when the two objects are of different databases
+    * nicer error message for !isreadable - thx to Euan Maxwell
+    * use class exists loader, so that relative test relative paths in
+        tests work, (also means that autoload may work...)
+    * remove pass by reference - why on earth that was there in the first place is totally beyond me...    
+    * give derivedHookFunctions the ability to use the original input data
+    * add methods 
+        getClassNameFromTableName(),
+        getFileNameFromTableName(), 
+        getMethodNameFromColumnName(), 
+        which allow you to set up your own mapping system by overriding them in
+        your extended generator.. it however needs some support in dataobjects so currently 
+        flagged as EXPERIMENTAL</n>
+ <f>61135</f>
+ <g>http://pear.php.net/get/DB_DataObject-1.8.5</g>
+ <x xlink:href="package.1.8.5.xml"/>
+</r>

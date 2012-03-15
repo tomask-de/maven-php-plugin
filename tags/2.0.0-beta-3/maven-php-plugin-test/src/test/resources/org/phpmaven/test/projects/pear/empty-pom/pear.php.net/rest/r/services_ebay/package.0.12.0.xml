@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.0a11">
+ <name>Services_Ebay</name>
+ <summary>Interface to eBay's XML-API.</summary>
+ <description>Interface to eBay's XML-API. It provides objects that are able to communicate with eBay as well as models that help you working with the return values like User or Item models.
+The Services_Ebay class provides a unified method to use all objects.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>schst</user>
+   <name>Stephan Schmidt</name>
+   <email>schst@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>amt</user>
+   <name>Adam Maccabee Trachtenberg</name>
+   <email>amt@php.net</email>
+   <role>contributor</role>
+  </maintainer>
+  <maintainer>
+   <user>luckec</user>
+   <name>Carsten Lucke</name>
+   <email>luckec@php.net</email>
+   <role>developer</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>0.12.0</version>
+  <date>2005-06-05</date>
+  <license>PHP License</license>
+  <state>alpha</state>
+  <notes>Services_Ebay now always encodes data in UTF-8, as requested by the eBay webservice. You can still use ISO-8859-1 encoding in your scripts as all encoding and decoding is done automatically.
+If you like to switch off this feature, you can tell the session-object that your data already is UTF-8 encoded and that you want UTF-8 encoded data in return.
+- Added new getErrors() method to Services_Ebay session which will return an array of Services_Ebay_Error objects containing information about all warnings and serious errors (schst)
+- fixed bug #4181: Only serious errors will be thrown as exceptions (schst)
+- fixed bug #4296: UTF-8 encoding (schst)
+- fixed bug #4326: wrong variable name (schst)
+- fixed bug #4420: wrong capitalization in example (amt)
+  </notes>
+  <deps>
+   <dep type="pkg" rel="ge" version="1.3.2" optional="no">PEAR</dep>
+   <dep type="pkg" rel="ge" version="0.16.0" optional="no">XML_Serializer</dep>
+   <dep type="php" rel="ge" version="5.0.0" optional="no"/>
+   <dep type="ext" rel="has" optional="no">curl</dep>
+  </deps>
+  <provides type="class" name="Services_Ebay_Cache_ExpiryCheck_Static" />
+  <provides type="function" name="Services_Ebay_Cache_ExpiryCheck_Static::isValid" />
+  <provides type="class" name="Services_Ebay_Cache_Filesystem" extends="Services_Ebay_Cache" />
+  <provides type="function" name="Services_Ebay_Cache_Filesystem::load" />
+  <provides type="function" name="Services_Ebay_Cache_Filesystem::store" />
+  <provides type="function" name="Services_Ebay_Cache_Filesystem::getCacheFilename" />
+  <provides type="class" name="Services_Ebay_Call_AddDispute" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_AddDispute::call" />
+  <provides type="class" name="Services_Ebay_Call_AddDisputeResponse" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_AddDisputeResponse::call" />
+  <provides type="class" name="Services_Ebay_Call_AddItem" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_AddItem::setItem" />
+  <provides type="function" name="Services_Ebay_Call_AddItem::call" />
+  <provides type="class" name="Services_Ebay_Call_AddMemberMessage" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_AddMemberMessage::call" />
+  <provides type="class" name="Services_Ebay_Call_AddOrder" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_AddOrder::call" />
+  <provides type="class" name="Services_Ebay_Call_AddSecondChanceItem" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_AddSecondChanceItem::call" />
+  <provides type="class" name="Services_Ebay_Call_AddShipment" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_AddShipment::call" />
+  <provides type="class" name="Services_Ebay_Call_AddToItemDescription" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_AddToItemDescription::call" />
+  <provides type="class" name="Services_Ebay_Call_EndItem" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_EndItem::call" />
+  <provides type="class" name="Services_Ebay_Call_FetchToken" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_FetchToken::call" />
+  <provides type="class" name="Services_Ebay_Call_GetAccount" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetAccount::call" />
+  <provides type="class" name="Services_Ebay_Call_GetAllBidders" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetAllBidders::call" />
+  <provides type="class" name="Services_Ebay_Call_GetAPIAccessRules" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetAPIAccessRules::call" />
+  <provides type="class" name="Services_Ebay_Call_GetBidderList" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetBidderList::call" />
+  <provides type="class" name="Services_Ebay_Call_GetCategories" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetCategories::call" />
+  <provides type="class" name="Services_Ebay_Call_GetCategory2CS" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetCategory2CS::call" />
+  <provides type="class" name="Services_Ebay_Call_GetCategoryListings" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetCategoryListings::call" />
+  <provides type="class" name="Services_Ebay_Call_GetCrossPromotions" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetCrossPromotions::call" />
+  <provides type="class" name="Services_Ebay_Call_GetDescriptionTemplates" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetDescriptionTemplates::call" />
+  <provides type="class" name="Services_Ebay_Call_GetDispute" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetDispute::call" />
+  <provides type="class" name="Services_Ebay_Call_GetDomains" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetDomains::call" />
+  <provides type="class" name="Services_Ebay_Call_GeteBayDetails" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GeteBayDetails::call" />
+  <provides type="class" name="Services_Ebay_Call_GetEbayOfficialTime" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetEbayOfficialTime::call" />
+  <provides type="class" name="Services_Ebay_Call_GetFeedback" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetFeedback::call" />
+  <provides type="class" name="Services_Ebay_Call_GetHighbidders" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetHighbidders::call" />
+  <provides type="class" name="Services_Ebay_Call_GetItem" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetItem::call" />
+  <provides type="class" name="Services_Ebay_Call_GetItemShipping" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetItemShipping::call" />
+  <provides type="class" name="Services_Ebay_Call_GetItemTransactions" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetItemTransactions::call" />
+  <provides type="class" name="Services_Ebay_Call_GetLogoUrl" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetLogoUrl::call" />
+  <provides type="class" name="Services_Ebay_Call_GetMemberMessages" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetMemberMessages::call" />
+  <provides type="class" name="Services_Ebay_Call_GetMyebay" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetMyebay::call" />
+  <provides type="class" name="Services_Ebay_Call_GetNotificationPreferences" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetNotificationPreferences::call" />
+  <provides type="class" name="Services_Ebay_Call_GetOutageSchedules" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetOutageSchedules::call" />
+  <provides type="class" name="Services_Ebay_Call_GetPreferences" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetPreferences::call" />
+  <provides type="class" name="Services_Ebay_Call_GetProductFinder" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetProductFinder::call" />
+  <provides type="class" name="Services_Ebay_Call_GetProductFinderXSL" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetProductFinderXSL::call" />
+  <provides type="class" name="Services_Ebay_Call_GetPromotionRules" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetPromotionRules::call" />
+  <provides type="class" name="Services_Ebay_Call_GetReturnUrl" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetReturnUrl::call" />
+  <provides type="class" name="Services_Ebay_Call_GetRuName" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetRuName::call" />
+  <provides type="class" name="Services_Ebay_Call_GetSearchResults" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetSearchResults::call" />
+  <provides type="class" name="Services_Ebay_Call_GetSellerList" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetSellerList::call" />
+  <provides type="class" name="Services_Ebay_Call_GetSellerTransactions" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetSellerTransactions::call" />
+  <provides type="class" name="Services_Ebay_Call_GetShippingRates" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetShippingRates::call" />
+  <provides type="class" name="Services_Ebay_Call_GetStoreDetails" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetStoreDetails::call" />
+  <provides type="class" name="Services_Ebay_Call_GetSuggestedCategories" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetSuggestedCategories::call" />
+  <provides type="class" name="Services_Ebay_Call_GetUser" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetUser::call" />
+  <provides type="class" name="Services_Ebay_Call_GetUserDisputes" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetUserDisputes::call" />
+  <provides type="class" name="Services_Ebay_Call_GetWatchList" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_GetWatchList::call" />
+  <provides type="class" name="Services_Ebay_Call_LeaveFeedback" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_LeaveFeedback::call" />
+  <provides type="class" name="Services_Ebay_Call_RelistItem" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_RelistItem::call" />
+  <provides type="class" name="Services_Ebay_Call_ReviseCheckoutStatus" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_ReviseCheckoutStatus::call" />
+  <provides type="class" name="Services_Ebay_Call_ReviseItem" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_ReviseItem::call" />
+  <provides type="class" name="Services_Ebay_Call_SellerReverseDispute" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_SellerReverseDispute::call" />
+  <provides type="class" name="Services_Ebay_Call_SetPreferences" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_SetPreferences::call" />
+  <provides type="class" name="Services_Ebay_Call_SetReturnUrl" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_SetReturnUrl::call" />
+  <provides type="class" name="Services_Ebay_Call_SetSellerPaymentAddress" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_SetSellerPaymentAddress::call" />
+  <provides type="class" name="Services_Ebay_Call_ValidateTestUserRegistration" extends="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call_ValidateTestUserRegistration::call" />
+  <provides type="class" name="Services_Ebay_Call_VerifyAddItem" extends="Services_Ebay_Call_AddItem" />
+  <provides type="function" name="Services_Ebay_Call_VerifyAddItem::call" />
+  <provides type="class" name="Services_Ebay_Call_VerifyAddSecondChanceItem" extends="Services_Ebay_Call_AddSecondChanceItem" />
+  <provides type="function" name="Services_Ebay_Call_VerifyAddSecondChanceItem::call" />
+  <provides type="class" name="Services_Ebay_Model_Account" extends="Services_Ebay_Model" />
+  <provides type="function" name="Services_Ebay_Model_Account::getIterator" />
+  <provides type="class" name="Services_Ebay_Model_Bid" extends="Services_Ebay_Model" />
+  <provides type="function" name="Services_Ebay_Model_Bid::getBidder" />
+  <provides type="class" name="Services_Ebay_Model_BidList" extends="Services_Ebay_Model" />
+  <provides type="function" name="Services_Ebay_Model_BidList::getIterator" />
+  <provides type="function" name="Services_Ebay_Model_BidList::getCount" />
+  <provides type="class" name="Services_Ebay_Model_Dispute" extends="Services_Ebay_Model" />
+  <provides type="function" name="Services_Ebay_Model_Dispute::getIterator" />
+  <provides type="class" name="Services_Ebay_Model_DisputeList" extends="Services_Ebay_Model" />
+  <provides type="function" name="Services_Ebay_Model_DisputeList::getIterator" />
+  <provides type="class" name="Services_Ebay_Model_Feedback" extends="Services_Ebay_Model" />
+  <provides type="function" name="Services_Ebay_Model_Feedback::getEntry" />
+  <provides type="function" name="Services_Ebay_Model_Feedback::getIterator" />
+  <provides type="class" name="Services_Ebay_Model_FeedbackEntry" extends="Services_Ebay_Model" />
+  <provides type="function" name="Services_Ebay_Model_FeedbackEntry::getItem" />
+  <provides type="class" name="Services_Ebay_Model_Item" extends="Services_Ebay_Model" />
+  <provides type="function" name="Services_Ebay_Model_Item::setShipToLocations" />
+  <provides type="function" name="Services_Ebay_Model_Item::addShippingServiceOption" />
+  <provides type="function" name="Services_Ebay_Model_Item::addInternationalShippingServiceOption" />
+  <provides type="function" name="Services_Ebay_Model_Item::Get" />
+  <provides type="function" name="Services_Ebay_Model_Item::GetCrossPromotions" />
+  <provides type="function" name="Services_Ebay_Model_Item::AddToDescription" />
+  <provides type="function" name="Services_Ebay_Model_Item::End" />
+  <provides type="function" name="Services_Ebay_Model_Item::Add" />
+  <provides type="function" name="Services_Ebay_Model_Item::Relist" />
+  <provides type="function" name="Services_Ebay_Model_Item::Revise" />
+  <provides type="function" name="Services_Ebay_Model_Item::AddSecondChance" />
+  <provides type="class" name="Services_Ebay_Model_ItemList" extends="Services_Ebay_Model" />
+  <provides type="function" name="Services_Ebay_Model_ItemList::getIterator" />
+  <provides type="class" name="Services_Ebay_Model_MemberMessage" extends="Services_Ebay_Model" />
+  <provides type="class" name="Services_Ebay_Model_MemberMessageList" extends="Services_Ebay_Model" />
+  <provides type="function" name="Services_Ebay_Model_MemberMessageList::getIterator" />
+  <provides type="function" name="Services_Ebay_Model_MemberMessageList::getNumberOfPages" />
+  <provides type="function" name="Services_Ebay_Model_MemberMessageList::getNumberOfEntries" />
+  <provides type="function" name="Services_Ebay_Model_MemberMessageList::hasMoreItems" />
+  <provides type="class" name="Services_Ebay_Model_MyeBay" extends="Services_Ebay_Model" />
+  <provides type="function" name="Services_Ebay_Model_MyeBay::getIterator" />
+  <provides type="class" name="Services_Ebay_Model_Order" extends="Services_Ebay_Model" />
+  <provides type="function" name="Services_Ebay_Model_Order::AddTransaction" />
+  <provides type="function" name="Services_Ebay_Model_Order::AddShippingServiceOption" />
+  <provides type="function" name="Services_Ebay_Model_Order::AcceptPaymentTerms" />
+  <provides type="class" name="Services_Ebay_Model_Preferences" extends="Services_Ebay_Model" />
+  <provides type="function" name="Services_Ebay_Model_Preferences::AddPreference" />
+  <provides type="function" name="Services_Ebay_Model_Preferences::toArray" />
+  <provides type="class" name="Services_Ebay_Model_ProductFinder" extends="Services_Ebay_Model" />
+  <provides type="function" name="Services_Ebay_Model_ProductFinder::render" />
+  <provides type="class" name="Services_Ebay_Model_SearchResult" extends="Services_Ebay_Model" />
+  <provides type="function" name="Services_Ebay_Model_SearchResult::getIterator" />
+  <provides type="class" name="Services_Ebay_Model_Shipment" extends="Services_Ebay_Model" />
+  <provides type="function" name="Services_Ebay_Model_Shipment::SetPackageDimensions" />
+  <provides type="function" name="Services_Ebay_Model_Shipment::AddTransaction" />
+  <provides type="function" name="Services_Ebay_Model_Shipment::SetFromAddress" />
+  <provides type="function" name="Services_Ebay_Model_Shipment::SetAddress" />
+  <provides type="class" name="Services_Ebay_Model_Store" extends="Services_Ebay_Model" />
+  <provides type="function" name="Services_Ebay_Model_Store::getIterator" />
+  <provides type="class" name="Services_Ebay_Model_Transaction" extends="Services_Ebay_Model" />
+  <provides type="class" name="Services_Ebay_Model_TransactionList" extends="Services_Ebay_Model" />
+  <provides type="function" name="Services_Ebay_Model_TransactionList::getIterator" />
+  <provides type="class" name="Services_Ebay_Model_User" extends="Services_Ebay_Model" />
+  <provides type="function" name="Services_Ebay_Model_User::GetFeedback" />
+  <provides type="function" name="Services_Ebay_Model_User::GetSellerList" />
+  <provides type="function" name="Services_Ebay_Model_User::GetBidderList" />
+  <provides type="function" name="Services_Ebay_Model_User::LeaveFeedback" />
+  <provides type="function" name="Services_Ebay_Model_User::Get" />
+  <provides type="class" name="Services_Ebay_Transport_Curl" />
+  <provides type="function" name="Services_Ebay_Transport_Curl::sendRequest" />
+  <provides type="class" name="Services_Ebay_Transport_HttpRequest" />
+  <provides type="function" name="Services_Ebay_Transport_HttpRequest::sendRequest" />
+  <provides type="class" name="Services_Ebay_Transport_Streams" />
+  <provides type="function" name="Services_Ebay_Transport_Streams::sendRequest" />
+  <provides type="class" name="Services_Ebay_Cache" />
+  <provides type="function" name="Services_Ebay_Cache::load" />
+  <provides type="function" name="Services_Ebay_Cache::store" />
+  <provides type="function" name="Services_Ebay_Cache::setExpiry" />
+  <provides type="function" name="Services_Ebay_Cache::isValid" />
+  <provides type="class" name="Services_Ebay_Call" />
+  <provides type="function" name="Services_Ebay_Call::call" />
+  <provides type="function" name="Services_Ebay_Call::setArgs" />
+  <provides type="function" name="Services_Ebay_Call::setDetailLevel" />
+  <provides type="function" name="Services_Ebay_Call::describeCall" />
+  <provides type="class" name="Services_Ebay_Error" />
+  <provides type="function" name="Services_Ebay_Error::getCode" />
+  <provides type="function" name="Services_Ebay_Error::getSeverityCode" />
+  <provides type="function" name="Services_Ebay_Error::getSeverity" />
+  <provides type="function" name="Services_Ebay_Error::getShortMessage" />
+  <provides type="function" name="Services_Ebay_Error::getLongMessage" />
+  <provides type="class" name="Services_Ebay_Exception" extends="PEAR_Exception" />
+  <provides type="class" name="Services_Ebay_Auth_Exception" extends="Services_Ebay_Exception" />
+  <provides type="class" name="Services_Ebay_Transport_Exception" extends="Services_Ebay_Exception" />
+  <provides type="class" name="Services_Ebay_API_Exception" extends="Services_Ebay_Exception" />
+  <provides type="class" name="Services_Ebay_Model" />
+  <provides type="function" name="Services_Ebay_Model::isCached" />
+  <provides type="function" name="Services_Ebay_Model::setSession" />
+  <provides type="function" name="Services_Ebay_Model::setCache" />
+  <provides type="function" name="Services_Ebay_Model::toArray" />
+  <provides type="function" name="Services_Ebay_Model::GetModifiedProperties" />
+  <provides type="function" name="Services_Ebay_Model::offsetExists" />
+  <provides type="function" name="Services_Ebay_Model::offsetGet" />
+  <provides type="function" name="Services_Ebay_Model::offsetSet" />
+  <provides type="function" name="Services_Ebay_Model::offsetUnset" />
+  <provides type="function" name="Services_Ebay_Model::getPrimaryKey" />
+  <provides type="class" name="Services_Ebay_Session" />
+  <provides type="function" name="Services_Ebay_Session::setDebug" />
+  <provides type="function" name="Services_Ebay_Session::getWire" />
+  <provides type="function" name="Services_Ebay_Session::setToken" />
+  <provides type="function" name="Services_Ebay_Session::setAuthenticationData" />
+  <provides type="function" name="Services_Ebay_Session::setUrl" />
+  <provides type="function" name="Services_Ebay_Session::setSiteId" />
+  <provides type="function" name="Services_Ebay_Session::setDetailLevel" />
+  <provides type="function" name="Services_Ebay_Session::setErrorLanguage" />
+  <provides type="function" name="Services_Ebay_Session::buildRequestBody" />
+  <provides type="function" name="Services_Ebay_Session::sendRequest" />
+  <provides type="function" name="Services_Ebay_Session::getErrors" />
+  <provides type="function" name="Services_Ebay_Session::setSerializerOptions" />
+  <provides type="function" name="Services_Ebay_Session::setUnserializerOptions" />
+  <provides type="class" name="Services_Ebay" />
+  <provides type="function" name="Services_Ebay::getSession" />
+  <provides type="function" name="Services_Ebay::useModelClass" />
+  <provides type="function" name="Services_Ebay::setDetailLevel" />
+  <provides type="function" name="Services_Ebay::loadAPICall" />
+  <provides type="function" name="Services_Ebay::loadModel" />
+  <provides type="function" name="Services_Ebay::loadCache" />
+  <provides type="function" name="Services_Ebay::getAvailableApiCalls" />
+  <filelist>
+   <file role="doc" baseinstalldir="Services" md5sum="fddde2a077608748cae31ccc56bd42fe" name="docs/ideas.txt"/>
+   <file role="doc" baseinstalldir="Services" md5sum="cc7e9c2cafaac97d90f8402d580d9096" name="docs/models.txt"/>
+   <file role="doc" baseinstalldir="Services" md5sum="ee4b9e3e74cca2679f99f98263418866" name="docs/todo.txt"/>
+   <file role="php" baseinstalldir="Services" md5sum="62921c5a0dfa6eb557a94464f9628308" name="Ebay/Cache/ExpiryCheck/Static.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="5a31d96a70c5429db26988880f8b7422" name="Ebay/Cache/Filesystem.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="d2b56963fa7f9fe71ec60f31e26a2e9d" name="Ebay/Call/AddDispute.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="8d3df75be5cb4525f2e5d9230dbbf863" name="Ebay/Call/AddDisputeResponse.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="4fde1150af05c8ec592ea5b4aad6cba5" name="Ebay/Call/AddItem.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="8b7ef9b6f22772d50cf062b1f9968c2d" name="Ebay/Call/AddMemberMessage.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="5d6c3e9159871b2fc186da9d43c6ca64" name="Ebay/Call/AddOrder.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="249486854baae4d2d5c3ba54bb1bb27e" name="Ebay/Call/AddSecondChanceItem.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="92f51a744bffb5d6382cd10739d580bc" name="Ebay/Call/AddShipment.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="cc5b270a321b34a6aac38ee6739e3aa5" name="Ebay/Call/AddToItemDescription.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="70a29816c645e1955c445c2ce8647110" name="Ebay/Call/EndItem.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="fd7e921df81e25e8fbde669df4b00a73" name="Ebay/Call/FetchToken.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="8a38b4a09966e2bc3d8591c8187ec052" name="Ebay/Call/GetAccount.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="dfd03ef8953619f172f7b2353b94c966" name="Ebay/Call/GetAllBidders.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="88e994ac2a6f5d085b57153b4e504a01" name="Ebay/Call/GetAPIAccessRules.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="b89a6aee2773672984b6afd5b606c462" name="Ebay/Call/GetBidderList.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="2ebe06de71dab0b4d974c2ccd125ce27" name="Ebay/Call/GetCategories.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="8fca6324bca947abf1314509d6b9ac69" name="Ebay/Call/GetCategory2CS.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="b2b6de46ec83d80056f2bee7e3cfc53e" name="Ebay/Call/GetCategoryListings.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="2df17e8003e3fb31dde3072e3ab58f91" name="Ebay/Call/GetCrossPromotions.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="921bcea629d0ad33e793b308c6bf6a5f" name="Ebay/Call/GetDescriptionTemplates.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="ed9294ceec447a343ffd8104ea594550" name="Ebay/Call/GetDispute.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="327c7dcb77e69a4aac359fbc59ea5796" name="Ebay/Call/GetDomains.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="c95ea6eea7512fd49535f8406c593a92" name="Ebay/Call/GeteBayDetails.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="66eaed96af775ee4ed136f0b800da4fd" name="Ebay/Call/GeteBayOfficialTime.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="7e12f771b6068c6ffd464c46a4a6f9fb" name="Ebay/Call/GetFeedback.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="f23056ab18c30a3133c49efe701723b5" name="Ebay/Call/GetHighBidders.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="cf7fb3b7b3fc24d849043f5af04051f1" name="Ebay/Call/GetItem.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="49c138f1446db7dca601544f19d0d162" name="Ebay/Call/GetItemShipping.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="a185fa516e3b22584f59e82d1e8d3410" name="Ebay/Call/GetItemTransactions.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="a7c9eb93135d7345de28a048e91b9122" name="Ebay/Call/GetLogoURL.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="1437f455094467e61cb58f3a68dc0ab8" name="Ebay/Call/GetMemberMessages.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="8b72f3216eafa080ee0b642bf26bb085" name="Ebay/Call/GetMyeBay.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="febc1670caa2ae8a28b9d1bf7a4e77f4" name="Ebay/Call/GetNotificationPreferences.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="effd07f2c4249cd8cd77290fae8bf31f" name="Ebay/Call/GetOutageSchedules.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="e39dcd0a46dd517e7796c45383edb6f3" name="Ebay/Call/GetPreferences.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="e8ab5a73db247eec65a0e5824410cd83" name="Ebay/Call/GetProductFinder.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="023234d7e792f65cc97e7af7b17398a3" name="Ebay/Call/GetProductFinderXSL.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="ec26ae95daf8bea7f67f821ce0e85bfb" name="Ebay/Call/GetPromotionRules.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="b3aa45e69e38f38db4b19b0851ac36d3" name="Ebay/Call/GetReturnURL.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="d67984385367d6f051e314bd594a6bf6" name="Ebay/Call/GetRuName.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="277df355ca8d73429f9b0d153e9875ec" name="Ebay/Call/GetSearchResults.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="a4ef3777732895bdbafe62710354b454" name="Ebay/Call/GetSellerList.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="0268655de87ac43404dfcd7307609fad" name="Ebay/Call/GetSellerTransactions.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="928e7bd595ca33df123a374508e1f73e" name="Ebay/Call/GetShippingRates.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="4cb6b0c2a04b93ee2a01520706e9fd86" name="Ebay/Call/GetStoreDetails.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="b51b763f03f6fe963a13ac3394592193" name="Ebay/Call/GetSuggestedCategories.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="6205cce5b8c45fe9a7972e93c2fe02dd" name="Ebay/Call/GetUser.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="1da671190be1a557a0fce1d6a331f3c7" name="Ebay/Call/GetUserDisputes.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="95556b31314055057c3ff73f3d77a2b2" name="Ebay/Call/GetWatchList.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="d9dcf970350ce172f42cdf1f81c63655" name="Ebay/Call/LeaveFeedback.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="53ce01df75d75e82fee64d99553e3d7e" name="Ebay/Call/RelistItem.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="88f9a729e14a1a72c9d7509ef758339f" name="Ebay/Call/ReviseCheckoutStatus.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="3b5a6a1951cea0f466455ba7f4422ca1" name="Ebay/Call/ReviseItem.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="0373c63a8be73767be9ed29ba09cf978" name="Ebay/Call/SellerReverseDispute.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="db34e3fa95d4b23307e50a7ce3c101bc" name="Ebay/Call/SetPreferences.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="3a2589ed1d1cf98b93c29cd5cdbc07eb" name="Ebay/Call/SetReturnURL.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="63fd072eea049baa2abd820d6d06e479" name="Ebay/Call/SetSellerPaymentAddress.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="ed23ea6c47e26b87a18a389dc1d4817c" name="Ebay/Call/ValidateTestUserRegistration.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="d37f3923274271f1d3926f3a970e6f61" name="Ebay/Call/VerifyAddItem.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="912c3a4cd0e58c8ebc1d17cc2f44cba4" name="Ebay/Call/VerifyAddSecondChanceItem.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="81fea7b8c2936e8126d32e8a59138beb" name="Ebay/Model/Account.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="3842aa444e4536809cef70c713474c37" name="Ebay/Model/Bid.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="38f1a678f99049572cca3292f5c848f2" name="Ebay/Model/BidList.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="12e6844d8e6c28d6d67c89933d985734" name="Ebay/Model/Dispute.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="7992bc09bec7bbd6962aa878ac7e369c" name="Ebay/Model/DisputeList.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="e9ded0d0e42ebc62159c6f2fa8591e91" name="Ebay/Model/Feedback.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="804bd08eb216e55afe46806469e67831" name="Ebay/Model/FeedbackEntry.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="0ad87fbf68e3d3a6a84f344c7543a55c" name="Ebay/Model/Item.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="3579242c7d82d3d265a562cab133b744" name="Ebay/Model/ItemList.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="0f49de9758181a7bed87722720fbfb3a" name="Ebay/Model/MemberMessage.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="56fcff88b833c8bdf3d69f167ca45902" name="Ebay/Model/MemberMessageList.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="535a6d0fa825736270661ad2c2d3c39e" name="Ebay/Model/MyeBay.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="ce8c1237c8daed846d637719ad949269" name="Ebay/Model/Order.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="bc42ffff410a01322e5b42be6b119579" name="Ebay/Model/Preferences.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="53ce3882becfc8036cb21e42835f9d44" name="Ebay/Model/ProductFinder.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="8c7edc025699399e0a0e7f4bc316bdbf" name="Ebay/Model/SearchResult.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="0271848a5548e376cd96612d434b559f" name="Ebay/Model/Shipment.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="69e2b9bfcc4f414dedd07b432ed7a032" name="Ebay/Model/Store.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="4250b04b3f500a186752e5fe151f430b" name="Ebay/Model/Transaction.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="f4b4c4c15a2ba127a413a62e7cbc5fa5" name="Ebay/Model/TransactionList.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="07cab840a154ee97dad8d54fb8a31b1d" name="Ebay/Model/User.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="adc2e3f691ce659c52b8a2a93050c28b" name="Ebay/Transport/Curl.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="bf3735647d0940087ee96f3d409a664f" name="Ebay/Transport/HttpRequest.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="a345dbb92676fc078329bf527f8bb5b2" name="Ebay/Transport/Streams.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="59e2e79f8e0705e1c1e034a342988ec1" name="Ebay/Cache.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="dfbc241da56a72802a6a45dc1fc8f2e3" name="Ebay/Call.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="4d33028c6902aeaf37cda6c5370bb10a" name="Ebay/Error.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="84c11fcd9287293edaa96349e9e09e1a" name="Ebay/Exception.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="2e1651cd97fea0ff22335c50b015bc04" name="Ebay/Model.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="f6567ec26c486694db480602fdb2ae7a" name="Ebay/Session.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="75c186c461423c5f8f8cf2d9d42f056d" name="examples/cache/readme.txt"/>
+   <file role="doc" baseinstalldir="Services" md5sum="f3671700631670dc605d53f3bce1d3d9" name="examples/config.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="687dc545d656da01e36e1f0ec2aacc4f" name="examples/example_AddDispute.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="cd18516b7187f32a7db4858a2806fdc1" name="examples/example_AddDisputeResponse.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="d7766d934e6bde1d183d85bd107a68ba" name="examples/example_AddItem.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="1dfb1b041976e597cc54781c7a5ef1f8" name="examples/example_AddMemberMessage.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="990868d7136ea6aaf9ba3727c4ff6711" name="examples/example_AddOrder.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="1b6ccfc93c891cb009901ae3e369f499" name="examples/example_AddSecondChanceItem.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="5d6ba2dd1f5d894bb0e3d854841b8893" name="examples/example_AddShipment.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="8935803b00d25d78c4e467d56a97858b" name="examples/example_AddToItemDescription.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="ddb0c8042d8fa6d33c628e2b1316b66e" name="examples/example_EndItem.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="16e5f16e0eb9596c2c2629297c00257c" name="examples/example_features_cache.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="36e8fd0cc4b367a1a1a4a874cbb825f4" name="examples/example_features_customModels.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="938836139053188f0e1241d9a230c7e6" name="examples/example_features_Debugging.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="1cc57f0dce26499c5aa47ef8453276dd" name="examples/example_features_DescribingCalls.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="6b0db8d1f5193c14013fb2733e598c04" name="examples/example_features_Exception.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="ab8733b6d27793f68a0627927bb25c2d" name="examples/example_features_introspection.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="fb7fb2aaea5b39eac955f1af2620bd71" name="examples/example_features_models.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="a075ef2f04c5d11a90dbfd8df14df326" name="examples/example_features_setErrorLanguage.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="e304ee2093b8f2378026be66639ef633" name="examples/example_features_UsingModels.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="d87764c11ce0a346e6b9311e7c0be43e" name="examples/example_features_UsingObjects.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="3b51c721467ad1cab93e1c9583fdd369" name="examples/example_FetchToken.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="fc25bd4f24034229f7def588a2a7988c" name="examples/example_GetAccount.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="dd218f08af0164d65350695db29cfcd0" name="examples/example_GetAllBidders.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="69315ac661cba3291983449c2d647043" name="examples/example_GetAPIAccessRules.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="c0e852474fe478c497109f1f77e41a4d" name="examples/example_GetBidderList.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="cd219671ec7eac4029dfaf3fb39b6538" name="examples/example_GetCategories.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="0d1092991314cc1a5b313805a6c3b63b" name="examples/example_GetCategory2Cs.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="19af73ec1aeedb055174ab6e8654e5c5" name="examples/example_GetCategoryListings.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="951f49494b63f23de2321b2c174c572d" name="examples/example_GetCrossPromotions.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="2f0ac004d8eb7e4e6ff891ca1fb63b90" name="examples/example_GetDescriptionTemplates.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="4226b17bf51faa08689171526f1595f0" name="examples/example_GetDispute.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="5d170580ad2823dea2d5f015bbc0689e" name="examples/example_GetDomains.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="3b96505d504f7db52ad73c074a4ae0a7" name="examples/example_GeteBayDetails.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="b7eb0d760516bc807be7cc085dc7408b" name="examples/example_GeteBayOfficalTime.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="35c5d726abdfff246b0711838ae425dd" name="examples/example_GetFeedback.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="05841043cd70ed1a8d59e0186d8ae1d6" name="examples/example_GetHighBidders.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="c390a12c6336382aa8304550727f74aa" name="examples/example_GetItem.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="2c200d282d36faee18e2b0d1c327f006" name="examples/example_GetItemShipping.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="7e0a169fc0cc7a33aff4bbf6725e2567" name="examples/example_GetItemTransactions.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="5b3dc97132f3dee8142a2fbdd5c02b76" name="examples/example_GetLogoUrl.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="57127533e7db8f713f35874ba678b4c9" name="examples/example_GetMemberMessages.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="9ea74d7721a1e56d050a0b46416ccb88" name="examples/example_GetMyeBay.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="bf84020d49fec734b4082b2de16f0e53" name="examples/example_GetNotificationPreferences.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="4f961cf214d043ad00e04c65e8680612" name="examples/example_GetOutageSchedules.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="08aa23117f7f3e1d63e7f4678b40a368" name="examples/example_GetPreferences.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="a4d13e1f3ccb7799e4c551be51cb1b13" name="examples/example_GetProductFinder.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="059b80289ac40e3f32d4e1a4fe772f1d" name="examples/example_GetProductFinderXSL.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="7b7d160ff7db10907addf8776153ec8a" name="examples/example_GetPromotionRules.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="bab93cb1261c53b666b5c64db389ba4d" name="examples/example_GetRuName.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="4c9ffad834a1ca58f0c17c14536710b1" name="examples/example_GetSearchResults.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="e884f46cb55dd4d8b89bb99f402c0622" name="examples/example_GetSellerList.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="26f34fc45d151ae739150d04c71aa58e" name="examples/example_GetSellerTransactions.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="9a1489f2660132d4b1d4a45644480ebb" name="examples/example_GetShippingRates.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="322db8251c71e7b3d3cad2be56ea3447" name="examples/example_GetStoreDetails.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="206e866e669fb75faedfc9c266afd08e" name="examples/example_GetSuggestedCategories.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="c83656d2c236b80c615ef03c3ef2690c" name="examples/example_GetUser.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="c95bca25231b7d6c97b8c509cab10f5c" name="examples/example_GetUserDisputes.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="5bed172c50be0293796f174167936b06" name="examples/example_GetWatchList.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="8476c226620362437f5a7e188166865e" name="examples/example_LeaveFeedback.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="d3b6558071cd4b5b6f5c3da105f0dfd5" name="examples/example_RelistItem.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="7f7141dd5a5ce7868354d40efa27aac9" name="examples/example_ReviseCheckoutStatus.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="f010d9f388a097179ea465bec79faa0c" name="examples/example_ReviseItem.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="8822499daf0d4121b33be9f1c9da71a4" name="examples/example_SellerReverseDispute.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="acfa918041e3cd2a5c63c2ff02903807" name="examples/example_SetPreferences.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="ce1fb9b8f036035e0347447bff84be4d" name="examples/example_SetSellerPaymentAddress.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="6408796feece3a4aae4b9dbfe8f57931" name="examples/example_ValidateTestUserRegistration.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="6495e3482c57c00f5d8bd1a9bc1956ca" name="examples/example_VerifyAddItem.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="3df2433d5e08b409c521495be2f74ff6" name="examples/product_finder.xsl"/>
+   <file role="test" baseinstalldir="Services" md5sum="ba8bbc5f9f4111e75679ced1fc09fea5" name="tests/bug4181.php"/>
+   <file role="test" baseinstalldir="Services" md5sum="a036b05a0d2e75294fb8589d7bfa4254" name="tests/bug4296.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="692fdd68c09140899ce8b3d1c17b37fd" name="Ebay.php"/>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>0.1.0</version>
+    <date>2004-03-18</date>
+    <license>PHP License</license>
+    <state>alpha</state>
+    <notes>first draft
+    </notes>
+   </release>
+   <release>
+    <version>0.5.0</version>
+    <date>2004-08-30</date>
+    <license>PHP License</license>
+    <state>devel</state>
+    <notes>still in development, no public release yet
+    </notes>
+   </release>
+   <release>
+    <version>0.6.0</version>
+    <date>2004-10-30</date>
+    <license>PHP License</license>
+    <state>devel</state>
+    <notes>first public release in PEAR, this is still in devel state, beware that anything might change.
+    </notes>
+   </release>
+   <release>
+    <version>0.6.1</version>
+    <date>2004-11-07</date>
+    <license>PHP License</license>
+    <state>devel</state>
+    <notes>All models now support ArrayAccess, released during the PEAR talk at the PHP Conference 2004
+    </notes>
+   </release>
+   <release>
+    <version>0.7.0</version>
+    <date>2004-11-16</date>
+    <license>PHP License</license>
+    <state>devel</state>
+    <notes>BC BREAK: changed some method names on Services_Ebay_Model_Item
+Other changes:
+- Services_Ebay_Model_Item now supports ShipToLocations and ShippingServiceOptions
+- fixed error handling, when more than one error is returned
+- added Services_Ebay_API_Exception,
+- added Services_Ebay_Model_Item::Add()
+    </notes>
+   </release>
+   <release>
+    <version>0.8.0alpha</version>
+    <date>2004-11-30</date>
+    <license>PHP License</license>
+    <state>alpha</state>
+    <notes>- added method to change SiteId
+- added some debugging facilities
+- added custom model classes
+- added introspection by using getAvailableCalls()
+- added constants for SiteIds
+- renamed some examples to have a clean separation between API call examples and features of Services_Ebay
+- changed state to alpha
+    </notes>
+   </release>
+   <release>
+    <version>0.10.0alpha</version>
+    <date>2004-12-08</date>
+    <license>PHP License</license>
+    <state>alpha</state>
+    <notes>Welcome Adam Trachtenberg as a new developer!
+- added Services_Ebay_Session::setErrorLanguage() (schst)
+- removed last parameter of addShippingServiceOption() (schst)
+- added addInternationalShippingServiceOption() (schst)
+- added missing space in Services_Ebay_Model_Item::__toString() (amt)
+    </notes>
+   </release>
+   <release>
+    <version>0.10.1alpha</version>
+    <date>2004-12-23</date>
+    <license>PHP License</license>
+    <state>alpha</state>
+    <notes>- added constants for API URLs (amt)
+- improved Services_Ebay_Call::describeCall() (amt, schst)
+- added (optional) support for UTF-8 encoding and decoding (schst)
+- added links to API description in docblocks (schst)
+    </notes>
+   </release>
+   <release>
+    <version>0.11.0</version>
+    <date>2005-02-03</date>
+    <license>PHP License</license>
+    <state>alpha</state>
+    <notes>Welcome Carsten Lucke as a new developer!
+- started implementting flexibible caching system (schst)
+- added ProductFinder model and calls, requires XSL extension (schst, amt)
+- added GetHighBidders call (luckec)
+- added GetMemberMessages call (luckec)
+- added GetCategory2CS (schst)
+- added GetPromotionRules() (schst)
+    </notes>
+   </release>
+   <release>
+    <version>0.12.0</version>
+    <date>2005-06-05</date>
+    <license>PHP License</license>
+    <state>alpha</state>
+    <notes>Services_Ebay now always encodes data in UTF-8, as requested by the eBay webservice. You can still use ISO-8859-1 encoding in your scripts as all encoding and decoding is done automatically.
+If you like to switch off this feature, you can tell the session-object that your data already is UTF-8 encoded and that you want UTF-8 encoded data in return.
+- Added new getErrors() method to Services_Ebay session which will return an array of Services_Ebay_Error objects containing information about all warnings and serious errors (schst)
+- fixed bug #4181: Only serious errors will be thrown as exceptions (schst)
+- fixed bug #4296: UTF-8 encoding (schst)
+- fixed bug #4326: wrong variable name (schst)
+- fixed bug #4420: wrong capitalization in example (amt)
+    </notes>
+   </release>
+ </changelog>
+</package>

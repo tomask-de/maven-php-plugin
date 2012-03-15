@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.7.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>HTML_Template_Sigma</name>
+ <channel>pear.php.net</channel>
+ <summary>An implementation of Integrated Templates API with template &apos;compilation&apos; added</summary>
+ <description>HTML_Template_Sigma implements Integrated Templates API designed by Ulf Wendel.
+
+Features:
+* Nested blocks. Nesting is controlled by the engine.
+* Ability to include files from within template: &lt;!-- INCLUDE --&gt;
+* Automatic removal of empty blocks and unknown variables (methods to manually tweak/override this are also available)
+* Methods for runtime addition and replacement of blocks in templates
+* Ability to insert simple function calls into templates: func_uppercase(&apos;Hello world!&apos;) and to define callback functions for these
+* &apos;Compiled&apos; templates: the engine has to parse a template file using regular expressions to find all the blocks and variable placeholders. This is a very &quot;expensive&quot; operation and is an overkill to do on every page request: templates seldom change on production websites. Thus this feature: an internal representation of the template structure is saved into a file and this file gets loaded instead of the source one on subsequent requests (unless the source changes)
+* PHPUnit-based tests to define correct behaviour
+* Usage examples for most of the features are available, look in the docs/ directory</description>
+ <lead>
+  <name>Alexey Borzov</name>
+  <user>avb</user>
+  <email>avb@php.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2008-07-22</date>
+ <time>23:21:24</time>
+ <version>
+  <release>1.2.0</release>
+  <api>1.2.0</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.php.net/license">PHP License</license>
+ <notes>Changed unit tests to use current PHPUnit from http://www.phpunit.de/ rather
+than old unsupported one from http://pear.php.net/
+
+Implemented parts of request #12221 (thanks to Carsten Wiedmann for ideas and 
+their initial implementation)
+ * It is now possible to add comments to the template file that are removed 
+   from output: &lt;!-- COMMENT --&gt; ... &lt;!-- /COMMENT --&gt;
+ * Added new builtin callbacks &apos;e&apos; and &apos;r&apos; for htmlentities() and 
+   rawurlencode(), respectively
+ * Added the &apos;charset&apos; option for builtin &apos;h&apos; and &apos;e&apos; callbacks</notes>
+ <contents>
+  <dir baseinstalldir="HTML/Template" name="/">
+   <file baseinstalldir="HTML/Template" md5sum="7ff9c08e9ad53d6b830521c711cf4236" name="docs/templates/example_1.html" role="doc" />
+   <file baseinstalldir="HTML/Template" md5sum="8730abb99b6fbdc7bf2f2ce8dc74c7d8" name="docs/templates/example_2.html" role="doc" />
+   <file baseinstalldir="HTML/Template" md5sum="1628b07f622b3e748aa47ed2a11e22a0" name="docs/templates/example_3.html" role="doc" />
+   <file baseinstalldir="HTML/Template" md5sum="74c4a22843a171bb7b55539e027c9b19" name="docs/templates/example_3_add.html" role="doc" />
+   <file baseinstalldir="HTML/Template" md5sum="6f90c42a2f079149d9a58ce58ea6ce41" name="docs/templates/example_3_include.html" role="doc" />
+   <file baseinstalldir="HTML/Template" md5sum="0a1b539755d7aa543688ad1ae6d60a3a" name="docs/templates/example_3_replace_1.html" role="doc" />
+   <file baseinstalldir="HTML/Template" md5sum="17afcfb5c40babbff51c100228622ad5" name="docs/templates/example_3_replace_2.html" role="doc" />
+   <file baseinstalldir="HTML/Template" md5sum="b03d728576d17f62c58533696031dade" name="docs/templates/example_4.html" role="doc" />
+   <file baseinstalldir="HTML/Template" md5sum="69994b2e45cdea593731c5d67382c7cd" name="docs/example_1.php" role="doc" />
+   <file baseinstalldir="HTML/Template" md5sum="24b36e6a761b5f7695b86a7d185acb75" name="docs/example_2.php" role="doc" />
+   <file baseinstalldir="HTML/Template" md5sum="fae64dfd50fb92cbc46b499c30354762" name="docs/example_3.php" role="doc" />
+   <file baseinstalldir="HTML/Template" md5sum="1e6154b5d91da4528b9ffb006bf22846" name="docs/example_4.php" role="doc" />
+   <file baseinstalldir="HTML/Template" md5sum="e50de49b74a1d96bb77ddae2d0abdfc3" name="tests/templates/addblock.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="22e56437378e53d08ba07d3dd2aa4b85" name="tests/templates/blockiteration.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="4173bf97eec43787532e247ef9b2611a" name="tests/templates/blocks.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="85dcfcf8b0f846b443a01dec6452b564" name="tests/templates/callback.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="04279f8629778ba83bc224c8d70cf9cf" name="tests/templates/globals.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="db5b226eff0218c831749c07042529f2" name="tests/templates/include.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="d9a6425eebdfc6981465b4a228dbee51" name="tests/templates/loadtemplatefile.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="5c7e2e9c32306db4b6667d2b57f1c0ac" name="tests/templates/replaceblock.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="310552db4653b34dbb0f993847572fc5" name="tests/templates/__include.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="a40de0ef20b0fff1910ec52d228182b2" name="tests/AllTests.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="HTML/Template" md5sum="2d063724051a6f6268d430ca00523050" name="tests/Sigma_api_testcase.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="HTML/Template" md5sum="fbccba71a4de42745f73482ed3dca579" name="tests/Sigma_bug_testcase.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="HTML/Template" md5sum="c2f892cce91db39f6a78db5e584ac651" name="tests/Sigma_cache_testcase.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="HTML/Template" md5sum="37e911c2a5be0a6ce8d083f361d7bed6" name="tests/Sigma_usage_testcase.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="HTML/Template" md5sum="b81ae03108a39851901650511f1b6ea7" name="Sigma.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.0.6</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.3</min>
+   </pearinstaller>
+   <extension>
+    <name>ctype</name>
+   </extension>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>1.1.6</release>
+    <api>1.1.5</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-05-19</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Migrate to package.xml version 2.0, use proper header comment blocks.
+Minor fixes to phpdoc comments, no code changes since previous release.</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.5</release>
+    <api>1.1.5</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-05-31</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Fixed bug #6346: typo in _buildFunctionList()
+Fixed bug #6902: correctly handle drive letters and path separators on Windows
+Fixed bug #6905: use &apos;b&apos; modifier for fopen() to prevent problems with cached templates on Windows
+Calling setCacheRoot() with an empty argument will now disable caching. It was impossible
+to disable it with previous behaviour.
+
+Added possibility to pass arrays as second arguments to setVariable() and setGlobalVariable(),
+this will assign values to placeholders of the form {varName.arrayKey} in the template.
+Thanks to Franz Pentenrieder &lt;franz at quox.net&gt; for idea and original implementation.</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.4</release>
+    <api>1.1.2</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2005-11-05</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Fixed bug #5168: Prevent problems with template functions in included files</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.3</release>
+    <api>1.1.2</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2005-08-09</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Fixed bug #4896 (loading a zero-length template file caused a warning)
+* Fixed bug #5012 (placeholder delimiters were hardcoded in several places,
+  which prevented using custom delimiters)</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.2</release>
+    <api>1.1.2</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2004-10-20</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Changed the code for parsing template function arguments. It will
+now correctly unescape the escaped quotes within quoted arguments
+(see bug #1840).
+The new code throws errors on bogus arguments. If you previously
+relied on undocumented behaviour of argument parsing method, your 
+code may break: test before upgrading.</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2004-05-31</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Callbacks are not called if the block containing them is empty. Thanks
+to Sergey Vasiliev for the suggestion.</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.0</release>
+    <api>1.1.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2004-04-14</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Fixed #876 (get_class() and get_class_methods() usage with PHP5)
+  Unit tests run on PHP5, all tests pass.
+* Added clearVariables() method (see also #939)
+* Added shorthand syntax for callbacks: {var:callback} instead of 
+  func_callback({var})
+* Added builtin callbacks
+	&apos;h&apos; for htmlspecialchars()
+	&apos;u&apos; for urlencode()
+	&apos;j&apos; to escape the string for usage in Javascript
+
+This release is dedicated to Lukas Smith</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2003-10-02</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Removed _callbackExists() method, is_callable() is used instead
+* Check for SIGMA_OK instead of PEAR::isError() where possible
+* Fixed unit tests packaging. Should work OK in PEAR installation</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2003-05-20</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Added getBlockList() and getPlaceholderList() methods (thanks to Markus Wolff for the idea).
+* HTML_Template_IT compatibility: get() does not clear the parsed block contents by default.
+* Removed obsolete docs, current ones are in the PEAR manual.</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0</release>
+    <api>1.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2003-04-28</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>This release has Sigma&apos;s template functions/callbacks infrastructure significantly enhanced.
+This unfortunately means some backwards compatibility breaks. If you were using callbacks before, please carefully examine the release notes and test you scripts before upgrading to 1.0.
+If you weren&apos;t using callbacks due to their shortcomings it is a good time to give them a try, consult docs/example_4.php for some of their possible applications.
+
+Template functions/callbacks changes and incompatibilities:
+
+* Templates are parsed for function calls not only on setTemplate()/loadTemplatefile(), but on addBlock()/addBlockfile() and replaceBlock()/replaceBlockfile() as well.
+* The arguments to template functions can now contain variable placeholders: func_uppercase(&apos;Hello, {username}!&apos;).
+* Template functions are now compatible with template caching.
+* Method setCallbackFunction() now accepts a callback that is compatible with call_user_func() as its second argument. Its third argument is used to control variable substitution in function arguments.
+* Method performCallback() was removed. Callbacks are now called automatically when the block containing them is parse()&apos;d.
+* Callbacks are now called via call_user_func_array() instead of call_user_func(). This makes it possible to use built-in functions as callbacks, but also means that you have to rewrite your old functions!
+* Usage example is available in docs/example_4.php
+
+Other changes:
+
+* Option &apos;use_preg&apos; was removed.
+* Stricter error checking when doing addBlockfile() with a prepared template.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.9.2</release>
+    <api>0.9.2</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2003-04-21</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Added usage examples
+* Added the cache FAQ
+* This is the last 0.9.x release unless some bugs are found. The 1.0 release will 
+  have callbacks significantly redone and will require changes to your scripts if
+  you use callbacks.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.9.1</release>
+    <api>0.9.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2003-04-18</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Fix: if source template does not exist, do not load the &apos;prepared&apos; one, throw an error instead.
+  Thanks to Maxim Panasiuk for the report.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.9</release>
+    <api>0.9</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2003-04-04</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Initial PEAR release</notes>
+  </release>
+ </changelog>
+</package>

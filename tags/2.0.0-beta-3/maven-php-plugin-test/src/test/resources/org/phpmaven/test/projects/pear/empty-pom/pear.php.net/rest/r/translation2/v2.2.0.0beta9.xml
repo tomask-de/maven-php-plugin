@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release2
+    http://pear.php.net/dtd/rest.release2.xsd">
+ <p xlink:href="/rest/p/translation2">Translation2</p>
+ <c>pear.php.net</c>
+ <v>2.0.0beta9</v>
+ <a>2.0.0beta9</a>
+ <mp>4.3.0</mp>
+ <st>beta</st>
+ <l>BSD License</l>
+ <m>quipo</m>
+ <s>Class for multilingual applications management.</s>
+ <d>This class provides an easy way to retrieve all the strings for a multilingual site from a data source (i.e. db).
+The following containers are provided, more will follow:
+- PEAR::DB
+- PEAR::MDB
+- PEAR::MDB2
+- gettext
+- XML
+- PEAR::DB_DataObject (experimental)
+It is designed to reduce the number of queries to the db, caching the results when possible.
+An Admin class is provided to easily manage translations (add/remove a language, add/remove a string).
+Currently, the following decorators are provided:
+- CacheLiteFunction (for file-based caching)
+- CacheMemory (for memory-based caching)
+- DefaultText (to replace empty strings with their keys)
+- ErrorText (to replace empty strings with a custom error text)
+- Iconv (to switch from/to different encodings)
+- Lang (resort to fallback languages for empty strings)
+- SpecialChars (replace html entities with their hex codes)
+- UTF-8 (to convert UTF-8 strings to ISO-8859-1)
+ 
+</d>
+ <da>2006-02-22 11:38:18</da>
+ <n>- Translation2_Decorator_Lang: append keys when fallback lang 
+  contains more than current (request #5773)
+- Removed leftover code from the MDB admin container that caused
+  inserting the same record twice (bug #6233)
+- Better error handling and cache refreshing in the gettext driver
+  (bug #6410) [thanks to Alan Knowles and ivanwyc@gmail.com]
+- Honor global PEAR error settings in Translation2_Container::raiseError()
+  (bug #6574)
+- Added missing updateLang() proxy in Translation2_Admin_Decorator (bug #6753)
+- Added length to INDEX on TEXT column in Translation2_Admin::addLang() 
+  when the dbms is MySQL (thanks to AJ Tarachanowicz)
+- Fixed UNIQUE INDEX in Translation2_Admin::addLang(), one of the two columns
+  got lost in a previous revision</n>
+ <f>52921</f>
+ <g>http://pear.php.net/get/Translation2-2.0.0beta9</g>
+ <x xlink:href="package.2.0.0beta9.xml"/>
+</r>

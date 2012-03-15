@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>DB</name>
+  <summary>Database Abstraction Layer</summary>
+  <description>DB is a database abstraction layer providing:
+* an OO-style query API
+* portability features that make programs written for one DBMS work with other DBMS's
+* a DSN (data source name) format for specifying database servers
+* prepare/execute (bind) emulation for databases that don't support it natively
+* a result object for each query response
+* portable error codes
+* sequence emulation
+* sequential and non-sequential row fetching as well as bulk fetching
+* formats fetched rows as associative arrays, ordered arrays or objects
+* row limit support
+* transactions support
+* table information interface
+* DocBook and phpDocumentor API documentation
+
+DB layers itself on top of PHP's existing
+database extensions.
+
+Drivers for the following extensions pass
+the complete test suite and provide
+interchangeability when all of DB's
+portability options are enabled:
+
+  fbsql, ibase, informix, msql, mssql,
+  mysql, mysqli, oci8, odbc, pgsql,
+  sqlite and sybase.
+
+There is also a driver for the dbase
+extension, but it can't be used
+interchangeably because dbase doesn't
+support many standard DBMS features.
+
+DB is compatible with both PHP 4 and PHP 5.</description>
+  <maintainers>
+    <maintainer>
+      <user>ssb</user>
+      <name>Stig Bakken</name>
+      <email>stig@php.net</email>
+      <role>developer</role>
+    </maintainer>
+    <maintainer>
+      <user>cox</user>
+      <name>Tomas V.V.Cox</name>
+      <email>cox@idecnet.com</email>
+      <role>developer</role>
+    </maintainer>
+    <maintainer>
+      <user>danielc</user>
+      <name>Daniel Convissor</name>
+      <email>danielc@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>lsmith</user>
+      <name>Lukas Kahwe Smith</name>
+      <email>smith@backendmedia.com</email>
+      <role>helper</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.7.0</version>
+    <date>2005-03-01</date>
+    <license>PHP License</license>
+    <state>stable</state>
+    <notes>To view the majority of changes since 1.6.8,
+see the changelog for Release 1.7.0RC1.
+
+all:
+* __sleep() should not call disconnect().
+  Also store connection state in the new
+  $was_connected property.  This resolves
+  Bug 3594 that was introduced in 1.7.0RC1.
+
+fbsql:
+* Handle more error codes:
+  + 239 =&gt; DB_ERROR_TRUNCATED.
+  + 215 =&gt; DB_ERROR_NOSUCHFIELD for columns
+    not in both sides of JOIN.
+
+ibase:
+* Change error mapping of &quot;arithmetic
+  exception, numeric overflow, or string
+  truncation&quot; from DB_ERROR_DIVZERO to
+  DB_ERROR_INVALID because it covers
+  much more than division by zero.
+
+mssql:
+* Handle more error codes:
+  + 155 =&gt; DB_ERROR_NOSUCHFIELD for columns
+    not in both sides of JOIN.
+
+oci8:
+* Handle more error codes:
+  + 1401 =&gt; DB_ERROR_INVALID for strings
+    exceeding column size.
+
+odbc:
+* Handle more error codes:
+  + '22001' =&gt; DB_ERROR_INVALID for strings
+    exceeding column size.
+
+pgsql:
+* For getListOf('views'), ignore views in system
+  schemas rather than returning views in the
+  public schema.  Request 3595.
+* Handle more error messages:
+  + invalid input syntax for type numeric
+  + column reference &quot;active&quot; is ambiguous
+  + value too long for type character varying(50)
+  + value &quot;50000&quot; is out of range for type shortint
+  + integer out of range
+  + column &quot;p_id&quot; specified in USING clause does
+    not exist in left table
+  + column p.p_name does not exist
+* Silence errors in errorNative() when connection
+  doesn't exist.
+
+sqlite:
+* Handle more error messages:
+  + cannot join using column b - column not
+    present in both tables</notes>
+    <deps>
+      <dep type="php" rel="ge" version="4.2.0"/>
+      <dep type="pkg" rel="ge" version="1.0b1">PEAR</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="/" name="DB.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="php" name="DB/common.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="php" name="DB/dbase.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="php" name="DB/fbsql.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="php" name="DB/ibase.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="php" name="DB/ifx.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="php" name="DB/msql.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="php" name="DB/mssql.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="php" name="DB/mysql.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="php" name="DB/mysqli.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="php" name="DB/oci8.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="php" name="DB/odbc.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="php" name="DB/pgsql.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="php" name="DB/sybase.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="php" name="DB/storage.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="php" name="DB/sqlite.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="doc" name="doc/IDEAS"/>
+      <file role="doc" name="doc/MAINTAINERS"/>
+      <file role="doc" name="doc/STATUS"/>
+      <file role="doc" name="doc/TESTERS"/>
+      <file role="test" name="tests/db_error.phpt"/>
+      <file role="test" name="tests/db_parsedsn.phpt"/>
+      <file role="test" name="tests/db_factory.phpt"/>
+      <file role="test" name="tests/db_ismanip.phpt"/>
+      <file role="test" name="tests/db_error2.phpt"/>
+      <file role="test" name="tests/errors.inc"/>
+      <file role="test" name="tests/fetchmode_object.inc"/>
+      <file role="test" name="tests/fetchmodes.inc"/>
+      <file role="test" name="tests/include.inc">
+        <replace from="@include_path@" to="php_dir" type="pear-config"/>
+      </file>
+      <file role="test" name="tests/limit.inc"/>
+      <file role="test" name="tests/numcols.inc"/>
+      <file role="test" name="tests/numrows.inc"/>
+      <file role="test" name="tests/prepexe.inc"/>
+      <file role="test" name="tests/run.cvs"/>
+      <file role="test" name="tests/sequences.inc"/>
+      <file role="test" name="tests/simplequery.inc"/>
+      <file role="test" name="tests/transactions.inc"/>
+      <file role="test" name="tests/skipif.inc"/>
+      <file role="test" name="tests/driver/01connect.phpt"/>
+      <file role="test" name="tests/driver/02fetch.phpt"/>
+      <file role="test" name="tests/driver/03simplequery.phpt"/>
+      <file role="test" name="tests/driver/04numcols.phpt"/>
+      <file role="test" name="tests/driver/05sequences.phpt"/>
+      <file role="test" name="tests/driver/06prepexec.phpt"/>
+      <file role="test" name="tests/driver/08affectedrows.phpt"/>
+      <file role="test" name="tests/driver/09numrows.phpt"/>
+      <file role="test" name="tests/driver/10errormap.phpt"/>
+      <file role="test" name="tests/driver/11transactions.phpt"/>
+      <file role="test" name="tests/driver/13limit.phpt"/>
+      <file role="test" name="tests/driver/14fetchmode_object.phpt"/>
+      <file role="test" name="tests/driver/15quote.phpt"/>
+      <file role="test" name="tests/driver/16tableinfo.phpt"/>
+      <file role="test" name="tests/driver/17query.phpt"/>
+      <file role="test" name="tests/driver/18get.phpt"/>
+      <file role="test" name="tests/driver/19getlistof.phpt"/>
+      <file role="test" name="tests/driver/connect.inc"/>
+      <file role="test" name="tests/driver/mktable.inc"/>
+      <file role="test" name="tests/driver/multiconnect.php"/>
+      <file role="test" name="tests/driver/run.cvs"/>
+      <file role="test" name="tests/driver/setup.inc.cvs">
+        <replace from="@include_path@" to="php_dir" type="pear-config"/>
+      </file>
+      <file role="test" name="tests/driver/skipif.inc"/>
+    </filelist>
+  </release>
+</package>

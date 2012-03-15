@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.0a12">
+ <name>MDB2_Driver_pgsql</name>
+ <summary>pgsql MDB2 driver</summary>
+ <description>This is the PostGreSQL MDB2 driver.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>lsmith</user>
+   <name>Lukas Kahwe Smith</name>
+   <email>smith@backendmedia.com</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>0.1.0</version>
+  <date>2005-06-08</date>
+  <license>BSD License</license>
+  <state>beta</state>
+  <notes>first unbundled release from MDB2 core
+
+- dont just check for isset() for boolean values in order to support
+  setting them false as well (bug #4373)
+- ensure SQL injection protection in all _quote() methods (was missing in
+  some decimal, float, time, date and timestamp implementations)
+  </notes>
+  <deps>
+   <dep type="php" rel="ge" version="4.2.0" optional="no"/>
+   <dep type="pkg" rel="ge" version="1.0b1" optional="no">PEAR</dep>
+   <dep type="pkg" rel="ge" version="2.0.0beta5" optional="no">MDB2</dep>
+   <dep type="ext" rel="has" optional="no">pgsql</dep>
+  </deps>
+  <provides type="class" name="MDB2_Driver_Datatype_pgsql" extends="MDB2_Driver_Datatype_Common" />
+  <provides type="function" name="MDB2_Driver_Datatype_pgsql::convertResult" />
+  <provides type="function" name="MDB2_Driver_Datatype_pgsql::writeLOBToFile" />
+  <provides type="function" name="MDB2_Driver_Datatype_pgsql::mapNativeDatatype" />
+  <provides type="class" name="MDB2_Driver_Manager_pgsql" extends="MDB2_Driver_Manager_common" />
+  <provides type="function" name="MDB2_Driver_Manager_pgsql::createDatabase" />
+  <provides type="class" name="MDB2_Driver_Native_pgsql" />
+  <provides type="function" name="MDB2_Driver_Native_pgsql::deleteOID" />
+  <provides type="class" name="MDB2_Driver_Reverse_pgsql" extends="MDB2_Driver_Reverse_common" />
+  <provides type="function" name="MDB2_Driver_Reverse_pgsql::getTableFieldDefinition" />
+  <provides type="class" name="MDB2_Driver_pgsql" extends="MDB2_Driver_Common" />
+  <provides type="function" name="MDB2_Driver_pgsql::errorInfo" />
+  <provides type="function" name="MDB2_Driver_pgsql::beginTransaction" />
+  <provides type="function" name="MDB2_Driver_pgsql::commit" />
+  <provides type="function" name="MDB2_Driver_pgsql::rollback" />
+  <provides type="function" name="MDB2_Driver_pgsql::connect" />
+  <provides type="function" name="MDB2_Driver_pgsql::disconnect" />
+  <provides type="function" name="MDB2_Driver_pgsql::standaloneQuery" />
+  <filelist>
+   <file role="php" baseinstalldir="/" md5sum="8eba8aa2ad2c6a57b3786d869b7b1d0d" name="MDB2/Driver/Datatype/pgsql.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="a8db32acd74fc8582f4aa5d30bad9fe9" name="MDB2/Driver/Manager/pgsql.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="ae77f6e514e0dc9e8ca8dd798f287578" name="MDB2/Driver/Native/pgsql.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="8103bef7ffe98a4789325ddd8320dddc" name="MDB2/Driver/Reverse/pgsql.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="82255016442494c941dd68b3e6d4fec3" name="MDB2/Driver/pgsql.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+  </filelist>
+ </release>
+</package>

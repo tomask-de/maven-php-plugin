@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/db">DB</p>
+ <c>pear.php.net</c>
+ <v>1.7.14</v>
+ <st>stable</st>
+ <l>PHP License</l>
+ <m>danielc</m>
+ <s>Database Abstraction Layer</s>
+ <d>DB is a database abstraction layer providing:
+* an OO-style query API
+* portability features that make programs written for one DBMS work with other DBMS's
+* a DSN (data source name) format for specifying database servers
+* prepare/execute (bind) emulation for databases that don't support it natively
+* a result object for each query response
+* portable error codes
+* sequence emulation
+* sequential and non-sequential row fetching as well as bulk fetching
+* formats fetched rows as associative arrays, ordered arrays or objects
+* row limit support
+* transactions support
+* table information interface
+* DocBook and phpDocumentor API documentation
+
+DB layers itself on top of PHP's existing
+database extensions.
+
+Drivers for the following extensions pass
+the complete test suite and provide
+interchangeability when all of DB's
+portability options are enabled:
+
+  fbsql, ibase, informix, msql, mssql,
+  mysql, mysqli, oci8, odbc, pgsql,
+  sqlite and sybase.
+
+There is also a driver for the dbase
+extension, but it can't be used
+interchangeably because dbase doesn't
+support many standard DBMS features.
+
+DB is compatible with both PHP 4 and PHP 5.</d>
+ <da>2011-08-27 14:42:21</da>
+ <n>Changes since 1.7.13:
+
+All drivers:
+* Made the definition of DB_common::raiseError() compatible with PEAR::raiseError() by adding dummy parameters.  Request 11581.
+* Fixed SKIP block in the 20locale.phpt test.
+* Fixed non-persistent connections to really be non-persistent when unserialising. Bug 15115.
+
+ibase:
+* Changed the order of regular expressions applied when mapping errors so that constraint violations in PHP 4.4 are actually reported as constraint violations and not table not found errors.
+* Fixed a test that should have been skipped in PHP 4.4.
+
+
+ifx:
+* Use PCRE rather than ereg. Bug 17722, patch by Olle Jonsson.
+
+mssql:
+* Fix escaping of string values with lines ending in a backslash character. Bug 16117.
+
+oci8:
+* Fix for last_query reconstruction with lots of placeholders.  Bug 12418, patch by Nicholas Evans.
+* Fix replacement of values in last_query for :bind's numbered over 10. Bug 14603.
+* Unset $_prepared_queries in freePrepared().  Bug 14271.
+
+pgsql:
+* Added special-case to handle SAVEPOINT queries as manip queries.  Bug 12260.
+* Implement rudimentary support for WITH...SELECT queries. Bug 17136.
+
+sqlite:
+* Added support for another error message in the SQLite driver.  Bug 12105, patch by Adam Ashley.
+* Implement auto_increment support in tableInfo(). Request 13193.</n>
+ <f>133103</f>
+ <g>http://pear.php.net/get/DB-1.7.14</g>
+ <x xlink:href="package.1.7.14.xml"/>
+</r>

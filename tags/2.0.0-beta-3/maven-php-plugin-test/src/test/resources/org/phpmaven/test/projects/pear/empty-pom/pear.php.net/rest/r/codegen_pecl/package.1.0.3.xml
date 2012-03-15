@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.9">
+ <name>CodeGen_PECL</name>
+ <summary>Tool to generate PECL extensions from an XML description</summary>
+ <description>CodeGen_PECL (formerly known as PECL_Gen) is a pure PHP replacement 
+for the ext_skel shell script that comes with the PHP 4 source. 
+It reads in configuration options, function prototypes and code fragments
+from an XML description file and generates a complete ready-to-compile
+PECL extension.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>hholzgra</user>
+   <name>Hartmut Holzgraefe</name>
+   <email>hartmut@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>rasmus</user>
+   <name>Rasmus Lerdorf</name>
+   <email>rasmus@php.net</email>
+   <role>contributor</role>
+  </maintainer>
+  <maintainer>
+   <user>luckec</user>
+   <name>Carsten Lucke</name>
+   <email>luckec@php.net</email>
+   <role>contributor</role>
+  </maintainer>
+  <maintainer>
+   <user>pajoye</user>
+   <name>Pierre-Alain Joye</name>
+   <email>pajoye@php.net</email>
+   <role>helper</role>
+  </maintainer>
+  <maintainer>
+   <user>hartmann</user>
+   <name>Johann Peter Hartmann</name>
+   <email>hartmann@php.net</email>
+   <role>helper</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>1.0.3</version>
+  <date>2006-08-16</date>
+  <license>PHP</license>
+  <state>stable</state>
+  <notes>Changes since 1.0.2:
+- fixed CodeGen dependency entry
+- disabled #line output by default
+  </notes>
+  <deps>
+   <dep type="php" rel="ge" version="5"/>
+   <dep type="pkg" rel="ge" version="1.2">PEAR</dep>
+   <dep type="pkg" rel="eq" version="1.0.2">CodeGen</dep>
+  </deps>
+  <provides type="class" name="CodeGen_PECL_Extension" extends="CodeGen_Extension" />
+  <provides type="function" name="CodeGen_PECL_Extension::version" />
+  <provides type="function" name="CodeGen_PECL_Extension::copyright" />
+  <provides type="function" name="CodeGen_PECL_Extension::addFunction" />
+  <provides type="function" name="CodeGen_PECL_Extension::setPlatform" />
+  <provides type="function" name="CodeGen_PECL_Extension::addConstant" />
+  <provides type="function" name="CodeGen_PECL_Extension::addPhpIni" />
+  <provides type="function" name="CodeGen_PECL_Extension::addGlobal" />
+  <provides type="function" name="CodeGen_PECL_Extension::addResource" />
+  <provides type="function" name="CodeGen_PECL_Extension::getResources" />
+  <provides type="function" name="CodeGen_PECL_Extension::getConstants" />
+  <provides type="function" name="CodeGen_PECL_Extension::addClass" />
+  <provides type="function" name="CodeGen_PECL_Extension::addInterface" />
+  <provides type="function" name="CodeGen_PECL_Extension::addStream" />
+  <provides type="function" name="CodeGen_PECL_Extension::addWith" />
+  <provides type="function" name="CodeGen_PECL_Extension::addLogo" />
+  <provides type="function" name="CodeGen_PECL_Extension::addOtherExtension" />
+  <provides type="function" name="CodeGen_PECL_Extension::setLinespecs" />
+  <provides type="function" name="CodeGen_PECL_Extension::getLinespecs" />
+  <provides type="function" name="CodeGen_PECL_Extension::createExtension" />
+  <provides type="function" name="CodeGen_PECL_Extension::generateSource" />
+  <provides type="function" name="CodeGen_PECL_Extension::generateDocumentation" />
+  <provides type="function" name="CodeGen_PECL_Extension::generateExtensionEntry" />
+  <provides type="function" name="CodeGen_PECL_Extension::generateGlobalsC" />
+  <provides type="function" name="CodeGen_PECL_Extension::generateGlobalsH" />
+  <provides type="function" name="CodeGen_PECL_Extension::generateFunctionRegistrations" />
+  <provides type="function" name="CodeGen_PECL_Extension::generateClassRegistrations" />
+  <provides type="function" name="CodeGen_PECL_Extension::generateInterfaceRegistrations" />
+  <provides type="function" name="CodeGen_PECL_Extension::setLicense" />
+  <provides type="function" name="CodeGen_PECL_Extension::getLicense" />
+  <provides type="function" name="CodeGen_PECL_Extension::setChannel" />
+  <provides type="function" name="CodeGen_PECL_Extension::writeHeaderFile" />
+  <provides type="function" name="CodeGen_PECL_Extension::internalFunctionsC" />
+  <provides type="function" name="CodeGen_PECL_Extension::publicFunctionsC" />
+  <provides type="function" name="CodeGen_PECL_Extension::writeCodeFile" />
+  <provides type="function" name="CodeGen_PECL_Extension::writeConfigM4" />
+  <provides type="function" name="CodeGen_PECL_Extension::writeConfigW32" />
+  <provides type="function" name="CodeGen_PECL_Extension::writeMsDevStudioDsp" />
+  <provides type="function" name="CodeGen_PECL_Extension::writeCredits" />
+  <provides type="function" name="CodeGen_PECL_Extension::writeExperimental" />
+  <provides type="function" name="CodeGen_PECL_Extension::packageXmlFileList" />
+  <provides type="function" name="CodeGen_PECL_Extension::writePackageXml" />
+  <provides type="function" name="CodeGen_PECL_Extension::writePackageXml2" />
+  <provides type="function" name="CodeGen_PECL_Extension::addTest" />
+  <provides type="function" name="CodeGen_PECL_Extension::writeTestFiles" />
+  <provides type="function" name="CodeGen_PECL_Extension::writeReadme" />
+  <provides type="function" name="CodeGen_PECL_Extension::minPhpVersion" />
+  <provides type="function" name="CodeGen_PECL_Extension::docEditorSettings" />
+  <provides type="function" name="CodeGen_PECL_Extension::terminate" />
+  <provides type="class" name="CodeGen_PECL_Release" extends="CodeGen_Release" />
+  <provides type="function" name="CodeGen_PECL_Release::packageXml" />
+  <provides type="function" name="CodeGen_PECL_Release::packageXml2" />
+  <provides type="function" name="CodeGen_PECL_Release::phpinfoCode" />
+  <provides type="class" name="CodeGen_PECL_Maintainer" extends="CodeGen_Maintainer" />
+  <provides type="function" name="CodeGen_PECL_Maintainer::phpinfoCode" />
+  <provides type="function" name="CodeGen_PECL_Maintainer::packageXml" />
+  <provides type="function" name="CodeGen_PECL_Maintainer::packageXml2" />
+  <provides type="function" name="CodeGen_PECL_Maintainer::comp" />
+  <provides type="class" name="CodeGen_PECL_Element" extends="CodeGen_Element" />
+  <provides type="function" name="CodeGen_PECL_Element::isType" />
+  <provides type="function" name="CodeGen_PECL_Element::isKeyword" />
+  <provides type="class" name="CodeGen_PECL_Command" extends="CodeGen_Command" />
+  <provides type="function" name="CodeGen_PECL_Command::commandOptions" />
+  <provides type="function" name="CodeGen_PECL_Command::showUsage" />
+  <provides type="function" name="CodeGen_PECL_Command::singleFunction" />
+  <provides type="function" name="CodeGen_PECL_Command::extSkelCompat" />
+  <provides type="class" name="CodeGen_PECL_Element_Constant" extends="CodeGen_PECL_Element" />
+  <provides type="function" name="CodeGen_PECL_Element_Constant::setName" />
+  <provides type="function" name="CodeGen_PECL_Element_Constant::getName" />
+  <provides type="function" name="CodeGen_PECL_Element_Constant::setType" />
+  <provides type="function" name="CodeGen_PECL_Element_Constant::setValue" />
+  <provides type="function" name="CodeGen_PECL_Element_Constant::getValue" />
+  <provides type="function" name="CodeGen_PECL_Element_Constant::setDesc" />
+  <provides type="function" name="CodeGen_PECL_Element_Constant::setDefine" />
+  <provides type="function" name="CodeGen_PECL_Element_Constant::cCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Constant::hCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Constant::docHeader" />
+  <provides type="function" name="CodeGen_PECL_Element_Constant::docEntry" />
+  <provides type="function" name="CodeGen_PECL_Element_Constant::docFooter" />
+  <provides type="class" name="CodeGen_PECL_Element_Function" extends="CodeGen_PECL_Element" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::setName" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::getName" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::getFullName" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::setSummary" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::setDescription" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::setRole" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::getRole" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::setProto" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::newSetProto" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::oldSetProto" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::setCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::getCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::setTestCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::getTestCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::setTestResult" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::getTestResult" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::setTestDescription" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::getTestDescription" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::setTestSkipIf" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::getTestSkipIf" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::setTestIni" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::getTestIni" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::isInternalName" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::defaultval" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::parseParameterHook" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::localVariables" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::cCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::docEntry" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::writeTest" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::createTest" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::cProto" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::hCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::argInfoCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Function::functionEntry" />
+  <provides type="class" name="CodeGen_PECL_Element_Global" extends="CodeGen_PECL_Element" />
+  <provides type="function" name="CodeGen_PECL_Element_Global::setName" />
+  <provides type="function" name="CodeGen_PECL_Element_Global::getName" />
+  <provides type="function" name="CodeGen_PECL_Element_Global::setType" />
+  <provides type="function" name="CodeGen_PECL_Element_Global::getType" />
+  <provides type="function" name="CodeGen_PECL_Element_Global::setValue" />
+  <provides type="function" name="CodeGen_PECL_Element_Global::getValue" />
+  <provides type="function" name="CodeGen_PECL_Element_Global::isType" />
+  <provides type="function" name="CodeGen_PECL_Element_Global::cCodeHeader" />
+  <provides type="function" name="CodeGen_PECL_Element_Global::cCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Global::cCodeFooter" />
+  <provides type="function" name="CodeGen_PECL_Element_Global::hCodeHeader" />
+  <provides type="function" name="CodeGen_PECL_Element_Global::hCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Global::hCodeFooter" />
+  <provides type="class" name="CodeGen_PECL_Element_Ini" extends="CodeGen_PECL_Element" />
+  <provides type="function" name="CodeGen_PECL_Element_Ini::setName" />
+  <provides type="function" name="CodeGen_PECL_Element_Ini::getName" />
+  <provides type="function" name="CodeGen_PECL_Element_Ini::setType" />
+  <provides type="function" name="CodeGen_PECL_Element_Ini::getType" />
+  <provides type="function" name="CodeGen_PECL_Element_Ini::setValue" />
+  <provides type="function" name="CodeGen_PECL_Element_Ini::getValue" />
+  <provides type="function" name="CodeGen_PECL_Element_Ini::setDesc" />
+  <provides type="function" name="CodeGen_PECL_Element_Ini::getDesc" />
+  <provides type="function" name="CodeGen_PECL_Element_Ini::setAccess" />
+  <provides type="function" name="CodeGen_PECL_Element_Ini::getAccess" />
+  <provides type="function" name="CodeGen_PECL_Element_Ini::setOnUpdate" />
+  <provides type="function" name="CodeGen_PECL_Element_Ini::getOnupdate" />
+  <provides type="function" name="CodeGen_PECL_Element_Ini::cCodeHeader" />
+  <provides type="function" name="CodeGen_PECL_Element_Ini::cCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Ini::cCodeFooter" />
+  <provides type="function" name="CodeGen_PECL_Element_Ini::docHeader" />
+  <provides type="function" name="CodeGen_PECL_Element_Ini::docEntry" />
+  <provides type="function" name="CodeGen_PECL_Element_Ini::docFooter" />
+  <provides type="class" name="CodeGen_PECL_Element_Logo" extends="CodeGen_PECL_Element" />
+  <provides type="function" name="CodeGen_PECL_Element_Logo::getName" />
+  <provides type="function" name="CodeGen_PECL_Element_Logo::setData" />
+  <provides type="function" name="CodeGen_PECL_Element_Logo::loadFile" />
+  <provides type="function" name="CodeGen_PECL_Element_Logo::minitCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Logo::mshutdownCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Logo::cCodeHeader" />
+  <provides type="function" name="CodeGen_PECL_Element_Logo::cCodeFooter" />
+  <provides type="function" name="CodeGen_PECL_Element_Logo::cCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Logo::hCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Logo::phpinfoCode" />
+  <provides type="class" name="CodeGen_PECL_Element_Resource" extends="CodeGen_PECL_Element" />
+  <provides type="function" name="CodeGen_PECL_Element_Resource::setName" />
+  <provides type="function" name="CodeGen_PECL_Element_Resource::getName" />
+  <provides type="function" name="CodeGen_PECL_Element_Resource::setPayload" />
+  <provides type="function" name="CodeGen_PECL_Element_Resource::getPayload" />
+  <provides type="function" name="CodeGen_PECL_Element_Resource::setAlloc" />
+  <provides type="function" name="CodeGen_PECL_Element_Resource::getAlloc" />
+  <provides type="function" name="CodeGen_PECL_Element_Resource::setDestruct" />
+  <provides type="function" name="CodeGen_PECL_Element_Resource::setDescription" />
+  <provides type="function" name="CodeGen_PECL_Element_Resource::minitCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Resource::cCodeHeader" />
+  <provides type="function" name="CodeGen_PECL_Element_Resource::cCodeFooter" />
+  <provides type="function" name="CodeGen_PECL_Element_Resource::cCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Resource::hCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Resource::configm4" />
+  <provides type="function" name="CodeGen_PECL_Element_Resource::docEntry" />
+  <provides type="class" name="CodeGen_PECL_Element_Test" extends="CodeGen_PECL_Element" />
+  <provides type="function" name="CodeGen_PECL_Element_Test::setName" />
+  <provides type="function" name="CodeGen_PECL_Element_Test::getName" />
+  <provides type="function" name="CodeGen_PECL_Element_Test::getTitle" />
+  <provides type="function" name="CodeGen_PECL_Element_Test::setTitle" />
+  <provides type="function" name="CodeGen_PECL_Element_Test::getDescription" />
+  <provides type="function" name="CodeGen_PECL_Element_Test::setDescription" />
+  <provides type="function" name="CodeGen_PECL_Element_Test::getIni" />
+  <provides type="function" name="CodeGen_PECL_Element_Test::setIni" />
+  <provides type="function" name="CodeGen_PECL_Element_Test::addIni" />
+  <provides type="function" name="CodeGen_PECL_Element_Test::getSkipif" />
+  <provides type="function" name="CodeGen_PECL_Element_Test::setSkipIf" />
+  <provides type="function" name="CodeGen_PECL_Element_Test::addSkipIf" />
+  <provides type="function" name="CodeGen_PECL_Element_Test::getGet" />
+  <provides type="function" name="CodeGen_PECL_Element_Test::setGet" />
+  <provides type="function" name="CodeGen_PECL_Element_Test::getPost" />
+  <provides type="function" name="CodeGen_PECL_Element_Test::setPost" />
+  <provides type="function" name="CodeGen_PECL_Element_Test::getCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Test::setCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Test::getOutput" />
+  <provides type="function" name="CodeGen_PECL_Element_Test::setOutput" />
+  <provides type="function" name="CodeGen_PECL_Element_Test::getMode" />
+  <provides type="function" name="CodeGen_PECL_Element_Test::setMode" />
+  <provides type="function" name="CodeGen_PECL_Element_Test::complete" />
+  <provides type="function" name="CodeGen_PECL_Element_Test::writeTest" />
+  <provides type="function" name="CodeGen_PECL_Element_ObjectInterface::getName" />
+  <provides type="function" name="CodeGen_PECL_Element_ObjectInterface::getPayloadType" />
+  <provides type="class" name="CodeGen_PECL_Element_Class" extends="CodeGen_PECL_Element" />
+  <provides type="function" name="CodeGen_PECL_Element_Class::setName" />
+  <provides type="function" name="CodeGen_PECL_Element_Class::getName" />
+  <provides type="function" name="CodeGen_PECL_Element_Class::setSummary" />
+  <provides type="function" name="CodeGen_PECL_Element_Class::setDescription" />
+  <provides type="function" name="CodeGen_PECL_Element_Class::setDocumentation" />
+  <provides type="function" name="CodeGen_PECL_Element_Class::setExtends" />
+  <provides type="function" name="CodeGen_PECL_Element_Class::addInterface" />
+  <provides type="function" name="CodeGen_PECL_Element_Class::addProperty" />
+  <provides type="function" name="CodeGen_PECL_Element_Class::addConstant" />
+  <provides type="function" name="CodeGen_PECL_Element_Class::addMethod" />
+  <provides type="function" name="CodeGen_PECL_Element_Class::isAbstract" />
+  <provides type="function" name="CodeGen_PECL_Element_Class::isFinal" />
+  <provides type="function" name="CodeGen_PECL_Element_Class::isInterface" />
+  <provides type="function" name="CodeGen_PECL_Element_Class::setPayloadType" />
+  <provides type="function" name="CodeGen_PECL_Element_Class::getPayloadType" />
+  <provides type="function" name="CodeGen_PECL_Element_Class::setPayloadAlloc" />
+  <provides type="function" name="CodeGen_PECL_Element_Class::setPayloadCtor" />
+  <provides type="function" name="CodeGen_PECL_Element_Class::getPayloadCtor" />
+  <provides type="function" name="CodeGen_PECL_Element_Class::setPayloadDtor" />
+  <provides type="function" name="CodeGen_PECL_Element_Class::getPayloadDtor" />
+  <provides type="function" name="CodeGen_PECL_Element_Class::hCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Class::globalCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Class::minitCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Class::docEntry" />
+  <provides type="function" name="CodeGen_PECL_Element_Class::writeTests" />
+  <provides type="function" name="CodeGen_PECL_Element_Class::functionAliasEntries" />
+  <provides type="class" name="CodeGen_PECL_Element_Interface" extends="CodeGen_PECL_Element" />
+  <provides type="function" name="CodeGen_PECL_Element_Interface::setName" />
+  <provides type="function" name="CodeGen_PECL_Element_Interface::getName" />
+  <provides type="function" name="CodeGen_PECL_Element_Interface::setSummary" />
+  <provides type="function" name="CodeGen_PECL_Element_Interface::setDescription" />
+  <provides type="function" name="CodeGen_PECL_Element_Interface::setDocumentation" />
+  <provides type="function" name="CodeGen_PECL_Element_Interface::setExtends" />
+  <provides type="function" name="CodeGen_PECL_Element_Interface::addMethod" />
+  <provides type="function" name="CodeGen_PECL_Element_Interface::hCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Interface::globalCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Interface::minitCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Interface::docEntry" />
+  <provides type="function" name="CodeGen_PECL_Element_Interface::getPayloadType" />
+  <provides type="class" name="CodeGen_PECL_Element_Method" extends="CodeGen_PECL_Element_Function" />
+  <provides type="function" name="CodeGen_PECL_Element_Method::getProceduralName" />
+  <provides type="function" name="CodeGen_PECL_Element_Method::setProceduralName" />
+  <provides type="function" name="CodeGen_PECL_Element_Method::getFullName" />
+  <provides type="function" name="CodeGen_PECL_Element_Method::isAbstract" />
+  <provides type="function" name="CodeGen_PECL_Element_Method::isInterface" />
+  <provides type="function" name="CodeGen_PECL_Element_Method::isFinal" />
+  <provides type="function" name="CodeGen_PECL_Element_Method::isStatic" />
+  <provides type="function" name="CodeGen_PECL_Element_Method::setAccess" />
+  <provides type="function" name="CodeGen_PECL_Element_Method::parseParameterHook" />
+  <provides type="function" name="CodeGen_PECL_Element_Method::localVariables" />
+  <provides type="function" name="CodeGen_PECL_Element_Method::setProto" />
+  <provides type="function" name="CodeGen_PECL_Element_Method::methodEntry" />
+  <provides type="function" name="CodeGen_PECL_Element_Method::functionAliasEntry" />
+  <provides type="function" name="CodeGen_PECL_Element_Method::cProto" />
+  <provides type="function" name="CodeGen_PECL_Element_Method::cCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Method::validate" />
+  <provides type="function" name="CodeGen_PECL_Element_Method::setRole" />
+  <provides type="function" name="CodeGen_PECL_Element_Method::setCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Method::setName" />
+  <provides type="function" name="CodeGen_PECL_Element_Method::createTest" />
+  <provides type="function" name="CodeGen_PECL_Element_Method::argInfoCode" />
+  <provides type="class" name="CodeGen_PECL_Element_Property" extends="CodeGen_PECL_Element" />
+  <provides type="function" name="CodeGen_PECL_Element_Property::isAbstract" />
+  <provides type="function" name="CodeGen_PECL_Element_Property::isInterface" />
+  <provides type="function" name="CodeGen_PECL_Element_Property::isFinal" />
+  <provides type="function" name="CodeGen_PECL_Element_Property::isStatic" />
+  <provides type="function" name="CodeGen_PECL_Element_Property::setAccess" />
+  <provides type="function" name="CodeGen_PECL_Element_Property::setType" />
+  <provides type="function" name="CodeGen_PECL_Element_Property::setName" />
+  <provides type="function" name="CodeGen_PECL_Element_Property::getName" />
+  <provides type="function" name="CodeGen_PECL_Element_Property::setValue" />
+  <provides type="function" name="CodeGen_PECL_Element_Property::minitCode" />
+  <provides type="class" name="CodeGen_PECL_Element_ClassConstant" extends="CodeGen_PECL_Element" />
+  <provides type="function" name="CodeGen_PECL_Element_ClassConstant::setName" />
+  <provides type="function" name="CodeGen_PECL_Element_ClassConstant::getName" />
+  <provides type="function" name="CodeGen_PECL_Element_ClassConstant::setType" />
+  <provides type="function" name="CodeGen_PECL_Element_ClassConstant::setValue" />
+  <provides type="function" name="CodeGen_PECL_Element_ClassConstant::setDesc" />
+  <provides type="function" name="CodeGen_PECL_Element_ClassConstant::minitCode" />
+  <provides type="function" name="CodeGen_PECL_Element_ClassConstant::minitHeader" />
+  <provides type="function" name="CodeGen_PECL_Element_ClassConstant::minitFooter" />
+  <provides type="class" name="CodeGen_PECL_Element_Stream" extends="CodeGen_PECL_Element" />
+  <provides type="function" name="CodeGen_PECL_Element_Stream::setName" />
+  <provides type="function" name="CodeGen_PECL_Element_Stream::getName" />
+  <provides type="function" name="CodeGen_PECL_Element_Stream::setSummary" />
+  <provides type="function" name="CodeGen_PECL_Element_Stream::setDescription" />
+  <provides type="function" name="CodeGen_PECL_Element_Stream::addCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Stream::minitCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Stream::cCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Stream::hCode" />
+  <provides type="function" name="CodeGen_PECL_Element_Stream::docEntry" />
+  <provides type="class" name="CodeGen_PECL_Dependency_With" extends="CodeGen_Element" />
+  <provides type="function" name="CodeGen_PECL_Dependency_With::getName" />
+  <provides type="function" name="CodeGen_PECL_Dependency_With::setName" />
+  <provides type="function" name="CodeGen_PECL_Dependency_With::setSummary" />
+  <provides type="function" name="CodeGen_PECL_Dependency_With::getSummary" />
+  <provides type="function" name="CodeGen_PECL_Dependency_With::setDescription" />
+  <provides type="function" name="CodeGen_PECL_Dependency_With::setTestfile" />
+  <provides type="function" name="CodeGen_PECL_Dependency_With::getTestfile" />
+  <provides type="function" name="CodeGen_PECL_Dependency_With::setDefaults" />
+  <provides type="function" name="CodeGen_PECL_Dependency_With::getDefaults" />
+  <provides type="function" name="CodeGen_PECL_Dependency_With::setMode" />
+  <provides type="function" name="CodeGen_PECL_Dependency_With::addLib" />
+  <provides type="function" name="CodeGen_PECL_Dependency_With::getLibs" />
+  <provides type="function" name="CodeGen_PECL_Dependency_With::addHeader" />
+  <provides type="function" name="CodeGen_PECL_Dependency_With::getHeaders" />
+  <provides type="function" name="CodeGen_PECL_Dependency_With::m4Line" />
+  <provides type="function" name="CodeGen_PECL_Dependency_With::configm4" />
+  <provides type="class" name="CodeGen_PECL_Dependency_Lib" extends="CodeGen_Dependency_Lib" />
+  <provides type="function" name="CodeGen_PECL_Dependency_Lib::configm4" />
+  <provides type="function" name="CodeGen_PECL_Dependency_Lib::configw32" />
+  <provides type="class" name="CodeGen_PECL_Dependency_Header" extends="CodeGen_Dependency_Header" />
+  <provides type="function" name="CodeGen_PECL_Dependency_Header::configm4" />
+  <provides type="function" name="CodeGen_PECL_Dependency_Header::configw32" />
+  <provides type="class" name="CodeGen_PECL_Dependency_Extension" extends="CodeGen_Element" />
+  <provides type="function" name="CodeGen_PECL_Dependency_Extension::getName" />
+  <provides type="function" name="CodeGen_PECL_Dependency_Extension::setName" />
+  <provides type="function" name="CodeGen_PECL_Dependency_Extension::setVersion" />
+  <provides type="function" name="CodeGen_PECL_Dependency_Extension::setType" />
+  <provides type="function" name="CodeGen_PECL_Dependency_Extension::cCode" />
+  <provides type="function" name="CodeGen_PECL_Dependency_Extension::cCodeHeader" />
+  <provides type="function" name="CodeGen_PECL_Dependency_Extension::cCodeFooter" />
+  <provides type="function" name="CodeGen_PECL_Dependency_Extension::packageXML" />
+  <provides type="function" name="CodeGen_PECL_Dependency_Extension::packageXML2" />
+  <provides type="class" name="CodeGen_PECL_Dependency_Platform" extends="CodeGen_Tools_Platform" />
+  <provides type="function" name="CodeGen_PECL_Dependency_Platform::packageXML" />
+  <provides type="function" name="CodeGen_PECL_Dependency_Platform::packageXML2" />
+  <provides type="class" name="CodeGen_PECL_ExtensionParser" extends="CodeGen_ExtensionParser" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::setInputFile" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_maintainer" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_release" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_extension_changelog" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_extension_function" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_extension_functions_function" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_function_summary" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_function_summary" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_function_description" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_function_description" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_function_proto" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_function_proto" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_function_code" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_function_code" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_function_notest" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_function_notest" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_function_test" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_function_test_description" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_function_test_description" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_function_test_code" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_function_test_code" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_function_test_result" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_function_test_result" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_function_test_ini" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_function_test_ini" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_function_test_skipif" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_function_test_skipif" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_extension_function" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_extension_functions_function" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_functions" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_extension_resource" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_resources_resource" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_resource_destruct" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_resource_description" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_extension_resource" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_resources_resource" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_resources" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_extension_logo" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_extension_constant" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_constants_constant" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_constants" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_extension_global" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_globals_global" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_extension_phpini" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_globals_phpini" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_globals" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_deps_lib" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_deps_header" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_deps_extension" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_deps_with" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_deps_with_header" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_deps_with_lib" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_deps_with" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_extension_code" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_extension_makefile" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_deps_configm4" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_extension_test" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_extension_tests_test" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_test_title" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_test_description" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_test_skipif" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_test_get" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_test_post" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_test_code" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_test_code" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_test_result" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_extension_test" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_extension_tests_test" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_extension_tests" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_class" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_class_summary" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_class_description" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_class_implements" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_class_property" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_class_constant" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_class_payload" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_class_payload" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_class_init" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_class_destruct" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_class_function" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_class_function" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_class" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_interface" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_interface_function" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_interface_function" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_interface" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_stream" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_stream_open" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_stream_close" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_stream_stat" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_stream_urlstat" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_stream_diropen" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_stream_unlink" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_stream_rename" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_stream_mkdir" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_stream_rmdir" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_stream_summary" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_stream_write" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_stream_read" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_stream_flush" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_stream_seek" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_stream_cast" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_stream_set" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_stream" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagstart_channel" />
+  <provides type="function" name="CodeGen_PECL_ExtensionParser::tagend_channel" />
+  <filelist>
+   <file role="doc" baseinstalldir="/" md5sum="27633ab342bcd46be42c9b265ecb91d6" name="docs/manual.html"/>
+   <file role="doc" baseinstalldir="/" md5sum="17742cfcd8d8d427b47419feaccef0f9" name="docs/examples/minimal.xml"/>
+   <file role="doc" baseinstalldir="/" md5sum="f951dbfb60e9623ad20d18343f133430" name="docs/examples/release.xml"/>
+   <file role="doc" baseinstalldir="/" md5sum="13aa8f52144e6b1b237c598f9cf23e40" name="docs/examples/api_functions.xml"/>
+   <file role="script" baseinstalldir="/" md5sum="459b90164777d8da476be5463a961d67" name="pecl-gen">
+    <replace from="/usr/local/bin" to="PHP_BINDIR" type="php-const"/>
+    <replace from="@php_dir@" to="php_dir" type="pear-config"/>
+   </file>
+   <file role="php" baseinstalldir="CodeGen" md5sum="0f5de0daaa933f55bf116c57306f0bfa" name="PECL/Extension.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="CodeGen" md5sum="7ea244b67679ed4f6976fe50f74db373" name="PECL/Release.php"/>
+   <file role="php" baseinstalldir="CodeGen" md5sum="a95c4507c1b00faf50d27a1248c91a3d" name="PECL/Maintainer.php"/>
+   <file role="php" baseinstalldir="CodeGen" md5sum="9dce48aebfa9983486d1b3e4bf0388f3" name="PECL/Element.php"/>
+   <file role="php" baseinstalldir="CodeGen" md5sum="1252bb0fc136908741525fddfa070401" name="PECL/Command.php"/>
+   <file role="php" baseinstalldir="CodeGen" md5sum="7159bf3e62f6928ce0c5c3dd429561fb" name="PECL/Element/Constant.php"/>
+   <file role="php" baseinstalldir="CodeGen" md5sum="8816ef801c637799ea1dad1145b9c946" name="PECL/Element/Function.php"/>
+   <file role="php" baseinstalldir="CodeGen" md5sum="82dabfc80da0c7aa6f22e1ca0cf84d8a" name="PECL/Element/Global.php"/>
+   <file role="php" baseinstalldir="CodeGen" md5sum="995189418b408c6ea6a4f7ac5f0c1107" name="PECL/Element/Ini.php"/>
+   <file role="php" baseinstalldir="CodeGen" md5sum="fd53f4e80ba6f5090d5b90d0e6fdb30a" name="PECL/Element/Logo.php"/>
+   <file role="php" baseinstalldir="CodeGen" md5sum="7587aedb9fe70fa7f3dd19ab41e7678c" name="PECL/Element/Resource.php"/>
+   <file role="php" baseinstalldir="CodeGen" md5sum="2bac7d215e58ba3e4c169ea00404d3d9" name="PECL/Element/Test.php"/>
+   <file role="php" baseinstalldir="CodeGen" md5sum="197af391d6cfd8977502fcc4916b0799" name="PECL/Element/ObjectInterface.php"/>
+   <file role="php" baseinstalldir="CodeGen" md5sum="847f29423edcc73c972e50db012f5710" name="PECL/Element/Class.php"/>
+   <file role="php" baseinstalldir="CodeGen" md5sum="23ab1275efa10306fee770a32c4c7ecb" name="PECL/Element/Interface.php"/>
+   <file role="php" baseinstalldir="CodeGen" md5sum="fa7bb3c00fe9a9c39de89b3068f721dc" name="PECL/Element/Method.php"/>
+   <file role="php" baseinstalldir="CodeGen" md5sum="2fc3bea271f5999e0d875148adbe49bb" name="PECL/Element/Property.php"/>
+   <file role="php" baseinstalldir="CodeGen" md5sum="a08e27e42376083f3a668a01383ecea8" name="PECL/Element/ClassConstant.php"/>
+   <file role="php" baseinstalldir="CodeGen" md5sum="27a8ab8a09eb1b31f550fff9f1cd40c6" name="PECL/Element/Stream.php"/>
+   <file role="php" baseinstalldir="CodeGen" md5sum="402364f0132cd60647fe4fd3410905f6" name="PECL/Dependency/With.php"/>
+   <file role="php" baseinstalldir="CodeGen" md5sum="cedbc5e1013fca865fd2e6e3e57fd995" name="PECL/Dependency/Lib.php"/>
+   <file role="php" baseinstalldir="CodeGen" md5sum="ae77fe11ba4246e96aad65be9fff11d0" name="PECL/Dependency/Header.php"/>
+   <file role="php" baseinstalldir="CodeGen" md5sum="67afb210246ead741f6577d2de8d5cdd" name="PECL/Dependency/Extension.php"/>
+   <file role="php" baseinstalldir="CodeGen" md5sum="d5c85e3c67836d83943a49ed2dbd539a" name="PECL/Dependency/Platform.php"/>
+   <file role="php" baseinstalldir="CodeGen" md5sum="1c4ffe39904628a69a293988ad69563d" name="PECL/ExtensionParser.php"/>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>1.0.1</version>
+    <date>2006-08-14</date>
+    <state>stable</state>
+    <notes>Changes since 1.0.0:
+- now using codegen helper object for indent and code blocks
+- updated the DTD 
+- added DOCTYPE specs to all examples
+- package.xml 1.0 OS dependencies generation fixed
+- some config.m4 generation stuff ended up in CodeGen, now moved back
+- added config.m4 checks for header files
+- added new interface CodeGen_PECL_Element_ObjectInterface for methods
+  that can take both Classes and Interfaces as argument
+- fixed typo in class payload constructor code generation
+- allow :: in names when using C++ only
+- use PHP_MALIAS instead of PHP_FALIAS for methods
+- improved attribute checking in XML parser
+- pear channel support
+- pkg-config support in --with options
+- started support for arg_info and pass/return by reference (work in progress)
+    </notes>
+   </release>
+   <release>
+    <version>1.0.0</version>
+    <date>2006-02-17</date>
+    <state>stable</state>
+    <notes>1.0.0 stable release (finally)
+    </notes>
+   </release>
+   <release>
+    <version>1.0.0rc1</version>
+    <date>2005-09-22</date>
+    <state>beta</state>
+    <notes>I&apos;m feature-complete for a 1.0 release now :)
+
+- object store support for private C/C++ data in objects
+
+- &lt;lib&gt; and &lt;header&gt; tags within &lt;with&gt;
+
+- interface and type hints support
+
+- added a lint option (-l) for syntax checking of spec files
+
+- write to tmpfiles first, only overwrite        -&gt; done
+  existing files if actual changes are 
+  detected, preserve unchanged files 
+  (to make &quot;make&quot; happy)
+
+- changed names of variables generated for resource parameters,
+  backwards compatibility is provided by checking the extension
+  tags version attribute, for versions &lt; 1.0.0dev the old naming
+  stile is used
+
+- added test generation for class member functions
+    </notes>
+   </release>
+   <release>
+    <version>0.9.0</version>
+    <date>2005-08-11</date>
+    <state>beta</state>
+    <notes>Milestone 0.9
+-------------
+
+- copy &lt;changelog&gt; to generated package.xml    - done
+
+- rewrite the function prototype parser
+  - object type specification (as in resources)      - done
+  - default values                                   - done
+  - &apos;void&apos; treatment                                 - done
+  - &apos;...&apos; not handled                                - done
+  - array() as default value                         - done
+  - code generation for &apos;pass by refecence&apos;          - for zval based types yet
+  - &apos;...&apos; code generation                            - if first parameter yet
+
+FREE_RESOURCE macro                                  - done
+
+allow defined PHP constants as default value         - done
+
+&lt;define&gt; tag -&gt; #define + &lt;constant&gt;? - done 
+
+allow for embedded base64 or uu encoded logo specs   - done
+
+changeable function prefix?                          - done
+
+trick parser to verbatim pass on docbook contentent  - done
+
+add configure compile test for &lt;resource&gt;      -done
+to check whether a given payload is a valid type?
+
+SYSTEM Entity and XInclude support                   - done 
+
+support for multiple &lt;with&gt; tags with distinct 
+names, name defaults to extension name if not given  - done
+
+added version attribute to &lt;extension&gt;
+to control parser features (replaces -x switch)      - done
+
+support &lt;?code ... ?&gt; as alternative to CDATA  - done 
+
+check whether &lt;header&gt; checks work             - done
+
+test files are not yet added to package.xml          - done
+
+documentation up to date for all 0.9 features        - done
+
+examples and test cases added                        - done
+    </notes>
+   </release>
+   <release>
+    <version>0.9.0rc5</version>
+    <date>2005-08-03</date>
+    <state>beta</state>
+    <notes>- implemeted new proto parser, activate with --experimental
+    </notes>
+   </release>
+   <release>
+    <version>0.8.5</version>
+    <date>2004-11-11</date>
+    <state>beta</state>
+    <notes>- fixed method renaming inconsistencies introduced with 0.8.4
+- config.m4 additions can now be placed at &apos;top&apos; or &apos;bottom&apos; of config.m4
+- &apos;--force&apos; does not remove the target directory anymore
+- &apos;#include &lt;php.h&gt;&apos; moved out of #ifdef block to allow static builds
+- &apos;extern &quot;C&quot;&apos; specifications added on C++ builds
+- container tags like &lt;functions&gt; or &lt;globals&gt; are now optional
+- pecl-gen will now set exit status on errors
+    </notes>
+   </release>
+   <release>
+    <version>0.8.4</version>
+    <date>2004-05-16</date>
+    <state>beta</state>
+    <notes>This is the first release living in PECL insteat of PEAR.
+
+Technical changes are: 
+
+- improved PECL CS compliance of generated code
+- generated config.m4 supports both shared and static build
+- code snippets may be read from files instead of beeing 
+  embedded in CDATA sections
+- improved resource parameter handling
+- shortcuts for constants that just mimic C constants
+- global &apos;code&apos; tag finally works as documented
+- files can be added using &apos;file&apos; tag in &apos;deps&apos;
+- ...
+    </notes>
+   </release>
+   <release>
+    <version>0.8.3</version>
+    <date>2004-04-01</date>
+    <state>beta</state>
+    <notes>- this release was completely broken for unknown reasons,
+  might be realted to the move from PEAR to PECL ...?
+    </notes>
+   </release>
+   <release>
+    <version>0.8.2</version>
+    <date>2003-10-13</date>
+    <state>beta</state>
+    <notes>- fixed a bug in the parser that rendered 0.8.1 almost useless :(
+    </notes>
+   </release>
+   <release>
+    <version>0.8.1</version>
+    <date>2003-10-12</date>
+    <state>beta</state>
+    <notes>- custom test generation added
+- minor DTD changes
+- code reformatted for better PEAR coding standards compliance
+- additional tools for whitespace and indentation management
+    </notes>
+   </release>
+   <release>
+    <version>0.8.0</version>
+    <date>2003-07-13</date>
+    <state>beta</state>
+    <notes>- added documentation
+- check for reserved words 
+- check for duplicate names
+- config,m4 header files check added
+- config.m4 support for makefile fragments
+    </notes>
+   </release>
+   <release>
+    <version>0.7.0</version>
+    <date>2003-07-03</date>
+    <state>beta</state>
+    <notes>- a README file is written containing information on
+  how to continue after an extension was generated
+- --function=&quot;proto&quot; writes function stub to stdout
+- --stubs=filename now supported in ext_skel BC mode
+- added --help and --version options
+- added a short feedback howto message 
+  (can be disabled using --quiet)  
+- --with-xml works again 
+  (ext_skel compatibility)
+- will now only purge and overwrite existing target directory
+  if &apos;--force&apos; is requested on cmd line
+- .cvsignore created with platform-specific entries
+- PEARifying error reporting finished
+    </notes>
+   </release>
+   <release>
+    <version>0.6.1</version>
+    <date>2003-06-29</date>
+    <state>beta</state>
+    <notes>typo fix in package.xml dependencies entry for XML_Parser
+    </notes>
+   </release>
+   <release>
+    <version>0.6.0</version>
+    <date>2003-06-28</date>
+    <state>beta</state>
+    <notes>Moved from php5/scripts to PEAR.
+    </notes>
+   </release>
+ </changelog>
+</package>

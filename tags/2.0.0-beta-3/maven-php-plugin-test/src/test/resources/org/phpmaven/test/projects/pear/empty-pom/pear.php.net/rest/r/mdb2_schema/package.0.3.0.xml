@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.1">
+ <name>MDB2_Schema</name>
+ <summary>XML based database schema manager</summary>
+ <description>PEAR::MDB2_Schema enables users to maintain RDBMS independant schema
+files in XML that can be used to create, alter and drop database entities
+and insert data into a database. Reverse engineering database schemas from
+existing databases is also supported. The format is compatible with both
+PEAR::MDB and Metabase.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>lsmith</user>
+   <name>Lukas Kahwe Smith</name>
+   <email>smith@pooteeweet.org</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>0.3.0</version>
+  <date>2005-10-10</date>
+  <license>BSD License</license>
+  <state>beta</state>
+  <notes>Warning: this is an intermediary release to address php 4.4/5.0.5. Some of the
+new features still need a bit more tweaking.
+
+- use MDB2::factory() by default instead of MDB2::connect()
+- added support for auto increment and primary key in schema.
+- alterTable now needs the full definition to work (use getTableFieldDefinition
+ from Reverse module if you do not have a definition at hand) this eliminates the need
+ of the declaration part in the alterTable array.
+- typo fix (bug #4620)
+- php 4.4.x/5.0.5 fixes
+- updated getTableFieldDefinition() call to accomodate API changes in MDB2
+- MDB2_Schema has its own error class and error codes
+- made it easier to add new database backend to the example
+- better handle removing of indexes on renamed columns in alterDatabaseTables()
+- use array_key_exists() instead of isset() where possible
+- restructured changes array to fix bugs due to inconsistency in the handling of array keys
+- added ability to disable query for the alterDatabase()/createDatabase() call
+  in updateDatabase(). this is useful to generate an RDBMS specific SQL file
+  using a custom debug callback
+- prefer &quot;true&quot; and &quot;false&quot; over &quot;1&quot; and &quot;0&quot;
+- an emty default tag now implies NULL for nullable columns and an empty string
+  for NOT NULL columns
+  </notes>
+  <deps>
+   <dep type="php" rel="ge" version="4.2.0" optional="no"/>
+   <dep type="pkg" rel="ge" version="1.0b1" optional="no">PEAR</dep>
+   <dep type="pkg" rel="has" optional="no">XML_Parser</dep>
+   <dep type="pkg" rel="ge" version="2.0.0beta6" optional="no">MDB2</dep>
+   <dep type="pkg" rel="has" optional="yes">XML_DTD</dep>
+  </deps>
+  <provides type="class" name="MDB2_Schema_Parser" extends="XML_Parser" />
+  <provides type="function" name="MDB2_Schema_Parser::startHandler" />
+  <provides type="function" name="MDB2_Schema_Parser::endHandler" />
+  <provides type="function" name="MDB2_Schema_Parser::validateFieldValue" />
+  <provides type="function" name="MDB2_Schema_Parser::raiseError" />
+  <provides type="class" name="MDB2_Schema_Writer" />
+  <provides type="function" name="MDB2_Schema_Writer::raiseError" />
+  <provides type="class" name="MDB2_Schema" extends="PEAR" />
+  <provides type="function" name="MDB2_Schema::apiVersion" />
+  <provides type="function" name="MDB2_Schema::resetWarnings" />
+  <provides type="function" name="MDB2_Schema::getWarnings" />
+  <provides type="function" name="MDB2_Schema::setOption" />
+  <filelist>
+   <file role="doc" baseinstalldir="/" md5sum="e39bb979a61a7a84ba1425ea456fd2c7" name="docs/examples/example.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="doc" baseinstalldir="/" md5sum="175c39961f74f1f57f8517754c020d7a" name="docs/MDB.dtd">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="doc" baseinstalldir="/" md5sum="53aeac5b92b38e9efc3c4792d7493bf0" name="docs/MDB.xsl">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="doc" baseinstalldir="/" md5sum="671c5fa1deb3d21549cf7855ce74c252" name="docs/xml_schema_documentation.html">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="f4020240b110bcd97d644dba77b66c43" name="MDB2/Schema/Parser.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="a2f41c85cecf98139ca466bf90290236" name="MDB2/Schema/Writer.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="bd972f17e1a1ca3336c218e1fdf1d341" name="MDB2/Schema.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>0.3.0</version>
+    <date>2005-10-10</date>
+    <license>BSD License</license>
+    <state>beta</state>
+    <notes>Warning: this is an intermediary release to address php 4.4/5.0.5. Some of the
+new features still need a bit more tweaking.
+
+- use MDB2::factory() by default instead of MDB2::connect()
+- added support for auto increment and primary key in schema.
+- alterTable now needs the full definition to work (use getTableFieldDefinition
+ from Reverse module if you do not have a definition at hand) this eliminates the need
+ of the declaration part in the alterTable array.
+- typo fix (bug #4620)
+- php 4.4.x/5.0.5 fixes
+- updated getTableFieldDefinition() call to accomodate API changes in MDB2
+- MDB2_Schema has its own error class and error codes
+- made it easier to add new database backend to the example
+- better handle removing of indexes on renamed columns in alterDatabaseTables()
+- use array_key_exists() instead of isset() where possible
+- restructured changes array to fix bugs due to inconsistency in the handling of array keys
+- added ability to disable query for the alterDatabase()/createDatabase() call
+  in updateDatabase(). this is useful to generate an RDBMS specific SQL file
+  using a custom debug callback
+- prefer &quot;true&quot; and &quot;false&quot; over &quot;1&quot; and &quot;0&quot;
+- an emty default tag now implies NULL for nullable columns and an empty string
+  for NOT NULL columns
+    </notes>
+   </release>
+   <release>
+    <version>0.2.0</version>
+    <date>2005-04-29</date>
+    <license>BSD License</license>
+    <state>beta</state>
+    <notes>- fixed error handling in updateDatabase()
+- use MDB2::raiseError
+- always copy schema file in updateDatabase()
+- cosmetic fixes and tweaks
+- improved overwrite to check via list*() before creating (bug #3857, #4101)
+- updated MDB2 dependency
+- fixed sequence dumping
+- moved schema documentation, xml_reverse_engineering.php, MDB.dtd
+  and MDB.xls from MDB package
+- added optional support for PEAR::XML_DTD based validation of schema files
+- index can be defined on fields that dont explicity prohibit null values
+- dont disable sequence dumping when implicit sequences have been found
+- added code to support dumping of lobs (MDB2 really should move to streams)
+- added writeInitialization() method (untested)
+- is_boolean() =&gt; isBoolean() in parser (CS fix)
+- added MDB2_Schema::factory()
+- Parser: if set grab definition of a table from the strucure property if set
+    </notes>
+   </release>
+   <release>
+    <version>0.1.0</version>
+    <date>2005-04-07</date>
+    <license>BSD License</license>
+    <state>beta</state>
+    <notes>This is the first unbundled release of the old MDB2_Tools_Manager class that was
+previously part of MDB2 until 2.0.0beta4. Due to the name change the package
+does not collide with previous versions of MDB2.
+
+Also the following changes were made in the process:
+- fixed index alteration in the Manager (bug #3710)
+- fixed bug in the Manager when upgrading a database that doesnt exist
+- moved logic to compareDefinitions from the Manager into the Datatype module
+- removed default_values property from the Manager
+  (the user will now need to set the proper defaults himself)
+- do not require that not null fields have a default set in the Manager (bug #3997)
+- use MDB2::raiseError() instead of MDB2_Driver_Common::raiseError()
+- cleanedup connect() method to ensure that only MDB2 connections can be
+  assigned to the db property
+- fixed bug in connect() method that prevented overwriting of options
+- several cleanups and fixes to the example.php (used to be called
+  reverse_engineer_xml_schema.php)
+- added apiVersion()
+- use PEAR::raiseError()
+    </notes>
+   </release>
+ </changelog>
+</package>

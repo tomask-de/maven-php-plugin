@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.0a12">
+ <name>MDB2_Driver_mysqli</name>
+ <summary>mysqli MDB2 driver</summary>
+ <description>This is the MySQLi MDB2 driver.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>lsmith</user>
+   <name>Lukas Kahwe Smith</name>
+   <email>smith@backendmedia.com</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>0.1.0</version>
+  <date>2005-06-08</date>
+  <license>BSD License</license>
+  <state>alpha</state>
+  <notes>first unbundled release from MDB2 core
+
+- dont just check for isset() for boolean values in order to support
+  setting them false as well (bug #4373)
+- ensure SQL injection protection in all _quote() methods (was missing in
+  some decimal, float, time, date and timestamp implementations)
+- added native prepared query support (LOB support is still broken)
+- removed redundant code from datatype module
+  </notes>
+  <deps>
+   <dep type="php" rel="ge" version="5.0.0" optional="no"/>
+   <dep type="pkg" rel="ge" version="1.0b1" optional="no">PEAR</dep>
+   <dep type="pkg" rel="ge" version="2.0.0beta5" optional="no">MDB2</dep>
+   <dep type="ext" rel="has" optional="no">mysqli</dep>
+  </deps>
+  <provides type="class" name="MDB2_Driver_Datatype_mysqli" extends="MDB2_Driver_Datatype_Common" />
+  <provides type="function" name="MDB2_Driver_Datatype_mysqli::mapPrepareDatatype" />
+  <provides type="function" name="MDB2_Driver_Datatype_mysqli::mapNativeDatatype" />
+  <provides type="class" name="MDB2_Driver_Manager_mysqli" extends="MDB2_Driver_Manager_Common" />
+  <provides type="function" name="MDB2_Driver_Manager_mysqli::createDatabase" />
+  <provides type="function" name="MDB2_Driver_Manager_mysqli::dropDatabase" />
+  <provides type="function" name="MDB2_Driver_Manager_mysqli::createTable" />
+  <provides type="class" name="MDB2_Driver_Native_mysqli" />
+  <provides type="function" name="MDB2_Driver_Native_mysqli::getInsertID" />
+  <provides type="class" name="MDB2_Driver_Reverse_mysqli" extends="MDB2_Driver_Reverse_Common" />
+  <provides type="function" name="MDB2_Driver_Reverse_mysqli::getTableFieldDefinition" />
+  <provides type="class" name="MDB2_Driver_mysqli" extends="MDB2_Driver_Common" />
+  <provides type="function" name="MDB2_Driver_mysqli::errorInfo" />
+  <provides type="function" name="MDB2_Driver_mysqli::escape" />
+  <provides type="function" name="MDB2_Driver_mysqli::quoteIdentifier" />
+  <provides type="function" name="MDB2_Driver_mysqli::beginTransaction" />
+  <provides type="function" name="MDB2_Driver_mysqli::commit" />
+  <provides type="function" name="MDB2_Driver_mysqli::rollback" />
+  <provides type="function" name="MDB2_Driver_mysqli::connect" />
+  <provides type="function" name="MDB2_Driver_mysqli::disconnect" />
+  <filelist>
+   <file role="php" baseinstalldir="/" md5sum="cc7142c97fdff7e842c4384816e8415b" name="MDB2/Driver/Datatype/mysqli.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="f9f22a4cb038b0820a979bcd4f45d1ee" name="MDB2/Driver/Manager/mysqli.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="11de349124f5b7527e6784a8ac522aeb" name="MDB2/Driver/Native/mysqli.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="4ec45db454995cd29b94998d43ea6821" name="MDB2/Driver/Reverse/mysqli.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="1f715dac798cf576018defd19812e5e9" name="MDB2/Driver/mysqli.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+  </filelist>
+ </release>
+</package>

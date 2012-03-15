@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>DB_QueryTool</name>
+  <summary>An OO-interface for easily retrieving and modifying data in a DB.</summary>
+  <description>This package is an OO-abstraction to the SQL-Query language, it provides methods such
+as setWhere, setOrder, setGroup, setJoin, etc. to easily build queries.
+It also provides an easy to learn interface that interacts nicely with HTML-forms using
+arrays that contain the column data, that shall be updated/added in a DB.
+This package bases on an SQL-Builder which lets you easily build
+SQL-Statements and execute them.</description>
+  <maintainers>
+    <maintainer>
+      <user>cain</user>
+      <name>Wolfram Kriesing</name>
+      <email>wolfram@kriesing.de</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>quipo</user>
+      <name>Lorenzo Alberton</name>
+      <email>l.alberton@quipo.it</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.11.1</version>
+    <date>2004-10-18</date>
+    <license>PHP</license>
+    <state>stable</state>
+    <notes>* allow multiple left|right join clauses.
+  NB: getJoin($type) now returns
+    array(
+       $joinTable1 =&gt; $joinOnClause1,
+       $joinTable2 =&gt; $joinOnClause2,
+    )
+* allow class usage without instanciating a db object
+  (to use the class as a simple query builder)
+* unset non-specific PEAR::DB options before calling connect()
+  (bug #1614)
+* allow reuse of existing connection (bug #2007),
+  thanks to eln at gmx dot net</notes>
+    <deps>
+      <dep type="pkg" rel="has">DB</dep>
+      <dep type="pkg" rel="ge" version="1.7">Log</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="DB" name="QueryTool.php"/>
+      <file role="php" baseinstalldir="DB" name="QueryTool\Query.php"/>
+      <file role="php" baseinstalldir="DB" name="QueryTool\EasyJoin.php"/>
+      <file role="php" baseinstalldir="DB" name="QueryTool\Result.php"/>
+      <file role="php" baseinstalldir="DB" name="QueryTool\Result/Object.php"/>
+      <file role="doc" baseinstalldir="DB" name="docs/examples\example.php"/>
+      <file role="doc" baseinstalldir="DB" name="docs/examples\mysql.sql"/>
+      <file role="doc" baseinstalldir="DB" name="docs/examples\pgsql.sql"/>
+      <file role="test" baseinstalldir="DB" name="tests\Common.php"/>
+      <file role="test" baseinstalldir="DB" name="tests\Get.php"/>
+      <file role="test" baseinstalldir="DB" name="tests\GetAll.php"/>
+      <file role="test" baseinstalldir="DB" name="tests\GetCount.php"/>
+      <file role="test" baseinstalldir="DB" name="tests\GetQueryString.php"/>
+      <file role="test" baseinstalldir="DB" name="tests\index.php"/>
+      <file role="test" baseinstalldir="DB" name="tests\Having.php"/>
+      <file role="test" baseinstalldir="DB" name="tests\Limit.php"/>
+      <file role="test" baseinstalldir="DB" name="tests\sql.php"/>
+      <file role="test" baseinstalldir="DB" name="tests\UnitTest.php"/>
+      <file role="test" baseinstalldir="DB" name="tests\Where.php"/>
+      <file role="test" baseinstalldir="DB" name="tests\SetDbInstance.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.10.1</version>
+      <date>2004-05-05</date>
+      <license>PHP</license>
+      <state>stable</state>
+      <notes>* on UPDATE, field names are no more prefixed by the table name
+  (it didn't work with PostgreSQL)
+* added an $options parameter to connect()
+* fixed bug #284 (Log::factory() needs to return a reference)
+* fixed bug #298 (reset() does not reset limit)
+* fixed bug #322 (undefined var $autoConnect)
+* changed useResult() method; now it accepts a $type parameter, use it to return
+  'array' results or 'object' results (thanks to Roman Dostovalov).
+  Please note that BC is maintained, useResult(true) will default to
+  useResult('array'), and useResult(false) will default to useResult('none').
+* fixed problems with useResult(true) and empty results
+* when using useResult(true), if the user doesn't call getFirst() on the first
+  iteration, the class does so automatically
+* PHP 5 fixes
+* fixes to the testsuite
+        
+</notes>
+    </release>
+    <release>
+      <version>0.9.8</version>
+      <date>2003-09-23</date>
+      <license>PHP</license>
+      <state>stable</state>
+      <notes>* added new method getQueryString() which returns the rendered query
+* added setDbInstance() which lets you supply an existing DB-instance to work with
+  using this you dont need to pass a DSN to the constructor!
+        
+</notes>
+    </release>
+    <release>
+      <version>0.9.7</version>
+      <date>2003-09-15</date>
+      <license>PHP</license>
+      <state>stable</state>
+      <notes>* use Log 1.7 API
+        
+</notes>
+    </release>
+    <release>
+      <version>0.9.6</version>
+      <date>2003-09-12</date>
+      <license>PHP</license>
+      <state>stable</state>
+      <notes>- bugfix in addMultiple()
+- addWhereSearch now only prefixes known columns as it is supposed to be,
+  otherwise it would also prefix aliases with the table name, which is bull...
+- quirk in the addLeftJoin() method ... not nice, but v1.0 will be, unit tests pass but thats still not enough proof
+- make setLimit also work to unset it
+        
+</notes>
+    </release>
+    <release>
+      <version>0.9.5</version>
+      <date>2003-06-17</date>
+      <license>PHP</license>
+      <state>stable</state>
+      <notes>- bugfix when writing log files, times were wrong
+- bugfix in EasyJoin, which added unnecessary conditions
+- bugfix in building column alias which is at the end of the string
+- bugfix in addMultiple() which didnt work without primaryCol
+- bugfix in addHaving and unit test, thanks to Johannes Schäfer
+        
+</notes>
+    </release>
+    <release>
+      <version>0.9.4</version>
+      <date>2003-06-06</date>
+      <license>PHP</license>
+      <state>stable</state>
+      <notes>- added set/getLimit(), which set the limit globally,
+  getAll() and getCol() can still overwrite this temporarily
+- added addOrder()
+- added *Having() methods by Johannes Schaefer
+- added log functionality
+- added condition param to addWhereSearch()
+- fix bug in building group clause for getCount()
+- bug fix in building join
+        
+</notes>
+    </release>
+    <release>
+      <version>0.9.3</version>
+      <date>2003-03-11</date>
+      <license>PHP</license>
+      <state>stable</state>
+      <notes>- new method getCol() which lets you retreive just one column
+- getAll() takes an additional optional parameter, where you can define
+  the method that should be used for firing the query
+- update() does also consider the value of setWhere() when no primary column is given
+  added a _buildUpdateQuery() for that too
+- added umbrello-uml class diagram
+- fixing some typos, esp. for making the useResult() work
+- bugfix in update, use fully qualified table name (Uwe Dörl)
+- bugfix in _buildSelectQuery, enclose column names by &quot;&quot;
+  now Oracle should work and also reserved keywords can be used as column names (Uwe Dörl)
+- some bugfixes and more CS issues
+</notes>
+    </release>
+    <release>
+      <version>0.9.2</version>
+      <date>2003-02-09</date>
+      <license>PHP</license>
+      <state>stable</state>
+      <notes>- now you can customize the sequence name
+- testing on postgres and added example
+- enhancing the constructor to take the error/log callbacks
+- some cleaning up
+</notes>
+    </release>
+    <release>
+      <version>0.9.1</version>
+      <date>2003-01-29</date>
+      <license>PHP</license>
+      <state>stable</state>
+      <notes>maintanence release, fix a lot E_ALL issues and CS issues
+</notes>
+    </release>
+    <release>
+      <version>0.9</version>
+      <date>2003-01-17</date>
+      <license>PHP</license>
+      <state>stable</state>
+      <notes>- initial release in PEAR
+</notes>
+    </release>
+  </changelog>
+</package>

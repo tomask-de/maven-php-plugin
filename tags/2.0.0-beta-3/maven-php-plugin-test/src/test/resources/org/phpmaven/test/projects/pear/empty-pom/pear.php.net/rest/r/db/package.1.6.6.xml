@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>DB</name>
+  <summary>Database Abstraction Layer</summary>
+  <description>DB is a database abstraction layer providing:
+* an OO-style query API
+* portability features that make programs written for one DBMS work with other DBMS's
+* a DSN (data source name) format for specifying database servers
+* prepare/execute (bind) emulation for databases that don't support it natively
+* a result object for each query response
+* portable error codes
+* sequence emulation
+* sequential and non-sequential row fetching as well as bulk fetching
+* formats fetched rows as associative arrays, ordered arrays or objects
+* row limit support
+* transactions support
+* table information interface
+* DocBook and PHPDoc API documentation
+
+DB layers itself on top of PHP's existing database
+extensions.  The currently supported extensions are:
+dbase, fbsql, interbase, informix, msql, mssql, mysql,
+mysqli, oci8, odbc, pgsql, sqlite and sybase.
+
+DB is compatible with both PHP 4 and PHP 5.</description>
+  <maintainers>
+    <maintainer>
+      <user>ssb</user>
+      <name>Stig Sæther Bakken</name>
+      <email>stig@php.net</email>
+      <role>developer</role>
+    </maintainer>
+    <maintainer>
+      <user>cox</user>
+      <name>Tomas V.V.Cox</name>
+      <email>cox@idecnet.com</email>
+      <role>developer</role>
+    </maintainer>
+    <maintainer>
+      <user>chagenbu</user>
+      <name>Chuck Hagenbuch</name>
+      <email>chuck@horde.org</email>
+      <role>helper</role>
+    </maintainer>
+    <maintainer>
+      <user>danielc</user>
+      <name>Daniel Convissor</name>
+      <email>danielc@analysisandsolutions.com</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.6.6</version>
+    <date>2004-09-21</date>
+    <license>PHP License</license>
+    <state>stable</state>
+    <notes>=============
+BUGS FIXED:
+
+* mssql:
+Use comma, rather than colon, to delimit port in connect().
+Bug 2140.  (danielc)
+
+* dbase and pgsql:
+Use track_errors instead of output buffering to capture
+error messages when connecting.  Bug 2011.  (danielc)
+
+* pgsql:
+Add port to connect string when protocol is unix.
+Bug 1919.  (danielc)
+
+* pgsql:
+Accommodate changes made to PostgreSQL so &quot;no such field&quot;
+errors get properly indicated rather than being mislabeled
+as &quot;no such table.&quot;  (danielc)</notes>
+    <deps>
+      <dep type="php" rel="ge" version="4.2.0"/>
+      <dep type="pkg" rel="ge" version="1.0b1">PEAR</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="/" name="DB.php"/>
+      <file role="php" name="DB\common.php"/>
+      <file role="php" name="DB\dbase.php"/>
+      <file role="php" name="DB\fbsql.php"/>
+      <file role="php" name="DB\ibase.php"/>
+      <file role="php" name="DB\ifx.php"/>
+      <file role="php" name="DB\msql.php"/>
+      <file role="php" name="DB\mssql.php"/>
+      <file role="php" name="DB\mysql.php"/>
+      <file role="php" name="DB\mysqli.php"/>
+      <file role="php" name="DB\oci8.php"/>
+      <file role="php" name="DB\odbc.php"/>
+      <file role="php" name="DB\pgsql.php"/>
+      <file role="php" name="DB\sybase.php"/>
+      <file role="php" name="DB\storage.php"/>
+      <file role="php" name="DB\sqlite.php"/>
+      <file role="doc" name="doc\IDEAS"/>
+      <file role="doc" name="doc\MAINTAINERS"/>
+      <file role="doc" name="doc\STATUS"/>
+      <file role="doc" name="doc\TESTERS"/>
+      <file role="test" name="tests\db_error.phpt"/>
+      <file role="test" name="tests\db_parsedsn.phpt"/>
+      <file role="test" name="tests\db_factory.phpt"/>
+      <file role="test" name="tests\db_ismanip.phpt"/>
+      <file role="test" name="tests\db_error2.phpt"/>
+      <file role="test" name="tests\errors.inc"/>
+      <file role="test" name="tests\fetchmode_object.inc"/>
+      <file role="test" name="tests\fetchmodes.inc"/>
+      <file role="test" name="tests\include.inc">
+        <replace from="@include_path@" to="php_dir" type="pear-config"/>
+      </file>
+      <file role="test" name="tests\limit.inc"/>
+      <file role="test" name="tests\numcols.inc"/>
+      <file role="test" name="tests\numrows.inc"/>
+      <file role="test" name="tests\prepexe.inc"/>
+      <file role="test" name="tests\run.cvs"/>
+      <file role="test" name="tests\sequences.inc"/>
+      <file role="test" name="tests\simplequery.inc"/>
+      <file role="test" name="tests\transactions.inc"/>
+      <file role="test" name="tests\skipif.inc"/>
+      <file role="test" name="tests\driver\01connect.phpt"/>
+      <file role="test" name="tests\driver\02fetch.phpt"/>
+      <file role="test" name="tests\driver\03simplequery.phpt"/>
+      <file role="test" name="tests\driver\04numcols.phpt"/>
+      <file role="test" name="tests\driver\05sequences.phpt"/>
+      <file role="test" name="tests\driver\06prepexec.phpt"/>
+      <file role="test" name="tests\driver\08affectedrows.phpt"/>
+      <file role="test" name="tests\driver\09numrows.phpt"/>
+      <file role="test" name="tests\driver\10errormap.phpt"/>
+      <file role="test" name="tests\driver\11transactions.phpt"/>
+      <file role="test" name="tests\driver\13limit.phpt"/>
+      <file role="test" name="tests\driver\14fetchmode_object.phpt"/>
+      <file role="test" name="tests\driver\15quote.phpt"/>
+      <file role="test" name="tests\driver\16tableinfo.phpt"/>
+      <file role="test" name="tests\driver\17query.phpt"/>
+      <file role="test" name="tests\driver\18get.phpt"/>
+      <file role="test" name="tests\driver\bug22328.phpt"/>
+      <file role="test" name="tests\driver\connect.inc"/>
+      <file role="test" name="tests\driver\mktable.inc"/>
+      <file role="test" name="tests\driver\run.cvs"/>
+      <file role="test" name="tests\driver\setup.inc.cvs">
+        <replace from="@include_path@" to="php_dir" type="pear-config"/>
+      </file>
+      <file role="test" name="tests\driver\skipif.inc"/>
+    </filelist>
+  </release>
+</package>

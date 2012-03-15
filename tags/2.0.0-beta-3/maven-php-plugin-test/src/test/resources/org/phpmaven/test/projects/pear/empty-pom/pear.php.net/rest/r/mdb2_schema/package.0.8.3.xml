@@ -1,0 +1,771 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.7.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>MDB2_Schema</name>
+ <channel>pear.php.net</channel>
+ <extends>MDB2</extends>
+ <summary>XML based database schema manager</summary>
+ <description>PEAR::MDB2_Schema enables users to maintain RDBMS independant schema
+files in XML that can be used to create, alter and drop database entities
+and insert data into a database. Reverse engineering database schemas from
+existing databases is also supported. The format is compatible with both
+PEAR::MDB and Metabase.</description>
+ <lead>
+  <name>Lukas Kahwe Smith</name>
+  <user>lsmith</user>
+  <email>smith@pooteeweet.org</email>
+  <active>no</active>
+ </lead>
+ <lead>
+  <name>Igor Feghali</name>
+  <user>ifeghali</user>
+  <email>ifeghali@php.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Helgi Thormar</name>
+  <user>dufuz</user>
+  <email>dufuz@php.net</email>
+  <active>yes</active>
+ </lead>
+ <contributor>
+  <name>Andrew Hill</name>
+  <user>fornax</user>
+  <email>andrew-pear@fornax.net</email>
+  <active>no</active>
+ </contributor>
+ <contributor>
+  <name>Ali Fazelzadeh</name>
+  <user>afz</user>
+  <email>afz@dev-code.com</email>
+  <active>yes</active>
+ </contributor>
+ <helper>
+  <name>Lars Olesen</name>
+  <user>lsolesen</user>
+  <email>lars@legestue.net</email>
+  <active>no</active>
+ </helper>
+ <date>2008-11-16</date>
+ <time>22:29:38</time>
+ <version>
+  <release>0.8.3</release>
+  <api>0.8.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD License</license>
+ <notes>- updateDatabase() cannot add UNIQUE attribute to an existing index (Bug #13977). Patch by Holger Schletz
+- updateDatabase() keeps old default value even though new column has no default (Bug #13836). Patch by Holger Schletz
+- Obsolete tables and sequences not dropped on updateDatabase() (Bug #13608). Patch by Holger Schletz
+- Error when creating a new index for a renamed table (Bug #13397)
+- Makes use of MDB2::databaseExists() to check whether updating database exists (Bug #13073). This feature was removed on previous release and now is back again.
+- createDatabase() correctly lower/upper database name when portability option deems so. 
+- mdb2_schematool now disables transactions
+- mdb2_schematool was missing argument &quot;help&quot;
+- mdb2_schematool moved from &quot;bin&quot; to &quot;scripts&quot; folder. now installs to pear_bin dir
+- Schema validation not failing when autoincrement field is defined but another column is used as primary key (Bug #14213)
+- Accepting NOW() as value for timestamp fields on schema validation (Bug #14052). Patch by Holger Schletz
+- Introducing www/mdb2_schematool that is a rewrite of docs/examples/example.php and is now installed to web root
+- Web frontend (www/mdb2_schematool) has new options &quot;DBA_username&quot; and &quot;DBA_password&quot;
+- Tests missing sequences on database dump (Bug #13562). Patch by Luca Corbo
+- When reverse engineering a database, the XML schema file will have &lt;charset&gt; forced to UTF8
+
+open todo items:
+- Clean up output of getDefinitionFromDatabase(). Sync it with Parser and Parser2.
+- Automatically load reserved keywords
+- Make MDB2_Schema loadable via MDB2_Driver_Common::loadModule() (Bug #8270)
+- Allow simple if statements that mean that anything enclosed is only executed
+  if it meets certain criterias based on that version number (or some other
+  variable). This would enable people to add DML statements that are only
+  executed when updating from a specific version.
+- Modularize Writer code or remake it
+- Add specific error codes for Validate class
+- Add support for ORDER clauses on UPDATEs (to resolve the duplicate key 
+  problem)
+- Update description.schema.xml
+- Create unit test for comparedefinitions()
+- Create unit test for initializetable()
+- Create unit test to compare the expected array definition with what is parsed
+- Improve validateDataFieldValue() to validate &lt;column&gt;
+- Provide more info on MDB2_Schema_Validate errors (output parsed value and expected value)
+- Views support
+- Fulltext index support</notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <file baseinstalldir="/" md5sum="84d20bf2d1cd1ff8fd6df3510a5e8a2b" name="docs/examples/parse.php" role="doc" />
+   <file baseinstalldir="/" md5sum="39b5f0bd2f409e123e22a74b9ecd00ba" name="docs/examples/schema.xml" role="doc" />
+   <file baseinstalldir="/" md5sum="bfb15927b18744d0cb2f2e8bf238ad90" name="docs/description.schema.xml" role="doc" />
+   <file baseinstalldir="/" md5sum="a3d9b7fd36beed4a243795a6866acac6" name="docs/MDB.dtd" role="doc" />
+   <file baseinstalldir="/" md5sum="2e68b91a7651174d117bc08165244ebc" name="docs/MDB.xsd" role="doc" />
+   <file baseinstalldir="/" md5sum="b3d035e29e4b95c8be879a1b42d8c2cb" name="docs/MDB.xsl" role="doc" />
+   <file baseinstalldir="/" md5sum="ee008f8f6731028732079901d2ae2087" name="docs/README" role="doc" />
+   <file baseinstalldir="/" md5sum="749f53c379353e01b990b721838ac366" name="docs/schema2html.css" role="doc" />
+   <file baseinstalldir="/" md5sum="6094846cbceb788e266892255814da73" name="docs/schema2html.xsl" role="doc" />
+   <file baseinstalldir="/" md5sum="88ef99e5ed631d2e3e81ff47cc88ff7a" name="docs/xml_schema_documentation.html" role="doc" />
+   <file baseinstalldir="/" md5sum="aadf5ba8291da1c3b83f4fcee9179abe" name="MDB2/Schema/Reserved/ibase.php" role="php" />
+   <file baseinstalldir="/" md5sum="1990d8b529f5fbce1d210e50a272f142" name="MDB2/Schema/Reserved/mssql.php" role="php" />
+   <file baseinstalldir="/" md5sum="e5d78d6b6d65760c268ffd02817bc1a0" name="MDB2/Schema/Reserved/mysql.php" role="php" />
+   <file baseinstalldir="/" md5sum="e8a900bac6f71bd834b600356fe0490d" name="MDB2/Schema/Reserved/oci8.php" role="php" />
+   <file baseinstalldir="/" md5sum="e749e668b8c8704be1006996a5c7ceaf" name="MDB2/Schema/Reserved/pgsql.php" role="php" />
+   <file baseinstalldir="/" md5sum="794903d743c39b61a0780e5989a5ac75" name="MDB2/Schema/Tool/ParameterException.php" role="php" />
+   <file baseinstalldir="/" md5sum="a5e4b0dbbf31a35ab4939215242c338b" name="MDB2/Schema/Parser.php" role="php" />
+   <file baseinstalldir="/" md5sum="314f9bfbd94af281482300f1c1eb4ba8" name="MDB2/Schema/Parser2.php" role="php" />
+   <file baseinstalldir="/" md5sum="467fabe177c0a3805bd9012872a1ae4f" name="MDB2/Schema/Tool.php" role="php" />
+   <file baseinstalldir="/" md5sum="3f3b2ae505833263c51146f3e82d8b07" name="MDB2/Schema/Validate.php" role="php" />
+   <file baseinstalldir="/" md5sum="3ee42489c1a50cba9337f616d45c363b" name="MDB2/Schema/Writer.php" role="php" />
+   <file baseinstalldir="/" md5sum="5437ed8ce36ae0d0959c449eae298e20" name="MDB2/Schema.php" role="php" />
+   <file baseinstalldir="/" md5sum="8c382926b7bdd19f585c9010ee13ec70" name="scripts/mdb2_schematool" role="script" />
+   <file baseinstalldir="/" md5sum="5bea21e3490a90b87251fb32ee06be13" name="tests/clitest.php" role="test" />
+   <file baseinstalldir="/" md5sum="2a2c534ab4afb0c05ca9d7ca47815bf5" name="tests/Console_TestListener.php" role="test" />
+   <file baseinstalldir="/" md5sum="d667aaba879d61bf36667a570005d4c2" name="tests/driver_test.schema" role="test" />
+   <file baseinstalldir="/" md5sum="d46a8f267dbd54f0c7ff55e479d33e7e" name="tests/HTML_TestListener.php" role="test" />
+   <file baseinstalldir="/" md5sum="927c5fdcbef1718132ddfec5802f1b3b" name="tests/lob_test.schema" role="test" />
+   <file baseinstalldir="/" md5sum="e992a39815e80f0910b676f34dfc2708" name="tests/MDB2_Schema_testcase.php" role="test" />
+   <file baseinstalldir="/" md5sum="33c6bb3157d8b7502b43030d8df2df5e" name="tests/README" role="test" />
+   <file baseinstalldir="/" md5sum="9c992a588d3d8a4706481e5e9effb03d" name="tests/test.php" role="test" />
+   <file baseinstalldir="/" md5sum="dc05c6cc4540981d350ccac2005c2578" name="tests/testchoose.php" role="test" />
+   <file baseinstalldir="/" md5sum="3c4d2c9d89398c5692d36299d98f9c6e" name="tests/tests.css" role="test" />
+   <file baseinstalldir="/" md5sum="ab4fa5f6da10bed373a5d52ab9b011bf" name="tests/testUtils.php" role="test" />
+   <file baseinstalldir="/" md5sum="b7f20bbc8ea7869cf3ad83de7151ebc6" name="tests/test_setup.php.dist" role="test" />
+   <file baseinstalldir="/" md5sum="6d5cbd93111746651a55f8a5295fafca" name="www/mdb2_schematool/action.php" role="www" />
+   <file baseinstalldir="/" md5sum="f56fa369958a6ac0943d235c0c3c6bfd" name="www/mdb2_schematool/class.inc.php" role="www" />
+   <file baseinstalldir="/" md5sum="7fe5faec973ff9743d5a7e2d9bbeb5a2" name="www/mdb2_schematool/index.php" role="www" />
+   <file baseinstalldir="/" md5sum="d10e54dd5e44155c8470d8f3a1856bee" name="www/mdb2_schematool/result.php" role="www" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.3.2</min>
+   </php>
+   <pearinstaller>
+    <min>1.6.0</min>
+   </pearinstaller>
+   <package>
+    <name>MDB2</name>
+    <channel>pear.php.net</channel>
+    <min>2.5.0b1</min>
+   </package>
+   <package>
+    <name>XML_Parser</name>
+    <channel>pear.php.net</channel>
+    <min>1.2.8</min>
+   </package>
+  </required>
+  <optional>
+   <package>
+    <name>XML_DTD</name>
+    <channel>pear.php.net</channel>
+    <min>0.4.2</min>
+   </package>
+   <package>
+    <name>XML_Serializer</name>
+    <channel>pear.php.net</channel>
+    <min>0.18.0</min>
+   </package>
+  </optional>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="mdb2_schematool/action.php" name="www/mdb2_schematool/action.php" />
+   <install as="mdb2_schematool/class.inc.php" name="www/mdb2_schematool/class.inc.php" />
+   <install as="mdb2_schematool/index.php" name="www/mdb2_schematool/index.php" />
+   <install as="mdb2_schematool/result.php" name="www/mdb2_schematool/result.php" />
+  </filelist>
+ </phprelease>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.8.3</release>
+    <api>0.8.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2008-11-16</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD License</license>
+   <notes>- updateDatabase() cannot add UNIQUE attribute to an existing index (Bug #13977). Patch by Holger Schletz
+- updateDatabase() keeps old default value even though new column has no default (Bug #13836). Patch by Holger Schletz
+- Obsolete tables and sequences not dropped on updateDatabase() (Bug #13608). Patch by Holger Schletz
+- Error when creating a new index for a renamed table (Bug #13397)
+- Makes use of MDB2::databaseExists() to check whether updating database exists (Bug #13073). This feature was removed on previous release and now is back again.
+- createDatabase() correctly lower/upper database name when portability option deems so. 
+- mdb2_schematool now disables transactions
+- mdb2_schematool was missing argument &quot;help&quot;
+- mdb2_schematool moved from &quot;bin&quot; to &quot;scripts&quot; folder. now installs to pear_bin dir
+- Schema validation not failing when autoincrement field is defined but another column is used as primary key (Bug #14213)
+- Accepting NOW() as value for timestamp fields on schema validation (Bug #14052). Patch by Holger Schletz
+- Introducing www/mdb2_schematool that is a rewrite of docs/examples/example.php and is now installed to web root
+- Web frontend (www/mdb2_schematool) has new options &quot;DBA_username&quot; and &quot;DBA_password&quot;
+- Tests missing sequences on database dump (Bug #13562). Patch by Luca Corbo
+- When reverse engineering a database, the XML schema file will have &lt;charset&gt; forced to UTF8
+
+open todo items:
+- Clean up output of getDefinitionFromDatabase(). Sync it with Parser and Parser2.
+- Automatically load reserved keywords
+- Make MDB2_Schema loadable via MDB2_Driver_Common::loadModule() (Bug #8270)
+- Allow simple if statements that mean that anything enclosed is only executed
+  if it meets certain criterias based on that version number (or some other
+  variable). This would enable people to add DML statements that are only
+  executed when updating from a specific version.
+- Modularize Writer code or remake it
+- Add specific error codes for Validate class
+- Add support for ORDER clauses on UPDATEs (to resolve the duplicate key 
+  problem)
+- Update description.schema.xml
+- Create unit test for comparedefinitions()
+- Create unit test for initializetable()
+- Create unit test to compare the expected array definition with what is parsed
+- Improve validateDataFieldValue() to validate &lt;column&gt;
+- Provide more info on MDB2_Schema_Validate errors (output parsed value and expected value)
+- Views support
+- Fulltext index support</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.8.2</release>
+    <api>0.8.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2008-02-23</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD License</license>
+   <notes>- updated dependency
+- updated license disclaimer in source code files
+- use quoteIdentifier in getInstructionFields() (Bug #13037)
+- After database creation, sqlite db connection not usable (Bug #11920)
+- Supporting Database Charset (Bug #12908)
+- writeInitialization() fails at given conditions (Bug #12950)
+- drop usage of listDatabases() (Bug #12636), as a consequence updateDatabase() doesn&apos;t check anymore whether updating database exists
+- index-length documented and included in Parser2 (Bug #12540)
+- xsl transformation chooses wrong value for length (Bug #12261)
+- added README file for docs dir
+- the correct variable name for warning is &quot;warnings&quot; not &quot;operation&quot; in example script
+- disabled transactions in the example script
+- introducing mdb2_schematool, a command line tool to dump and load schemas
+
+open todo items:
+- Clean up output of getDefinitionFromDatabase(). Sync it with Parser and Parser2.
+- Automatically load reserved keywords
+- Make MDB2_Schema loadable via MDB2_Driver_Common::loadModule() (Bug #8270)
+- Allow simple if statements that mean that anything enclosed is only executed
+  if it meets certain criterias based on that version number (or some other
+  variable). This would enable people to add DML statements that are only
+  executed when updating from a specific version.
+- Modularize Writer code or remake it
+- Add specific error codes for Validate class
+- Add support for ORDER clauses on UPDATEs (to resolve the duplicate key 
+  problem)
+- Update description.schema.xml
+- Create unit test for comparedefinitions()
+- Create unit test for initializetable()
+- Create unit test to compare the expected array definition with what is parsed
+- Improve validateDataFieldValue() to validate &lt;column&gt;
+- Provide more info on MDB2_Schema_Validate errors (output parsed value and expected value)
+- Views support
+- Fulltext index support</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.8.1</release>
+    <api>0.8.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2007-08-30</date>
+   <license>BSD License</license>
+   <notes>- updated dependency
+
+open todo items:
+- Clean up output of getDefinitionFromDatabase(). Sync it with Parser and Parser2.
+- Automatically load reserved keywords
+- Make MDB2_Schema loadable via MDB2_Driver_Common::loadModule() (Bug #8270)
+- Allow simple if statements that mean that anything enclosed is only executed
+  if it meets certain criterias based on that version number (or some other
+  variable). This would enable people to add DML statements that are only
+  executed when updating from a specific version.
+- Modularize Writer code or remake it
+- Add specific error codes for Validate class
+- Add support for ORDER clauses on UPDATEs (to resolve the duplicate key 
+  problem)
+- Update description.schema.xml
+- Create unit test for comparedefinitions()
+- Create unit test for initializetable()
+- Create unit test to compare the expected array definition with what is parsed
+- Improve validateDataFieldValue() to validate &lt;column&gt;
+- Provide more info on MDB2_Schema_Validate errors (output parsed value and expected value)
+- Views support
+- Fulltext index support</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.8.0</release>
+    <api>0.8.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2007-08-20</date>
+   <license>BSD License</license>
+   <notes>- Primary Key is removed when updating a table against its XML (Bug #11604)
+- Added support to INSERT...SELECT syntax, so it is now possible to prevent data loss when rollback an updated database (Bug #10892)
+- Updated API of getInstructionFields() and getInstructionWhere()
+- It is now possible to prevent updateDatabase() of overwriting the old schema file
+- alterDatabaseTables() first add new tables, then remove the old one. it is necessary to save table data before a remove
+- updateDatabase() was aborting, under certain conditions, when &lt;was&gt; was not found (Bug #11600)
+- Now validating database definition when reverse engineering (Bug #11604)
+- createDatabase() has a new parameter that is passed to the database driver to set some options like table engine
+- Foreign Keys support
+- It is now possible to assign to a column the value of another column, of the same table, when inserting data
+- Fixed the HTML etities issue when parsing a schema file (Bug #11676)
+- XML Documentation, XSD and DST updated to show/expect the attributes in a unique order. Writer and parsers was also updated to handle the attributes in that some order. That said Parser and Parser2 must have the exactly same output for a given XML
+- Except for table fields, all other database elements are being initialized with all its attributes, no matter if those attributes are present on the XML or not
+- Many bugs fixed in Parser2, that was not creating a valid database definition
+- Introduced attribute &quot;fixed&quot; of table field declaration
+- validateIndex() is now checking whether a index has fields
+- Validate is not returning MDB2_OK instead of boolean true
+- XML Documentation and schema validators revised and updated
+
+open todo items:
+- Clean up output of getDefinitionFromDatabase(). Sync it with Parser and Parser2.
+- Automatically load reserved keywords
+- Make MDB2_Schema loadable via MDB2_Driver_Common::loadModule() (Bug #8270)
+- Allow simple if statements that mean that anything enclosed is only executed
+  if it meets certain criterias based on that version number (or some other
+  variable). This would enable people to add DML statements that are only
+  executed when updating from a specific version.
+- Modularize Writer code or remake it
+- Add specific error codes for Validate class
+- Add support for ORDER clauses on UPDATEs (to resolve the duplicate key 
+  problem)
+- Update description.schema.xml
+- Create unit test for comparedefinitions()
+- Create unit test for initializetable()
+- Create unit test to compare the expected array definition with what is parsed
+- Improve validateDataFieldValue() to validate &lt;column&gt;
+- Provide more info on MDB2_Schema_Validate errors (output parsed value and expected value)
+- Views support
+- Fulltext index support</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.7.2</release>
+    <api>0.7.2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2007-04-07</date>
+   <license>BSD License</license>
+   <notes>- Allow options to be passed in when creating tables (Bug #10278)
+- Existence of a single index results in no further index creation (Bug #10296)
+- MDB2_Schema::createTableIndexes() ignores indexes (Bug #10285)
+- column identifiers quoting problem (Bug #10195)
+- Handle &apos;scale&apos; value in DECIMAL field definition (Bug #10475)
+- fixed phpdoc comment for validateDataField()
+- all primary keys are given an index name of &quot;primary&quot; (Bug #10457)
+- example.php should echo xml when no filename is given (Bug #10226)
+
+open todo items:
+- Make MDB2_Schema loadable via MDB2_Driver_Common::loadModule() (Bug #8270)
+- Add ability to define variables inside the schema (like a version number)
+- Allow simple if statements that mean that anything enclosed is only executed
+  if it meets certain criterias based on that version number (or some other
+  variable). This would enable people to add DML statements that are only
+  executed when updating from a specific version.
+- Modularize Writer code or remake it
+- Add specific error codes for Validate class
+- Add support for ORDER clauses on UPDATEs (to resolve the duplicate key 
+  problem)
+- Update description.schema.xml
+- Document how to use the API
+- Create unit test for comparedefinitions()
+- Create unit test for initializetable()
+- Create unit test to compare the expected array definition with what is parsed
+- HTML entities aren&apos;t being parsed correctly
+- Improve validateDataFieldValue() to validate &lt;column&gt;
+- Provide more info on MDB2_Schema_Validate errors (output parsed value and expected value)
+- Views support
+- Foreign keys support
+- Fulltext index support</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.7.1</release>
+    <api>0.7.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2007-02-21</date>
+   <license>BSD License</license>
+   <notes>- Package converted to version 2
+- compareDefinition() was trying to update non-changing id field (Bug #8820)
+- for a moment &lt;default&gt; should be always parsed as string, no matter the field
+  type. this behavior may change in the future.
+- undefined method MDB2_Schema::quoteIdentifier() (Bug #9172)
+- added support for explicit NULL (&lt;null&gt;&lt;/null&gt;)
+- &lt;value&gt;&lt;/value&gt; is now correctly being parsed as an empty string
+- fixed internal bug in Parser that was introduced in revision 1.46 (Bug #9435)
+- MDB2_Schema_Parser::setData() has been removed
+- MDB2_Schema_Validate::validateDataField() is validating field data again
+  (Bug #9181)
+- updated reserved keywords of ibase
+- updated XML Schema documentation
+- updated XML Schema example
+- added a new test case to isBoolean() (empty string)
+- released the very first approach of the new parser that makes usage of
+  XML_Serializer (alternative parser)
+
+open todo items:
+- Make MDB2_Schema loadable via MDB2_Driver_Common::loadModule() (Bug #8270)
+- Add ability to define variables inside the schema (like a version number)
+- Allow simple if statements that mean that anything enclosed is only executed
+  if it meets certain criterias based on that version number (or some other
+  variable). This would enable people to add DML statements that are only
+  executed when updating from a specific version.
+- Modularize Writer code or remake it
+- Add specific error codes for Validate class
+- Add support for ORDER clauses on UPDATEs (to resolve the duplicate key 
+  problem)
+- Update description.schema.xml
+- Document how to use the API
+- Create unit test for comparedefinitions()
+- Create unit test for initializetable()
+- Create unit test to compare the expected array definition with what is parsed
+- HTML entities aren&apos;t being parsed correctly
+- Add optional support for scale in decimal fields
+- Improve validateDataFieldValue() to validate &lt;column&gt;
+- Provide more info on MDB2_Schema_Validate errors (output parsed value and expected value)
+- Views support
+- Foreign keys support
+- Fulltext index support</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.7.0</release>
+    <api>0.7.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-11-07</date>
+   <license>BSD License</license>
+   <notes>- Improved INSERT support, added UPDATE and DELETE statements
+- XML syntax redesigned to cover DML addictions
+- Creation of an explicit NULL (&lt;null&gt;&lt;/null&gt;)
+- various fixes to the DTD, including DML addictions
+- XSD schema definition created
+- Tests also output php version
+- New example parse.php lets you check how a XML schema is stored
+- Updated schema.xml to demo the DML support
+- Documentation reformulated, also covering new XML syntax
+- Improved demo script example.php, which now includes more actions and options
+- Writer is returning an error when fopen() fails
+- Writer has now its own error code
+- Variable &quot;seq&quot; became &quot;sequence&quot; and &quot;seq_name&quot; became &quot;sequence_name&quot; in the
+  Parser
+- Moved validation code out of the Parser into a new separate class called
+  Validation
+- Fixed index handling in the Parser
+- Refactored error handling in the Parser
+- Removed variable &quot;init_field&quot;, that wasn&apos;t being used, from the Parser
+- Parser simulates only one level of recurssion, which means no more than 
+  function-expression or vice-versa
+- Fixed warning due to not checking with isset() in the Parser
+- Fixed warning due to not checking with isset() in the Schema
+- Typo fix (related to Bug #9024)
+- Fixed createDatabase() that was trying to use a non-existant database that 
+  was about to be created
+- Simplified API for compareTableFieldsDefinitions() and 
+  compareTableIndexesDefinitions()
+- Rewritten some docblocks
+- Added fold markers where missing
+- Removed @static from non static methods
+- Fixed several PEAR CS issues
+- Added code for field/identifier quoting
+- Ensure all identifiers are passed to quoteIdentifier() (Bug #8429)
+
+open todo items:
+- Make MDB2_Schema loadable via MDB2_Driver_Common::loadModule() (Bug #8270)
+- Add ability to define variables inside the schema (like a version number)
+- Allow simple if statements that mean that anything enclosed is only executed
+  if it meets certain criterias based on that version number (or some other
+  variable). This would enable people to add DML statements that are only
+  executed when updating from a specific version.
+- Add support for recursive tag parsing. Currently only expression&lt;-&gt;function
+  is supported but not expression-expression or function-function, although
+  recursion is already supported by the initializeTable() method
+- Parser should be replaced for XML serializer ?
+- Modularize Writer code or remake it
+- Add specific error codes for Validate class
+- Add support for ORDER clauses on UPDATEs (to resolve the duplicate key 
+  problem)
+- Update description.schema.xml
+- Document how to use the API
+- Create unit test for comparedefinitions()
+- Create unit test for initializetable()
+- Create unit test to compare the expected array definition with what is parsed
+- HTML entities aren&apos;t being parsed correctly
+- Add optional support for scale in decimal fields
+- Implement &quot;WHERE column IS NULL&quot;
+- Add ability to parse a &quot;contents-only&quot; XML dump
+- Improve validateDataFieldValue() to validate &lt;column&gt;
+- Provide more info on MDB2_Schema_Validate errors (output parsed value and expected value)</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.6.0</release>
+    <api>0.6.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-07-23</date>
+   <license uri="http://www.example.com">BSD License</license>
+   <notes>- added new XSL and CSS for xml schema file rendering (thx Bertrand)
+- automatically generate &lt;on&gt; tags in &lt;sequence&gt; tags if there is a table with
+  the same name and a single column primary key
+- do not dump default for LOB fields (Bug #7596)
+- added support for &quot;fixed&quot; (needs more testing)
+- phpdoc tweaks (thx Stoyan)
+- fixed primary key emulation and some other minor issues in createTableIndexes() (Bug #7758)
+- implemented skip_unreadable parameter in parseDatabaseDefinition() (Bug #7756)
+- switched most array_key_exists() calls to !empty() to improve readability and performance
+- fixed a few edge cases and potential warnings
+- add method name as scope for call debug() calls
+- use getValidTypes() from MDB2
+- hint if dropping a primary constraint
+- minor code tweak in how initialization data is set in the prepared statement
+- force ISO-8859-1 when parsing XML due to different defaults for PHP4 and PHP5
+- fixed handling for changes in indexes/constaints (Bug #7901)
+- made forcing of defaults optional via the &apos;force_defaults&apos; option (Request #8074)
+- fixed several issues in the DTD (Bug #7890)
+- set length and fixed for user_password in the test suite
+- use nested transactions instead of normal transactions</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5.0</release>
+    <api>0.5.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-04-16</date>
+   <license uri="http://www.example.com">BSD License</license>
+   <notes>- expanded reserved word handling
+- fix LOB data dumping
+- added overwrite support to writer class
+- added comment for idxname_format setting to example
+- added autoincrement and primary to the documentation and .xsl/.dtd
+- if we cannot create the database, then assume it was created manually in the
+  test suite
+- added option valid_types
+- added option to set parser and writer class
+- automatically let the installer set the API Version
+- make sure that the Datatype module is loaded
+- added valid_types property to determine if a given type is valid
+  schema and to set missing default values
+- allow CURRENT_* as default in temporal types (bug #6416)
+- improve test suite documentation
+- added parseDatabaseDefinition() that can work with a file or array definition
+- removed database_definition property and as a result reworked the API of most
+  methods *BC BREAK*
+- added _dumpBoolean() in writer to better support variables in boolean fields
+- allow method callbacks in MDB2_Schema_Writer::dumpDatabase (bug #7363)
+- set error code in all raiseError() calls
+- minor updates to the xml schema xsl and documentation (thx Bertrand)</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.4.3</release>
+    <api>0.4.3</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-02-05</date>
+   <license uri="http://www.example.com">BSD License</license>
+   <notes>- renamed &quot;manager&quot; property to &quot;schema&quot; for clarity in the testsuite
+- fixed logic related to using a non existant previous schema name in updateDatabase()
+
+open todo items:
+- better handling for NULL values in the xml schema format</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.4.2</release>
+    <api>0.4.2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-01-14</date>
+   <license uri="http://www.example.com">BSD License</license>
+   <notes>- added ability to dump sql instead of commiting it to the database in the example
+- fix for bug in handling of boolean default values (bug #6397)
+- default to notnull = false in the schema parser
+- several fixes for database alterations (thx Matthias)
+- default for autoincrement can be &apos;0&apos; or 0 in the parser
+- set default 0 for autoincrement columns when reverse engineering a schema
+- expect MDB2_ERROR_ALREADY_EXISTS when creating a database (bug #6481)
+
+open todo items:
+- better handling for NULL values in the xml schema format</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.4.1</release>
+    <api>0.4.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2005-12-30</date>
+   <license uri="http://www.example.com">BSD License</license>
+   <notes>- fixed bug in updateDatabase() when using a file as the previous schema
+  (bug was introduced in last release)
+- fixed install roles for test files</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.4.0</release>
+    <api>0.4.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2005-12-21</date>
+   <license uri="http://www.example.com">BSD License</license>
+   <notes>- Silence a &quot;error&quot; when there is auto increment and a primary key index defined
+  on the same field, since auto increment implies a primary key
+- support column length in create index (mysql only feature, but a nice touch,
+  emulating it with substring is not feasible though)
+- use exec() for INSERT statement
+- add extra debug info better use of the var_dump package if present in example
+- fixed bug in verifyAlterDatabase() when checking table alterations (bug #5977)
+- fixed typo in getTableConstraintDefinition() method name (removed additional &quot;s&quot;) (bug #6054)
+- expect and ignore MDB2_ERROR_NOT_FOUND when calling getTableConstraintDefinition()
+  and getTableIndexDefinition() (bug #6055)
+- fixed typo in verifyAlterDatabase() (bug #6053)
+- fixed typo in alterDatabaseSequences() (bug #6053)
+- added test suite
+- fixed issue in createDatabase() with portability fix case turned
+- ensure that all primary/unique/foreign key handling is only in the contraint methods
+- optionally allow schemas to be passed as an array to updateDatabase() (thx Matthias)</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.3.0</release>
+    <api>0.3.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2005-10-10</date>
+   <license uri="http://www.example.com">BSD License</license>
+   <notes>Warning: this is an intermediary release to address php 4.4/5.0.5. Some of the
+new features still need a bit more tweaking.
+
+- use MDB2::factory() by default instead of MDB2::connect()
+- added support for auto increment and primary key in schema.
+- alterTable now needs the full definition to work (use getTableFieldDefinition
+ from Reverse module if you do not have a definition at hand) this eliminates the need
+ of the declaration part in the alterTable array.
+- typo fix (bug #4620)
+- php 4.4.x/5.0.5 fixes
+- updated getTableFieldDefinition() call to accomodate API changes in MDB2
+- MDB2_Schema has its own error class and error codes
+- made it easier to add new database backend to the example
+- better handle removing of indexes on renamed columns in alterDatabaseTables()
+- use array_key_exists() instead of isset() where possible
+- restructured changes array to fix bugs due to inconsistency in the handling of array keys
+- added ability to disable query for the alterDatabase()/createDatabase() call
+  in updateDatabase(). this is useful to generate an RDBMS specific SQL file
+  using a custom debug callback
+- prefer &quot;true&quot; and &quot;false&quot; over &quot;1&quot; and &quot;0&quot;
+- an emty default tag now implies NULL for nullable columns and an empty string
+  for NOT NULL columns</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2005-04-29</date>
+   <license uri="http://www.example.com">BSD License</license>
+   <notes>- fixed error handling in updateDatabase()
+- use MDB2::raiseError
+- always copy schema file in updateDatabase()
+- cosmetic fixes and tweaks
+- improved overwrite to check via list*() before creating (bug #3857, #4101)
+- updated MDB2 dependency
+- fixed sequence dumping
+- moved schema documentation, xml_reverse_engineering.php, MDB.dtd
+  and MDB.xls from MDB package
+- added optional support for PEAR::XML_DTD based validation of schema files
+- index can be defined on fields that dont explicity prohibit null values
+- dont disable sequence dumping when implicit sequences have been found
+- added code to support dumping of lobs (MDB2 really should move to streams)
+- added writeInitialization() method (untested)
+- is_boolean() =&gt; isBoolean() in parser (CS fix)
+- added MDB2_Schema::factory()
+- Parser: if set grab definition of a table from the strucure property if set</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2005-04-07</date>
+   <license uri="http://www.example.com">BSD License</license>
+   <notes>This is the first unbundled release of the old MDB2_Tools_Manager class that was
+previously part of MDB2 until 2.0.0beta4. Due to the name change the package
+does not collide with previous versions of MDB2.
+
+Also the following changes were made in the process:
+- fixed index alteration in the Manager (bug #3710)
+- fixed bug in the Manager when upgrading a database that doesnt exist
+- moved logic to compareDefinitions from the Manager into the Datatype module
+- removed default_values property from the Manager
+  (the user will now need to set the proper defaults himself)
+- do not require that not null fields have a default set in the Manager (bug #3997)
+- use MDB2::raiseError() instead of MDB2_Driver_Common::raiseError()
+- cleanedup connect() method to ensure that only MDB2 connections can be
+  assigned to the db property
+- fixed bug in connect() method that prevented overwriting of options
+- several cleanups and fixes to the example.php (used to be called
+  reverse_engineer_xml_schema.php)
+- added apiVersion()
+- use PEAR::raiseError()</notes>
+  </release>
+ </changelog>
+</package>

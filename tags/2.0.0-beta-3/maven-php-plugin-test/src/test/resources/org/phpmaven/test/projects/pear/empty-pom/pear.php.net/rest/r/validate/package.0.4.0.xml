@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Validate</name>
+  <summary>Validation class</summary>
+  <description>Package to validate various datas. It includes :
+* numbers (min/max, decimal or not)
+* email (syntax, domain check)
+* string (predifined type alpha upper and/or lowercase, numeric,...)
+* date (min, max)
+* Credit cards
+* uri (RFC2396)
+* possibility valid multiple data with a single method call (::multiple)
+* Locale validation for AT, CH, DE, ES, FR, NL, PL, ptBR, UK, US
+* Finance (e.g. IBAN)</description>
+  <maintainers>
+    <maintainer>
+      <user>cox</user>
+      <name>Tomas V.V.Cox</name>
+      <email>cox@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>pajoye</user>
+      <name>Pierre-Alain Joye</name>
+      <email>paj@pearfr.org</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>neufeind</user>
+      <name>Stefan Neufeind</name>
+      <email>pear.neufeind@speedpartner.de</email>
+      <role>developer</role>
+    </maintainer>
+    <maintainer>
+      <user>timmyg</user>
+      <name>Tim Gallagher</name>
+      <email>timg@sunflowerroad.com</email>
+      <role>contributor</role>
+    </maintainer>
+    <maintainer>
+      <user>busterb</user>
+      <name>Brent Cook</name>
+      <email>busterb@mail.utexas.edu</email>
+      <role>contributor</role>
+    </maintainer>
+    <maintainer>
+      <user>zyprexia</user>
+      <name>Dave Mertens</name>
+      <email>zyprexia@php.net</email>
+      <role>contributor</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.4.0</version>
+    <date>2004-03-16</date>
+    <license>PHP</license>
+    <state>alpha</state>
+    <notes>- pt_BR moved to ptBR required for multiple support(BC break)
+- Add CH validation (Switzerland)
+- added Euro banknotes IDs 
+- Improved UK postcodes validation
+- Fixed allowed_scheme options in Validate::uri() (Torsten Roehr)
+- Fixed optional arguments in Validate::number() (Torsten Roehr)</notes>
+    <deps>
+      <dep type="php" rel="ge" version="4.1.0"/>
+    </deps>
+    <filelist>
+      <file role="php" name="Validate.php"/>
+      <file role="php" name="Validate/Finance.php"/>
+      <file role="php" name="Validate/Finance/IBAN.php"/>
+      <file role="php" name="Validate/AT.php">
+        <replace type="pear-config" from="@DATADIR@" to="data_dir"/>
+      </file>
+      <file role="php" name="Validate/CH.php">
+        <replace type="pear-config" from="@DATADIR@" to="data_dir"/>
+      </file>
+      <file role="php" name="Validate/DE.php"/>
+      <file role="php" name="Validate/ES.php"/>
+      <file role="php" name="Validate/FR.php"/>
+      <file role="php" name="Validate/NL.php"/>
+      <file role="php" name="Validate/PL.php"/>
+      <file role="php" name="Validate/ptBR.php"/>
+      <file role="php" name="Validate/UK.php"/>
+      <file role="php" name="Validate/US.php"/>
+      <file role="test" name="tests/number.php"/>
+      <file role="test" name="tests/date.php"/>
+      <file role="test" name="tests/credit_card.php"/>
+      <file role="test" name="tests/validate_AT.php"/>
+      <file role="test" name="tests/validate_CH.php"/>
+      <file role="test" name="tests/validate_DE.php"/>
+      <file role="test" name="tests/validate_NL.php"/>
+      <file role="test" name="tests/validate_Finance.php"/>
+      <file role="doc" name="docs/sample_multiple.php"/>
+      <file role="data" install-as="AT_postcodes.txt" name="data/AT_postcodes.txt"/>
+      <file role="data" install-as="CH_postcodes.txt" name="data/CH_postcodes.txt"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.3.0</version>
+      <date>2003-12-05</date>
+      <state>alpha</state>
+      <notes>- Added Finance Validations for Financial related datas
+  (S. Neufeind, Piotr Klaban)
+- Add polish validation (Piotr Klaban)
+- Add German validation (Stefan Neufeind)
+- Add EAN-UCC validtatio (see http://www.ean-ucc.org) (Piotr Klaban)
+- Add International Standard Serial Number (ISSN)
+  and Music Number(ISMN) (Piotr Klaban, David Grant)
+- Drop Validate::url() in preferenc of Validate::uri() which is fully
+  RFC2396 compliant
+- Move to PHP 3.0 license
+        
+</notes>
+    </release>
+    <release>
+      <version>0.2.0</version>
+      <date>2003-06-15</date>
+      <state>alpha</state>
+      <notes>- Add some dutch validations
+</notes>
+    </release>
+    <release>
+      <version>0.1.1</version>
+      <date>2003-03-12</date>
+      <state>alpha</state>
+      <notes>Validate::date(); argument parsing fixed
+</notes>
+    </release>
+  </changelog>
+</package>

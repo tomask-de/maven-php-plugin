@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/db_nestedset">DB_NestedSet</p>
+ <c>pear.php.net</c>
+ <v>1.3</v>
+ <st>beta</st>
+ <l>PHP License</l>
+ <m>datenpunk</m>
+ <s>API to build and query nested sets</s>
+ <d>DB_NestedSet let's you create trees with infinite depth
+inside a relational database.
+The package provides a way to
+o create/update/delete nodes
+o query nodes, trees and subtrees
+o copy (clone) nodes, trees and subtrees
+o move nodes, trees and subtrees
+o call event handlers on specific events like
+  on node deletion
+o output the tree with
+  - PEAR::HTML_TreeMenu
+  - TigraMenu (http://www.softcomplex.com/products/tigra_menu/)
+o It also features caching of SQL queries using PEAR::Cache
+</d>
+ <da>2003-10-07 00:17:00</da>
+ <n>This release includes many internal changes and some (long demanded) feature additions.
+The API and database structure should be fully backward compatible.
+Please test this release as much as possible, so that any remaining issues can be
+uncovered and resolved prior to the final release.
+o Notes:
+If you want to use new features like preorder sorting you will
+have to convert the tree to meet the new db model.
+See docs/migrateDB.txt on how to migrate your existing tree.
+o Fixes:
+* MDB support is back again.
+* Fixed a problem with some move operations where the moving tree gets changed during
+  the move operation.
+* Many small internal fixes.
+o New features:
+* Added a method setSortMode($mode) where $mode is NESE_SORT_LEVEL or NESE_SORT_PREORDER.
+  This will change the way the query methods return the tree.
+  NESE_SORT_LEVEL is the default.
+  NESE_SORT_PREORDER returns the tree preorder sorted. This sorting method
+  was often demanded as it's the way one would usually expect the tree to be returned.
+  Preorder sorting will also work with the property $secondarySort.
+  So it's possible to get the siblings of one level sorted alphabetically by name.
+  Note that you will have to switch back to NESE_SORT_LEVEL if you want to display
+  a tree with the output drivers.
+* Added method getParent() to get the immediate parent of a node
+* Added method getSiblings() to get all siblings of a node + the node itself
+* Added method createLeftNode() to create a node before a node given by it's node id.
+* Added method apiVersion() which obviously returns the current API version
+* Added convertTreeModel() to convert a tree into the new tree model
+* Added magic parent db field. If a column with the field mapping 'parent' is present
+  the parent id of a node is stored inside this column.
+  This doesn't exactly meet the nested sets theory and will only be used by some
+  methods like getParent(). It's recommended to use this column for new installations
+  or converted trees.
+* Now values passed to creation methods are verfified so that a script can't set
+  params like the parent id by itself
+* Added listbox_toHTML() and tree_toHTML() methods to the TreeMenu output driver.
+  Thanks to Emanuel Zueger for this additions.
+* Added regression tests for all public methods and common options
+  The regression test setup isn't very userfriendly for now.
+  The db schema can be found under docs and you will have to customize tests/UnitTest.php
+  to set your database connection params.
+* The main class now uses the array representation of the tree for internal operations.
+  This should gain some performance.
+o Notes on next major version (1.3):
+* The API will change.
+* The class won't return objects anymore. It will act as if $keepAsArray is set to true
+  when calling the query methods.
+  It's a good idea to switch to set this param to be mostly compatible.
+* Callback handlers will be removed - I don't even know if someone uses them.
+  Please mail me at dk@webcluster.at if you really see a use.
+  -- To be continued --</n>
+ <f>37937</f>
+ <g>http://pear.php.net/get/DB_NestedSet-1.3</g>
+ <x xlink:href="package.1.3.xml"/>
+</r>

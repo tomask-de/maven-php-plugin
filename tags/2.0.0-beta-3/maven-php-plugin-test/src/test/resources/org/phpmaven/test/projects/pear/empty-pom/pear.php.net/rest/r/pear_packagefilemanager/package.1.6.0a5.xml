@@ -1,0 +1,624 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.6" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>PEAR_PackageFileManager</name>
+ <channel>pear.php.net</channel>
+ <summary>PEAR_PackageFileManager takes an existing package.xml file and updates it with a new filelist and changelog</summary>
+ <description>This package revolutionizes the maintenance of PEAR packages.  With a few parameters,
+the entire package.xml is automatically updated with a listing of all files in a package.
+Features include
+ - manages the new package.xml 2.0 format in PEAR 1.4.0
+ - can detect PHP and extension dependencies using PHP_CompatInfo
+ - reads in an existing package.xml file, and only changes the release/changelog
+ - a plugin system for retrieving files in a directory.  Currently two plugins
+   exist, one for standard recursive directory content listing, and one that
+   reads the CVS/Entries files and generates a file listing based on the contents
+   of a checked out CVS repository
+ - incredibly flexible options for assigning install roles to files/directories
+ - ability to ignore any file based on a * ? wildcard-enabled string(s)
+ - ability to include only files that match a * ? wildcard-enabled string(s)
+ - ability to manage dependencies
+ - can output the package.xml in any directory, and read in the package.xml
+   file from any directory.
+ - can specify a different name for the package.xml file
+ 
+PEAR_PackageFileManager is fully unit tested.
+The new PEAR_PackageFileManager2 class is not.</description>
+ <lead>
+  <name>Greg Beaver</name>
+  <user>cellog</user>
+  <email>cellog@users.sourceforge.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Laurent Laville</name>
+  <user>farell</user>
+  <email>pear@laurent-laville.org</email>
+  <active>yes</active>
+ </lead>
+ <developer>
+  <name>Arnaud Limbourg</name>
+  <user>Arnaud</user>
+  <email>arnaud@limbourg.com</email>
+  <active>yes</active>
+ </developer>
+ <date>2006-01-12</date>
+ <time>18:32:39</time>
+ <version>
+  <release>1.6.0a5</release>
+  <api>1.6.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.php.net/license">PHP License</license>
+ <notes>* bugs fixed
+- Bug #6028: incompatability with php5
+- Bug #6037: Directories named &quot;file&quot; make problems
+- Bug #6175: incomplete error message with sapi interface only
+- Bug #6191: notice error with wrong &quot;pathtopackagefile&quot; option
+- Bug #6379: Generic mapping role (*=&gt;data) should exist for PFM1 and PFM2
+- Bug #6434: files list validation error with simpleouput = false
+
+* news
+- Laurent Laville was added as lead</notes>
+ <contents>
+  <dir baseinstalldir="PEAR" name="/">
+   <file baseinstalldir="PEAR" md5sum="53ec9bedb54aedb11b35f348b3209d93" name="examples/createPhpDocumentor_package.xml.php" role="doc" />
+   <file baseinstalldir="PEAR" md5sum="be7a06d978db066dac865f1cb52a72f8" name="examples/generatePackage.xml.php" role="doc" />
+   <file baseinstalldir="PEAR" md5sum="00420f42d74867d113e9aadfd9ec94a9" name="examples/makepackage.php" role="doc" />
+   <file baseinstalldir="PEAR" md5sum="3cc3f3d1dd9b4348d71c3bb7a337e38f" name="PackageFileManager/Cvs.php" role="php" />
+   <file baseinstalldir="PEAR" md5sum="acbf11e7eff3deb8ca2eb017cb4dea9a" name="PackageFileManager/File.php" role="php" />
+   <file baseinstalldir="PEAR" md5sum="4d2957c1ce6c312e95215aa5a4490eae" name="PackageFileManager/Perforce.php" role="php" />
+   <file baseinstalldir="PEAR" md5sum="4ae43b1a5ad179f8eaa24d591f444d84" name="PackageFileManager/SimpleGenerator.php" role="php" />
+   <file baseinstalldir="PEAR" md5sum="09d6ebfee1ffcb99742afc6882db9c8f" name="PackageFileManager/Svn.php" role="php" />
+   <file baseinstalldir="PEAR" md5sum="8d509c1335b51b143afb3d13b38c2123" name="PackageFileManager/XMLOutput.php" role="php" />
+   <file baseinstalldir="PEAR" md5sum="8699e02698f4073d22bef0b15c4d16c6" name="tests/addConfigureOption/test_invalid_nosetoptions.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="6713e5d4f9a06c86589f6fdad157442a" name="tests/addConfigureOption/test_valid_add1.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="f16618e135fa0281e114d608ee515624" name="tests/addConfigureOption/test_valid_add2.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="c8ebe4c155299f9210514987f5659a39" name="tests/addConfigureOption/test_valid_replace.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="f112a05b4ba3d0600fac9ddbed0eb8b4" name="tests/addDependency/test_invalid_nosetoptions.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="eb238c629d5a7756ff9baa6663b94d1a" name="tests/addDependency/test_invalid_phppkg.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="2deddc12904048713c66616787e7ff1f" name="tests/addDependency/test_valid_add_php.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="670f0f2c9f52c0f476d9ee8aacdb72e8" name="tests/addDependency/test_valid_add_pkg_explicit.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="6cba1e9cc0069278266f95d3bf203325" name="tests/addDependency/test_valid_add_pkg_implicit.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="275b4eeb19616941f2b26b9bf96a54e1" name="tests/addDependency/test_valid_replace.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="c9b92114ab5d5f524b023cbfc64a0191" name="tests/addMaintainer/test_invalid_nosetoptions.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="f4dd39617b710912df7aeedf44069666" name="tests/addMaintainer/test_invalid_wrongrole.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="a6d93e5b6e7da3903a224044d7535ede" name="tests/addMaintainer/test_valid_add.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="8b78dc03cd8d5cdf0cbdf7e7f14c4521" name="tests/addMaintainer/test_valid_replace.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="0134b42d4e89db05c8af5c85a5e9384e" name="tests/addReplacement/test_invalid_replacement.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="01016591c08673497947595ec580b5c3" name="tests/addReplacement/test_valid_replacement.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="a67830253c65da733109dc0429b3efb2" name="tests/addRole/test_invalid_role.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="cde6eb43fd28b157a6b98ae294bddc2c" name="tests/addRole/test_valid_role.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/footest/blarfoo/blartest.txt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/footest/subfoo/subsubfoo/boo.txt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/footest/subfoo/test11.txt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/footest/subfoo/test12.txt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="57321b21bcdcc55a03001d50c45ff31d" name="tests/footest/testCVS/testEntries" role="test" />
+   <file baseinstalldir="PEAR" md5sum="6032351bfd56a4beaa6bd497b5549e5b" name="tests/footest/testCVS/testEntries.Extra" role="test" />
+   <file baseinstalldir="PEAR" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/footest/.test" role="test" />
+   <file baseinstalldir="PEAR" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/footest/test1.txt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/footest/test2.txt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="a3ca34d622284137379615aef48088a4" name="tests/generateNewPackageXML/test_invalid_nodescription.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="74cab68761450dae7f939aaf41ee68ae" name="tests/generateNewPackageXML/test_invalid_nopackage.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="b5d9467a1927321c85d3c2228da5f8c0" name="tests/generateNewPackageXML/test_invalid_nosummary.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="30873dd0eecbbe912e24e24792a70a01" name="tests/generateNewPackageXML/test_valid_simple.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="3d97e5d6a1336f32c39c6494da08a77a" name="tests/generateNewPackageXML/test_valid_withdeps.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="d7004b8e0e0cb8f99b423fccc9ef3fc5" name="tests/generateNewPackageXML/test_valid_withdepsfalse.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="2e1a36e0f672ae3fef19ff20bda2efed" name="tests/generateNewPackageXML/test_valid_withmaintainers.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="0d9f81ec1b432f9a688ae23f3f0553e1" name="tests/generateNewPackageXML/test_valid_withmaintainersfalse.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="7dd0e308494f604141ce3db7eb8451ad" name="tests/getExistingPackageXML/test_invalid_notexists_nopackage.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="b9bb1c2b3e2a7c49b946158277656c15" name="tests/getExistingPackageXML/test_invalid_wrongdir.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="d6f96f501f51b22c9a53f1566b5b3d5b" name="tests/getExistingPackageXML/test_valid_deps.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="5f013f0299f149d2892bb0708ebf64c7" name="tests/getExistingPackageXML/test_valid_maintainers.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="5db49fc737e177a9a325747151df31dd" name="tests/getExistingPackageXML/test_valid_simple.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="7a7e12a87cf0358029659c8ecc3ca496" name="tests/importOptions/test_invalid.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="cbe157a7dee9590f90fa36fc57c274c1" name="tests/importOptions/test_valid.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="528f440c36e80fa9a4815eee86c1b716" name="tests/PEAR_PackageFileManager2/importFromPackageFile1/setup.php.inc" role="test" />
+   <file baseinstalldir="PEAR" md5sum="4d111f701875f953ec89c2f27641dc2d" name="tests/PEAR_PackageFileManager2/importFromPackageFile1/test.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="528f440c36e80fa9a4815eee86c1b716" name="tests/PEAR_PackageFileManager2/importOptions/setup.php.inc" role="test" />
+   <file baseinstalldir="PEAR" md5sum="5f4358c6ec13b7a00578f5800e53b5b5" name="tests/PEAR_PackageFileManager2/importOptions/test.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="225dfce4b7a172ae3c7c938250b68e1f" name="tests/PEAR_PackageFileManager2/setOptions/existingpackagexml/package_changelog.xml" role="test" />
+   <file baseinstalldir="PEAR" md5sum="b8e2d6405c20cec3ddf7f538c2f69234" name="tests/PEAR_PackageFileManager2/setOptions/existingpackagexml/package_nochangelog.xml" role="test" />
+   <file baseinstalldir="PEAR" md5sum="64e9e5ca7bdf0f4dee451cc7236e23f7" name="tests/PEAR_PackageFileManager2/setOptions/setup.php.inc" role="test" />
+   <file baseinstalldir="PEAR" md5sum="fc4aadff6e04b07c62ba40905aaddcdf" name="tests/PEAR_PackageFileManager2/setOptions/test_existingpackagexml_changelog.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="d21de5c63e6bef465ea2d47bbce957d3" name="tests/PEAR_PackageFileManager2/setOptions/test_existingpackagexml_nochangelog.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="fc5844967375dc2842d7588a90f9ddcc" name="tests/PEAR_PackageFileManager2/setOptions/test_existingpackagexml_unknownchannel.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="f26869ab2cdca9b04d1b823b6db9acb9" name="tests/PEAR_PackageFileManager2/setOptions/test_newpackagexml.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="f05ac7041d1abd6c05b28cbdda571cce" name="tests/PEAR_PackageFileManager2/setOptions/test_nobaseinstalldir.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="8126645eeda7a12699dd6dc0af15dc93" name="tests/PEAR_PackageFileManager2/setOptions/test_nonrealpackagedirectory.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="d400968079984a77d6d5e23370c2ff64" name="tests/PEAR_PackageFileManager2/setOptions/test_nopackagedirectory.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="1c49b66b8bb3cc255847d67d5c4dc389" name="tests/PEAR_PackageFileManager2/writePackageFile/packagefiles/package1.xml" role="test" />
+   <file baseinstalldir="PEAR" md5sum="1c49b66b8bb3cc255847d67d5c4dc389" name="tests/PEAR_PackageFileManager2/writePackageFile/packagefiles/Server.php" role="test" />
+   <file baseinstalldir="PEAR" md5sum="528f440c36e80fa9a4815eee86c1b716" name="tests/PEAR_PackageFileManager2/writePackageFile/setup.php.inc" role="test" />
+   <file baseinstalldir="PEAR" md5sum="88428e2b10dfa665add03cd61bee275b" name="tests/PEAR_PackageFileManager2/writePackageFile/test_addchangelog.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="503e1e7045848aae6faa3f7676c77d10" name="tests/PEAR_PackageFileManager2/writePackageFile/test_updatechangelog.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/PEAR_PackageFileManager_CVS/footest/blarfoo/blartest.txt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/PEAR_PackageFileManager_CVS/footest/subfoo/subsubfoo/boo.txt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/PEAR_PackageFileManager_CVS/footest/subfoo/test11.txt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/PEAR_PackageFileManager_CVS/footest/subfoo/test12.txt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="57321b21bcdcc55a03001d50c45ff31d" name="tests/PEAR_PackageFileManager_CVS/footest/testCVS/testEntries" role="test" />
+   <file baseinstalldir="PEAR" md5sum="6032351bfd56a4beaa6bd497b5549e5b" name="tests/PEAR_PackageFileManager_CVS/footest/testCVS/testEntries.Extra" role="test" />
+   <file baseinstalldir="PEAR" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/PEAR_PackageFileManager_CVS/footest/.test" role="test" />
+   <file baseinstalldir="PEAR" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/PEAR_PackageFileManager_CVS/footest/test1.txt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/PEAR_PackageFileManager_CVS/footest/test2.txt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="c1fd74bb7a4ec34593f912639c46ee5c" name="tests/PEAR_PackageFileManager_CVS/setup.php.inc" role="test" />
+   <file baseinstalldir="PEAR" md5sum="a6379d010d316f56f9752bbcdf628fcd" name="tests/PEAR_PackageFileManager_CVS/test_dirList_invalid.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="2584ea14ed8f1ea560b4fbd0ba268c2c" name="tests/PEAR_PackageFileManager_CVS/test_dirList_valid.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="d4a95138d6a515bdde982f9d31f860d3" name="tests/PEAR_PackageFileManager_CVS/test_dirList_valid_with_ignore.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="da9cfc64124b3d75261f282854888b1f" name="tests/PEAR_PackageFileManager_CVS/test_dirList_valid_with_include.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="9b46e59992c0e8f0e128225c53ebbece" name="tests/PEAR_PackageFileManager_CVS/test_general_valid1.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="dfbeeace41267d3dfa81f4992ba09675" name="tests/PEAR_PackageFileManager_CVS/test_general_valid2.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="4bf455772fb73a7bb0626ee5b25ed63c" name="tests/PEAR_PackageFileManager_File/checkIgnore/test_complex_multiple_no.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="8e0bd850d99bd53748fc7851d21ad172" name="tests/PEAR_PackageFileManager_File/checkIgnore/test_complex_multiple_pass.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="961470548a71eacaf193e73db3f9c2ef" name="tests/PEAR_PackageFileManager_File/checkIgnore/test_complex_no.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="bafb605fffa8cb772c7b36bb9cd3cb38" name="tests/PEAR_PackageFileManager_File/checkIgnore/test_emptyarray.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="738174967253aacc4ea83a4bcbe791f1" name="tests/PEAR_PackageFileManager_File/checkIgnore/test_nonarray.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="7c4aadc14a79c036d7163ccc5b03e400" name="tests/PEAR_PackageFileManager_File/checkIgnore/test_simple_dir_no.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="3d20ec5ac9a07fbf838cb75a7dcf6abf" name="tests/PEAR_PackageFileManager_File/checkIgnore/test_simple_dir_pass.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="4f197691e1755779c611377faa3477ac" name="tests/PEAR_PackageFileManager_File/checkIgnore/test_simple_no.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="cf5b9904b736fca965369c5c39f4c3c9" name="tests/PEAR_PackageFileManager_File/checkIgnore/test_simple_pass.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/PEAR_PackageFileManager_File/dirList/test_bug1217/0" role="test" />
+   <file baseinstalldir="PEAR" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/PEAR_PackageFileManager_File/dirList/test_bug1217/firstfile.php" role="test" />
+   <file baseinstalldir="PEAR" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/PEAR_PackageFileManager_File/dirList/test_bug1217/fourthfile.php" role="test" />
+   <file baseinstalldir="PEAR" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/PEAR_PackageFileManager_File/dirList/test_bug1217/secondfile.php" role="test" />
+   <file baseinstalldir="PEAR" md5sum="ab71cc020f8cf3622b48aae624410264" name="tests/PEAR_PackageFileManager_File/dirList/test_bug1217.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="5fa99cb48fc3e8eafcc3f3aa221daead" name="tests/PEAR_PackageFileManager_File/dirList/test_invalid.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="a21ec0f4c8a750b691f18b774b1cb36d" name="tests/PEAR_PackageFileManager_File/dirList/test_valid.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="7b9c0981f41b28adfe6eabe87b2d685f" name="tests/PEAR_PackageFileManager_File/dirList/test_valid_addhiddenfiles.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="aace5c9d7a740013488ce0174c9fb18c" name="tests/PEAR_PackageFileManager_File/dirList/test_valid_with_ignore.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="f9c3cd5e4e232668366488f1e73db9d3" name="tests/PEAR_PackageFileManager_File/dirList/test_valid_with_include.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="25fc4929a980b60ef76b62dd260ff324" name="tests/PEAR_PackageFileManager_File/getFileList/test_valid.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="dcd2f0ea383726c7e572389a4b3be700" name="tests/PEAR_PackageFileManager_File/getRegExpableSearchString/test_1.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="5b2484ad41e46a1f9d0e3e43ca6f7c84" name="tests/PEAR_PackageFileManager_File/getRegExpableSearchString/test_dir_regexp.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="03515cfef7f9982f39f7214212287678" name="tests/PEAR_PackageFileManager_File/getRegExpableSearchString/test_file_regexp.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="4153786549c0e3a049fb02d91591ce98" name="tests/PEAR_PackageFileManager_File/setDir/test_concept.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="32f1011c68cc548c0c5b07cafd6f3ac1" name="tests/PEAR_PackageFileManager_File/setupDirs/test_concept.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="faf859cd4471fc6511f5273080af66ec" name="tests/PEAR_PackageFileManager_File/setupDirs/test_valid.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="c768444f11a560106b475ee3e3930ae2" name="tests/PEAR_PackageFileManager_File/setupIgnore/test_complex.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="a4f81725ebb2fac221cf4f369828db68" name="tests/PEAR_PackageFileManager_File/setupIgnore/test_complex_multiple.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="e04ad9aeee7615848457f7383be82a15" name="tests/PEAR_PackageFileManager_File/setupIgnore/test_emptyarray.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="4751a49876ebabb2e84d7fe0ddc0d19f" name="tests/PEAR_PackageFileManager_File/setupIgnore/test_nonarray.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="37216851e756a13f8ab906056ca28dc9" name="tests/PEAR_PackageFileManager_File/setupIgnore/test_simple.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="37a90df771c2c91b5fc0b5f7d1d346a0" name="tests/PEAR_PackageFileManager_File/setupIgnore/test_simple_0.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="e9d2551ff84f70c1944bb7156ccd100a" name="tests/PEAR_PackageFileManager_File/setupIgnore/test_simple_dir.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="69a561388aede0c93e03bdc63d9d3cde" name="tests/PEAR_PackageFileManager_File/setup.php.inc" role="test" />
+   <file baseinstalldir="PEAR" md5sum="5560080e8517a79f47b39859d5ea81a6" name="tests/PEAR_PackageFileManager_XMLOutput/test_valid1.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="82edd03d812f07abaa4b1cc869a072c7" name="tests/setOptions/test_invalid_badfilelistgenerator1.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="775d17deaff06e765cd1a3837eb73fb5" name="tests/setOptions/test_invalid_badfilelistgenerator2.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="38caf29c5b358dd6ea162582d34899c1" name="tests/setOptions/test_invalid_badfilelistgenerator3.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="3d80deae494c5c6bd88a35f258d19c4a" name="tests/setOptions/test_invalid_filelistgeneratorcustom.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="fc786afd8a7959c7e953b58070ba9de0" name="tests/setOptions/test_invalid_nobaseinstalldir.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="60f62147230890d42b5a0a0883bda399" name="tests/setOptions/test_invalid_nopackagedir.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="52fbaf4880fcae48e5c21da89682a513" name="tests/setOptions/test_invalid_nostate.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="14ecaf8d47147f0cbfbe46d09f2cfcb3" name="tests/setOptions/test_invalid_noversion.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="1f2c5ee21653a4d76e79ceca76ac6025" name="tests/setOptions/test_valid_filelistgeneratorcustom.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="8367688af3b20d7fe7979935a6ada5c6" name="tests/setOptions/test_valid_filelistgeneratorcvs.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="ab20cfe6051ea7f0c0c5f7f4efde901d" name="tests/setOptions/test_valid_filelistgeneratorfile.phpt" role="test" />
+   <file baseinstalldir="PEAR" md5sum="b870bbbdbd23e837c292a5a641c41744" name="tests/Bad_file.php" role="test" />
+   <file baseinstalldir="PEAR" md5sum="28edd85120a4c123f5e40cd68e2d44b8" name="tests/phpt_test.php.inc" role="test" />
+   <file baseinstalldir="PEAR" md5sum="af906532a8bc0ad8743d8f944a07e0e7" name="tests/setup.php.inc" role="test" />
+   <file baseinstalldir="PEAR" md5sum="d2ee96487dda5783445202f9870fea58" name="tests/test1_package.xml" role="test" />
+   <file baseinstalldir="PEAR" md5sum="e95855a4e78bb6803b82af03d146d6ea" name="tests/Test_file.php" role="test" />
+   <file baseinstalldir="PEAR" md5sum="bbf0253cc2a99d5d485145db9e8b6673" name="PackageFileManager.php" role="php" />
+   <file baseinstalldir="PEAR" md5sum="6c8d5b97e9aff9ca86ab30f8dca098fa" name="PackageFileManager2.php" role="php">
+    <tasks:replace from="@PEAR-VER@" to="version" type="package-info" />
+   </file>
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.3</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>1.6.0a5</release>
+    <api>1.6.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-01-12</date>
+   <license>PHP License</license>
+   <notes>* bugs fixed
+- Bug #6028: incompatability with php5
+- Bug #6037: Directories named &quot;file&quot; make problems
+- Bug #6175: incomplete error message with sapi interface only
+- Bug #6191: notice error with wrong &quot;pathtopackagefile&quot; option
+- Bug #6379: Generic mapping role (*=&gt;data) should exist for PFM1 and PFM2
+- Bug #6434: files list validation error with simpleouput = false
+
+* news
+- Laurent Laville was added as lead</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.6.0a4</release>
+    <api>1.6.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2005-11-04</date>
+   <license>PHP License</license>
+   <notes>New features/bugfix release
+
+Still more unit testing to do, but enough is fixed to warrant a new release
+
+* add addUnixeol(), addWindowseol(), initPostinstallScript() and addPostinstallScript()
+* fix invalid package validation in PFM2::importOptions() - no error messages printed
+* fix fatal error if no files are found by the filelist generator using PFM2
+* fix Bug #5243: importOptions() won&apos;t work with 2nd arg filled
+* fix Bug #5072: If channel not registered, addMaintainers() fails?</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.6.0a3</release>
+    <api>1.6.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2005-09-06</date>
+   <license>PHP License</license>
+   <notes>Bugfix release
+* add addIgnoreToRelease() to replace PEAR_PackageFile_v2_rw::addIgnore()</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.6.0a2</release>
+    <api>1.6.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2005-07-24</date>
+   <license>PHP License</license>
+   <notes>Bugfix release
+* fix many bugs in PackageFileManager2, particularly in relation
+  to package.xml 1.0 import and export, replacements
+* fix bug #4478: Notice error on File.php (generator)
+* fix Bug #4525: Update inline package generation example
+* fix Bug #4604: validatePackageInfo implementation error
+* fix Bug #4743: PHP 5.1 pass-by-reference error</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.6.0a1</release>
+    <api>1.6.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2005-05-28</date>
+   <license>PHP License</license>
+   <notes>Add capability to manage package.xml version 2.0</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.5.2</release>
+    <api>1.5.2</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2005-05-20</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Bugfix release * fix notice if simpleoutput is used, and there are no subdirectories</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.5.1</release>
+    <api>1.5.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2005-04-06</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Bugfix release * fix Bug #4003 importOptions() won&apos;t work until setOptions() is called</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.5.0</release>
+    <api>1.5.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2005-03-28</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>New features and bugfixes * fix Bug #3696 PHP SAPI check in debugPackageFile() not reliable, use php_sapi_name() instead * implement Request #3747 getOptions() method * Migrate all unit tests to .phpt, run &quot;pear run-tests -p PEAR_PackageFileManager&quot; in PEAR 1.4.0 to run tests post-installation * add dependency on XML_Tree (used by SVN driver) * add package2.xml to the list of auto-ignored files</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.0</release>
+    <api>1.4.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2005-02-20</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Add addGlobalReplacement() - applies the replacement to every file in the package.xml</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.1</release>
+    <api>1.2.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2004-04-27</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Fix bug 1217: file listing stops on files or directories named 0</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.0</release>
+    <api>1.3.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2004-02-08</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Add detectDependencies() - uses PHP_CompatInfo to detect deps. Also added cleardependencies option to setOptions(), which will clear all existing dependencies from package.xml before starting</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.0</release>
+    <api>1.2.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2004-02-07</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>*fully* unit-tested with 2 new features: simpleoutput and addhiddenfiles - new feature, &quot;simpleoutput&quot; option. This eliminates output of md5sum and provides tags for readability, and outputs &lt;dir&gt; tags. - each &lt;/dir&gt; close tag has a &lt;!-- comment --&gt; containing the full directory name that was concluded - new feature, &quot;addhiddenfiles&quot; option. This allows addition of files that begin with . like .bashrc</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.0</release>
+    <api>1.1.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2003-12-11</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>unit-tested with 1 new feature: include - fixed #8: notices if a package has no dependencies - fixed #261: package.xml files shouldn&apos;t be included in the package file list - fixed #155: warning emitted if CVS/ is packaged - fixed #260: .cvsignore files should be excluded from package file lists - new feature, &quot;include&quot; option. This works just like &quot;ignore&quot; except it excludes all files that do not match the names passed in. &quot;ignore&quot; includes only files that do not match the names passed in. Suggested by Stan Lemon</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0</release>
+    <api>1.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2003-08-21</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>First stable release No changes from 0.15</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.15</release>
+    <api>0.15</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2003-08-06</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Bugfix release - erroneous blank &lt;release&gt; tag in changelog for generation of a new package.xml</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.14</release>
+    <api>0.14</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2003-08-04</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Bugfix release - fix warning if you attempt to add a dependency on PHP as a package</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.13</release>
+    <api>0.13</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2003-08-02</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Bugfix release - add warning if you attempt to add a dependency on PHP as a package - switched to usage of PEAR_Common::getUserRoles() - added optional dependency support - added script phase support (unimplemented in PEAR)</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.12</release>
+    <api>0.12</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2003-07-28</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Bugfix release - added fix, if no existing changelog for current package.xml, but has old changelog, a new one is auto-generated from the release. - added new switch to specify order of changelog entries &quot;changelogoldtonew&quot; default true. Set to false to have the newest entry listed first</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.11</release>
+    <api>0.11</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2003-07-25</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Bugfix release - exceptions option should be matching relative path of a file, not just the filename - exceptions were ignored if dir_roles was specified for the directory containing the file - fixed documentation error - added validation of file role - fixed directory role so that it checks values passed in before using the parent directory&apos;s role - removed stupid use of eval, replaced with call_user_func - added new complex example that uses almost every option</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.10</release>
+    <api>0.10</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2003-07-25</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>With the release of 0.10, PEAR_PackageFileManager is essentially feature-complete. It handles all possible package.xml settings for PEAR, and is extensible through the &apos;pearcommonclass&apos; option - changed to using strnatcasecmp for version numbers in the search through ChangeLog, so 0.10 &gt; 0.1 - added md5sum attribute to filelist - added use of PEAR_Common::validatePackage() to catch odd errors - fixed incorrect handling of PEAR_Error in File::getFileList() - added handling of filelist platform attribute - added handling of filelist install-as attribute - added handling of filelist replacements options</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.9</release>
+    <api>0.9</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2003-07-24</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Bugfix release - Fixed bug in reading a package.xml with no changelog entry, it now auto-generates a changelog entry from the existing &lt;release&gt; tag if there never was a changelog</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.8</release>
+    <api>0.8</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2003-07-23</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Bugfix release - Fixed bug in ignore, ignoring an explicit full path with or without wildcards would not work</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.7</release>
+    <api>0.7</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2003-07-23</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Bugfix release - Fixed bug in CVS reading, if files have been added/removed but not yet committed, it would try to add them to the package.xml</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.6</release>
+    <api>0.6</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2003-07-23</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Bugfix release - When reading in an existing package.xml, if a file has been removed, several warnings were emitted by PEAR_Common attempting to examine the source of a non-existent file - Fixed warning if release notes were empty in a previous changelog</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5</release>
+    <api>0.5</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2003-07-23</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Bugfix release - Fixed bug in type=&quot;php&quot; dependency generation, - Fixed bug if the package.xml doesn&apos;t yet exist</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.4</release>
+    <api>0.4</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2003-07-23</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Bugfix release - Fixed bug in testing of output - new option allows specifying the doctype, default is &quot;http://pear.php.net/dtd/package-1.0&quot;</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.3</release>
+    <api>0.3</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2003-07-22</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>bugfix release - &lt;!DOCTYPE package SYSTEM &quot;http://pear.php.net/dtd/package-1.0&quot;&gt; is added if it isn&apos;t present - fixed ignoring of license option - added documentation of the options - if package, summary or description are passed in the options, they will overwrite the existing ones even if the package.xml already exists - fixed progressive addition of newlines to changelog release notes due to bug in the package.xml parser</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2</release>
+    <api>0.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2003-07-21</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Generation of package.xml from scratch is now supported. In addition, generation of &lt;provides&gt; is supported and so is addition of maintainers and configure options - Fixed a bug in &lt;release&gt; generation - Added _addProvides() to generate a &lt;provides&gt; section</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1</release>
+    <api>0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2003-07-21</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>First release of PEAR_PackageFileManager</notes>
+  </release>
+ </changelog>
+</package>

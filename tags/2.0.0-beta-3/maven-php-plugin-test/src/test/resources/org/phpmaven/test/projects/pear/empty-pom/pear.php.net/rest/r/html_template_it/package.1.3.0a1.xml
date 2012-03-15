@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.7.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>HTML_Template_IT</name>
+ <channel>pear.php.net</channel>
+ <summary>Integrated Templates</summary>
+ <description>HTML_Template_IT:
+Simple template API.
+The Isotemplate API is somewhat tricky for a beginner although it is the best
+one you can build. template::parse() [phplib template = Isotemplate] requests
+you to name a source and a target where the current block gets parsed into.
+Source and target can be block names or even handler names. This API gives you
+a maximum of fexibility but you always have to know what you do which is
+quite unusual for php skripter like me.
+
+I noticed that I do not any control on which block gets parsed into which one.
+If all blocks are within one file, the script knows how they are nested and in
+which way you have to parse them. IT knows that inner1 is a child of block2, there&apos;s
+no need to tell him about this.
+Features :
+  * Nested blocks
+  * Include external file
+  * Custom tags format (default {mytag})
+
+HTML_Template_ITX :
+With this class you get the full power of the phplib template class.
+You may have one file with blocks in it but you have as well one main file
+and multiple files one for each block. This is quite usefull when you have
+user configurable websites. Using blocks not in the main template allows
+you to modify some parts of your layout easily.</description>
+ <lead>
+  <name>Pierre-Alain Joye</name>
+  <user>pajoye</user>
+  <email>pajoye@php.net</email>
+  <active>no</active>
+ </lead>
+ <lead>
+  <name>David Soria Parra</name>
+  <user>dsp</user>
+  <email>dsp@php.net</email>
+  <active>yes</active>
+ </lead>
+ <developer>
+  <name>Thorsten Rinne</name>
+  <user>thorstenr</user>
+  <email>thorstenr@php.net</email>
+  <active>yes</active>
+ </developer>
+ <developer>
+  <name>Ulf Wendel</name>
+  <user>uw</user>
+  <email>ulf.wendel@phpdoc.de</email>
+  <active>no</active>
+ </developer>
+ <date>2008-12-27</date>
+ <time>17:42:26</time>
+ <version>
+  <release>1.3.0a1</release>
+  <api>1.2.1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>stable</api>
+ </stability>
+ <license>Modified BSD license</license>
+ <notes>- Add support for pear package 2.0 format
+- Remove support for pear package 1.0 format
+- Fix bug #9501, doller signs disapear if preg_match is used.
+- Fix bug #9783, don&apos;t remove variable which values follow the variable pattern
+  To allow backwards compatbility an option preserve_input is added.
+  If it is false, the old behaviour will be used and therefore those values will be deleted.
+  Default is true, so new behaviour.
+- Fix bug #9853, problems with dots in placeholders or blocknames    
+- Add option &apos;preserve_input&apos; to only remove unkown variable that were present during setTemplate or lodaTemplatefile
+  which is the behaviour before 1.3.0a1
+- Fix bug #13935 - docblock is wrong
+- Improved PHPCS (Request #15039)</notes>
+ <contents>
+  <dir baseinstalldir="HTML/Template" name="/">
+   <file baseinstalldir="HTML/Template" md5sum="ba285cf25750a900690f2388ee31a103" name="examples/sample_it.php" role="doc" />
+   <file baseinstalldir="HTML/Template" md5sum="4b2a932053e321a0cf9ced5295113f09" name="examples/sample_itx_addblockfile.php" role="doc" />
+   <file baseinstalldir="HTML/Template" md5sum="342278cc5fe8ca6c66591cd5ee389402" name="examples/templates/addblockfile_list.tpl.htm" role="doc" />
+   <file baseinstalldir="HTML/Template" md5sum="697f694a67db6b96d247a24bdfd44f9b" name="examples/templates/addblockfile_main.tpl.htm" role="doc" />
+   <file baseinstalldir="HTML/Template" md5sum="834e1e6d40b2f34906aa17f9969bd891" name="examples/templates/main.tpl.htm" role="doc" />
+   <file baseinstalldir="HTML/Template" md5sum="9bd9d964363904b5026972dff0d198da" name="tests/Console_TestListener.php" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="8def35e6dae4a5db15ec026bc616a3d3" name="tests/ITX_api_testcase.php" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="ec630d63df8163f75c4aa3b1e3051d2d" name="tests/ITX_usage_testcase.php" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="15cbd610ad8dcd028bdd7cfd43411ab5" name="tests/IT_api_testcase.php" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="491804859fe51bd8c0c072cffadecec5" name="tests/IT_bugs_testcase.php" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="3836b3fc1dd5a2a4d09258be575736c9" name="tests/IT_usage_testcase.php" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="fd779314cbf96c77eb5bb5ff8d9a7728" name="tests/test.php" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="e50de49b74a1d96bb77ddae2d0abdfc3" name="tests/templates/addblock.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="22e56437378e53d08ba07d3dd2aa4b85" name="tests/templates/blockiteration.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="4173bf97eec43787532e247ef9b2611a" name="tests/templates/blocks.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="7014497a69b346957fb3d2b5fa44ffd4" name="tests/templates/bug_9853_01.tpl" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="385013ff6be875da2888087e96c6a93c" name="tests/templates/bug_9853_02.tpl" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="2611d6ec574a65716f1bc2ca95cb8c63" name="tests/templates/globals.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="db5b226eff0218c831749c07042529f2" name="tests/templates/include.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="d9a6425eebdfc6981465b4a228dbee51" name="tests/templates/loadtemplatefile.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="5c7e2e9c32306db4b6667d2b57f1c0ac" name="tests/templates/replaceblock.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="310552db4653b34dbb0f993847572fc5" name="tests/templates/__include.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="2af8d7f10f7819293b83f55237fedf52" name="IT.php" role="php" />
+   <file baseinstalldir="HTML/Template" md5sum="4c4742f7fb3431ed5c0975d8fd04921b" name="ITX.php" role="php" />
+   <file baseinstalldir="HTML/Template" md5sum="5c50b2a56cb368f3910fbdcf394d155c" name="IT_Error.php" role="php" />
+   <file baseinstalldir="HTML/Template" md5sum="f8790e48b597dff12a643e08e9be3fab" name="LICENSE" role="doc" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.0.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>1.1</release>
+    <api>1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2003-03-11</date>
+   <license>Modified BSD license</license>
+   <notes>*BETA* release.</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2003-08-21</date>
+   <license>Modified BSD license</license>
+   <notes>- fix #4590, case sensitive method name getFile fix
+- fix #1453, haltOnWarning fix, wrong property name called
+- fix #3952, return IT_OK on success in setOptions</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.2</release>
+    <api>1.1.2</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2005-10-28</date>
+   <license>Modified BSD license</license>
+   <notes>- Comply better with the coding standards (dufuz@php.net)
+- Fixed Bug #5774 ITX-&gt;buildFunctionlist, forced to use {} as delimiters
+  instead of the user defined once  (dufuz@php.net)
+- Fixed Bug #5642   Undefined variable: blockname (dufuz@php.net)</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.3</release>
+    <api>1.1.3</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2005-11-01</date>
+   <license filesource="LICENSE">Modified BSD license</license>
+   <notes>- Change to the new BSD License
+  (see http://www.opensource.org/licenses/bsd-license.php)</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.4</release>
+    <api>1.1.4</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-04-12</date>
+   <license>Modified BSD license</license>
+   <notes>- #6084, fread raises warning when used with empty files
+- #7359, remove notices when a block is not yet defined
+- fix a bug introduced with some cleanup commit, in some cases,
+  callbacks did not work anymore</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.5</release>
+    <api>1.1.5</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-06-13</date>
+   <license>Modified BSD license</license>
+   <notes>- #7611, wrong array initialized, the same object cannot be
+  used for multiple templates</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.0</release>
+    <api>1.2.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-08-17</date>
+   <license>Modified BSD license</license>
+   <notes>- Deprecate $callbackobject parameter in setCallbackFunction
+- Introduce $expandCallbackParameters parameter to setCallbackFunction to support 
+  callbacks that expect to get the parameters in a regular way, not as an array
+- #7651, allow dots in placeholder and block names</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.1</release>
+    <api>1.2.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-08-25</date>
+   <license>Modified BSD license</license>
+   <notes>- Deprecate $callbackobject parameter in setCallbackFunction
+- Introduce $expandCallbackParameters parameter to setCallbackFunction to support 
+  callbacks that expect to get the parameters in a regular way, not as an array
+- #7651, allow dots in placeholder and block names 
+- #7611, wrong array initialized, the same object cannot be
+  used for multiple templates</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.0a1</release>
+    <api>1.2.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>stable</api>
+   </stability>
+   <date>2008-12-27</date>
+   <license>Modified BSD license</license>
+   <notes>- Add support for pear package 2.0 format
+- Remove support for pear package 1.0 format
+- Fix bug #9501, doller signs disapear if preg_match is used.
+- Fix bug #9783, don&apos;t remove variable which values follow the variable pattern
+  To allow backwards compatbility an option preserve_input is added.
+  If it is false, the old behaviour will be used and therefore those values will be deleted.
+  Default is true, so new behaviour.
+- Fix bug #9853, problems with dots in placeholders or blocknames    
+- Add option &apos;preserve_input&apos; to only remove unkown variable that were present during setTemplate or lodaTemplatefile
+  which is the behaviour before 1.3.0a1
+- Fix bug #13935 - docblock is wrong
+- Improved PHPCS (Request #15039)</notes>
+  </release>
+ </changelog>
+</package>

@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.6">
+ <name>CodeGen</name>
+ <summary>Tool to create Code generaters that operate on XML descriptions</summary>
+ <description>This is an &apos;abstract&apos; package, it provides the base 
+framework for applications like CodeGen_PECL and
+CodeGen_MySqlUDF (not released yet).
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>hholzgra</user>
+   <name>Hartmut Holzgraefe</name>
+   <email>hartmut@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>1.0.0</version>
+  <date>2006-02-17</date>
+  <license>PHP</license>
+  <state>stable</state>
+  <notes>first stable release
+  </notes>
+  <deps>
+   <dep type="php" rel="ge" version="5"/>
+   <dep type="pkg" rel="ge" version="1.3">PEAR</dep>
+   <dep type="pkg" rel="ge" version="1.0">Console_Getopt</dep>
+  </deps>
+  <provides type="class" name="CodeGen_Extension" />
+  <provides type="function" name="CodeGen_Extension::version" />
+  <provides type="function" name="CodeGen_Extension::copyright" />
+  <provides type="function" name="CodeGen_Extension::setChangelog" />
+  <provides type="function" name="CodeGen_Extension::getChangelog" />
+  <provides type="function" name="CodeGen_Extension::setName" />
+  <provides type="function" name="CodeGen_Extension::getName" />
+  <provides type="function" name="CodeGen_Extension::setSummary" />
+  <provides type="function" name="CodeGen_Extension::setDescription" />
+  <provides type="function" name="CodeGen_Extension::setLanguage" />
+  <provides type="function" name="CodeGen_Extension::getLanguage" />
+  <provides type="function" name="CodeGen_Extension::setPlatform" />
+  <provides type="function" name="CodeGen_Extension::addAuthor" />
+  <provides type="function" name="CodeGen_Extension::setRelease" />
+  <provides type="function" name="CodeGen_Extension::setLicense" />
+  <provides type="function" name="CodeGen_Extension::setPrefix" />
+  <provides type="function" name="CodeGen_Extension::getPrefix" />
+  <provides type="function" name="CodeGen_Extension::addCode" />
+  <provides type="function" name="CodeGen_Extension::addLib" />
+  <provides type="function" name="CodeGen_Extension::addHeader" />
+  <provides type="function" name="CodeGen_Extension::successMsg" />
+  <provides type="function" name="CodeGen_Extension::getVersion" />
+  <provides type="function" name="CodeGen_Extension::setVersion" />
+  <provides type="function" name="CodeGen_Extension::haveVersion" />
+  <provides type="function" name="CodeGen_Extension::addPackageFile" />
+  <provides type="function" name="CodeGen_Extension::addSourceFile" />
+  <provides type="function" name="CodeGen_Extension::addMakeFragment" />
+  <provides type="function" name="CodeGen_Extension::addConfigFragment" />
+  <provides type="function" name="CodeGen_Extension::addAcIncludeFragment" />
+  <provides type="function" name="CodeGen_Extension::writeDotCvsignore" />
+  <provides type="function" name="CodeGen_Extension::cCodeEditorSettings" />
+  <provides type="function" name="CodeGen_Extension::docEditorSettings" />
+  <provides type="class" name="CodeGen_XmlParser" />
+  <provides type="function" name="CodeGen_XmlParser::newParser" />
+  <provides type="function" name="CodeGen_XmlParser::pushParser" />
+  <provides type="function" name="CodeGen_XmlParser::popParser" />
+  <provides type="function" name="CodeGen_XmlParser::posString" />
+  <provides type="function" name="CodeGen_XmlParser::extEntityHandler" />
+  <provides type="function" name="CodeGen_XmlParser::setInputFile" />
+  <provides type="function" name="CodeGen_XmlParser::parse" />
+  <provides type="function" name="CodeGen_XmlParser::verbatim" />
+  <provides type="function" name="CodeGen_XmlParser::findHandler" />
+  <provides type="function" name="CodeGen_XmlParser::startHandler" />
+  <provides type="function" name="CodeGen_XmlParser::endHandler" />
+  <provides type="function" name="CodeGen_XmlParser::cDataHandler" />
+  <provides type="function" name="CodeGen_XmlParser::piHandler" />
+  <provides type="function" name="CodeGen_XmlParser::dataPiHandler" />
+  <provides type="function" name="CodeGen_XmlParser::pushHelper" />
+  <provides type="function" name="CodeGen_XmlParser::popHelper" />
+  <provides type="function" name="CodeGen_XmlParser::toBool" />
+  <provides type="function" name="CodeGen_XmlParser::checkAttributes" />
+  <provides type="class" name="CodeGen_ExtensionParser" extends="CodeGen_XmlParser" />
+  <provides type="function" name="CodeGen_ExtensionParser::tagstart_extension" />
+  <provides type="function" name="CodeGen_ExtensionParser::tagstart_extension_name" />
+  <provides type="function" name="CodeGen_ExtensionParser::tagend_extension_summary" />
+  <provides type="function" name="CodeGen_ExtensionParser::tagend_extension_description" />
+  <provides type="function" name="CodeGen_ExtensionParser::tagstart_maintainer" />
+  <provides type="function" name="CodeGen_ExtensionParser::tagend_maintainer_user" />
+  <provides type="function" name="CodeGen_ExtensionParser::tagend_maintainer_name" />
+  <provides type="function" name="CodeGen_ExtensionParser::tagend_maintainer_email" />
+  <provides type="function" name="CodeGen_ExtensionParser::tagend_maintainer_role" />
+  <provides type="function" name="CodeGen_ExtensionParser::tagend_maintainer" />
+  <provides type="function" name="CodeGen_ExtensionParser::tagend_maintainers" />
+  <provides type="function" name="CodeGen_ExtensionParser::tagstart_extension_release" />
+  <provides type="function" name="CodeGen_ExtensionParser::tagend_release_version" />
+  <provides type="function" name="CodeGen_ExtensionParser::tagend_release_date" />
+  <provides type="function" name="CodeGen_ExtensionParser::tagend_release_state" />
+  <provides type="function" name="CodeGen_ExtensionParser::tagend_release_notes" />
+  <provides type="function" name="CodeGen_ExtensionParser::tagend_extension_release" />
+  <provides type="function" name="CodeGen_ExtensionParser::tagstart_extension_changelog" />
+  <provides type="function" name="CodeGen_ExtensionParser::tagend_extension_changelog" />
+  <provides type="function" name="CodeGen_ExtensionParser::tagend_license" />
+  <provides type="function" name="CodeGen_ExtensionParser::tagend_extension_code" />
+  <provides type="function" name="CodeGen_ExtensionParser::tagstart_deps" />
+  <provides type="function" name="CodeGen_ExtensionParser::tagstart_deps_file" />
+  <provides type="function" name="CodeGen_ExtensionParser::tagstart_deps_lib" />
+  <provides type="function" name="CodeGen_ExtensionParser::tagstart_deps_header" />
+  <provides type="class" name="CodeGen_Element" />
+  <provides type="function" name="CodeGen_Element::setName" />
+  <provides type="function" name="CodeGen_Element::getName" />
+  <provides type="function" name="CodeGen_Element::setSummary" />
+  <provides type="function" name="CodeGen_Element::setDescription" />
+  <provides type="function" name="CodeGen_Element::isKeyword" />
+  <provides type="function" name="CodeGen_Element::isName" />
+  <provides type="function" name="CodeGen_Element::cCode" />
+  <provides type="function" name="CodeGen_Element::cCodeHeader" />
+  <provides type="function" name="CodeGen_Element::cCodeFooter" />
+  <provides type="function" name="CodeGen_Element::hCode" />
+  <provides type="function" name="CodeGen_Element::docEntry" />
+  <provides type="function" name="CodeGen_Element::docHeader" />
+  <provides type="function" name="CodeGen_Element::docFooter" />
+  <provides type="class" name="CodeGen_Release" />
+  <provides type="function" name="CodeGen_Release::setVersion" />
+  <provides type="function" name="CodeGen_Release::getVersion" />
+  <provides type="function" name="CodeGen_Release::setDate" />
+  <provides type="function" name="CodeGen_Release::getDate" />
+  <provides type="function" name="CodeGen_Release::setState" />
+  <provides type="function" name="CodeGen_Release::getState" />
+  <provides type="function" name="CodeGen_Release::setNotes" />
+  <provides type="function" name="CodeGen_Release::getNotes" />
+  <provides type="class" name="CodeGen_Maintainer" />
+  <provides type="function" name="CodeGen_Maintainer::setUser" />
+  <provides type="function" name="CodeGen_Maintainer::getUser" />
+  <provides type="function" name="CodeGen_Maintainer::setName" />
+  <provides type="function" name="CodeGen_Maintainer::getName" />
+  <provides type="function" name="CodeGen_Maintainer::setEmail" />
+  <provides type="function" name="CodeGen_Maintainer::setRole" />
+  <provides type="function" name="CodeGen_Maintainer::comment" />
+  <provides type="class" name="CodeGen_License" />
+  <provides type="function" name="CodeGen_License::factory" />
+  <provides type="function" name="CodeGen_License::writeToFile" />
+  <provides type="function" name="CodeGen_License::getName" />
+  <provides type="function" name="CodeGen_License::getShortName" />
+  <provides type="function" name="CodeGen_License::getText" />
+  <provides type="function" name="CodeGen_License::getUri" />
+  <provides type="class" name="CodeGen_License_PHP" extends="CodeGen_License" />
+  <provides type="function" name="CodeGen_License_PHP::getShortName" />
+  <provides type="function" name="CodeGen_License_PHP::getName" />
+  <provides type="function" name="CodeGen_License_PHP::getComment" />
+  <provides type="function" name="CodeGen_License_PHP::getText" />
+  <provides type="function" name="CodeGen_License_PHP::getURI" />
+  <provides type="class" name="CodeGen_License_BSD" extends="CodeGen_License" />
+  <provides type="function" name="CodeGen_License_BSD::getShortName" />
+  <provides type="function" name="CodeGen_License_BSD::getName" />
+  <provides type="function" name="CodeGen_License_BSD::getComment" />
+  <provides type="function" name="CodeGen_License_BSD::getText" />
+  <provides type="class" name="CodeGen_License_LGPL" extends="CodeGen_License" />
+  <provides type="function" name="CodeGen_License_LGPL::getShortName" />
+  <provides type="function" name="CodeGen_License_LGPL::getName" />
+  <provides type="function" name="CodeGen_License_LGPL::getComment" />
+  <provides type="function" name="CodeGen_License_LGPL::getText" />
+  <provides type="function" name="CodeGen_License_LGPL::getURI" />
+  <provides type="class" name="CodeGen_Command" />
+  <provides type="function" name="CodeGen_Command::commandOptions" />
+  <provides type="function" name="CodeGen_Command::showVersion" />
+  <provides type="function" name="CodeGen_Command::showUsage" />
+  <provides type="function" name="CodeGen_Command::terminate" />
+  <provides type="function" name="CodeGen_Command::errorHandler" />
+  <provides type="function" name="CodeGen_Command::execute" />
+  <provides type="class" name="CodeGen_Tools_Code" />
+  <provides type="function" name="CodeGen_Tools_Code::setLanguage" />
+  <provides type="function" name="CodeGen_Tools_Code::setIntentSteps" />
+  <provides type="function" name="CodeGen_Tools_Code::block" />
+  <provides type="function" name="CodeGen_Tools_Code::varblock" />
+  <provides type="class" name="CodeGen_Tools_Getopt" extends="Console_Getopt" />
+  <provides type="function" name="CodeGen_Tools_Getopt::have" />
+  <provides type="function" name="CodeGen_Tools_Getopt::haveAll" />
+  <provides type="function" name="CodeGen_Tools_Getopt::value" />
+  <provides type="function" name="CodeGen_Tools_Getopt::options" />
+  <provides type="function" name="CodeGen_Tools_Getopt::arguments" />
+  <provides type="class" name="CodeGen_Tools_Outbuf" />
+  <provides type="function" name="CodeGen_Tools_Outbuf::write" />
+  <provides type="class" name="CodeGen_Tools_Platform" />
+  <provides type="function" name="CodeGen_Tools_Platform::test" />
+  <provides type="function" name="CodeGen_Tools_Platform::count" />
+  <provides type="class" name="CodeGen_Tools_Indent" />
+  <provides type="function" name="CodeGen_Tools_Indent::tabify" />
+  <provides type="function" name="CodeGen_Tools_Indent::untabify" />
+  <provides type="function" name="CodeGen_Tools_Indent::indent" />
+  <provides type="function" name="CodeGen_Tools_Indent::linetrim" />
+  <provides type="function" name="CodeGen_Tools_Indent::dosify" />
+  <provides type="class" name="CodeGen_Tools_Tokenizer" />
+  <provides type="function" name="CodeGen_Tools_Tokenizer::pullChar" />
+  <provides type="function" name="CodeGen_Tools_Tokenizer::pushChar" />
+  <provides type="function" name="CodeGen_Tools_Tokenizer::nextToken" />
+  <provides type="function" name="CodeGen_Tools_Tokenizer::pushToken" />
+  <provides type="class" name="CodeGen_Tools_FileReplacer" />
+  <provides type="function" name="CodeGen_Tools_FileReplacer::puts" />
+  <provides type="function" name="CodeGen_Tools_FileReplacer::close" />
+  <provides type="class" name="CodeGen_Dependency_Lib" extends="CodeGen_Element" />
+  <provides type="function" name="CodeGen_Dependency_Lib::setPath" />
+  <provides type="function" name="CodeGen_Dependency_Lib::setFunction" />
+  <provides type="function" name="CodeGen_Dependency_Lib::getName" />
+  <provides type="function" name="CodeGen_Dependency_Lib::testPlatform" />
+  <provides type="function" name="CodeGen_Dependency_Lib::configm4" />
+  <provides type="class" name="CodeGen_Dependency_Header" extends="CodeGen_Element" />
+  <provides type="function" name="CodeGen_Dependency_Header::getName" />
+  <provides type="function" name="CodeGen_Dependency_Header::setPrepend" />
+  <provides type="function" name="CodeGen_Dependency_Header::setPath" />
+  <provides type="function" name="CodeGen_Dependency_Header::getPath" />
+  <provides type="function" name="CodeGen_Dependency_Header::hCode" />
+  <provides type="function" name="CodeGen_Dependency_Header::configm4" />
+  <filelist>
+   <file role="php" baseinstalldir="/" md5sum="3afbd2fc05fb010cfbb095b74fe614ad" name="CodeGen/Extension.php"/>
+   <file role="php" baseinstalldir="/" md5sum="0879d4e50ff1413dc881e9d92c479bcb" name="CodeGen/XmlParser.php"/>
+   <file role="php" baseinstalldir="/" md5sum="3e05c80a25ac861ac24003cd060cfcc2" name="CodeGen/ExtensionParser.php"/>
+   <file role="php" baseinstalldir="/" md5sum="17fcda2647352b9be44fd6f2b05f547f" name="CodeGen/Element.php"/>
+   <file role="php" baseinstalldir="/" md5sum="33e0cbaa53ff4369d02f6e47d52417c4" name="CodeGen/Release.php"/>
+   <file role="php" baseinstalldir="/" md5sum="afc487e40935c6ae774447a20011047b" name="CodeGen/Maintainer.php"/>
+   <file role="php" baseinstalldir="/" md5sum="e48bf1a0ff41f55bd99d5919b89e8a65" name="CodeGen/License.php"/>
+   <file role="php" baseinstalldir="/" md5sum="2bfc20652b710794fda844f49e6c1f75" name="CodeGen/License/PHP.php"/>
+   <file role="php" baseinstalldir="/" md5sum="5bbdf62c6b164861506f5fc9e8b088b8" name="CodeGen/License/BSD.php"/>
+   <file role="php" baseinstalldir="/" md5sum="3b2df6a158d5623baa4b3426f469ef89" name="CodeGen/License/LGPL.php"/>
+   <file role="php" baseinstalldir="/" md5sum="5a988df5cab20a7df79f51bfe61e5a04" name="CodeGen/Command.php"/>
+   <file role="php" baseinstalldir="/" md5sum="f0c2431d594152a0788eb330df477952" name="CodeGen/Tools/Code.php"/>
+   <file role="php" baseinstalldir="/" md5sum="30f3c0cdc9945e8f361367ec08e0dd1e" name="CodeGen/Tools/Getopt.php"/>
+   <file role="php" baseinstalldir="/" md5sum="692d84748b28bba71cbd39cf48476e7f" name="CodeGen/Tools/Outbuf.php"/>
+   <file role="php" baseinstalldir="/" md5sum="0b8eb93a56a083794981e932a1752683" name="CodeGen/Tools/Platform.php"/>
+   <file role="php" baseinstalldir="/" md5sum="b413e8adfbc00b960e24ef5279bf02b9" name="CodeGen/Tools/Indent.php"/>
+   <file role="php" baseinstalldir="/" md5sum="a53026cda6dc23f22f9854785f3ca8f3" name="CodeGen/Tools/Tokenizer.php"/>
+   <file role="php" baseinstalldir="/" md5sum="34c71dfa1a3e6724cb1c88d588182556" name="CodeGen/Tools/FileReplacer.php"/>
+   <file role="php" baseinstalldir="/" md5sum="500b2b9d42cf27c7abc9647f618146b4" name="CodeGen/Dependency/Lib.php"/>
+   <file role="php" baseinstalldir="/" md5sum="c1e141b47aafb97744030eec4cb978b7" name="CodeGen/Dependency/Header.php"/>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>1.0.0rc1</version>
+    <date>2005-09-22</date>
+    <state>beta</state>
+    <notes>preparing for first &quot;stable&quot; release
+    </notes>
+   </release>
+   <release>
+    <version>0.9.0</version>
+    <date>2005-08-11</date>
+    <state>beta</state>
+    <notes>not yet feature complete but usable and no known bugs,
+so declared stable but not given an 1.0 version id yet
+    </notes>
+   </release>
+ </changelog>
+</package>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/pear_command_packaging">PEAR_Command_Packaging</p>
+ <c>pear.php.net</c>
+ <v>0.2.0</v>
+ <st>alpha</st>
+ <l>PHP License 3.01</l>
+ <m>timj</m>
+ <s>make-rpm-spec command for managing RPM .spec files for PEAR packages</s>
+ <d>This command is an improved implementation of the standard 'makerpm' command,
+  and contains several enhancements that make it far more flexible. Similar 
+  functions for other external packaging mechanisms may be added at a later date.
+
+  Enhanced features over the original PEAR &quot;makerpm&quot; command include:
+  
+  - Ability to define a release on the command line
+  - Allows more advanced customisation of the generated package name
+  - Allows virtual Provides/Requires that differ in format from the package name
+    format 
+  - tries to intelligently distinguish between PEAR and PECL when generating 
+    packages</d>
+ <da>2009-06-27 23:15:15</da>
+ <n>- fix Bug #9932: cannot build specs from external channels [cellog]
+- fix Bug #10116: fatal error when packaging packages from other channel [cellog]
+- NEW: Can now build specs for channels as well as packages
+- Can now build specs for packages from channels other than pear.php.net (bug #9932, bug #10116, bug #10254)
+- @possible_channel@ now doesn't include a trailing slash (template.spec changed to accommodate)
+- @possible_channel@ is now filled even if channel is pecl.php.net/pear.php.net - this is part of moving towards a less pear.php.net-centric system where the core PEAR channels are not particularly &quot;special&quot;
+- Add the following macros:
+ - @php_files_statement@
+ - @test_files_statement@
+ - @data_files_statement@
+ - @script_files_statement@
+ - @customrole_files_statement@
+ - @cfg_files_statement@
+ - @www_files_statement@
+ All of these are &quot;intelligent&quot; in that they are empty if no files of the given type exist, plus if files do exist and are in a subdirectory dedicated to the package being RPM-ified, then make-rpm-spec will just put the top level directory in the substitution, rather than a complete file list - this makes for much shorter specs in some cases. Use of the @XXX_files_statement@ substitutions is encouraged in favour of the @files@ substitution.
+- Deprecate @rpm_xml_dir@ macro - this is pointless (replaced with actual path in the template specs)
+- Deprecate @arch@ macro - this gave invalid results; it should either be &quot;noarch&quot; or not defined, not the architecture of the machine building the spec file. Replaced by @arch_statement@ if you really want to use it, although the building of specs for compiled packages (i.e. PECL) is not supported at the moment, even though in theory it should work in a similar way.
+- Fix a bug if PEAR/PackageFile.php was already included
+- Fix bug #10327, bug #8630 - file prefixes sometimes generated incorrectly, stops some packages building
+- Add $_spec_line_format config option to allow distributors to tune the format that additional RPM headers are added to the spec in, to match their conventions
+- Internal refactoring/cleanup
+- Require PHP 4.3.0+ to avoid internal cruft
+- Tidy summaries (trim and remove trailing dots)</n>
+ <f>15320</f>
+ <g>http://pear.php.net/get/PEAR_Command_Packaging-0.2.0</g>
+ <x xlink:href="package.0.2.0.xml"/>
+</r>

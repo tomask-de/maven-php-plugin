@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Services_Amazon_S3</name>
+ <channel>pear.php.net</channel>
+ <summary>PHP API for Amazon S3 (Simple Storage Service)</summary>
+ <description>This package provides an object-oriented interface to the Amazon Simple Storage Service (S3). This package is based on the 2006-03-01 REST API.
+
+Features:
+
+ 1. List, create and delete buckets, including buckets with location     constraints (European buckets).
+ 2. Create, read and delete objects including metadata.
+ 3. List keys in a bucket using an SPL Iterator with support for     paging, key prefixes and delimiters.
+ 4. Manipulate access control lists for buckets and objects.
+ 5. Specify the request style (virtualhost, cname, path style) and     endpoint.
+ 6. Get signed URLs to allow a trusted third party to access private     files.
+ 7. Access buckets and objects using PHP filesystem functions through     a stream wrapper</description>
+ <lead>
+  <name>Christian Schmidt</name>
+  <user>schmidt</user>
+  <email>chsc@peytz.dk</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Mike Gauthier</name>
+  <user>gauthierm</user>
+  <email>mike@silverorange.com</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-11-22</date>
+ <time>03:14:44</time>
+ <version>
+  <release>0.3.0</release>
+  <api>0.3.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+ <notes>
+* Implemented Request #15239. Use HTTP_Request2. This allows for    better forwards-compatibility with PHP.
+ * Implemented Request #14751. Add S3 object copy method.
+ * Implemented Request #16517. Make object iterator populate the eTag,    lastModified and size properties.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <file baseinstalldir="/" md5sum="3789eeafe12ce4cbdd38668683f2929b" name="Services/Amazon/S3/Resource/Bucket.php" role="php" />
+   <file baseinstalldir="/" md5sum="654e5c21c6b06e37a5e441d1dfe8a02d" name="Services/Amazon/S3/Resource/Object.php" role="php" />
+   <file baseinstalldir="/" md5sum="7af4dc5472ef55989faf4f67305250c6" name="Services/Amazon/S3/AccessControlList.php" role="php" />
+   <file baseinstalldir="/" md5sum="2629b85b6ac8491be766a75af5d19eee" name="Services/Amazon/S3/AccessDeniedException.php" role="php" />
+   <file baseinstalldir="/" md5sum="436c9ed15e88dddb637833220363d5bc" name="Services/Amazon/S3/Exception.php" role="php" />
+   <file baseinstalldir="/" md5sum="e6b349964aeecbc9a6c056351f76dc0d" name="Services/Amazon/S3/NotFoundException.php" role="php" />
+   <file baseinstalldir="/" md5sum="b2f049fe63ca3fe27710ee85048437c2" name="Services/Amazon/S3/ObjectIterator.php" role="php" />
+   <file baseinstalldir="/" md5sum="ee0eb4075775cd0c988eab9a12b81f80" name="Services/Amazon/S3/Prefix.php" role="php" />
+   <file baseinstalldir="/" md5sum="6d4475533eca2e489f651584f261cd07" name="Services/Amazon/S3/Resource.php" role="php" />
+   <file baseinstalldir="/" md5sum="25ace2a872ba731c6135156b748162e6" name="Services/Amazon/S3/ServerErrorException.php" role="php" />
+   <file baseinstalldir="/" md5sum="93295f4dae606befab283ffcb5823d06" name="Services/Amazon/S3/Stream.php" role="php" />
+   <file baseinstalldir="/" md5sum="0b353302cb61ea4db762d3602cb9ec05" name="Services/Amazon/S3.php" role="php" />
+   <file baseinstalldir="/" md5sum="8593a8772d12e3feefb15e7ec9f8ffcd" name="tests/AllTests.php" role="test" />
+   <file baseinstalldir="/" md5sum="ed08c112d2fb17596fd68cf78ca95a37" name="tests/config.php.dist" role="test" />
+   <file baseinstalldir="/" md5sum="f57bef0100ad3fd02ed3df0fc7cc2eba" name="tests/StreamTest.php" role="test" />
+   <file baseinstalldir="/" md5sum="7025daadb787bdfb83b1c53ef6fafd3f" name="tests/Test.php" role="test" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.1.1</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0a7</min>
+   </pearinstaller>
+   <package>
+    <name>PEAR</name>
+    <channel>pear.php.net</channel>
+    <min>1.3.2</min>
+   </package>
+   <package>
+    <name>Crypt_HMAC2</name>
+    <channel>pear.php.net</channel>
+    <min>0.2.1</min>
+   </package>
+   <package>
+    <name>HTTP_Request2</name>
+    <channel>pear.php.net</channel>
+    <min>0.5.1</min>
+   </package>
+   <extension>
+    <name>spl</name>
+   </extension>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.3.0</release>
+    <api>0.3.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2009-11-22</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* Implemented Request #15239. Use HTTP_Request2. This allows for    better forwards-compatibility with PHP.
+ * Implemented Request #14751. Add S3 object copy method.
+ * Implemented Request #16517. Make object iterator populate the eTag,    lastModified and size properties.
+   </notes>
+  </release>
+ </changelog>
+</package>
