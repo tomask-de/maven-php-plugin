@@ -52,7 +52,7 @@ public class DoctrineTest extends AbstractTestCase {
         verifier.verifyErrorFreeLog();
         
         verifier.assertFilePresent("my-app/pom.xml");
-        verifier.assertFilePresent("my-app/src/main/php/MyApp/entities/MyModel.php");
+        verifier.assertFilePresent("my-app/src/main/php/MyApp/Entities/MyModel.php");
         verifier.assertFilePresent("my-app/src/main/php/bootstrap_doctrine.php");
         verifier.assertFilePresent("my-app/src/main/php/bootstrap.php");
         verifier.assertFilePresent("my-app/src/main/php/cli-config.php");
