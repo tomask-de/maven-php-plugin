@@ -230,7 +230,6 @@ public final class PhpTest extends AbstractPhpMojo implements IPhpunitConfigurat
     
             // did we get a testing file?
             if (files.iterator().hasNext()) {
-                getPhpHelper().prepareTestDependencies(this.factory, this.getSession());
                 getLog().info(
                         "\n-------------------------------------------------------\n" +
                         "T E S T S\n" +
@@ -280,8 +279,6 @@ public final class PhpTest extends AbstractPhpMojo implements IPhpunitConfigurat
         } catch (org.phpmaven.exec.PhpException e) {
             throw new MojoExecutionException(e.getMessage(), e);
         } catch (PhpException e) {
-            throw new MojoExecutionException(e.getMessage(), e);
-        } catch (IOException e) {
             throw new MojoExecutionException(e.getMessage(), e);
         }
     }

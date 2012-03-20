@@ -146,21 +146,13 @@ public abstract class AbstractPhpResources extends AbstractPhpMojo {
         
         // resolve wildcards in excludeFromValidation
         excludeFromValidation = FileHelper.getWildcardMatches(excludeFromValidation, getSourceDirectory(), false);
- 
-        getLog().info("Unpacking dependencies");
-        
+
         try {
-            // TODO Is this correct?!?
-            if (!isIgnoreValidate()) {
-                this.getPhpHelper().prepareCompileDependencies(this.factory, this.getSession());
-            }
-            getLog().info("Copying php files");
+            getLog().info("Copying source files and performing LINT validation...");
             new PhpWalkHelper(this).goRecursiveAndCall(this.getSourceFolder());
         } catch (MultiException e) {
             throw new MojoExecutionException(e.getMessage(), e);
         } catch (PhpException e) {
-            throw new MojoExecutionException(e.getMessage(), e);
-        } catch (IOException e) {
             throw new MojoExecutionException(e.getMessage(), e);
         }
         

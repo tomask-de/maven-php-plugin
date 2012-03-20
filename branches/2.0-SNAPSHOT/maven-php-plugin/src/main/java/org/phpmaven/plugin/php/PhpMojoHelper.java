@@ -392,39 +392,26 @@ public class PhpMojoHelper implements IPhpExecution {
     }
 
     /**
-     * Unzips all compile dependency sources.
+     * Unzips all dependency sources.
      * 
      * @param factory Component factory
      * @param session maven session
+     * @param targetDir target directory
+     * @param sourceScope dependency scope to unpack from
      *
      * @throws IOException if something goes wrong while prepareing the dependencies
      * @throws PhpException php exceptions can fly everywhere..
      */
-    public void prepareCompileDependencies(IComponentFactory factory, MavenSession session)
+    public void prepareDependencies(IComponentFactory factory, MavenSession session, File targetDir, String sourceScope)
             throws IOException, PhpException, MojoExecutionException {
         final List<String> packedElements = new ArrayList<String>();
         final Set<Artifact> deps = this.project.getArtifacts();
         IProjectPhpExecution config = null;
-        try {
-            config = factory.lookup(
-                IProjectPhpExecution.class,
-                IComponentFactory.EMPTY_CONFIG,
-                session);
-        } catch (ComponentLookupException ex) {
-            throw new MojoExecutionException(ex.getMessage(), ex);
-        } catch (PlexusConfigurationException ex) {
-            throw new MojoExecutionException(ex.getMessage(), ex);
-        }
         for (final Artifact dep : deps) {
-            this.log.info("dependency " + 
-                dep.getGroupId() + ":" + 
-                dep.getArtifactId() + ":" +
-                dep.getVersion() + ":" +
-                dep.getScope() + "@" +
-                dep.getFile().getAbsolutePath());
-            if (Artifact.SCOPE_TEST.equals(dep.getScope())) {
+            if (!sourceScope.equals(dep.getScope())) {
                 continue;
             }
+            this.log.info(dep.getFile().getAbsolutePath());
             try {
                 if (this.getProjectFromArtifact(dep).getFile() != null) {
                     // Reference to a local project; should only happen in IDEs
@@ -437,66 +424,9 @@ public class PhpMojoHelper implements IPhpExecution {
             }
             packedElements.add(dep.getFile().getAbsolutePath());
         }
-        try {
-            FileHelper.unzipElements(this.log, config.getDepsDir(), packedElements, factory, session);
-        } catch (ExpressionEvaluationException ex) {
-            throw new MojoExecutionException(ex.getMessage(), ex);
-        }
+        FileHelper.unzipElements(this.log, targetDir, packedElements, factory, session);
     }
 
-    /**
-     * Unzips all test dependency sources.
-     * 
-     * @param factory Component factory
-     * @param session maven session
-     *
-     * @throws IOException if something goes wrong while prepareing the dependencies
-     * @throws PhpException php exceptions can fly everywhere..
-     */
-    public void prepareTestDependencies(IComponentFactory factory, MavenSession session)
-            throws IOException, PhpException, MojoExecutionException {
-        final List<String> packedElements = new ArrayList<String>();
-        final Set<Artifact> deps = this.project.getArtifacts();
-        IProjectPhpExecution config = null;
-        try {
-            config = factory.lookup(
-                IProjectPhpExecution.class,
-                IComponentFactory.EMPTY_CONFIG,
-                session);
-        } catch (ComponentLookupException ex) {
-            throw new MojoExecutionException(ex.getMessage(), ex);
-        } catch (PlexusConfigurationException ex) {
-            throw new MojoExecutionException(ex.getMessage(), ex);
-        }
-        for (final Artifact dep : deps) {
-            this.log.info("dependency " + 
-                dep.getGroupId() + ":" + 
-                dep.getArtifactId() + ":" +
-                dep.getVersion() + ":" +
-                dep.getScope() + "@" +
-                dep.getFile().getAbsolutePath());
-            if (!Artifact.SCOPE_TEST.equals(dep.getScope())) {
-                continue;
-            }
-            try {
-                if (this.getProjectFromArtifact(dep).getFile() != null) {
-                    // Reference to a local project; should only happen in IDEs
-                    this.log.debug("Dependency resolved to a local project. skipping.");
-                    // XXX: Should we support this or is this only relevant within IDEs (f.e. eclipse)?
-                    continue;
-                }
-            } catch (ProjectBuildingException ex) {
-                throw new IOException("Problems creating maven project from dependency", ex);
-            }
-            packedElements.add(dep.getFile().getAbsolutePath());
-        }
-        try {
-            FileHelper.unzipElements(this.log, config.getTestDepsDir(), packedElements, factory, session);
-        } catch (ExpressionEvaluationException ex) {
-            throw new MojoExecutionException(ex.getMessage(), ex);
-        }
-    }
-    
     /**
      * Executes PHP code snippet with the given arguments and returns its output.
      *
