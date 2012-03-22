@@ -15,7 +15,6 @@
 package org.phpmaven.plugin.build;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;

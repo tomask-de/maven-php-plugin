@@ -326,6 +326,7 @@ public abstract class AbstractPhpunitExeSupport extends AbstractPhpunitSupport {
             deleteFile(getTestSuiteFile());
             final FileWriter writer = new FileWriter(getTestSuiteFile());
             writer.write(suite);
+            writer.close();
         } catch (IOException ex) {
             throw new PhpCoreException("Error writing test suite to " + getTestSuiteFile(), ex);
         }

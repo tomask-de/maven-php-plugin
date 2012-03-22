@@ -18,7 +18,6 @@ package org.phpmaven.phpunit.impl;
 
 import org.codehaus.plexus.component.annotations.Component;
 import org.phpmaven.phpunit.IPhpunitSupport;
-import java.io.File;
 
 /**
  * Phpunit support for > 3.6.0.
