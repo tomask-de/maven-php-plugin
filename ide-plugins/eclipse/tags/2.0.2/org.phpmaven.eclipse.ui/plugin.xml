@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="org.phpmaven.eclipse.ui.menuGroupContribution"
+            objectClass="org.eclipse.core.resources.IResource">
+         <menu
+               id="org.phpmaven.eclipse.ui.phpmavenMenu"
+               label="PHP-Maven"
+               path="additions">
+            <separator
+                  name="group1">
+            </separator>
+            <separator
+                  name="additions">
+            </separator>
+         </menu>
+      </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="org.phpmaven.eclipse.ui.actionContribution"
+            objectClass="org.eclipse.core.resources.IProject">
+         <action
+               class="org.phpmaven.eclipse.ui.menus.AddNatureAction"
+               id="org.phpmaven.eclipse.ui.convertProjectAction"
+               label="Convert to PHP-Maven project"
+               menubarPath="org.phpmaven.eclipse.ui.phpmavenMenu/group1">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="org.phpmaven.eclipse.ui.phpunitConstribution"
+            objectClass="org.eclipse.core.resources.IResource">
+            <filter name="projectNature" value="org.phpmaven.eclipse.core.phpMavenNature"></filter>
+            
+            <action
+               class="org.phpmaven.eclipse.ui.menus.PhpunitAction"
+               id="org.phpmaven.eclipse.ui.phpunitAction"
+               label="Invoke phpunit test"
+               menubarPath="org.phpmaven.eclipse.ui.phpmavenMenu/group1">
+            </action>
+      </objectContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="org.phpmaven.eclipse.ui.category.phpmaven"
+            name="PHP-Maven">
+      </category>
+      <view
+            category="org.phpmaven.eclipse.ui.category.phpmaven"
+            class="org.phpmaven.eclipse.ui.views.PhpUnitResultView"
+            id="org.phpmaven.eclipse.ui.views.phpUnitResults"
+            name="PHPUnit results"
+            restorable="true">
+      </view>
+   </extension>
+
+</plugin>
