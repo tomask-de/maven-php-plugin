@@ -119,3 +119,38 @@
 	...
 </project>
 <!-- END SNIPPET: pom-phpdoc-default -->
+<!-- START SNIPPET: pom-phar-default -->
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	...
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.phpmaven</groupId>
+				<artifactId>maven-php-phar</artifactId>
+				
+				<configuration>
+					<pharConfig>
+						<stub>
+echo "***** ${artifactId} V${version}".PHP_EOL;
+echo "***** starting application...";
+function __autoload($class)
+{
+    include 'phar://me.phar/' . str_replace('_', '/', $class) . '.php';
+}
+try {
+    Phar::mapPhar('me.phar');
+    include 'phar://me.phar/startup.php';
+} catch (PharException $e) {
+    echo $e->getMessage();
+    die('Cannot initialize Phar');
+}
+						</stub>
+					</pharConfig>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	...
+</project>
+<!-- END SNIPPET: pom-phar-default -->
