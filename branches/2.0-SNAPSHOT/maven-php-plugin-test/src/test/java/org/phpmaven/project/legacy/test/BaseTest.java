@@ -21,6 +21,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.maven.execution.MavenSession;
+import org.apache.maven.monitor.logging.DefaultLog;
+import org.codehaus.plexus.logging.console.ConsoleLogger;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.exec.IPhpExecutableConfiguration;
@@ -129,5 +131,35 @@ public class BaseTest extends AbstractTestCase {
         assertTrue(includes.contains(targetPhpDependencies));
         assertTrue(includes.contains(targetPhpTestDependencies));
     }
-    
+
+    /**
+     * Tests an additional include path scenario.
+     *
+     * @throws Exception thrown on errors
+     */
+    public void testIncludePathScenario() throws Exception {
+        // look up the component factory
+        final IComponentFactory factory = lookup(IComponentFactory.class);
+        // create the execution config
+        final MavenSession session = this.createSessionForPhpMaven(
+                "project/legacy/include-project");
+        final IProjectPhpExecution prjConfig = factory.lookup(
+                IProjectPhpExecution.class,
+                IComponentFactory.EMPTY_CONFIG,
+                session);
+        
+        final DefaultLog logger = new DefaultLog(new ConsoleLogger());
+        final File testPhp = new File(session.getCurrentProject().getBasedir(), "test.php");
+        final File test2Php = new File(session.getCurrentProject().getBasedir(), "test2.php");
+        
+        final String result = prjConfig.getExecutionConfiguration().getPhpExecutable(logger).execute(testPhp);
+        assertEquals("foobar", result.trim());
+        
+        final String resultTest = prjConfig.getTestExecutionConfiguration().getPhpExecutable(logger).execute(testPhp);
+        assertEquals("foobar", resultTest.trim());
+        
+        final String result2 = prjConfig.getTestExecutionConfiguration().getPhpExecutable(logger).execute(test2Php);
+        assertEquals("testFoobar", result2.trim());
+    }
+   
 }
