@@ -260,7 +260,7 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
             MavenProject project,
             MavenSession mavenSession)
         throws ExpressionEvaluationException {
-        execConfig.getIncludePath().add(project.getBuild().getOutputDirectory());
+        execConfig.getIncludePath().add(project.getBuild().getTestOutputDirectory());
         File depsDir;
         if (buildConfig == null || buildConfig.getChild("testDependenciesDir") == null) {
             depsDir = this.componentFactory.filterString(
