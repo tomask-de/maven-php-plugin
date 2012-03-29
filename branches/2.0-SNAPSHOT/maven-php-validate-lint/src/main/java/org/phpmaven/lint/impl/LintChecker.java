@@ -15,11 +15,18 @@
 package org.phpmaven.lint.impl;
 
 import java.io.File;
+import java.nio.channels.IllegalSelectorException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.logging.Log;
 import org.codehaus.plexus.component.annotations.Component;
+import org.codehaus.plexus.component.annotations.Requirement;
+import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
+import org.codehaus.plexus.configuration.PlexusConfigurationException;
+import org.phpmaven.core.ConfigurationParameter;
+import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.lint.ILintChecker;
 import org.phpmaven.lint.ILintExecution;
 
@@ -31,6 +38,18 @@ public class LintChecker implements ILintChecker {
      * TODO configrable
      */
     private static final int THREAD_COUNT = 5;
+    
+    /**
+     * The component factory.
+     */
+    @Requirement
+    private IComponentFactory factory;
+    
+    /**
+     * The maven session.
+     */
+    @ConfigurationParameter(name = "session", expression = "${session}")
+    private MavenSession session;
     
     /**
      * The queue.
@@ -48,7 +67,14 @@ public class LintChecker implements ILintChecker {
     public LintChecker() {
         this.queue = new LintQueue();
         for (int i = 0; i < walkers.length; i++) {
-            walkers[i] = new LintThread(queue);
+            try {
+                walkers[i] = this.factory.lookup(LintThread.class, IComponentFactory.EMPTY_CONFIG, this.session);
+                walkers[i].setQueue(queue);
+            } catch (ComponentLookupException ex) {
+                throw new IllegalStateException(ex);
+            } catch (PlexusConfigurationException ex) {
+                throw new IllegalStateException(ex);
+            }
         }
     }
     

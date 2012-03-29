@@ -16,6 +16,7 @@ package org.phpmaven.lint.impl;
 
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.logging.Log;
+import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Configuration;
 import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
@@ -31,6 +32,7 @@ import org.phpmaven.exec.PhpException;
  * 
  * @author mepeisen
  */
+@Component(role = LintThread.class)
 @BuildPluginConfiguration(groupId = "org.phpmaven", artifactId = "maven-php-validate-lint", filter = { "threads" })
 public class LintThread implements Runnable {
     
@@ -70,10 +72,13 @@ public class LintThread implements Runnable {
     /**
      * Constructor.
      */
-    public LintThread(LintQueue queue) {
-        this.queue = queue;
+    public LintThread() {
     }
     
+    public void setQueue(LintQueue queue) {
+        this.queue = queue;
+    }
+
     public Xpp3Dom getExecutableConfig() {
         return executableConfig;
     }
