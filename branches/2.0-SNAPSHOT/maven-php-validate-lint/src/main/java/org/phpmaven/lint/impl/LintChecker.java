@@ -80,7 +80,7 @@ public class LintChecker implements ILintChecker {
     @Override
     public Iterable<ILintExecution> run(Log log) {
         for (int i = 0; i < walkers.length; i++) {
-            walkers[i].run();
+            walkers[i].run(log);
         }
         final List<ILintExecution> result = new ArrayList<ILintExecution>();
         for (final LintExecution exec : this.waitAndReturnFailures()) {
