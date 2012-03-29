@@ -14,26 +14,29 @@
  * limitations under the License.
  */
 
-package org.phpmaven.phpdoc;
+package org.phpmaven.phpdoc.impl;
 
 import org.apache.maven.plugin.logging.Log;
-import org.phpmaven.exec.PhpException;
-
+import org.codehaus.plexus.component.annotations.Component;
+import org.phpmaven.phpdoc.IPhpdocRequest;
+import org.phpmaven.phpdoc.IPhpdocSupport;
 
 /**
- * Phpdoc support to generate reports.
+ * Implementation of phpdoc support invoking the phpdoc batch.
  * 
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
-public interface IPhpdocSupport {
-    
+@Component(role = IPhpdocSupport.class, instantiationStrategy = "per-lookup", hint = "BATCH")
+public class PhpdocBatchSupport implements IPhpdocSupport {
+
     /**
-     * Generates a phpdoc report.
-     * @param log log
-     * @param request phpdoc report.
-     * @throws PhpException thrown on php errors.
+     * {@inheritDoc}
      */
-    void generateReport(Log log, IPhpdocRequest request) throws PhpException;
+    @Override
+    public void generateReport(Log log, IPhpdocRequest request) {
+        // TODO Auto-generated method stub
+
+    }
 
 }
