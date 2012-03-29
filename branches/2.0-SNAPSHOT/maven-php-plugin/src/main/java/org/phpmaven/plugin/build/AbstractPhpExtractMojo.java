@@ -16,8 +16,6 @@ package org.phpmaven.plugin.build;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -25,12 +23,7 @@ import org.codehaus.plexus.component.configurator.expression.ExpressionEvaluatio
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.phpmaven.core.IComponentFactory;
-import org.phpmaven.plugin.lint.LintExecution;
-import org.phpmaven.plugin.lint.LintHelper;
-import org.phpmaven.plugin.php.AbstractPhpWalkHelper;
-import org.phpmaven.plugin.php.IPhpWalkConfigurationMojo;
 import org.phpmaven.plugin.php.MultiException;
-import org.phpmaven.plugin.php.PhpErrorException;
 import org.phpmaven.plugin.php.PhpException;
 import org.phpmaven.project.IProjectPhpExecution;
 

@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 
-package org.phpmaven.plugin.lint;
+package org.phpmaven.lint.impl;
 
 import java.util.Collections;
 import java.util.List;

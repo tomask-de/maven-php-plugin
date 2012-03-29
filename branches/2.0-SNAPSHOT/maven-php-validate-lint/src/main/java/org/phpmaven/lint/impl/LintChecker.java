@@ -12,17 +12,21 @@
  * limitations under the License.
  */
 
-package org.phpmaven.plugin.lint;
+package org.phpmaven.lint.impl;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.maven.plugin.logging.Log;
-import org.phpmaven.plugin.php.PhpMojoHelper;
+import org.phpmaven.lint.ILintChecker;
+import org.phpmaven.lint.ILintExecution;
 
-public class LintHelper {
+public class LintChecker implements ILintChecker {
     
     /**
      * Thread count.
+     * TODO configrable
      */
     private static final int THREAD_COUNT = 5;
     
@@ -34,25 +38,33 @@ public class LintHelper {
     /**
      * The walkers
      */
-    private Thread[] walkers = new Thread[THREAD_COUNT];
+    private LintThread[] walkers = new LintThread[THREAD_COUNT];
     
     /**
      * The lint helper
      */
-    public LintHelper(Log log, PhpMojoHelper helper) {
+    public LintChecker() {
+        this.queue = new LintQueue();
         for (int i = 0; i < walkers.length; i++) {
-            walkers[i] = new Thread(new LintChecker(queue, log, helper));
-            walkers[i].start();
+            walkers[i] = new LintThread(queue);
         }
     }
     
-    public void addFile(File file) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void addFileToCheck(File file) {
         this.queue.addLintCheck(new LintExecution(file));
     }
     
-    public Iterable<LintExecution> waitAndReturnFailures() {
+    /**
+     * waits for thread end and returns the failures.
+     * @return failures
+     */
+    private Iterable<LintExecution> waitAndReturnFailures() {
         this.queue.terminate();
-        for (final Thread thread : walkers) {
+        for (final LintThread thread : walkers) {
             try {
                 thread.join();
             }
@@ -61,6 +73,18 @@ public class LintHelper {
             }
         }
         return this.queue.getFailures();
+    }
+
+    @Override
+    public Iterable<ILintExecution> run(Log log) {
+        for (int i = 0; i < walkers.length; i++) {
+            walkers[i].run();
+        }
+        final List<ILintExecution> result = new ArrayList<ILintExecution>();
+        for (final LintExecution exec : this.waitAndReturnFailures()) {
+            result.add(exec);
+        }
+        return result;
     }
     
 }
