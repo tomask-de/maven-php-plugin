@@ -14,7 +14,6 @@
 
 package org.phpmaven.plugin.build;
 
-import java.io.File;
 import org.apache.maven.artifact.Artifact;
 
 /**
