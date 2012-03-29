@@ -30,17 +30,13 @@ import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuilder;
 import org.apache.maven.project.ProjectBuildingException;
 import org.apache.maven.project.ProjectBuildingRequest;
-import org.codehaus.plexus.component.configurator.expression.ExpressionEvaluationException;
-import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
-import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.codehaus.plexus.util.cli.CommandLineException;
 import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.phpmaven.core.IComponentFactory;
-import org.phpmaven.project.IProjectPhpExecution;
 import org.phpmaven.plugin.build.FileHelper;
-import org.phpmaven.plugin.build.PhpVersion;
+import org.phpmaven.project.IProjectPhpExecution;
 
 import com.google.common.base.Preconditions;
 
@@ -53,11 +49,6 @@ import com.google.common.base.Preconditions;
  * @author Erik Dannenberg
  */
 public class PhpMojoHelper implements IPhpExecution {
-    
-    /**
-     * Parameter to let PHP print out its version.
-     */
-    public static final String PHP_FLAG_VERSION = "-v";
 
     /**
      * This list describes all keywords which will be printed out by PHP
@@ -124,11 +115,6 @@ public class PhpMojoHelper implements IPhpExecution {
      * classes in the test classpath.
      */
     private File targetClassesDirectory;
-
-    /**
-     * The used PHP version (cached after initial call of {@link #getPhpVersion()}.
-     */
-    private PhpVersion phpVersion;
     
     /**
      * The log to be used for logging php output.
@@ -334,48 +320,6 @@ public class PhpMojoHelper implements IPhpExecution {
             throw e;
         }
         return stdout.toString();
-    }
-
-    /**
-     * Retrieves the used PHP version.
-     *
-     * @return the PHP version
-     * @throws PhpException is the php version is not resolvable or supported
-     */
-    public final PhpVersion getPhpVersion() throws PhpException {
-
-        // already found out?
-        if (phpVersion != null) {
-            return phpVersion;
-        }
-
-        // execute PHP
-        execute(PHP_FLAG_VERSION,
-            (File) null,
-            new StreamConsumer() {
-                @Override
-                public void consumeLine(String line) {
-                    if (phpVersion == null && line.startsWith("PHP")) {
-                        final String version = line.substring(4, 5);
-                        if ("6".equals(version)) {
-                            phpVersion = PhpVersion.PHP6;
-                            PhpMojoHelper.this.log.warn("PHP6 is not supported yet!");
-                        } else if ("5".equals(version)) {
-                            phpVersion = PhpVersion.PHP5;
-                        } else if ("4".equals(version)) {
-                            phpVersion = PhpVersion.PHP4;
-                            PhpMojoHelper.this.log.warn("PHP4 will not be supported anymore!");
-                        } else {
-                            phpVersion = PhpVersion.UNKNOWN;
-                            PhpMojoHelper.this.log.error("Cannot find out PHP version: " + line);
-                        }
-                    }
-                }
-            }
-        );
-
-        this.log.debug("PHP version: " + phpVersion.name());
-        return phpVersion;
     }
     
     /**
