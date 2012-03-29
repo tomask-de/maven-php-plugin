@@ -31,7 +31,7 @@ import org.phpmaven.exec.PhpException;
  * 
  * @author mepeisen
  */
-@BuildPluginConfiguration(groupId = "org.phpmaven", artifactId = "maven-php-validate-lint", filter = {"threads"})
+@BuildPluginConfiguration(groupId = "org.phpmaven", artifactId = "maven-php-validate-lint", filter = { "threads" })
 public class LintThread implements Runnable {
     
     /**
@@ -57,7 +57,7 @@ public class LintThread implements Runnable {
     private Log log;
 
     /**
-     * Thread
+     * Thread.
      */
     private Thread thread;
     
@@ -66,6 +66,13 @@ public class LintThread implements Runnable {
      */
     @Configuration(name = "executableConfig", value = "")
     private Xpp3Dom executableConfig;
+
+    /**
+     * Constructor.
+     */
+    public LintThread(LintQueue queue) {
+        this.queue = queue;
+    }
     
     public Xpp3Dom getExecutableConfig() {
         return executableConfig;
@@ -76,19 +83,12 @@ public class LintThread implements Runnable {
     }
 
     /**
-     * Constructor.
-     */
-    public LintThread(LintQueue queue) {
-        this.queue = queue;
-    }
-
-    /**
      * runs this thread.
      * @param log the log
      */
-    public void run(Log log) {
-        this.log = log;
-        this.thread = new Thread(this);
+    public void run(Log l) {
+        this.log = l;
+        this.thread = new Thread(this, "Lint-Check");
         this.thread.start();
     }
 
@@ -96,7 +96,8 @@ public class LintThread implements Runnable {
     public void run() {
         IPhpExecutable exec = null;
         try {
-            final IPhpExecutableConfiguration config = this.factory.lookup(IPhpExecutableConfiguration.class, this.executableConfig, session);
+            final IPhpExecutableConfiguration config =
+                    this.factory.lookup(IPhpExecutableConfiguration.class, this.executableConfig, session);
             exec = config.getPhpExecutable(this.log);
         } catch (Exception ex) {
             this.log.error(ex);
@@ -113,15 +114,27 @@ public class LintThread implements Runnable {
                     execution.setException(e);
                     this.queue.addFailure(execution);
                 }
-            }
-            else {
-                this.queue.waitForQueue(50);
+            } else {
+                // Currently we add no components as long as the threads are running.
+                // XXX: Mabye this is not good.
+                // this.queue.waitForQueue(50);
+                return;
             }
         }
     }
 
+    /**
+     * Joins the queue
+     * @throws InterruptedException
+     */
     public void join() throws InterruptedException {
-        this.thread.join();
+        if (this.thread.isAlive()) {
+            this.thread.join(5000);
+        }
+        if (this.thread.isAlive()) {
+            this.thread.stop();
+            // TODO Better error management. Why sometimes the lint check freezes???
+        }
     }
     
 }
