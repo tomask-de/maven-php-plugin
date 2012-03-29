@@ -35,27 +35,6 @@ public interface IPhpExecution {
     String execute(String arguments, File file) throws PhpException;
     
     /**
-     * Executes PHP code snippet with the given arguments and returns its output.
-     *
-     * @param arguments string of arguments for PHP
-     * @param code the php code to be executed
-     * @return the output string
-     * @throws PhpException if the execution failed
-     */
-    String executeCode(String arguments, String code) throws PhpException;
-    
-    /**
-     * Executes PHP code snippet with the given arguments and returns its output.
-     *
-     * @param arguments string of arguments for PHP
-     * @param code the php code to be executed
-     * @param codeArguments Arguments (cli) for the script
-     * @return the output string
-     * @throws PhpException if the execution failed
-     */
-    String executeCode(String arguments, String code, String codeArguments) throws PhpException;
-    
-    /**
      * Executes PHP with the given arguments and throws an IllegalStateException if the
      * execution fails.
      *

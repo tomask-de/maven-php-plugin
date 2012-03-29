@@ -15,7 +15,6 @@
 package org.phpmaven.plugin.php;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +35,6 @@ import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.plugin.build.FileHelper;
-import org.phpmaven.project.IProjectPhpExecution;
 
 import com.google.common.base.Preconditions;
 
@@ -350,7 +348,6 @@ public class PhpMojoHelper implements IPhpExecution {
             throws IOException, PhpException, MojoExecutionException {
         final List<String> packedElements = new ArrayList<String>();
         final Set<Artifact> deps = this.project.getArtifacts();
-        IProjectPhpExecution config = null;
         for (final Artifact dep : deps) {
             if (!sourceScope.equals(dep.getScope())) {
                 continue;
@@ -369,58 +366,6 @@ public class PhpMojoHelper implements IPhpExecution {
             packedElements.add(dep.getFile().getAbsolutePath());
         }
         FileHelper.unzipElements(this.log, targetDir, packedElements, factory, session);
-    }
-
-    /**
-     * Executes PHP code snippet with the given arguments and returns its output.
-     *
-     * @param arguments string of arguments for PHP
-     * @param code the php code to be executed
-     * @return the output string
-     * @throws PhpException if the execution failed
-     */
-    @Override
-    public String executeCode(String arguments, String code) throws PhpException {
-        return this.executeCode(arguments, code, null);
-    }
-    
-    /**
-     * Executes PHP code snippet with the given arguments and returns its output.
-     *
-     * @param arguments string of arguments for PHP
-     * @param code the php code to be executed
-     * @param codeArguments Arguments (cli) for the script
-     * @return the output string
-     * @throws PhpException if the execution failed
-     */
-    @Override
-    public String executeCode(String arguments, String code, String codeArguments) throws PhpException {
-        final File snippet = this.temporaryScriptFile;
-        if (!snippet.getParentFile().exists()) {
-            snippet.getParentFile().mkdirs();
-        }
-        if (snippet.exists()) {
-            snippet.delete();
-        }
-        
-        try {
-            final FileWriter w = new FileWriter(snippet);
-            w.write("<?php \n" + code);
-            w.close();
-        } catch (IOException ex) {
-            throw new PhpErrorException(snippet, "Error writing php tempoary code snippet to file");
-        }
-        
-        String command = "";
-        
-        if (arguments != null && arguments.length() > 0) {
-            command += arguments + " ";
-        }
-        command += "\"" + snippet.getAbsolutePath() + "\"";
-        if (codeArguments != null && codeArguments.length() > 0) {
-            command += " " + codeArguments;
-        }
-        return this.execute(command, snippet);
     }
 
 }
