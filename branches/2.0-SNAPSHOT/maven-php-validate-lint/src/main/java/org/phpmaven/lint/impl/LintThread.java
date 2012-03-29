@@ -16,7 +16,6 @@ package org.phpmaven.lint.impl;
 
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.logging.Log;
-import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Configuration;
 import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
@@ -26,14 +25,12 @@ import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.exec.IPhpExecutable;
 import org.phpmaven.exec.IPhpExecutableConfiguration;
 import org.phpmaven.exec.PhpException;
-import org.phpmaven.lint.ILintChecker;
 
 /**
  * Lint checker runnable that will walk the queue and do lint checks.
  * 
  * @author mepeisen
  */
-@Component(role = ILintChecker.class)
 @BuildPluginConfiguration(groupId = "org.phpmaven", artifactId = "maven-php-validate-lint", filter = {"threads"})
 public class LintThread implements Runnable {
     

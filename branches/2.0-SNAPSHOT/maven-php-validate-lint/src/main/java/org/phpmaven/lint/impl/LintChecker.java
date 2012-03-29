@@ -19,9 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.maven.plugin.logging.Log;
+import org.codehaus.plexus.component.annotations.Component;
 import org.phpmaven.lint.ILintChecker;
 import org.phpmaven.lint.ILintExecution;
 
+@Component(role = ILintChecker.class)
 public class LintChecker implements ILintChecker {
     
     /**
@@ -31,17 +33,17 @@ public class LintChecker implements ILintChecker {
     private static final int THREAD_COUNT = 5;
     
     /**
-     * The queue
+     * The queue.
      */
     private LintQueue queue = new LintQueue();
     
     /**
-     * The walkers
+     * The walkers.
      */
     private LintThread[] walkers = new LintThread[THREAD_COUNT];
     
     /**
-     * The lint helper
+     * The lint helper.
      */
     public LintChecker() {
         this.queue = new LintQueue();
