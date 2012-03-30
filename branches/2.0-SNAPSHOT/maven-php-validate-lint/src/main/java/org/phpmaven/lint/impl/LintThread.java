@@ -89,7 +89,7 @@ public class LintThread implements Runnable {
 
     /**
      * runs this thread.
-     * @param log the log
+     * @param l the log
      */
     public void run(Log l) {
         this.log = l;
