@@ -66,16 +66,6 @@ public class LintChecker implements ILintChecker {
      */
     public LintChecker() {
         this.queue = new LintQueue();
-        for (int i = 0; i < walkers.length; i++) {
-            try {
-                walkers[i] = this.factory.lookup(LintThread.class, IComponentFactory.EMPTY_CONFIG, this.session);
-                walkers[i].setQueue(queue);
-            } catch (ComponentLookupException ex) {
-                throw new IllegalStateException(ex);
-            } catch (PlexusConfigurationException ex) {
-                throw new IllegalStateException(ex);
-            }
-        }
     }
     
     /**
@@ -105,6 +95,16 @@ public class LintChecker implements ILintChecker {
 
     @Override
     public Iterable<ILintExecution> run(Log log) {
+        for (int i = 0; i < walkers.length; i++) {
+            try {
+                walkers[i] = this.factory.lookup(LintThread.class, IComponentFactory.EMPTY_CONFIG, this.session);
+                walkers[i].setQueue(queue);
+            } catch (ComponentLookupException ex) {
+                throw new IllegalStateException(ex);
+            } catch (PlexusConfigurationException ex) {
+                throw new IllegalStateException(ex);
+            }
+        }
         for (int i = 0; i < walkers.length; i++) {
             walkers[i].run(log);
         }
