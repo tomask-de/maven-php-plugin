@@ -32,7 +32,7 @@ import org.phpmaven.exec.PhpException;
  * 
  * @author mepeisen
  */
-@Component(role = LintThread.class)
+@Component(role = LintThread.class, instantiationStrategy = "per-lookup")
 @BuildPluginConfiguration(groupId = "org.phpmaven", artifactId = "maven-php-validate-lint", filter = { "threads" })
 public class LintThread implements Runnable {
     
@@ -68,6 +68,11 @@ public class LintThread implements Runnable {
      */
     @Configuration(name = "executableConfig", value = "")
     private Xpp3Dom executableConfig;
+    
+    /**
+     * true if the thread was terminated.
+     */
+    private boolean terminated = false;
 
     /**
      * Constructor.
@@ -99,31 +104,38 @@ public class LintThread implements Runnable {
 
     @Override
     public void run() {
-        IPhpExecutable exec = null;
         try {
-            final IPhpExecutableConfiguration config =
-                    this.factory.lookup(IPhpExecutableConfiguration.class, this.executableConfig, session);
-            exec = config.getPhpExecutable(this.log);
-        } catch (Exception ex) {
-            this.log.error(ex);
-            return;
-        }
-        while (true) {
-            final LintExecution execution = this.queue.pop();
-            if (execution != null) {
-                final String command = "-l \"" + execution.getFile().getAbsolutePath() + "\"";
-                this.log.debug("Validating: " + execution.getFile().getAbsolutePath());
-                try {
-                    exec.execute(command, execution.getFile());
-                } catch (PhpException e) {
-                    execution.setException(e);
-                    this.queue.addFailure(execution);
-                }
-            } else {
-                // Currently we add no components as long as the threads are running.
-                // XXX: Mabye this is not good.
-                // this.queue.waitForQueue(50);
+            IPhpExecutable exec = null;
+            try {
+                final IPhpExecutableConfiguration config =
+                        this.factory.lookup(IPhpExecutableConfiguration.class, this.executableConfig, session);
+                exec = config.getPhpExecutable(this.log);
+            } catch (Exception ex) {
+                this.log.error(ex);
                 return;
+            }
+            while (true) {
+                final LintExecution execution = this.queue.pop();
+                if (execution != null) {
+                    final String command = "-l \"" + execution.getFile().getAbsolutePath() + "\"";
+                    this.log.debug("Validating: " + execution.getFile().getAbsolutePath());
+                    try {
+                        exec.execute(command, execution.getFile());
+                    } catch (PhpException e) {
+                        execution.setException(e);
+                        this.queue.addFailure(execution);
+                    }
+                } else {
+                    // Currently we add no components as long as the threads are running.
+                    // XXX: Mabye this is not good.
+                    // this.queue.waitForQueue(50);
+                    break;
+                }
+            }
+        } finally {
+            synchronized (this) {
+                this.terminated = true;
+                this.notify();
             }
         }
     }
@@ -133,15 +145,18 @@ public class LintThread implements Runnable {
      * @throws InterruptedException 
      */
     public void join() throws InterruptedException {
-        /*if (this.thread.isAlive()) {
-            this.thread.join(5000);
-        }
-        if (this.thread.isAlive()) {
-            this.thread.stop();
-            // TODO Better error management. Why sometimes the lint check freezes???
-        }*/
-        if (this.thread.isAlive()) {
-            this.thread.join();
+        while (true) {
+            synchronized (this) {
+                if (!this.terminated) {
+                    try {
+                        this.wait(1000);
+                    } catch (InterruptedException ex) {
+                        // ignore
+                    }
+                } else {
+                    return;
+                }
+            }
         }
     }
     

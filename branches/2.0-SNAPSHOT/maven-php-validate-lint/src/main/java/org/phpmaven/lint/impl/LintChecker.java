@@ -15,7 +15,6 @@
 package org.phpmaven.lint.impl;
 
 import java.io.File;
-import java.nio.channels.IllegalSelectorException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +29,7 @@ import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.lint.ILintChecker;
 import org.phpmaven.lint.ILintExecution;
 
-@Component(role = ILintChecker.class)
+@Component(role = ILintChecker.class, instantiationStrategy = "per-lookup")
 public class LintChecker implements ILintChecker {
     
     /**
