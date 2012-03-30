@@ -108,7 +108,7 @@ public class LintThread implements Runnable {
             this.log.error(ex);
             return;
         }
-        while (!this.queue.isTerminated()) {
+        while (true) {
             final LintExecution execution = this.queue.pop();
             if (execution != null) {
                 final String command = "-l \"" + execution.getFile().getAbsolutePath() + "\"";
@@ -129,8 +129,8 @@ public class LintThread implements Runnable {
     }
 
     /**
-     * Joins the queue
-     * @throws InterruptedException
+     * Joins the queue.
+     * @throws InterruptedException 
      */
     public void join() throws InterruptedException {
         if (this.thread.isAlive()) {

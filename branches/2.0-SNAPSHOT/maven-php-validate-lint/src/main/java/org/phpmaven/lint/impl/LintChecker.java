@@ -81,7 +81,7 @@ public class LintChecker implements ILintChecker {
      * @return failures
      */
     private Iterable<LintExecution> waitAndReturnFailures() {
-        this.queue.terminate();
+        this.queue.terminate(); // TODO is this needed any more?
         for (final LintThread thread : walkers) {
             try {
                 thread.join();
