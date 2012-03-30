@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Text_Wiki</name>
+ <channel>pear.php.net</channel>
+ <summary>Transforms Wiki and BBCode markup into XHTML, LaTeX or plain text markup. This is the base engine for all of the Text_Wiki sub-classes.</summary>
+ <description>The text transformation is done in 2 steps.
+The chosen parser uses markup rules to tokenize the tags and content.
+Renderers output the tokens and text into the requested format.
+The tokenized form replaces the tags by a protected byte value associated to an index in an options table. This form shares up to 50 rules by all parsers and renderers.
+The package is intented for versatile transformers as well as converters.
+Text_Wiki is delivered with its own parser, which is used by Yawiki or Horde&apos;s Wicked and three basic renderers: XHTML , LaTeX and plain text.
+Strong sanitizing of XHTML is default.
+Parsers (* and Renderers) exist for BBCode, Cowiki (*), Dokuwiki (*), Mediawiki and Tikiwiki (*).
+It is highly configurable and can be easily extended.</description>
+ <lead>
+  <name>Paul Jones</name>
+  <user>pmjones</user>
+  <email>pmjones@ciaweb.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Justin Patrin</name>
+  <user>justinpatrin</user>
+  <email>papercrane@reversefold.com</email>
+  <active>yes</active>
+ </lead>
+ <developer>
+  <name>Del Elson</name>
+  <user>delatbabel</user>
+  <email>del@babel.com.au</email>
+  <active>yes</active>
+ </developer>
+ <date>2010-10-25</date>
+ <time>19:29:26</time>
+ <version>
+  <release>1.2.1</release>
+  <api>1.2.0</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>
+QA Release
+Bug #12490 wiki&apos;s do not display since php5-5.2.5 upgrade but are editable. 	justinpatrin
+Bug #12580 incorrect/incomplete license in package.xml 	justinpatrin
+Bug #12619 Tab character before # causes invalid Xhtml 	justinpatrin
+Bug #12665 External site documentation link invalid 	justinpatrin
+Doc Bug #14049 Missing documentation	justinpatrin
+Bug #14869 skip tests when config is not available, not fail	justinpatrin
+Bug #15758 URLs with # at the end not considered a url	justinpatrin
+Bug #16222 External documentation is down	justinpatrin
+ </notes>
+ <contents>
+  <dir name="/">
+   <file md5sum="3a01394deaf236ad39f41745fce7ab4d" name="doc/test_Text_Wiki.php" role="doc" />
+   <file md5sum="a9f697c7826ace75a91ddd242dbaf8d2" name="Text/Wiki/Parse/Default/Anchor.php" role="php" />
+   <file md5sum="c9dc927e8c8686f117add03d902f0445" name="Text/Wiki/Parse/Default/Blockquote.php" role="php" />
+   <file md5sum="3d8ce66841e808c38fa779ff0ad00357" name="Text/Wiki/Parse/Default/Bold.php" role="php" />
+   <file md5sum="118481e6749bf2dc869951b751e6b749" name="Text/Wiki/Parse/Default/Break.php" role="php" />
+   <file md5sum="78a18e587562dc60d2b156860cd6ea82" name="Text/Wiki/Parse/Default/Center.php" role="php" />
+   <file md5sum="43a4930427c9e1d0ef29bcd15832b48b" name="Text/Wiki/Parse/Default/Code.php" role="php" />
+   <file md5sum="e5ddcc1df60902363d73a7f358e8aad6" name="Text/Wiki/Parse/Default/Colortext.php" role="php" />
+   <file md5sum="3e291d5610d88fcf282fd390dfe3c1fb" name="Text/Wiki/Parse/Default/Deflist.php" role="php" />
+   <file md5sum="30646e767a7763369f0d9d4320931ff8" name="Text/Wiki/Parse/Default/Delimiter.php" role="php" />
+   <file md5sum="8f3da5777c7e946a2e45993830a9f5c3" name="Text/Wiki/Parse/Default/Embed.php" role="php" />
+   <file md5sum="132eabe3528915c7720e0cba7d3d4808" name="Text/Wiki/Parse/Default/Emphasis.php" role="php" />
+   <file md5sum="9b94ef3868174b75413f26e9fccdc4c9" name="Text/Wiki/Parse/Default/Freelink.php" role="php" />
+   <file md5sum="bfe30f7c838991b772a2cc3ea0a682b2" name="Text/Wiki/Parse/Default/Function.php" role="php" />
+   <file md5sum="e55f9e7a481829f32bab050d3c3c4453" name="Text/Wiki/Parse/Default/Heading.php" role="php" />
+   <file md5sum="b4235b1e3afff24638769051feed42e0" name="Text/Wiki/Parse/Default/Horiz.php" role="php" />
+   <file md5sum="27ca3e7af4388af934963cc1bd408ea8" name="Text/Wiki/Parse/Default/Html.php" role="php" />
+   <file md5sum="599d3328afd073a1e4a6ab9b0599b8cd" name="Text/Wiki/Parse/Default/Image.php" role="php" />
+   <file md5sum="9e02e70d4028ec6eb6e34707b64f1fee" name="Text/Wiki/Parse/Default/Include.php" role="php" />
+   <file md5sum="38effe86113918847f81991276814d43" name="Text/Wiki/Parse/Default/Interwiki.php" role="php" />
+   <file md5sum="73e85f26cc37a958a70d071adc60a26e" name="Text/Wiki/Parse/Default/Italic.php" role="php" />
+   <file md5sum="8b6d7e3ef5f60374ecbdb061e91c1b75" name="Text/Wiki/Parse/Default/List.php" role="php" />
+   <file md5sum="137a8e9785b124467a084fe76787650b" name="Text/Wiki/Parse/Default/Newline.php" role="php" />
+   <file md5sum="3c056f3d0e98d635459ba7caae23c850" name="Text/Wiki/Parse/Default/Paragraph.php" role="php" />
+   <file md5sum="0dec7e39d37586f89d17bbfaac9a2a5d" name="Text/Wiki/Parse/Default/Phplookup.php" role="php" />
+   <file md5sum="c106d9b9d90a5994e907ecabbeabf9ef" name="Text/Wiki/Parse/Default/Prefilter.php" role="php" />
+   <file md5sum="0f83c2fb61581ffe2503eccc6c016a0e" name="Text/Wiki/Parse/Default/Raw.php" role="php" />
+   <file md5sum="779019068edab55e78349d8e448796d4" name="Text/Wiki/Parse/Default/Revise.php" role="php" />
+   <file md5sum="e1050147d8dfb90b600fed99f16d901c" name="Text/Wiki/Parse/Default/Smiley.php" role="php" />
+   <file md5sum="5116db07cf27c08159daf72007c4a1f1" name="Text/Wiki/Parse/Default/Strong.php" role="php" />
+   <file md5sum="296591a8bd292085ad6138533d9a90a2" name="Text/Wiki/Parse/Default/Subscript.php" role="php" />
+   <file md5sum="11e10996b671b94e2ea08c511e9dd158" name="Text/Wiki/Parse/Default/Superscript.php" role="php" />
+   <file md5sum="92bd67b67dd1fee563fbe534ac671731" name="Text/Wiki/Parse/Default/Table.php" role="php" />
+   <file md5sum="103385c1f1a70c2068f6599b426f709a" name="Text/Wiki/Parse/Default/Tighten.php" role="php" />
+   <file md5sum="52e9a0ba9ac0ba1c23bd45550f9f890b" name="Text/Wiki/Parse/Default/Toc.php" role="php" />
+   <file md5sum="a8d39188698b54876636e2022b22d68b" name="Text/Wiki/Parse/Default/Tt.php" role="php" />
+   <file md5sum="71bc22ccc84357df99ab48b64bac0174" name="Text/Wiki/Parse/Default/Underline.php" role="php" />
+   <file md5sum="e2ae342b03779c4dd22cf5a9cb74710e" name="Text/Wiki/Parse/Default/Url.php" role="php" />
+   <file md5sum="3244582016e5257a205e4e02c5f4744c" name="Text/Wiki/Parse/Default/Wikilink.php" role="php" />
+   <file md5sum="034639fa881752249daa89426d233045" name="Text/Wiki/Render/Latex/Anchor.php" role="php" />
+   <file md5sum="0dd1343df1aebdc4bc622eb6c084fe81" name="Text/Wiki/Render/Latex/Blockquote.php" role="php" />
+   <file md5sum="d2c1055af99f34e5c5293039a9965737" name="Text/Wiki/Render/Latex/Bold.php" role="php" />
+   <file md5sum="28c483324e16b05f8c15bebc4f0b131b" name="Text/Wiki/Render/Latex/Box.php" role="php" />
+   <file md5sum="1e7630da3aca818aa2d8d4697e1724ea" name="Text/Wiki/Render/Latex/Break.php" role="php" />
+   <file md5sum="ae525fa78fd7512fbd14fc0406ea14f3" name="Text/Wiki/Render/Latex/Center.php" role="php" />
+   <file md5sum="2c67a15ef6bf0ee026f6a9d175623af3" name="Text/Wiki/Render/Latex/Code.php" role="php" />
+   <file md5sum="68b9ab44e987aac5c146132a69e798ee" name="Text/Wiki/Render/Latex/Colortext.php" role="php" />
+   <file md5sum="42fdf8ab39c310e57eeed8e6703432f3" name="Text/Wiki/Render/Latex/Deflist.php" role="php" />
+   <file md5sum="79ce6516b8020c228e1635e7ef656de2" name="Text/Wiki/Render/Latex/Delimiter.php" role="php" />
+   <file md5sum="3e6e365fb2207875cdd2dba0a52e7d16" name="Text/Wiki/Render/Latex/Embed.php" role="php" />
+   <file md5sum="c2eca3b73200ff24cc90c103486fe2bc" name="Text/Wiki/Render/Latex/Emphasis.php" role="php" />
+   <file md5sum="4962134b7d1d9d6a4ae606b26d11373a" name="Text/Wiki/Render/Latex/Font.php" role="php" />
+   <file md5sum="80896dc9a26125756abcaf085bd220a9" name="Text/Wiki/Render/Latex/Freelink.php" role="php" />
+   <file md5sum="033a9697576b4876aa3084c906b7d084" name="Text/Wiki/Render/Latex/Function.php" role="php" />
+   <file md5sum="767c567be9804be8d0959ddd0622a998" name="Text/Wiki/Render/Latex/Heading.php" role="php" />
+   <file md5sum="6367311f52591f558d1593ba81986749" name="Text/Wiki/Render/Latex/Horiz.php" role="php" />
+   <file md5sum="46273f2b5851397db321e620b2e11364" name="Text/Wiki/Render/Latex/Html.php" role="php" />
+   <file md5sum="c9a4ea853a2308877b8cef08bab751a0" name="Text/Wiki/Render/Latex/Image.php" role="php" />
+   <file md5sum="0081d66276d151571a0770da03cd1a79" name="Text/Wiki/Render/Latex/Include.php" role="php" />
+   <file md5sum="c4a5babf67021e962cc8a3273fc89419" name="Text/Wiki/Render/Latex/Interwiki.php" role="php" />
+   <file md5sum="18e80b768df3d4987fffaec592673b30" name="Text/Wiki/Render/Latex/Italic.php" role="php" />
+   <file md5sum="a3bfc609053920b424537ab3d715165e" name="Text/Wiki/Render/Latex/List.php" role="php" />
+   <file md5sum="9bdae2ad07f3b340ed5fdf8026b760c5" name="Text/Wiki/Render/Latex/Newline.php" role="php" />
+   <file md5sum="a22b6885b7a3eeca7713ed71b5f5b527" name="Text/Wiki/Render/Latex/Page.php" role="php" />
+   <file md5sum="b806e22811794d51ad7dbb104a06dc01" name="Text/Wiki/Render/Latex/Paragraph.php" role="php" />
+   <file md5sum="a8d661efe52a5dfaba3bbf86a3d0717c" name="Text/Wiki/Render/Latex/Phplookup.php" role="php" />
+   <file md5sum="a146efed83b225d17a489fc9ecf3267e" name="Text/Wiki/Render/Latex/Plugin.php" role="php" />
+   <file md5sum="b579af89e61faef36a23041ce11beb55" name="Text/Wiki/Render/Latex/Prefilter.php" role="php" />
+   <file md5sum="3af5b00d7eef74ce6f36d6bd659c0c43" name="Text/Wiki/Render/Latex/Preformatted.php" role="php" />
+   <file md5sum="a5441e310a340ef1c3cc141d279592dd" name="Text/Wiki/Render/Latex/Raw.php" role="php" />
+   <file md5sum="25b17d6af4f3a12161e5ab043c80a629" name="Text/Wiki/Render/Latex/Revise.php" role="php" />
+   <file md5sum="2a4609b3998eb7b5ff5be32b74e970d1" name="Text/Wiki/Render/Latex/Smiley.php" role="php" />
+   <file md5sum="c2ae68b4056d555eba8a9da2bdcfb7cf" name="Text/Wiki/Render/Latex/Specialchar.php" role="php" />
+   <file md5sum="ae58a265d24dffc85993241718bd0a7a" name="Text/Wiki/Render/Latex/Strong.php" role="php" />
+   <file md5sum="9810389a487156a8c0c980716bc195c4" name="Text/Wiki/Render/Latex/Subscript.php" role="php" />
+   <file md5sum="c84507b26b49fa7ad62c2f3731cdb010" name="Text/Wiki/Render/Latex/Superscript.php" role="php" />
+   <file md5sum="278b908b3924913426f20e31d6321145" name="Text/Wiki/Render/Latex/Table.php" role="php" />
+   <file md5sum="65f9cd0727a39325107315d2beacb957" name="Text/Wiki/Render/Latex/Tighten.php" role="php" />
+   <file md5sum="dfc43abed1073da93b9b45254ff8b13e" name="Text/Wiki/Render/Latex/Titlebar.php" role="php" />
+   <file md5sum="e20194c4b167432a43082db72afe3f2e" name="Text/Wiki/Render/Latex/Toc.php" role="php" />
+   <file md5sum="65b46ecfd73cf106544deb8cdfd639d8" name="Text/Wiki/Render/Latex/Tt.php" role="php" />
+   <file md5sum="aa6e4dcbc1d3fbbe0dc437c9de6e84e7" name="Text/Wiki/Render/Latex/Underline.php" role="php" />
+   <file md5sum="768a2dc48a1122e9557fc6e98046253c" name="Text/Wiki/Render/Latex/Url.php" role="php" />
+   <file md5sum="b21667887a65bc6c6039d997fca3fe5a" name="Text/Wiki/Render/Latex/Wikilink.php" role="php" />
+   <file md5sum="1effdf33d995c78b9207a7db5e3fb25f" name="Text/Wiki/Render/Plain/Anchor.php" role="php" />
+   <file md5sum="cab5c05d3385f912a2aed8315a50aa91" name="Text/Wiki/Render/Plain/Blockquote.php" role="php" />
+   <file md5sum="57f3d4651dd2597b671423af4a4dc873" name="Text/Wiki/Render/Plain/Bold.php" role="php" />
+   <file md5sum="e2fea078b8ecb1639060179fd01c88ec" name="Text/Wiki/Render/Plain/Box.php" role="php" />
+   <file md5sum="83e8e710ba96f7b669df4dbf0b0da20c" name="Text/Wiki/Render/Plain/Break.php" role="php" />
+   <file md5sum="cd08b238c707ca6b208c6ea289abe450" name="Text/Wiki/Render/Plain/Center.php" role="php" />
+   <file md5sum="4d0fca8dc932811117cc08465bcdff05" name="Text/Wiki/Render/Plain/Code.php" role="php" />
+   <file md5sum="e411cba244717f16d59c5c7750203519" name="Text/Wiki/Render/Plain/Colortext.php" role="php" />
+   <file md5sum="820dc4e5c73f3aef2b5cfa7b275293c5" name="Text/Wiki/Render/Plain/Deflist.php" role="php" />
+   <file md5sum="96bc0e94126df90bb39d3c91f64243e9" name="Text/Wiki/Render/Plain/Delimiter.php" role="php" />
+   <file md5sum="3316a6cc07794e1c00b2800090e3a6a6" name="Text/Wiki/Render/Plain/Embed.php" role="php" />
+   <file md5sum="51b79aee81fdac474cc7dcced5207385" name="Text/Wiki/Render/Plain/Emphasis.php" role="php" />
+   <file md5sum="c40133f335a97d613f865b4efd2cee5d" name="Text/Wiki/Render/Plain/Font.php" role="php" />
+   <file md5sum="1e787a7c385caf5efc7cbe548b1b1bd1" name="Text/Wiki/Render/Plain/Freelink.php" role="php" />
+   <file md5sum="545590394ab0a62eb75c2d1eab82224a" name="Text/Wiki/Render/Plain/Function.php" role="php" />
+   <file md5sum="2c13626095638f492b481881001f3097" name="Text/Wiki/Render/Plain/Heading.php" role="php" />
+   <file md5sum="a1777d454b1aa3ae8a54886341202dce" name="Text/Wiki/Render/Plain/Horiz.php" role="php" />
+   <file md5sum="075039f21e42316f00dcca7f0a5c306a" name="Text/Wiki/Render/Plain/Html.php" role="php" />
+   <file md5sum="cb632ba340758b2a3c6b9cfc1ec1f98b" name="Text/Wiki/Render/Plain/Image.php" role="php" />
+   <file md5sum="10bd9df02b09436c1bc19a84df21496b" name="Text/Wiki/Render/Plain/Include.php" role="php" />
+   <file md5sum="72dba557d8e1abb3c312844dca79c883" name="Text/Wiki/Render/Plain/Interwiki.php" role="php" />
+   <file md5sum="9b4864a0f423a26795532dcfbe46527b" name="Text/Wiki/Render/Plain/Italic.php" role="php" />
+   <file md5sum="9527979e32d6c89a23bdb105f0c095d3" name="Text/Wiki/Render/Plain/List.php" role="php" />
+   <file md5sum="545ab97a6e7385f740ac2a4fe649015b" name="Text/Wiki/Render/Plain/Newline.php" role="php" />
+   <file md5sum="a58300d793b06f68e7cc7c9b48ec5541" name="Text/Wiki/Render/Plain/Page.php" role="php" />
+   <file md5sum="d5cb7e888c60e7c00941b761bd0aa401" name="Text/Wiki/Render/Plain/Paragraph.php" role="php" />
+   <file md5sum="4026c26ec55254d709aff632147cb8fc" name="Text/Wiki/Render/Plain/Phplookup.php" role="php" />
+   <file md5sum="53f89c77f20738f6aba9411e15f861f1" name="Text/Wiki/Render/Plain/Plugin.php" role="php" />
+   <file md5sum="76001d8671c0c3ae9b4d62be6d061ea3" name="Text/Wiki/Render/Plain/Prefilter.php" role="php" />
+   <file md5sum="06576b5fc49972f96e1407b1fe07eda2" name="Text/Wiki/Render/Plain/Preformatted.php" role="php" />
+   <file md5sum="c36575344b43fbdb18e433181a656c78" name="Text/Wiki/Render/Plain/Raw.php" role="php" />
+   <file md5sum="6f8ec07c2dc649728b65b48346a8c16a" name="Text/Wiki/Render/Plain/Revise.php" role="php" />
+   <file md5sum="d464dfa31af939099f62cfc14cbf7da8" name="Text/Wiki/Render/Plain/Smiley.php" role="php" />
+   <file md5sum="9ab19ebc5ad813b337b4780ff5bee618" name="Text/Wiki/Render/Plain/Specialchar.php" role="php" />
+   <file md5sum="b76c1add68657e1d8854a33edc26e338" name="Text/Wiki/Render/Plain/Strong.php" role="php" />
+   <file md5sum="8ea39abef75f556ef28f6b54ec0db922" name="Text/Wiki/Render/Plain/Subscript.php" role="php" />
+   <file md5sum="2c0ca289d15135ca6af96f336899d20f" name="Text/Wiki/Render/Plain/Superscript.php" role="php" />
+   <file md5sum="88b238175d230f16379eea8474d6f6c4" name="Text/Wiki/Render/Plain/Table.php" role="php" />
+   <file md5sum="073176bb09d77e865e627a9fb01365a5" name="Text/Wiki/Render/Plain/Tighten.php" role="php" />
+   <file md5sum="e35b850bffdefa3dc2b7c9f1b693dbce" name="Text/Wiki/Render/Plain/Titlebar.php" role="php" />
+   <file md5sum="44191bbd6feeb95e523569e74778f739" name="Text/Wiki/Render/Plain/Toc.php" role="php" />
+   <file md5sum="a6176de398a7057c4f22b2a41c602b63" name="Text/Wiki/Render/Plain/Tt.php" role="php" />
+   <file md5sum="9b7202458dada81530efd9ed7873f29c" name="Text/Wiki/Render/Plain/Underline.php" role="php" />
+   <file md5sum="290763ca3ef1e2090816190188d03ef1" name="Text/Wiki/Render/Plain/Url.php" role="php" />
+   <file md5sum="cfe1cf8287b05b872b00509f91cc07ef" name="Text/Wiki/Render/Plain/Wikilink.php" role="php" />
+   <file md5sum="d2138cbcb32218c434e0719016294c4a" name="Text/Wiki/Render/Xhtml/Address.php" role="php" />
+   <file md5sum="632a338a27b132299ffbf6cc78b0fff8" name="Text/Wiki/Render/Xhtml/Anchor.php" role="php" />
+   <file md5sum="e65e4be2b7315671b0f729cab162b522" name="Text/Wiki/Render/Xhtml/Blockquote.php" role="php" />
+   <file md5sum="a3008850384df57adb89b77644d471f6" name="Text/Wiki/Render/Xhtml/Bold.php" role="php" />
+   <file md5sum="dacb0100e0038ce2df679615d9477ff3" name="Text/Wiki/Render/Xhtml/Box.php" role="php" />
+   <file md5sum="e1179f5fd91997a25acfb70fe1855848" name="Text/Wiki/Render/Xhtml/Break.php" role="php" />
+   <file md5sum="0a7b1d7ba54fb3cfa197816932803bd3" name="Text/Wiki/Render/Xhtml/Center.php" role="php" />
+   <file md5sum="9e40791e56dc29a2fed27f810f922560" name="Text/Wiki/Render/Xhtml/Code.php" role="php" />
+   <file md5sum="ae31fc84a5d6f0fb441b060ac1836ce0" name="Text/Wiki/Render/Xhtml/Colortext.php" role="php" />
+   <file md5sum="bdf9f4ba73bfc8f2a7ca759ed2f79cae" name="Text/Wiki/Render/Xhtml/Deflist.php" role="php" />
+   <file md5sum="4d288947766cc0dd0b2cf287c3d930c0" name="Text/Wiki/Render/Xhtml/Delimiter.php" role="php" />
+   <file md5sum="abff11fe5bc433019fd4925ed6904933" name="Text/Wiki/Render/Xhtml/Embed.php" role="php" />
+   <file md5sum="b34986ab0130cc4bf03edfcb4de848b7" name="Text/Wiki/Render/Xhtml/Emphasis.php" role="php" />
+   <file md5sum="87969a1a32f223167566833a45d972b7" name="Text/Wiki/Render/Xhtml/Font.php" role="php" />
+   <file md5sum="b1c61b64fdde799fe23b36f4a0c8c4be" name="Text/Wiki/Render/Xhtml/Freelink.php" role="php" />
+   <file md5sum="2c293a6bc991076cf7ee445317f2c0ea" name="Text/Wiki/Render/Xhtml/Function.php" role="php" />
+   <file md5sum="0b3f3ad88c262d96da884c29f9275eec" name="Text/Wiki/Render/Xhtml/Heading.php" role="php" />
+   <file md5sum="b02eebc279a4385729aa7baf57798d4e" name="Text/Wiki/Render/Xhtml/Horiz.php" role="php" />
+   <file md5sum="5c588496534915a3c7837ca2bd97ba35" name="Text/Wiki/Render/Xhtml/Html.php" role="php" />
+   <file md5sum="904db393136e873ce85d1eb52b96d8b9" name="Text/Wiki/Render/Xhtml/Image.php" role="php" />
+   <file md5sum="79171bbc29d5e6f1413aaed37cc3b3bb" name="Text/Wiki/Render/Xhtml/Include.php" role="php" />
+   <file md5sum="2649dc5783325a0d438bedac1366f1bc" name="Text/Wiki/Render/Xhtml/Interwiki.php" role="php" />
+   <file md5sum="3d5f5fb5e382f0a26d770db2824d1f7a" name="Text/Wiki/Render/Xhtml/Italic.php" role="php" />
+   <file md5sum="95f4d62867be87b102d07a3d395ec022" name="Text/Wiki/Render/Xhtml/List.php" role="php" />
+   <file md5sum="cbddd320d67f4931a11bb4824433f5e3" name="Text/Wiki/Render/Xhtml/Newline.php" role="php" />
+   <file md5sum="52ebae8724a31aee4fa4b849a8807940" name="Text/Wiki/Render/Xhtml/Page.php" role="php" />
+   <file md5sum="412d50120397dcb9254df9e4634ca432" name="Text/Wiki/Render/Xhtml/Paragraph.php" role="php" />
+   <file md5sum="c5f3fde7d75598e4a37b6908c8709ac0" name="Text/Wiki/Render/Xhtml/Phplookup.php" role="php" />
+   <file md5sum="066cad7c8946bd992b4b1238224c1d56" name="Text/Wiki/Render/Xhtml/Plugin.php" role="php" />
+   <file md5sum="bf5b0d22ec14ad3561d6b2edb42ca2b4" name="Text/Wiki/Render/Xhtml/Prefilter.php" role="php" />
+   <file md5sum="9da9cea77e1870e5b6335659bb428923" name="Text/Wiki/Render/Xhtml/Preformatted.php" role="php" />
+   <file md5sum="5cf63793786d6b020f719393369f184c" name="Text/Wiki/Render/Xhtml/Raw.php" role="php" />
+   <file md5sum="cffdc8399bc0c97e98d739adaf188ab2" name="Text/Wiki/Render/Xhtml/Revise.php" role="php" />
+   <file md5sum="2de7d5caa4dd4182f1d621f9aa2b47e2" name="Text/Wiki/Render/Xhtml/Smiley.php" role="php" />
+   <file md5sum="5a191d0686a4ac0ba945849892e11a0a" name="Text/Wiki/Render/Xhtml/Specialchar.php" role="php" />
+   <file md5sum="20c21a4c0874da8afd5a94fb3fab4880" name="Text/Wiki/Render/Xhtml/Strong.php" role="php" />
+   <file md5sum="4d0ffba2181bc494bdd218643bf1d229" name="Text/Wiki/Render/Xhtml/Subscript.php" role="php" />
+   <file md5sum="28bef417639d5f7de94c055dfa7949ce" name="Text/Wiki/Render/Xhtml/Superscript.php" role="php" />
+   <file md5sum="94925c5a16c74a82d4d6cc1311b8a1bb" name="Text/Wiki/Render/Xhtml/Table.php" role="php" />
+   <file md5sum="ccd6f338de67753e0705b5caf3a14a62" name="Text/Wiki/Render/Xhtml/Tighten.php" role="php" />
+   <file md5sum="533e6847fb9a44099524538a41896419" name="Text/Wiki/Render/Xhtml/Titlebar.php" role="php" />
+   <file md5sum="7a10bc95ecd2ec939043f4f03bfbe026" name="Text/Wiki/Render/Xhtml/Toc.php" role="php" />
+   <file md5sum="144810f12799fc43db484690430591d8" name="Text/Wiki/Render/Xhtml/Tt.php" role="php" />
+   <file md5sum="2f3f7b7e4758723eb8541527153348cc" name="Text/Wiki/Render/Xhtml/Underline.php" role="php" />
+   <file md5sum="35e140446075e473e535ff868d99f360" name="Text/Wiki/Render/Xhtml/Url.php" role="php" />
+   <file md5sum="df1b0dbe39d7db59de9d0ab45bb0f79f" name="Text/Wiki/Render/Xhtml/Wikilink.php" role="php" />
+   <file md5sum="c4b80c22403a8cc8a36944574aac2330" name="Text/Wiki/Render/Latex.php" role="php" />
+   <file md5sum="319d8299fb9171e68423e2e873579f37" name="Text/Wiki/Render/Plain.php" role="php" />
+   <file md5sum="4d26bff0abbfcdbb06ca119d107d7e09" name="Text/Wiki/Render/Xhtml.php" role="php" />
+   <file md5sum="c7de0a165d7888119ce18e3fdf3e66fd" name="Text/Wiki/Default.php" role="php" />
+   <file md5sum="6dc508f6305308cf4392b58d31876253" name="Text/Wiki/Parse.php" role="php" />
+   <file md5sum="6a60f1b3bbb070fb8ef3e53debe74a6a" name="Text/Wiki/Render.php" role="php" />
+   <file md5sum="089af03c8e6d5a418f00ee984b393193" name="Text/Wiki.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.0.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.4</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>1.2.0</release>
+    <api>1.2.0RC2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2007-03-11</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+New Features:
+# Added an Address Xhtml renderer
+# Balanced token checking has been added (this means that output such as &lt;b&gt;&lt;i&gt;italic&lt;/b&gt;&lt;/i&gt; is caught)
+# A new stack-based callback system for renderers has been added to allow for more flexible output handling (see BlockQuote)
+# The Url Xhtml renderer now allows a name to be passed in
+# The Url Xhtml, Plain, Latex renderers now allow start/end tokens
+
+Changes:
+# Experimental preg rendering method deprecated as it had problems
+# Package.xml 2.0 is now used exclusively
+
+Bugs fixed:
+# Bug #7320 fix UTF-8 rendering in WikiLink and Freelink
+# Various UTF-8 fixes
+# Bug #6292 remove paragraph tags from around headings and hrs in Xhtml renderer
+# Preformatted Xhtml renderer now correctly escapes output
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.0RC1</release>
+    <api>1.2.0RC1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+New Features:
+# Experimental new rendering method introduced that uses preg instead of char-by-char parsing
+## Please test for both speed and memory usage
+
+Changes:
+# Internal Text_Wiki error handling used in factory and singleton
+# Needed files are now required
+# bertrand Gugger has left development of Text_Wiki
+
+Bugs fixed:
+# Raw output is now encoded in Xhtml renderer to avoid XSS attacks
+# Bug 8313 fix anchor output in Xhtml/Wikilink when used in conjuction with sprintf (thanks to bjs5075 at rit dot edu)
+# Fixed various encoding issues with Xhtml/Wikilink URLs
+# Bug #7091 fixed variable substitution in Latex renderer (thanks randlem at bgsu dot edu)
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.0</release>
+    <api>1.1.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-03-02</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+This is a major release as we reduce global resource usage
+# instantiate renderers only as needed
+# factory() method introduced for instantiating Text_Wiki objects
+# singleton() static method to get a single object instanciated pro parser (merci davidc for advices)
+
+The constructor is now deprecated in favor of the new singleton() or factory() methods
+Default also have its own class now, wich means Text_Wiki is a pure abstract class
+
+Renderers now have their own methods for:
+# text: textEncode() defaulted to php htmlspecialchars()
+for Xhtml render to the text encoding choosed in conf (#5953, thanks jocke at selincite dot com)
+# url: urlEncode() defaulted to the php rawurlencode()
+
+Wiki general:
+# Correct the key used in changeRule(), ensure no double new rule.
+# Page names and anchors Urlencode() as render required (e.g. may contain spaces)
+# Interwiki: parser may now give the full url instead of site+page (Mediawiki need)
+# Improved test.
+
+Latex render:
+# Only variables should be assigned by reference (#6010, thanks twells at smarterliving dot com)
+
+Plain render:
+# Interwiki: Complete the rendering with indication of (url) or (site:page)
+
+Xhtml render:
+# Rendering Fix for Tables (Missing Whitespace) (thanks ritzmo)
+# Added support for two-token URLs
+## This allows formatting within URL text and proper rendering into other Wiki dialects (assuming that your parser supports the new feature. The Default parser does not yet support this.)
+
+Maintainers:
+# Del , one of the funders of the original code fully as pear developer
+# JustinP is now lead
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.3</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2005-11-08</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+This is a bug fix release, the Bug #5863: mixed &lt;ul&gt; &lt;ol&gt; when using * and # fix introduced a potential BBC: Bug #5879 Nested lists to do not parse properly in Text_Wiki
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.2</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2005-11-06</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+This is a bug fix release, also with a few enhancements
+Default parser:
+* Bug #5660: The # is to be kept in the anchor option, (jeremy Lecour)
+* Bug #5863: Don&apos;t mix bullet and numbered lists when following each other, (stefan dot kilp at gmx dot net)
+* Bug #5397: variable used inside single quotes bugs WikiLinks (kristof dot coomans at sckcen dot be)
+Xhtml renderer:
+* Bug #5447: Preset $collapse to null (martin at mein-horde dot de)
+* Bug #5847: onclick in lowercase for Xhtml compliance (meisteg at msoe dot edu)
+* Unitiliazed row and column &apos;s spans when coming from not mediawiki parser
+Xhtml and Latex renderers:
+* Render enumeration type a, A, i, or I in lists
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2005-09-12</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+This is a bug fix and security release, also preparing the introduction of new parsers/renderers
+* Fixed bug 3881 and 4442, UTF-8 encoding problems.  There are new config options for Render_Xhtml, &apos;charset&apos; and &apos;quotes&apos;, that allow you to specify the charset for translation.
+* Fixed bug 3959, &quot;XHTML lists not rendered according W3C Standards&quot; (where a line of text before a list leaves an open paragraph tag and closes it after the list)
+* In Parse_Xhtml_Toc, returns an extra newline before the parsed replacement text to comply with the matching regex.
+* In Render_Xhtml_Toc, added a &apos;collapse&apos; config key to collapse the div horizontally within a table; this is for aesthetics, nothing else.  The &apos;collapse&apos; option is true by default.
+* Added general rules Smiley, Subscript &quot;,,text,,&quot; and Underline &quot;__text__&quot;
+* Added rendering rules Box, Font, Page, Plugin, Preformatted, Specialchar and Titelbar
+              for the optional extra parsers (BBCode, Cowiki, Doku, Mediawiki and Tiki)
+* Fixed bug 4175 &quot;Wrong transform method&quot; by generating PEAR_Error objects when a parse, format, or render rule cannot be found.
+* applied feature request 4436 &quot;Add option to getTokens to get original token indices&quot; -- now the return array from getTokens() is keyed to the original token index number.
+* Fixed Bug #4473 Undefined variables in error()
+* Fixed bug 4474 to silence calls to htmlentities and htmlspecialchars so that errors about charsets don&apos;t pop up, per counsel from Jan at Horde.
+* Fixed Code potential nesting
+* Fixed bug #4719, &quot;In Latex, newline rule does not produce a new line&quot;
+* Request #4520  Additional space confuses image tag, adapted regexp
+* Request #4634  Code block title/filename, uses conf css_filename
+* Code Xhtml: add php tags only if not there
+* Heading: collapsing in headers
+* Colortext Xhtml: don&apos;t add # if allready present
+* Anchor Xhtml htlmentify the link
+* Cleaned Xhtml renderers documentation headers
+* Added an example in doc
+* Rowspan and space before free format in Table renderer
+* Secured url linked on images
+   </notes>
+  </release>
+ </changelog>
+</package>

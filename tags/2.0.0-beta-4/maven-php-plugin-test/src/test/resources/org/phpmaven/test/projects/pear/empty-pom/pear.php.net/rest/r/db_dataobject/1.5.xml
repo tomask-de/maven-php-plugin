@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/db_dataobject">DB_DataObject</p>
+ <c>pear.php.net</c>
+ <v>1.5</v>
+ <st>stable</st>
+ <l>PHP License</l>
+ <m>alan_k</m>
+ <s>An SQL Builder, Object Interface to Database Tables</s>
+ <d>DataObject performs 2 tasks:
+  1. Builds SQL statements based on the objects vars and the builder methods.
+  2. acts as a datastore for a table row.
+  The core class is designed to be extended for each of your tables so that you put the
+  data logic inside the data classes.
+  included is a Generator to make your configuration files and your base classes.
+  nd
+</d>
+ <da>2004-01-20 03:12:23</da>
+ <n>New Features / Fixes
+* proxy and auto schema building
+  - you can use dataobjects wihout running create tables.
+  - schema is created on the fly if no schema file exists
+  - using config option proxy=full, a class is generated on the fly to
+    represent the tables.
+* toValue and fromValue added as getter and setter providers
+  - they include date formating tools - eg.
+  $do-&gt;getBirthDay('%d/%m/%Y') will work with overload and PEAR::Date 
+  to provide formated dates. (works with date/time and datetime)
+  - set*() will also call strtotime and PEAR::Date to try and read dates.\
+  setFrom will relay into fromValue() - hence auto fixing date entries
+* make native key recognision a little better - changes ini file
+  format (key=N|K) - native or key. - BC protected... - ignores it
+  when it finds a number.. (Fixes bug #532)
+* allow multiple updates on the same object - without adding lots
+  of id=.... on the end..
+* transactions support works transparently by sending
+  $do-&gt;query('BEGIN'), $do-&gt;query('COMMIT'),$do-&gt;query('ROLLBACK')
+  will automatically relay into the DB methods.
+* re-add support for sequence_{tablename} - prefered method is still
+  overriding sequenceKey, and returning correct values.
+
+Bug Fixes
+* fix bug #595 - replace non letters in class names with underscore..
+* fix bug #532 - better recoginsion of sequence keys
+* fix bug #528/#476 - typo fix (E_NOTICE error on $valu)
+* fix bug #473 - query can return a DB_Error 
+* fix bug #501 - autoload/factory  now uses full path (not require path)
+* fix bug #507 - sequences broken</n>
+ <f>37476</f>
+ <g>http://pear.php.net/get/DB_DataObject-1.5</g>
+ <x xlink:href="package.1.5.xml"/>
+</r>

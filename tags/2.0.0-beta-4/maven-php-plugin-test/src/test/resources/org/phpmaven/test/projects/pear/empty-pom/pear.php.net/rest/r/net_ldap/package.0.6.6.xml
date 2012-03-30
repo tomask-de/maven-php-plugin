@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Net_LDAP</name>
+  <summary>OO interface for searching and manipulating LDAP-entries</summary>
+  <description>Net Ldap is a clone of Perls Net::LDAP object interface to 
+ldapservers. It does not contain all of Net::LDAPs features, 
+but has:
+* A simple OO-interface to connections, searches and entries.
+* Support for tls and ldap v3.
+* Simple modification, deletion and creation of ldapentries.
+* Support for schema handling.
+
+Net_LDAP layers itself on top of PHP's existing ldap extensions.</description>
+  <maintainers>
+    <maintainer>
+      <user>tarjei</user>
+      <name>Tarjei Huse</name>
+      <email>tarjei@nu.no</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>jw</user>
+      <name>Jan Wagner</name>
+      <email>wagner@netsols.de</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.6.6</version>
+    <date>2005-03-01</date>
+    <license>LGPL</license>
+    <state>beta</state>
+    <notes>Bugfix release</notes>
+    <filelist>
+      <file role="doc" baseinstalldir="Net" md5sum="888e849e71f2765a48745e48a200f590" name="doc/README.txt"/>
+      <file role="doc" baseinstalldir="Net" md5sum="1cc2a1992d9f4cefb83c660775d38e75" name="doc/RootDSE.txt"/>
+      <file role="doc" baseinstalldir="Net" md5sum="56e27c3ac926fcac9bd0c0c2ee82b268" name="doc/Schema.txt"/>
+      <file role="doc" baseinstalldir="Net" md5sum="989d5dadd8e5c7da21852ebc96f38bbb" name="doc/STATUS"/>
+      <file role="doc" baseinstalldir="Net" md5sum="3cfb956b7f565f88fe81e98e0315dfbb" name="doc/utf8.txt"/>
+      <file role="php" baseinstalldir="Net" md5sum="fc4cf4177a99e7662f59fec635c674f5" name="LDAP/Entry.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="3bce371be104eea028c74d73e61617ce" name="LDAP/RootDSE.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="99d19911d867fc0572bfe65b220ffb50" name="LDAP/Schema.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="fae270122b37695d27146ca295f78c17" name="LDAP/Search.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="4e9a4ed53bcde04c26619b45aaf2525a" name="LDAP/Util.php"/>
+      <file role="doc" baseinstalldir="Net" md5sum="30df42e32eac569f312157a9e2b238fd" name="tests/tests.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="f2e663fadeed10c5b87bf0d39f307404" name="LDAP.php"/>
+      <file role="doc" baseinstalldir="Net" md5sum="7fbc338309ac38fefcd64b04bb903e34" name="LICENSE"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.6.6</version>
+      <date>2005-03-01</date>
+      <license>LGPL</license>
+      <state>beta</state>
+      <notes>Fixed bug #1060 (Wrong array_push_call in Net_LDAP_Search)
+Fixed bug #1136,#2985 (Recursive delete not working)
+Fixed bug #2391 (Implemented getOption()/SetOption() for LDAP_OPT_REFERRALS)
+Fixed bug #2860 (Call-time pass-by-reference)
+Fixed bug #2986 (Missing parameter to ldap_error in LDAP.php)
+Fixed bug #3560 (Missing test.php in docs)
+
+</notes>
+    </release>
+    <release>
+      <version>0.6.5</version>
+      <date>2004-03-09</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>fixed Bug #890 (proper usuage of get_class)
+fixed Bug #952 (Broken Net_LDAP_Entry::add() method)
+changed license to LGPL for now (ongoing discussion on pear-dev)
+</notes>
+    </release>
+    <release>
+      <version>0.6.4</version>
+      <date>2004-02-07</date>
+      <license>GPL License</license>
+      <state>beta</state>
+      <notes>- Added a new LDAP::reBind method. Usefull for first searching for uid=username and then binding as that dn.
+- Fixed bug #289 and #290.
+</notes>
+    </release>
+    <release>
+      <version>0.6.3</version>
+      <date>2003-11-12</date>
+      <state>beta</state>
+      <notes>It seems that 0.6.2 was out too fast. So this is mainly a bugfix release:   
+- Removed remaining Net_LDAP::UTF8Encode and Net_LDAP::UTF8Decode calls in Net_LDAP_Entry,
+  which stopped attributes() and get_entry() from working
+- The UTF8 functions somehow got outside the Net_LDAP class ... FIXED.
+- The usuage example of the last release was wrong. We decided to move UTF8 handling into Net_LDAP.
+  Handling should be done this way:
+
+$attr = $ldap-&gt;utf8Encode($attr);
+$entry-&gt;modify($attr);
+$attr = $ldap-&gt;utf8Decode( $entry-&gt;attributes() );
+- This means Net_LDAP_Util is useless right now, but will be extended in the future.
+- Jan did a complete overhaul of the phpdoc stuff. Everything seems to be fine now with phpDocumentor.
+</notes>
+    </release>
+    <release>
+      <version>0.6</version>
+      <date>2003-10-17</date>
+      <state>beta</state>
+      <notes>New Net_LDAP::ArrayUTF8Decode and Net_LDAP::ArrayUTF8Encode functions. These are used by the Net_LDAP::Entry objects to ensure that things work ok.
+</notes>
+    </release>
+    <release>
+      <version>0.5</version>
+      <date>2003-10-11</date>
+      <state>beta</state>
+      <notes>Jan Wagner Contributed a new RootDSE object and a Schema object and some fixes to the Net_LDAP::search() method
+The new Net_ldap_entry::modify() method seems to work very nice now.
+</notes>
+    </release>
+    <release>
+      <version>0.4</version>
+      <date>2003-10-01</date>
+      <state>beta</state>
+      <notes>Many more bugfixes. Jan Wagner fixed the shift_entry function.
+Also a new Net_LDAP_Entry::modify function has been added that goes far making a simple way to modify entries.
+</notes>
+    </release>
+    <release>
+      <version>0.3</version>
+      <date>2003-09-21</date>
+      <state>beta</state>
+      <notes>More bug squashing! Much better errorhandling in the -&gt;search() function.
+Also, all errors that create a Pear_error now includes the errornumber if
+appropriate (i.e. it was an ldap generated error).
+</notes>
+    </release>
+    <release>
+      <version>0.2</version>
+      <date>2003-08-23</date>
+      <state>beta</state>
+      <notes>Fixed a lot of bugs that jumped in during the pearification process
+</notes>
+    </release>
+    <release>
+      <version>0.1</version>
+      <date>2003-06-23</date>
+      <state>beta</state>
+      <notes>Initial release
+</notes>
+    </release>
+  </changelog>
+</package>

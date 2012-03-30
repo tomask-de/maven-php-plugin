@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.6.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>DB_Table</name>
+ <channel>pear.php.net</channel>
+ <summary>An object oriented interface to, and model of, a database. Integrates with HTML_QuickForm.</summary>
+ <description>The DB_Table package provides an object oriented interface to a database. 
+
+Each instance of the core DB_Table class contains the schema for a table, defined using abstract data types. The class provides a portable api for insert, update, delete, and select SQL commands, and can validate data types upon insertion and updating. It provides methods to automatically create or verify a database table. DB_Table also provides methods (using PEAR HTML_QuickForm) to generate input forms that match the column definitions. 
+
+Each instance of the DB_Table_Database class contains a model of relationships between tables in a database, in which each table is represented by an instance of DB_Table. DB_Table_Database provides a method for automatic construction of join conditions for inner joins involving any number of tables, optional php validation of foreign key validity, and optional php emulation of actions triggered on delete or update of referenced rows, such as cascading deletes.
+
+The DB_Table_Generator class auto-generates the php code necessary to create an interface to an existing database.</description>
+ <lead>
+  <name>Paul M. Jones</name>
+  <user>pmjones</user>
+  <email>pmjones@php.net</email>
+  <active>no</active>
+ </lead>
+ <lead>
+  <name>David Morse</name>
+  <user>morse</user>
+  <email>morse@php.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Mark Wiesemann</name>
+  <user>wiesemann</user>
+  <email>wiesemann@php.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2007-06-27</date>
+ <time>17:27:29</time>
+ <version>
+  <release>1.5.0</release>
+  <api>1.5.0</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>This is the first stable release that contains some signficant enhancements to DB_Table. The main changes since release 1.4.0 are:
+- A new DB_Table_Database class, which contains a model of relationships between tables. The class contains methods to simplify the construction of joins, check foreign key validity, and emulate referentially triggered ON DELETE and ON UPDATE actions. 
+- A new DB_Table_Generator class, which generates PHP code necessary for an existing database.  Generates a skeleton DB_Table subclass definition for each table in the database.  
+- A new DB_Table_Base class, as an abstract parent class for DB_Table and DB_Table_Database.
+- Added auto-increment column declarations to DB_Table
+- Select*() methods can now process query arrays passed as arguments (as well as stored queries).
+- XML support, using the MDB2 XML schema. XML Serialization and unserialization of the database model.
+- Full unit tests for DB_Table_Database.
+- Full documentation added to the PEAR manual. 
+
+The only changes since release 1.5.0RC3 are changes to the organization of the DB_Table_Database unit tests, and inclusion of a simple form of regression testing. See tests/database/README.</notes>
+ <contents>
+  <dir name="/">
+   <file md5sum="1befd10d4f007b1614bb20d01bb4ea4f" name="DB/Table/Manager/ibase.php" role="php" />
+   <file md5sum="6d31c673b9e1e3fde56a06c1f2ec0ec6" name="DB/Table/Manager/mysql.php" role="php" />
+   <file md5sum="375e5c730bca0ecf3839821c427e7cee" name="DB/Table/Manager/mysqli.php" role="php" />
+   <file md5sum="5b235136aaf6494cd1213514644cd150" name="DB/Table/Manager/oci8.php" role="php" />
+   <file md5sum="106af92f8eef54679588407b6cbba876" name="DB/Table/Manager/pgsql.php" role="php" />
+   <file md5sum="1987db25c110d3fec9d3a7d8830fa03b" name="DB/Table/Manager/sqlite.php" role="php" />
+   <file md5sum="8b4b10c56a528e97c8759cb850ed4edc" name="DB/Table/Base.php" role="php" />
+   <file md5sum="cdad8e62fda0cf1ba083e96aeba6a256" name="DB/Table/Database.php" role="php" />
+   <file md5sum="a04c926b25030c3612cf6f83be85a66d" name="DB/Table/Date.php" role="php" />
+   <file md5sum="c4dca46aa285942b3e1a1005d82c0ce5" name="DB/Table/Manager.php" role="php" />
+   <file md5sum="38f056bf86b42fe0c052ee91729e678e" name="DB/Table/QuickForm.php" role="php" />
+   <file md5sum="a1716abad709e7a2dd3d535ff87f21a5" name="DB/Table/Valid.php" role="php" />
+   <file md5sum="30a59ba51e74cd805745f830a1fed6c1" name="DB/Table/Generator.php" role="php" />
+   <file md5sum="fb71e842d8b0b66540b6495fc9d9e030" name="DB/Table/XML.php" role="php" />
+   <file md5sum="c0899833eb991bcc30ef07a1f18cd0c8" name="DB/Table.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="901ec926b86fbe062ca89f88f5c73ded" name="docs/reserved_words/all-words.txt" role="doc" />
+   <file md5sum="74390d93614543e1c73596ab6fa95002" name="docs/reserved_words/mssql-words.txt" role="doc" />
+   <file md5sum="9792629daf6196b5c11b197bbc9ff758" name="docs/reserved_words/mysql-words.txt" role="doc" />
+   <file md5sum="cb0fb75b767bcc0cc9d8af2fe0cf1c4a" name="docs/reserved_words/oci8-words.txt" role="doc" />
+   <file md5sum="b11b385bf7469ae3b4564866fc12504d" name="docs/reserved_words/pgsql-words.txt" role="doc" />
+   <file md5sum="5be1d1483d8fc17b62d2cba2be011ec4" name="docs/reserved_words/sql92-words.txt" role="doc" />
+   <file md5sum="2dbbb83a3a2737c3b76c344101ae3b6f" name="docs/reserved_words/sql99-words.txt" role="doc" />
+   <file md5sum="dd1bd10c2a281bcad4b2ebf47fdaf233" name="docs/reserved_words/sqlite-words.txt" role="doc" />
+   <file md5sum="8a8ef6d347107eecdd1279b66a7ce31a" name="docs/reserved_words/_sources.txt" role="doc" />
+   <file md5sum="c93b903c4b53257a690c5c3db573cd9b" name="tests/generator/test.php" role="test" />
+   <file md5sum="50b9c69ad071db76eb84562cbdf8e747" name="tests/generator/README" role="doc" />
+   <file md5sum="8aa0566448439d7b91d451d980e785f4" name="tests/database/db1/define.php" role="test" />
+   <file md5sum="0bba9b64ffb63ebd04fa8b6b8a62cd06" name="tests/database/db1/create.php" role="test" />
+   <file md5sum="b7ad1d08b6bb2685c7a16675ae4932e7" name="tests/database/db1/data.php" role="test" />
+   <file md5sum="e3fa52643046be870a8786fb09dd6179" name="tests/database/db1/insert.php" role="test" />
+   <file md5sum="fbc57a9fbb0348bce95609a9e2a8c92e" name="tests/database/db1/PersonPhone_Table.php" role="test" />
+   <file md5sum="cab5edf8faebac7d8af84c24fe9eca33" name="tests/database/out/AutoJoinTest.out" role="test" />
+   <file md5sum="2dff4a5b5782715a1c7b14e0cafe1b89" name="tests/database/out/DeleteTest.out" role="test" />
+   <file md5sum="3edd78d3914af0590ad16eb5d3189162" name="tests/database/out/GetTest.out" role="test" />
+   <file md5sum="ed89da43239ca296e41a086576d8390e" name="tests/database/out/ModifyTest.out" role="test" />
+   <file md5sum="b35417d63c7f3214181a321b47f67e48" name="tests/database/out/SelectTest.out" role="test" />
+   <file md5sum="5101f5e9cf3c80c382135ccfc2f0f305" name="tests/database/out/SerialTest.out" role="test" />
+   <file md5sum="5d3584e835715794874b20d07dec6778" name="tests/database/out/SQLTest.out" role="test" />
+   <file md5sum="f2f9098675f7ff1b35912c664fc51079" name="tests/database/out/XMLTest.out" role="test" />
+   <file md5sum="9ec829d37dfbea2d11a98509549a2737" name="tests/database/SelectTest/testSelect1.php" role="test" />
+   <file md5sum="5088493de0a50a7783a3911967c1ccbc" name="tests/database/SelectTest/testSelect2.php" role="test" />
+   <file md5sum="7b8265b5554f46003f9c7e656bf8867d" name="tests/database/SelectTest/testSelect3.php" role="test" />
+   <file md5sum="5088493de0a50a7783a3911967c1ccbc" name="tests/database/SelectTest/testSelectResult1.php" role="test" />
+   <file md5sum="5088493de0a50a7783a3911967c1ccbc" name="tests/database/SelectTest/testSelectResult2.php" role="test" />
+   <file md5sum="a50f956615ff0a560288a7eaec68b1cf" name="tests/database/ModifyTest/testDeleteCascade1.php" role="test" />
+   <file md5sum="bb11bee2403a6684467eb69270a89b2b" name="tests/database/ModifyTest/testDeleteCascade2.php" role="test" />
+   <file md5sum="4b16845195224c92ed903f82795aff3f" name="tests/database/ModifyTest/testDeleteDefault1.php" role="test" />
+   <file md5sum="b7331b0a1d09c01e4cb4b4a72de807ab" name="tests/database/ModifyTest/testDeleteDefault2.php" role="test" />
+   <file md5sum="ea903c65e3d9bb055b0997527d035b88" name="tests/database/ModifyTest/testDeleteNullify1.php" role="test" />
+   <file md5sum="16f50f88fae7b93c3fa663da9f988b74" name="tests/database/ModifyTest/testDeleteNullify2.php" role="test" />
+   <file md5sum="692f64bc235dd880c842d04cd78b91eb" name="tests/database/ModifyTest/testUpdateCascade1.php" role="test" />
+   <file md5sum="6fb0cfba9221aaea63286000c188234d" name="tests/database/ModifyTest/testUpdateCascade2.php" role="test" />
+   <file md5sum="65462fcd539cb9c4c19e6188a1eeda5f" name="tests/database/ModifyTest/testUpdateDefault1.php" role="test" />
+   <file md5sum="52ede48678661c1387133ea0e29b50aa" name="tests/database/ModifyTest/testUpdateDefault2.php" role="test" />
+   <file md5sum="f9034aaa932583388311978b57f5710d" name="tests/database/ModifyTest/testUpdateNullify1.php" role="test" />
+   <file md5sum="d9894ff580431ebc272d088defa2d2c7" name="tests/database/ModifyTest/testUpdateNullify2.php" role="test" />
+   <file md5sum="25b9bf5fb29953bd99d27307a01f9617" name="tests/database/ModifyTest/testUpdate.php" role="test" />
+   <file md5sum="6911a77eb8388d154d7cdd792eabeab0" name="tests/database/README" role="test" />
+   <file md5sum="bbf184b39b4c57e1cf98e75556fe824a" name="tests/database/DatabaseTest.php" role="test" />
+   <file md5sum="dbd022e8d146120f26b33d0cc4301c73" name="tests/database/AutoJoinTest.php" role="test" />
+   <file md5sum="6fe5c0c0947e62a402e4636387f3adea" name="tests/database/DeleteTest.php" role="test" />
+   <file md5sum="adc61eed47423ccb5b588ec1d3e985dc" name="tests/database/GetTest.php" role="test" />
+   <file md5sum="69e06b95440ced9697859daf43579da3" name="tests/database/ModifyTest.php" role="test" />
+   <file md5sum="1885f14caa69ac08783046d4118b7a51" name="tests/database/SelectTest.php" role="test" />
+   <file md5sum="8daa6f90f23590ddfdb922617012fc0c" name="tests/database/SerialTest.php" role="test" />
+   <file md5sum="d04caed5fc93725066e47731d92e97ed" name="tests/database/SQLTest.php" role="test" />
+   <file md5sum="ac4f262ec171babf983c34dd93dc0787" name="tests/database/XMLTest.php" role="test" />
+   <file md5sum="2a013c43c110efc37a04c4f811d2f162" name="tests/bogotest.php" role="test" />
+   <file md5sum="6a21cabe4fed7d9eb28a8f1e4f3e8739" name="tests/setup.ini-dist" role="test" />
+   <file md5sum="b6fc9082da4fc5b10c50510508b024cb" name="tests/config.php-dist" role="test" />
+   <file md5sum="289d9fbf3915e7002ff5dc173a5f4c78" name="tests/DataTestCase.php" role="test" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.5.0</min>
+   </pearinstaller>
+  </required>
+  <optional>
+   <package>
+    <name>HTML_QuickForm</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>DB</name>
+    <channel>pear.php.net</channel>
+    <min>1.7.11</min>
+   </package>
+   <package>
+    <name>MDB2</name>
+    <channel>pear.php.net</channel>
+    <min>2.4.1</min>
+   </package>
+  </optional>
+ </dependencies>
+ <phprelease />
+</package>

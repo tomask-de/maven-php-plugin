@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/http_upload">HTTP_Upload</p>
+ <c>pear.php.net</c>
+ <v>0.9.1</v>
+ <st>stable</st>
+ <l>LGPL</l>
+ <m>wenz</m>
+ <s>Easy and secure managment of files submitted via HTML Forms</s>
+ <d>This class provides an advanced file uploader system for file uploads made
+from html forms. Features:
+ * Can handle from one file to multiple files.
+ * Safe file copying from tmp dir.
+ * Easy detecting mechanism of valid upload, missing upload or error.
+ * Gives extensive information about the uploaded file.
+ * Rename uploaded files in different ways: as it is, safe or unique
+ * Validate allowed file extensions
+ * Multiple languages error messages support (es, en, de, fr, it, nl, pt_BR)
+</d>
+ <da>2004-08-11 02:27:47</da>
+ <n>**The first release in (exactly!) two years!**
+
+- **Changes between 0.9.0 and 0.9.1: fixed md5 hashes in package.xml!***
+- (antonio) Added support for both PHP &gt;= 4.2 and PHP 4.0-4.1
+- (antonio) Fixed a lot of bugs
+- (antonio, wenz) Fixed some localization strings
+- (wenz) if only empty files are uploaded, an error message 
+  is triggered 
+- (wenz) added setChmod() method to change CHMOD of uploaded files (patch by Markus Tacker) 
+- (cox, antonio, wenz) many minor fixes
+- (cox) Error detection was enhanced, so you no longer need to
+  check for PEAR::isError() in $upload-&gt;getFiles() or call
+  $upload-&gt;isMissing(). Instead you'll
+  get the error when do a check for $file-&gt;isError().
+
+  Example:
+
+   $upload = new HTTP_Upload('en');
+   $file = $upload-&gt;getFiles('i_dont_exist_in_form_definition');
+   if ($file-&gt;isError()) {
+      die($file-&gt;getMessage());
+   }
+
+TODO:
+
+- Move error class to a new file
+- As PEAR in general requires now PHP 4.2, maybe drop BC compat in future</n>
+ <f>9460</f>
+ <g>http://pear.php.net/get/HTTP_Upload-0.9.1</g>
+ <x xlink:href="package.0.9.1.xml"/>
+</r>

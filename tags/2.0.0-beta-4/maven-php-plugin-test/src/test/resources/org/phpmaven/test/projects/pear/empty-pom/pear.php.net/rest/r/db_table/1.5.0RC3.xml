@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/db_table">DB_Table</p>
+ <c>pear.php.net</c>
+ <v>1.5.0RC3</v>
+ <st>beta</st>
+ <l>LGPL</l>
+ <m>wiesemann</m>
+ <s>An object oriented interface to, and model of, a database. Integrates with HTML_QuickForm.</s>
+ <d>The DB_Table package provides an object oriented interface to a database. 
+
+Each instance of the core DB_Table class contains the schema for a table, defined using abstract data types. The class provides a portable api for insert, update, delete, and select SQL commands, and can validate data types upon insertion and updating. It provides methods to automatically create or verify a database table. DB_Table also provides methods (using PEAR HTML_QuickForm) to generate input forms that match the column definitions. 
+
+Each instance of the DB_Table_Database class contains a model of relationships between tables in a database, in which each table is represented by an instance of DB_Table. DB_Table_Database provides a method for automatic construction of join conditions for inner joins involving any number of tables, optional php validation of foreign key validity, and optional php emulation of actions triggered on delete or update of referenced rows, such as cascading deletes.
+
+The DB_Table_Generator class auto-generates the php code necessary to create an interface to an existing database.</d>
+ <da>2007-06-14 15:12:03</da>
+ <n>- Added complete documentation in the PEAR manual.
+- new DB_Table_Base class added. This is a parent class for DB_Table and DB_Table_Database that contains methods and properties common to both classes. 
+- The DB_Table::select*() and DB_Table::buildSQL() methods, which are now inherited from the DB_Table_Base class, now accept either a query array or (as before) a key of the $sql property array as a first argument.
+- Added DB_Table_Database::onDeleteAction() and DB_Table_Database::onUpdateAction() methods, which implement referentially triggered actions (e.g., cascading deletes). This code had previously been part of the DB_Table_Database insert() and update() methods.
+- Changed behavior of DB_Table::insert() and DB_Table::update() method for a DB_Table object that is part of a DB_Table_Database instance: If a parent DB_Table_Database object exists, these methods can now validate foreign keys and implement ON DELETE and ON UPDATE actions, if these behaviors are enabled in the parent DB_Table_Database object. The behaviors of the DB_Table and DB_Table_Database insert and update methods are now identical. (This is a BC break with 1.5.0RC1 and 1.5.0RC2 beta releases, but not with earlier stable releases.)
+- Disable automatic foreign key validation by default (BC break with releases 1.5.0RC1 and 1.5.0RC2).
+- Added buildFilter() method to the DB_Table_Base class. This a simplified version of the DB_Table_Database::buildFilter() method of previous 1.5.0RC* releases. (BC break with 1.5.0RC1 and 1.5.0RC2)
+- Added a private DB_Table_Database::_buildForeignKeyFilter() for more specialized uses of the old buildFilter() method, which are used internally to construct queries.
+- Changed return value of DB_Table_Database::validForeignKey on failure from boolean false to PEAR_Error. Changed related error codes.
+- Changed &lt;autoinc&gt; element of XML output to &lt;autoincrement&gt; for consistency with MDB2 XML schema. 
+- Simplified unit tests for DB_Table_Database by adding a parent DatabaseTest unit test class.</n>
+ <f>105152</f>
+ <g>http://pear.php.net/get/DB_Table-1.5.0RC3</g>
+ <x xlink:href="package.1.5.0RC3.xml"/>
+</r>

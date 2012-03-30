@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.0a2">
+ <name>VFS</name>
+ <summary>Virtual File System API</summary>
+ <description>This package provides a Virtual File System API, with backends for:
+
+* SQL
+* FTP
+* Local filesystems
+* Hybrid SQL and filesystem
+
+... and more planned. Reading/writing/listing of files are all supported, and there are both object-based and array-based interfaces to directory listings.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>chagenbu</user>
+   <name>Chuck Hagenbuch</name>
+   <email>chuck@horde.org</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>jon</user>
+   <name>Jon Parise</name>
+   <email>jon@horde.org</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>yunosh</user>
+   <name>Jan Schneider</name>
+   <email>jan@horde.org</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>0.0.5</version>
+  <date>2005-04-07</date>
+  <license>LGPL</license>
+  <state>beta</state>
+  <notes>* Fix typo that prevented the sql_file driver to load its parameters.
+* PHP 5 compatibility fixes.
+* Add 'pasv' parameter for FTP driver.
+* Add writeData() method to sql_file driver.
+* Support ~/path when a 'home' parameter is defined.
+* Add a CLI script for accessing and modifying VFS backends.
+* Added getCurrentDirectory() method.
+* phpdoc has been updated and should now generate correctly in all files.
+* Return error if trying to copy a file onto itself with the file driver (http://bugs.horde.org/ticket/?id=168).
+* Several bug fixes to listFolders() method in SQL drivers.
+* A PEAR Log object can now be specified for logging messages to.
+* Added getParam() method.
+* Allow recursive listings in listFolder().
+* Several fixes with zero length files.
+* Fixed autocreating of directories and updating of existing files in the sql_file VFS driver (http://bugs.horde.org/ticket/?id=1552, http://bugs.horde.org/ticket/?id=1553).
+* Added SQL scripts to create tables for SQL backends.
+  </notes>
+  <deps>
+   <dep type="php" rel="ge" version="4.2.0"/>
+   <dep type="ext" rel="has">gettext</dep>
+   <dep type="pkg" rel="has">Log</dep>
+  </deps>
+  <provides type="class" name="VFS" />
+  <provides type="class" name="VFS_file" />
+  <provides type="class" name="VFS_ftp" />
+  <provides type="class" name="VFS_musql" />
+  <provides type="class" name="VFS_sql" />
+  <provides type="class" name="VFS_sql_file" />
+  <provides type="class" name="VFS_Browser" />
+  <provides type="class" name="VFS_GC" />
+  <provides type="class" name="VFS_ListItem" />
+  <provides type="class" name="VFS_Object" />
+  <provides type="function" name="VFS::checkCredentials" />
+  <provides type="function" name="VFS::setParams" />
+  <provides type="function" name="VFS::getParam" />
+  <provides type="function" name="VFS::log" />
+  <provides type="function" name="VFS::setLogger" />
+  <provides type="function" name="VFS::read" />
+  <provides type="function" name="VFS::write" />
+  <provides type="function" name="VFS::writeData" />
+  <provides type="function" name="VFS::move" />
+  <provides type="function" name="VFS::copy" />
+  <provides type="function" name="VFS::deleteFile" />
+  <provides type="function" name="VFS::rename" />
+  <provides type="function" name="VFS::exists" />
+  <provides type="function" name="VFS::createFolder" />
+  <provides type="function" name="VFS::autocreatePath" />
+  <provides type="function" name="VFS::isFolder" />
+  <provides type="function" name="VFS::deleteFolder" />
+  <provides type="function" name="VFS::emptyFolder" />
+  <provides type="function" name="VFS::listFolder" />
+  <provides type="function" name="VFS::getCurrentDirectory" />
+  <provides type="function" name="VFS::changePermissions" />
+  <provides type="function" name="VFS::listFolders" />
+  <provides type="function" name="VFS::getRequiredCredentials" />
+  <provides type="function" name="VFS::getModifiablePermissions" />
+  <provides type="function" name="VFS::strtolower" />
+  <provides type="function" name="VFS::strlen" />
+  <provides type="function" name="VFS::factory" />
+  <provides type="function" name="VFS::singleton" />
+  <provides type="function" name="VFS_Browser::setVFSObject" />
+  <provides type="function" name="VFS_Browser::getUI" />
+  <provides type="function" name="VFS_GC::gc" />
+  <provides type="function" name="VFS_Object::factory" />
+  <provides type="function" name="VFS_Object::singleton" />
+  <provides type="function" name="VFS_Object::checkCredentials" />
+  <provides type="function" name="VFS_Object::setParams" />
+  <provides type="function" name="VFS_Object::read" />
+  <provides type="function" name="VFS_Object::write" />
+  <provides type="function" name="VFS_Object::writeData" />
+  <provides type="function" name="VFS_Object::deleteFile" />
+  <provides type="function" name="VFS_Object::rename" />
+  <provides type="function" name="VFS_Object::createFolder" />
+  <provides type="function" name="VFS_Object::deleteFolder" />
+  <provides type="function" name="VFS_Object::listFolder" />
+  <provides type="function" name="VFS_Object::changePermissions" />
+  <provides type="function" name="VFS_Object::getRequiredCredentials" />
+  <provides type="function" name="VFS_Object::getModifiablePermissions" />
+  <provides type="function" name="VFS_file::read" />
+  <provides type="function" name="VFS_file::write" />
+  <provides type="function" name="VFS_file::move" />
+  <provides type="function" name="VFS_file::copy" />
+  <provides type="function" name="VFS_file::writeData" />
+  <provides type="function" name="VFS_file::deleteFile" />
+  <provides type="function" name="VFS_file::deleteFolder" />
+  <provides type="function" name="VFS_file::createFolder" />
+  <provides type="function" name="VFS_file::isFolder" />
+  <provides type="function" name="VFS_file::changePermissions" />
+  <provides type="function" name="VFS_file::listFolders" />
+  <provides type="function" name="VFS_file::rename" />
+  <provides type="function" name="VFS_ftp::read" />
+  <provides type="function" name="VFS_ftp::write" />
+  <provides type="function" name="VFS_ftp::writeData" />
+  <provides type="function" name="VFS_ftp::deleteFile" />
+  <provides type="function" name="VFS_ftp::isFolder" />
+  <provides type="function" name="VFS_ftp::deleteFolder" />
+  <provides type="function" name="VFS_ftp::rename" />
+  <provides type="function" name="VFS_ftp::createFolder" />
+  <provides type="function" name="VFS_ftp::changePermissions" />
+  <provides type="function" name="VFS_ftp::listFolders" />
+  <provides type="function" name="VFS_ftp::copy" />
+  <provides type="function" name="VFS_ftp::move" />
+  <provides type="function" name="VFS_ftp::getCurrentDirectory" />
+  <provides type="function" name="VFS_musql::writeData" />
+  <provides type="function" name="VFS_musql::deleteFile" />
+  <provides type="function" name="VFS_musql::rename" />
+  <provides type="function" name="VFS_musql::createFolder" />
+  <provides type="function" name="VFS_musql::deleteFolder" />
+  <provides type="function" name="VFS_musql::changePermissions" />
+  <provides type="function" name="VFS_sql::read" />
+  <provides type="function" name="VFS_sql::write" />
+  <provides type="function" name="VFS_sql::writeData" />
+  <provides type="function" name="VFS_sql::deleteFile" />
+  <provides type="function" name="VFS_sql::rename" />
+  <provides type="function" name="VFS_sql::createFolder" />
+  <provides type="function" name="VFS_sql::deleteFolder" />
+  <provides type="function" name="VFS_sql::listFolders" />
+  <provides type="function" name="VFS_sql_file::read" />
+  <provides type="function" name="VFS_sql_file::write" />
+  <provides type="function" name="VFS_sql_file::writeData" />
+  <provides type="function" name="VFS_sql_file::move" />
+  <provides type="function" name="VFS_sql_file::copy" />
+  <provides type="function" name="VFS_sql_file::createFolder" />
+  <provides type="function" name="VFS_sql_file::rename" />
+  <provides type="function" name="VFS_sql_file::deleteFolder" />
+  <provides type="function" name="VFS_sql_file::deleteFile" />
+  <provides type="function" name="VFS_sql_file::listFolders" />
+  <filelist>
+   <file role="php" baseinstalldir="/" md5sum="7a8c862b87d97a80e63d526a1f5f26a8" name="VFS.php"/>
+   <file role="php" md5sum="9ff7525c7f66e06880d5e7999eaae7aa" name="VFS/Browser.php"/>
+   <file role="php" md5sum="e77d8cfe67aa2b38feb165f2143d2f4b" name="VFS/GC.php"/>
+   <file role="php" md5sum="363f55f911e8549262eab380da7ee809" name="VFS/Object.php"/>
+   <file role="php" md5sum="5dc2a1fe54acf3536f209caa0e1c0e89" name="VFS/ListItem.php"/>
+   <file role="php" md5sum="5b8dd04664eb5018e09eac9a9db583fb" name="VFS/file.php"/>
+   <file role="php" md5sum="1c86db0f37963d48343c0c14488c2f98" name="VFS/ftp.php"/>
+   <file role="php" md5sum="20ad73ed269194a291b5fe91ff9e603f" name="VFS/musql.php"/>
+   <file role="php" md5sum="e3a239a60924dc18ad03943e510fea82" name="VFS/sql.php"/>
+   <file role="php" md5sum="4f90b1b7eb70c6ff06711fbad529b92f" name="VFS/sql_file.php"/>
+   <file role="data" md5sum="6d48028a1024d044bd568b01cb1406b5" name="data/muvfs.sql"/>
+   <file role="data" md5sum="efbba19007ef0cd4d69902b446225367" name="data/vfs.oci8.sql"/>
+   <file role="data" md5sum="98205deb548ed5b1fa8bdfd499d84b7b" name="data/vfs.pgsql.sql"/>
+   <file role="data" md5sum="ecd8118b1433f004b0c712ebc6fdfc29" name="data/vfs.sql"/>
+   <file role="script" md5sum="d97f6f7d986e4f7294e59565532c3914" install-as="vfs.php" name="scripts/vfs.php"/>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>0.0.5</version>
+    <date>2005-04-07</date>
+    <state>beta</state>
+    <notes>* Fix typo that prevented the sql_file driver to load its parameters.
+* PHP 5 compatibility fixes.
+* Add 'pasv' parameter for FTP driver.
+* Add writeData() method to sql_file driver.
+* Support ~/path when a 'home' parameter is defined.
+* Add a CLI script for accessing and modifying VFS backends.
+* Added getCurrentDirectory() method.
+* phpdoc has been updated and should now generate correctly in all files.
+* Return error if trying to copy a file onto itself with the file driver (http://bugs.horde.org/ticket/?id=168).
+* Several bug fixes to listFolders() method in SQL drivers.
+* A PEAR Log object can now be specified for logging messages to.
+* Added getParam() method.
+* Allow recursive listings in listFolder().
+* Several fixes with zero length files.
+* Fixed autocreating of directories and updating of existing files in the sql_file VFS driver (http://bugs.horde.org/ticket/?id=1552, http://bugs.horde.org/ticket/?id=1553).
+* Added SQL scripts to create tables for SQL backends.
+    </notes>
+   </release>
+   <release>
+    <version>0.0.4</version>
+    <date>2003-09-09</date>
+    <state>beta</state>
+    <notes>* Default ftp driver to port 21.
+* Distinguish between connection and authentication errors in the ftp driver.
+* Clean up temporary files if the FTP driver wasn't able to retrieve a file.
+* Add exists() method.
+* Add emptyFolder() method.
+* Add $recursive parameter to all deleteFolder() implementations.
+* Add FTPS support.
+    </notes>
+   </release>
+   <release>
+    <version>0.0.3</version>
+    <date>2003-07-03</date>
+    <state>beta</state>
+    <notes>Added a class for providing garbage collection; removed all Horde dependancies.
+    </notes>
+   </release>
+   <release>
+    <version>0.0.2</version>
+    <date>2002-10-22</date>
+    <state>alpha</state>
+    <notes>Added an ObjectVFS wrapper class, returns a ListItem on each call to listFolder, until no items are left.
+    </notes>
+   </release>
+   <release>
+    <version>0.0.1</version>
+    <date>2002-09-24</date>
+    <state>alpha</state>
+    <notes>Initial release as a PEAR package
+    </notes>
+   </release>
+ </changelog>
+</package>

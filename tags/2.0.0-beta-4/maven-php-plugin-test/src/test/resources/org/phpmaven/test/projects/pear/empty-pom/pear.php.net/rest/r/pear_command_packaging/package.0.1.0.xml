@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.7" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>PEAR_Command_Packaging</name>
+ <channel>pear.php.net</channel>
+ <summary>make-rpm-spec command for managing RPM .spec files for PEAR packages</summary>
+ <description>This command is an improved implementation of the standard makerpm command,
+  and contains several enhancements that make it far more flexible. Similar 
+  functions for other external packaging mechanisms may be added at a later date.
+
+  Enhanced features over the original PEAR &quot;makerpm&quot; command include:
+  
+  - Ability to define a release on the command line
+  - Allows more advanced customisation of the generated package name
+  - Allows virtual Provides/Requires that differ in format from the package name
+    format 
+  - tries to intelligently distinguish between PEAR and PECL when generating 
+    packages</description>
+ <lead>
+  <name>Tim Jackson</name>
+  <user>timj</user>
+  <email>timj@php.net</email>
+  <active>yes</active>
+ </lead>
+ <helper>
+  <name>Greg Beaver</name>
+  <user>cellog</user>
+  <email>cellog@php.net</email>
+  <active>yes</active>
+ </helper>
+ <date>2006-02-28</date>
+ <time>16:32:22</time>
+ <version>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.php.net/license">PHP License</license>
+ <notes>Initial release</notes>
+ <contents>
+  <dir baseinstalldir="PEAR/Command" name="/">
+   <file baseinstalldir="PEAR/Command" md5sum="23fe1fb74434bca4df53cd35a7e1b2f3" name="Packaging.xml" role="php" />
+   <file baseinstalldir="PEAR/Command" md5sum="56f1223fd794e073f735221c0b1de13e" name="Packaging.php" role="php">
+    <tasks:replace from="@DATA-DIR@" to="data_dir" type="pear-config" />
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PEAR/Command" md5sum="e4bc344db143c9f6bc728e56559d034d" name="template.spec" role="data" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.2</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.7</min>
+   </pearinstaller>
+   <package>
+    <name>PEAR</name>
+    <channel>pear.php.net</channel>
+    <min>1.4.7</min>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-02-28</date>
+   <license uri="http://www.php.net/license/3_0.txt">PHP License</license>
+   <notes>Initial release</notes>
+  </release>
+ </changelog>
+</package>

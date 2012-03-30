@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Auth_HTTP</name>
+  <summary>HTTP authentication</summary>
+  <description>The PEAR::Auth_HTTP class provides methods for creating an HTTP
+authentication system using PHP, that is similar to Apache's
+realm-based .htaccess authentication.</description>
+  <maintainers>
+    <maintainer>
+      <user>gurugeek</user>
+      <name>David Costa</name>
+      <email>gurugeek@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>hirokawa</user>
+      <name>Rui Hirokawa</name>
+      <email>hirokawa@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>2.1.3rc1</version>
+    <date>2004-08-22</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>- fixed incompatibility problem with Auth 1.2.x.</notes>
+    <deps>
+      <dep type="pkg" rel="ge" version="1.2.0">Auth</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="Auth" install-as="HTTP.php" name="Auth_HTTP.php"/>
+      <file role="test" baseinstalldir="Auth/HTTP" name="tests/sample.sql"/>
+      <file role="test" baseinstalldir="Auth/HTTP" name="tests/test_basic_simple.php"/>
+      <file role="test" baseinstalldir="Auth/HTTP" name="tests/test_digest_simple.php"/>
+      <file role="test" baseinstalldir="Auth/HTTP" name="tests/test_digest_get.php"/>
+      <file role="test" baseinstalldir="Auth/HTTP" name="tests/test_digest_post.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>2.1.3rc1</version>
+      <date>2004-08-22</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>- Fixed a bug #2061 (importglobalvariable() was removed in Auth 1.3.0r2.)
+- now Auth_HTTP requires Auth &gt;= 1.3.0r2.
+</notes>
+    </release>
+    <release>
+      <version>2.1.1</version>
+      <date>2004-07-12</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>- Fixed a bug #1634 (URI parameter was handled incorrectry.)
+</notes>
+    </release>
+    <release>
+      <version>2.1.0</version>
+      <date>2004-05-30</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>- Added _sessionName which fixes a major issue with realm sharing.
+- Added sessionSharing option to use unique session id.
+  Currently, this option is set to true by default to maintain
+  backward compatibility.
+- Added setOption and getOption to set/get option value.
+- Starting with this release, HTTP Digest Authentication (RFC2617) is
+  experimentally supported. The code for HTTP Digest Authentication is 
+  originally developed by Tom Pike.
+</notes>
+    </release>
+    <release>
+      <version>2.0</version>
+      <date>2003-10-16</date>
+      <state>stable</state>
+      <notes>Starting with this release, the code will not be placed in
+Auth_HTTP/Auth_HTTP.php anymore. Instead Auth/HTTP.php is used, which
+conforms to the PEAR standards.
+In order to make use of the new version, you will need to change your
+scripts to include the file at the new location! The old version in
+Auth_HTTP/Auth_HTTP.php will not be removed when upgrading.
+Other changes:
+ authentication credentials. (Patch by: Marko Karppinen)
+</notes>
+    </release>
+    <release>
+      <version>1.0</version>
+      <date>2001-08-23</date>
+      <state>stable</state>
+      <notes>This is the initial independent release of the Auth_HTTP package.
+</notes>
+    </release>
+  </changelog>
+</package>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>XML_SaxFilters</name>
+  <summary>A framework for building XML filters using the SAX API</summary>
+  <description>XML_SaxFilters provides a foundation for using Sax filters in PHP.
+The original code base was developed by Luis Argerich and published at
+phpxmlclasses.sourceforge.net/show_doc.php?class=class_sax_filters.html.
+Luis discussed how SaxFilters work, using the Sourceforge classes as
+an example, in Chapter 10 of Wrox &quot;PHP 4 XML&quot;.
+
+Luis kindly gave permission to modify the code and license for
+inclusion in PEAR.
+
+This version of the Sax Filters makes significant changes to Luis's
+original code (backwards compatibility is definately broken), seperating
+abstract classes from interfaces, providing interfaces for data readers
+and writers and providing methods to help parse XML documents recursively
+with filters (for example AbstractFilter::setParent()) for documents where
+the structure can vary significantly.
+
+Sax Filtering is an approach to making parsing XML documents with Sax modular
+and easy to maintain. The parser delegates events to a child filter which may
+in turn delegate events to another filter. In general it's possible to implement
+filters for a document which are as flexible and powerful as DOM.
+
+For some discussions on Sax filtering try;
+
+http://www.cafeconleche.org/books/xmljava/chapters/ch08.html (Java)
+http://www-106.ibm.com/developerworks/xml/library/x-tipsaxflex.html (Python)
+http://www.xml.com/pub/a/2001/10/10/sax-filters.html (Perl)
+
+The API provided by XML_SaxFilters is a little different from that commonly
+used in other languages, providing the concepts of &quot;parent&quot; and &quot;child&quot;.
+A parent of the current filter is the filter (or parser) &quot;upsteam&quot; which
+receive XML event notifications before the current filter.
+A &quot;child&quot; is a filter &quot;downstream&quot; of the current filter (or parser) to
+which XML events are delegated.
+The top of the &quot;family tree&quot; of filters is always the parser itself, which
+can have children but cannot have parents. Filters can have parents and
+children.
+The parsers themselves never handle any XML events personally but always
+delegate to a filter.
+The parser accepts an object implementing the reader interface from which
+it streams the XML.
+The filters can be given an object implementing the writer interface
+to write output to.
+
+For an example of SAX filters in action with PHP try;
+
+http://www.phppatterns.com/index.php/article/articleview/48/1/2/
+(example uses Luis Argerich original Sax Filters).</description>
+  <maintainers>
+    <maintainer>
+      <user>hfuecks</user>
+      <name>Harry Fuecks</name>
+      <email>hfuecks@phppatterns.com</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.1.0</version>
+    <date>2003-06-25</date>
+    <license>PHP</license>
+    <state>beta</state>
+    <notes>To use the HTMLSaxParser provided by XML_SaxFilters you need to install
+PEAR::XML_HTMLSax.</notes>
+    <deps>
+      <dep type="php" rel="ge" version="4.1.0"/>
+    </deps>
+    <filelist>
+      <file role="doc" baseinstalldir="XML" md5sum="87becd5ce23db0be12fe794bd827175d" name="docs/Readme"/>
+      <file role="doc" baseinstalldir="XML" md5sum="aabaed99aff0839d170ee5884df8ba12" name="docs/SaxFiltersGuide"/>
+      <file role="php" baseinstalldir="XML" md5sum="cf53a128265efd29b3e0c28713a7f2ce" name="XML_SaxFilters.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="6cf79a751cc7d62a66bda7984dd81219" name="SaxFilters/AbstractFilter.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="6ce0975ed3e1d776be17efbc6482e417" name="SaxFilters/AbstractParser.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="88ca956ff1206bb10f499da6f2bd0e24" name="SaxFilters/ExpatParser.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="5dc46d4d2b29aa5469209fa8a1b05080" name="SaxFilters/FileReader.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="e4a7dccc8a5561b064b3f38af2b759fa" name="SaxFilters/FileWriter.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="5218c95ded67c5f04d91332555f62235" name="SaxFilters/FilterInterface.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="071ced79f3d07cd4c51b61c9a95faae1" name="SaxFilters/HTMLSaxParser.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="24645283a0b92739986ca7bcd733e8c2" name="SaxFilters/ParserInterface.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="8ce6f50b6c29a17b128618b98f82f89f" name="SaxFilters/ReaderInterface.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="0fe7d977743d72816dc9adb3d63e57df" name="SaxFilters/StringReader.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="3a4485f3a5a6e0e60efd46a4e113173c" name="SaxFilters/StringWriter.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="4411544d82ab094185d6c1f581941fb8" name="SaxFilters/StructReader.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="07466e1f84c459b71e130e257e1d1777" name="SaxFilters/StructWriter.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="edc21ff6647076787da2528241ab9293" name="SaxFilters/WriterInterface.php"/>
+      <file role="doc" baseinstalldir="XML" md5sum="348ddbafe5e077414ed76817173362a4" name="docs/examples/compiled_template.php"/>
+      <file role="doc" baseinstalldir="XML" md5sum="3922f3cb398d6661c41ea4bed4543d07" name="docs/examples/founding_fathers.html"/>
+      <file role="doc" baseinstalldir="XML" md5sum="cc950b95c17a86a1315422e5b37a77cb" name="docs/examples/founding_fathers.xml"/>
+      <file role="doc" baseinstalldir="XML" md5sum="fc31ef61d2ee635bd633c8cb46614b2d" name="docs/examples/page_template.tpl"/>
+      <file role="doc" baseinstalldir="XML" md5sum="d72339014cf9a2d97beddd0a018c275c" name="docs/examples/rssfilter.php"/>
+      <file role="doc" baseinstalldir="XML" md5sum="8af00caa4d3eec98e15f5f2a9068b5ac" name="docs/examples/simple.php"/>
+      <file role="doc" baseinstalldir="XML" md5sum="dbc28b6c3b52709a18a7f269e852407b" name="docs/examples/template.php"/>
+      <file role="doc" baseinstalldir="XML" md5sum="f5611cebeca2a9ae6f315d012e658eb8" name="docs/examples/xml2html.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.9.0</version>
+      <date>2003-06-22</date>
+      <state>beta</state>
+      <notes>Haven't completely unit tested this release yet.
+
+</notes>
+    </release>
+  </changelog>
+</package>

@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.6.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>HTML_CSS</name>
+ <channel>pear.php.net</channel>
+ <summary>HTML_CSS is a class for generating CSS declarations.</summary>
+ <description>HTML_CSS provides a simple interface for generating a stylesheet declaration.
+It is completely standards compliant, and has some great features:
+* Simple OO interface to CSS definitions
+* Can parse existing CSS (string or file)
+* Output to
+    - Inline stylesheet declarations
+    - Document internal stylesheet declarations
+    - Standalone stylesheet declarations
+    - Array of definitions
+    - File
+
+In addition, it shares the following with HTML_Common based classes:
+* Indent style support
+* Line ending style</description>
+ <lead>
+  <name>Laurent Laville</name>
+  <user>farell</user>
+  <email>pear@laurent-laville.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Klaus Guenther</name>
+  <user>thesaur</user>
+  <email>klaus@capitalfocus.org</email>
+  <active>no</active>
+ </lead>
+ <date>2007-12-14</date>
+ <time>00:16:04</time>
+ <version>
+  <release>1.4.0</release>
+  <api>1.4.0</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+ <notes>* changes
+- removed old class (private) properties related to options ($_xhtmlCompliant,
+  $_cache, $_singleLine, $_charset, $_contentDisposition, $_groupsFirst,
+  $_allowDuplicates), now group by in a private array $options.
+- added class constructor (ZE2) for PHP5.
+- Error handler allow now to use PEAR_ERROR_CALLBACK to customize action
+  (log yes/no, print yes/no) when an error/exception is raised.
+- remove trailing EOL in toString() output (with oneline option set to true)
+
+* news
+- API 1.4.0 allow now a setter/getter PHP5 facility compatible
+  (magic function __set, __get) for read/write CSS options.
+
+* QA
+- PHP minimum set to 4.3.0
+- PEAR installer minimum set to 1.5.4 (to avoid security vulnerability)
+- Coding Standard fixes (recommandation by PHP_CodeSniffer)
+- tests suite migrated from PHPUnit 1.x to 3.x
+- User Guide 1.4.0 included in this release cover all versions
+1.x.x, 1.1.x, 1.2.x, 1.3.x, 1.4.x</notes>
+ <contents>
+  <dir baseinstalldir="HTML" name="/">
+   <file baseinstalldir="HTML" md5sum="fb61496c23da7dd1b514b5331299f9ce" name="CSS/Error.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="HTML" md5sum="342e95befbb0f584494171392412fcbf" name="docs/TDG/img/admons/caution.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="35141eb4af645587add91414843b7c92" name="docs/TDG/img/admons/important.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="1c348618a4bc617acc4ae72a5ef323dd" name="docs/TDG/img/admons/note.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="e34b78eb63e49c94ba7f4c9463f5c128" name="docs/TDG/img/admons/tip.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="bc599bf850e13c3176ec8770b4792895" name="docs/TDG/img/admons/warning.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="04eb71bf68f7b18af80f0f533e5e6211" name="docs/TDG/img/created-with-docbook.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="1003149b5096c511dadba6bf938aa53a" name="docs/TDG/img/example.png" role="doc" />
+   <file baseinstalldir="HTML" md5sum="03a644220a5ce2445cdfd1225fa12d8d" name="docs/TDG/img/external-link.gif" role="doc" />
+   <file baseinstalldir="HTML" md5sum="1f0ca8116ffeafac272a3f1a8325e408" name="docs/TDG/img/pearsmall.gif" role="doc" />
+   <file baseinstalldir="HTML" md5sum="d8fd034ba06e54cf5998d40af58d80ff" name="docs/TDG/img/rule.gif" role="doc" />
+   <file baseinstalldir="HTML" md5sum="9a4df20c97aee8b3b2d008a25aa66f37" name="docs/TDG/book.css" role="doc" />
+   <file baseinstalldir="HTML" md5sum="b6f44cab90e4151449dadad642447411" name="docs/TDG/ch01.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="4de52ff89b00fa08dcec7c260dc4c1e3" name="docs/TDG/ch01s02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="a917c7be4ee2ac5500883ba606f8e094" name="docs/TDG/ch01s03.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="6c6e8a53e02ed6054db915191b6cedf8" name="docs/TDG/ch02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="4448b826078d860a8402c78ce24dd132" name="docs/TDG/ch02s02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="0d07efb978d182f8a3aac163475fdb22" name="docs/TDG/ch02s03.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="9bcee561903c78fb416d3637184df912" name="docs/TDG/ch02s04.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="117a38cf823120b5ce23a48446d76b5f" name="docs/TDG/ch02s05.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="a5b5a88e694ed320b7a0cda472a5c866" name="docs/TDG/ch02s06.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="672198cb4e47d63ba0aab7b4db2350b8" name="docs/TDG/ch02s07.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="2c39990d3dc8223f528adce16dd625a7" name="docs/TDG/ch03.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="cfa3711c61baf7717a52c3a67fb41d02" name="docs/TDG/ch04.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="7cf6f53c0d512bacd8e45e1a9b4bf1da" name="docs/TDG/ch04s02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="3ee2ae20a83288afeb498f92f14c1ce8" name="docs/TDG/ch05.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="d29efacf438cb8176077d664ad18f469" name="docs/TDG/ch05s02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="88d594bd1bd3d414e971053af3d66a1a" name="docs/TDG/ch05s03.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="d480c3edf936f65368121aff23dd2a17" name="docs/TDG/ch06.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="3547f00f55008fc13f06a0126a5b8eb8" name="docs/TDG/ch06s02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="c346ec799c06e5fcbe6eade2a13232a2" name="docs/TDG/ch06s03.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="1a80260dfac7b11cfb4f6cf44fe03c0c" name="docs/TDG/ch06s04.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="ad2929dfd55d693401b10870ac1436cd" name="docs/TDG/ch06s05.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="4d389cafdfd7e685324149993ea5467a" name="docs/TDG/ch07.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="4bbfeab9db6a75231913785586527d26" name="docs/TDG/ch07s02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="44e8e2c3c93bc55744694bed5945e7f0" name="docs/TDG/ch07s03.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="06459b02f6e6ba45411954492d509a51" name="docs/TDG/ch07s04.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="3c90c707cafa6279ec94a43949b4284f" name="docs/TDG/ch07s05.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="363c76aa111136298f634126342e4c3e" name="docs/TDG/ch07s06.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="4c9527106a28ccffe1b75bff092daf33" name="docs/TDG/ch08.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="57bb9f715f1d646c06ab8578a4e502d9" name="docs/TDG/ch08s02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="9cf73fbadb95161a3ed95b33bc2fe57f" name="docs/TDG/ch08s03.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="e1ee52b628f0af6681b2b8dd6cd0c34b" name="docs/TDG/ch09.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="ad88b1ccc4687ec29b2830d4e796b12f" name="docs/TDG/ch09s02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="63a439eba851387f1d98224ad01f599a" name="docs/TDG/ch09s03.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="a9028373080f9b11b6319ab4082a55d2" name="docs/TDG/ch09s04.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="6b2a9288f240c26ebb86e0e5ac3d838f" name="docs/TDG/ch09s05.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="a02e19b1c5bbb3584350fc53762c5f86" name="docs/TDG/ch09s06.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="666f03e43aeaf4a1039845bd43f15b9c" name="docs/TDG/ch10.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="2413a8faa06a8fb0a159eb7557c77c99" name="docs/TDG/ch10s02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="3d662ac8577a8d2ff0ce1abcb6579de5" name="docs/TDG/ch10s03.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="b3a80fb8793be8ef4205033b98f0c55c" name="docs/TDG/ch10s04.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="af193134c4c9a0de00b724e016cdcb29" name="docs/TDG/ch10s05.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="40afa6b482b45bdf5e9f5f75dbb7b805" name="docs/TDG/ch11.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="ccc96b9a74ea46ee022d26ec04963025" name="docs/TDG/ch11s02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="edd695a1f774b478670bb76fd31ec2bc" name="docs/TDG/ch11s03.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="034ea084d04306014bb615b75c789214" name="docs/TDG/index.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="73d39e615c275d2c02bf0699c816db14" name="docs/TDG/pr01.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="3c1dfcb39bb7fbc1da90eec1a8d9099c" name="docs/TDG/pr01s02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="3e5cbd05bf844063666624967261d183" name="docs/TDG/pt01.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="b26aa7a81fa6c01e5c3267df67ea997b" name="docs/TDG/pt02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="adc8f7e472664c770a75a73638b61d64" name="docs/TDG/pt03.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="8863bc7b11de54575939db0aafb5a11d" name="docs/TDG/pt04.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="a3a38352f1934208179ba324be8a2450" name="docs/TDG/re01.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="00b0f8cfea47a9ebf0dc879bfe590cc6" name="docs/TDG/re02.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="ce2ed9363989ff526f6ac0d7da4fa33b" name="docs/TDG/re03.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="5fe587a3928e5a4cca1c404e6a4432c2" name="docs/TDG/re04.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="4cd16566d51f127551532d36b5b5615b" name="docs/TDG/re05.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="ec4f303b72c08d5dd6ee9e7c141a5fd2" name="docs/TDG/re06.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="a139eb4a5b32e0b0eedc2fefef374a25" name="docs/TDG/re07.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="15543ec0e94d8fe8450c60a7da6168de" name="docs/TDG/re08.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="04716af52af0ac391787feb7127d9ba1" name="docs/TDG/re09.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="80894dc29c311946ebae138d27cecc18" name="docs/TDG/re10.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="512b88dae618b36502b57f597fe274c3" name="docs/TDG/re11.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="5163282ca3859bd47817d2d819529545" name="docs/TDG/re12.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="ae0e8c4fa7bd15c150859ead61dc724b" name="docs/TDG/re13.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="0049a4bc52066628066d87e490c2f4b1" name="docs/TDG/re14.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="0c9bf422a7d81037ea19dee370996310" name="docs/TDG/re15.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="b69441bc2c9d4dfd7763f5732a044bbd" name="docs/TDG/re16.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="eb53122d4f6ff5cce613fa4106fea0e7" name="docs/TDG/re17.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="7a99894b858d512b00627272062434ce" name="docs/TDG/re18.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="b20934ca2978d6f4b270fe45801b3734" name="docs/TDG/re19.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="349d0ca2ce56233bb01dd881e1186174" name="docs/TDG/re20.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="aac1bcf8332b191dd5c3686f41f6186d" name="docs/TDG/re21.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="44faed3fe6a07e20202b5c404cd7b7c9" name="docs/TDG/re22.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="c5c81a9ad20476c62b3765011cc8629a" name="docs/TDG/re23.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="4a7fcc1b64059387f012cdf1a3744eec" name="docs/TDG/re24.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="66a66ce0da58fd1f326d6dc9af587910" name="docs/TDG/re25.html" role="doc" />
+   <file baseinstalldir="HTML" md5sum="cafc1ffa9662741c5c154df153d14de5" name="examples/CSS_Advanced.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="81ea6fd69e25869556afe28c5111ef64" name="examples/CSS_DisplayOnline.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="107b912e2cee1f82e9bd655441836d76" name="examples/css_errorstack_custom.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="8c02798f745a8fb9994eaeb1198ffde1" name="examples/css_errorstack_logger.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="8a8569dd65272625b15a25090a892383" name="examples/css_error_custom.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="870244c42a6e71b1c5cd9520c23ef472" name="examples/css_error_ignore.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="478d7ccf9bd0922941214d3201db768a" name="examples/css_error_logger.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="e6d3506cdcb9371967da777366acaf44" name="examples/CSS_grepStyles.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="98b237b689e0bc13a0c669a4f0df1172" name="examples/CSS_InHeader.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="3efa535ab2695711cba846a54925f616" name="examples/CSS_Inline.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="afca5f58fe986eca52e64243f432a0c4" name="examples/CSS_Logger.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="35755df8f93946292d70496855353c61" name="examples/CSS_parseData.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="ac7326f2216ee99b5409ce3a41e693d7" name="examples/CSS_Stylesheet.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="5c393b873bf7ca51ef6e91da362089c9" name="tests/AllTests.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="HTML" md5sum="bd0ac533e29bc62cdbdce068569d91b8" name="tests/HTML_CSS_TestSuite_Bugs.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="HTML" md5sum="e29984788f5243b77d52ae118815cfbd" name="tests/HTML_CSS_TestSuite_Standard.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="HTML" md5sum="44be5c6f33b217d75eacf2935a0f4a1f" name="tests/stylesheet.css" role="test" />
+   <file baseinstalldir="HTML" md5sum="9465f7607325c06ed11e0954802666f5" name="ChangeLog" role="doc" />
+   <file baseinstalldir="HTML" md5sum="848f228b28ed5592dbacc0ec38f9345f" name="CSS.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+    <tasks:replace from="@api_version@" to="api-version" type="package-info" />
+   </file>
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.5.4</min>
+   </pearinstaller>
+   <package>
+    <name>HTML_Common</name>
+    <channel>pear.php.net</channel>
+    <min>1.2.4</min>
+   </package>
+  </required>
+  <optional>
+   <package>
+    <name>PEAR</name>
+    <channel>pear.php.net</channel>
+   </package>
+  </optional>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>1.4.0</release>
+    <api>1.4.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-12-14</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>* changes
+- removed old class (private) properties related to options ($_xhtmlCompliant,
+  $_cache, $_singleLine, $_charset, $_contentDisposition, $_groupsFirst,
+  $_allowDuplicates), now group by in a private array $options.
+- added class constructor (ZE2) for PHP5.
+- Error handler allow now to use PEAR_ERROR_CALLBACK to customize action
+  (log yes/no, print yes/no) when an error/exception is raised.
+- remove trailing EOL in toString() output (with oneline option set to true)
+
+* news
+- API 1.4.0 allow now a setter/getter PHP5 facility compatible
+  (magic function __set, __get) for read/write CSS options.
+
+* QA
+- PHP minimum set to 4.3.0
+- PEAR installer minimum set to 1.5.4 (to avoid security vulnerability)
+- Coding Standard fixes (recommandation by PHP_CodeSniffer)
+- tests suite migrated from PHPUnit 1.x to 3.x
+- User Guide 1.4.0 included in this release cover all versions
+1.x.x, 1.1.x, 1.2.x, 1.3.x, 1.4.x</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.0</release>
+    <api>1.3.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-10-22</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>* changes
+- prevent invalide CSS data source in to parse
+
+* news
+- add Content-Disposition to the headers in display(); implement request #12195
+
+* QA
+User Guide 1.3.0 included in this release cover all versions 1.x.x, 1.1.x, 1.2.x, 1.3.x</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.0</release>
+    <api>1.2.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-06-12</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>* changes
+- No code changes since previous release, but license changed
+from PHP 3.01 to new BSD (give more freedom)
+
+* QA
+User Guide 1.2.0 included in this release cover all versions 1.x.x, 1.1.x, 1.2.x</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.3</release>
+    <api>1.1.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-02-18</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+   <notes>* bugs
+- fixed typo error in &quot;oneline&quot; attribute used with class constructor (Bug #10103)
+
+* QA
+User Guide 1.1.3 included in this release cover all versions 1.x.x, 1.1.x</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.2</release>
+    <api>1.1.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-01-03</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+   <notes>* bugs
+- fixed error into grepStyle() method : conflict between goup (alibis) and simple element
+
+* QA
+User Guide 1.1.0 included in this release cover also versions 1.1.1 and 1.1.2 (bug fixes)</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-01-01</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+   <notes>* bugs
+- it was impossible to use isError() in cascade with version 1.1.0
+- fixed version number on license declared and used in CSS.php file</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.0</release>
+    <api>1.1.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-12-30</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+   <notes>* news
+- add new feature : ability to search if an element/property is defined or not
+- upgraded copyright notice to new year 2007
+
+* QA
+- add new example CSS_grepStyles.php for function grepStyle()
+- include a new revision of User Guide (TDG).
+  see http://pear.laurent-laville.org/HTML_CSS for more format to download.</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-12-21</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+   <notes>- fix a bug with HTML_CSS::isError() method
+- drop support of package xml 1.0; Now we must have at least PEAR 1.4.3
+- License change from PHP 3.0 to PHP 3.01</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-06-24</date>
+   <license uri="http://www.php.net/license/3_0.txt">PHP License 3.0</license>
+   <notes>After 2 releases candidate and no bug reported since 6 months, it&apos;s time to build the final stable version 1.0.0
+
+* Improvements
+- add @ignore phpdoc tag in all unit tests to hide them in API doc generation.
+- introduces package xml 2.0
+
+* Quality Assurance
+- header comment blocks were updated (copyright dates, ...)
+- include a user-guide in html format (others format to download on http://pear.laurent-laville.org/HTML_CSS/docs)</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC2</release>
+    <api>1.0.0RC2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2005-12-15</date>
+   <license uri="http://www.php.net/license/3_0.txt">PHP License 3.0</license>
+   <notes>New features:
+- parseData() : Ability to parse multiple data sources (filename, string) at once
+- isError() : Tell whether a value return by HTML_CSS is an error.
+
+See new script:  examples/CSS_parseData.php</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC1</release>
+    <api>1.0.0RC1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2005-07-26</date>
+   <license uri="http://www.php.net/license/3_0.txt">PHP License 3.0</license>
+   <notes>New features:
+- PEAR_ErrorStack was replaced by a simple way to plug in any error handling system you might want (default used PEAR_Error object)
+- Duplicate properties can now be allowed.
+
+Bug fixes
+- Allows to fix a HTML_Progress problem (bug #2784)
+- Inappropriate style rule reordering (bug #3920)
+
+Changes
+- Removes PEAR_ErrorStack and Log packages dependencies
+- All unitTests are now fully PEAR_Error compatible
+- apiVersion() returns now a string rather than a float; compatible with php.version_compare()
+- createGroup() always returns a value now
+- parseSelectors() status goes from public to protected
+- collapseInternalSpaces() status goes from public to protected
+- setSameStyle() is now optimized and single old reference is removed from CSS declarations
+- toArray reimplemented (API changed if duplicates allowed)
+
+Quality Assurance
+- Updates headers comment block on all files</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.4.0</release>
+    <api>0.4.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-11-21</date>
+   <license uri="http://www.php.net/license/3_0.txt">PHP License 3.0</license>
+   <notes>New features:
+* Removes PEAR_ErrorStack and Log packages dependencies
+* Uses the basic error handler PEAR_Error (see examples/CSS_Logger.php)
+
+Bug fixes
+* Allows to fix a HTML_Progress problem (see bug #2784)
+
+Changes
+* Adds testcase for setXhtmlCompliance API
+* All unitTests are now fully PEAR_Error compatible
+
+Quality Assurance
+* This release follows the rules defined at
+* http://pear.php.net/group/docs/20040226-vn.php</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.3.4</release>
+    <api>0.3.4</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-05-21</date>
+   <license uri="http://www.php.net/license/3_0.txt">PHP License 3.0</license>
+   <notes>New features:
+* Added testcases for all bugs (Laurent)
+
+Bugfixes:
+* Added dependency on PEAR 1.3.1 or greater (necessary for error handling)
+* Compatibility fix for PHP5 in parseSelectors
+* Now parseSelectors correctly divides selectors with IDs (output mode 2)</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.3.3</release>
+    <api>0.3.3</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-05-20</date>
+   <license uri="http://www.php.net/license/3_0.txt">PHP License 3.0</license>
+   <notes>New features:
+* New error implementation (PEAR_Error_Stack) (Laurent)
+* Added more testcases (Laurent)
+* Output definitions on single line
+
+Bugfixes:
+* #1072 (incomplete internal inheritance support in parseString and getStyle)
+* #1084 (parseSelectors unable to handle inheritance)</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.3.2</release>
+    <api>0.3.2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-03-24</date>
+   <license uri="http://www.php.net/license/3_0.txt">PHP License 3.0</license>
+   <notes>New features:
+* setXhtmlCompliance(bool)
+    Determines whether elements are automatically lowercased
+    for XHTML compliance. May also be passed to class constructor
+    as array element &apos;xhtml&apos;.
+* Selectors are now properly parsed to ensure compliance
+
+Bugfixes:
+* #725  (Elements differentiated because of whitespace)
+* #998  (parseString failure to parse property value when it contained a colon)
+* #1066 (Trim property values in parseString)</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.3.1</release>
+    <api>0.3.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2003-11-03</date>
+   <license uri="http://www.php.net/license/3_0.txt">PHP License 3.0</license>
+   <notes>Warning:
+Major BC break!
+
+License change:
+Now PHP License 3.0
+
+New features:
+* Parse CSS from string (Laurent)
+* Read and parse CSS from file (Laurent)
+* Retrieve the settings of individual properties (Laurent)
+* Fully redesigned group handling
+* Output to file
+* Error handling introduced (Laurent)
+* Added unit tests (Laurent)
+
+Bugfixes:
+* Fixed setSameStyle functionality</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.3.0</release>
+    <api>0.3.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2003-11-03</date>
+   <license uri="http://www.php.net/license/3_0.txt">PHP License 3.0</license>
+   <notes>Warning:
+Major BC break!
+
+License change:
+Now PHP License 3.0
+
+New features:
+* Parse CSS from string (Laurent)
+* Read and parse CSS from file (Laurent)
+* Retrieve the settings of individual properties (Laurent)
+* Fully redesigned group handling
+* Output to file
+* Error handling introduced (Laurent)
+* Added unit tests (Laurent)
+
+Bugfixes:
+* Examples updated</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2003-07-31</date>
+   <license uri="http://www.php.net/license/2_02.txt">PHP License 2.02</license>
+   <notes>It is completely standards compliant, and has some great features:
+* Inline stylesheet declarations
+* Document internal stylesheet declarations
+* Standalone stylesheet declarations
+
+In addition, it shares the following with HTML_Common based classes:
+* Indent style support
+* Line ending style</notes>
+  </release>
+ </changelog>
+</package>

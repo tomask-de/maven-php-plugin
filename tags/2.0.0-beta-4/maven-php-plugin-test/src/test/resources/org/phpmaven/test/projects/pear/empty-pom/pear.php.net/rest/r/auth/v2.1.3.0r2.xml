@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release2
+    http://pear.php.net/dtd/rest.release2.xsd">
+ <p xlink:href="/rest/p/auth">Auth</p>
+ <c>pear.php.net</c>
+ <v>1.3.0r2</v>
+ <a>1.3.0r2</a>
+ <mp>4.3.0</mp>
+ <st>beta</st>
+ <l>PHP License</l>
+ <m>yavo</m>
+ <s>Creating an authentication system.</s>
+ <d>The PEAR::Auth package provides methods for creating an authentication
+system using PHP.
+
+Currently it supports the following storage containers to read/write
+the login data:
+
+* All databases supported by the PEAR database layer
+* All databases supported by the MDB database layer
+* All databases supported by the MDB2 database layer
+* Plaintext files
+* LDAP servers
+* POP3 servers
+* IMAP servers
+* vpopmail accounts
+* RADIUS
+* SAMBA password files
+* SOAP
+</d>
+ <da>2004-07-04 13:20:29</da>
+ <n>* Moved login screen generation code to Auth/Frontend/Html.php 
+  In the future the frontend will be configurable.
+* Implemented support for Challenge / Responce password authenthication
+  have to enable advanced security $auth-&gt;setAdvancedSecurity
+  will work only with DB container and cryptType = none|md5
+* Implemented setAllowLogin to control which pages are allowed to perform login, 
+  to preservce BC. Previusly the showLogin flag was used to control this - yavo
+* Implmented lazy loading for the storage constructor, constructor is only created when needed
+  to make Auth more lightweight (this might be adding a bit more overhead to login and usermanagement functions)
+* Removed include of PEAR, was not used anywhare in Auth.php
+* Created a new storage container DBLite same as DB but with the user manipulation functions removed (50% smaller)
+* Added a new method staticCheckAuth which can be called statically with only the auth options
+* Auth::importGlobalVariable method was removed and replaced by references to global variables
+* Removed all calls to $session[$this-&gt;_sessionName], made local reference session point to that instead
+* Changed call_user_func to call_user_func_array for the callbacks, to avoid using @ for passing variables by reference
+* Code Cleanup, removed most vi comments</n>
+ <f>34211</f>
+ <g>http://pear.php.net/get/Auth-1.3.0r2</g>
+ <x xlink:href="package.1.3.0r2.xml"/>
+</r>

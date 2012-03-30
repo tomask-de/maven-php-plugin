@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.5">
+ <name>HTML_CSS</name>
+ <summary>HTML_CSS is a class for generating CSS declarations.</summary>
+ <description>HTML_CSS provides a simple interface for generating a stylesheet declaration.
+It is completely standards compliant, and has some great features:
+* Simple OO interface to CSS definitions
+* Can parse existing CSS (string or file)
+* Output to
+    - Inline stylesheet declarations
+    - Document internal stylesheet declarations
+    - Standalone stylesheet declarations
+    - Array of definitions
+    - File
+
+In addition, it shares the following with HTML_Common based classes:
+* Indent style support
+* Line ending style
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>thesaur</user>
+   <name>Klaus Guenther</name>
+   <email>klaus@capitalfocus.org</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>farell</user>
+   <name>Laurent Laville</name>
+   <email>pear@laurent-laville.org</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>1.0.0RC2</version>
+  <date>2005-12-15</date>
+  <license>PHP License 3.0</license>
+  <state>beta</state>
+  <notes>New features:
+- parseData() : Ability to parse multiple data sources (filename, string) at once
+- isError() : Tell whether a value return by HTML_CSS is an error.
+
+See new script:  examples/CSS_parseData.php
+  </notes>
+  <deps>
+   <dep type="pkg" rel="has" optional="no">PEAR</dep>
+   <dep type="pkg" rel="ge" version="1.2" optional="no">HTML_Common</dep>
+  </deps>
+  <provides type="class" name="HTML_CSS_Error" extends="PEAR_Error" />
+  <provides type="function" name="HTML_CSS_Error::getLevel" />
+  <provides type="function" name="HTML_CSS_Error::log" />
+  <provides type="function" name="HTML_CSS_Error::sprintContextExec" />
+  <provides type="class" name="HTML_CSS" extends="HTML_Common" />
+  <provides type="function" name="HTML_CSS::apiVersion" />
+  <provides type="function" name="HTML_CSS::setSingleLineOutput" />
+  <provides type="function" name="HTML_CSS::setOutputGroupsFirst" />
+  <provides type="function" name="HTML_CSS::parseSelectors" />
+  <provides type="function" name="HTML_CSS::collapseInternalSpaces" />
+  <provides type="function" name="HTML_CSS::setXhtmlCompliance" />
+  <provides type="function" name="HTML_CSS::createGroup" />
+  <provides type="function" name="HTML_CSS::unsetGroup" />
+  <provides type="function" name="HTML_CSS::setGroupStyle" />
+  <provides type="function" name="HTML_CSS::getGroupStyle" />
+  <provides type="function" name="HTML_CSS::addGroupSelector" />
+  <provides type="function" name="HTML_CSS::removeGroupSelector" />
+  <provides type="function" name="HTML_CSS::setStyle" />
+  <provides type="function" name="HTML_CSS::getStyle" />
+  <provides type="function" name="HTML_CSS::setSameStyle" />
+  <provides type="function" name="HTML_CSS::setCache" />
+  <provides type="function" name="HTML_CSS::setCharset" />
+  <provides type="function" name="HTML_CSS::getCharset" />
+  <provides type="function" name="HTML_CSS::parseString" />
+  <provides type="function" name="HTML_CSS::parseFile" />
+  <provides type="function" name="HTML_CSS::parseData" />
+  <provides type="function" name="HTML_CSS::toArray" />
+  <provides type="function" name="HTML_CSS::toInline" />
+  <provides type="function" name="HTML_CSS::toFile" />
+  <provides type="function" name="HTML_CSS::toString" />
+  <provides type="function" name="HTML_CSS::display" />
+  <provides type="function" name="HTML_CSS::raiseError" />
+  <provides type="function" name="HTML_CSS::isError" />
+  <filelist>
+   <file role="php" baseinstalldir="HTML" md5sum="96cfd6f75d09e3fbed1f576e8c1b4f2d" name="CSS/Error.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="doc" baseinstalldir="HTML" md5sum="a94b3f69cdea134c5091c78a3dcd5a55" name="docs/errorHandlerGuide.txt"/>
+   <file role="doc" baseinstalldir="HTML" md5sum="fe27582e29084ba70e6d3a3500508c1c" name="examples/css_errorstack_custom.php"/>
+   <file role="doc" baseinstalldir="HTML" md5sum="8d282b27de9fcfe4b10b07f140cee933" name="examples/css_errorstack_logger.php"/>
+   <file role="doc" baseinstalldir="HTML" md5sum="092e156b885f33a4a891d00c455c62a0" name="examples/css_error_custom.php"/>
+   <file role="doc" baseinstalldir="HTML" md5sum="65442b25d8dafe56f9bd794f04492488" name="examples/css_error_ignore.php"/>
+   <file role="doc" baseinstalldir="HTML" md5sum="dfef6a04f5b0a714c59d36f5ae9669d9" name="examples/css_error_logger.php"/>
+   <file role="doc" baseinstalldir="HTML" md5sum="1f1d0ea58dba8e196d6cdbe5d48ba46f" name="examples/CSS_InHeader.php"/>
+   <file role="doc" baseinstalldir="HTML" md5sum="9e402da24c21c7891cf4be3be4732fc5" name="examples/CSS_Inline.php"/>
+   <file role="doc" baseinstalldir="HTML" md5sum="8edd797cae8a44e617744a72e07c8b90" name="examples/CSS_Logger.php"/>
+   <file role="doc" baseinstalldir="HTML" md5sum="f650e45df65690e2f4e3e3c285a31b5d" name="examples/CSS_parseData.php"/>
+   <file role="doc" baseinstalldir="HTML" md5sum="df6349189bdcc2c51f149ce8c3993270" name="examples/CSS_Stylesheet.php"/>
+   <file role="test" baseinstalldir="HTML" md5sum="420443e39bc2a3a0c043113a60a58049" name="tests/HTML_CSS_TestCase_addGroupSelector.php"/>
+   <file role="test" baseinstalldir="HTML" md5sum="b3bc95a0c308f645f74fb53e95b26590" name="tests/HTML_CSS_TestCase_bug725.php"/>
+   <file role="test" baseinstalldir="HTML" md5sum="f4fe0505006871190abd78297755d00f" name="tests/HTML_CSS_TestCase_bug998.php"/>
+   <file role="test" baseinstalldir="HTML" md5sum="e34e85a72f4fc83f72bef1ffda4669a0" name="tests/HTML_CSS_TestCase_bug1066.php"/>
+   <file role="test" baseinstalldir="HTML" md5sum="790bfbd8790647c50fc59ab7fac24f94" name="tests/HTML_CSS_TestCase_bug1072.php"/>
+   <file role="test" baseinstalldir="HTML" md5sum="5f28d34b7c7aab696a5bb7d084ce767e" name="tests/HTML_CSS_TestCase_bug1084.php"/>
+   <file role="test" baseinstalldir="HTML" md5sum="203461050e6d28c2598b7de6fbe9abe0" name="tests/HTML_CSS_TestCase_createGroup.php"/>
+   <file role="test" baseinstalldir="HTML" md5sum="8e8ea568a13513b129775beea2dc56f4" name="tests/HTML_CSS_TestCase_getGroupStyle.php"/>
+   <file role="test" baseinstalldir="HTML" md5sum="97f0d99a039b94e1a125451a01d08c38" name="tests/HTML_CSS_TestCase_getStyle.php"/>
+   <file role="test" baseinstalldir="HTML" md5sum="6793f6a3486b2082dbc5644a9f8e3ae1" name="tests/HTML_CSS_TestCase_parseFile.php"/>
+   <file role="test" baseinstalldir="HTML" md5sum="da68375ea62ffe155fff6cc6a3322934" name="tests/HTML_CSS_TestCase_parseSelectors.php"/>
+   <file role="test" baseinstalldir="HTML" md5sum="1a7bbaa35ed34eabd229c2242f5dd9d4" name="tests/HTML_CSS_TestCase_parseString.php"/>
+   <file role="test" baseinstalldir="HTML" md5sum="83bd936e126cfae6a7ace2c6ac545252" name="tests/HTML_CSS_TestCase_removeGroupSelector.php"/>
+   <file role="test" baseinstalldir="HTML" md5sum="42d761bb3e1a284c99101accc5c3c4b6" name="tests/HTML_CSS_TestCase_setCache.php"/>
+   <file role="test" baseinstalldir="HTML" md5sum="33d2de02f9c5fad9021fe7d354a3c148" name="tests/HTML_CSS_TestCase_setCharset.php"/>
+   <file role="test" baseinstalldir="HTML" md5sum="5849c02f04b7e7559c8f4d35b9f7fff6" name="tests/HTML_CSS_TestCase_setGroupStyle.php"/>
+   <file role="test" baseinstalldir="HTML" md5sum="05963d697caf72a2dbc10bda9c183f4e" name="tests/HTML_CSS_TestCase_setSameStyle.php"/>
+   <file role="test" baseinstalldir="HTML" md5sum="029eb118a4c5286673fb1598573cf3a2" name="tests/HTML_CSS_TestCase_setSingleLineOutput.php"/>
+   <file role="test" baseinstalldir="HTML" md5sum="fc54fe8bf29038ddc17020d31228abd1" name="tests/HTML_CSS_TestCase_setStyle.php"/>
+   <file role="test" baseinstalldir="HTML" md5sum="a21ed3346361c1f7b87f5cfd0ba125f1" name="tests/HTML_CSS_TestCase_setXhtmlCompliance.php"/>
+   <file role="test" baseinstalldir="HTML" md5sum="b85b79cc3639a49a8403654faa5c8061" name="tests/HTML_CSS_TestCase_toFile.php"/>
+   <file role="test" baseinstalldir="HTML" md5sum="a211f02d7b8b39c802a621e90d5274cb" name="tests/HTML_CSS_TestCase_toInline.php"/>
+   <file role="test" baseinstalldir="HTML" md5sum="f7e51cb50e329692dfa15b1dcf4ff122" name="tests/HTML_CSS_TestCase_unsetGroup.php"/>
+   <file role="test" baseinstalldir="HTML" md5sum="95de62cd23d68e3018257b84a3a34868" name="tests/HTML_TestListener.php"/>
+   <file role="test" baseinstalldir="HTML" md5sum="85fa23829800e0c8d87a3022fb955390" name="tests/index.php"/>
+   <file role="test" baseinstalldir="HTML" md5sum="91be549f711bef645c3ceea7e6ac00b8" name="tests/stylesheet.css"/>
+   <file role="test" baseinstalldir="HTML" md5sum="f9a336bdc1285a4a360457ab4964e343" name="tests/testsuite.php"/>
+   <file role="test" baseinstalldir="HTML" md5sum="4ac4df4eef1cc3ad8710cdf8d9143928" name="tests/TestUnit.php"/>
+   <file role="php" baseinstalldir="HTML" md5sum="caab683a97be46da168287ff97fd421a" name="CSS.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>1.0.0RC2</version>
+    <date>2005-12-15</date>
+    <license>PHP License 3.0</license>
+    <state>beta</state>
+    <notes>New features:
+- parseData() : Ability to parse multiple data sources (filename, string) at once
+- isError() : Tell whether a value return by HTML_CSS is an error.
+
+See new script:  examples/CSS_parseData.php
+    </notes>
+   </release>
+   <release>
+    <version>1.0.0RC1</version>
+    <date>2005-07-26</date>
+    <license>PHP License 3.0</license>
+    <state>beta</state>
+    <notes>New features:
+- PEAR_ErrorStack was replaced by a simple way to plug in any error handling system you might want (default used PEAR_Error object)
+- Duplicate properties can now be allowed.
+
+Bug fixes
+- Allows to fix a HTML_Progress problem (bug #2784)
+- Inappropriate style rule reordering (bug #3920)
+
+Changes
+- Removes PEAR_ErrorStack and Log packages dependencies
+- All unitTests are now fully PEAR_Error compatible
+- apiVersion() returns now a string rather than a float; compatible with php.version_compare()
+- createGroup() always returns a value now
+- parseSelectors() status goes from public to protected
+- collapseInternalSpaces() status goes from public to protected
+- setSameStyle() is now optimized and single old reference is removed from CSS declarations
+- toArray reimplemented (API changed if duplicates allowed)
+
+Quality Assurance
+- Updates headers comment block on all files
+    </notes>
+   </release>
+   <release>
+    <version>0.4.0</version>
+    <date>2004-11-21</date>
+    <license>PHP License 3.0</license>
+    <state>beta</state>
+    <notes>New features:
+* Removes PEAR_ErrorStack and Log packages dependencies
+* Uses the basic error handler PEAR_Error (see examples/CSS_Logger.php)
+
+Bug fixes
+* Allows to fix a HTML_Progress problem (see bug #2784)
+
+Changes
+* Adds testcase for setXhtmlCompliance API
+* All unitTests are now fully PEAR_Error compatible
+
+Quality Assurance
+* This release follows the rules defined at 
+* http://pear.php.net/group/docs/20040226-vn.php
+    </notes>
+   </release>
+   <release>
+    <version>0.3.4</version>
+    <date>2004-05-21</date>
+    <license>PHP License 3.0</license>
+    <state>beta</state>
+    <notes>New features:
+* Added testcases for all bugs (Laurent)
+
+Bugfixes:
+* Added dependency on PEAR 1.3.1 or greater (necessary for error handling)
+* Compatibility fix for PHP5 in parseSelectors
+* Now parseSelectors correctly divides selectors with IDs (output mode 2)
+    </notes>
+   </release>
+   <release>
+    <version>0.3.3</version>
+    <date>2004-05-20</date>
+    <state>beta</state>
+    <notes>New features:
+* New error implementation (PEAR_Error_Stack) (Laurent)
+* Added more testcases (Laurent)
+* Output definitions on single line
+
+Bugfixes:
+* #1072 (incomplete internal inheritance support in parseString and getStyle)
+* #1084 (parseSelectors unable to handle inheritance)
+    </notes>
+   </release>
+   <release>
+    <version>0.3.2</version>
+    <date>2004-03-24</date>
+    <state>beta</state>
+    <notes>New features:
+* setXhtmlCompliance(bool)
+    Determines whether elements are automatically lowercased
+    for XHTML compliance. May also be passed to class constructor
+    as array element &apos;xhtml&apos;.
+* Selectors are now properly parsed to ensure compliance
+
+Bugfixes:
+* #725  (Elements differentiated because of whitespace)
+* #998  (parseString failure to parse property value when it contained a colon)
+* #1066 (Trim property values in parseString)
+    </notes>
+   </release>
+   <release>
+    <version>0.3.1</version>
+    <date>2003-11-03</date>
+    <state>beta</state>
+    <notes>Warning:
+Major BC break!
+
+License change:
+Now PHP License 3.0
+
+New features:
+* Parse CSS from string (Laurent)
+* Read and parse CSS from file (Laurent)
+* Retrieve the settings of individual properties (Laurent)
+* Fully redesigned group handling
+* Output to file
+* Error handling introduced (Laurent)
+* Added unit tests (Laurent)
+
+Bugfixes:
+* Fixed setSameStyle functionality
+    </notes>
+   </release>
+   <release>
+    <version>0.3.0</version>
+    <date>2003-11-03</date>
+    <state>beta</state>
+    <notes>Warning:
+Major BC break!
+
+License change:
+Now PHP License 3.0
+
+New features:
+* Parse CSS from string (Laurent)
+* Read and parse CSS from file (Laurent)
+* Retrieve the settings of individual properties (Laurent)
+* Fully redesigned group handling
+* Output to file
+* Error handling introduced (Laurent)
+* Added unit tests (Laurent)
+
+Bugfixes:
+* Examples updated
+    </notes>
+   </release>
+   <release>
+    <version>0.2.0</version>
+    <date>2003-07-31</date>
+    <state>stable</state>
+    <notes>It is completely standards compliant, and has some great features:
+* Inline stylesheet declarations
+* Document internal stylesheet declarations
+* Standalone stylesheet declarations
+
+In addition, it shares the following with HTML_Common based classes:
+* Indent style support
+* Line ending style
+    </notes>
+   </release>
+ </changelog>
+</package>

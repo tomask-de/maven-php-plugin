@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/image_graph">Image_Graph</p>
+ <c>pear.php.net</c>
+ <v>0.5.0</v>
+ <st>alpha</st>
+ <l>LGPL</l>
+ <m>nosey</m>
+ <s>A package for displaying (numerical) data as a graph/chart/plot.</s>
+ <d>Image_Graph provides a set of classes that creates graphs/plots/charts based on (numerical) data.
+
+Many different plot types are supported: Bar, line, area, step, impulse, scatter, radar, pie, map, candlestick, band, box &amp; whisker and smoothed line, area and radar plots.
+
+The graph is highly customizable, making it possible to get the exact look and feel that is required.
+
+The output is controlled by a driver mechanism, which facilitates easy output to many different output formats, amongst others, GD (PNG, JPEG, GIF, WBMP), PDF (using PDFLib), ShockWave Flash (using Ming) and Scalable Vector Graphics (SVG).
+
+Image_Graph is compatible with both PHP4 and PHP5 and can be used with both GD1 and GD2 (GD2 is recommended)
+</d>
+ <da>2005-08-08 15:24:44</da>
+ <n>* Major change: removed Image_Graph_Driver and subclasses and uses Image_Canvas instead, which implies:
+    - Image_Graph_Color is obsolete, removing dependency on Image_Color (however Image_Canvas still depends on Image_Color)
+    - Fonts are simplified (all identified by name) and implemented using Image_Graph_Font class, removing Image_Graph_Font subclasses (only subclasses!), removing Fonts/ folder
+    - Added dependency on Image_Canvas
+    - Image/Graph/Config.php becoming obsolete since only IMAGE_GRAPH_SYSTEM_FONT_PATH was defined here. File kept for future purposes but not used.
+    - TTF Fonts (which were most often used) keep BC in 99% of the cases by replacing the 'ttf_font' factory alias mapping to 'Image_Graph_Font' and adding a mapping for 'Image_Graph_Font_TTF' to 'Image_Graph_Font'. Only case not working is when user manually includes Image/Graph/Font/TTF.php and creates and instance using 'new', which should only very, very rarely be the case
+    - BC break: If drivers were explicitly created before, they now have to be changed to Image_Canvas objects
+* Added support for HTML image maps on line-, bar-, area-, smoothed line-, impulse-, band- and pie charts (more to come)
+* Added 'tohtml' option for output directly in HTML using canvas and imagemap (if any)
+* Added label option 'format' and 'dateformat' to Image_Graph_Axis to be able to format a label directly using sprintf() / date()
+* Changed plus and cross markers to be outlined (by defalut) - visual improvement
+* Added a star marker (Image_Graph_Marker_Star)
+* Added legends to scatter/dot plots - the marker now shows in legends
+* Performance optimization in Image_Graph_Axis_Category (with regards to heavy usage of array_search())
+* Improved appearance of axis arrows
+* Fixed Bug #4240 &quot;Pie graph - color difference between graph and legend&quot;
+* Fixed Bug #4430 &quot;Call-time pass-by-reference has been deprecated&quot;
+* Fixed Bug #4876 &quot;mis-type in code -&gt; undefined property&quot;
+* Bugs fixed/Features added in Image_Canvas
+    * Added Request #4451 &quot;Unable to define IMAGE_GRAPH_SYSTEM_FONT_PATH outside of Config.php&quot;
+    * Fixed Bug #4484 &quot;SVG output problem with fill and alignment attributes of text&quot;
+    * Fixed Bug #4586 &quot;Content type image/jpg does not recognized by IE&quot;</n>
+ <f>343776</f>
+ <g>http://pear.php.net/get/Image_Graph-0.5.0</g>
+ <x xlink:href="package.0.5.0.xml"/>
+</r>

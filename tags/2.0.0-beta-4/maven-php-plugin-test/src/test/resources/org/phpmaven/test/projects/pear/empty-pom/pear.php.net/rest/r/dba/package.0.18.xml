@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>DBA</name>
+  <summary>Berkely-style Database Class</summary>
+  <description>Implements a DBM-style database using either PHP's DBA functions or a simple DBM class written in PHP. Also provides a relational database system with support for selects, joins, sorts, projects, multiple tables, type checking, autoincrements and more. Rudimentary support for SQL 'CREATE' and 'INSERT' statements is included.</description>
+  <maintainers>
+    <maintainer>
+      <user>busterb</user>
+      <name>Brent Cook</name>
+      <email>busterb@mail.utexas.edu</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.18</version>
+    <date>2002-09-08</date>
+    <license>LGPL</license>
+    <state>devel</state>
+    <notes>This is a fairly stable release as far as the core DBA package is concerned
+(DBA_Relational and its dependencies). The rest of the package, i.e. the SQL
+stuff, is going to change quite a bit after this release. Many of the
+C-ism's such as token constants will go away and the routines will be similar
+in functionality, though different in implementation, to perl's SQL-Statement
+http://www.cpan.org/authors/id/J/JZ/JZUCKER/. Thanks to Jacob for pointing
+this out.
+  Changes to this release include:
+    * select() and join() return null rather than array() on an empty result
+    * join() returns null if either table to be joined is empty
+    * DBA_Toolbox has some more useful functions; note the changes in the
+      quickform utility function names
+    * code prettied up in numerous places
+    * create a few less objects now that more functions can operate statically
+      (such as when creating a new database file)
+    * changes to the API of remove() and replace(). They act more like
+      select() now. The old functionality is found in removeKey() and
+      replaceKey()
+    * added system tables '_tables' and '_sequences' for storing meta-data
+      about tables created by DBA_Relational.
+    * added sanity checks for schemas when creating a new table
+    * maintenance fixes to the SQL parser; lots of tokens are now defined</notes>
+    <filelist>
+      <file role="php" baseinstalldir="DB/DBA" md5sum="0240b60d9d8d871a7aab095da798b0b9" name="DBA.php"/>
+      <file role="php" baseinstalldir="DB/DBA" md5sum="208628c0d51f5cec11cface623de7ad5" name="DBA_Simple.php"/>
+      <file role="php" baseinstalldir="DB/DBA" md5sum="abe8859e39c2ff3ada3f569f27bb13d5" name="DBA_Compat.php"/>
+      <file role="php" baseinstalldir="DB/DBA" md5sum="b4664aada6a5766166bb397a28b302a0" name="DBA_Builtin.php"/>
+      <file role="php" baseinstalldir="DB/DBA" md5sum="3024830feadacdde741f155bdb9a2124" name="DBA_Table.php"/>
+      <file role="php" baseinstalldir="DB/DBA" md5sum="5854d4688e0d2dcfeb3290108506cebc" name="DBA_Relational.php"/>
+      <file role="php" baseinstalldir="DB/DBA" md5sum="ad399e925f449155cccf7734cf02c129" name="DBA_Toolbox.php"/>
+      <file role="php" baseinstalldir="DB/DBA" md5sum="dc0dddf14d582f856f176a37b7a6380a" name="DBA_Sql.php"/>
+      <file role="php" baseinstalldir="DB/DBA" md5sum="68d5d9f952b1e3addad39333c684d891" name="Sql_lex.php"/>
+      <file role="php" baseinstalldir="DB/DBA" md5sum="edfbe25a369738dc332383ab3d96abdd" name="Sql_parse.php"/>
+      <file role="php" baseinstalldir="DB/DBA" md5sum="329feeb8b71768c143caa4fd46213c1e" name="ctype.php"/>
+      <file role="test" baseinstalldir="DB/DBA" md5sum="ee753919d35e2361ddc0a8c6b3c0954b" name="tests/benchmark_drivers.php"/>
+      <file role="test" baseinstalldir="DB/DBA" md5sum="31a1ab931cc75b7ed52a75a6a6d8b23c" name="tests/test_simple.php"/>
+      <file role="test" baseinstalldir="DB/DBA" md5sum="079fa1d6170487c9bde76c80d8be16e1" name="tests/test_relational.php"/>
+      <file role="test" baseinstalldir="DB/DBA" md5sum="71c7e6a8c347cd250655f626d4880297" name="tests/test_table.php"/>
+      <file role="test" baseinstalldir="DB/DBA" md5sum="deb26688e9be4ac13b01f4dca5051738" name="tests/test_sql_dba.php"/>
+      <file role="test" baseinstalldir="DB/DBA" md5sum="04d3958cb4c4e0f998c4b6664648ad33" name="tests/empSchema.php"/>
+      <file role="test" baseinstalldir="DB/DBA" md5sum="b640261e85a683b4d1abbecf1e82f595" name="tests/hatSchema.php"/>
+      <file role="test" baseinstalldir="DB/DBA" md5sum="967190d839d603231a49683e9a564137" name="tests/employment.sql"/>
+      <file role="doc" baseinstalldir="DB/DBA" md5sum="2171cef43f8e674939df62ec287f4c14" name="docs/README.txt"/>
+      <file role="doc" baseinstalldir="DB/DBA" md5sum="a1f8b9b265f74df5bfbbad52c547f313" name="docs/Examples.txt"/>
+    </filelist>
+  </release>
+</package>

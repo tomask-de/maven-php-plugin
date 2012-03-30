@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0                              http://pear.php.net/dtd/tasks-1.0.xsd                              http://pear.php.net/dtd/package-2.0                              http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Payment_Process</name>
+ <channel>pear.php.net</channel>
+ <summary>Unified payment processor</summary>
+ <description>Payment_Process is a gateway-independent framework for processing credit cards, e-checks and eventually other forms of payments as well.</description>
+ <lead>
+  <name>Ian Eure</name>
+  <user>ieure</user>
+  <email>ieure@php.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Joe Stump</name>
+  <user>jstump</user>
+  <email>jstump@php.net</email>
+  <active>yes</active>
+ </lead>
+ <helper>
+  <name>Robert Peake</name>
+  <user>cyberscribe</user>
+  <email>robert@peakepro.com</email>
+  <active>yes</active>
+ </helper>
+ <helper>
+  <name>Philippe Jausions</name>
+  <user>jausions</user>
+  <email>Philippe.Jausions@11abacus.com</email>
+  <active>yes</active>
+ </helper>
+ <date>2005-12-12</date>
+ <time>16:19:43</time>
+ <version>
+  <release>0.6.4</release>
+  <api>0.6.4</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/php.php">PHP License v3.0</license>
+ <notes>* Fixed undefined property notices in Payment_Process_Common
+* Added package2.xml</notes>
+ <contents>
+  <dir name="/">
+   <file baseinstalldir="docs/Payment_Process" md5sum="411c9acb580a72d1f4d075d3692518e6" name="examples/creditcard.php" role="doc" />
+   <file baseinstalldir="docs/Payment_Process" md5sum="0b74c3eda0e54b964d773f40cee30490" name="examples/echeck.php" role="doc" />
+   <file baseinstalldir="docs/Payment_Process" md5sum="3aff0a8d645c34806cdf20a5846b3c27" name="examples/linkpoint.php" role="doc" />
+   <file baseinstalldir="docs/Payment_Process" md5sum="e031fe1414203467bfc82f85f0df0c46" name="examples/Payment_Process-example.php" role="doc" />
+   <file baseinstalldir="docs/Payment_Process" md5sum="fc43c883941169d7cee5bdb1755e869b" name="examples/TrustCommerce_creditcard.php" role="doc" />
+   <file baseinstalldir="Payment" md5sum="d152bfe8fff93f520296385fca6d2d56" name="Process/Type/CreditCard.php" role="php" />
+   <file baseinstalldir="Payment" md5sum="1a31c86767cc87c2cf8edfdca477010a" name="Process/Type/eCheck.php" role="php" />
+   <file baseinstalldir="Payment" md5sum="b5f8b56141383ff92595ca6a3acbb868" name="Process/AuthorizeNet.php" role="php" />
+   <file baseinstalldir="Payment" md5sum="9d7af215748f39bab39deb302daafcd5" name="Process/Bibit.php" role="php" />
+   <file baseinstalldir="Payment" md5sum="1e6eb4c08ac56ceefebc6e2bd257fdad" name="Process/Common.php" role="php" />
+   <file baseinstalldir="Payment" md5sum="914856c5e79c6640b81ace530a2ddd82" name="Process/Dummy.php" role="php" />
+   <file baseinstalldir="Payment" md5sum="bf609a595abe364944c16df63a4b4d17" name="Process/LinkPoint.php" role="php" />
+   <file baseinstalldir="Payment" md5sum="b33fcf0c790740b723eaef21ac61546e" name="Process/Transfirst.php" role="php" />
+   <file baseinstalldir="Payment" md5sum="253e62163d66a3f7095eefc41bbdd86f" name="Process/TrustCommerce.php" role="php" />
+   <file baseinstalldir="Payment" md5sum="4d7afedd51751650cea517878f584634" name="Process/Type.php" role="php" />
+   <file baseinstalldir="Payment" md5sum="5fe30f436e08fa2c0688a3c0d870edc3" name="Process.php" role="php" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <package>
+    <name>Validate</name>
+    <channel>pear.php.net</channel>
+    <min>0.5.0</min>
+   </package>
+   <package>
+    <name>Validate_Finance_CreditCard</name>
+    <channel>pear.php.net</channel>
+    <min>0.5.0</min>
+   </package>
+  </required>
+  <optional>
+   <package>
+    <name>XML_Parser</name>
+    <channel>pear.php.net</channel>
+    <min>1.2.6</min>
+   </package>
+   <package>
+    <name>Net_Curl</name>
+    <channel>pear.php.net</channel>
+    <min>1.2.0</min>
+   </package>
+  </optional>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.6.3</release>
+    <api>0.6.3</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2005-09-07</date>
+   <license uri="http://www.opensource.org/licenses/php.php">PHP License v3.0</license>
+   <notes>* Updated all validate functions and validation to return PEAR_Error instead of simple bool to provide better error messaging
+* Validation upgrade BREAKS BACKWARD COMPATIBILITY (see examples/creditcard.php lines 29-34) for Payment_Process_Type::isValid() and setting payments with setPayment() in your gateway
+* Altered AuthorizeNet driver to report better error messages when message code is 33 (missing required field)
+* Test mode in AuthorizeNet no longer turned on by default
+* Fixed mispelled Payment_Process_Common() (Bug #5360)
+* Fixed use of undefined PAYMENT_PROCESS_TYPE_CREDITCARD (Bug #5375)</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.6.2</release>
+    <api>0.6.2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2005-08-12</date>
+   <license uri="http://www.opensource.org/licenses/php.php">PHP License v3.0</license>
+   <notes>* Updated LinkPoint driver 
+* Added LinkPoint example
+* Minor documentation fixes</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.6.1</release>
+    <api>0.6.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2005-08-10</date>
+   <license uri="http://www.opensource.org/licenses/php.php">PHP License v3.0</license>
+   <notes>* Removed PHP_Compat dependency.
+* Added missing Bibit.php driver file.
+* Added missing LinkPoint.php driver file.
+* Added optional dependency for XML_Parser for LinkPoint driver.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.6.0</release>
+    <api>0.6.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2005-07-28</date>
+   <license uri="http://www.opensource.org/licenses/php.php">PHP License v3.0</license>
+   <notes>* Closed bug #2896
+* Moved validation code in Payment_Process_Type_CreditCard to use the new Validate_Finance_CreditCard package (Bug #4765)
+* Moved all common code out of Payment_Process and into Payment_Process_Common
+* Removed Payment_Process_Type::$name and replaced it with Payment_Process_Type::$firstName and Payment_Process_Type::$lastName respectively
+* Fixed field encapsulation in AuthorizeNet driver (Bug #2756)
+* Fixed _prepareQueryString() in AuthorizeNet driver (Bug #3820)
+* Fixed undefined index in Common.php (Bug #3821)
+* Fixed assignment to private variable in Payment_Process::factory() (Bug #3790)
+* Fixed typo in `RESULT_INVALID&apos; constant declaration and use. (Bug #3919)
+* Added _validateCvv() to Payment_Process_Type_CreditCard (Bug #3837)
+* Added handler support in Payment_Process_Common::setPayment() (Bug #1265)
+* Added Payment_Process::accept() and Payment_Process::log() to be a common logging interface for debugging/logging (In response to Bug #3839 and Bug #3791)
+* Added a Bibit driver written by Robin Ericsson &lt;lobbin@localhost.nu&gt;
+* Added Philippe Jausions as a maintainer. Along with Joe Stump he will be maintaining the AuthorizeNet driver and contributing other core code.
+* Removed code that altered the URI in the AuthorizeNet driver (Bug #3820)
+* Removed &apos;Offline&apos; driver, as it depended on Validate code which doesn&apos;t exist in any released version of the Validate package. Use the &apos;Dummy&apos; driver for testing.
+* AuthorizeNet driver now relies on Net_Curl 1.2.0 stable</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5.8</release>
+    <api>0.5.8</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-11-18</date>
+   <license uri="http://www.opensource.org/licenses/php.php">PHP License v3.0</license>
+   <notes>* Fix bug #1732.
+* Fix bug #1733.
+* Fix bug #1270.
+* Fix bug #2444.
+* Rename DPILink driver to Transfirst - the company changed it&apos;s name.
+* Add TrustCommerce driver, submitted by Robert Peake &lt;robert@peakepro.com&gt;
+* Add Robert Peake as a helper maintainer. Please direct all TrustCommerce questions to him.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5.7</release>
+    <api>0.5.7</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-06-11</date>
+   <license uri="http://www.opensource.org/licenses/php.php">PHP License v3.0</license>
+   <notes>* Fix bug #1536.
+* Fix bug #1619.
+* Add Fraud &amp; Duplicate result codes.
+* Authorize.net driver update.
+* Don&apos;t validate zip codes for non-US countries.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5.6</release>
+    <api>0.5.6</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-03-31</date>
+   <license uri="http://www.opensource.org/licenses/php.php">PHP License v3.0</license>
+   <notes>* Move credit card type constants into Type.php, as they weren&apos;t usable until factory() was called.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5.5</release>
+    <api>0.5.5</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-03-31</date>
+   <license uri="http://www.opensource.org/licenses/php.php">PHP License v3.0</license>
+   <notes>* Added initial support for type eCheck in AuthorizeNet driver
+* Added new type checking via $_typeFieldMap
+* Cleaned up Common.php
+* Added example echeck.php</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5.2</release>
+    <api>0.5.2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-03-23</date>
+   <license uri="http://www.opensource.org/licenses/php.php">PHP License v3.0</license>
+   <notes>* Fix the DPI Processor&apos;s Result class, which was returning an error even when the transaction was approved.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5.1</release>
+    <api>0.5.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-03-23</date>
+   <license uri="http://www.opensource.org/licenses/php.php">PHP License v3.0</license>
+   <notes>* Add missing $_statusCodeMap to DPILink&apos;s Result class, otherwise validate() always thinks the transaction was declined.
+* Change minimum charge to $0.99.
+* Change version to 0.5.1.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5</release>
+    <api>0.5</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-03-22</date>
+   <license uri="http://www.opensource.org/licenses/php.php">PHP License v3.0</license>
+   <notes>* Information about the payment source is now contained in a Payment_Process_Type-derived class.
+* Authorize.net Processor added, by Joe Stump.
+* DPILink &amp; Dummy Processors updated to use new semantics.
+* A Common class was added, which contains utility functionality common to all Processors.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2</release>
+    <api>0.2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-01-26</date>
+   <license uri="http://www.opensource.org/licenses/php.php">PHP License v3.0</license>
+   <notes>Initial PEAR package release.
+* New semantics for Payment_Process_Result class allows for processor-specific subclasses. Dummy &amp; Dpilink processors updated to new semantics.
+* Dpilink processor has been tested with TransFirst&apos;s system, and appears to be working.
+* Added example script.</notes>
+  </release>
+ </changelog>
+</package>

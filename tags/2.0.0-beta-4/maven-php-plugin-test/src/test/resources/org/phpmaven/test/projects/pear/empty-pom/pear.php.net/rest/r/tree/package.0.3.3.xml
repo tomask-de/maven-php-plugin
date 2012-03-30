@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.7.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Tree</name>
+ <channel>pear.php.net</channel>
+ <summary>Generic tree management, currently supports databases (via DB, MDB and MDB2) and XML as data sources</summary>
+ <description>Provides methods to read and manipulate trees, which are stored in a database (via DB, MDB and MDB2) or an XML file.
+
+The trees can be stored in the DB either as nested trees.
+Or as simple trees, which use parentId-like structure.
+Currently XML data can only be read from a file and accessed.
+The package offers a big number of methods to access and manipulate trees.
+For example methods like: getRoot, getChild[ren[Ids]], getParent[s[Ids]], getPath[ById] and many
+more.
+
+There are two ways of retreiving the data from the place where they are stored,
+one is by reading the entire tree into the memory - the Memory way. The other
+is reading the tree nodes as needed (very useful in combination with huge trees
+and the nested set model).
+
+The package is designed that way that it is possible to convert/copy tree data
+from either structure to another (from XML into DB).
+
+
+This package has the following drivers:
+* DB
+* MDB
+* MDB2
+* Array
+* XML
+* FileSystem</description>
+ <lead>
+  <name>Wolfram Kriesing</name>
+  <user>cain</user>
+  <email>wolfram@kriesing.de</email>
+  <active>no</active>
+ </lead>
+ <lead>
+  <name>Helgi Ã?ormar</name>
+  <user>dufuz</user>
+  <email>helgi@trance.is</email>
+  <active>yes</active>
+ </lead>
+ <date>2008-03-23</date>
+ <time>17:23:09</time>
+ <version>
+  <release>0.3.3</release>
+  <api>0.3.3</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.php.net/license">PHP License</license>
+ <notes>* Fixed Bug #11822 package description should include mention of MDB2 compatibility
+* Fixed Bug #11853 Dynamic_MDB2nested uses undefined functions
+* Fixed Bug #12780 DB connection instead DSN fails because of get_parent_class
+* Fixed Bug #13080 MDB2simple _setup(): parentId cleared if parentId column is mapped to &quot;parentid&quot;
+* Fixed Bug #13081 Reopen #11504: MDB2+Tree problem. MDB2 doesn&apos;t contains getTextValue method</notes>
+ <contents>
+  <dir name="/">
+   <file baseinstalldir="Tree" md5sum="1ec81a16433835b4b4b9c16d212e5b18" name="docs/TreeEditor/closedFolder.gif" role="doc" />
+   <file baseinstalldir="Tree" md5sum="974c084655dbaa53502e3c9027a6b171" name="docs/TreeEditor/config.xml" role="doc" />
+   <file baseinstalldir="Tree" md5sum="6cfeed2e79c24bd5c801ab3bcd440168" name="docs/TreeEditor/copy.gif" role="doc" />
+   <file baseinstalldir="Tree" md5sum="8bc3bee71d4cf654997a96c70c92c8f1" name="docs/TreeEditor/cut.gif" role="doc" />
+   <file baseinstalldir="Tree" md5sum="be4ed2387387e5b4a4729bdc8af46baf" name="docs/TreeEditor/delete.gif" role="doc" />
+   <file baseinstalldir="Tree" md5sum="a27cb1ff16de0e2c6e9bdc5d266fb58a" name="docs/TreeEditor/folder.gif" role="doc" />
+   <file baseinstalldir="Tree" md5sum="ada3f297731a163a9404ea50d6ecc120" name="docs/TreeEditor/index.php" role="doc" />
+   <file baseinstalldir="Tree" md5sum="a2d00fea0178fd337fbb29fba9ba4cc0" name="docs/TreeEditor/index.tpl" role="doc" />
+   <file baseinstalldir="Tree" md5sum="c804d2bd789e20d9e810fa28ddc12272" name="docs/TreeEditor/mysql_db.sql" role="doc" />
+   <file baseinstalldir="Tree" md5sum="515db1284633a63e9e947f241006cdd8" name="docs/TreeEditor/openFolder.gif" role="doc" />
+   <file baseinstalldir="Tree" md5sum="a0e24b8e735c0ae00fa5ab1b9ef1da5a" name="docs/TreeEditor/paste.gif" role="doc" />
+   <file baseinstalldir="Tree" md5sum="7e2a7a67be4dda73b6197be09e39b267" name="docs/TreeEditor/treeClass.php" role="doc" />
+   <file baseinstalldir="Tree" md5sum="5265b2aeb5ff49805be657e1819a773a" name="docs/TreeView/index.php" role="doc" />
+   <file baseinstalldir="Tree" md5sum="900f0e3cd11781a10898b6b5bd83f618" name="docs/TreeView/index.tpl" role="doc" />
+   <file baseinstalldir="Tree" md5sum="310804378469e21556ee2033374f2b12" name="docs/config.xml" role="doc" />
+   <file baseinstalldir="Tree" md5sum="638f72a09ddbb6c2d822b9a1b9f54ac3" name="docs/Dynamic_DBnested.php" role="doc" />
+   <file baseinstalldir="Tree" md5sum="a7633216f7f89ea7c99b23c5bf0ff0d1" name="docs/Dynamic_DBnested.sql" role="doc" />
+   <file baseinstalldir="Tree" md5sum="a3a8eaa286208291a3f31cf4cb977b68" name="docs/Memory_DBnested.php" role="doc" />
+   <file baseinstalldir="Tree" md5sum="9b89ae307aa465358e769f6f526af458" name="docs/Memory_DBsimple.php" role="doc" />
+   <file baseinstalldir="Tree" md5sum="fbc46f4cf53b9cc40d8c3ef3cc34a5aa" name="docs/Dynamic_MDBnested.php" role="doc" />
+   <file baseinstalldir="Tree" md5sum="5052daf69bf7f6cc9832c19248d579b9" name="docs/Memory_MDBnested.php" role="doc" />
+   <file baseinstalldir="Tree" md5sum="980003bd50a07f438b2497be55bc1af7" name="docs/Memory_MDBsimple.php" role="doc" />
+   <file baseinstalldir="Tree" md5sum="2a22461900f225d1309062cecbd764a2" name="docs/Memory_XML.php" role="doc" />
+   <file baseinstalldir="Tree" md5sum="bea3540c89a14ab1acc7d8317cd08a14" name="Dynamic/DBnested.php" role="php" />
+   <file baseinstalldir="Tree" md5sum="b7f3f093ad2fd2e3489b1e88a3e614e7" name="Dynamic/MDBnested.php" role="php" />
+   <file baseinstalldir="Tree" md5sum="149c7f3a1f59afe20a6848825bca37c2" name="Dynamic/MDB2nested.php" role="php" />
+   <file baseinstalldir="Tree" md5sum="cb5ad0a71f7e99cdc31074d61ed4b871" name="Memory/Array.php" role="php" />
+   <file baseinstalldir="Tree" md5sum="6e5183062e504620733e62c7ee593eb2" name="Memory/DBnested.php" role="php" />
+   <file baseinstalldir="Tree" md5sum="a96d7365da1293e2a154023737f58767" name="Memory/DBsimple.php" role="php" />
+   <file baseinstalldir="Tree" md5sum="cea71179a437438ec07afde22d4bd237" name="Memory/MDBnested.php" role="php" />
+   <file baseinstalldir="Tree" md5sum="42c68678d8a45c322cb70a5f1b132033" name="Memory/MDBsimple.php" role="php" />
+   <file baseinstalldir="Tree" md5sum="33bde9b994fe35a8fdef53bc111198bc" name="Memory/MDB2nested.php" role="php" />
+   <file baseinstalldir="Tree" md5sum="39636df78a5f35ef2eedba864bf92f7f" name="Memory/MDB2simple.php" role="php" />
+   <file baseinstalldir="Tree" md5sum="381e82291444080a7e283eccda432eaf" name="Memory/Filesystem.php" role="php" />
+   <file baseinstalldir="Tree" md5sum="1ccc3aea34ed94cbe2aa81d6e9d347ac" name="Memory/XML.php" role="php" />
+   <file baseinstalldir="Tree" md5sum="84e1f23a6205eb1ea6b4adb9fad2166a" name="tests/getElement.php" role="test" />
+   <file baseinstalldir="Tree" md5sum="a2810a896b5a1e30bc313d59bb9c8930" name="tests/getIdByPath.php" role="test" />
+   <file baseinstalldir="Tree" md5sum="e15ad54d6e4d5d98be52ca6535182bf1" name="tests/getLevel.php" role="test" />
+   <file baseinstalldir="Tree" md5sum="9ad2d0a56a88998916a3c4cfbe41d459" name="tests/getPath.php" role="test" />
+   <file baseinstalldir="Tree" md5sum="2889e19e3c0743c529a9fbb270da760c" name="tests/index.php" role="test" />
+   <file baseinstalldir="Tree" md5sum="c68d5fc849b8b21ecc43f76af0f97c7c" name="tests/move.php" role="test" />
+   <file baseinstalldir="Tree" md5sum="627c6f82f55ebddb320a825e68fc29cd" name="tests/remove.php" role="test" />
+   <file baseinstalldir="Tree" md5sum="06b19e074f05913b449c4749a80069a1" name="tests/sql.php" role="test" />
+   <file baseinstalldir="Tree" md5sum="128f82731d920763fb8d738261dfd9b9" name="tests/UnitTest.php" role="test" />
+   <file baseinstalldir="Tree" md5sum="16ffe1829c438f9219d50f3d8e702e89" name="Common.php" role="php" />
+   <file baseinstalldir="Tree" md5sum="327afb3167c9819e442be2264f7e513d" name="Error.php" role="php" />
+   <file baseinstalldir="Tree" md5sum="45d60c97096943ddb4c13c9eb0f7d068" name="Memory.php" role="php" />
+   <file baseinstalldir="Tree" md5sum="2a6cfd159c5edda4a65ef189e1b0e2bf" name="OptionsDB.php" role="php" />
+   <file baseinstalldir="Tree" md5sum="e99572e89b9edcb0e4bebc953104dadf" name="OptionsMDB.php" role="php" />
+   <file baseinstalldir="Tree" md5sum="a4970cd136977b137e07450350828e93" name="OptionsMDB2.php" role="php" />
+   <file baseinstalldir="Tree" md5sum="76d3f54b260970c2ee50cd2f9443b51d" name="Tree.php" role="php" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <package>
+    <name>PEAR</name>
+    <channel>pear.php.net</channel>
+    <min>1.5.4</min>
+   </package>
+  </required>
+  <optional>
+   <package>
+    <name>DB</name>
+    <channel>pear.php.net</channel>
+    <min>1.7.11</min>
+   </package>
+   <package>
+    <name>XML_Parser</name>
+    <channel>pear.php.net</channel>
+    <min>1.2.8</min>
+   </package>
+  </optional>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <date>2007-08-11</date>
+   <time>14:12:08</time>
+   <version>
+    <release>0.3.2</release>
+    <api>0.3.2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Fix Bug #11504  MDB2+Tree problem. MDB2 doesn&apos;t contains getTextValue method, patch by Simon Ruderich
+* Fix Bug #11500  Tree/Memory.php method getElementContent() not working, patch by Simon Ruderich</notes>
+  </release>
+  <release>
+   <date>2007-06-23</date>
+   <time>14:12:08</time>
+   <version>
+    <release>0.3.2</release>
+    <api>0.3.2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Fix Bug #11365 Tree class doesnt contains raiseError method</notes>
+  </release>
+  <release>
+   <date>2007-06-02</date>
+   <time>14:12:08</time>
+   <version>
+    <release>0.3.0</release>
+    <api>0.3.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* added parameter to getPathAsString(), which takes the key you want to have in the path
+* add method getLevel() to Tree_Common, so it is also available for Dynamic_*, thanks to Michael Johnson
+* Fixed bug #1976  	Missing $this-&gt; with __construct() (helgi)
+* Fixed bug #900 PEAR QA: improvement for get_class()-usage (helgi)
+* Fixed Bug #913 MDB Container + fixes (lorzenzo thanks! helgi)
+* Fixed Bug #1569  Tree_Memory_DBsimple has no hasChildren function hence remove doesnt work (helgi)
+* Fixed Bug #4803 References fix (patch from yunosh aka. Jan Schneider)
+* Feature request #6328  add MDB2 and improve MDB usage (lsmith, helgi)
+* add unit test, at least for all new/modified methods
+* CS fixes
+* package xml version 2</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.4</release>
+    <api>0.2.4</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2003-03-17</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* bugfix in Memory_Array::add method, which made the last element being added in a bogus way</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.3</release>
+    <api>0.2.3</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2003-03-10</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Make switchDataSource work for Memory/Array, this enables you to
+read the data from any source and switch the source on the run. This writes the data
+from the current tree into the new source. I.e. you read the data from a DB and write
+it into an array.
+Switching from DB to Array makes sense i.e. if you read a tree from the DB, which you want to show
+(i.e. using HTML_TreeMenu) but therefore you need to set additional properties for each
+node which you don&apos;t want to save in the DB, since they are only for the presentation.
+Properties for HTML_TreeMenu are i.e. the icon and some events (like &apos;onClick&apos;). Since you switched
+the source from DB to Array you can change any data without worrying that they are written into
+the DB and modify your actual data in the DB.
+* Bring Memory/Array closer to be fully useable.
+* getPathAsString() takes two more parameters where you can determine from and offset
+* getChildrenIds() has a new optional parameter for determining the level
+* Add getDepth() to determine the maximum depth of the tree
+* Make setup work with custom data optionally (only relevant for Memory_*)
+* Show a nicer varDump
+* add UML class diagram</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.2</release>
+    <api>0.2.2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2003-01-30</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>- fixing a lot of E_ALL and CS issues
+- enhancing getChildren method, now you can get children for more than one level
+- moving the examples to docs and making TreeView and TreeEditor work properly with new php versions</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.1</release>
+    <api>0.2.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2002-10-28</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>- bugfix in getAllChildren[Ids], before it only worked for one level below</notes>
+  </release>
+ </changelog>
+</package>

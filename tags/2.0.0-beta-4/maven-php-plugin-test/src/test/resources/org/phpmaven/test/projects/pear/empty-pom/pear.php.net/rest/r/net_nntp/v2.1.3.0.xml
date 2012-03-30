@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release2
+    http://pear.php.net/dtd/rest.release2.xsd">
+ <p xlink:href="/rest/p/net_nntp">Net_NNTP</p>
+ <c>pear.php.net</c>
+ <v>1.3.0</v>
+ <a>0.8.0</a>
+ <mp>4.2.0</mp>
+ <st>alpha</st>
+ <l>W3C</l>
+ <m>heino</m>
+ <s>NNTP implementation</s>
+ <d>PEAR's package for communication with NNTP/Usenet servers.
+Net_NNTP handles the connection and protocol level commands (RFC977), including many commonly implemented non-standard commands (RFC2980).
+Net_NNTP includes an unserfriendly API for intermediate user, who don't want to work directly at the command level. However, Net_NNTP does require some knowlege about the NNTP protocol (RFC 977), and general knowledge about email (RFC(2)822) and MIME (2045-2048), since any handling of both content and headers is left up to the user!
+The protocol implementation does not parse the actual article data, but at the command level it splits returned data at protocol specified boundaries where appropriate.</d>
+ <da>2005-12-14 10:03:09</da>
+ <n>+ WARNING!
+  - Serious backward compatibility break with v1.2.x (alpha) releases!!! The experimental classes Net_NNTP_Header and Net_NNTP_Message has been droped, since such features does not belong in this package! For now loading either class results in a notice/warning, but later on both classes will be removed! Previously unimplementet NNTP commands now allow access to article headers...
+  - Some backward compatibility break with v1.1.x (beta) releases!!!
+
++ Changes in Net_NNTP_Client:
+  - fixed: connect(), now returns false when posting is prohibited (like cmdModeReader()).
+  - fixed: getGroupArticles(), now updates internal group summary cache.
+  - added: getHeaderField().
+  - added: getGroupArticles().
+  - modified: connect(), added $encryption parameter to support ssl/tls connections, and $timeout parameter. 
+  - modified: selectGroup(), added (experimental) parameter to allow fetching of article numbers at once.
+  - modified: getOverview(), added two (experimental) parameters (rewritten to preserve backward compatible with v1.0).
+  - modified and rewritten: getGroups(), addition of optional $wildmat parameter.
+  - modified and rewritten: getDescriptions(), addition of optional $wildmat parameter.
+  - modified and rewritten: getOverview(), $first and $last parameters changed into $range.
+  - renamed: quit() into disconnect(), (temporarily) preserving backward compatible with v1.0.
+  - renamed: getArticleRaw() into getArticle(), (temporarily) preserving backward compatible with v1.1.
+  - renamed: getHeaderRaw() into getHeader(), (temporarily) preserving backward compatible with v1.1.
+  - renamed: getBodyRaw() into getBody(), (temporarily) preserving backward compatible with v1.1.
+  - renamed and rewritten: getReferencesOverview() into getReferences().
+  - removed: connectAuthenticated() (as in MAINT_1_0 and MAINT_1_2).
+  - removed: isConnected() removed due to use of private members in Net_Socket! 
+  - misc: all internal PEAR::throwError() changed to $this-&gt;throwError().
+  - misc: major phpdoc rewrite.
+  - misc: removal of code related to not yet implemented alternative authentication methods.
+
++ Changes in Net_NNTP_Protocol_Client:
+  - added: cmdXHdr().
+  - added: cmdCapabilities().
+  - added: cmdHelp().
+  - added: cmdListActive().
+  - added: cmdXPat().
+  - modified connect(), added $encryption parameter to support ssl/tls connections. 
+  - modified: cmdNext(), now returns array by default.
+  - modified and rewritten: cmdXOver(), first parameter now optional.
+  - renamed: isConnected() into _isConnected(), due to use of private members in Net_Socket. 
+  - misc: support for logging via the Log package (debugging rewritten to use logger).
+  - misc: use of status response code constants in Net_NNTP_Protocol_Responsecode.
+  - misc: extends PEAR (as in v1.0.x).
+  - misc: all internal PEAR::throwError() changed to $this-&gt;throwError().
+
++ Examples replaced by fully functional newsgroup reader demo.
+
++ License upgraded to newer edition of 'W3C SOFTWARE NOTICE AND LICENSE'</n>
+ <f>40830</f>
+ <g>http://pear.php.net/get/Net_NNTP-1.3.0</g>
+ <x xlink:href="package.1.3.0.xml"/>
+</r>

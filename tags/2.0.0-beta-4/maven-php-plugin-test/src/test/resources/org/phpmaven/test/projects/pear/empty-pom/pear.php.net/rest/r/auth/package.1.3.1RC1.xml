@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.9">
+ <name>Auth</name>
+ <summary>Creating an authentication system.</summary>
+ <description>The PEAR::Auth package provides methods for creating an authentication
+system using PHP.
+
+Currently it supports the following storage containers to read/write
+the login data:
+
+* All databases supported by the PEAR database layer
+* All databases supported by the MDB database layer
+* All databases supported by the MDB2 database layer
+* Plaintext files
+* LDAP servers
+* POP3 servers
+* IMAP servers
+* vpopmail accounts
+* RADIUS
+* SAMBA password files
+* SOAP
+* PEAR website
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>MJ</user>
+   <name>Martin Jansen</name>
+   <email>mj@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>jflemer</user>
+   <name>James E. Flemer</name>
+   <email>jflemer@acm.jhu.edu</email>
+   <role>developer</role>
+  </maintainer>
+  <maintainer>
+   <user>yavo</user>
+   <name>Yavor Shahpasov</name>
+   <email>yavo@siava.org</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>aashley</user>
+   <name>Adam Ashley</name>
+   <email>php@adamashley.name</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>1.3.1RC1</version>
+  <date>2006-08-11</date>
+  <license>PHP License</license>
+  <state>beta</state>
+  <notes>This release candidate is test the numerous fixes described below. It is also
+to get feedback on the change made for Bug #8407. Bug #8407 adds automatic 
+quoting of table and field names used in SQL in the Database backends.
+
+ * Fixed Bug #7031: session_regenerate_id() not cleaning up old session storage.
+   Fix for this bug in PHP5.1.0+ has been done, still a problem in older versions
+   of PHP.
+ * Fixed Bug #7421: Allow false to be passed in for allowLogin and advancedSecurity
+   options.
+ * Fixed Bug #7434: Enable start_tls support for LDAP Container by Stuart Prescott
+   &lt;php.net@nanonanonano.net&gt;
+ * Fixed Bug #7537: Made File Container capable of using all File_Passwd backends.
+ * Fixed Bug #7841: Added missing &lt;/center&gt;. Really the whole frontend needs
+   reworking.
+ * Fixed Bug #7860: Removed deprecated session_register call.
+ * Fixed Bug #7899: sessionValidThru() returning incorrect value when no idle
+   timeout set.
+ * Fixed Bug #7956: Session handling had several security bugs before PHP4.3.3.
+   Bumped PHP dependancy so we don&apos;t have to deal with them.
+ * Fixed Bug #8076: MDB &amp; MDB2 Containers not using default db_fields values
+ * Fixed Bug #8351: Documentation of $loginFailedCallback pointed to incorrect
+   set function.
+ * Fixed Bug #8406: Error message updates by Adam Harvey &lt;pear@adamharvey.name&gt;
+ * Fixed Bug #8407: Database containers don&apos;t quote table/field names by Adam
+   Harvey &lt;pear@adamharvey.name&gt;
+  </notes>
+  <deps>
+   <dep type="php" rel="ge" version="4.3.3"/>
+   <dep type="pkg" rel="ge" version="0.9.5" optional="yes">File_Passwd</dep>
+   <dep type="pkg" rel="ge" version="1.3" optional="yes">Net_POP3</dep>
+   <dep type="pkg" rel="ge" version="1.6.0" optional="yes">DB</dep>
+   <dep type="pkg" rel="has" optional="yes">MDB</dep>
+   <dep type="pkg" rel="ge" version="2.0.0RC1" optional="yes">MDB2</dep>
+   <dep type="pkg" rel="has" optional="yes">Auth_RADIUS</dep>
+   <dep type="pkg" rel="ge" version="1.0.0" optional="yes">Crypt_CHAP</dep>
+   <dep type="pkg" rel="has" optional="yes">File_SMBPasswd</dep>
+   <dep type="ext" rel="has" optional="yes">imap</dep>
+   <dep type="ext" rel="has" optional="yes">vpopmail</dep>
+  </deps>
+  <provides type="class" name="Auth" />
+  <provides type="function" name="Auth::applyAuthOptions" />
+  <provides type="function" name="Auth::assignData" />
+  <provides type="function" name="Auth::start" />
+  <provides type="function" name="Auth::login" />
+  <provides type="function" name="Auth::setExpire" />
+  <provides type="function" name="Auth::setIdle" />
+  <provides type="function" name="Auth::setSessionName" />
+  <provides type="function" name="Auth::setShowLogin" />
+  <provides type="function" name="Auth::setAllowLogin" />
+  <provides type="function" name="Auth::setLoginCallback" />
+  <provides type="function" name="Auth::setFailedLoginCallback" />
+  <provides type="function" name="Auth::setLogoutCallback" />
+  <provides type="function" name="Auth::setAuthData" />
+  <provides type="function" name="Auth::getAuthData" />
+  <provides type="function" name="Auth::setAuth" />
+  <provides type="function" name="Auth::setAdvancedSecurity" />
+  <provides type="function" name="Auth::checkAuth" />
+  <provides type="function" name="Auth::staticCheckAuth" />
+  <provides type="function" name="Auth::getAuth" />
+  <provides type="function" name="Auth::logout" />
+  <provides type="function" name="Auth::updateIdle" />
+  <provides type="function" name="Auth::getUsername" />
+  <provides type="function" name="Auth::getStatus" />
+  <provides type="function" name="Auth::getPostUsernameField" />
+  <provides type="function" name="Auth::getPostPasswordField" />
+  <provides type="function" name="Auth::sessionValidThru" />
+  <provides type="function" name="Auth::listUsers" />
+  <provides type="function" name="Auth::addUser" />
+  <provides type="function" name="Auth::removeUser" />
+  <provides type="function" name="Auth::changePassword" />
+  <provides type="class" name="Auth_Anonymous" extends="Auth" />
+  <provides type="function" name="Auth_Anonymous::login" />
+  <provides type="function" name="Auth_Anonymous::forceLogin" />
+  <provides type="class" name="Auth_Controller" />
+  <provides type="function" name="Auth_Controller::setAutoRedirectBack" />
+  <provides type="function" name="Auth_Controller::redirectBack" />
+  <provides type="function" name="Auth_Controller::redirectLogin" />
+  <provides type="function" name="Auth_Controller::start" />
+  <provides type="function" name="Auth_Controller::isAuthorised" />
+  <provides type="function" name="Auth_Controller::checkAuth" />
+  <provides type="function" name="Auth_Controller::logout" />
+  <provides type="function" name="Auth_Controller::getUsername" />
+  <provides type="function" name="Auth_Controller::getStatus" />
+  <provides type="class" name="Auth_Container" />
+  <provides type="function" name="Auth_Container::fetchData" />
+  <provides type="function" name="Auth_Container::verifyPassword" />
+  <provides type="function" name="Auth_Container::supportsChallengeResponse" />
+  <provides type="function" name="Auth_Container::getCryptType" />
+  <provides type="function" name="Auth_Container::listUsers" />
+  <provides type="function" name="Auth_Container::getUser" />
+  <provides type="function" name="Auth_Container::addUser" />
+  <provides type="function" name="Auth_Container::removeUser" />
+  <provides type="function" name="Auth_Container::changePassword" />
+  <provides type="class" name="Auth_Container_DB" extends="Auth_Container" />
+  <provides type="function" name="Auth_Container_DB::query" />
+  <provides type="function" name="Auth_Container_DB::fetchData" />
+  <provides type="function" name="Auth_Container_DB::listUsers" />
+  <provides type="function" name="Auth_Container_DB::addUser" />
+  <provides type="function" name="Auth_Container_DB::removeUser" />
+  <provides type="function" name="Auth_Container_DB::changePassword" />
+  <provides type="function" name="Auth_Container_DB::supportsChallengeResponse" />
+  <provides type="function" name="Auth_Container_DB::getCryptType" />
+  <provides type="class" name="Auth_Container_DBLite" extends="Auth_Container" />
+  <provides type="function" name="Auth_Container_DBLite::fetchData" />
+  <provides type="class" name="Auth_Container_File" extends="Auth_Container" />
+  <provides type="function" name="Auth_Container_File::fetchData" />
+  <provides type="function" name="Auth_Container_File::listUsers" />
+  <provides type="function" name="Auth_Container_File::addUser" />
+  <provides type="function" name="Auth_Container_File::removeUser" />
+  <provides type="function" name="Auth_Container_File::changePassword" />
+  <provides type="class" name="Auth_Container_IMAP" extends="Auth_Container" />
+  <provides type="function" name="Auth_Container_IMAP::fetchData" />
+  <provides type="class" name="Auth_Container_POP3" extends="Auth_Container" />
+  <provides type="function" name="Auth_Container_POP3::fetchData" />
+  <provides type="class" name="Auth_Container_LDAP" extends="Auth_Container" />
+  <provides type="function" name="Auth_Container_LDAP::fetchData" />
+  <provides type="function" name="Auth_Container_LDAP::checkGroup" />
+  <provides type="class" name="Auth_Container_MDB" extends="Auth_Container" />
+  <provides type="function" name="Auth_Container_MDB::query" />
+  <provides type="function" name="Auth_Container_MDB::fetchData" />
+  <provides type="function" name="Auth_Container_MDB::listUsers" />
+  <provides type="function" name="Auth_Container_MDB::addUser" />
+  <provides type="function" name="Auth_Container_MDB::removeUser" />
+  <provides type="function" name="Auth_Container_MDB::changePassword" />
+  <provides type="function" name="Auth_Container_MDB::supportsChallengeResponse" />
+  <provides type="function" name="Auth_Container_MDB::getCryptType" />
+  <provides type="class" name="Auth_Container_MDB2" extends="Auth_Container" />
+  <provides type="function" name="Auth_Container_MDB2::query" />
+  <provides type="function" name="Auth_Container_MDB2::fetchData" />
+  <provides type="function" name="Auth_Container_MDB2::listUsers" />
+  <provides type="function" name="Auth_Container_MDB2::addUser" />
+  <provides type="function" name="Auth_Container_MDB2::removeUser" />
+  <provides type="function" name="Auth_Container_MDB2::changePassword" />
+  <provides type="function" name="Auth_Container_MDB2::supportsChallengeResponse" />
+  <provides type="function" name="Auth_Container_MDB2::getCryptType" />
+  <provides type="class" name="Auth_Container_RADIUS" extends="Auth_Container" />
+  <provides type="function" name="Auth_Container_RADIUS::fetchData" />
+  <provides type="class" name="Auth_Container_SMBPasswd" extends="Auth_Container" />
+  <provides type="function" name="Auth_Container_SMBPasswd::fetchData" />
+  <provides type="function" name="Auth_Container_SMBPasswd::listUsers" />
+  <provides type="function" name="Auth_Container_SMBPasswd::addUser" />
+  <provides type="function" name="Auth_Container_SMBPasswd::removeUser" />
+  <provides type="function" name="Auth_Container_SMBPasswd::changePassword" />
+  <provides type="class" name="Auth_Container_SOAP" extends="Auth_Container" />
+  <provides type="function" name="Auth_Container_SOAP::fetchData" />
+  <provides type="class" name="Auth_Container_vpopmail" extends="Auth_Container" />
+  <provides type="function" name="Auth_Container_vpopmail::fetchData" />
+  <provides type="class" name="Auth_Container_Pear" extends="Auth_Container" />
+  <provides type="function" name="Auth_Container_Pear::fetchData" />
+  <provides type="class" name="Auth_Frontend_Html" />
+  <provides type="function" name="Auth_Frontend_Html::render" />
+  <filelist>
+   <file role="php" baseinstalldir="" md5sum="8e4cd1a9d6f5c71743f9df1350c8d5a6" name="Auth.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="" md5sum="b0d2e804eaf3e83d975d86dac9f2948b" name="Auth/Anonymous.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="" md5sum="3db4bed05ee42a45064360c185babcfc" name="Auth/Auth.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="" md5sum="125b6c07f4201d0f85af36253f7a7f6d" name="Auth/Controller.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="Auth" md5sum="5cf8d583d9ed859c8917b238844b0926" name="Container.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="doc" baseinstalldir="Auth" md5sum="f5632fbe6d758b2da9af3f54485d0398" name="README.Auth"/>
+   <file role="php" baseinstalldir="Auth" md5sum="90fa3201fa8782025e89b0ca7002ffbf" name="Container/DB.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="Auth" md5sum="cd8510172897c35248fa3a3e4c4c677c" name="Container/DBLite.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="Auth" md5sum="4e1df0afe1323e4caf6bc3fbdac78d9a" name="Container/File.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="Auth" md5sum="bc62f1447482774277d6c0ad29e059b3" name="Container/IMAP.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="Auth" md5sum="bf627780d622f8ceb240633576211925" name="Container/POP3.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="Auth" md5sum="51bcfa9d616de788a30b18bdcfeb47b3" name="Container/LDAP.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="Auth" md5sum="bcff2e326d9898ec9b4bd672d6e3a8e7" name="Container/MDB.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="Auth" md5sum="5328fbfba6ad4dc6b6ce96921db3600f" name="Container/MDB2.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="Auth" md5sum="61a86bbb7b37d22e3732731daa5105bf" name="Container/RADIUS.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="Auth" md5sum="ecb66fe23c0e05714255993f455a148e" name="Container/SMBPasswd.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="Auth" md5sum="4a1baa0184abd3fc57aa59eb8c90aea0" name="Container/SOAP.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="Auth" md5sum="67e77d9b0645bf1cc46bc4bc10336f8d" name="Container/vpopmail.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="Auth" md5sum="5f2e188c17ddc2fa8376032da6d2a3c5" name="Container/PEAR.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="Auth" md5sum="b0b80ed75986d601ae4e1fc28c7ff570" name="Frontend/Html.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="Auth" md5sum="6d03025f455869185b57b5c138fd1c01" name="Frontend/md5.js"/>
+   <file role="test" baseinstalldir="Auth" md5sum="b60c8b083eb08119d88089db53ee2ede" name="tests/auth_container_db_options.php"/>
+   <file role="test" baseinstalldir="Auth" md5sum="54a7df1fb29103b89f08a0246dbd89c5" name="tests/DBContainer.php"/>
+   <file role="test" baseinstalldir="Auth" md5sum="907193304f6f6d0a03321a344d81a8a8" name="tests/auth_container_file_options.php"/>
+   <file role="test" baseinstalldir="Auth" md5sum="ccb10ea12257fec2064b68417f78386b" name="tests/FileContainer.php"/>
+   <file role="test" baseinstalldir="Auth" md5sum="f2884c6ddc8f0405364aad909105f0d5" name="tests/auth_container_pop3_options.php"/>
+   <file role="test" baseinstalldir="Auth" md5sum="2070e2661d33de660a39837ecdec8ca7" name="tests/auth_container_mdb_options.php"/>
+   <file role="test" baseinstalldir="Auth" md5sum="42fafd76f8ffc6bab8b3fe852e1aa7aa" name="tests/MDBContainer.php"/>
+   <file role="test" baseinstalldir="Auth" md5sum="2070e2661d33de660a39837ecdec8ca7" name="tests/auth_container_mdb2_options.php"/>
+   <file role="test" baseinstalldir="Auth" md5sum="cce1cc136b4b2e7a01d84486b0490336" name="tests/MDB2Container.php"/>
+   <file role="test" baseinstalldir="Auth" md5sum="dca1ce1ee7d594afe21c0ba3063ba730" name="tests/POP3Container.php"/>
+   <file role="test" baseinstalldir="Auth" md5sum="7e41dc017dbc7f9c3841f205736cf2ab" name="tests/auth_container_pop3a_options.php"/>
+   <file role="test" baseinstalldir="Auth" md5sum="bcf6e10c7ec6747a88830e5374d94d65" name="tests/POP3aContainer.php"/>
+   <file role="test" baseinstalldir="Auth" md5sum="6c11c1e86503c0c174617f741e5fbee6" name="tests/TestAuthContainer.php"/>
+   <file role="test" baseinstalldir="Auth" md5sum="81051bcc2cf1bedf378224b0a93e2877" name="tests/users"/>
+   <file role="test" baseinstalldir="Auth" md5sum="db9782123c381f0d638ed9ace4f6d42d" name="tests/tests.php"/>
+   <file role="test" baseinstalldir="Auth" md5sum="c0ea6513ca30793404fa300c1f82995e" name="tests/mysql_test_db.sql"/>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>1.3.0</version>
+    <date>2006-03-03</date>
+    <license>PHP License</license>
+    <state>stable</state>
+    <notes>This is the final stable release of Auth 1.3.0. This version contains many new
+features over previous versions. Summary of changes:
+
+ * New MDB2 container [30/March/2004 - quipo]
+ * New PEAR container, authenticate against pear.php.net [16/Dec/2003 - yavo]
+ * New Advanced Security mode to catch man-in-the-middle attacks.
+ * Added options for changing the post variables, patch supplied by Moritz 
+   Heidkamp &lt;moritz.heidkamp@invision-team.de&gt;
+ * New DBLite container, same as DB but with the user manipulation functions 
+   removed (50% smaller).
+ * Split login form to Auth_Frontend_HTML with goal to make it easily 
+   customisable.
+
+Numerous other small fixes and improvements to all storage containers thanks
+to the following people: Matt Eaton, Jeroen Houben, Cipriano Groenendal,
+Markku Turunen, Matthew Van Gundy, marc at practeo dot ch and I&apos;m sure many
+others that have contributed over the years it&apos;s taken to get this release
+out.
+    </notes>
+   </release>
+   <release>
+    <version>1.3.0RC7</version>
+    <date>2006-03-01</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>This release is primarily a coding standard clean-up before the 1.3.0 final
+release.
+
+In addition the following improvements to the LDAP Container where supplied
+by Hugues Peeters &lt;hugues.peeters@claroline.net&gt;.
+ * Changed default attrformat to AUTH so that loaded attributes are
+   presented in the same format as other backends provide.
+ * Added compatibility support to 1.2 style configuration options
+ * Attributes option now accepts a comma seperated string as well as
+   as array the same as db_fields in the DB, MDB and MDB2 backends.
+
+Finally there are additional checks that the relevant PHP module is loaded
+when loading the IMAP and VPOPMail Containers.
+    </notes>
+   </release>
+   <release>
+    <version>1.3.0RC6</version>
+    <date>2006-02-22</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>
+    </notes>
+   </release>
+   <release>
+    <version>1.3.0r5</version>
+    <date>2006-02-21</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>* Fixed Bug #2873: Allow calling programs to gracefully handle being unable
+  to connect/bind to LDAP server.
+* Fixed Bug #4918: Added support to specify which authentication method to 
+  prefer when authenticating against a POP3 backend.
+* Fixed Bug #6644: Added support for LDAP_OPT_REFERRALS. Setting to false can 
+  improve compatibility with Active Directory.
+* Fixed Bug #6791: Made all calls to call_user_func() call_user_func_array and
+  made calls consistant per change done in 1.3.0r3.
+* Fixed Bug #6803: depreciated DB function. Now requires DB &gt;= 1.6.0
+* Fixed Bug #6808: Whenever Auth_Container_DB attempts to change the database 
+  make sure the connection/DB object exists and is correct before attempting to
+  use the DB quoting features.
+    </notes>
+   </release>
+   <release>
+    <version>1.3.0r4</version>
+    <date>2006-02-14</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>This release fixes a security issue that allows an attacker to perform
+injection attacks against the underlying storage containers.  Upgrading
+is strongly recommended if you are using beta releases of the Auth
+package.
+
+* Improved parameter validation in the DB and LPAP containers. (Patch
+  provided by Matthew Van Gundy.)
+* Fixed Bug #3101: Wrong variable names in Auth/Container/File.php (mike)
+* renamed supportsChallengeResponce() to supportsChallengeResponse()
+  in the DB container (quipo)
+* Fixed Bug #4347: recognition of DB and MDB objects passed as dsn
+* Fixed Bug #6324: updated MDB2 container
+* Fixed Bug #5174: &quot;Only variable references should be returned by reference&quot;
+  bug in _factory()
+* Fixed Bug #2446: english language typos.
+  This results in a BC break for any custom containers that have implemented
+  supportsChallengeResponce(). Also all containers already
+  supportsChallengeResponse() instead of supportsChallengeResponce() and
+  therefore the call in Auth_Frontend_Html always called the default
+  implementation and not the container implementation.
+    </notes>
+   </release>
+   <release>
+    <version>1.3.0r3</version>
+    <date>2004-08-07</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>* Moved login screen generation code to Auth/Frontend/Html.php 
+  In the future the frontend will be configurable.
+* Implemented support for Challenge / Responce password authenthication
+  have to enable advanced security $auth-&gt;setAdvancedSecurity
+  will work only with DB container and cryptType = none|md5
+* Implemented setAllowLogin to control which pages are allowed to perform login, 
+  to preservce BC. Previusly the showLogin flag was used to control this - yavo
+* Implmented lazy loading for the storage constructor, constructor is only created when needed
+  to make Auth more lightweight (this might be adding a bit more overhead to login and usermanagement functions)
+* Removed include of PEAR, was not used anywhare in Auth.php
+* Created a new storage container DBLite same as DB but with the user manipulation functions removed (50% smaller)
+* Added a new method staticCheckAuth which can be called statically with only the auth options
+* Auth::importGlobalVariable method was removed and replaced by references to global variables
+* Removed all calls to $session[$this-&gt;_sessionName], made local reference session point to that instead
+* Changed call_user_func to call_user_func_array for the callbacks, to avoid using @ for passing variables by reference
+* Code Cleanup, removed most vi comments
+    </notes>
+   </release>
+   <release>
+    <version>1.3.0r1</version>
+    <date>2004-06-04</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>* Changes to LDAP container:
+  - check for loaded ldap extension at startup as suggested by Markku Turunen
+  - make ldap version configurable via config array
+  - documentation fix for active directory default user container
+  [ 14/Jun/2004 - jw]
+* Added an Auth_Controller class, to manage automatic redirection to login page and redirect back
+  to the calling page [04/06/2004 - Yavo]
+* Changes to LDAP container:
+  - additional attribute fetching to authData via new option attributes
+  - utf8 encoding username for ldapv3 (fixes german umlaut problem)
+  - make scope definable for user and group searching seperately
+  - remove useroc, groupoc and replace them with userfilter, groupfilter which is way more flexible
+  - updated documentation on all new and changed parameters
+  As some of the parameters changed this one is not backwards compatible to earlier versions.
+  Look at the top of the class where all parameters are explained in detail.
+  [08/April/2004 - jw]
+* Added new MDB2 container  [30/March/2004 - quipo]
+* Implements changePassword and CS fixed, patch from Cipriano Groenendal &lt;cipri@cipri.com&gt;
+  [29/March/2004 - yavo]
+* Added options for changing the post variables, patch supplied by Moritz Heidkamp &lt;moritz.heidkamp@invision-team.de&gt;
+  [03/March/2004 - yavo]
+* Added method setAdvancedSecurity and set advanced security to off by default, if turned on auth will perform additional
+  security checks if ip or user agent has changed across requests
+* Login is now performed only if showLogin is true, do not allow for logins to be performed from any page which calls auth-&gt;start
+  spotted by Matt Eaton &lt;pear@divinehawk.com&gt; [16/Jan/2004 - yavo] 
+* Fixed bug noted by Jeroen Houben &lt;jeroen@terena.nl&gt;, calling loginFailedCallback
+  would not have the proper status set [16/Jan/2004 - yavo]
+* Added PEAR container, authenticate the user against the pear web site
+  (probably php.net also) [16/Dec/2003 - yavo]
+    </notes>
+   </release>
+   <release>
+    <version>1.2.3</version>
+    <date>2003-09-08</date>
+    <license>PHP License</license>
+    <state>stable</state>
+    <notes>* new Method to auth_container getUser()
+* New Auth_Container_File, using new File_Passwd class. Provided by Michael Wallner &lt;mike@php.net&gt;
+* Login/Logout callbacks now get a reference to auth
+* New Login Failed Callback added (method setFailedLoginCallback)
+* SOAP container patch to keep a reference to the Soap responce by Bruno Pedro &lt;bpedro@co.sapo.pt&gt;
+* Auth is now installed in /pear-dir/Auth.php instead of /pear-dir/Auth/Auth.php, an
+  empty file /pear-dev/Auth/Auth.php wich includes Auth.php is added for BC
+* The contaner now gets a reference to the auth object ($auth-&gt;storage-&gt;_auth_obj)
+*Some patches from the pear-dev list bellow
+    -maka3d@yahoo.com.br - Patch to use a method of the container in Auth_Container::verifyPassword
+    -Lorenzo Alberton &lt;l.alberton@quipo.it&gt; - Patch to use variable session variable name, untill now the variable auth was used
+    -Marcos Neves &lt;maka3d@yahoo.com.br&gt; - Avaoid error when calling getAuthData() before the login
+    </notes>
+   </release>
+   <release>
+    <version>1.2.2</version>
+    <date>2003-07-29</date>
+    <license>PHP License</license>
+    <state>stable</state>
+    <notes>* Added support for passing contaner as an object
+* Added fix when db_fileds is *
+* Added Test Suite (experimental)
+* Added generic support for arbitrary password crypting functions
+  different than MD5, DES and plain text. (Patch by Tom Anderson)
+* Added new MDB storage container written by Lorenzo Alberton
+* Added new Container for SAMBA password files (SMBPasswd)
+    </notes>
+   </release>
+ </changelog>
+</package>

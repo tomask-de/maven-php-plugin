@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.6.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>XML_XPath</name>
+ <channel>pear.php.net</channel>
+ <summary>The PEAR::XML_XPath class provided an XPath/DOM XML manipulation, maneuvering and query interface.</summary>
+ <description>The PEAR::XML_XPath class provided an XPath/DOM XML manipulation, maneuvering and
+query interface.
+The class allows for easy manipulation, maneuvering and querying of a domxml tree using
+both xpath queries and DOM walk functions.  It uses an internal pointer for all
+methods on which the action is performed.  Results from an dom/xpath query are returned
+as an XPath_Result object, which contains an internal array of DOM nodes and which extends
+the common DOM class and hence contains all the DOM functions from the main object to run
+on each of the elements in the internal array.  This class tries to hold as close as possible       to the DOM Recommendation.  You MUST have the domxml extension to use this class.
+The XML_XPath class was inspired by a class maintained by Nigel Swinson called phpxpath.
+The phpxpath class does not rely on PHP xmldom functions and is therefore a sibling to
+this class: http://sourceforge.net/projects/phpxpath</description>
+ <lead>
+  <name>Dan Allen</name>
+  <user>dallen</user>
+  <email>dallen@php.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2007-08-04</date>
+ <time>22:29:24</time>
+ <version>
+  <release>1.2.4</release>
+  <api>1.2.4</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.php.net/license">PHP License</license>
+ <notes>QA release: Fix E_NOTICE when returning result in evaluate()</notes>
+ <contents>
+  <dir name="/">
+   <file baseinstalldir="XML" md5sum="de88063e44c757dddda16fb372545134" name="docs/XML_XPath_example.php" role="doc" />
+   <file baseinstalldir="XML" md5sum="90a92ff4a729b1cb46e9d238a274fa64" name="XPath/common.php" role="php" />
+   <file baseinstalldir="XML" md5sum="b2fbc65ece57c16071ca0ea435853174" name="XPath/error.php" role="php" />
+   <file baseinstalldir="XML" md5sum="361a35fc9f0c66bc862a2877ee151d04" name="XPath/result.php" role="php" />
+   <file baseinstalldir="XML" md5sum="6fefc2dde95d1d9b92915c616fcc9ac5" name="XPath.php" role="php" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.2.1</min>
+    <max>5.0.0</max>
+    <exclude>5.0.0</exclude>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <extension>
+    <name>domxml</name>
+   </extension>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>1.2.3</release>
+    <api>1.2.3</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2005-10-18</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>There is now a dependency on PHP4 since PHP5 has out-of-the-box for XPath in both DOM and SimpleXML.</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.1</release>
+    <api>1.2.1</api>
+   </version>
+   <stability>
+    <release>devel</release>
+    <api>devel</api>
+   </stability>
+   <date>2005-10-12</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* fixed a long standing bug where the get_class() failed due to a case problem, causing all load() operations to fail in newer releases of PHP
+* changed state to devel</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2</release>
+    <api>1.2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2002-06-07</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Very important to note that the DOM step functions do not take an optional xpath query.  The
+reason I designed it this way is because the outcome would be too difficult to deal with, since
+one of 4 different scenarios could take place.  Plus, it just doesn&apos;t make any sense.
+* Significant speed enhancements (almost 100% faster)
+Major changes:
+* getAttribute(&apos;foo&apos;, true) now puts you on the attribute, not the element node
+* cleaned up the XML_XPath_result initialization (no longer create an StdClass when calling class)
+* fixed sorting for childNodes() and getElementsByTagName() generated result objects
+* cleaned up sorting in result object, and added comments (so I don&apos;t forget again how I did it)
+* major speed enhancements (calling user defined functions methods is slow, so tried to trim that down)
+* don&apos;t create a result object in the _quick_evaluate function since we don&apos;t need it anyway
+* enabled relative xpath queries differently, in_xpathQuery = array(query, node) for relative...
+* added relative xpath queries for the _quick_evaluate feature</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1</release>
+    <api>1.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2002-06-06</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>This version brings major enhancements to the API
+* childNode(), siblingNode() removed and features are relocated
+* added childNodes() which returns an XML_XPath_result object of all children
+* added getElementByTagName which returns an XML_XPath_result object of all matching tags
+* step functions in result object are now next(), end(), rewind() and nextByNode(Name|Type)
+* calling next() after rewind() in the result object counts the first object again, so a regular
+  while loop can be used
+* relative XPath queries are now enabled (getNodePath() provides this functionality)
+* better error reports generated and will continue to improve with the domxml extension
+* setNodeIndex() in result object removed</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0</release>
+    <api>1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2002-05-23</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>This is the initial independent PEAR release.</notes>
+  </release>
+ </changelog>
+</package>

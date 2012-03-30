@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>HTTP_Download</name>
+  <summary>Send HTTP Downloads</summary>
+  <description>Provides an interface to easily send hidden files or any arbitrary data to 
+HTTP clients.  HTTP_Download can gain its data from variables, files or
+stream resources.
+
+It features:
+ - Basic caching capabilities
+ - Basic throttling mechanism
+ - On-the-fly gzip-compression
+ - Ranges (partial downloads and resuming)
+ - Delivery of on-the-fly generated archives through Archive_Tar and Archive_Zip
+ - Sending of PgSQL LOBs without the need to read all data in prior to sending</description>
+  <maintainers>
+    <maintainer>
+      <user>mike</user>
+      <name>Michael Wallner</name>
+      <email>mike@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.0.0RC6</version>
+    <date>2004-02-08</date>
+    <license>PHP</license>
+    <state>beta</state>
+    <notes>* Fixed Bug #3247 - set_time_limit() warning in safe_mode
+* Fixed Bug #3263 - Acrobat Reader hangs on multiple ranges
+* Throttle delay may now be supplied as float (enables delays in msecs)
+* Removed &quot;Connection: close&quot; header
+* Cache-Control is now configurable (private/public)
+* Moved (seldom used) code of sendArchive() into its own class
+  HTTP_Download_Archive (method sendArchive() still available for BC)</notes>
+    <deps>
+      <dep type="pkg" rel="has" optional="no">PEAR</dep>
+      <dep type="pkg" rel="has" optional="no">HTTP_Header</dep>
+      <dep type="pkg" rel="has" optional="yes">Archive_Tar</dep>
+      <dep type="pkg" rel="has" optional="yes">Archive_Zip</dep>
+      <dep type="ext" rel="has" optional="no">pcre</dep>
+      <dep type="ext" rel="has" optional="yes">mime_magic</dep>
+      <dep type="php" rel="ge" version="4.3.0" optional="yes"/>
+      <dep type="php" rel="ge" version="4.2.0" optional="no"/>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="HTTP" md5sum="afe752c315cbb31bf1eab44b380a8e2a" name="Download.php"/>
+      <file role="php" baseinstalldir="HTTP" md5sum="ef0ea1da9f1c01df4bab5ace74c2ece1" name="Download\PgLOB.php"/>
+      <file role="php" baseinstalldir="HTTP" md5sum="c33a4e173b3ff72c2a63360a8c61e956" name="Download\Archive.php"/>
+      <file role="test" baseinstalldir="HTTP" md5sum="1aa65d7d9f48e3b050a4c068e6d54db0" install-as="send.php" name="tests/send.php"/>
+      <file role="test" baseinstalldir="HTTP" md5sum="02ef73911508a6e9fde34ec3ddd8ccd0" install-as="testcase.php" name="tests/testcase.php"/>
+      <file role="test" baseinstalldir="HTTP" md5sum="49cb3608e2b33fad6b65df8cb8f49668" install-as="data.txt" name="tests/data.txt"/>
+    </filelist>
+  </release>
+</package>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/net_ldap">Net_LDAP</p>
+ <c>pear.php.net</c>
+ <v>0.7.2</v>
+ <st>beta</st>
+ <l>GPL License</l>
+ <m>beni</m>
+ <s>OO interface for searching and manipulating LDAP-entries</s>
+ <d>Net Ldap is a clone of Perls Net::LDAP object interface to
+                 ldapservers. It does not contain all of Net::LDAPs features,
+                 but has:
+                 * A simple OO-interface to connections, searches entries and filters.
+                 * Support for tls and ldap v3.
+                 * Simple modification, deletion and creation of ldapentries.
+                 * Support for schema handling.
+
+                 Net_LDAP layers itself on top of PHP's existing ldap extensions.</d>
+ <da>2007-05-07 08:27:10</da>
+ <n>This release features some internal code movements to be more compatible to PERL::Net_LDAP.
+           The movements include:
+              * Removed UTF8 en-/decoding stuff from Net_LDAP_Utils class since this was moved to Net_LDAP class in 0.6.6
+              * Moved Filter encoding from Net_LDAP_Filter to Net_LDAP_Util
+              * Moved ldap_explode_dn_escaped() from Net_LDAP_Entry to Net_LDAP_Util
+              * Added perls functions from Net_LDAP::Util to our Util class, but they still need some work
+           Please note that ldap_explode_dn_escaped() is not available from Net_LDAP_Entry anymore.
+
+           Additionally some new functionality has been introduced:
+              * You can now apply regular expressions directly to a entrys attributes
+                and don't need to fetch the attribute values manually.
+              * Net_LDAP_Schema can check if a attributes syntax is binary
+
+           The following bugs have been resolved:
+              * Connections to LDAP servers that forbid anonymous binds are possible again
+              * The JPEG attribute is now properly returned as binary value instead of string
+              * If the array describing selected attributes in searches didn't contain consecutive keys, there was a problem sometimes
+              * Some PHP5 return issues</n>
+ <f>37955</f>
+ <g>http://pear.php.net/get/Net_LDAP-0.7.2</g>
+ <x xlink:href="package.0.7.2.xml"/>
+</r>

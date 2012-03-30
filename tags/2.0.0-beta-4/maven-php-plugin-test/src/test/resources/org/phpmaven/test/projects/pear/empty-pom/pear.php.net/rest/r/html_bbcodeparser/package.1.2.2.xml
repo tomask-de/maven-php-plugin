@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.6.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>HTML_BBCodeParser</name>
+ <channel>pear.php.net</channel>
+ <summary>This is a parser to replace UBB style tags with their html equivalents.</summary>
+ <description>This is a parser to replace UBB style tags with their html equivalents.
+ It does not simply do some regex calls, but is complete stack based parse engine. This ensures that all tags are properly nested, if not, extra tags are added to maintain the nesting. This parser should only produce xhtml 1.0 compliant code. All tags are validated and so are all their attributes. It should be easy to extend this parser with your own tags.</description>
+ <lead>
+  <name>Stijn de Reede</name>
+  <user>sjr</user>
+  <email>sjr@gmx.co.uk</email>
+  <active>no</active>
+ </lead>
+ <date>2007-07-02</date>
+ <time>20:49:49</time>
+ <version>
+  <release>1.2.2</release>
+  <api>1.2.0</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.php.net/license">PHP License</license>
+ <notes>QA release:
+ * Fix bug 1512: URL Tags Allow Javascript injection
+ * Fix bug 5844: Extending HTML_BBCodeParser class does not work
+ * Fix bug 11370: img don&apos;t like &apos;=&apos;
+ * Fix bug 11400: Lists start with an empty listitem</notes>
+ <contents>
+  <dir name="/">
+   <file baseinstalldir="HTML" md5sum="5954ae9b9e8b74a0e5e49045276c9cbf" name="BBCodeParser/example/BBCodeParser.ini" role="doc" />
+   <file baseinstalldir="HTML" md5sum="d8519ccbdd727314d4126300e0205c8b" name="BBCodeParser/example/parser.php" role="doc" />
+   <file baseinstalldir="HTML" md5sum="9aa66e4db0b28d4f1adecdff26f2f66c" name="BBCodeParser/Filter/Basic.php" role="php" />
+   <file baseinstalldir="HTML" md5sum="4b14d692368a5acef032cb41dc320ea4" name="BBCodeParser/Filter/Email.php" role="php" />
+   <file baseinstalldir="HTML" md5sum="f0d8b8659e9ed4fca8ac428c7c3dc3e3" name="BBCodeParser/Filter/Extended.php" role="php" />
+   <file baseinstalldir="HTML" md5sum="ac616b87cdc3b962ae08f9ab7852a884" name="BBCodeParser/Filter/Images.php" role="php" />
+   <file baseinstalldir="HTML" md5sum="26f108ee8fad82fc93c42d131ee7d352" name="BBCodeParser/Filter/Links.php" role="php" />
+   <file baseinstalldir="HTML" md5sum="f9f0f6b24cc9c70d137a9fb06d2b1002" name="BBCodeParser/Filter/Lists.php" role="php" />
+   <file baseinstalldir="HTML" md5sum="10a469518e068d6b4e46a240b4ff4240" name="BBCodeParser/Filter.php" role="php" />
+   <file baseinstalldir="HTML" md5sum="ee942410ce5153f968d7c503c07d441e" name="tests/AllTests.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="09919d649ce480a52aba515483aab7ec" name="tests/HTML_BBCodeParserTest.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="26b97cc32b1284c8055d193e2ee77521" name="BBCodeParser.php" role="php" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.5.4</min>
+   </pearinstaller>
+   <package>
+    <name>PEAR</name>
+    <channel>pear.php.net</channel>
+    <min>1.5.4</min>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <date>2007-06-05</date>
+   <version>
+    <release>1.2.1</release>
+    <api>1.2.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>- Fix dependency issue</notes>
+  </release>
+  <release>
+   <date>2007-06-05</date>
+   <version>
+    <release>1.2.0</release>
+    <api>1.2.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>This is a PEAR-QA release.
+
+List of changes by Christian Weiske (cweiske)
+Bug #3775  strstr(): Empty delimiter.
+
+List of changes by Helgi √?ormar √?orbj√∂rnsson (dufuz)
+Bug #10616  Values are being truncated when a space is found.
+
+List of changes by Seth Price:
+- fixed Bug #373  	URL&apos;s with &apos;&amp;&apos; are parsed incorrectly
+- fixed bug #512: [list] in a [list] breaks the first [list]
+- fixed bug #1201: [list] output adding extra &lt;li&gt;&lt;/li&gt;
+- fixed bug #1258: Extra tags rendered with faulty BBCode
+- fixed bug #1299: Case sensitive in tag
+- fixed bug #1388: www links not expanded correctly
+- fixed bug #1512: URL Tags Allow Javascript injection
+- fixed bug #1755: If an URL is surrounded by another tag, the output get messed up
+- fixed bug #3690: BBCodeParser does not allow numbers in the opening tag
+- fixed bug #3932: External URLs are parsed without adding http://
+- XHTML 1.1 compliance
+- added testsuite
+
+List of changes by Lorenzo Alberton (quipo):
+- fixed bug #5609: BBCodeParser allows XSS
+- improved link parsing routine in the Links filter
+- added addFilter(), addFilters(), removeFilter() methods to dynamically
+  add/remove one or more filters
+- coding standards fixes
+- added more testcases to the testsuite</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1</release>
+    <api>1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2004-02-28</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Since no bugs have come up for the beta release (except one, which
+   was already fixed in CVS), the previous beta is now released as stable,
+   with very few changes. Bigger changes, like more-than-one character
+   delimiters, optional quotes in attribute values, etc, will be in the next
+   beta release.</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1b1</release>
+    <api>1.1b1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-01-19</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>This is a new beta release of HTML_BBCodeParser. It should fix some
+   reported issue&apos;s/bugs. It also contains a new filter for more advanced
+   text manipulation. Although this release is marked as a beta, I think
+   it should be pretty stable and not show many bugs.</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0</release>
+    <api>1.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2003-07-24</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>First release of HTML_BBCodeParser</notes>
+  </release>
+ </changelog>
+</package>

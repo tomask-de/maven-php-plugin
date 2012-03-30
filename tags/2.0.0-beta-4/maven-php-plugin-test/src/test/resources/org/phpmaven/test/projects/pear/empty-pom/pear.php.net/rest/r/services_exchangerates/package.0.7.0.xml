@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Services_ExchangeRates</name>
+ <channel>pear.php.net</channel>
+ <summary>Performs currency conversion</summary>
+ <description>Extendable to work with any source that provides exchange rate data, this class downloads
+exchange rates and the name of each currency (US Dollar, Euro, Maltese Lira, etc.) and 
+converts between any two of the available currencies (the actual number of currencies 
+supported depends on the exchange rate feed used).</description>
+ <lead>
+  <name>Marshall Roch</name>
+  <user>mroch</user>
+  <email>marshall@exclupen.com</email>
+  <active>no</active>
+ </lead>
+ <lead>
+  <name>Colin Ross</name>
+  <user>cross</user>
+  <email>cross@php.net</email>
+  <active>no</active>
+ </lead>
+ <date>2011-12-17</date>
+ <time>23:48:42</time>
+ <version>
+  <release>0.7.0</release>
+  <api>0.7.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.php.net/license">PHP License</license>
+ <notes>
+QA release
+Refactoring to use XML_Serializer, not XML_Tree.
+Bug #16753 Currencies_UN.php links to broken URL
+Require PHP5
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <file baseinstalldir="/" md5sum="804e5de5ca17b9e2d23ac7e35230b13b" name="data/CurrencyCodeList.xml" role="data" />
+   <file baseinstalldir="/" md5sum="6835c0fd7c6db389f68ffb4f64695dd0" name="Services/ExchangeRates.php" role="php" />
+   <file baseinstalldir="/" md5sum="e2fb70db46b52b2c72d99d65357d7a90" name="Services/ExchangeRates/Common.php" role="php" />
+   <file baseinstalldir="/" md5sum="01b1f005228c834381d5e1df80def70a" name="Services/ExchangeRates/Currencies.php" role="php" />
+   <file baseinstalldir="/" md5sum="e2d7db80fdcc9bb81fde55edae9468d8" name="Services/ExchangeRates/Currencies_UN.php" role="php" />
+   <file baseinstalldir="/" md5sum="e740705ae0024183ac4e9456c7ce7471" name="Services/ExchangeRates/Rates.php" role="php" />
+   <file baseinstalldir="/" md5sum="e8f4d8119e4dc7501b3a5ff09bdaf6b4" name="Services/ExchangeRates/Rates_ECB.php" role="php" />
+   <file baseinstalldir="/" md5sum="fe66ab7e2862bf6a35da67da82412421" name="Services/ExchangeRates/Rates_NBI.php" role="php" />
+   <file baseinstalldir="/" md5sum="2181f630c82ec562ac78460105d6bfbc" name="Services/ExchangeRates/Rates_NBP.php" role="php" />
+   <file baseinstalldir="/" md5sum="ffa6377cc09f8684f62261da4355a7a7" name="Services/ExchangeRates/Transport/Default.php" role="php" />
+   <file baseinstalldir="/" md5sum="542dad7b111ab8d8e89eb4a29aad10c0" name="Services/ExchangeRates/Transport/HTTP_Cached.php" role="php" />
+   <file baseinstalldir="/" md5sum="693f626150909e378774c98d561309ee" name="Services/ExchangeRates/Transport/Mock.php" role="php" />
+   <file baseinstalldir="/" md5sum="aa9e798816bed1cf7ff0555b5897e186" name="tests/AllTests.php" role="test" />
+   <file baseinstalldir="/" md5sum="ea6b4b2c7c5d279f17b787080e31daea" name="tests/Services_ExchangeRatesCommonTest.php" role="test" />
+   <file baseinstalldir="/" md5sum="717665156eed7c77d4b70bdef9c48c8a" name="tests/Services_ExchangeRatesTest.php" role="test" />
+   <file baseinstalldir="/" md5sum="28b525af7f8228a6565a6d89786ea456" name="tests/Services_ExchangeRates_CurrenciesTest.php" role="test" />
+   <file baseinstalldir="/" md5sum="9021eb886b2bc5e66406df35dd82afbc" name="tests/Services_ExchangeRates_CurrenciesUNTest.php" role="test" />
+   <file baseinstalldir="/" md5sum="32ecc3e278dea7873d9bdac82f00b75e" name="tests/Services_ExchangeRates_RatesECBTest.php" role="test" />
+   <file baseinstalldir="/" md5sum="4aa5a3ef4eedfd616f5a4012d13843fd" name="tests/Services_ExchangeRates_RatesNBITest.php" role="test" />
+   <file baseinstalldir="/" md5sum="89ed7e953e09c4e55eeec7ced49d73ee" name="tests/Services_ExchangeRates_RatesNBPTest.php" role="test" />
+   <file baseinstalldir="/" md5sum="a85d976e90b49c9629ebc199293792dd" name="tests/Services_ExchangeRates_RatesTest.php" role="test" />
+   <file baseinstalldir="/" md5sum="e34b2fa11be8ae5bea356c8199b1f260" name="example.php" role="doc" />
+   <file baseinstalldir="/" md5sum="bfeac1d166705e8152d1b04be59f1ad4" name="Services_ExchangeRates-0.7.0.tgz" role="data" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.0.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.9.0</min>
+   </pearinstaller>
+   <package>
+    <name>HTTP_Request</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>Cache_Lite</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>XML_Serializer</name>
+    <channel>pear.php.net</channel>
+    <min>0.20.0</min>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.1</release>
+    <api>0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2003-08-26</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+This is the first release.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2</release>
+    <api>0.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2003-08-27</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+* Quit using XML_Serializer since it would have required an ugly patch
+* Now using XML_Tree to parse XML files
+* Improved documentation
+* Added additional number formatting options
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.3</release>
+    <api>0.3</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2003-08-28</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+* Changed package name from Payment_Exchange to Services_Exchange
+* Generalized data retrieval by creating drivers for all data feeds
+* Created Common.php to store common parsing mechanisms (XML parsing,
+  CSV parsing, database querying, etc).  XML is the only one currently
+  supported, but others can be added as needed.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.4</release>
+    <api>0.4</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2003-08-28</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+* Changed package name from Services_Exchange to Services_ExchangeRates
+* Implemented conditional GETs with HTTP_Request and Cache_Lite
+* Improved file retrieval/caching methods in Common.php
+* Allowed default settings to be overridden with $options parameter in the constructor
+* Implemented PEAR error handling
+* Added National Bank of Poland exchange rate driver
+* Added dependency on HTTP_Request
+* Added dependency on Cache_Lite
+* Removed dependency on Cache
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.4.1</release>
+    <api>0.4.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2003-09-12</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+* Fixed documentation install path
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5.0</release>
+    <api>0.5.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-02-22</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+* Added National Bank of Israel driver (Thanks Simon Brüchner!)
+* Everything seems pretty stable, so changed state to beta
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.6.0</release>
+    <api>0.6.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2009-01-18</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Major refactoring of class to allow for dependency injection, and decoupled code.
+Added unit test coverage.
+Added the ability to choose from either Cached HTTP, file_get_contents(), or simulated data fetching
+Removed dead code - Countries_UN
+Be aware: You&apos;ll have to update code which was using 0.5.X API!
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.7.0</release>
+    <api>0.7.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2011-12-17</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+QA release
+Refactoring to use XML_Serializer, not XML_Tree.
+Bug #16753 Currencies_UN.php links to broken URL
+Require PHP5
+   </notes>
+  </release>
+ </changelog>
+</package>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/mdb2_schema">MDB2_Schema</p>
+ <c>pear.php.net</c>
+ <v>0.8.0</v>
+ <st>beta</st>
+ <l>BSD License</l>
+ <m>ifeghali</m>
+ <s>XML based database schema manager</s>
+ <d>PEAR::MDB2_Schema enables users to maintain RDBMS independant schema
+files in XML that can be used to create, alter and drop database entities
+and insert data into a database. Reverse engineering database schemas from
+existing databases is also supported. The format is compatible with both
+PEAR::MDB and Metabase.</d>
+ <da>2007-08-20 12:44:53</da>
+ <n>- Primary Key is removed when updating a table against its XML (Bug #11604)
+- Added support to INSERT...SELECT syntax, so it is now possible to prevent data loss when rollback an updated database (Bug #10892)
+- Updated API of getInstructionFields() and getInstructionWhere()
+- It is now possible to prevent updateDatabase() of overwriting the old schema file
+- alterDatabaseTables() first add new tables, then remove the old one. it is necessary to save table data before a remove
+- updateDatabase() was aborting, under certain conditions, when &lt;was&gt; was not found (Bug #11600)
+- Now validating database definition when reverse engineering (Bug #11604)
+- createDatabase() has a new parameter that is passed to the database driver to set some options like table engine
+- Foreign Keys support
+- It is now possible to assign to a column the value of another column, of the same table, when inserting data
+- Fixed the HTML etities issue when parsing a schema file (Bug #11676)
+- XML Documentation, XSD and DST updated to show/expect the attributes in a unique order. Writer and parsers was also updated to handle the attributes in that some order. That said Parser and Parser2 must have the exactly same output for a given XML
+- Except for table fields, all other database elements are being initialized with all its attributes, no matter if those attributes are present on the XML or not
+- Many bugs fixed in Parser2, that was not creating a valid database definition
+- Introduced attribute &quot;fixed&quot; of table field declaration
+- validateIndex() is now checking whether a index has fields
+- Validate is not returning MDB2_OK instead of boolean true
+- XML Documentation and schema validators revised and updated
+
+open todo items:
+- Clean up output of getDefinitionFromDatabase(). Sync it with Parser and Parser2.
+- Automatically load reserved keywords
+- Make MDB2_Schema loadable via MDB2_Driver_Common::loadModule() (Bug #8270)
+- Allow simple if statements that mean that anything enclosed is only executed
+  if it meets certain criterias based on that version number (or some other
+  variable). This would enable people to add DML statements that are only
+  executed when updating from a specific version.
+- Modularize Writer code or remake it
+- Add specific error codes for Validate class
+- Add support for ORDER clauses on UPDATEs (to resolve the duplicate key 
+  problem)
+- Update description.schema.xml
+- Create unit test for comparedefinitions()
+- Create unit test for initializetable()
+- Create unit test to compare the expected array definition with what is parsed
+- Improve validateDataFieldValue() to validate &lt;column&gt;
+- Provide more info on MDB2_Schema_Validate errors (output parsed value and expected value)
+- Views support
+- Fulltext index support</n>
+ <f>69835</f>
+ <g>http://pear.php.net/get/MDB2_Schema-0.8.0</g>
+ <x xlink:href="package.0.8.0.xml"/>
+</r>

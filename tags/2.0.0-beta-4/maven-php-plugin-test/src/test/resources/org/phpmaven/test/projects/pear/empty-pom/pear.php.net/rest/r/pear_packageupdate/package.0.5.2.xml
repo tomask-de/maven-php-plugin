@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.11" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>PEAR_PackageUpdate</name>
+ <channel>pear.php.net</channel>
+ <summary>A simple way to update packages at run time.</summary>
+ <description>PEAR_PackageUpdate (PPU) is designed to allow developers to easily include auto updating features for other packages and PEAR installable applications. PPU will check to see if a new version of a package is available and then ask the user if they would like to update the package. PPU uses PEAR to communicate with the channel server and to execute the update.
+
+  PPU allows the end user to take some control over when they are notified about new releases. The PPU Preferences allow a user to tell PPU not to ask about certain types of releases (bug fixes, minor releases, etc.), not to ask about certain release states (devel, alpha, etc.), not to ask until the next release or not to ask again.
+
+  PPU is just an engine for package updating. It should not be used directly. Instead one of the driver packages such as PEAR_PackageUpdate_Gtk2 should be used depending on the application or other package.</description>
+ <lead>
+  <name>Scott Mattocks</name>
+  <user>scottmattocks</user>
+  <email>scottmattocks@php.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Laurent Laville</name>
+  <user>farell</user>
+  <email>pear@laurent-laville.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2006-09-18</date>
+ <time>09:01:33</time>
+ <version>
+  <release>0.5.2</release>
+  <api>1.0.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+ <notes>Allow updates from channels other than pear.php.net.
+Allow updates using REST.</notes>
+ <contents>
+  <dir baseinstalldir="PEAR" name="/">
+   <file baseinstalldir="PEAR" md5sum="9539f534920c3f96bd0a18b5c6f0f350" name="examples/withoutFrontend.php" role="doc" />
+   <file baseinstalldir="PEAR" md5sum="2ea0ded1c451f85c46ba01470f2fa1d0" name="PackageUpdate.php" role="php">
+    <tasks:replace from="@version@" to="version" type="package-info" />
+   </file>
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.8</min>
+   </pearinstaller>
+   <package>
+    <name>PEAR</name>
+    <channel>pear.php.net</channel>
+    <min>1.4.8</min>
+   </package>
+  </required>
+  <group hint="PHP-GTK 2 front end for PPU" name="gtk2">
+   <package>
+    <name>PEAR_PackageUpdate_Gtk2</name>
+    <channel>pear.php.net</channel>
+    <min>0.3.1</min>
+   </package>
+  </group>
+  <group hint="Web HTML front end for PPU" name="web">
+   <package>
+    <name>PEAR_PackageUpdate_Web</name>
+    <channel>pear.php.net</channel>
+    <min>0.2.1</min>
+   </package>
+  </group>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.5.2</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-09-15</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+   <notes>Allow updates from channels other than pear.php.net.
+Allow updates using REST.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5.1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-07-15</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+   <notes>* fixed PHP dependency :
+required at least PHP 4.3.0 due to usage of functions: get_include_path, file_get_contents
+
+* add optional dependency to web/html frontend</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-05-07</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+   <notes>* news
+- more flexible implementation of the factory pattern allowing people to use custom class
+  see new example &apos;withoutFrontend.php&apos;: how to use ppu without frontend
+
+* bugs
+- fixes typos error on constants
+- fixes typos missing letter on function setMinimumReleaseType
+
+* improvements
+- indentation of error messages array
+
+* Quality Assurance
+- add @throws phpdoc tag on all necessary function comment block</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.4.3</release>
+    <api>0.4.3</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-04-25</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+   <notes>* news
+- Laurent Laville was added as a leader to the package
+
+* improvements
+- fixes request #7456: improve error frame used with PEAR_ErrorStack
+- mandatory ressources that will be call in all cases are now outside the class
+
+* Quality Assurance
+- PEAR cs standard for header comment blocks (see http://pear.php.net/pepr/pepr-proposal-show.php?id=128)
+- Adds since phpdoc tag to keep track of function history</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.4.2</release>
+    <api>0.4.2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-04-20</date>
+   <license uri="http://www.php.net/license/3_0.txt">PHP License</license>
+   <notes>Fixes for bug #7442: avoid warning messages when driver is unloadable.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.4.1</release>
+    <api>0.4.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-04-13</date>
+   <license uri="http://www.php.net/license/3_0.txt">PHP License</license>
+   <notes>Remove demo code from presentUpdate().</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.4.0a1</release>
+    <api>0.4.0a1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-03-28</date>
+   <license uri="http://www.php.net/license/3_0.txt">PHP License</license>
+   <notes>Initial PEAR release.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.3.0</release>
+    <api>0.3.0</api>
+   </version>
+   <stability>
+    <release>devel</release>
+    <api>devel</api>
+   </stability>
+   <date>2006-03-16</date>
+   <license uri="http://www.php.net/license/3_0.txt">PHP License</license>
+   <notes>Use PEAR::ErrorStack for error handling.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>devel</release>
+    <api>devel</api>
+   </stability>
+   <date>2006-03-08</date>
+   <license uri="http://www.php.net/license/3_0.txt">PHP License</license>
+   <notes>Add error constants.
+Allow error codes and PEAR_Error instances to be passed to pushError.
+Update return values and docblocks.
+Fix Windows preference file name.
+Fix example in opening doc block.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.1</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>devel</release>
+    <api>devel</api>
+   </stability>
+   <date>2006-03-08</date>
+   <license uri="http://www.php.net/license/3_0.txt">PHP License</license>
+   <notes>Remove PHP 5 public tokens from method signatures.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>devel</release>
+    <api>devel</api>
+   </stability>
+   <date>2006-03-07</date>
+   <license uri="http://www.php.net/license/3_0.txt">PHP License</license>
+   <notes>Initial release for PEPr proposal.</notes>
+  </release>
+ </changelog>
+</package>

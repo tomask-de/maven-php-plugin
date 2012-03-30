@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release2
+    http://pear.php.net/dtd/rest.release2.xsd">
+ <p xlink:href="/rest/p/liveuser">LiveUser</p>
+ <c>pear.php.net</c>
+ <v>0.7</v>
+ <a>0.7</a>
+ <mp>4.3.0</mp>
+ <st>alpha</st>
+ <l>LGPL</l>
+ <m>mw21st</m>
+ <s>User authentication and permission management framework</s>
+ <d>Perm_LiveUser is a set of classes for dealing with user authentication
+and permission management. Basically, there are three main elements that
+make up this package:
+* The LiveUser vlass
+* The Auth containers
+* The Perm containers
+The LiveUser class takes care of the login process and can be configured
+to use a certain permission container and one or more different auth containers.
+That means, you can have your users' data scattered amongst many data containers
+and have the LiveUser class try each defined container until the user is found.
+For example, you can have all website users who can apply for a new account online
+on the webserver's local database. Also, you want to enable all your company's
+employees to login to the site without the need to create new accounts for all of
+them. To achieve that, a second container can be defined to be used by the LiveUser class.
+You can also define a permission container of your choice that will manage the rights for
+each user. Depending on the container, you can implement any kind of permission schemes
+for your application while having one consistent API.
+Using different permission and auth containers, it's easily possible to integrate
+newly written applications with older ones that have their own ways of storing permissions
+and user data. Just make a new container type and you're ready to go!
+Currently available are RDBMS containers using PEAR::DB.
+More are soon to follow.
+</d>
+ <da>2003-06-01 19:24:00</da>
+ <n>* LoginManager renamed to LiveUser (file and class) to ensure consistency with
+other pear packages
+* some changes were made to enhance performance thus not hindering an
+application using it.
+* Classes do not extend from PEAR anymore since the error handling
+was not used to its full extent
+* Error management was improved. A simple raiseError method
+is implemented only including the PEAR base class when necessary.
+* Code Cleanup, some methods are not necessary anymore
+* A change was made in the cookie handling. An id of the password is stored
+in the cookie and on the server. They will be matched against one another.
+An encrypted version of the password is also kept on the server because
+some containers like LDAP need the password. LU tries to use the mcrypt
+extension and if not available relies on Crypt_Rc4 for password encryption/decryption.
+Because of this LiveUser needs a directory with write access.If you do
+no have access to the ini_get() function please set a constant
+named LIVEUSER_TMPDIR with an absolute path to a writeable directory.
+Please remember that cookies are not safe and use at your
+own risk.
+* Started improving the admin class for DB_Complex, added a new admin class
+for DB_Simple, moved both admn classes to a new directory &quot;Admin&quot;. Note: While
+the rest of the API is quite stable now, expect changes in the admin API and the 
+DB schema for language management soon
+* Variable table prefix for the db containers.
+* LiveUser class (formerly known as LoginManager) now has a status flag.
+* Enhanced configuration options.
+* Short readme with images of the sql schemas.</n>
+ <f>103481</f>
+ <g>http://pear.php.net/get/LiveUser-0.7</g>
+ <x xlink:href="package.0.7.xml"/>
+</r>

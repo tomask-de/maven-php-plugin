@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>MDB_QueryTool</name>
+  <summary>An OO-interface for easily retreiving and modifying data in a DB.</summary>
+  <description>This package is an OO-abstraction to the SQL-Query language, it provides methods such
+as setWhere, setOrder, setGroup, setJoin, etc. to easily build queries.
+It also provides an easy to learn interface that interacts nicely with HTML-forms using
+arrays that contain the column data, that shall be updated/added in a DB.
+This package bases on an SQL-Builder which lets you easily build
+SQL-Statements and execute them.
+NB: this is just a MDB porting from the original DB_QueryTool
+written by Wolfram Kriesing and Paolo Panto (vision:produktion, wk@visionp.de).</description>
+  <maintainers>
+    <maintainer>
+      <user>quipo</user>
+      <name>Lorenzo Alberton</name>
+      <email>l.alberton@quipo.it</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.9.7</version>
+    <date>2004-03-19</date>
+    <license>PHP</license>
+    <state>stable</state>
+    <notes>- on UPDATE, field names are no more prefixed by the table name
+- added an $options parameter to connect()
+- fix bug #284 (Log::factory() needs to return a reference)
+- fix bug #298 (reset() does not reset limit)
+- fix bug #322 (undefined var $autoConnect)
+- PHP 5 fixes
+- fixes to the testsuite</notes>
+    <deps>
+      <dep type="php" rel="ge" version="4.1"/>
+      <dep type="pkg" rel="has">MDB</dep>
+      <dep type="pkg" rel="has">Log</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="MDB" name="QueryTool.php"/>
+      <file role="php" baseinstalldir="MDB" name="QueryTool\Query.php"/>
+      <file role="php" baseinstalldir="MDB" name="QueryTool\EasyJoin.php"/>
+      <file role="php" baseinstalldir="MDB" name="QueryTool\Result.php"/>
+      <file role="doc" baseinstalldir="MDB" name="docs\examples\example.php"/>
+      <file role="doc" baseinstalldir="MDB" name="docs\examples\mysql.sql"/>
+      <file role="doc" baseinstalldir="MDB" name="docs\examples\pgsql.sql"/>
+      <file role="test" baseinstalldir="MDB" name="tests\Common.php"/>
+      <file role="test" baseinstalldir="MDB" name="tests\index.php"/>
+      <file role="test" baseinstalldir="MDB" name="tests\Get.php"/>
+      <file role="test" baseinstalldir="MDB" name="tests\GetAll.php"/>
+      <file role="test" baseinstalldir="MDB" name="tests\GetCount.php"/>
+      <file role="test" baseinstalldir="MDB" name="tests\GetQueryString.php"/>
+      <file role="test" baseinstalldir="MDB" name="tests\Having.php"/>
+      <file role="test" baseinstalldir="MDB" name="tests\Limit.php"/>
+      <file role="test" baseinstalldir="MDB" name="tests\SetDbInstance.php"/>
+      <file role="test" baseinstalldir="MDB" name="tests\sql.php"/>
+      <file role="test" baseinstalldir="MDB" name="tests\UnitTest.php"/>
+      <file role="test" baseinstalldir="MDB" name="tests\Where.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.9.7</version>
+      <date>2004-03-19</date>
+      <license>PHP</license>
+      <state>stable</state>
+      <notes>- on UPDATE, field names are no more prefixed by the table name
+- added an $options parameter to connect()
+- fix bug #284 (Log::factory() needs to return a reference)
+- fix bug #298 (reset() does not reset limit)
+- fix bug #322 (undefined var $autoConnect)
+- PHP 5 fixes
+- fixes to the testsuite
+
+</notes>
+    </release>
+    <release>
+      <version>0.9.6</version>
+      <date>2003-09-23</date>
+      <license>PHP</license>
+      <state>stable</state>
+      <notes>- added new method getQueryString() which returns the rendered query
+- added setDbInstance() which lets you supply an existing MDB-instance to work with
+  using this you dont need to pass a DSN to the constructor!
+- use Log 1.7 API
+- addWhereSearch now only prefixes known columns as it is supposed to be
+- make setLimit also work to unset it
+
+</notes>
+    </release>
+    <release>
+      <version>0.9.5-pl1</version>
+      <date>2003-06-17</date>
+      <license>PHP</license>
+      <state>stable</state>
+      <notes>- added missing bugfix in addHaving and unit test, thanks to Johannes Schäfer
+</notes>
+    </release>
+    <release>
+      <version>0.9.5</version>
+      <date>2003-06-17</date>
+      <license>PHP</license>
+      <state>stable</state>
+      <notes>- bugfix when writing log files, times were wrong
+- bugfix in EasyJoin, which added unnecessary conditions
+- bugfix in building column alias which is at the end of the string
+- bugfix in addMultiple() which didnt work without primaryCol
+- bugfix in addHaving, thanks to Johannes Schäfer
+
+</notes>
+    </release>
+    <release>
+      <version>0.9.4</version>
+      <date>2003-06-09</date>
+      <state>stable</state>
+      <notes>- added set/getLimit(), which set the limit globally, getAll() and getCol() can still overwrite this temporarily
+- added addOrder()
+- added *Having() methods by Johannes Schaefer
+- fix bug in building group clause for getCount()
+- bug fix in building join
+
+</notes>
+    </release>
+    <release>
+      <version>0.9.4-RC1</version>
+      <date>2003-05-24</date>
+      <state>beta</state>
+      <notes>- added UnitTest
+- new method getCol() which lets you retrieve just one column
+- getAll() takes an additional optional parameter, where you can define
+  the method that should be used for firing the query
+- update() does also consider the value of setWhere() now when no primary column is given
+  added a _buildUpdateQuery() for that too
+- bugfix in update, use fully qualified table name (Uwe Dörl)
+- bugfix in _buildSelectQuery, enclose column names by &quot;&quot;
+  now Oracle should work and also reserved keywords can be used as column names (Uwe Dörl)
+- added some log functionality
+- added condition parameter to addWhereSearch
+- Implemented datatype quoting: now it should autodetect the right MDB datatype before inserting the corresponding value in the db.
+  Note that this can't be 100% right everytime, since it's based on an autodetection, but it's definitely an improvement over the previous versions, where everything was treated as 'text'.
+
+</notes>
+    </release>
+    <release>
+      <version>0.9.3</version>
+      <date>2003-02-21</date>
+      <state>beta</state>
+      <notes>- fixed stupid connection bug (my bad :p)
+- other minor fixes/updates
+</notes>
+    </release>
+    <release>
+      <version>0.9.2</version>
+      <date>2003-02-10</date>
+      <state>beta</state>
+      <notes>- fixed missing custom sequence name handling
+- enhancing the constructor to take the error/log callbacks
+</notes>
+    </release>
+    <release>
+      <version>0.9</version>
+      <date>2003-01-17</date>
+      <state>beta</state>
+      <notes>- initial release in PEAR
+</notes>
+    </release>
+  </changelog>
+</package>

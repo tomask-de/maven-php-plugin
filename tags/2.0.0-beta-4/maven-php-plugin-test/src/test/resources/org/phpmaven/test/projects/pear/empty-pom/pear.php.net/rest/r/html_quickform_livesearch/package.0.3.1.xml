@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.9">
+ <name>HTML_QuickForm_Livesearch</name>
+ <summary>Element for HTML_QuickForm to enable a suggest search.</summary>
+ <description>This package adds an element to the PEAR::HTML_QuickForm package to dynamically create an HTML input text element that at every keypressed javascript event, returns a list of options in a dynamic dropdown select box(live dropdown select).
+This element use AJAX (Communication from JavaScript to your browser without reloading the page).
+This type of livesearch is useful when you have a form with a dropdown list with a large number of row.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>Thesee</user>
+   <name>Giuseppe Dessi</name>
+   <email>thesee@fastwebnet.it</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>0.3.1</version>
+  <date>2006-08-31</date>
+  <license>PHP License 3.0</license>
+  <state>beta</state>
+  <notes>Changes:
+Added compatibility to new HTML_AJAX 0.5.0 release.
+  </notes>
+  <deps>
+   <dep type="pkg" rel="has" optional="no">PEAR</dep>
+   <dep type="pkg" rel="gt" version="3.2.4" optional="no">HTML_QuickForm</dep>
+   <dep type="pkg" rel="gt" version="0.4.1" optional="no">HTML_AJAX</dep>
+  </deps>
+  <provides type="class" name="HTML_QuickForm_LiveSearch_Select" extends="HTML_QuickForm_text" />
+  <provides type="function" name="HTML_QuickForm_LiveSearch_Select::setValue" />
+  <provides type="function" name="HTML_QuickForm_LiveSearch_Select::setOptions" />
+  <provides type="function" name="HTML_QuickForm_LiveSearch_Select::toHtml" />
+  <provides type="function" name="HTML_QuickForm_LiveSearch_Select::getPrivateName" />
+  <provides type="function" name="HTML_QuickForm_LiveSearch_Select::getValue" />
+  <provides type="function" name="HTML_QuickForm_LiveSearch_Select::getFrozenHtml" />
+  <filelist>
+   <file role="php" baseinstalldir="HTML/QuickForm" md5sum="9918f7879d23c56fcc9ec952ac619e2e" name="livesearch_select.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="data" md5sum="e0a56ad466bd05e4a7e733323ebc92d7" name="live.js">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="test" md5sum="e78e3279db32bcfe2a774d38027d3571" name="example/auto_server.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="test" md5sum="640f1d04e2f70d20b048ecba0688788b" name="example/index.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="test" md5sum="fdfde9cd5f91db6f53c5924745398586" name="example/livesearch.class.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="test" md5sum="e0a56ad466bd05e4a7e733323ebc92d7" name="example/live.js">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="test" md5sum="09b069d1405aaa9082bd8a55d7cd66e6" name="example/style.css">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="test" md5sum="b5b27e0dd88d44d4a5d8e63bb61a1239" name="example/shadowAlpha.png">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="test" md5sum="53f7b7a51c20d7286785efe23558e0cd" name="example/shadow.gif">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="test" md5sum="90a9a9850b2d35d4a3027776e6ee93d3" name="example/myfunction.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>0.3.0</version>
+    <date>2006-06-23</date>
+    <license>PHP License 3.0</license>
+    <state>beta</state>
+    <notes>Changes:
+Solved bug with frozen element.
+* todo: Do not reset the value when the key is a button that do not alter the text.
+* todo: Set up the options of an alternative element when jscript disabled
+    </notes>
+   </release>
+   <release>
+    <version>0.2.0</version>
+    <date>2006-05-25</date>
+    <license>PHP License 3.0</license>
+    <state>beta</state>
+    <notes>Changes:
+Single quote issue on liveform variable
+Added attributes on example.
+Style coding issue
+The id value is not reset when the keypressed is left or right arrow
+* todo: Do not reset the value when the key is a button that do not alter the text.
+* todo: Set up the options of an alternative element when jscript disabled
+    </notes>
+   </release>
+   <release>
+    <version>0.1.5</version>
+    <date>2006-04-04</date>
+    <license>PHP License 3.0</license>
+    <state>alpha</state>
+    <notes>Changes:
+Now you can set the buffer time
+Modified Example added an option to set the buffer time
+Some code style issue fix
+Now when a key is pressed the value is reset
+* todo Do not reset the value when the key is an arrow or a function button
+* todo: Set up the options of an alternative element when jscript disabled
+* todo: release the Livesearch_Text element.
+    </notes>
+   </release>
+   <release>
+    <version>0.1.0</version>
+    <date>2006-03-17</date>
+    <license>PHP License 3.0</license>
+    <state>alpha</state>
+    <notes>Changes:
+Add styles as class, the user can set as he like.
+Modified Example with callback for post value recalculation
+Add 0 length search control
+Various fix
+* todo: Make HTML_AJAX_Queue_Interval_SingleBuffer variable
+* todo: Set up the options of an alternative element when jscript disabled
+* todo: Checking hidden field for changes.
+* todo: ....
+* todo: release the Livesearch_Text element.
+    </notes>
+   </release>
+ </changelog>
+</package>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.8.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Text_Wiki_Mediawiki</name>
+ <channel>pear.php.net</channel>
+ <summary>Mediawiki parser for Text_Wiki</summary>
+ <description>Parses Mediawiki mark-up to tokenize the text for Text_Wiki renderings. You can see a reference for this syntax here: http://meta.wikimedia.org/wiki/Help:Editing#The_wiki_markup</description>
+ <lead>
+  <name>Moritz Venn</name>
+  <user>ritzmo</user>
+  <email>moritz.venn@freaque.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>bertrand Gugger</name>
+  <user>toggg</user>
+  <email>toggg at php dot net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Rodrigo Sampaio Primo</name>
+  <user>rodrigosprimo</user>
+  <email>rodrigo at utopia dot org dot br</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-08-10</date>
+ <time>12:43:32</time>
+ <version>
+  <release>0.2.0</release>
+  <api>0.2.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>
+This release has the following improvements:
+
+* PHPUnit tests for Mediawiki parser
+* Support for heading with only one level (ie: =heading=)
+* Add parse for redirect rule
+* Fix bug #16455: proper parsing of bold and italic
+ </notes>
+ <contents>
+  <dir name="/">
+   <file md5sum="ff72a42439e31bf7270244659fa6d4ad" name="Text/Wiki/Parse/Mediawiki/Break.php" role="php" />
+   <file md5sum="87b8c59283e2881fdb9460114ea092a3" name="Text/Wiki/Parse/Mediawiki/Code.php" role="php" />
+   <file md5sum="bd7b6e175e0327f1ea2ea1a72ad9975a" name="Text/Wiki/Parse/Mediawiki/Comment.php" role="php" />
+   <file md5sum="90d2a899c45fe104a6b5405ccef90d90" name="Text/Wiki/Parse/Mediawiki/Deflist.php" role="php" />
+   <file md5sum="6a9b7255c69f7dc08c7d687e78133bc8" name="Text/Wiki/Parse/Mediawiki/Emphasis.php" role="php" />
+   <file md5sum="80652a58ce5c8d2b31cf598ae3fd3621" name="Text/Wiki/Parse/Mediawiki/Heading.php" role="php" />
+   <file md5sum="5b46541e8bab0766c21b25592f05be17" name="Text/Wiki/Parse/Mediawiki/List.php" role="php" />
+   <file md5sum="55e466e84a30e62447ee7ac847292594" name="Text/Wiki/Parse/Mediawiki/Newline.php" role="php" />
+   <file md5sum="28f397cd31f0203883feec26e7b1abca" name="Text/Wiki/Parse/Mediawiki/Preformatted.php" role="php" />
+   <file md5sum="f50c2a3a7dc4fb63b01eca070387b870" name="Text/Wiki/Parse/Mediawiki/Raw.php" role="php" />
+   <file md5sum="9c8113434bdb139258001313a01e03c1" name="Text/Wiki/Parse/Mediawiki/Redirect.php" role="php" />
+   <file md5sum="9cc5d5f5f03543170a8e523fe57288f5" name="Text/Wiki/Parse/Mediawiki/Subscript.php" role="php" />
+   <file md5sum="b0c8046635e60af04e44cdb0f23a3843" name="Text/Wiki/Parse/Mediawiki/Superscript.php" role="php" />
+   <file md5sum="84a42b1197763ce6fce33ced8c1d84ec" name="Text/Wiki/Parse/Mediawiki/Table.php" role="php" />
+   <file md5sum="2234a9e8664d22f6b1f56c88b62b1ae0" name="Text/Wiki/Parse/Mediawiki/Tt.php" role="php" />
+   <file md5sum="17c1480143a2559436ee60f7dcafffd3" name="Text/Wiki/Parse/Mediawiki/Url.php" role="php" />
+   <file md5sum="eab780b585b7d33d13c05f999548de4e" name="Text/Wiki/Parse/Mediawiki/Wikilink.php" role="php" />
+   <file md5sum="0e3a429b0dcdd1dfeec9a77e0d1427c4" name="Text/Wiki/Mediawiki.php" role="php" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.0.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <package>
+    <name>Text_Wiki</name>
+    <channel>pear.php.net</channel>
+    <min>1.1.0</min>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>0.1.0</version>
+   <date>2006-04-10</date>
+   <license>LGPL</license>
+   <state>alpha</state>
+   <notes>
+Major release of Text_Wiki_Mediawiki : several rules have been added or revamped
+It also takes advantage of the new Text_Wiki-1.1.0 engine.
+
+* Add the Wikilink rule (#6623)
+  Configuration:
+  - &apos;spaceUnderscore&apos; : boolean (true) replace spaces in page name by underscores,
+  - &apos;project&apos; : optional array of prefixes for the local project (array(&apos;demo&apos;, &apos;d&apos;)),
+  - &apos;url&apos; : base url of the project for interlanguage (&apos;http://example.com/en/page=%s&apos;),
+  - &apos;langage&apos; : language of the project, will be replaced case interlanguage (&apos;en&apos;).
+  
+* Unify all links parsing: Image and Interwiki are now done by the Wikilink rule
+ These 2 rules don&apos;t exist anymore as independant classes
+ but are still configurable/switchable as normal rules
+
+* Interwiki&apos;s configuration for urls is now done parser side
+  Configuration:
+  - &apos;sites&apos; : associative array of url patterns indexed by site prefixes,
+  - &apos;interlangage&apos; : array of accepted interlanguages codes.
+
+* Image corrected to be complient with Mediawiki syntax
+  Take align attribute (left, center, or right) as piped after the | in image tag
+  Configuration:
+  - &apos;prefix&apos; : array of accepted image prefixes (array(&apos;Image&apos;, &apos;image&apos;)).
+
+* List rule added , it&apos;s no more using the Text_Wiki default but a complient proper class
+
+* Deflist rule added (definitions list)
+
+* Heading corrected : it does not more require extra spaces and line feed (#6623)
+
+* Emphasis corrected to produce also Strong and not Bold (Strong exists only by rendering)
+
+* Raw : &lt;nowiki&gt; ... &lt;/nowiki&gt; may be multiline
+
+* Overwrite of getTokens() removed, was not needed and even dangerous ...
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-01-07</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+First released version of Text_Wiki_Mediawiki.
+   </notes>
+  </release>
+ </changelog>
+</package>

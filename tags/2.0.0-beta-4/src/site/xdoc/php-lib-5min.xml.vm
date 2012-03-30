@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+	<properties>
+		<author email="christian.wiedemann@key-tec.de">
+			Christian Wiedemann
+		</author>
+		<author email="martin.eisengardt@googlemail.com">
+			Martin Eisengardt
+		</author>
+
+		<title>Maven for PHP libraries - 5 minutes starter guide</title>
+	</properties>
+	<meta name="keyword" content="apache, maven, php"></meta>
+	<body>
+		<section name="PHP libraries  - 5 minutes starter guide">
+			<subsection name="Create a project">
+			<p>
+			First, prepare Maven and follow the <a href="${phpmavenRootUrl}/prepare.html">preparation instructions.</a><br></br>
+			Next, type the following Maven goal in your command line and execute it
+			(Note that PHP 4 is not supported since phpmaven2.):</p>
+<b>PHP 5:</b> 
+<source>
+mvn archetype:generate \
+-DarchetypeGroupId=org.phpmaven \
+-DarchetypeArtifactId=php5-lib-archetype \
+-DarchetypeVersion=${phpmavenTagName} \
+-DgroupId=org.sample \
+-DartifactId=my-app \
+-Dversion=0.0.1-SNAPSHOT
+			</source>
+			<p>
+			After some time maven will ask to confirm the parameters. The result will look like this:
+			</p>
+			<source>
+my-app 
+	|-- pom.xml 
+	`-- src 
+		|-- main 
+			 `-- php 
+				 `-- org 
+					 `-- sample  
+						`-- app.php 
+		|`-- test 
+			`-- php 
+				`-- org 
+					`-- sample 
+						`-- apptest.php
+		|`-- site
+			`-- site.xml
+			`-- apt
+				`-- index.apt
+			</source>
+			<p>
+			<ul>
+			<li><b>src/main/php</b> - contains the project source code</li>
+			<li><b>src/test/php</b> - contains the test source code</li>
+			<li><b>pom.xml</b> The project&apos;s Project Object Model, or POM, looks like this:</li>
+			</ul>
+			</p>
+		</subsection>
+		<subsection name="The POM">
+		<p>
+<macro name="snippet">
+<param name="id" value="pom"></param>
+<param name="file" value="${phpmavenFsRoot}/src/site/include/pom.xml"></param>
+</macro></p>
+		</subsection>
+		<subsection name="What have I just done?">
+			<p>What have I just done?</p>
+			You have just executed the Maven goal archetype:generate and passed various parameters to that goal. The prefix archetype is
+			the plugin containing the goal.
+			This goal created a default project structure for your PHP project.
+		</subsection>
+		<subsection name="Build the project">
+			Switch to your sample project directory 
+			<source>cd my-app</source>
+			and run:  
+			<source>mvn package</source>
+			The command line will print out various actions, ending with the following:
+			<source>
+ ...
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 6 seconds
+[INFO] Finished at: Thu Jul 20 19:15:06 CDT 2008
+[INFO] Final Memory: 3M/6M
+[INFO] ------------------------------------------------------------------------			
+			</source>
+Maven created a phar package under the project&apos;s target folder.  		
+		</subsection>
+		<subsection name="Project documentation">
+		<p>
+		Go to the <a href="documentation.html">&quot;Documentation&quot; section.</a>
+		</p> 
+		</subsection>
+		</section>
+	</body>
+	
+</document>

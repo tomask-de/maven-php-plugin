@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/db">DB</p>
+ <c>pear.php.net</c>
+ <v>1.7.0</v>
+ <st>stable</st>
+ <l>PHP License</l>
+ <m>danielc</m>
+ <s>Database Abstraction Layer</s>
+ <d>DB is a database abstraction layer providing:
+* an OO-style query API
+* portability features that make programs written for one DBMS work with other DBMS's
+* a DSN (data source name) format for specifying database servers
+* prepare/execute (bind) emulation for databases that don't support it natively
+* a result object for each query response
+* portable error codes
+* sequence emulation
+* sequential and non-sequential row fetching as well as bulk fetching
+* formats fetched rows as associative arrays, ordered arrays or objects
+* row limit support
+* transactions support
+* table information interface
+* DocBook and phpDocumentor API documentation
+
+DB layers itself on top of PHP's existing
+database extensions.
+
+Drivers for the following extensions pass
+the complete test suite and provide
+interchangeability when all of DB's
+portability options are enabled:
+
+  fbsql, ibase, informix, msql, mssql,
+  mysql, mysqli, oci8, odbc, pgsql,
+  sqlite and sybase.
+
+There is also a driver for the dbase
+extension, but it can't be used
+interchangeably because dbase doesn't
+support many standard DBMS features.
+
+DB is compatible with both PHP 4 and PHP 5.
+</d>
+ <da>2005-02-28 23:37:02</da>
+ <n>To view the majority of changes since 1.6.8,
+see the changelog for Release 1.7.0RC1.
+
+all:
+* __sleep() should not call disconnect().
+  Also store connection state in the new
+  $was_connected property.  This resolves
+  Bug 3594 that was introduced in 1.7.0RC1.
+
+fbsql:
+* Handle more error codes:
+  + 239 =&gt; DB_ERROR_TRUNCATED.
+  + 215 =&gt; DB_ERROR_NOSUCHFIELD for columns
+    not in both sides of JOIN.
+
+ibase:
+* Change error mapping of &quot;arithmetic
+  exception, numeric overflow, or string
+  truncation&quot; from DB_ERROR_DIVZERO to
+  DB_ERROR_INVALID because it covers
+  much more than division by zero.
+
+mssql:
+* Handle more error codes:
+  + 155 =&gt; DB_ERROR_NOSUCHFIELD for columns
+    not in both sides of JOIN.
+
+oci8:
+* Handle more error codes:
+  + 1401 =&gt; DB_ERROR_INVALID for strings
+    exceeding column size.
+
+odbc:
+* Handle more error codes:
+  + '22001' =&gt; DB_ERROR_INVALID for strings
+    exceeding column size.
+
+pgsql:
+* For getListOf('views'), ignore views in system
+  schemas rather than returning views in the
+  public schema.  Request 3595.
+* Handle more error messages:
+  + invalid input syntax for type numeric
+  + column reference &quot;active&quot; is ambiguous
+  + value too long for type character varying(50)
+  + value &quot;50000&quot; is out of range for type shortint
+  + integer out of range
+  + column &quot;p_id&quot; specified in USING clause does
+    not exist in left table
+  + column p.p_name does not exist
+* Silence errors in errorNative() when connection
+  doesn't exist.
+
+sqlite:
+* Handle more error messages:
+  + cannot join using column b - column not
+    present in both tables</n>
+ <f>124636</f>
+ <g>http://pear.php.net/get/DB-1.7.0</g>
+ <x xlink:href="package.1.7.0.xml"/>
+</r>

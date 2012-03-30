@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release2
+    http://pear.php.net/dtd/rest.release2.xsd">
+ <p xlink:href="/rest/p/http_request2">HTTP_Request2</p>
+ <c>pear.php.net</c>
+ <v>0.2.0</v>
+ <a>0.2.0</a>
+ <mp>5.1.4</mp>
+ <st>alpha</st>
+ <l>BSD License</l>
+ <m>avb</m>
+ <s>Provides an easy way to perform HTTP requests.</s>
+ <d>PHP5 rewrite of HTTP_Request package. Provides cleaner API and pluggable
+Adapters. Currently available are:
+  * Socket adapter, based on old HTTP_Request code,
+  * Curl adapter, wraps around PHP's cURL extension,
+  * Mock adapter, to use for testing packages dependent on HTTP_Request2.
+Supports POST requests with data and file uploads, authentication, cookies,
+proxies, gzip and deflate encodings, monitoring the request progress with
+Observers...</d>
+ <da>2009-01-07 14:31:30</da>
+ <n>API changes:
+ * HTTP_Request2::getConfigValue() is deprecated and will be removed in next 
+   release. Use HTTP_Request2::getConfig().
+ * Changed HTTP_Request2::setConfig() to accept a pair of parameter name and
+   parameter value in addition to array('parameter name' =&gt; 'value')
+ * Added HTTP_Request2::getConfig() method that can return a single 
+   configuration parameter or the whole configuration array
+
+Other additions and changes:
+ * Added a debug Observer that can log request progress to a file or an 
+   instance of PEAR::Log (thanks to David Jean Louis, request #15424)
+ * Added a new 'timeout' parameter that limits total number of seconds
+   a request can take (see requests #5735 and #8964)
+ * Added various SSL protocol options: 'ssl_verify_peer', 'ssl_verify_host',
+   'ssl_cafile', 'ssl_capath', 'ssl_local_cert', 'ssl_passphrase'. Note that
+   'ssl_verify_host' option behaves differently in Socket and Curl Adapters:
+   http://bugs.php.net/bug.php?id=47030
+
+Fixes:
+ * Fixed 'data error' when processing response encoded by 'deflate'
+   encoding (bug #15305)
+ * Curl Adapter now passes full request headers in 'sentHeaders' event</n>
+ <f>49399</f>
+ <g>http://pear.php.net/get/HTTP_Request2-0.2.0</g>
+ <x xlink:href="package.0.2.0.xml"/>
+</r>

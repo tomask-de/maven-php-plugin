@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.5.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>HTML_Common2</name>
+ <channel>pear.php.net</channel>
+ <extends>HTML_Common</extends>
+ <summary>Abstract base class for HTML classes (PHP5 port of HTML_Common package).</summary>
+ <description>The HTML_Common2 package provides methods for HTML code display and attributes handling.
+* Provides methods to set, remove, merge HTML attributes.
+* Handles global document options (charset, linebreak and indentation characters).
+* Provides methods to handle indentation and HTML comments (useful in subclasses).</description>
+ <lead>
+  <name>Alexey Borzov</name>
+  <user>avb</user>
+  <email>avb@php.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Klaus Guenther</name>
+  <user>thesaur</user>
+  <email>thesaur@php.net</email>
+  <active>no</active>
+ </lead>
+ <date>2007-05-04</date>
+ <time>14:08:58</time>
+ <version>
+  <release>2.0.0beta1</release>
+  <api>2.0.0beta1</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://opensource.org/licenses/bsd-license.php">BSD License</license>
+ <notes>* Use phpunit/PHPUnit rather than pear/PHPUnit2 for unit testing needs
+* &quot;Fluent interfaces&quot;: all methods that didn&apos;t return anything now
+  return $this. The following methods are affected: mergeAttributes(),
+  removeAttribute(), setAttribute(), setAttributes(), setComment() and
+  setIndentLevel().</notes>
+ <contents>
+  <dir name="/">
+   <file baseinstalldir="HTML_Common2" md5sum="75976531b05e746a83de6649b3879250" name="tests/HTML_Common2_Test.php" role="test" />
+   <file baseinstalldir="HTML" md5sum="2619e9337b878ed494a5463ebb8a9f91" name="Common2.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.1.4</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.3.0</release>
+    <api>0.3.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-10-16</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD License</license>
+   <notes>Radical changes to API are not expected after this release, you may use the 
+package for development.
+
+Changes:
+* Renamed &apos;encoding&apos; option to &apos;charset&apos;, as htmlspecialchars() parameter is named
+* Removed toHtml() and display() methods, __toString() is now declared abstract
+* Attribute values are always converted to strings
+* Minor performance tweaks
+* Switched to BSD license and package.xml 2.0</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>devel</release>
+    <api>devel</api>
+   </stability>
+   <date>2006-07-03</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* $attributes array is now protected rather than private (and thus renamed
+  from $_attributes)
+* parseAttributes() was renamed to prepareAttributes(), string parsing logic
+  was extracted into the new parseAttributes() method
+* Added magic __toString() method as an alias for toHtml(), deprecated
+  display(): it is now possible to print an instance of HTML_Common2 subclass
+  by simply using the &apos;echo $object;&apos;
+* It is now possible to watch some attributes for changes, this can be used to
+  - Make attributes read-only (like &apos;type&apos; attribute of &lt;input /&gt; tag)
+  - Do some custom processing (update the element&apos;s value if its name changes)</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>devel</release>
+    <api>devel</api>
+   </stability>
+   <date>2004-10-27</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>First release of a new major version.</notes>
+  </release>
+ </changelog>
+</package>

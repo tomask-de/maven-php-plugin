@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.2">
+ <name>XML_XPath</name>
+ <summary>The PEAR::XML_XPath class provided an XPath/DOM XML manipulation, maneuvering and query interface.</summary>
+ <description>The PEAR::XML_XPath class provided an XPath/DOM XML manipulation, maneuvering and 
+query interface.
+The class allows for easy manipulation, maneuvering and querying of a domxml tree using
+both xpath queries and DOM walk functions.  It uses an internal pointer for all
+methods on which the action is performed.  Results from an dom/xpath query are returned
+as an XPath_Result object, which contains an internal array of DOM nodes and which extends 
+the common DOM class and hence contains all the DOM functions from the main object to run
+on each of the elements in the internal array.  This class tries to hold as close as possible       to the DOM Recommendation.  You MUST have the domxml extension to use this class.
+The XML_XPath class was inspired by a class maintained by Nigel Swinson called phpxpath.
+The phpxpath class does not rely on PHP xmldom functions and is therefore a sibling to
+this class: http://sourceforge.net/projects/phpxpath
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>dallen</user>
+   <name>Dan Allen</name>
+   <email>dallen@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>1.2.3</version>
+  <date>2005-10-18</date>
+  <license>PHP License</license>
+  <state>stable</state>
+  <notes>There is now a dependency on PHP4 since PHP5 has out-of-the-box for XPath in both DOM and SimpleXML.
+  </notes>
+  <deps>
+   <dep type="php" rel="ge" version="4.2.1"/>
+   <dep type="php" rel="lt" version="5.0.0"/>
+   <dep type="ext" rel="has">domxml</dep>
+  </deps>
+  <provides type="class" name="XML_XPath" extends="XML_XPath_common" />
+  <provides type="function" name="XML_XPath::load" />
+  <provides type="class" name="XML_XPath_common" />
+  <provides type="function" name="XML_XPath_common::nodeName" />
+  <provides type="function" name="XML_XPath_common::nodeType" />
+  <provides type="function" name="XML_XPath_common::childNodes" />
+  <provides type="function" name="XML_XPath_common::getElementsByTagName" />
+  <provides type="function" name="XML_XPath_common::documentElement" />
+  <provides type="function" name="XML_XPath_common::parentNode" />
+  <provides type="function" name="XML_XPath_common::nextSibling" />
+  <provides type="function" name="XML_XPath_common::previousSibling" />
+  <provides type="function" name="XML_XPath_common::firstChild" />
+  <provides type="function" name="XML_XPath_common::lastChild" />
+  <provides type="function" name="XML_XPath_common::hasChildNodes" />
+  <provides type="function" name="XML_XPath_common::hasAttributes" />
+  <provides type="function" name="XML_XPath_common::hasAttribute" />
+  <provides type="function" name="XML_XPath_common::getAttributes" />
+  <provides type="function" name="XML_XPath_common::getAttribute" />
+  <provides type="function" name="XML_XPath_common::setAttribute" />
+  <provides type="function" name="XML_XPath_common::removeAttribute" />
+  <provides type="function" name="XML_XPath_common::substringData" />
+  <provides type="function" name="is_a_php_class" />
+  <provides type="class" name="XML_XPath_result" extends="XML_XPath_common" />
+  <provides type="function" name="XML_XPath_result::getData" />
+  <provides type="function" name="XML_XPath_result::resultType" />
+  <provides type="function" name="XML_XPath_result::numResults" />
+  <provides type="function" name="XML_XPath_result::getIndex" />
+  <provides type="function" name="XML_XPath_result::sort" />
+  <provides type="class" name="XML_XPath_Error" extends="PEAR_Error" />
+  <filelist>
+   <file role="php" baseinstalldir="XML" md5sum="6fefc2dde95d1d9b92915c616fcc9ac5" name="XPath.php"/>
+   <file role="php" baseinstalldir="XML" md5sum="9e43be12a065bba400163371d6a11091" name="XPath/common.php"/>
+   <file role="php" baseinstalldir="XML" md5sum="361a35fc9f0c66bc862a2877ee151d04" name="XPath/result.php"/>
+   <file role="php" baseinstalldir="XML" md5sum="b2fbc65ece57c16071ca0ea435853174" name="XPath/error.php"/>
+   <file role="doc" baseinstalldir="XML" md5sum="de88063e44c757dddda16fb372545134" name="docs/XML_XPath_example.php"/>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>1.2.1</version>
+    <date>2005-10-12</date>
+    <state>devel</state>
+    <notes>* fixed a long standing bug where the get_class() failed due to a case problem, causing all load() operations to fail in newer releases of PHP
+* changed state to devel
+    </notes>
+   </release>
+   <release>
+    <version>1.2</version>
+    <date>2002-06-07</date>
+    <state>beta</state>
+    <notes>* Very important to note that the DOM step functions do not take an optional xpath query.  The
+reason I designed it this way is because the outcome would be too difficult to deal with, since
+one of 4 different scenarios could take place.  Plus, it just doesn&apos;t make any sense. 
+* Significant speed enhancements (almost 100% faster)
+Major changes:
+* getAttribute(&apos;foo&apos;, true) now puts you on the attribute, not the element node
+* cleaned up the XML_XPath_result initialization (no longer create an StdClass when calling class)
+* fixed sorting for childNodes() and getElementsByTagName() generated result objects
+* cleaned up sorting in result object, and added comments (so I don&apos;t forget again how I did it)
+* major speed enhancements (calling user defined functions methods is slow, so tried to trim that down)
+* don&apos;t create a result object in the _quick_evaluate function since we don&apos;t need it anyway
+* enabled relative xpath queries differently, in_xpathQuery = array(query, node) for relative...
+* added relative xpath queries for the _quick_evaluate feature
+    </notes>
+   </release>
+   <release>
+    <version>1.1</version>
+    <date>2002-06-06</date>
+    <state>beta</state>
+    <notes>This version brings major enhancements to the API
+* childNode(), siblingNode() removed and features are relocated
+* added childNodes() which returns an XML_XPath_result object of all children
+* added getElementByTagName which returns an XML_XPath_result object of all matching tags
+* step functions in result object are now next(), end(), rewind() and nextByNode(Name|Type)
+* calling next() after rewind() in the result object counts the first object again, so a regular
+  while loop can be used
+* relative XPath queries are now enabled (getNodePath() provides this functionality) 
+* better error reports generated and will continue to improve with the domxml extension
+* setNodeIndex() in result object removed
+    </notes>
+   </release>
+   <release>
+    <version>1.0</version>
+    <date>2002-05-23</date>
+    <state>beta</state>
+    <notes>This is the initial independent PEAR release.
+    </notes>
+   </release>
+ </changelog>
+</package>

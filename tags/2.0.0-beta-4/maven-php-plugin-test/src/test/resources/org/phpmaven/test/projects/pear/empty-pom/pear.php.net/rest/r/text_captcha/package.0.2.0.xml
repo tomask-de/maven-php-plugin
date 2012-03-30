@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.11">
+ <name>Text_CAPTCHA</name>
+ <summary>Generation of CAPTCHA imgaes</summary>
+ <description>Implementation of CAPTCHA (completely automated public Turing test to tell computers and humans apart) images
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>wenz</user>
+   <name>Christian Wenz</name>
+   <email>wenz@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>0.2.0</version>
+  <date>2006-12-24</date>
+  <license>PHP License</license>
+  <state>alpha</state>
+  <notes>***********************************
+********* MERRY CHRISTMAS *********
+***********************************
+***********************************
+*** Upcoming BC BREAKING CHANGES **
+***********************************
++ CAPTCHA options are now provided as one array (wormus&apos; suggestion)
++ image CAPTCHA is now only created upon request, making it serializable (jausions&apos; suggestion)
+*************************
++ New drivers: 
+  + Figlet (thanks to wormus)
+  + Word (thanks to toby)
+  + Numeral (port from davidc&apos;s Text_CAPTCHA_Numeral)
+  + Equation (thanks to cweiske)
+  + these drivers might become their own packages at a later stage
++ some other stuff ...
+  </notes>
+  <deps>
+   <dep type="pkg" rel="has" optional="no">Text_Password</dep>
+   <dep type="pkg" rel="has" optional="yes">Numbers_Words</dep>
+   <dep type="pkg" rel="has" optional="yes">Text_Figlet</dep>
+   <dep type="pkg" rel="has" optional="yes">Image_Text</dep>
+   <dep type="ext" rel="has" optional="yes">gd</dep>
+  </deps>
+  <provides type="class" name="Text_CAPTCHA" />
+  <provides type="function" name="Text_CAPTCHA::getCAPTCHA" />
+  <provides type="function" name="Text_CAPTCHA::getPhrase" />
+  <provides type="function" name="Text_CAPTCHA::factory" />
+  <provides type="function" name="Text_CAPTCHA::setPhrase" />
+  <provides type="function" name="Text_CAPTCHA::init" />
+  <provides type="class" name="Text_CAPTCHA_Driver_Image" extends="Text_CAPTCHA" />
+  <provides type="function" name="Text_CAPTCHA_Driver_Image::init" />
+  <provides type="function" name="Text_CAPTCHA_Driver_Image::getCAPTCHA" />
+  <provides type="function" name="Text_CAPTCHA_Driver_Image::getCAPTCHAAsPNG" />
+  <provides type="function" name="Text_CAPTCHA_Driver_Image::getCAPTCHAAsJPEG" />
+  <provides type="function" name="Text_CAPTCHA_Driver_Image::getCAPTCHAAsGIF" />
+  <provides type="class" name="Text_CAPTCHA_Driver_Figlet" extends="Text_CAPTCHA" />
+  <provides type="function" name="Text_CAPTCHA_Driver_Figlet::init" />
+  <provides type="function" name="Text_CAPTCHA_Driver_Figlet::getCAPTCHA" />
+  <provides type="function" name="Text_CAPTCHA_Driver_Figlet::getCAPTCHAAsHTML" />
+  <provides type="function" name="Text_CAPTCHA_Driver_Figlet::getCAPTCHAAsJavascript" />
+  <provides type="class" name="Text_CAPTCHA_Driver_Word" extends="Text_CAPTCHA" />
+  <provides type="function" name="Text_CAPTCHA_Driver_Word::init" />
+  <provides type="function" name="Text_CAPTCHA_Driver_Word::getCAPTCHA" />
+  <provides type="class" name="Text_CAPTCHA_Driver_Numeral" extends="Text_CAPTCHA" />
+  <provides type="function" name="Text_CAPTCHA_Driver_Numeral::init" />
+  <provides type="function" name="Text_CAPTCHA_Driver_Numeral::getCAPTCHA" />
+  <provides type="class" name="Text_CAPTCHA_Driver_Equation" extends="Text_CAPTCHA" />
+  <provides type="function" name="Text_CAPTCHA_Driver_Equation::init" />
+  <provides type="function" name="Text_CAPTCHA_Driver_Equation::getPhrase" />
+  <provides type="function" name="Text_CAPTCHA_Driver_Equation::getCAPTCHA" />
+  <filelist>
+   <file role="php" baseinstalldir="Text" md5sum="5ebb9940bb1f6b7275e5189bdc6da0c6" name="CAPTCHA.php"/>
+   <file role="php" baseinstalldir="Text" md5sum="63b6ac5652772167e519d244f08448fa" name="CAPTCHA/Driver/Image.php"/>
+   <file role="php" baseinstalldir="Text" md5sum="bf07e84d82efd679e662ee53c66a127e" name="CAPTCHA/Driver/Figlet.php"/>
+   <file role="php" baseinstalldir="Text" md5sum="0ce014817a211391f06c243b0a5299fe" name="CAPTCHA/Driver/Word.php"/>
+   <file role="php" baseinstalldir="Text" md5sum="ea2d3f28e7537d16823a6803822dae9e" name="CAPTCHA/Driver/Numeral.php"/>
+   <file role="php" baseinstalldir="Text" md5sum="938abde44c47f3e482b4ae383b2554e7" name="CAPTCHA/Driver/Equation.php"/>
+   <file role="doc" baseinstalldir="Text" md5sum="34ad84266f5503e73b0988085d17b3ea" name="examples/CAPTCHA_test.php"/>
+   <file role="doc" baseinstalldir="Text" md5sum="69cc6244509839a4e0c7e12ae7380811" name="examples/CAPTCHA_Figlet_test.php"/>
+   <file role="doc" baseinstalldir="Text" md5sum="ba9cf4a8020862400684da69246bf056" name="examples/CAPTCHA_Word_test.php"/>
+   <file role="doc" baseinstalldir="Text" md5sum="7a4cd3cb79ee5bf2b010d1e07eeefd0b" name="examples/CAPTCHA_Numeral_test.php"/>
+   <file role="doc" baseinstalldir="Text" md5sum="f92183549c4638ac07555bc64b1c86d6" name="examples/CAPTCHA_Equation_test.php"/>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>0.2.0</version>
+    <date>2006-12-24</date>
+    <license>PHP License</license>
+    <state>alpha</state>
+    <notes>***********************************
+********* MERRY CHRISTMAS *********
+***********************************
+***********************************
+*** Upcoming BC BREAKING CHANGES **
+***********************************
++ CAPTCHA options are now provided as one array (wormus&apos; suggestion)
++ image CAPTCHA is now only created upon request, making it serializable (jausions&apos; suggestion)
++ New drivers: Figlet (wormus), Word (toby), Numeral (davidc), Equation (cweiske)
++ some other stuff ...
+    </notes>
+   </release>
+   <release>
+    <version>0.1.6</version>
+    <date>2005-10-27</date>
+    <license>PHP License</license>
+    <state>alpha</state>
+    <notes>+ fixed a bug in the sample (noticed by Nima Sadjadi)
+    </notes>
+   </release>
+   <release>
+    <version>0.1.5</version>
+    <date>2005-09-26</date>
+    <license>PHP License</license>
+    <state>alpha</state>
+    <notes>+ cosmetic changes (CS)
++ small changes sample script (suggested by Lukas Smith, thanks!)
+    </notes>
+   </release>
+   <release>
+    <version>0.1.4</version>
+    <date>2005-08-11</date>
+    <license>PHP License</license>
+    <state>alpha</state>
+    <notes>+ cosmetic changes (whitespace, line endings)
+    </notes>
+   </release>
+   <release>
+    <version>0.1.3</version>
+    <date>2005-06-19</date>
+    <license>PHP License</license>
+    <state>alpha</state>
+    <notes>+ better check for errors thrown from Image_Text
++ updated examples
++ cosmetic changes
+    </notes>
+   </release>
+   <release>
+    <version>0.1.2</version>
+    <date>2005-01-26</date>
+    <license>PHP License</license>
+    <state>alpha</state>
+    <notes>Bugfix release 
++ fixed bug #3271 (thanks to Justin)
++ some cosmetic changes
+    </notes>
+   </release>
+   <release>
+    <version>0.1.1</version>
+    <date>2004-11-08</date>
+    <license>PHP License</license>
+    <state>alpha</state>
+    <notes>Bugfix release (Int&apos;l PHP Conference Edition)
++ fixed bug #2584 (thanks to wormus)
++ various small fixes
+    </notes>
+   </release>
+   <release>
+    <version>0.1.0</version>
+    <date>2004-10-21</date>
+    <license>PHP License</license>
+    <state>alpha</state>
+    <notes>Initial release (PHP World, Munich)
+    </notes>
+   </release>
+ </changelog>
+</package>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.9">
+ <name>Validate_IS</name>
+ <summary>Validation class for Iceland</summary>
+ <description>Package containes locale validation for IS (Iceland) such as:
+ * SSN
+ * Postal Code
+ * Telephone
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>bjori</user>
+   <name>Hannes Magnússon</name>
+   <email>bjori@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>0.2.0</version>
+  <date>2006-05-16</date>
+  <license>New BSD</license>
+  <state>alpha</state>
+  <notes>- Validate_IS::ssn()
+  - Now uses ctype_digit() to check for all numbers
+  - Fixed bug in &quot;var tala&quot; calculation
+- Validate_IS::postalCode()
+  - Allow user defined data directory 
+  - $strong mode is now default false - BC BREAK!
+  - Now use retrived data even when data file is read-only (in $strong mode)
+  - Writes retrived data no matter when data file was last changed (in $strong mode)
+  - Deleted bogus entrys in the data file
+  - Fixed live data file (thanks to antab, arnar@8.is)
+  - Added extra parameter, $url, which allows user defined live data file
+- Validate_IS::address()
+  - Initial commit
+- Bump the dep to PHP 4.2+
+- Ctype is now a required dep.
+BC break:
+- tel renamed to phoneNumber to confirm to the Validate standard
+  </notes>
+  <deps>
+   <dep type="php" rel="ge" version="4.2.0"/>
+   <dep type="ext" rel="has" optional="no">ctype</dep>
+  </deps>
+  <provides type="class" name="Validate_IS" />
+  <provides type="function" name="Validate_IS::ssn" />
+  <provides type="function" name="Validate_IS::postalCode" />
+  <provides type="function" name="Validate_IS::address" />
+  <provides type="function" name="Validate_IS::phoneNumber" />
+  <filelist>
+   <file role="doc" md5sum="f8790e48b597dff12a643e08e9be3fab" name="LICENSE"/>
+   <file role="php" md5sum="893e4f89c1a884958dc0634a3740517b" name="Validate/IS.php">
+    <replace type="pear-config" from="@DATADIR@" to="data_dir"/>
+   </file>
+   <file role="test" md5sum="809a42c6645c67a73f319221d26754d4" name="tests/validate_IS.phpt"/>
+   <file role="test" md5sum="43ce4b70c3562a68892e478c9ebd08f9" name="tests/IS_address.phpt"/>
+   <file role="test" md5sum="d18b5e6225acaaea6174a26bda3ddeea" name="tests/IS_phoneNumber.phpt"/>
+   <file role="data" md5sum="29382c504db6e4322f318c519737d2f3" install-as="IS_postcodes.txt" name="data/IS_postcodes.txt"/>
+   <file role="data" md5sum="c91b70b82948a3c8550567faf1f6deda" install-as="IS_gotuskra.txt" name="data/IS_gotuskra.txt"/>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>0.1.1</version>
+    <date>2005-11-04</date>
+    <state>alpha</state>
+    <notes>- Switch to the new BSD License
+  (see http://www.opensource.org/licenses/bsd-license.php)
+    </notes>
+   </release>
+   <release>
+    <version>0.1.0</version>
+    <date>2005-10-01</date>
+    <state>alpha</state>
+    <notes>Initial release
+    </notes>
+   </release>
+ </changelog>
+</package>

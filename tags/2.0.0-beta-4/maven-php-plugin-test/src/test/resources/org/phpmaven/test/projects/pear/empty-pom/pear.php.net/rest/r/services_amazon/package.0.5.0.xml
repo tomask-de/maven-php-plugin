@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.7">
+ <name>Services_Amazon</name>
+ <summary>Provides access to Amazon&apos;s retail and associate web services</summary>
+ <description>Services_AmazonECS4:
+* A class using Amazon E-Commerce Service 4.0
+* Lookup and Search for products, Wishlists, Marketplace, customers, similar item and so on
+* Provide associate links
+* Remote cart support
+* Multiple locale support: US, UK, DE, JP, FR and CA
+* Caching support
+
+Services_Amazon:
+* A class using Amazon E-Commerce Service 3.0 (Amazon Web Services 3.0)
+* Search and provide associate links for specific ISBN numbers, authors, artist, directors, and publishers among other things
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>ttsuruoka</user>
+   <name>Tatsuya Tsuruoka</name>
+   <email>ttsuruoka@p4life.jp</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>AZTEK</user>
+   <name>John Downey</name>
+   <email>jdowney@gmail.com</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>0.5.0</version>
+  <date>2006-05-20</date>
+  <license>BSD</license>
+  <state>beta</state>
+  <notes>Services_AmazonECS4 (AmazonECS4.php):
+* Fixed Bug #5821: E_NOTICE in AmazonECS4.php
+* Fixed Bug #6430: No unified return values (BC Break: Some items always be enumerated.)
+* Fixed Bug #7235: Deserialize error not caught 
+Services_Amazon (Amazon.php):
+* Fixed Bug #6605: reference to NULL element
+  </notes>
+  <deps>
+   <dep type="pkg" rel="has" optional="no">PEAR</dep>
+   <dep type="pkg" rel="has" optional="no">HTTP_Request</dep>
+   <dep type="pkg" rel="ge" version="0.17.0" optional="no">XML_Serializer</dep>
+   <dep type="pkg" rel="has" optional="yes">Cache</dep>
+  </deps>
+  <provides type="class" name="Services_Amazon" />
+  <provides type="function" name="Services_Amazon::getApiVersion" />
+  <provides type="function" name="Services_Amazon::getToken" />
+  <provides type="function" name="Services_Amazon::setToken" />
+  <provides type="function" name="Services_Amazon::getAssociateID" />
+  <provides type="function" name="Services_Amazon::setAssociateID" />
+  <provides type="function" name="Services_Amazon::getBaseUrl" />
+  <provides type="function" name="Services_Amazon::setBaseUrl" />
+  <provides type="function" name="Services_Amazon::getLocale" />
+  <provides type="function" name="Services_Amazon::setLocale" />
+  <provides type="function" name="Services_Amazon::getModes" />
+  <provides type="function" name="Services_Amazon::searchAsin" />
+  <provides type="function" name="Services_Amazon::searchIsbn" />
+  <provides type="function" name="Services_Amazon::searchUpc" />
+  <provides type="function" name="Services_Amazon::searchKeyword" />
+  <provides type="function" name="Services_Amazon::searchSimilar" />
+  <provides type="function" name="Services_Amazon::searchAuthor" />
+  <provides type="function" name="Services_Amazon::searchArtist" />
+  <provides type="function" name="Services_Amazon::searchActor" />
+  <provides type="function" name="Services_Amazon::searchDirector" />
+  <provides type="function" name="Services_Amazon::searchManufacturer" />
+  <provides type="function" name="Services_Amazon::searchPublisher" />
+  <provides type="function" name="Services_Amazon::searchWishlist" />
+  <provides type="class" name="Services_AmazonECS4" />
+  <provides type="function" name="Services_AmazonECS4::getApiVersion" />
+  <provides type="function" name="Services_AmazonECS4::setAccessKeyID" />
+  <provides type="function" name="Services_AmazonECS4::setSubscriptionID" />
+  <provides type="function" name="Services_AmazonECS4::setAssociateID" />
+  <provides type="function" name="Services_AmazonECS4::setBaseUrl" />
+  <provides type="function" name="Services_AmazonECS4::setLocale" />
+  <provides type="function" name="Services_AmazonECS4::setVersion" />
+  <provides type="function" name="Services_AmazonECS4::setCache" />
+  <provides type="function" name="Services_AmazonECS4::setCacheExpire" />
+  <provides type="function" name="Services_AmazonECS4::getErrors" />
+  <provides type="function" name="Services_AmazonECS4::getError" />
+  <provides type="function" name="Services_AmazonECS4::getProcessingTime" />
+  <provides type="function" name="Services_AmazonECS4::getLastUrl" />
+  <provides type="function" name="Services_AmazonECS4::BrowseNodeLookup" />
+  <provides type="function" name="Services_AmazonECS4::CartAdd" />
+  <provides type="function" name="Services_AmazonECS4::CartClear" />
+  <provides type="function" name="Services_AmazonECS4::CartCreate" />
+  <provides type="function" name="Services_AmazonECS4::CartGet" />
+  <provides type="function" name="Services_AmazonECS4::CartModify" />
+  <provides type="function" name="Services_AmazonECS4::CustomerContentLookup" />
+  <provides type="function" name="Services_AmazonECS4::CustomerContentSearch" />
+  <provides type="function" name="Services_AmazonECS4::Help" />
+  <provides type="function" name="Services_AmazonECS4::ItemLookup" />
+  <provides type="function" name="Services_AmazonECS4::ItemSearch" />
+  <provides type="function" name="Services_AmazonECS4::ListLookup" />
+  <provides type="function" name="Services_AmazonECS4::ListSearch" />
+  <provides type="function" name="Services_AmazonECS4::SellerListingLookup" />
+  <provides type="function" name="Services_AmazonECS4::SellerListingSearch" />
+  <provides type="function" name="Services_AmazonECS4::SellerLookup" />
+  <provides type="function" name="Services_AmazonECS4::SimilarityLookup" />
+  <provides type="function" name="Services_AmazonECS4::TransactionLookup" />
+  <provides type="function" name="Services_AmazonECS4::doBatch" />
+  <provides type="function" name="Services_AmazonECS4::doMultiOperation" />
+  <filelist>
+   <file role="doc" baseinstalldir="Services" md5sum="eb5186d694d65847e1d719fac2fc9b7a" name="examples/config.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="5ee0f7d813d88333160205497d641ed8" name="examples/amazon_example1.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="677fbb86ec94b7edf140b6b7bc3275ed" name="examples/amazon_ecs4_itemsearch.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="30ffbc48268c6200208f5a73e3bc1a7e" name="examples/amazon_ecs4_cart.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="f58a1cd82a273097a31dd4c41f898815" name="examples/amazon_ecs4_cache.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="2c3874fa53a315f4d9315dcee57a43f7" name="Amazon.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="Services" md5sum="3bc5067f02f4d971692f4d8d3062e85f" name="AmazonECS4.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>0.4.0</version>
+    <date>2005-10-18</date>
+    <license>BSD</license>
+    <state>beta</state>
+    <notes>Services_AmazonECS4:
+* Added caching support (Request #5672)
+Services_Amazon examples:
+* Fixed PHP_SELF XSS issue
+    </notes>
+   </release>
+   <release>
+    <version>0.3.1</version>
+    <date>2005-10-09</date>
+    <license>BSD</license>
+    <state>beta</state>
+    <notes>Services_AmazonECS4:
+* Fixed Bug #5638
+Services_Amazon examples:
+* Fixed XSS issue
+* Cleaned up some code
+    </notes>
+   </release>
+   <release>
+    <version>0.3.0</version>
+    <date>2005-10-06</date>
+    <license>BSD</license>
+    <state>beta</state>
+    <notes>* Fixed Request #2299
+* Fixed Request #4030
+* Added a new class Services_AmazonECS4 using Amazon E-Commerce Service version 4.0
+    </notes>
+   </release>
+   <release>
+    <version>0.2.0</version>
+    <date>2004-08-21</date>
+    <license>BSD</license>
+    <state>beta</state>
+    <notes>-Amazon.php
+      o Changed constructor to allow base url and locale to be set for use when quering the server.
+      o Added methods setBaseUrl, getBaseUrl, setLocale, and getLocale.
+    </notes>
+   </release>
+ </changelog>
+</package>

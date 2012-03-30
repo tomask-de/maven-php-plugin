@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.8.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>XML_DTD</name>
+ <channel>pear.php.net</channel>
+ <summary>Parsing of DTD files and DTD validation of XML files</summary>
+ <description>Parsing of DTD files and DTD validation of XML files.  The XML validation is done with the php sax parser, the xml extension, it does not use the domxml extension.  Currently supports most of the current XML spec, including entities, elements and attributes. Some uncommon parts of the spec may still be unsupported.</description>
+ <lead>
+  <name>Tomas V.V.Cox</name>
+  <user>cox</user>
+  <email>cox@php.net</email>
+  <active>no</active>
+ </lead>
+ <lead>
+  <name>Stephan Schmidt</name>
+  <user>schst</user>
+  <email>schst@php-tools.net</email>
+  <active>no</active>
+ </lead>
+ <lead>
+  <name>Chuck Burgess</name>
+  <user>ashnazg</user>
+  <email>ashnazg@php.net</email>
+  <active>no</active>
+ </lead>
+ <lead>
+  <name>Igor Feghali</name>
+  <user>ifeghali</user>
+  <email>ifeghali@php.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-04-27</date>
+ <time>23:14:41</time>
+ <version>
+  <release>0.5.2</release>
+  <api>0.5.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://opensource.org/licenses/bsd-license">BSD License</license>
+ <notes>
+- Fixed circular reference which was leaking memory
+- Due to PHP 4 and 5 differences in object handling, the XML Parser had to be rewritten to be PHP 4 compatible again.
+- Error when parsing empty XML
+ </notes>
+ <contents>
+  <dir baseinstalldir="XML" name="/">
+   <file baseinstalldir="XML" md5sum="d6b9b58c7f13ce505131533510533a0d" name="DTD/XmlParser.php" role="php" />
+   <file baseinstalldir="XML" md5sum="26e9d981f00d2da1b815b6c34b6cbdff" name="DTD/XmlValidator.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="cc1d360599594dffa90d76f04fdf03dc" name="tests/attributes.dtd" role="test" />
+   <file baseinstalldir="XML" md5sum="22f2c98cb3bb7560c2c3a6604898ca62" name="tests/attributes_bad.xml" role="test" />
+   <file baseinstalldir="XML" md5sum="a9e2f3f9281ae9ee8e18aedcf9810745" name="tests/attributes_good.xml" role="test" />
+   <file baseinstalldir="XML" md5sum="0f82ff463ef528f8da2e5808301a99e9" name="tests/children.dtd" role="test" />
+   <file baseinstalldir="XML" md5sum="3d7fd509dc459ca74cce7e373b22089f" name="tests/children_bad.xml" role="test" />
+   <file baseinstalldir="XML" md5sum="e7c28a60c4f859597a154ee4956bda51" name="tests/children_good.xml" role="test" />
+   <file baseinstalldir="XML" md5sum="29eaadd2fd554ca4cdc9f21ecfe06652" name="tests/content.dtd" role="test" />
+   <file baseinstalldir="XML" md5sum="22409b4a2a5ccd00bbcad6dc8dcab992" name="tests/content_bad.xml" role="test" />
+   <file baseinstalldir="XML" md5sum="69b79dacaeb950138e3d20e53cdbc1bd" name="tests/content_good.xml" role="test" />
+   <file baseinstalldir="XML" md5sum="476bc1a4a2e60d8f12a702d7beb7cae9" name="tests/nitf-3-1.dtd" role="test" />
+   <file baseinstalldir="XML" md5sum="7cd1411dcc44f29e854fad6beefa48bd" name="tests/nitf-fishing.xml" role="test" />
+   <file baseinstalldir="XML" md5sum="c1cc945320c47d94562c664bc039afad" name="tests/package-1.0" role="test" />
+   <file baseinstalldir="XML" md5sum="f40e8617b93b988faa6a2c2335710da1" name="tests/package-1.1.dtd" role="test" />
+   <file baseinstalldir="XML" md5sum="f2ddb31a279859da98c7b6841fb989a5" name="tests/test.php" role="test" />
+   <file baseinstalldir="XML" md5sum="e080bc1711b44b9fb67d1bfe24c716e0" name="tests/TOTEST" role="test" />
+   <file baseinstalldir="XML" md5sum="8e7817506bd01fdacba40b7b82400122" name="tests/xhtml1-strict.dtd" role="test" />
+   <file baseinstalldir="XML" md5sum="36f4c08c7d1a51903c09106dfa3c68ab" name="DTD.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="XML" md5sum="4c8f3552fdb88a46f61ed2de9b15649f" name="README.txt" role="data" />
+   <file baseinstalldir="XML" md5sum="e6ac4c7cda52cfae694d6aec79ecd558" name="TODO.txt" role="data" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.5.4</min>
+   </pearinstaller>
+   <package>
+    <name>XML_Parser</name>
+    <channel>pear.php.net</channel>
+    <min>1.3.1</min>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.5.2</release>
+    <api>0.5.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2009-04-27</date>
+   <license uri="http://opensource.org/licenses/bsd-license">BSD License</license>
+   <notes>
+- Fixed circular reference which was leaking memory
+- Due to PHP 4 and 5 differences in object handling, the XML Parser had to be rewritten to be PHP 4 compatible again.
+- Error when parsing empty XML
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5.1</release>
+    <api>0.5.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2009-01-24</date>
+   <license uri="http://opensource.org/licenses/bsd-license">BSD License</license>
+   <notes>
+- Dropped dependency of deprecated XML_Tree
+- Introducing the all new XML_DTD_XmlParser
+- Added switch to turn folding on/off
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5.0</release>
+    <api>0.5.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2008-08-22</date>
+   <license uri="http://opensource.org/licenses/bsd-license">BSD License</license>
+   <notes>
+- switch to BSD license
+- add package.xml v2 (while retaining package.xml v1)
+- PEAR CS cleanup
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.4.2</release>
+    <api>0.4.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2004-05-17</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+- fixed bug 168: underscores in element names (tuupola)
+- fixed bug 1118: missing parameters in calls to _errors() (schst)
+- fixed bug 1123: incorrect line numbers in error messages (schst)
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.4</release>
+    <api>0.4</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2003-09-11</date>
+   <license uri="http://www.example.com">PHP 3.0</license>
+   <notes>
+Initial release as XML_DTD (previously was DTD)
+   </notes>
+  </release>
+ </changelog>
+</package>

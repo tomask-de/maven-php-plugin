@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release2
+    http://pear.php.net/dtd/rest.release2.xsd">
+ <p xlink:href="/rest/p/liveuser">LiveUser</p>
+ <c>pear.php.net</c>
+ <v>0.14.0</v>
+ <a>0.14.0</a>
+ <mp>4.3.0</mp>
+ <st>beta</st>
+ <l>LGPL</l>
+ <m>lsmith</m>
+ <s>User authentication and permission management framework</s>
+ <d>LiveUser is a set of classes for dealing with user authentication
+and permission management. Basically, there are three main elements that
+make up this package:
+* The LiveUser class
+* The Auth containers
+* The Perm containers
+The LiveUser class takes care of the login process and can be configured
+to use a certain permission container and one or more different auth containers.
+That means, you can have your users' data scattered amongst many data containers
+and have the LiveUser class try each defined container until the user is found.
+For example, you can have all website users who can apply for a new account online
+on the webserver's local database. Also, you want to enable all your company's
+employees to login to the site without the need to create new accounts for all of
+them. To achieve that, a second container can be defined to be used by the LiveUser class.
+You can also define a permission container of your choice that will manage the rights for
+each user. Depending on the container, you can implement any kind of permission schemes
+for your application while having one consistent API.
+Using different permission and auth containers, it's easily possible to integrate
+newly written applications with older ones that have their own ways of storing permissions
+and user data. Just make a new container type and you're ready to go!
+Currently available are containers using:
+PEAR::DB, PEAR::MDB, PEAR::MDB2, PEAR::XML_Tree and PEAR::Auth.
+</d>
+ <da>2004-12-20 11:29:37</da>
+ <n>- DB containers no longer use CASE in the sql query.
+- lazy loading of PEAR::Log
+- getProperty can now handle mixed case field names, on the auth side.
+- Fixed Bug #2672, #2713, #2714 Typo fixes
+- Bug #2692 some SQL files go installed under pear_folder/LiveUser/sql/
+  which are from now on installed in pear_folder/LiveUser/misc/schema/
+- fixed regenid option
+- refactored client part to the new class layout (using storage containers)
+- fixed example2 to use the new config layout
+- disabled perm caching by default
+- added sessionName param to (un)freeze method calls to the perm container
+- removed options of reading parameters from the superglobals
+- reworked init() method severly
+- remove the callback that catches PEAR_Error errors
+- adding getErrors() method to get the error stack
+- added LiveUser::checkGroup() in order to check for membership in groups
+- added second auth container to example4
+- fix #2678: have more control on callback function
+- added 'session_cookie_params' option
+- LiveUser now expects a true from the auth container unfreeze() method
+- Removed a potential security issue in Auth freeze()
+- added Observers, see the wiki for more information
+- added an observer class in example1 and example4 to show how they work
+- added usage example for multiple auth containers to example4
+- added support for checking arbitrary values in unfreeze()
+  (for example the user agent) to make session high-jacking more difficult)
+- use the new config array
+- moved example3 to the admin package
+- moved connection handling into init() methods that are called inside
+  the factory methods
+- moved error handling over to error stack</n>
+ <f>64484</f>
+ <g>http://pear.php.net/get/LiveUser-0.14.0</g>
+ <x xlink:href="package.0.14.0.xml"/>
+</r>

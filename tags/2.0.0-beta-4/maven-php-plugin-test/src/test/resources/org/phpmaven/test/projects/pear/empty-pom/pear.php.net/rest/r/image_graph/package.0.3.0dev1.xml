@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Image_Graph</name>
+  <summary>Graph rendering utility.</summary>
+  <description>This package helps you to easily create highly versatile graphs.</description>
+  <maintainers>
+    <maintainer>
+      <user>nosey</user>
+      <name>Jesper Veggerby</name>
+      <email>pear.nosey@veggerby.dk</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>neufeind</user>
+      <name>Stefan Neufeind</name>
+      <email>pear.neufeind@speedpartner.de</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>toby</user>
+      <name>Tobias Schlitt</name>
+      <email>toby@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.3.0dev1</version>
+    <date>2004-10-25</date>
+    <license>LGPL</license>
+    <state>devel</state>
+    <notes>First devel version of new redesigned package, based on sources from Jasper merged with &quot;old&quot; Image_Graph.</notes>
+    <deps>
+      <dep type="ext" rel="has" optional="no">gd</dep>
+      <dep type="pkg" rel="ge" version="1.3.1" optional="no">PEAR</dep>
+      <dep type="pkg" rel="has" optional="no">Log</dep>
+      <dep type="pkg" rel="ge" version="1.0.0" optional="no">Image_Color</dep>
+      <dep type="pkg" rel="has" optional="yes">Numbers_Roman</dep>
+      <dep type="pkg" rel="has" optional="yes">Numbers_Words</dep>
+      <dep type="pkg" rel="has" optional="yes">Cache</dep>
+    </deps>
+    <provides type="class" name="Image_Graph_Axis" extends="Image_Graph_Plotarea_Element" />
+    <provides type="function" name="Image_Graph_Axis::showLabel" />
+    <provides type="function" name="Image_Graph_Axis::setDataPreProcessor" />
+    <provides type="function" name="Image_Graph_Axis::forceMinimum" />
+    <provides type="function" name="Image_Graph_Axis::forceMaximum" />
+    <provides type="function" name="Image_Graph_Axis::showArrow" />
+    <provides type="function" name="Image_Graph_Axis::hideArrow" />
+    <provides type="function" name="Image_Graph_Axis::setLabelInterval" />
+    <provides type="function" name="Image_Graph_Axis::addMark" />
+    <provides type="class" name="Image_Graph_Color" extends="Image_Color" />
+    <provides type="function" name="Image_Graph_Color::allocateColor" />
+    <provides type="function" name="Image_Graph_Color::color2RGB" />
+    <provides type="function" name="Image_Graph_Color::getRange" />
+    <provides type="class" name="Image_Graph_Common" />
+    <provides type="function" name="Image_Graph_Common::add" />
+    <provides type="function" name="Image_Graph_Common::addNew" />
+    <provides type="function" name="is_a" />
+    <provides type="function" name="Image_Graph_gd_version" />
+    <provides type="class" name="Image_Graph_DataPreprocessor" />
+    <provides type="class" name="Image_Graph_DataSelector" />
+    <provides type="class" name="Image_Graph_Dataset" />
+    <provides type="function" name="Image_Graph_Dataset::setName" />
+    <provides type="function" name="Image_Graph_Dataset::addPoint" />
+    <provides type="function" name="Image_Graph_Dataset::count" />
+    <provides type="function" name="Image_Graph_Dataset::minimumX" />
+    <provides type="function" name="Image_Graph_Dataset::maximumX" />
+    <provides type="function" name="Image_Graph_Dataset::minimumY" />
+    <provides type="function" name="Image_Graph_Dataset::maximumY" />
+    <provides type="class" name="Image_Graph_Element" extends="Image_Graph_Common" />
+    <provides type="function" name="Image_Graph_Element::setBackground" />
+    <provides type="function" name="Image_Graph_Element::showShadow" />
+    <provides type="function" name="Image_Graph_Element::setBackgroundColor" />
+    <provides type="function" name="Image_Graph_Element::setBorderStyle" />
+    <provides type="function" name="Image_Graph_Element::setBorderColor" />
+    <provides type="function" name="Image_Graph_Element::setLineStyle" />
+    <provides type="function" name="Image_Graph_Element::setLineColor" />
+    <provides type="function" name="Image_Graph_Element::setFillStyle" />
+    <provides type="function" name="Image_Graph_Element::setFillColor" />
+    <provides type="function" name="Image_Graph_Element::setFont" />
+    <provides type="function" name="Image_Graph_Element::setPadding" />
+    <provides type="function" name="Image_Graph_Element::width" />
+    <provides type="function" name="Image_Graph_Element::height" />
+    <provides type="function" name="Image_Graph_Element::write" />
+    <provides type="class" name="Image_Graph_Fill" extends="Image_Graph_Element" />
+    <provides type="class" name="Image_Graph_Font" extends="Image_Graph_Common" />
+    <provides type="function" name="Image_Graph_Font::setColor" />
+    <provides type="function" name="Image_Graph_Font::width" />
+    <provides type="function" name="Image_Graph_Font::height" />
+    <provides type="class" name="Image_Graph_Grid" extends="Image_Graph_Plotarea_Element" />
+    <provides type="class" name="Image_Graph_Layout" extends="Image_Graph_Plotarea_Element" />
+    <provides type="class" name="Image_Graph_Legend" extends="Image_Graph_Layout" />
+    <provides type="function" name="Image_Graph_Legend::setAlignment" />
+    <provides type="function" name="Image_Graph_Legend::setPlotarea" />
+    <provides type="class" name="Image_Graph_Logo" extends="Image_Graph_Element" />
+    <provides type="class" name="Image_Graph_Marker" extends="Image_Graph_Plotarea_Element" />
+    <provides type="function" name="Image_Graph_Marker::setSize" />
+    <provides type="function" name="Image_Graph_Marker::setSecondaryMarker" />
+    <provides type="class" name="Image_Graph_Plot" extends="Image_Graph_Plotarea_Element" />
+    <provides type="function" name="Image_Graph_Plot::setTitle" />
+    <provides type="function" name="Image_Graph_Plot::setMarker" />
+    <provides type="function" name="Image_Graph_Plot::setDataSelector" />
+    <provides type="function" name="Image_Graph_Plot::dataset" />
+    <provides type="class" name="Image_Graph_Plotarea" extends="Image_Graph_Layout" />
+    <provides type="function" name="Image_Graph_Plotarea::setPlotBorderStyle" />
+    <provides type="function" name="Image_Graph_Plotarea::add" />
+    <provides type="function" name="Image_Graph_Plotarea::hideAxis" />
+    <provides type="function" name="Image_Graph_Plotarea::getAxis" />
+    <provides type="class" name="Image_Graph_Simple" extends="Image_Graph" />
+    <provides type="class" name="Image_Graph_Title" extends="Image_Graph_Layout" />
+    <provides type="function" name="Image_Graph_Title::setText" />
+    <provides type="class" name="Image_Graph_Axis_Category" extends="Image_Graph_Axis" />
+    <provides type="function" name="Image_Graph_Axis_Category::forceMinimum" />
+    <provides type="function" name="Image_Graph_Axis_Category::forceMaximum" />
+    <provides type="function" name="Image_Graph_Axis_Category::setLabelInterval" />
+    <provides type="class" name="Image_Graph_Axis_Logarithmic" extends="Image_Graph_Axis" />
+    <provides type="function" name="Image_Graph_Axis_Logarithmic::forceMinimum" />
+    <provides type="class" name="Image_Graph_Axis_Multidimensional" extends="Image_Graph_Axis" />
+    <provides type="class" name="Image_Graph_Axis_Radar" extends="Image_Graph_Axis_Multidimensional" />
+    <provides type="class" name="Image_Graph_Axis_Marker_Area" extends="Image_Graph_Grid" />
+    <provides type="function" name="Image_Graph_Axis_Marker_Area::setLowerBound" />
+    <provides type="function" name="Image_Graph_Axis_Marker_Area::setUpperBound" />
+    <provides type="class" name="Image_Graph_Axis_Marker_Line" extends="Image_Graph_Grid" />
+    <provides type="function" name="Image_Graph_Axis_Marker_Line::setValue" />
+    <provides type="class" name="Image_Graph_DataPreprocessor_Array" extends="Image_Graph_DataPreprocessor" />
+    <provides type="class" name="Image_Graph_DataPreprocessor_Currency" extends="Image_Graph_DataPreprocessor_Formatted" />
+    <provides type="class" name="Image_Graph_DataPreprocessor_Date" extends="Image_Graph_DataPreprocessor" />
+    <provides type="class" name="Image_Graph_DataPreprocessor_Formatted" extends="Image_Graph_DataPreprocessor" />
+    <provides type="class" name="Image_Graph_DataPreprocessor_Function" extends="Image_Graph_DataPreprocessor" />
+    <provides type="class" name="Image_Graph_DataPreprocessor_NumberText" extends="Image_Graph_DataPreprocessor" />
+    <provides type="class" name="Image_Graph_DataPreprocessor_RomanNumerals" extends="Image_Graph_DataPreprocessor" />
+    <provides type="class" name="Image_Graph_DataPreprocessor_Sequential" extends="Image_Graph_DataPreprocessor_Array" />
+    <provides type="class" name="Image_Graph_DataSelector_EveryNthPoint" extends="Image_Graph_DataSelector" />
+    <provides type="class" name="Image_Graph_DataSelector_NoZeros" extends="Image_Graph_DataSelector" />
+    <provides type="class" name="Image_Graph_Dataset_Function" extends="Image_Graph_Dataset" />
+    <provides type="function" name="Image_Graph_Dataset_Function::addPoint" />
+    <provides type="class" name="Image_Graph_Dataset_Random" extends="Image_Graph_Dataset_Trivial" />
+    <provides type="class" name="Image_Graph_Dataset_Sequential" extends="Image_Graph_Dataset_Trivial" />
+    <provides type="function" name="Image_Graph_Dataset_Sequential::addPoint" />
+    <provides type="function" name="Image_Graph_Dataset_Sequential::minimumX" />
+    <provides type="function" name="Image_Graph_Dataset_Sequential::maximumX" />
+    <provides type="class" name="Image_Graph_Dataset_Trivial" extends="Image_Graph_Dataset" />
+    <provides type="function" name="Image_Graph_Dataset_Trivial::addPoint" />
+    <provides type="function" name="Image_Graph_Dataset_Trivial::count" />
+    <provides type="class" name="Image_Graph_Dataset_VectorFunction" extends="Image_Graph_Dataset" />
+    <provides type="function" name="Image_Graph_Dataset_VectorFunction::addPoint" />
+    <provides type="class" name="Image_Graph_Figure_Circle" extends="Image_Graph_Figure_Ellipse" />
+    <provides type="class" name="Image_Graph_Figure_Ellipse" extends="Image_Graph_Element" />
+    <provides type="class" name="Image_Graph_Figure_Polygon" extends="Image_Graph_Element" />
+    <provides type="function" name="Image_Graph_Figure_Polygon::addVertex" />
+    <provides type="class" name="Image_Graph_Figure_Rectangle" extends="Image_Graph_Element" />
+    <provides type="class" name="Image_Graph_Fill_Array" extends="Image_Graph_Fill" />
+    <provides type="function" name="Image_Graph_Fill_Array::add" />
+    <provides type="function" name="Image_Graph_Fill_Array::addColor" />
+    <provides type="class" name="Image_Graph_Fill_Gradient" extends="Image_Graph_Fill_Image" />
+    <provides type="class" name="Image_Graph_Fill_Image" extends="Image_Graph_Fill" />
+    <provides type="class" name="Image_Graph_Fill_Solid" extends="Image_Graph_Fill" />
+    <provides type="class" name="Image_Graph_Font_Extended" extends="Image_Graph_Font" />
+    <provides type="function" name="Image_Graph_Font_Extended::setAngle" />
+    <provides type="function" name="Image_Graph_Font_Extended::setSize" />
+    <provides type="class" name="Image_Graph_Font_TTF" extends="Image_Graph_Font_Extended" />
+    <provides type="function" name="Image_Graph_Font_TTF::setFontFile" />
+    <provides type="class" name="Image_Graph_Font_Vertical" extends="Image_Graph_Font" />
+    <provides type="function" name="Image_Graph_Font_Vertical::width" />
+    <provides type="function" name="Image_Graph_Font_Vertical::height" />
+    <provides type="class" name="Image_Graph_Grid_Bars" extends="Image_Graph_Grid" />
+    <provides type="class" name="Image_Graph_Grid_Lines" extends="Image_Graph_Grid" />
+    <provides type="class" name="Image_Graph_Layout_Horizontal" extends="Image_Graph_Layout" />
+    <provides type="class" name="Image_Graph_Layout_Plotarea" extends="Image_Graph_Layout" />
+    <provides type="function" name="Image_Graph_Layout_Plotarea::getPlotarea" />
+    <provides type="function" name="Image_Graph_Layout_Plotarea::getTitle" />
+    <provides type="function" name="Image_Graph_Layout_Plotarea::getTitleAxisX" />
+    <provides type="function" name="Image_Graph_Layout_Plotarea::getTitleAxisY" />
+    <provides type="class" name="Image_Graph_Layout_Vertical" extends="Image_Graph_Layout_Horizontal" />
+    <provides type="class" name="Image_Graph_Line_Array" extends="Image_Graph_Common" />
+    <provides type="function" name="Image_Graph_Line_Array::add" />
+    <provides type="class" name="Image_Graph_Line_Dashed" extends="Image_Graph_Line_Formatted" />
+    <provides type="class" name="Image_Graph_Line_Dotted" extends="Image_Graph_Line_Formatted" />
+    <provides type="class" name="Image_Graph_Line_Formatted" extends="Image_Graph_Line_Solid" />
+    <provides type="class" name="Image_Graph_Line_Solid" extends="Image_Graph_Common" />
+    <provides type="function" name="Image_Graph_Line_Solid::setThickness" />
+    <provides type="class" name="Image_Graph_Marker_Array" extends="Image_Graph_Marker" />
+    <provides type="function" name="Image_Graph_Marker_Array::add" />
+    <provides type="class" name="Image_Graph_Marker_Asterisk" extends="Image_Graph_Marker" />
+    <provides type="class" name="Image_Graph_Marker_Average" extends="Image_Graph_Marker" />
+    <provides type="class" name="Image_Graph_Marker_Box" extends="Image_Graph_Marker" />
+    <provides type="class" name="Image_Graph_Marker_Bubble" extends="Image_Graph_Marker_Circle" />
+    <provides type="function" name="Image_Graph_Marker_Bubble::setMaxRadius" />
+    <provides type="class" name="Image_Graph_Marker_Circle" extends="Image_Graph_Marker" />
+    <provides type="class" name="Image_Graph_Marker_Cross" extends="Image_Graph_Marker" />
+    <provides type="class" name="Image_Graph_Marker_Diamond" extends="Image_Graph_Marker" />
+    <provides type="class" name="Image_Graph_Marker_FloodFill" extends="Image_Graph_Marker" />
+    <provides type="class" name="Image_Graph_Marker_Icon" extends="Image_Graph_Marker" />
+    <provides type="function" name="Image_Graph_Marker_Icon::setPointX" />
+    <provides type="function" name="Image_Graph_Marker_Icon::setPointY" />
+    <provides type="class" name="Image_Graph_Marker_Pinpoint" extends="Image_Graph_Marker_Icon" />
+    <provides type="class" name="Image_Graph_Marker_Plus" extends="Image_Graph_Marker" />
+    <provides type="class" name="Image_Graph_Marker_Pointing" extends="Image_Graph_Marker" />
+    <provides type="function" name="Image_Graph_Marker_Pointing::setMarkerStart" />
+    <provides type="class" name="Image_Graph_Marker_ReversePinpoint" extends="Image_Graph_Marker_Icon" />
+    <provides type="class" name="Image_Graph_Marker_Triangle" extends="Image_Graph_Marker" />
+    <provides type="class" name="Image_Graph_Marker_Value" extends="Image_Graph_Marker" />
+    <provides type="function" name="Image_Graph_Marker_Value::setBackground" />
+    <provides type="function" name="Image_Graph_Marker_Value::setBackgroundColor" />
+    <provides type="function" name="Image_Graph_Marker_Value::setDataPreprocessor" />
+    <provides type="class" name="Image_Graph_Marker_Pointing_Angular" extends="Image_Graph_Marker_Pointing" />
+    <provides type="class" name="Image_Graph_Marker_Pointing_Radial" extends="Image_Graph_Marker_Pointing" />
+    <provides type="class" name="Image_Graph_Plot_Area" extends="Image_Graph_Plot" />
+    <provides type="class" name="Image_Graph_Plot_Bar" extends="Image_Graph_Plot" />
+    <provides type="function" name="Image_Graph_Plot_Bar::spacing" />
+    <provides type="class" name="Image_Graph_Plot_Dot" extends="Image_Graph_Plot" />
+    <provides type="class" name="Image_Graph_Plot_Impulse" extends="Image_Graph_Plot" />
+    <provides type="class" name="Image_Graph_Plot_Line" extends="Image_Graph_Plot" />
+    <provides type="class" name="Image_Graph_Plot_Pie" extends="Image_Graph_Plot" />
+    <provides type="class" name="Image_Graph_Plot_Radar" extends="Image_Graph_Plot" />
+    <provides type="class" name="Image_Graph_Plot_Step" extends="Image_Graph_Plot" />
+    <provides type="class" name="Image_Graph_Plot_Smoothed_Area" extends="Image_Graph_Plot_Smoothed_Bezier" />
+    <provides type="class" name="Image_Graph_Plot_Smoothed_Bezier" extends="Image_Graph_Plot" />
+    <provides type="class" name="Image_Graph_Plot_Smoothed_Line" extends="Image_Graph_Plot_Smoothed_Bezier" />
+    <provides type="class" name="Image_Graph_Plotarea_Element" extends="Image_Graph_Element" />
+    <provides type="class" name="Image_Graph_Plotarea_Map" extends="Image_Graph_Plotarea" />
+    <provides type="class" name="Image_Graph_Plotarea_Radar" extends="Image_Graph_Plotarea" />
+    <provides type="class" name="Image_Graph" extends="Image_Graph_Element" />
+    <provides type="function" name="Image_Graph::hideLogo" />
+    <provides type="function" name="Image_Graph::newColor" />
+    <provides type="function" name="Image_Graph::width" />
+    <provides type="function" name="Image_Graph::height" />
+    <provides type="function" name="Image_Graph::rotate" />
+    <provides type="function" name="Image_Graph::saveAs" />
+    <provides type="function" name="Image_Graph::thumbnail" />
+    <provides type="function" name="Image_Graph::antialias" />
+    <provides type="function" name="Image_Graph::displayErrors" />
+    <provides type="function" name="Image_Graph::done" />
+    <provides type="function" name="Image_Graph::factory" />
+    <provides type="function" name="Image_Graph::layoutFactory" />
+    <filelist>
+      <file role="doc" baseinstalldir="Image" name="examples/barchart1.php"/>
+      <file role="doc" baseinstalldir="Image" name="examples/linechart1.php"/>
+      <file role="doc" baseinstalldir="Image" name="examples/piechart1.php"/>
+      <file role="doc" baseinstalldir="Image" name="examples/images/audi.png"/>
+      <file role="doc" baseinstalldir="Image" name="examples/images/bmw.png"/>
+      <file role="doc" baseinstalldir="Image" name="examples/images/coins.png"/>
+      <file role="doc" baseinstalldir="Image" name="examples/images/mercedes.png"/>
+      <file role="doc" baseinstalldir="Image" name="examples/images/porsche.png"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Axis.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Color.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Common.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Config.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Constants.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/DataPreprocessor.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/DataSelector.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Dataset.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Element.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Fill.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Font.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Grid.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Layout.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Legend.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Logo.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Marker.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Plot.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Plotarea.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Simple.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Title.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Axis/Category.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Axis/Logarithmic.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Axis/Multidimensional.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Axis/Radar.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Axis/Marker/Area.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Axis/Marker/Line.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/DataPreprocessor/Array.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/DataPreprocessor/Currency.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/DataPreprocessor/Date.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/DataPreprocessor/Formatted.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/DataPreprocessor/Function.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/DataPreprocessor/NumberText.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/DataPreprocessor/RomanNumerals.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/DataPreprocessor/Sequential.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/DataSelector/EveryNthPoint.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/DataSelector/NoZeros.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Dataset/Function.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Dataset/Random.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Dataset/Sequential.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Dataset/Trivial.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Dataset/VectorFunction.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Figure/Circle.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Figure/Ellipse.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Figure/Polygon.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Figure/Rectangle.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Fill/Array.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Fill/Gradient.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Fill/Image.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Fill/Solid.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Font/Extended.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Font/TTF.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Font/Vertical.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Fonts/README"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Grid/Bars.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Grid/Lines.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Images/logo.png"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Images/Icons/pinpoint.png"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Images/Icons/pinpointr.png"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Images/Maps/README"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Images/Shadows/b.png"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Images/Shadows/bl.png"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Images/Shadows/br.png"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Images/Shadows/r.png"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Images/Shadows/tr.png"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Layout/Horizontal.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Layout/Plotarea.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Layout/Vertical.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Line/Array.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Line/Dashed.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Line/Dotted.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Line/Formatted.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Line/Solid.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Marker/Array.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Marker/Asterisk.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Marker/Average.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Marker/Box.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Marker/Bubble.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Marker/Circle.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Marker/Cross.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Marker/Diamond.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Marker/FloodFill.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Marker/Icon.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Marker/Pinpoint.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Marker/Plus.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Marker/Pointing.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Marker/ReversePinpoint.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Marker/Triangle.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Marker/Value.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Marker/Pointing/Angular.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Marker/Pointing/Radial.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Plot/Area.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Plot/Bar.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Plot/Dot.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Plot/Impulse.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Plot/Line.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Plot/Pie.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Plot/Radar.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Plot/Step.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Plot/Smoothed/Area.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Plot/Smoothed/Bezier.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Plot/Smoothed/Line.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Plotarea/Element.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Plotarea/Map.php"/>
+      <file role="php" baseinstalldir="Image" name="Graph/Plotarea/Radar.php"/>
+      <file role="doc" baseinstalldir="Image" name="ChangeLog"/>
+      <file role="php" baseinstalldir="Image" name="Graph.php"/>
+      <file role="doc" baseinstalldir="Image" name="LICENSE"/>
+      <file role="doc" baseinstalldir="Image" name="README"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.3.0dev1</version>
+      <date>2004-10-24</date>
+      <license>LGPL</license>
+      <state>devel</state>
+      <notes>First devel build
+
+</notes>
+    </release>
+  </changelog>
+</package>

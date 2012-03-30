@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release2
+    http://pear.php.net/dtd/rest.release2.xsd">
+ <p xlink:href="/rest/p/mdb2">MDB2</p>
+ <c>pear.php.net</c>
+ <v>2.2.1</v>
+ <a>2.2.1</a>
+ <mp>4.3.0</mp>
+ <st>stable</st>
+ <l>BSD License</l>
+ <m>lsmith</m>
+ <s>database abstraction layer</s>
+ <d>PEAR MDB2 is a merge of the PEAR DB and Metabase php database abstraction layers.
+
+It provides a common API for all supported RDBMS. The main difference to most
+other DB abstraction packages is that MDB2 goes much further to ensure
+portability. Among other things MDB2 features:
+* An OO-style query API
+* A DSN (data source name) or array format for specifying database servers
+* Datatype abstraction and on demand datatype conversion
+* Various optional fetch modes to fix portability issues
+* Portable error codes
+* Sequential and non sequential row fetching as well as bulk fetching
+* Ability to make buffered and unbuffered queries
+* Ordered array and associative array for the fetched rows
+* Prepare/execute (bind) emulation
+* Sequence/autoincrement emulation
+* Replace emulation
+* Limited sub select emulation
+* Row limit support
+* Transactions/savepoint support
+* Large Object support
+* Index/Unique Key/Primary Key support
+* Pattern matching abstraction
+* Module framework to load advanced functionality on demand
+* Ability to read the information schema
+* RDBMS management methods (creating, dropping, altering)
+* Reverse engineering schemas from an existing DB
+* SQL function call abstraction
+* Full integration into the PEAR Framework
+* PHPDoc API documentation
+ 
+</d>
+ <da>2006-08-21 14:23:26</da>
+ <n>- fixed missing code in tableInfo() (Bug #8289)
+- fixed handling of indexes and constraints and types in tableInfo() (fixes BC break)
+- do not set nested transaction error if error is expected
+- explictly default to NULL when the column is NULLable and no default is set
+  (related to Bug #8359)
+- added support for case insensitive matching via ILIKE in matchPattern()
+- added getAsKeyword() for generating &quot;AS&quot; keyword as required by the RDBMS
+- return an error if a named placeholder name is used twice inside a single statement
+- add support for multi column PRIMARY KEYs in createTable()
+- added lower() and upper() to the function module
+- moved escaping tests to datatype tests
+- added summary at the end of a test run for each RDBMS
+- explicitly pass the php_type var in all internal loadModule() calls
+- added support for 'primary' option in createTable()
+- expanded NULL tests
+- fixed handling return values when disable_query is set in _doQuery() and _execute()
+- check if safe_mode is enabled in fileExists() to determine what algo to use (Bug #8296)
+- added a test case for updating LOBs
+- added rtrim test case for LOBs
+- if result types are specified only rtrim() type 'text' fields (otherwise
+  it will mean that for some drivers LOB's would get rtrimmed)
+- phpdoc fixes to the convertResult*() methods
+- added execParam() method and code tweaks for get*() methods in the Extended module
+- removed redundant assertions when testing if a given feature is unsupported
+- removed tests of portability off (users should just set the given portability
+  setting they want to test in their test_setup.php)
+
+open todo items:
+- handle autoincrement fields in alterTable()
+- add length handling to LOB reverse engineering
+- expand charset support in schema management and result set handling (Request #4666)
+- add EXPLAIN abstraction
+- add cursor support along the lines of PDO (Request #3660 etc.)
+- expand length/scale support for numeric types (Request #7170)
+- add PDO based drivers, especially a driver to support SQLite 3 (Request #6907)
+- add support to export/import in CSV format
+- add more functions to the Function module (MD5(), IFNULL(), LENGTH() etc.)
+- add support for database/table/row LOCKs
+- add support for FOREIGN KEYs and CHECK (ENUM as possible mysql fallback) constraints
+- generate STATUS file from test suite results and allow users to submit test results
+- add a package2.xml and explore use of install groups (pear install MDB2#mysql)
+- add support for full text index creation and querying
+- add tests to check if the RDBMS specific handling with portability options
+  disabled behaves as expected</n>
+ <f>98924</f>
+ <g>http://pear.php.net/get/MDB2-2.2.1</g>
+ <x xlink:href="package.2.2.1.xml"/>
+</r>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release2
+    http://pear.php.net/dtd/rest.release2.xsd">
+ <p xlink:href="/rest/p/html_quickform_renderer_tableless">HTML_QuickForm_Renderer_Tableless</p>
+ <c>pear.php.net</c>
+ <v>0.3.1</v>
+ <a>0.3.1</a>
+ <mp>4.2</mp>
+ <st>alpha</st>
+ <l>PHP License 3.01</l>
+ <m>wiesemann</m>
+ <s>A replacement for the default renderer that uses only XHTML and CSS but no table tags</s>
+ <d>A replacement for the default renderer of HTML_QuickForm that uses only XHTML and CSS but no table tags.
+ 
+Usage: Just copy (and modify if you want) the stylesheet and do something like this:
+
+require_once 'HTML/QuickForm.php';
+require_once 'HTML/QuickForm/Renderer/Tableless.php';
+
+$form =&amp; new HTML_QuickForm();
+$renderer =&amp; new HTML_QuickForm_Renderer_Tableless();
+
+// usual code, e.g. new form fields, rules, ...
+
+$form-&gt;accept($renderer);
+echo $renderer-&gt;toHtml();</d>
+ <da>2006-07-18 10:27:12</da>
+ <n>- Bug #8222: several fixes to get valid XHTML code:
+  * a fieldset tag is now only closed if a fieldset tag is open
+  * the (internal) open fieldset status variable is now resetted for a second
+    (third, ...) form on the same page
+  * QuickForm's internal hidden fields are not put into an invisible div
+    (=&gt; the form template has changed)
+  * every other element is now put into a fieldset; elements that were outside
+    a fieldset in the last releases are now in a &quot;hidden&quot; fieldset (using a new
+    template that can be changed via setOpenHiddenFieldsetTemplate(), and using
+    a new CSS style 'form fieldset.hidden' in data/stylesheet.css)
+  (thanks to Daniel Maglione, danielmaglione at gmail dot com)
+- Request #8236: the template for the opening fieldset tag now includes a variable
+  for an id which is filled with the name of the header element (if given)
+  (thanks to v8kf6x11fb5v06l at jetable dot org)</n>
+ <f>4958</f>
+ <g>http://pear.php.net/get/HTML_QuickForm_Renderer_Tableless-0.3.1</g>
+ <x xlink:href="package.0.3.1.xml"/>
+</r>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.6.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+ <name>PHP_FunctionCallTracer</name>
+ <channel>pear.php.net</channel>
+ <summary>Function Call Tracer</summary>
+ <description>Creates a function calls debug trace. Functions arguments, returned parameters and watched variables are reported in the same section for each function call.
+The trace is available as an array, or can be displayed or written in a file.
+Traced variables can be processed by provided user functions for displaying purposes.
+
+This package is not a replacement for full fledged PHP debuggers. It is useful for (1) remote debugging, (2) to debug a complex sequence of function calls, (3) to display non text variables in a user readable format.
+
+(1) Remote debugging is sometimes the only option to debug a package that works fine on your system, e.g. a 32-bit OS, but breaks on a different system, e.g. a 64-bit OS, which you have no access to. A remote user who has the latter OS could run the package, then send you the trace for analysis.
+
+(2) It is sometimes difficult not to loose track of functions calls in some live debugging sessions even with top notch PHP editor/debuggers. The trace produced by this package may come handy and is easy to use in combination with the source code to track calls and variables.
+
+(3) Some variables native format does not always display well, typically:
+packed data and UTF-8 strings. They can be converted as they are being traced to a readable format by provided user functions. For example: converting binary strings to hexadecimal, or UTF-8 string to Unicode.
+
+Fully tested with phpUnit. Code coverage test close to 100%.
+
+Usage including trace examples is fully documented in docs/examples files.</description>
+ <lead>
+  <name>Michel Corne</name>
+  <user>mcorne</user>
+  <email>mcorne@yahoo.com</email>
+  <active>yes</active>
+ </lead>
+ <date>2007-09-03</date>
+ <time>10:15:12</time>
+ <version>
+  <release>1.0.0RC1</release>
+  <api>1.0.0RC1</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/bsd-license.php">The BSD License</license>
+ <notes>*Initial PEAR release</notes>
+ <contents>
+  <dir baseinstalldir="PHP" name="/">
+   <file baseinstalldir="PHP" md5sum="6e7e7372ae7dd30bb66896f299e62e16" name="docs/examples/advanced/package.php" role="doc" />
+   <file baseinstalldir="PHP" md5sum="306ee579f3b99b26fde4135b26a76b6b" name="docs/examples/advanced/trace.php" role="doc" />
+   <file baseinstalldir="PHP" md5sum="00f877a9a9de1d9902f9af44b7e1f63d" name="docs/examples/advanced/trace.txt" role="doc" />
+   <file baseinstalldir="PHP" md5sum="978d48e670efac1f5b779dc62e2c1afd" name="docs/examples/basic/package.php" role="doc" />
+   <file baseinstalldir="PHP" md5sum="b9d9e5737bbed2a49dd904081d5f3577" name="docs/examples/basic/trace.php" role="doc" />
+   <file baseinstalldir="PHP" md5sum="51406dcc75fcb7c47e608e93114b5f7a" name="docs/examples/basic/trace.txt" role="doc" />
+   <file baseinstalldir="PHP" md5sum="a16ce952075d601f3b16cae36ea472b7" name="docs/examples/intermediate/package.php" role="doc" />
+   <file baseinstalldir="PHP" md5sum="7832c5e68acfb4987957a0553aced90a" name="docs/examples/intermediate/trace.php" role="doc" />
+   <file baseinstalldir="PHP" md5sum="0c9378fed050934ca55d17f58a86c209" name="docs/examples/intermediate/trace.txt" role="doc" />
+   <file baseinstalldir="PHP" md5sum="aafea6991c320e278489282ce9700786" name="docs/examples/reference/trace.php" role="doc" />
+   <file baseinstalldir="PHP" md5sum="771c4c2c7d9144cb36469a024bafdac1" name="docs/examples/reference/trace.txt" role="doc" />
+   <file baseinstalldir="PHP" md5sum="8d0a86cb19cd89b3002e7f965b5eb928" name="tests/data/ComplexCall.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="96d2dfaba35dfd492fda936595e4a70c" name="tests/data/Integrated.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="882ab9758cd2b4b8f7a41915a4b46441" name="tests/data/MultiUserFct.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="33833b41a942baea291e56a7b682ff6e" name="tests/data/NoUserFct.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="98ac27cc451ec07b5caa72acc32d5568" name="tests/data/OneUserFct.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="45381a85c2e17fbb93fcb1c2826d8486" name="tests/data/RecursiveCall.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="60f98da0ac6081da9796af2add589117" name="tests/data/SimpleCall.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="376a1c797c3d25db13d438bbfb53b27d" name="tests/generated/ComplexCall.txt" role="test" />
+   <file baseinstalldir="PHP" md5sum="bdf08e11fa83c34de1c2e053e5201dc0" name="tests/generated/Integrated.txt" role="test" />
+   <file baseinstalldir="PHP" md5sum="19ef8b8bec01a69329bd426c78f3c81e" name="tests/generated/MultiUserFct.txt" role="test" />
+   <file baseinstalldir="PHP" md5sum="5ff8db576c11d9ae837113e1161bc6d1" name="tests/generated/NoUserFct.txt" role="test" />
+   <file baseinstalldir="PHP" md5sum="ea8b3c5f1ffa878e32c4d289f94b510d" name="tests/generated/OneUserFct.txt" role="test" />
+   <file baseinstalldir="PHP" md5sum="816c1e974792250a5b4ea9900931e007" name="tests/generated/RecursiveCall.txt" role="test" />
+   <file baseinstalldir="PHP" md5sum="a51193f4d27f0861b5453f08ae941341" name="tests/generated/SimpleCall.txt" role="test" />
+   <file baseinstalldir="PHP" md5sum="376a1c797c3d25db13d438bbfb53b27d" name="tests/reference/ComplexCall.txt" role="test" />
+   <file baseinstalldir="PHP" md5sum="bdf08e11fa83c34de1c2e053e5201dc0" name="tests/reference/Integrated.txt" role="test" />
+   <file baseinstalldir="PHP" md5sum="19ef8b8bec01a69329bd426c78f3c81e" name="tests/reference/MultiUserFct.txt" role="test" />
+   <file baseinstalldir="PHP" md5sum="5ff8db576c11d9ae837113e1161bc6d1" name="tests/reference/NoUserFct.txt" role="test" />
+   <file baseinstalldir="PHP" md5sum="ea8b3c5f1ffa878e32c4d289f94b510d" name="tests/reference/OneUserFct.txt" role="test" />
+   <file baseinstalldir="PHP" md5sum="816c1e974792250a5b4ea9900931e007" name="tests/reference/RecursiveCall.txt" role="test" />
+   <file baseinstalldir="PHP" md5sum="a51193f4d27f0861b5453f08ae941341" name="tests/reference/SimpleCall.txt" role="test" />
+   <file baseinstalldir="PHP" md5sum="e9151ed76c4af74e0844ae3802bd4f00" name="tests/AllTests.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="64f0c740da2ad459a7822f881c3a646f" name="tests/FunctionCallTracerTest.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="9466de96c093671fd215cc91011fa025" name="tests/bug.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="0272d95b2edf693beb3f29a0378c4751" name="FunctionCallTracer.php" role="php" />
+   <file baseinstalldir="/" md5sum="cb4d6d7eb1d7dd4a4d1570ee61eebf60" name="run.bat" role="script">
+    <tasks:windowseol />
+    <tasks:replace from="@bin_dir@" to="bin_dir" type="pear-config" />
+    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
+   </file>
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <installconditions>
+   <os>
+    <name>windows</name>
+   </os>
+  </installconditions>
+  <filelist>
+   <ignore name="run.bat" />
+  </filelist>
+ </phprelease>
+ <phprelease>
+  <filelist>
+   <ignore name="run.bat" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.2</release>
+    <api>0.2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2007-04-28</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">The BSD License</license>
+   <notes>* Fixed examples partial install</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1</release>
+    <api>0.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2007-04-28</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">The BSD License</license>
+   <notes>* Initial release in sourceforge</notes>
+  </release>
+ </changelog>
+</package>

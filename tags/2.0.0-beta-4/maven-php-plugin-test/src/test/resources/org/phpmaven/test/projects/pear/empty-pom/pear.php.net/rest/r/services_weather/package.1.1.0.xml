@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Services_Weather</name>
+  <summary>This class acts as an interface to various online weather-services.</summary>
+  <description>Services_Weather searches for given locations and retrieves current
+weather data and, dependent on the used service, also forecasts. Up to
+now, GlobalWeather from CapeScience, a XML service from weather.com
+and METAR from noaa.gov are supported. Further services will get
+included, if they become available, have a usable API and are properly
+documented.</description>
+  <maintainers>
+    <maintainer>
+      <user>eru</user>
+      <name>Alexander Wirtz</name>
+      <email>alex@pc4p.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.1.0</version>
+    <date>2003-12-30</date>
+    <license>PHP License</license>
+    <state>stable</state>
+    <notes>- Removed dependency on 4.3.0
+- Weather.php, Common.php, Globalweather.php, Metar.php, Weatherdotcom.php
+    o Changed error throwing in constructors to work actually
+    o Removed PEAR-package dependency checking
+- Globalweather.php, Metar.php, Weatherdotcom.php
+    o Added searchLocationByCountry for listing available
+      weatherstations per country
+- Globalweather.php
+    o Fixed checking for SOAP error on object initialization
+- Weatherdotcom.php
+    o Changed parsing of update time, as &quot;Local Time&quot; confuses
+      strtotime, when querying locations in your timezone
+- globalweather-basic.php, metar-basic.php, weather.com-basic.php
+    o Updated for proper error handling and added features
+- weather.com-error.php
+    o Erased</notes>
+    <deps>
+      <dep type="pkg" rel="ge" version="1.5.3" optional="yes">Cache</dep>
+      <dep type="pkg" rel="ge" version="1.4.0" optional="yes">DB</dep>
+      <dep type="pkg" rel="ge" version="0.7.5" optional="yes">SOAP</dep>
+      <dep type="pkg" rel="ge" version="0.8" optional="yes">XML_Serializer</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="Services" name="Weather.php"/>
+      <file role="php" baseinstalldir="Services" name="Weather\Common.php"/>
+      <file role="php" baseinstalldir="Services" name="Weather\Globalweather.php"/>
+      <file role="php" baseinstalldir="Services" name="Weather\Metar.php"/>
+      <file role="php" baseinstalldir="Services" name="Weather\Weatherdotcom.php"/>
+      <file role="doc" baseinstalldir="Services" name="examples\globalweather-basic.php"/>
+      <file role="doc" baseinstalldir="Services" name="examples\metar-basic.php"/>
+      <file role="doc" baseinstalldir="Services" name="examples\weather.com-basic.php"/>
+      <file role="data" baseinstalldir="Services" name="buildMetarDB.php"/>
+    </filelist>
+  </release>
+</package>

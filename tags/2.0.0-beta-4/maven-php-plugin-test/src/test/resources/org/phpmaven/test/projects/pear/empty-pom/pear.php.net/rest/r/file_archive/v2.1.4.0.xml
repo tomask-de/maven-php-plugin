@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release2
+    http://pear.php.net/dtd/rest.release2.xsd">
+ <p xlink:href="/rest/p/file_archive">File_Archive</p>
+ <c>pear.php.net</c>
+ <v>1.4.0</v>
+ <a>1.4.0</a>
+ <mp>4.3.0</mp>
+ <st>stable</st>
+ <l>LGPL</l>
+ <m>vincentlascaux</m>
+ <s>File_Archive will let you manipulate easily the tar, gz, tgz, bz2, tbz, zip, ar (or deb) files</s>
+ <d>This library is strongly object oriented. It makes it very easy to use, writing simple code, yet the library is very powerfull.
+It lets you easily read or generate tar, gz, tgz, bz2, tbz, zip, ar (or deb) archives to files, memory, mail or standard output.
+See http://poocl.la-grotte.org for a tutorial
+</d>
+ <da>2005-06-06 11:03:09</da>
+ <n>+ Add the possibility to use Cache_Lite to cache intermediary output of Zip compression
++ Add get and setOption method to change the default behavior of readers and writers
+  Available options are
+  	- zipCompressionLevel: default compression level of zip archives (default is 9)
+  	- gzCompressionLevel: default compression level of gz archives (default is 9)
+  	- tmpDirectory: directory where temporary files will be stored (default is '.')
+  	- cache: instance of Cache_Lite that may be used by any writer to cache data
+  	         for future use. Currently used by Zip writer (default is null: no cache)
+  	- appendRemoveDuplicates: specify if the appenders should remove the old files
+  	         from an archive to avoid creating duplicates (default is false, which is faster)
++ Add the possibility to use wildcards in read function
+     File_Archive::read('dir/*.txt') will read all txt files from directory dir
+     File_Archive::read('archive.zip/*.txt') will read all txt files from the zip archive
+	Note: The wildcards can only be used after the last '/'
++ All the File_Archive functions that take a reader or a writer as an argument can now take
+	a string or an array. For readers, strings are interpreted using File_Archive::read function
+	and array using File_Archive::readMulti. For writers, strings are interpreted using File_Archive::appender
+	function and array by creating a multi writer.</n>
+ <f>51261</f>
+ <g>http://pear.php.net/get/File_Archive-1.4.0</g>
+ <x xlink:href="package.1.4.0.xml"/>
+</r>

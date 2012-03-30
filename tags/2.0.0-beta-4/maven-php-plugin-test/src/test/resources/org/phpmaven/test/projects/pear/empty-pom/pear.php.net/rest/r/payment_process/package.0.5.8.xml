@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Payment_Process</name>
+  <summary>Unified payment processor</summary>
+  <description>Payment_Process is a gateway-independent framework for processing credit cards, e-checks and eventually other forms of payments as well.</description>
+  <maintainers>
+    <maintainer>
+      <user>ieure</user>
+      <name>Ian Eure</name>
+      <email>ieure@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>jstump</user>
+      <name>Joe Stump</name>
+      <email>jstump@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>cyberscribe</user>
+      <name>Robert Peake</name>
+      <email>robert@peakepro.com</email>
+      <role>helper</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.5.8</version>
+    <date>2004-11-18</date>
+    <license>PHP License, v3.0</license>
+    <state>beta</state>
+    <notes>* Fix bug #1732.
+* Fix bug #1733.
+* Fix bug #1270.
+* Fix bug #2444.
+* Rename DPILink driver to Transfirst - the company changed it's name.
+* Add TrustCommerce driver, submitted by Robert Peake &lt;robert@peakepro.com&gt; 
+* Add Robert Peake as a helper maintainer. Please direct all TrustCommerce questions to him.</notes>
+    <deps>
+      <dep type="pkg" rel="ge" version="0.2" optional="yes">Net_Curl</dep>
+      <dep type="pkg" rel="ge" version="1.2.0" optional="yes">PHP_Compat</dep>
+      <dep type="pkg" rel="ge" version="0.2.0" optional="no">Validate</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="Payment" md5sum="4684c767dbe2958e49c983e46add9393" name="Process.php"/>
+      <file role="php" baseinstalldir="Payment" md5sum="956905ddc8c7bb87b46d0fbb8c534607" name="Process/Common.php"/>
+      <file role="php" baseinstalldir="Payment" md5sum="7346069d47a6674f6df1d09e771cdc00" name="Process/AuthorizeNet.php"/>
+      <file role="php" baseinstalldir="Payment" md5sum="07abbc7fc5ade4c811486adfb57dfc8c" name="Process/Transfirst.php"/>
+      <file role="php" baseinstalldir="Payment" md5sum="5b0aa73712bfd28af36299ccd0c1f631" name="Process/TrustCommerce.php"/>
+      <file role="php" baseinstalldir="Payment" md5sum="914856c5e79c6640b81ace530a2ddd82" name="Process/Dummy.php"/>
+      <file role="php" baseinstalldir="Payment" md5sum="1e1781e375862e3d0d838abe9e392e33" name="Process/Offline.php"/>
+      <file role="php" baseinstalldir="Payment" md5sum="3bb8d1a67e6f193ec58334b9b29cf9bb" name="Process/Type.php"/>
+      <file role="php" baseinstalldir="Payment" md5sum="ed6a04ee85508dbc9f646e9c20f20585" name="Process/Type/CreditCard.php"/>
+      <file role="php" baseinstalldir="Payment" md5sum="b834a7ec877a142cb2c7dd0818d565cf" name="Process/Type/eCheck.php"/>
+      <file role="doc" baseinstalldir="docs/Payment_Process" md5sum="e031fe1414203467bfc82f85f0df0c46" name="examples/Payment_Process-example.php"/>
+      <file role="doc" baseinstalldir="docs/Payment_Process" md5sum="998913961ce3791ff7d21c92957b3666" name="examples/creditcard.php"/>
+      <file role="doc" baseinstalldir="docs/Payment_Process" md5sum="c4378a76b858970957169770da84fd58" name="examples/echeck.php"/>
+      <file role="doc" baseinstalldir="docs/Payment_Process" md5sum="f24961573ea9ac36e4ba3ff44ebce7dd" name="examples/TrustCommerce_creditcard.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.5.7</version>
+      <date>2004-06-11</date>
+      <state>beta</state>
+      <notes>* Fix bug #1536.
+* Fix bug #1619.
+* Add Fraud &amp; Duplicate result codes.
+* Authorize.net driver update.
+* Don't validate zip codes for non-US countries.
+</notes>
+    </release>
+    <release>
+      <version>0.5.6</version>
+      <date>2004-03-31</date>
+      <state>beta</state>
+      <notes>* Move credit card type constants into Type.php, as they weren't usable until factory() was called.
+</notes>
+    </release>
+    <release>
+      <version>0.5.5</version>
+      <date>2004-03-31</date>
+      <state>beta</state>
+      <notes>* Added initial support for type eCheck in AuthorizeNet driver
+* Added new type checking via $_typeFieldMap
+* Cleaned up Common.php
+* Added example echeck.php
+</notes>
+    </release>
+    <release>
+      <version>0.5.2</version>
+      <date>2004-03-23</date>
+      <state>beta</state>
+      <notes>* Fix the DPI Processor's Result class, which was returning an error even when the transaction was approved.
+</notes>
+    </release>
+    <release>
+      <version>0.5.1</version>
+      <date>2004-03-23</date>
+      <state>beta</state>
+      <notes>* Add missing $_statusCodeMap to DPILink's Result class, otherwise validate() always thinks the transaction was declined.
+* Change minimum charge to $0.99.
+* Change version to 0.5.1.
+</notes>
+    </release>
+    <release>
+      <version>0.5</version>
+      <date>2004-03-22</date>
+      <state>beta</state>
+      <notes>* Information about the payment source is now contained in a Payment_Process_Type-derived class.
+* Authorize.net Processor added, by Joe Stump.
+* DPILink &amp; Dummy Processors updated to use new semantics.
+* A Common class was added, which contains utility functionality common to all Processors.
+</notes>
+    </release>
+    <release>
+      <version>0.2</version>
+      <date>2004-01-26</date>
+      <state>beta</state>
+      <notes>Initial PEAR package release.
+* New semantics for Payment_Process_Result class allows for processor-specific subclasses. Dummy &amp; Dpilink processors updated to new semantics.
+* Dpilink processor has been tested with TransFirst's system, and appears to be working.
+* Added example script.
+</notes>
+    </release>
+  </changelog>
+</package>

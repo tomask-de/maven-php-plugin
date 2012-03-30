@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.7.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>HTTP_Client</name>
+ <channel>pear.php.net</channel>
+ <summary>Easy way to perform multiple HTTP requests and process their results</summary>
+ <description>The HTTP_Client class wraps around HTTP_Request and provides a higher level interface 
+for performing multiple HTTP requests.
+
+Features:
+* Manages cookies and referrers between requests
+* Handles HTTP redirection
+* Has methods to set default headers and request parameters
+* Implements the Subject-Observer design pattern: the base class sends 
+events to listeners that do the response processing.</description>
+ <lead>
+  <name>Alexey Borzov</name>
+  <user>avb</user>
+  <email>avb@php.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2008-10-25</date>
+ <time>21:08:26</time>
+ <version>
+  <release>1.2.1</release>
+  <api>1.2.0</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+ <notes>Cookies set by sub.example.com for example.com were incorrectly rejected. 
+Thanks to Dylan Doxey (hyperion at doxey dot org) for report and initial patch.</notes>
+ <contents>
+  <dir baseinstalldir="HTTP" name="/">
+   <file baseinstalldir="HTTP" md5sum="4ef1b2315ab7d045e9b6ffabd8afd083" name="Client/CookieManager.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="HTTP" md5sum="fe44c646afe5b3df5f0147f1f369dc6f" name="examples/link-checker.php" role="doc" />
+   <file baseinstalldir="HTTP" md5sum="dbb10b9bc9cc738cfe0f38228633c1f3" name="Client.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.3</min>
+   </pearinstaller>
+   <package>
+    <name>HTTP_Request</name>
+    <channel>pear.php.net</channel>
+    <min>1.4.0</min>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>1.2.0</release>
+    <api>1.2.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2008-10-16</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>* Proper dependencies&apos; versions
+* Implemented put() and delete() methods (request #2073 and numerous others)
+* Implemented methods to iterate over the responses (see request #12322)
+* Perform GET request when redirecting via &lt;meta&gt; tag after POST (bug #13487)
+* Handle the case of quoted redirect url in &lt;meta&gt; tag (bug #13903)</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-05-19</date>
+   <license uri="http://opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>* Switched to package.xml 2.0
+* Switched to BSD license
+* Proper header comment blocks and various phpdoc fixes
+* Added a switch controlling serialization of session cookies to CookieManager
+  class, use serializeSessionCookies(true) to enable their serialization. The
+  default behaviour is still to delete them (request #8778, also #9142)</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.0</release>
+    <api>1.1.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-06-03</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Fixes:
+* Fixed PHP warning if cookie path was empty (bug #1987)
+* Fixed fatal PHP error on empty URL, PEAR_Error is returned now (bug #2933)
+* Do not try to follow redirects to non-HTTP URLs (bug #5759)
+
+Feature additions:
+* It is possible to define a constant HTTP_CLIENT_QUIRK_MODE in your script,
+  if it is present then HTTP_Client will follow common browser behaviour
+  rather than RFC 2616. Currently this means: always do a GET request 
+  on a 301 redirect (request #1854).
+* HTTP_Client now analyzes the response body for &lt;meta http-equiv=&quot;Refresh&quot;&gt;
+  tags and follows the redirects defined in them (request #5734)
+* Added possibility to send extra headers with requests (request #7552)
+* It is now much easier to store permanent cookies received by HTTP_Client:
+  added magic __sleep() and __wakeup() methods to CookieManager class to aid
+  in its (un)serialization, added getCookieManager() method to HTTP_Client, 
+  added possibility to pass CookieManager object to HTTP_Client&apos;s 
+  constructor (request #7578).</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2004-06-11</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Since no problems were discovered with release 1.0.0beta1, the same code
+is now re-released with &quot;stable&quot; status.</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0beta1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-04-30</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* REMOVED deprecated HTTP_Client_Listener
+* Applied patch from #1151, cookies with empty values are now deleted
+* Added method enableHistory() allowing to enable/disable saving of history, 
+  suggested by Matthew Feinberg</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2</release>
+    <api>0.2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-01-18</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Depend on most recent version of HTTP_Request
+  - HTTP_Client_Listener is deprecated in favor of HTTP_Request_Listener
+  - Added possibilty to attach Listeners to created HTTP_Request objects
+  - Added support for file uploads in post() method
+* Better handling of secure cookies (thanks to Denis Malinovsky)
+* Added setMaxRedirects() method</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1</release>
+    <api>0.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2003-06-05</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Initial PEAR release</notes>
+  </release>
+ </changelog>
+</package>

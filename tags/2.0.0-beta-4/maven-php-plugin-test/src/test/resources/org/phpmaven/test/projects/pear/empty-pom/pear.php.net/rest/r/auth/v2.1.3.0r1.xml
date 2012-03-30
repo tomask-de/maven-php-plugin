@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release2
+    http://pear.php.net/dtd/rest.release2.xsd">
+ <p xlink:href="/rest/p/auth">Auth</p>
+ <c>pear.php.net</c>
+ <v>1.3.0r1</v>
+ <a>1.3.0r1</a>
+ <mp>4.3.0</mp>
+ <st>beta</st>
+ <l>PHP License</l>
+ <m>yavo</m>
+ <s>Creating an authentication system.</s>
+ <d>The PEAR::Auth package provides methods for creating an authentication
+system using PHP.
+
+Currently it supports the following storage containers to read/write
+the login data:
+
+* All databases supported by the PEAR database layer
+* All databases supported by the MDB database layer
+* All databases supported by the MDB2 database layer
+* Plaintext files
+* LDAP servers
+* POP3 servers
+* IMAP servers
+* vpopmail accounts
+* RADIUS
+* SAMBA password files
+* SOAP
+</d>
+ <da>2004-06-09 10:54:24</da>
+ <n>* Added an Auth_Controller class, to manage automatic redirection to login page and redirect back
+  to the calling page [04/06/2004 - Yavo]
+* Changes to LDAP container:
+  - additional attribute fetching to authData via new option attributes
+  - utf8 encoding username for ldapv3 (fixes german umlaut problem)
+  - make scope definable for user and group searching seperately
+  - remove useroc, groupoc and replace them with userfilter, groupfilter which is way more flexible
+  - updated documentation on all new and changed parameters
+  As some of the parameters changed this one is not backwards compatible to earlier versions.
+  Look at the top of the class where all parameters are explained in detail.
+  [08/April/2004 - jw]
+* Added new MDB2 container  [30/March/2004 - quipo]
+* Implements changePassword and CS fixed, patch from Cipriano Groenendal &lt;cipri@cipri.com&gt;
+  [29/March/2004 - yavo]
+* Added options for changing the post variables, patch supplied by Moritz Heidkamp &lt;moritz.heidkamp@invision-team.de&gt;
+  [03/March/2004 - yavo]
+* Added method setAdvancedSecurity and set advanced security to off by default, if turned on auth will perform additional
+  security checks if ip or user agent has changed across requests
+* Login is now performed only if showLogin is true, do not allow for logins to be performed from any page which calls auth-&gt;start
+  spotted by Matt Eaton &lt;pear@divinehawk.com&gt; [16/Jan/2004 - yavo] 
+* Fixed bug noted by Jeroen Houben &lt;jeroen@terena.nl&gt;, calling loginFailedCallback
+  would not have the proper status set [16/Jan/2004 - yavo]
+* Added PEAR container, authenticate the user against the pear web site
+  (probably php.net also) [16/Dec/2003 - yavo]</n>
+ <f>28351</f>
+ <g>http://pear.php.net/get/Auth-1.3.0r1</g>
+ <x xlink:href="package.1.3.0r1.xml"/>
+</r>

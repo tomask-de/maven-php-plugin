@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>HTTP_Download</name>
+  <summary>Send HTTP Downloads</summary>
+  <description>Provides an interface to easily send hidden files or any arbitrary data to the client through HTTP. It features HTTP caching, compression and ranges (partial downloads and resuming).</description>
+  <maintainers>
+    <maintainer>
+      <user>mike</user>
+      <name>Michael Wallner</name>
+      <email>mike@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.7.0</version>
+    <date>2004-05-04</date>
+    <license>PHP</license>
+    <state>beta</state>
+    <notes>+ Implemented HTTP/1.1 compliant range support (includes support for multiple range requests like: &quot;Range: bytes=1224-2247,7448-10223,536-747&quot; served as multipart/byteranges)
++ Added support for the ETag response header as well as If-Match and If-None-Match request header (caching purposes)
+* Updated required PHP version to 4.2.0</notes>
+    <deps>
+      <dep type="pkg" rel="has" optional="no">PEAR</dep>
+      <dep type="pkg" rel="has" optional="no">HTTP_Header</dep>
+      <dep type="pkg" rel="has" optional="yes">Archive_Tar</dep>
+      <dep type="ext" rel="has" optional="no">pcre</dep>
+      <dep type="ext" rel="has" optional="yes">mime_magic</dep>
+      <dep type="php" rel="ge" version="4.3.0" optional="yes"/>
+      <dep type="php" rel="ge" version="4.2.0" optional="no"/>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="HTTP" name="Download.php"/>
+    </filelist>
+  </release>
+</package>

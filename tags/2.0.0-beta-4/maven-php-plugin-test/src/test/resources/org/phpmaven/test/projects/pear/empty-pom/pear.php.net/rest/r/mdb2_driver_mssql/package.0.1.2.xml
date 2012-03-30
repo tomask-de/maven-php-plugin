@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.2">
+ <name>MDB2_Driver_mssql</name>
+ <summary>mssql MDB2 driver</summary>
+ <description>This is the Microsoft SQL Server MDB2 driver.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>davidc</user>
+   <name>David Coallier</name>
+   <email>david@jaws.com.mx</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>lsmith</user>
+   <name>Lukas Kahwe Smith</name>
+   <email>smith@pooteeweet.org</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>0.1.2</version>
+  <date>2005-10-11</date>
+  <license>BSD License</license>
+  <state>alpha</state>
+  <notes>* Bugfix 5507
+* created method _checkSequence that checks if a sequence exists
+* moved all private fetch mode into _fixResultAraryValues
+* net portability with MDB2_PORTABILITY_FIX_ASSOC_FIELD (to remove database/table qualifiers from assoc indexes)
+* now using !empty instead of isset() to fetchRow
+* getAfterId is no lastInsertId
+* fixed some php4 breakage
+* Fixed many typos.
+* return 0 for manipulation queries when disable_query is enabled.
+* Cosmetic fixes
+* dropped_fields is handled by &apos;remove&apos;
+* using array_key_exist instaed of isset()
+* structures of field add/remove/change in alterTable now match with MDB2_Schema
+* bug fixes 5507
+* renamed MDB2_PORTABILITY_LOWERCASE to MDB2_PORTABILITY_FIX_CASE and use &apos;field_case&apos; option to determine if to upper- or lowercase (CASE_LOWER/CASE_UPPER)
+* use getDBInstance()
+* query() -&gt; queryCol()
+* native extends to MDB2_Module_Common
+* reverse now uses TOP instead of LIMIT
+* reverse fixed typos
+* reverse uses getDBInstance()
+* 
+
+open todo items:
+- added missing createIndex() method
+  </notes>
+  <deps>
+   <dep type="php" rel="ge" version="4.3.0" optional="no"/>
+   <dep type="pkg" rel="ge" version="1.0b1" optional="no">PEAR</dep>
+   <dep type="pkg" rel="ge" version="2.0.0beta6" optional="no">MDB2</dep>
+   <dep type="ext" rel="has" optional="no">mssql</dep>
+  </deps>
+  <provides type="class" name="MDB2_Driver_Datatype_mssql" extends="MDB2_Driver_Datatype_Common" />
+  <provides type="function" name="MDB2_Driver_Datatype_mssql::convertResult" />
+  <provides type="class" name="MDB2_Driver_Manager_mssql" extends="MDB2_Driver_Manager_Common" />
+  <provides type="function" name="MDB2_Driver_Manager_mssql::createDatabase" />
+  <provides type="class" name="MDB2_Driver_Native_mssql" extends="MDB2_Module_Common" />
+  <provides type="class" name="MDB2_Driver_Reverse_mssql" extends="MDB2_Driver_Reverse_Common" />
+  <provides type="function" name="MDB2_Driver_Reverse_mssql::tableInfo" />
+  <provides type="class" name="MDB2_Driver_mssql" extends="MDB2_Driver_Common" />
+  <provides type="function" name="MDB2_Driver_mssql::errorInfo" />
+  <provides type="function" name="MDB2_Driver_mssql::quoteIdentifier" />
+  <provides type="function" name="MDB2_Driver_mssql::beginTransaction" />
+  <provides type="function" name="MDB2_Driver_mssql::commit" />
+  <provides type="function" name="MDB2_Driver_mssql::rollback" />
+  <provides type="function" name="MDB2_Driver_mssql::connect" />
+  <provides type="function" name="MDB2_Driver_mssql::disconnect" />
+  <filelist>
+   <file role="php" baseinstalldir="/" md5sum="2d69cb51cda4da65685da75fd3b5d34a" name="MDB2/Driver/Datatype/mssql.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="27cc6a41a81954f09697cf534032afa0" name="MDB2/Driver/Manager/mssql.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="0d0091074d20e8fa54c5d67794df168d" name="MDB2/Driver/Native/mssql.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="5764a2ff0978cc82888ac5a2b4fdc3e5" name="MDB2/Driver/Reverse/mssql.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="c92f601bbdc184112d04a669a582487f" name="MDB2/Driver/mssql.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="e96b96e8cd8607057929f3e25208731e" name="package_mssql.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>0.1.1</version>
+    <date>2005-10-10</date>
+    <license>BSD License</license>
+    <state>alpha</state>
+    <notes>Warning: this release features numerous BC breaks!
+
+There have been considerable improvements to the datatype, manager and reverse
+modules. Furthermore preliminary support for auto increment and primary keys
+has been added. Please note that making a field auto increment implies a single
+column primary key on this field.
+
+- increased php dependency to 4.3.0 due to the usage of the streams API since beta5
+- MDB2_MSSQL_Driver: fixed a bug about missing msg variable,
+  fixed problem with database creation (incorrect ON clause)
+- alterTable now needs the full definition to work (use getTableFieldDefinition
+ from Reverse module if you do not have a definition at hand) this eliminates the need
+ of the declaration part in the alterTable array.
+- fix typo in error code mapping
+- fixed problem with database creation (incorrect ON clause)
+- fixed listTableIndexes()
+- fix PHP4.4 breakage
+- moved getInsertID() into core as lastInsertID()
+- MDB2_ERROR does not evaluate to false in _skipLimitOffset()
+- use !empty() instead of isset() in fetchRow to determine if result cols were bound or result types were set
+- moved all private fetch mode fix methods into _fixResultArrayValues() for performance reasons
+- renamed MDB2_PORTABILITY_LOWERCASE to MDB2_PORTABILITY_FIX_CASE and use &apos;field_case&apos; option to determine if to upper- or lowercase (CASE_LOWER/CASE_UPPER)
+- fixed bug in nextID (bug #5507)
+- fixed bug in sequence handling in the manager module (bug #5507)
+- use array_key_exists() instead of isset() where possible
+- changed structure of field add/remove/change in alterTable() to match MDB2_Schema
+- return 0 for manipulation queries when disable_query is enabled
+
+open todo items:
+- added missing createIndex() method
+    </notes>
+   </release>
+   <release>
+    <version>0.1.0</version>
+    <date>2005-04-29</date>
+    <license>BSD License</license>
+    <state>alpha</state>
+    <notes>first unbundled release from MDB2 core
+
+- dont just check for isset() for boolean values in order to support
+  setting them false as well (bug #4373)
+- ensure SQL injection protection in all _quote() methods (was missing in
+  some decimal, float, time, date and timestamp implementations)
+- typo fixes in constructor
+- Warning: this release is untested
+    </notes>
+   </release>
+ </changelog>
+</package>

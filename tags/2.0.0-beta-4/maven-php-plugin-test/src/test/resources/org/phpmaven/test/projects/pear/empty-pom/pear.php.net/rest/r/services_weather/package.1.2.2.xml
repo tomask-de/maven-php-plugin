@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Services_Weather</name>
+  <summary>This class acts as an interface to various online weather-services.</summary>
+  <description>Services_Weather searches for given locations and retrieves current
+weather data and, dependent on the used service, also forecasts. Up to
+now, GlobalWeather from CapeScience, Weather XML from EJSE (US only),
+a XOAP service from Weather.com and METAR from noaa.gov are supported.
+Further services will get included, if they become available, have a
+usable API and are properly documented.</description>
+  <maintainers>
+    <maintainer>
+      <user>eru</user>
+      <name>Alexander Wirtz</name>
+      <email>alex@pc4p.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.2.2</version>
+    <date>2004-03-31</date>
+    <license>PHP License</license>
+    <state>stable</state>
+    <notes>- Weather.php, Common.php, Metar.php
+    o Fixed bug #896: Improvement for get_class()-usage
+- Ejse.php, Globalweather.php, Metar.php, Weatherdotcom.php
+    o Added updateRaw to current weather array
+- Weather.php, Common.php, Ejse.php, Globalweather.php, Weatherdotcom.php
+    o Fixed bug #1074: Set timeout for requests
+      Added $_httpTimeout and setHttpTimeout() to Common.php
+      Added documentation of httpTimeout option in Weather.php
+      Added timeout parameter to WSDL-constructors in Ejse.php and Globalweather.php
+      Switched to using HTTP_Request in Weatherdotcom.php
+- Globalweather.php
+    o Fixed wrong behaviour when sky-&gt;layers is a string
+- Weatherdotcom.php
+    o Added windGust to current weather array
+    o Fixed typo in forecast array-key</notes>
+    <deps>
+      <dep type="pkg" rel="ge" version="1.5.3" optional="yes">Cache</dep>
+      <dep type="pkg" rel="ge" version="1.4" optional="yes">DB</dep>
+      <dep type="pkg" rel="ge" version="1.2" optional="yes">HTTP_Request</dep>
+      <dep type="pkg" rel="ge" version="0.7.5" optional="yes">SOAP</dep>
+      <dep type="pkg" rel="ge" version="0.8" optional="yes">XML_Serializer</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="Services" name="Weather.php"/>
+      <file role="php" baseinstalldir="Services" name="Weather\Common.php"/>
+      <file role="php" baseinstalldir="Services" name="Weather\Globalweather.php"/>
+      <file role="php" baseinstalldir="Services" name="Weather\Ejse.php"/>
+      <file role="php" baseinstalldir="Services" name="Weather\Metar.php"/>
+      <file role="php" baseinstalldir="Services" name="Weather\Weatherdotcom.php"/>
+      <file role="doc" baseinstalldir="Services" name="examples\globalweather-basic.php"/>
+      <file role="doc" baseinstalldir="Services" name="examples\ejse-basic.php"/>
+      <file role="doc" baseinstalldir="Services" name="examples\metar-basic.php"/>
+      <file role="doc" baseinstalldir="Services" name="examples\weather.com-basic.php"/>
+      <file role="data" baseinstalldir="Services" name="buildMetarDB.php"/>
+    </filelist>
+  </release>
+</package>

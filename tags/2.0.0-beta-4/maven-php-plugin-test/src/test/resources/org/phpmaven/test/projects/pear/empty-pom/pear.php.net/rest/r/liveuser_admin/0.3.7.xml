@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/liveuser_admin">LiveUser_Admin</p>
+ <c>pear.php.net</c>
+ <v>0.3.7</v>
+ <st>beta</st>
+ <l>LGPL</l>
+ <m>lsmith</m>
+ <s>User authentication and permission management framework</s>
+ <d>LiveUser_Admin is meant to be used with the LiveUser package.
+  It is composed of all the classes necessary to administrate
+  data used by LiveUser.
+
+  You'll be able to add/edit/delete/get things like:
+  * Rights
+  * Users
+  * Groups
+  * Areas
+  * Applications
+  * Subgroups
+  * ImpliedRights
+
+  And all other entities within LiveUser.
+
+  At the moment we support the following storage containers:
+  * DB
+  * MDB
+  * MDB2
+
+  But it takes no time to write up your own storage container,
+  so if you like to use native mysql functions straight, then it's possible
+  to do so in under a hour!
+ 
+</d>
+ <da>2006-02-21 14:39:09</da>
+ <n>- fix &quot;No rights for a user if the user only has inherited rights&quot; (bug #6374)
+- do not overwrite all filters in _get*() helper methods
+- minor issue with 'alias' position in the config array in example1
+- make sure that tables required as intermediate join steps are listed in the from
+- add depth parameter to createJoinFilter (may be used to determine shortest join path eventually)
+- fixed detection if list of tables has been reduced or not
+- do not push an error on the stack for a possible recursion because it may just
+  be one possible path we are evaluating
+- added &quot;by_group&quot; optional parameter to params getRights() which determines if
+  the userrights table should be used or rather the grouprights and groupupsers tables
+- incorrect handling of filters inside unimplyRights() (bug #6592)
+- renamed &quot;connection&quot; config option to &quot;dbc&quot; *BC BREAK*
+- cleaned up and unified init() in the storage classes
+- added support for '*' in fields list as an alias to fetch all fields in the root table
+- made LiveUser_Admin::getUsers() API as flexible as in the containers *BC BREAK*
+- fixed serious issue in join filter handling that caused join filters to be ignored
+- removed allowDuplicateHandles and allowEmptyPasswords options, they are now
+  handled through the table definition in the given Globals.php (overwriteable
+  via the config array) *BC BREAK*
+- typo fix in extended module loading in the MDB2 storage container
+- fixed inherited and implied handling in getRights() when fetching only 2 columns
+- added initial version of a PDO storage container (needs more testing)
+- removed setCurrentApplication()/getCurrentApplication() methods since they are
+  no longer relevant *BC BREAK*</n>
+ <f>64716</f>
+ <g>http://pear.php.net/get/LiveUser_Admin-0.3.7</g>
+ <x xlink:href="package.0.3.7.xml"/>
+</r>

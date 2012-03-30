@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.10RC1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>PHP_ParserGenerator</name>
+ <channel>pear.php.net</channel>
+ <summary>translate grammar files in Lemon Parser Generator format into a PHP 5 parser</summary>
+ <description>Translate a grammar file in the lemon parser generator format
+  into a PHP 5-based parser
+  
+  There are a few PHP-specific changes to the lemon parser generator.
+  
+  - %extra_argument is removed, as class constructor can be used to
+    pass in extra information
+  - %token_type and company are irrelevant in PHP, and so are removed
+  - %declare_class is added to define the parser class name and any
+    implements/extends information
+  - %include_class is added to allow insertion of extra class information
+    such as constants, a class constructor, etc.
+
+  Other changes make the parser more robust, and also make reporting
+  syntax errors simpler.  Detection of expected tokens eliminates some
+  problematic edge cases where an unexpected token could cause the parser
+  to simply accept input.
+  
+  Otherwise, the file format is identical to the Lemon parser generator</description>
+ <lead>
+  <name>Greg Beaver</name>
+  <user>cellog</user>
+  <email>cellog@php.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2006-07-18</date>
+ <time>20:27:29</time>
+ <version>
+  <release>0.1.1</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+ <notes>update to New BSD license (no code changes)</notes>
+ <contents>
+  <dir baseinstalldir="PHP" name="/">
+   <file baseinstalldir="PHP" md5sum="cef83eafe10251c500581a2a08bb41ea" name="ParserGenerator/Action.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="c7f2bc2ab015afa6d5df0f32c63d3a4c" name="ParserGenerator/ActionTable.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="ebfdd78d52f6485ba240c7436a5fe738" name="ParserGenerator/Config.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="5d2e59f3fe211ddedd9a11409894658b" name="ParserGenerator/Data.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="4011d607f4e18df66958c5131a6422c1" name="ParserGenerator/Parser.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="519f2b99f260623de0b87b5282251480" name="ParserGenerator/PropagationLink.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="a72b54f15caea4264f879bae907cd907" name="ParserGenerator/Rule.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="a89bf245f7027e8fb3a74ba66bc57d10" name="ParserGenerator/State.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="1706270d71382f586d618a7498d46495" name="ParserGenerator/Symbol.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="c2d73ae769b44142a350360b01b03803" name="ParserGenerator/cli.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="902a2a4e5a9a0b7bc2340005e0780812" name="LICENSE.txt" role="doc" />
+   <file baseinstalldir="PHP" md5sum="0d7fa2b15918967dc4afc88b3ce3ad97" name="Lempar.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="6d6c5ceef18a60ee7bf6f464c03e536e" name="ParserGenerator.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="" md5sum="fe16f7b01fe19514e0e058115f8169b6" name="phplemon.bat" role="script">
+    <tasks:replace from="@php-bin@" to="php_bin" type="pear-config" />
+    <tasks:replace from="@php-dir@" to="php_dir" type="pear-config" />
+    <tasks:windowseol />
+   </file>
+   <file baseinstalldir="" md5sum="9ea08e9573f3ce76a2fd3694ad5e75bd" name="phplemon" role="script">
+    <tasks:replace from="@php-bin@" to="php_bin" type="pear-config" />
+    <tasks:replace from="@php-dir@" to="php_dir" type="pear-config" />
+    <tasks:unixeol />
+   </file>
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.1.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.3</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-06-24</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+   <notes>initial release</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.1</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-07-18</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>update to New BSD license (no code changes)</notes>
+  </release>
+ </changelog>
+</package>

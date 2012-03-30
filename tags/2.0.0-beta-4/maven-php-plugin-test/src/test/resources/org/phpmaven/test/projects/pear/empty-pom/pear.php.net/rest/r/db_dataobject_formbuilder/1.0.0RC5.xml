@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/db_dataobject_formbuilder">DB_DataObject_FormBuilder</p>
+ <c>pear.php.net</c>
+ <v>1.0.0RC5</v>
+ <st>beta</st>
+ <l>PHP License</l>
+ <m>justinpatrin</m>
+ <s>Class to automatically build HTML_QuickForm objects from a DB_DataObject-derived class</s>
+ <d>DB_DataObject_FormBuilder will aid you in rapid application development using the packages DB_DataObject and HTML_QuickForm. For having a quick but working prototype of your application, simply model the database, run DataObject's createTable script over it and write a script that passes one of the resulting objects to the FormBuilder class. The FormBuilder will automatically generate a simple but working HTML_QuickForm object that you can use to test your application. It also provides a processing method that will automatically detect if an insert() or update() command has to be executed after the form has been submitted. If you have set up DataObject's links.ini file correctly, it will also automatically detect if a table field is a foreign key and will populate a selectbox with the linked table's entries. There are many optional parameters that you can place in your DataObjects.ini or in the properties of your derived classes, that you can use to fine-tune the form-generation, gradually turning the prototypes into fully-featured forms, and you can take control at any stage of the process.</d>
+ <da>2006-09-17 03:42:53</da>
+ <n>* BC Break!
+** useMutators must now be set for setters to be used (this gets around problems with overloading)
+** useAccessors will now cause getters to be used to get non-link data
+*** accessors and mutators may not be used for link fields
+
+* Form values changed in preProcessFormCallback are now honored
+* De-silenced include_once (fopen now used to check for file readability)
+* _getEnumOptions() now works with MDB2
+* Boolean fields which are set editable but are not set as DB_DATAOBJECT_BOOL will now be set correctly
+* Fixed displaying of postgresql booleans
+* _sanitizeFieldName is now used when listing special elements (fixes some cross/triple/reverse link bugs)
+* Added more info to error output
+* Extended FormBuilder classes will now be re-used for sub-FormBuilders
+* Added an option to set the empty label for radios which is distinct from the select empty label (Request #7919)
+* Header elements now have a name
+* Fixed some docs
+* Fixed an undefined reference
+* SubForm.php now outputs a type attribute in all &lt;script&gt; output</n>
+ <f>62721</f>
+ <g>http://pear.php.net/get/DB_DataObject_FormBuilder-1.0.0RC5</g>
+ <x xlink:href="package.1.0.0RC5.xml"/>
+</r>

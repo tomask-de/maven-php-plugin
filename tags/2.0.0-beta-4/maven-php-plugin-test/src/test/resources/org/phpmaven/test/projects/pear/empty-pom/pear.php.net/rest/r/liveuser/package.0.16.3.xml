@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.0a12">
+ <name>LiveUser</name>
+ <summary>User authentication and permission management framework</summary>
+ <description>LiveUser is a set of classes for dealing with user authentication
+  and permission management. Basically, there are three main elements that
+  make up this package:
+
+  * The LiveUser class
+  * The Auth containers
+  * The Perm containers
+
+  The LiveUser class takes care of the login process and can be configured
+  to use a certain permission container and one or more different auth containers.
+  That means, you can have your users' data scattered amongst many data containers
+  and have the LiveUser class try each defined container until the user is found.
+  For example, you can have all website users who can apply for a new account online
+  on the webserver's local database. Also, you want to enable all your company's
+  employees to login to the site without the need to create new accounts for all of
+  them. To achieve that, a second container can be defined to be used by the LiveUser class.
+
+  You can also define a permission container of your choice that will manage the rights for
+  each user. Depending on the container, you can implement any kind of permission schemes
+  for your application while having one consistent API.
+
+  Using different permission and auth containers, it's easily possible to integrate
+  newly written applications with older ones that have their own ways of storing permissions
+  and user data. Just make a new container type and you're ready to go!
+
+  Currently available are containers using:
+  PEAR::DB, PEAR::MDB, PEAR::MDB2, PEAR::XML_Tree and PEAR::Auth.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>mw21st</user>
+   <name>Markus Wolff</name>
+   <email>mw21st@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>arnaud</user>
+   <name>Arnaud Limbourg</name>
+   <email>arnaud@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>lsmith</user>
+   <name>Lukas Kahwe Smith</name>
+   <email>smith@backendmedia.com</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>krausbn</user>
+   <name>Bjoern Kraus</name>
+   <email>krausbn@php.net</email>
+   <role>developer</role>
+  </maintainer>
+  <maintainer>
+   <user>dufuz</user>
+   <name>Helgi ormar</name>
+   <email>dufuz@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>0.16.3</version>
+  <date>2005-08-09</date>
+  <license>LGPL</license>
+  <state>beta</state>
+  <notes>- added new custom user field &quot;name&quot; to example1
+- added missing config entries to example1 and example2
+- all user related container properties now use lower case with underscores
+  instead of lower bumby camel to better match the storage layer naming.
+  this allows for a much simplified readUserData() method (BC break!)
+- copy storage config before passing it to the storageFactory() since this
+  method messes with the values which causes the original to be modified due to
+  using pass by reference
+- use getProperty() to read properties of the auth container
+- use static calls for all factory method calls
+- disconnect on logout() (bug #4928)
+- fixed bugs in storageFactory()
+  </notes>
+  <deps>
+   <dep type="php" rel="ge" version="4.2.0" optional="no"/>
+   <dep type="pkg" rel="ge" version="1.3.3" optional="no">PEAR</dep>
+   <dep type="pkg" rel="has" optional="no">Event_Dispatcher</dep>
+   <dep type="pkg" rel="ge" version="1.7.0" optional="yes">Log</dep>
+   <dep type="pkg" rel="ge" version="1.6.0" optional="yes">DB</dep>
+   <dep type="pkg" rel="ge" version="1.1.4" optional="yes">MDB</dep>
+   <dep type="pkg" rel="ge" version="2.0.0beta4" optional="yes">MDB2</dep>
+   <dep type="pkg" rel="has" optional="yes">MDB2_Schema</dep>
+   <dep type="pkg" rel="has" optional="yes">XML_Tree</dep>
+   <dep type="pkg" rel="has" optional="yes">Crypt_RC4</dep>
+  </deps>
+  <provides type="class" name="LiveUser_Auth_Common" />
+  <provides type="function" name="LiveUser_Auth_Common::init" />
+  <provides type="function" name="LiveUser_Auth_Common::freeze" />
+  <provides type="function" name="LiveUser_Auth_Common::unfreeze" />
+  <provides type="function" name="LiveUser_Auth_Common::decryptPW" />
+  <provides type="function" name="LiveUser_Auth_Common::encryptPW" />
+  <provides type="function" name="LiveUser_Auth_Common::isNewLogin" />
+  <provides type="function" name="LiveUser_Auth_Common::login" />
+  <provides type="function" name="LiveUser_Auth_Common::readUserData" />
+  <provides type="function" name="LiveUser_Auth_Common::getProperty" />
+  <provides type="function" name="LiveUser_Auth_Common::setExternalValues" />
+  <provides type="function" name="LiveUser_Auth_Common::externalValuesMatch" />
+  <provides type="function" name="LiveUser_Auth_Common::disconnect" />
+  <provides type="class" name="LiveUser_Auth_DB" extends="LiveUser_Auth_Common" />
+  <provides type="function" name="LiveUser_Auth_DB::init" />
+  <provides type="function" name="LiveUser_Auth_DB::readUserData" />
+  <provides type="function" name="LiveUser_Auth_DB::disconnect" />
+  <provides type="class" name="LiveUser_Auth_MDB" extends="LiveUser_Auth_Common" />
+  <provides type="function" name="LiveUser_Auth_MDB::init" />
+  <provides type="function" name="LiveUser_Auth_MDB::readUserData" />
+  <provides type="function" name="LiveUser_Auth_MDB::disconnect" />
+  <provides type="class" name="LiveUser_Auth_MDB2" extends="LiveUser_Auth_Common" />
+  <provides type="function" name="LiveUser_Auth_MDB2::init" />
+  <provides type="function" name="LiveUser_Auth_MDB2::readUserData" />
+  <provides type="function" name="LiveUser_Auth_MDB2::disconnect" />
+  <provides type="class" name="LiveUser_Auth_PEARAuth" extends="LiveUser_Auth_Common" />
+  <provides type="function" name="LiveUser_Auth_PEARAuth::init" />
+  <provides type="function" name="LiveUser_Auth_PEARAuth::readUserData" />
+  <provides type="class" name="LiveUser_Auth_Session" extends="LiveUser_Auth_Common" />
+  <provides type="function" name="LiveUser_Auth_Session::init" />
+  <provides type="function" name="LiveUser_Auth_Session::readUserData" />
+  <provides type="class" name="LiveUser_Auth_XML" extends="LiveUser_Auth_Common" />
+  <provides type="function" name="LiveUser_Auth_XML::init" />
+  <provides type="function" name="LiveUser_Auth_XML::readUserData" />
+  <provides type="function" name="LiveUser_Auth_XML::disconnect" />
+  <provides type="class" name="LiveUser_Perm_Storage_Cache" extends="LiveUser_Perm_Storage" />
+  <provides type="function" name="LiveUser_Perm_Storage_Cache::init" />
+  <provides type="function" name="LiveUser_Perm_Storage_Cache::mapUser" />
+  <provides type="function" name="LiveUser_Perm_Storage_Cache::readUserRights" />
+  <provides type="function" name="LiveUser_Perm_Storage_Cache::readAreaAdminAreas" />
+  <provides type="function" name="LiveUser_Perm_Storage_Cache::readGroups" />
+  <provides type="function" name="LiveUser_Perm_Storage_Cache::readGroupRights" />
+  <provides type="function" name="LiveUser_Perm_Storage_Cache::readSubGroups" />
+  <provides type="function" name="LiveUser_Perm_Storage_Cache::readImplyingRights" />
+  <provides type="function" name="LiveUser_Perm_Storage_Cache::readImpliedRights" />
+  <provides type="function" name="LiveUser_Perm_Storage_Cache::disconnect" />
+  <provides type="class" name="LiveUser_Perm_Storage_DB" extends="LiveUser_Perm_Storage_SQL" />
+  <provides type="function" name="LiveUser_Perm_Storage_DB::init" />
+  <provides type="function" name="LiveUser_Perm_Storage_DB::mapUser" />
+  <provides type="function" name="LiveUser_Perm_Storage_DB::readUserRights" />
+  <provides type="function" name="LiveUser_Perm_Storage_DB::readAreaAdminAreas" />
+  <provides type="function" name="LiveUser_Perm_Storage_DB::readGroups" />
+  <provides type="function" name="LiveUser_Perm_Storage_DB::readGroupRights" />
+  <provides type="function" name="LiveUser_Perm_Storage_DB::readSubGroups" />
+  <provides type="function" name="LiveUser_Perm_Storage_DB::readImplyingRights" />
+  <provides type="function" name="LiveUser_Perm_Storage_DB::readImpliedRights" />
+  <provides type="class" name="LiveUser_Perm_Storage_MDB" extends="LiveUser_Perm_Storage_SQL" />
+  <provides type="function" name="LiveUser_Perm_Storage_MDB::init" />
+  <provides type="function" name="LiveUser_Perm_Storage_MDB::mapUser" />
+  <provides type="function" name="LiveUser_Perm_Storage_MDB::readUserRights" />
+  <provides type="function" name="LiveUser_Perm_Storage_MDB::readAreaAdminAreas" />
+  <provides type="function" name="LiveUser_Perm_Storage_MDB::readGroups" />
+  <provides type="function" name="LiveUser_Perm_Storage_MDB::readGroupRights" />
+  <provides type="function" name="LiveUser_Perm_Storage_MDB::readSubGroups" />
+  <provides type="function" name="LiveUser_Perm_Storage_MDB::readImplyingRights" />
+  <provides type="function" name="LiveUser_Perm_Storage_MDB::readImpliedRights" />
+  <provides type="class" name="LiveUser_Perm_Storage_MDB2" extends="LiveUser_Perm_Storage_SQL" />
+  <provides type="function" name="LiveUser_Perm_Storage_MDB2::init" />
+  <provides type="function" name="LiveUser_Perm_Storage_MDB2::mapUser" />
+  <provides type="function" name="LiveUser_Perm_Storage_MDB2::readUserRights" />
+  <provides type="function" name="LiveUser_Perm_Storage_MDB2::readAreaAdminAreas" />
+  <provides type="function" name="LiveUser_Perm_Storage_MDB2::readGroups" />
+  <provides type="function" name="LiveUser_Perm_Storage_MDB2::readGroupRights" />
+  <provides type="function" name="LiveUser_Perm_Storage_MDB2::readSubGroups" />
+  <provides type="function" name="LiveUser_Perm_Storage_MDB2::readImplyingRights" />
+  <provides type="function" name="LiveUser_Perm_Storage_MDB2::readImpliedRights" />
+  <provides type="class" name="LiveUser_Perm_Storage_SQL" extends="LiveUser_Perm_Storage" />
+  <provides type="function" name="LiveUser_Perm_Storage_SQL::disconnect" />
+  <provides type="class" name="LiveUser_Perm_Storage_XML" extends="LiveUser_Perm_Storage" />
+  <provides type="function" name="LiveUser_Perm_Storage_XML::init" />
+  <provides type="function" name="LiveUser_Perm_Storage_XML::mapUser" />
+  <provides type="function" name="LiveUser_Perm_Storage_XML::readUserRights" />
+  <provides type="function" name="LiveUser_Perm_Storage_XML::disconnect" />
+  <provides type="class" name="LiveUser_Perm_Complex" extends="LiveUser_Perm_Medium" />
+  <provides type="function" name="LiveUser_Perm_Complex::readUserRights" />
+  <provides type="function" name="LiveUser_Perm_Complex::readGroups" />
+  <provides type="function" name="LiveUser_Perm_Complex::readSubGroups" />
+  <provides type="function" name="LiveUser_Perm_Complex::readGroupRights" />
+  <provides type="function" name="LiveUser_Perm_Complex::checkLevel" />
+  <provides type="function" name="LiveUser_Perm_Complex::readAreaAdminAreas" />
+  <provides type="class" name="LiveUser_Perm_Medium" extends="LiveUser_Perm_Simple" />
+  <provides type="function" name="LiveUser_Perm_Medium::readRights" />
+  <provides type="function" name="LiveUser_Perm_Medium::readGroups" />
+  <provides type="function" name="LiveUser_Perm_Medium::readGroupRights" />
+  <provides type="function" name="LiveUser_Perm_Medium::checkGroup" />
+  <provides type="class" name="LiveUser_Perm_Simple" />
+  <provides type="function" name="LiveUser_Perm_Simple::init" />
+  <provides type="function" name="LiveUser_Perm_Simple::mapUser" />
+  <provides type="function" name="LiveUser_Perm_Simple::readRights" />
+  <provides type="function" name="LiveUser_Perm_Simple::readUserRights" />
+  <provides type="function" name="LiveUser_Perm_Simple::checkRight" />
+  <provides type="function" name="LiveUser_Perm_Simple::getProperty" />
+  <provides type="function" name="LiveUser_Perm_Simple::freeze" />
+  <provides type="function" name="LiveUser_Perm_Simple::unfreeze" />
+  <provides type="function" name="LiveUser_Perm_Simple::disconnect" />
+  <provides type="class" name="LiveUser_Perm_Storage" />
+  <provides type="function" name="LiveUser_Perm_Storage::init" />
+  <provides type="function" name="LiveUser_Perm_Storage::mapUser" />
+  <provides type="function" name="LiveUser_Perm_Storage::readUserRights" />
+  <provides type="function" name="LiveUser_Perm_Storage::readAreaAdminAreas" />
+  <provides type="function" name="LiveUser_Perm_Storage::readGroups" />
+  <provides type="function" name="LiveUser_Perm_Storage::readGroupRights" />
+  <provides type="function" name="LiveUser_Perm_Storage::readSubGroups" />
+  <provides type="function" name="LiveUser_Perm_Storage::freeze" />
+  <provides type="function" name="LiveUser_Perm_Storage::unfreeze" />
+  <provides type="function" name="LiveUser_Perm_Storage::disconnect" />
+  <provides type="class" name="LiveUser" />
+  <provides type="function" name="LiveUser::factory" />
+  <provides type="function" name="LiveUser::singleton" />
+  <provides type="function" name="LiveUser::getErrors" />
+  <provides type="function" name="LiveUser::loadClass" />
+  <provides type="function" name="LiveUser::authFactory" />
+  <provides type="function" name="LiveUser::permFactory" />
+  <provides type="function" name="LiveUser::storageFactory" />
+  <provides type="function" name="LiveUser::arrayMergeClobber" />
+  <provides type="function" name="LiveUser::fileExists" />
+  <provides type="function" name="LiveUser::readConfig" />
+  <filelist>
+   <file role="php" baseinstalldir="/LiveUser" md5sum="81becbfa6edbe64b3e585200f4ba45b4" name="Auth/Storage/Globals.php"/>
+   <file role="php" baseinstalldir="/LiveUser" md5sum="f36027c0bf6e1327929331235458f2d8" name="Auth/Common.php"/>
+   <file role="php" baseinstalldir="/LiveUser" md5sum="aeeb7e43908bbe00d6c472cab6e0923e" name="Auth/DB.php"/>
+   <file role="php" baseinstalldir="/LiveUser" md5sum="bd3d232a4fe703bce80f36f664824a5d" name="Auth/MDB.php"/>
+   <file role="php" baseinstalldir="/LiveUser" md5sum="ee20259edeba06190c2f2651d56d6656" name="Auth/MDB2.php"/>
+   <file role="php" baseinstalldir="/LiveUser" md5sum="831d47b742420ecf01fbbd78498ce415" name="Auth/PEARAuth.php"/>
+   <file role="php" baseinstalldir="/LiveUser" md5sum="da422f13eafe235d19b25283d3b3bc87" name="Auth/Session.php"/>
+   <file role="php" baseinstalldir="/LiveUser" md5sum="44b43af6bc0d2b89194ddef3c4f03dc9" name="Auth/XML.php"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="26d64c805f08080546b7332d9c53eac1" name="docs/examples/example1/Auth_XML.xml"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="e0523439e919d302732fd14325b53292" name="docs/examples/example1/conf.php"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="41618f588e3cb95eb79223ddc3340d34" name="docs/examples/example1/example.php"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="b01d0f3c21d50545d38b643d7474be31" name="docs/examples/example1/index.html"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="2aefe87155aefdc065bbee14b36c3cea" name="docs/examples/example1/README"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="0395da8c143318c56e95ee966c5a4afa" name="docs/examples/example2/Auth_XML.xml"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="d6c968d1aeb6e2078be7c9e9771613c5" name="docs/examples/example2/conf.php"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="6274a92762a6ad5bdf70304e26f3eb77" name="docs/examples/example2/example.php"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="60a4e6186a17837014e95284dd441517" name="docs/examples/example2/index.html"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="9ad961f0f18979795ae4584182807795" name="docs/examples/example2/Perm_XML.xml"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="bd2bfa7bf3c79950e5f1358900aa970a" name="docs/examples/example2/README"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="a1dc3d58f07026fe6c4ae2ca2f26f353" name="docs/examples/example4/Auth_XML.xml"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="ef4542b6fcfc027e8b972e2fc53b6f2f" name="docs/examples/example4/conf.php"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="5a928f4c3128ebece38ec7cd73eb1903" name="docs/examples/example4/demodata.xml"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="c58e50ba55e3e678b78b6fa0547e9ad6" name="docs/examples/example4/error-page.tpl.php"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="25dc4000be394c3cfc5077fd1ee785f4" name="docs/examples/example4/finish.inc.php"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="d1aaf7549a9ec94cf41d608e472abef8" name="docs/examples/example4/functions.js"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="6f40a37b7431822b1cbd304214d901df" name="docs/examples/example4/index.html"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="91a451396c8af18c5582c657671de8a6" name="docs/examples/example4/loginform.tpl.php"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="a2b799e614c527f0f1072f3acc88f014" name="docs/examples/example4/news_change.php"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="9e4f8911d079b378253e38d444d8dcd0" name="docs/examples/example4/news_change.tpl.php"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="5f4ac1bf33f48faa2ed4daba1aaf4280" name="docs/examples/example4/news_new.php"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="62815cf48eafd2547e17f31a81e4b2b4" name="docs/examples/example4/news_new.tpl.php"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="f6b4ad119e44909300ba7ce378059ca9" name="docs/examples/example4/news_notallowed.tpl.php"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="9742902a845041baac8a4c33db990244" name="docs/examples/example4/news_view.php"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="49bceda320dd90c542ea97239b469e2f" name="docs/examples/example4/news_view.tpl.php"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="6428974df775f54e30acc08fd5067f4c" name="docs/examples/example4/style.css"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="bf58c2d49841ee752a1bc2ac45d854f8" name="docs/examples/example5/admin.php"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="37e240fe09d41fc8547c26ef0944ab5b" name="docs/examples/example5/admin.tpl"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="47d4165dcf72b476e072064c05532240" name="docs/examples/example5/conf.php"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="85d4ee39904da49cc20a120fbb3db9fc" name="docs/examples/example5/demodata.xml"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="b89b1bafcc9be58c530b518288fef754" name="docs/examples/example5/home.php"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="6863c5b16d0d39a931e7177771bc8629" name="docs/examples/example5/home.tpl"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="4586f272e03d4508e323f889e57b3673" name="docs/examples/example5/index.php"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="d4615b81f2328be80c975ee120f2fb8f" name="docs/examples/example5/liveuser_rights.php"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="35c30c6ebb72d15ae87453b94ebd7dba" name="docs/examples/example5/login_form.tpl"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="cd8dda55050bcfd359d4b3dea2b2036f" name="docs/examples/example5/news.tpl"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="b9f7a2de1be9cab65cf9fc248d4b4789" name="docs/examples/example5/news_edit.tpl"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="76baab96d5fac1862c661d83f19dac80" name="docs/examples/example5/news_list.tpl"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="92b9b6d50c0d9ae63e297a303a95c36b" name="docs/examples/demodata.php"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="319a733329fe3348e5d01f97b78fd8af" name="docs/examples/README"/>
+   <file role="php" baseinstalldir="/LiveUser" md5sum="ca54f0feddb1388728f1c4324904b152" name="Perm/Storage/Cache.php"/>
+   <file role="php" baseinstalldir="/LiveUser" md5sum="78ed80fe6b092af47496a44267e51e61" name="Perm/Storage/DB.php"/>
+   <file role="php" baseinstalldir="/LiveUser" md5sum="1fdfb5864d2874d08eca18541822dcdf" name="Perm/Storage/Globals.php"/>
+   <file role="php" baseinstalldir="/LiveUser" md5sum="47ccfe65bd18352e419ac671d184e7d9" name="Perm/Storage/MDB.php"/>
+   <file role="php" baseinstalldir="/LiveUser" md5sum="c280cacd743bd5c0c4539f8005e2ae75" name="Perm/Storage/MDB2.php"/>
+   <file role="php" baseinstalldir="/LiveUser" md5sum="3fc2f6cbd98abe4728517a80567fd64a" name="Perm/Storage/SQL.php"/>
+   <file role="php" baseinstalldir="/LiveUser" md5sum="3a976d24411af53f0ba41a6e4e370f46" name="Perm/Storage/XML.php"/>
+   <file role="php" baseinstalldir="/LiveUser" md5sum="89d60fb47e541dd1a552b77c29c59e39" name="Perm/Complex.php"/>
+   <file role="php" baseinstalldir="/LiveUser" md5sum="41b3de7693d01ae70440360e520a47db" name="Perm/Medium.php"/>
+   <file role="php" baseinstalldir="/LiveUser" md5sum="b45a72da96845755558b0c64e4e2fffe" name="Perm/Simple.php"/>
+   <file role="php" baseinstalldir="/LiveUser" md5sum="01526b955e9de842b52705e66468029c" name="Perm/Storage.php"/>
+   <file role="data" baseinstalldir="/LiveUser" md5sum="3c61734f5f467042abc04937ffdf03be" install-as="misc/Auth_XML.xml" name="sql/Auth_XML.xml"/>
+   <file role="data" baseinstalldir="/LiveUser" md5sum="9ce6b9773ac5b0b4348cac6ab4ae1691" install-as="misc/schema/install.php" name="sql/install.php"/>
+   <file role="data" baseinstalldir="/LiveUser" md5sum="3d13a02e4da4ba43a59f71821420b361" install-as="misc/Perm_XML.xml" name="sql/Perm_XML.xml"/>
+   <file role="data" baseinstalldir="/LiveUser" md5sum="9fa09c3bff7e38913c14fe96fb9399d6" install-as="misc/schema/README" name="sql/README"/>
+   <file role="doc" baseinstalldir="/LiveUser" md5sum="03fb004783f456bfd292dde36ab5c489" name="lgpl.txt"/>
+   <file role="php" baseinstalldir="/" md5sum="c262deed803e4b95ad42485757d768d1" name="LiveUser.php"/>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>0.16.3</version>
+    <date>2005-08-09</date>
+    <license>LGPL</license>
+    <state>beta</state>
+    <notes>- added new custom user field &quot;name&quot; to example1
+- added missing config entries to example1 and example2
+- all user related container properties now use lower case with underscores
+  instead of lower bumby camel to better match the storage layer naming.
+  this allows for a much simplified readUserData() method (BC break!)
+- copy storage config before passing it to the storageFactory() since this
+  method messes with the values which causes the original to be modified due to
+  using pass by reference
+- use getProperty() to read properties of the auth container
+- use static calls for all factory method calls
+- disconnect on logout() (bug #4928)
+- fixed bugs in storageFactory()
+    </notes>
+   </release>
+   <release>
+    <version>0.16.2</version>
+    <date>2005-07-19</date>
+    <license>LGPL</license>
+    <state>beta</state>
+    <notes>- time() call prevented the rememberMe cookie from being set under IE
+- dont use serialize() for the cookie data due to security concerns
+  Note: this breaks all remember me cookies currently set!
+- fixed parse error in PEARAuth container (bug #4797)
+- cleaned up lastlogin handling (bug #4843)
+- nuke error due to disconnecting on logout()
+- php 4.4 reference assignment fixes
+    </notes>
+   </release>
+   <release>
+    <version>0.16.1</version>
+    <date>2005-07-04</date>
+    <license>LGPL</license>
+    <state>beta</state>
+    <notes>- fixed typo in cookie lifetime computation (and introduced LIVEUSER_DAY_SECONDS)
+- fixed bug that would lead to dropping all user assigned rigts for area admins
+- cosmetic fixes to error messages (username =&gt; handle)
+    </notes>
+   </release>
+   <release>
+    <version>0.16.0</version>
+    <date>2005-06-21</date>
+    <license>LGPL</license>
+    <state>beta</state>
+    <notes>- updated MDB2 dependency
+- made readConfig() public
+- use LIVEUSER_STATUS_AUTHINITERROR and LIVEUSER_STATUS_PERMINITERROR
+- removed 'ids' from GLOBALS.php array since this is no longer used in the admin
+- added support for table name aliasing
+- added updateProperty() method
+- dont raise an error when login() was not able to authenticate the user
+- storageFactory() is no longer permission specific
+- only return false in init() method if an error occured
+- always overwrite status with auth failed in login() when the current status is UNKNOWN
+- updated a few status message with clearer messages
+- delay storing of the auth container instance in a property until its clear that
+  the perm container will not produce errors
+- kill _auth and _perm property values at the beginning of login()
+- added new event &quot;onFailedMapping&quot; when an auth user cannot be mapped to a perm user
+
+authentication
+- reworked _readUserData() in the auth containers to optionally read by auth
+  user id instead of by handle/passwd (fairly untested)
+- made _readUserData() public (and renamed it to readUserData()
+- made auth fields dynamic (thx dan)
+- updated to use the new auth config layout due to using admin storage
+- tweaked disconnect to only disconnect when a new connection was made
+- updated Globals.php file (removed all optional fields, added users table alias)
+
+permission
+- cleaned up _readImpliedRights()
+- fixed bug in readUserRights() that would lead to overwriting the proper right keys
+- tweaked disconnect to only disconnect when a new connection was made
+
+installer
+- generate auth and perm schema on the fly (removed pre generated ones from cvs)
+- separated schema generation and schema writing in two methods in the installer
+- forgot to pass 'create' param to installSchema() in installPermSchema()
+- use MDB2_Schema as an optional dependency for the schema installer
+- improved handling of defaults in the installer
+- improved DB seq support in the installer
+- options can now be passed to the installer
+- severely reworked the install API
+- added more infos into the old file names
+- updated code with the new auth config layout and as a result removed
+  generateAuthSchema() and renamed generatePermSchema() to generateSchema()
+- added table name prefix to all indexes, since some rdbms (notably pgsql)
+  dont like it if the same index name is used (bug #4593)
+
+examples
+- example5 was added again
+- demo data for examples 4 and 5 was converted to MDB2_Schema format
+- a script to install database based examples can be found under
+  docs/examples/demodata.php. Type php demodata.php -h for usage.
+- updated examples to use the new auth config layout due to using admin storage
+- tweaked error handling on init() call
+- use MDB2 in the examples instead of DB
+    </notes>
+   </release>
+ </changelog>
+</package>

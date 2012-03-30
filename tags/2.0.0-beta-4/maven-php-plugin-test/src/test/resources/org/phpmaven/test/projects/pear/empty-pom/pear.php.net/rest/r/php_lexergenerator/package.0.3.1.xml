@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.5.0RC1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>PHP_LexerGenerator</name>
+ <channel>pear.php.net</channel>
+ <summary>translate lexer files in lex2php format into a PHP 5 lexer</summary>
+ <description>Translate a lexer file with a format similar to re2c (http://re2c.org)
+  into a PHP 5 lexer for use with a parser.
+  
+  Unlike re2c (as of re2c version 0.11), generated lexers are state-aware
+  out of the box.
+  
+  Generated lexers are very efficient, more than twice as efficient as other
+  alternatives like csLex (written in C#) because they utilize PHP&apos;s
+  built-in Perl-compatible regular expressions to lex for tokens.
+
+  Now in version 0.3.0+, with processing instruction %longestmatch, generated
+  lexers will always pick the longest string to match, rather than the first.
+  Generated lexers are slightly slower, but match behavior of legacy lexers like
+  flex, lex, re2c.</description>
+ <lead>
+  <name>Greg Beaver</name>
+  <user>cellog</user>
+  <email>cellog@php.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2006-12-15</date>
+ <time>22:05:44</time>
+ <version>
+  <release>0.3.1</release>
+  <api>0.3.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+ <notes>- fix Bug #9211: Typos
+- fix Bug #9230: Escape sequences
+- fix Bug #9231: Non-greedy regex extension</notes>
+ <contents>
+  <dir baseinstalldir="PHP" name="/">
+   <file baseinstalldir="PHP" md5sum="e3f1194d2e3821401675cf7331cfe926" name="examples/TestLexer.php" role="doc" />
+   <file baseinstalldir="PHP" md5sum="5c1f6f92311c90112bd8fae5885e9d32" name="examples/TestLexer.plex" role="doc" />
+   <file baseinstalldir="PHP" md5sum="8421d07bfa98875362f4afc759eb1423" name="examples/longestfirst.php" role="doc" />
+   <file baseinstalldir="PHP" md5sum="eec5e3526cf3bb9dd43e739bb7fa0456" name="examples/longestfirst.plex" role="doc" />
+   <file baseinstalldir="PHP" md5sum="7929ef4476d82ee918d5a95391dd102d" name="LexerGenerator/Regex/Lexer.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="4ba8374a140b37210b517fb3ececbf50" name="LexerGenerator/Regex/Parser.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="67d890e7c8d5caaf6c74ccb6b84bedb4" name="LexerGenerator/cli.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="1203a34f8faad6fc4949e2f65d4d2d81" name="LexerGenerator/Exception.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="2790aee735d2c9934498f729d7b76a4d" name="LexerGenerator/Lexer.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="be6f0087cdab95a8a38c504967c57dc0" name="LexerGenerator/Parser.out" role="data" />
+   <file baseinstalldir="PHP" md5sum="c94ede3f68c2db851d19f2826d389304" name="LexerGenerator/Parser.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="e4b400703877945a5f38b1367aee16af" name="LexerGenerator/Parser.y" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="8a6f085e3c012e04a02bbb007379164a" name="tests/bug8259.plex" role="test" />
+   <file baseinstalldir="PHP" md5sum="3ce516daf5e24158df3ae103f92cd34d" name="tests/bug8259.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="51cf001f9b4e2015d46f24b8a937315c" name="LexerGenerator.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="81415c309646216c3b2861ef4fe4a471" name="LICENSE.txt" role="doc" />
+   <file baseinstalldir="" md5sum="3e0a2fcf6bc63382b746d243c9a6d81a" name="plex" role="script">
+    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
+    <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
+    <tasks:unixeol />
+   </file>
+   <file baseinstalldir="" md5sum="7a4974a97532fc831e514552e9817dab" name="plex.bat" role="script">
+    <tasks:replace from="@php-bin@" to="php_bin" type="pear-config" />
+    <tasks:replace from="@php-dir@" to="php_dir" type="pear-config" />
+    <tasks:windowseol />
+   </file>
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.1.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.3</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-06-24</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+   <notes>initial release</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-06-30</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>- add &quot;plex&quot; command-line for lexer generation
+- add regex validation
+  * it&apos;s now possible to use lookaheads, back-references, and subpatterns.
+- use PEAR_Exception</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.1</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-07-18</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>- allow underscore in subpattern names
+- fix documentation for class
+- fix bug in regex parsing where backreferences could not have a multiplier
+  like +, *, or {0,1}
+- disallow (?R), this can&apos;t work in a multi-regex lexer generator, unfortunately</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.2</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-08-13</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>- fix Bug #8259: Strange regex generated
+- fix Bug #8593: if no statename &quot;const 1=1&quot; inserted</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.3</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-10-02</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>- fix Bug #8618: null causes regex to break</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.3.0</release>
+    <api>0.3.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-10-02</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>- fix Bug #9006: wrong replacements for plex script (Hartmut Holzgraefe)
+- fix Bug #9007: yymore does not honor return value &quot;true&quot; to change state
+- implement Request #8879: lexer not picking longest match</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.3.1</release>
+    <api>0.3.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-12-15</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>- fix Bug #9211: Typos
+- fix Bug #9230: Escape sequences
+- fix Bug #9231: Non-greedy regex extension</notes>
+  </release>
+ </changelog>
+</package>

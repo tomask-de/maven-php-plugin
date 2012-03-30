@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Mail_IMAP</name>
+  <summary>Provides a c-client backend for webmail.</summary>
+  <description>Mail_IMAP provides a simplified backend for working with the c-client (IMAP) extension. It serves as an OO wrapper for commonly used c-client functions. It provides structure and header parsing as well as body retrieval.
+Mail_IMAP provides a simple inbox example that demonstrates its ability to parse and view simple and multipart email messages.
+Mail_IMAP also provides a connection wizard to determine the correct protocol and port settings for a remote mail server, all you need to provide is a server, a username and a password.
+Mail_IMAP may be used as a webmail backend or as a component in a mailing list manager.
+This package requires the c-client extension.  To download the latest version of the c-client extension goto: http://www.php.net/imap.</description>
+  <maintainers>
+    <maintainer>
+      <user>richy</user>
+      <name>Richard York</name>
+      <email>richy@smilingsouls.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.1.0RC2</version>
+    <date>2004-06-29</date>
+    <license>PHP</license>
+    <state>beta</state>
+    <notes>Added $retreive_all argument to Mail_IMAP::getParts, this allows all
+sub-attachments, inline parts, etc to be viewed at the top level.
+Bug with error reporting in Mail_IMAP::getMailboxes
+CS - Mail_IMAP::debug
+NOTICE level errors coming from Mail_IMAP::getQuota
+Patch to Mail_IMAP::getMailboxes applied.
+Thanks to Matthew Schumacher for writing the original function and patch.
+Debug functionality called automatically by $_GET method may now only be
+called if MAIL_IMAP_ERROR_REPORTING == E_ALL.
+Mail_IMAP::getMailboxInfo added, this method is automatically called by
+Mail_IMAP::connect by default. Use MAIL_IMAP_NO_INFO in the $options
+argument of Mail_IMAP::connect to turn this off.
+Improved styling of IMAP.inbox.php example.</notes>
+    <deps>
+      <dep type="ext" rel="has">imap</dep>
+      <dep type="pkg" rel="has" optional="yes">Net_URL</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="Mail" name="IMAP.php"/>
+      <file role="doc" baseinstalldir="Mail" name="examples\IMAP.inbox.php"/>
+      <file role="doc" baseinstalldir="Mail" name="examples\IMAP.message.php"/>
+      <file role="doc" baseinstalldir="Mail" name="examples\IMAP.connection_wizard.php"/>
+      <file role="doc" baseinstalldir="Mail" name="examples\IMAP.connection_wizard_example.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>1.1.0RC1</version>
+      <date>2004-05-09</date>
+      <state>beta</state>
+      <notes>Bug #1350 multipart/related messages containing attachments not parsed correctly.
+    - Adjusted Mail_IMAP::_scanMultipart, Mail_IMAP::getDefaultPid,
+    Mail_IMAP::_checkIfParsed, added Mail_IMAP::_isMultipartRelated,
+    $defaultPid member variable (this is to cut back on calls to
+    Mail_IMAP::getDefaultPid).
+Added debug functions. Debug functions can be called automatically if
+using a URI abstraction.
+Fallback pids added for Mail_IMAP::getBody, Mail_IMAP::getRawHeaders,
+Mail_IMAP::getHeaders. Mail_IMAP::getBody will fallback on pid = '1'
+or the first message part.  Mail_IMAP::getRawHeaders and
+Mail_IMAP::getHeaders will fallback on pid = '0', or the top-level
+headers.
+$option member variable added, replaces and deprecates various $options
+arguments used in the various methods (All of these will be removed in 2.0.0).
+Mail_IMAP::setOptions method added to set-up some default usages of optional
+arguments.
+Mail_IMAP::getRawHeaders now returns the headers by default and has a new
+$rtn argument that toggles between returning the headers and not returning
+them.
+Mail_IMAP::getHeaders now returns the header array (no toggle here).
+Expanded embedded docs.
+Added $error_reporting argument to the constructor, this is used to
+determine where hacks are being used which is useful for debugging.
+Error text made more consistent.
+Net_URL made an optional dependancy.
+messageCount, removed call to imap_errors.
+Added $this-&gt;mailboxInfo['host'] and Mail_IMAP::getMailboxes() which
+wraps imap_list.
+Fixed leading slash making its way into $this-&gt;mailboxInfo['folder'].
+Mail_IMAP::getQuota now falls back on $this-&gt;mailboxInfo['folder'], if
+a connection URI is used, uses 'INBOX' if no value is passed by argument
+or no value is present for $this-&gt;mailboxInfo['folder'].
+</notes>
+    </release>
+    <release>
+      <version>1.0.0RC4</version>
+      <date>2004-05-03</date>
+      <state>beta</state>
+      <notes>This release addresses only bugs:
+1.) Wrong $pidAdd value passed to Mail_IMAP::_scanMultipart
+    - Passed an incorrect value of '2' instead of '1'
+2.) Wrong body selected when there is more than one inline text/plain,
+    text/html part.  Mozilla mail, for instance, has a feature to
+    display all attachments in a message beneath the message in the
+    viewer.  It sends mail along these lines as well adding a generic
+    attribute &quot;flowed&quot; in the parameters of a message.
+    Symptoms: Program picks whichever text/plain part is first, not
+    necessarily the correct one.
+    Solution: Message viewer should combine all multiple text/plain
+    inline parts into a single message.
+    Altered Mail_IMAP::_scanMultipart to select the proper part based
+    on whether a file name exists for the inline text/plain part.
+3.) No fallback for default part id in Mail_IMAP::getDefaultPid a BC
+    breaking patch was introduced to cure this problem,
+    Mail_IMAP::getDefaultPid now always returns a part id, if the
+    application is unable to find a default part id, it will return
+    part id #1.  (used to return FALSE if a default part id couldn't be
+    found) This prevents nasty bugs from suspect messages.
+    Symptoms: message does not contain either a text/plain or text/html
+    part.
+    Solution: Mail_IMAP::getDefaultPid now contains a fallback for the
+    first message part (pid #1) message viewer should look at the MIME
+    type and make adjustments accordingly.
+4.) File names don't show up for inline attachments when a file name
+    exists.  Altered Mail_IMAP::_declareParts to allow file names for
+    inline parts to be indexed when a file name exists.
+5.) No default value for file names when one doesn't exist (now defaults
+    to empty string).
+6.) Added a check of the existence of the subject header in the inbox
+    example file.
+Thanks to Dmitry Arkhipov for providing bug reports and extensive testing.
+</notes>
+    </release>
+    <release>
+      <version>1.0.0RC3</version>
+      <date>2004-04-17</date>
+      <state>beta</state>
+      <notes>This release addresses only bugs:
+1.) Wrong $pidAdd value passed to Mail_IMAP::_scanMultipart
+    - Passed an incorrect value of '2' instead of '1'
+2.) Wrong body selected when there is more than one inline text/plain,
+    text/html part.  Mozilla mail, for instance, has a feature to
+    display all attachments in a message beneath the message in the
+    viewer.  It sends mail along these lines as well adding a generic
+    attribute &quot;flowed&quot; in the parameters of a message.
+    Symptoms: Program picks whichever text/plain part is first, not
+    necessarily the correct one.
+    Solution: Message viewer should combine all multiple text/plain
+    inline parts into a single message.
+    Altered Mail_IMAP::_scanMultipart to select the proper part based
+    on whether a file name exists for the inline text/plain part.
+3.) No fallback for default part id in Mail_IMAP::getDefaultPid a BC
+    breaking patch was introduced to cure this problem,
+    Mail_IMAP::getDefaultPid now always returns a part id, if the
+    application is unable to find a default part id, it will return
+    part id #1.  (used to return FALSE if a default part id couldn't be
+    found) This prevents nasty bugs from suspect messages.
+    Symptoms: message does not contain either a text/plain or text/html
+    part.
+    Solution: Mail_IMAP::getDefaultPid now contains a fallback for the
+    first message part (pid #1) message viewer should look at the MIME
+    type and make adjustments accordingly.
+4.) File names don't show up for inline attachments when a file name
+    exists.  Altered Mail_IMAP::_declareParts to allow file names for
+    inline parts to be indexed when a file name exists.
+5.) No default value for file names when one doesn't exist (now defaults
+    to empty string).
+6.) Added a check of the existence of the subject header in the inbox
+    example file.
+Thanks to Dmitry Arkhipov for providing bug reports and extensive testing.
+</notes>
+    </release>
+    <release>
+      <version>1.0.0RC2</version>
+      <date>2004-04-14</date>
+      <state>beta</state>
+      <notes>Updated message parsing algorithms to accept double digit part ids addressing
+the first major bug reported in the program.
+This bug affected:
+Mail_IMAP::_scanMultipart
+Mail_IMAP::getDefaultPid
+Mail_IMAP::_defaultHeaderPid
+Altered Mail_IMAP::delete to accept either an array of message ids instead or
+a single string.  Added an optional separator argument for any errors returned
+by imap_delete when using an array.
+Altered Mail_IMAP::extractMIME to accept either an array of MIME types or
+a single string.
+</notes>
+    </release>
+    <release>
+      <version>1.0.0RC1</version>
+      <date>2004-04-08</date>
+      <state>beta</state>
+      <notes>Added $mailboxInfo member variable, which stores various information about
+the current mailbox.  As of its implementation it only stores user and folder
+information gathered from the URI abstraction, if one is being used.  This
+variable could be expanded in the future to contain more mailbox specific
+information.
+Cleaned up and expanded example files, IMAP.inbox.php and IMAP.message.php.
+Example files now check for &quot;read&quot; flags in webmail demonstration.
+Minor edits to the documentation.
+Fixed missing `empty` in getQuota method.
+MAIL_IMAP_CLEAR_FLAGS option added for setFlags() method, new constant toggles
+flag operation to imap_clearflag_full instead of imap_setflag_full.
+</notes>
+    </release>
+    <release>
+      <version>0.3.0A</version>
+      <date>2004-03-12</date>
+      <state>alpha</state>
+      <notes>Expanded API -- new methods and functionality.. however BC
+has been preserved.
+Added getQuota() and setFlags() methods.
+Private methods added to simplify the class.
+Added _checkIfParsed() method.
+Added _scanMultipart() method -- which reduced the file size slightly
+and merged/centralized most of the parsing mechanism for body retrieval and
+inline/attach member variable creating.
+Rearranged some code for logic and preformance.
+Added a count check of parts in getParts() method to automatically return
+if there is only one message part.
+Net_URL removed as a prequisite -- This is only required if the user
+isn't supplying an already established IMAP stream.  (Class is now
+included in the connect() method).  This ought to reduce the memory
+footprint for those forming the IMAP Stream and passing it to the class.
+If using a URI abstraction or connection wizard, Net_URL is required.
+(Since Net_URL could be used, it remains in the dependencies list)
+Added check of resource passed to constructor, to verify it an imap stream.
+Optional $seperator argument added for errors() and alerts() methods to
+eliminate HTML if the user doesn't want HTML.
+Package now tested with IMAP and POP3 protocols.  (NNTP testing still
+needed).
+This release should be relatively stable.
+Beta release should be just around the corner!
+</notes>
+    </release>
+    <release>
+      <version>0.2.0A</version>
+      <date>2004-03-01</date>
+      <state>alpha</state>
+      <notes>Made part finders truly reversable, specify a text/plain part by
+default, if none is found, tries to find a text/html part instead.. and vise versa.
+Still looks for a text/html part by default.  Minor API changes, $attempt
+argument added to getDefaultPid and getBody methods  BC not broken, as these arguments are
+used internally.
+Minor improvements to CS.
+Minor corrections to documentation.
+MAIL_IMAP_LITERAL_DECODE option added for getBody() $action argument.
+extractMIME method added, allows the user to specify a specific MIME type
+to search for, method will return an associative array containing all PIDs
+found for that MIME type.  PIDs can then be supplied to getBody with
+$action = MAIL_IMAP_LITERAL_DECODE to retrieve specific parts.
+Not much testing on this release so please report bugs!
+</notes>
+    </release>
+    <release>
+      <version>0.1.7A</version>
+      <date>2004-02-29</date>
+      <state>alpha</state>
+      <notes>Fixed bug in linking from IMAP.inbox.php example to IMAP.message.php example.
+(Forgot to update in 0.1.6A with file name change.)
+Updated description.
+Fixed bug #923, examples installed to wrong directory.
+Updated documentation.
+</notes>
+    </release>
+    <release>
+      <version>0.1.6A</version>
+      <date>2004-02-27</date>
+      <state>alpha</state>
+      <notes>Fixed bug #921, Install path is wrong.
+</notes>
+    </release>
+    <release>
+      <version>0.1.5A</version>
+      <date>2004-02-26</date>
+      <state>alpha</state>
+      <notes>Fixed bug in tls specification of URI abstraction.
+Fixed bug in default header pid selector.  Deep search for header pid could result in infinite loop.
+Added potential bug information to docs.
+</notes>
+    </release>
+    <release>
+      <version>0.1.4A</version>
+      <date>2004-02-12</date>
+      <state>alpha</state>
+      <notes>Fixed relative paths, example files.
+</notes>
+    </release>
+    <release>
+      <version>0.1.3A</version>
+      <date>2004-02-11</date>
+      <state>alpha</state>
+      <notes>Added Mail_IMAP connection wizard for auto-detecting of URI to pass to Mail_IMAP::connect.
+</notes>
+    </release>
+    <release>
+      <version>0.1.2A</version>
+      <date>2004-02-11</date>
+      <state>alpha</state>
+      <notes>Modified header parser.
+</notes>
+    </release>
+    <release>
+      <version>0.1.1A</version>
+      <date>2004-02-11</date>
+      <state>alpha</state>
+      <notes>Added URI abstraction support.
+</notes>
+    </release>
+    <release>
+      <version>0.1.0A</version>
+      <date>2004-02-10</date>
+      <state>alpha</state>
+      <notes>First release.
+</notes>
+    </release>
+  </changelog>
+</package>

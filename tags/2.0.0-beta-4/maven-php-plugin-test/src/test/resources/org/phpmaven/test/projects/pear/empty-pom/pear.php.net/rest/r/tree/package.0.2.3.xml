@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>Tree</name>
+  <summary>Generic tree management, currently supports DB and XML as data sources</summary>
+  <description>Provides methods to read and manipulate trees, which are stored in the DB
+or an XML file. The trees can be stored in the DB either as nested trees.
+Or as simple trees ('brain dead method'), which use parentId-like structure.
+Currently XML data can only be read from a file and accessed.
+The package offers a big number of methods to access and manipulate trees.
+For example methods like: getRoot, getChild[ren[Ids]], getParent[s[Ids]], getPath[ById] and many
+more.
+There are two ways of retreiving the data from the place where they are stored,
+one is by reading the entire tree into the memory - the Memory way. The other
+is reading the tree nodes as needed (very useful in combination with huge trees
+and the nested set model).
+The package is designed that way that it is possible to convert/copy tree data
+from either structure to another (from XML into DB).</description>
+  <maintainers>
+    <maintainer>
+      <user>cain</user>
+      <name>Wolfram Kriesing</name>
+      <email>wolfram@kriesing.de</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.2.3</version>
+    <date>2003-03-10</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>* Make switchDataSource work for Memory/Array, this enables you to
+read the data from any source and switch the source on the run. This writes the data 
+from the current tree into the new source. I.e. you read the data from a DB and write
+it into an array. 
+Switching from DB to Array makes sense i.e. if you read a tree from the DB, which you want to show
+(i.e. using HTML_TreeMenu) but therefore you need to set additional properties for each
+node which you don't want to save in the DB, since they are only for the presentation.
+Properties for HTML_TreeMenu are i.e. the icon and some events (like 'onClick'). Since you switched 
+the source from DB to Array you can change any data without worrying that they are written into
+the DB and modify your actual data in the DB.
+* Bring Memory/Array closer to be fully useable.
+* getPathAsString() takes two more parameters where you can determine from and offset
+* getChildrenIds() has a new optional parameter for determining the level
+* Add getDepth() to determine the maximum depth of the tree
+* Make setup work with custom data optionally (only relevant for Memory_*)
+* Show a nicer varDump
+* add UML class diagram</notes>
+    <deps>
+      <dep type="pkg" rel="ge" version="1.3">DB</dep>
+      <dep type="pkg" rel="ge" version="1.0">XML_Parser</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="Tree" md5sum="423fd461cc70ce177385d09d838e69b0" name="Tree.php"/>
+      <file role="php" baseinstalldir="Tree" md5sum="b0529b002dcae16808ca3151c98251c3" name="Common.php"/>
+      <file role="php" baseinstalldir="Tree" md5sum="c988854e99a6c21029edac322b371aae" name="Memory.php"/>
+      <file role="php" baseinstalldir="Tree" md5sum="31bded1f401bd4cfd6f07d4286e5a506" name="Options.php"/>
+      <file role="php" baseinstalldir="Tree" md5sum="dc0ce8827e2236926473be2ad7f9e5e0" name="OptionsDB.php"/>
+      <file role="php" baseinstalldir="Tree" md5sum="1ef791cfea540b409cbc76ec225d76a9" name="Error.php"/>
+      <file role="php" baseinstalldir="Tree" md5sum="604fb187b8609d85bcaf4c92b96fac7e" name="Memory/DBsimple.php"/>
+      <file role="php" baseinstalldir="Tree" md5sum="a94db51198483cb7f6ae6354df1ebd06" name="Memory/DBnested.php"/>
+      <file role="php" baseinstalldir="Tree" md5sum="f97a236f81447764ed69b117ac7dd440" name="Memory/XML.php"/>
+      <file role="php" baseinstalldir="Tree" md5sum="44a30e07ee8fee940a1156ccbec06f03" name="Memory/Filesystem.php"/>
+      <file role="php" baseinstalldir="Tree" md5sum="9927da5a681328ea594273158ecc2ecf" name="Memory/Array.php"/>
+      <file role="php" baseinstalldir="Tree" md5sum="4eaab8eebfeaa06c77e5472ab13075a3" name="Dynamic/DBnested.php"/>
+      <file role="doc" baseinstalldir="Tree" md5sum="0476ecb32ad59b79f977e6bd2c35fa84" name="docs/Dynamic_DBnested.sql"/>
+      <file role="doc" baseinstalldir="Tree" md5sum="162f8620b77724713a8e218c52865fbd" name="docs/Dynamic_DBnested.php"/>
+      <file role="doc" baseinstalldir="Tree" md5sum="6c3e8d2aa8f830de166df034676d614e" name="docs/Memory_XML.php"/>
+      <file role="doc" baseinstalldir="Tree" md5sum="56c7dc10dd2950cb98ef604cbb098302" name="docs/Memory_DBsimple.php"/>
+      <file role="doc" baseinstalldir="Tree" md5sum="cb7b52e89b70c8624cdb0a1f58a61c2d" name="docs/Memory_DBnested.php"/>
+      <file role="doc" baseinstalldir="Tree" md5sum="7cb15551bccffa44cb1c2ac033d2c37e" name="docs/config.xml"/>
+      <file role="doc" baseinstalldir="Tree" md5sum="a120f927a2fc5560e58559680c37474e" name="docs/TreeEditor/index.php"/>
+      <file role="doc" baseinstalldir="Tree" md5sum="f6173e1904a411edc5989f54064be516" name="docs/TreeEditor/index.tpl"/>
+      <file role="doc" baseinstalldir="Tree" md5sum="1ec81a16433835b4b4b9c16d212e5b18" name="docs/TreeEditor/closedFolder.gif"/>
+      <file role="doc" baseinstalldir="Tree" md5sum="119eed62d4fcd2e48ff028cfa75417f4" name="docs/TreeEditor/config.xml"/>
+      <file role="doc" baseinstalldir="Tree" md5sum="6cfeed2e79c24bd5c801ab3bcd440168" name="docs/TreeEditor/copy.gif"/>
+      <file role="doc" baseinstalldir="Tree" md5sum="8bc3bee71d4cf654997a96c70c92c8f1" name="docs/TreeEditor/cut.gif"/>
+      <file role="doc" baseinstalldir="Tree" md5sum="be4ed2387387e5b4a4729bdc8af46baf" name="docs/TreeEditor/delete.gif"/>
+      <file role="doc" baseinstalldir="Tree" md5sum="a27cb1ff16de0e2c6e9bdc5d266fb58a" name="docs/TreeEditor/folder.gif"/>
+      <file role="doc" baseinstalldir="Tree" md5sum="c131c8b14b0450bcb04d11a5502fb3d9" name="docs/TreeEditor/mysql_db.sql"/>
+      <file role="doc" baseinstalldir="Tree" md5sum="515db1284633a63e9e947f241006cdd8" name="docs/TreeEditor/openFolder.gif"/>
+      <file role="doc" baseinstalldir="Tree" md5sum="a0e24b8e735c0ae00fa5ab1b9ef1da5a" name="docs/TreeEditor/paste.gif"/>
+      <file role="doc" baseinstalldir="Tree" md5sum="1add00261c166f28172e19151c3bd466" name="docs/TreeEditor/treeClass.php"/>
+      <file role="doc" baseinstalldir="Tree" md5sum="c41161cf59f0af8f4918ed83601cce23" name="docs/TreeView/index.php"/>
+      <file role="doc" baseinstalldir="Tree" md5sum="6ec1b0373a7a7da6b2368aa9a5796205" name="docs/TreeView/index.tpl"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.2.2</version>
+      <date>2003-01-30</date>
+      <state>beta</state>
+      <notes>- fixing a lot of E_ALL and CS issues
+- enhancing getChildren method, now you can get children for more than one level
+- moving the examples to docs and making TreeView and TreeEditor work properly with new php versions
+</notes>
+    </release>
+    <release>
+      <version>0.2.1</version>
+      <date>2002-10-28</date>
+      <state>beta</state>
+      <notes>- bugfix in getAllChildren[Ids], before it only worked for one level below
+</notes>
+    </release>
+  </changelog>
+</package>

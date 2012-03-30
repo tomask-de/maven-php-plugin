@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>HTTP_Download</name>
+  <summary>Send HTTP Downloads</summary>
+  <description>Provides an interface to easily send hidden files or any arbitrary data to the client through HTTP. 
+
+It features HTTP caching, compression, ranges (partial downloads and resuming) and kind of a throttling mechanism.</description>
+  <maintainers>
+    <maintainer>
+      <user>mike</user>
+      <name>Michael Wallner</name>
+      <email>mike@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.10.0</version>
+    <date>2004-08-31</date>
+    <license>PHP</license>
+    <state>beta</state>
+    <notes>Fixes:
+======
+* Adjusted cache headers to force IE to revalidate
+* Attempt to fix Bug #2110 (long delay until &quot;Save as...&quot; popup)
+
+Features:
+=========
++ Added the possibility to send HTTP responses 
+  without a &quot;Content-Disposition&quot; header
++ Implemented kind of a throttling mechanism
+  This can be done by setting $bufferSize through 
+  HTTP_Download::setBufferSize($bytes) and adjusting $throttleDelay
+  through HTTP_Download::setThrottleDelay($seconds), e.g. a
+  buffer size of 25600 bytes and a throttle delay of 1 second
+  will lead to a download rate of approximatly 25 KB/s.</notes>
+    <deps>
+      <dep type="pkg" rel="has" optional="no">PEAR</dep>
+      <dep type="pkg" rel="has" optional="no">HTTP_Header</dep>
+      <dep type="pkg" rel="has" optional="yes">Archive_Tar</dep>
+      <dep type="ext" rel="has" optional="no">pcre</dep>
+      <dep type="ext" rel="has" optional="yes">mime_magic</dep>
+      <dep type="php" rel="ge" version="4.3.0" optional="yes"/>
+      <dep type="php" rel="ge" version="4.2.0" optional="no"/>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="HTTP" name="Download.php"/>
+    </filelist>
+  </release>
+</package>

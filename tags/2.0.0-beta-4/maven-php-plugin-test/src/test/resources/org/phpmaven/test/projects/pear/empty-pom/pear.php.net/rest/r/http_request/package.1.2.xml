@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>HTTP_Request</name>
+  <summary>Provides an easy way to perform HTTP requests</summary>
+  <description>Supports GET/POST/HEAD/TRACE/PUT/DELETE, Basic authentication, Proxy,
+Proxy Authentication, SSL, file uploads etc.</description>
+  <maintainers>
+    <maintainer>
+      <user>richard</user>
+      <name>Richard Heyes</name>
+      <email>richard@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>avb</user>
+      <name>Alexey Borzov</name>
+      <email>avb@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.2</version>
+    <date>2003-10-27</date>
+    <license>BSD</license>
+    <state>stable</state>
+    <notes>Feature additions:
+ * Support for multipart/form-data POST requests and file uploads (partly based on Christian Stocker's work)
+ * Brackets [] after array variables are optional (on by default, controlled by useBrackets parameter)
+ * HTTP_Request now implements a Subject-Observer design pattern. It is possible to add Listeners
+   to the Request object to e.g. draw a progress bar when downloading a large file. This is partly
+   based on Stefan Walk's work. A usage example for this is available.
+
+Migration to 1.2:
+ * Redirect support is now OFF by default
+ * Redirect support is DEPRECATED
+ * Methods clearCookies(), clearPostData(), reset() are DEPRECATED
+
+Fixes:
+ * Fixed PEAR bug #18 (Lowercased headers, fix by Dave Mertens)
+ * Fixed PEAR bug #131 (Domain without trailing slash)
+ * Fixed PHP bug #25486 (100 Continue handling)
+ * Fixed PEAR bug #150 (Notices being generated)
+ * Fixed problems with HTTP responses without bodies</notes>
+    <deps>
+      <dep type="pkg" rel="ge" version="1.0.7">Net_URL</dep>
+      <dep type="pkg" rel="ge" version="1.0">Net_Socket</dep>
+    </deps>
+    <provides type="class" name="HTTP_Request" />
+    <provides type="class" name="HTTP_Response" />
+    <provides type="function" name="HTTP_Request::reset" />
+    <provides type="function" name="HTTP_Request::setURL" />
+    <provides type="function" name="HTTP_Request::setProxy" />
+    <provides type="function" name="HTTP_Request::setBasicAuth" />
+    <provides type="function" name="HTTP_Request::setMethod" />
+    <provides type="function" name="HTTP_Request::setHttpVer" />
+    <provides type="function" name="HTTP_Request::addHeader" />
+    <provides type="function" name="HTTP_Request::removeHeader" />
+    <provides type="function" name="HTTP_Request::addQueryString" />
+    <provides type="function" name="HTTP_Request::addRawQueryString" />
+    <provides type="function" name="HTTP_Request::addPostData" />
+    <provides type="function" name="HTTP_Request::addFile" />
+    <provides type="function" name="HTTP_Request::addRawPostData" />
+    <provides type="function" name="HTTP_Request::clearPostData" />
+    <provides type="function" name="HTTP_Request::addCookie" />
+    <provides type="function" name="HTTP_Request::clearCookies" />
+    <provides type="function" name="HTTP_Request::sendRequest" />
+    <provides type="function" name="HTTP_Request::getResponseCode" />
+    <provides type="function" name="HTTP_Request::getResponseHeader" />
+    <provides type="function" name="HTTP_Request::getResponseBody" />
+    <provides type="function" name="HTTP_Request::getResponseCookies" />
+    <provides type="function" name="HTTP_Request::attach" />
+    <provides type="function" name="HTTP_Request::detach" />
+    <provides type="function" name="HTTP_Response::process" />
+    <provides type="class" name="HTTP_Request_Listener" />
+    <provides type="function" name="HTTP_Request_Listener::getId" />
+    <provides type="function" name="HTTP_Request_Listener::update" />
+    <filelist>
+      <file role="php" baseinstalldir="HTTP" md5sum="d7352d531b47e8261951f28fc8f117ee" name="Request.php"/>
+      <file role="php" baseinstalldir="HTTP" md5sum="d980b02bbae806dfb5eb06f94d4b94ca" name="Request/Listener.php"/>
+      <file role="doc" baseinstalldir="HTTP" md5sum="ce18584968bde4ed5117e4750062d021" name="docs/example.php"/>
+      <file role="doc" baseinstalldir="HTTP" md5sum="98cbb649ee22bf0799f0be3505218548" name="docs/download-progress.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>1.1.1</version>
+      <date>2003-01-30</date>
+      <license>BSD</license>
+      <state>stable</state>
+      <notes>Added redirect support. Net_URL 1.0.7 is now required.
+</notes>
+    </release>
+    <release>
+      <version>1.1.0</version>
+      <date>2003-01-20</date>
+      <license>BSD</license>
+      <state>stable</state>
+      <notes>Added SSL support as long as you have PHP 4.3.0+ and the OpenSSL extension. Net_URL 1.0.6 is now required.
+</notes>
+    </release>
+    <release>
+      <version>1.0.2</version>
+      <date>2002-09-16</date>
+      <license>BSD</license>
+      <state>stable</state>
+      <notes>Added cookie support
+</notes>
+    </release>
+    <release>
+      <version>1.0.1</version>
+      <date>2002-07-27</date>
+      <license>BSD</license>
+      <state>stable</state>
+      <notes>License change
+</notes>
+    </release>
+    <release>
+      <version>1.0</version>
+      <date>2002-02-17</date>
+      <state>stable</state>
+      <notes>Initial release of the HTTP_Request package.
+</notes>
+    </release>
+  </changelog>
+</package>

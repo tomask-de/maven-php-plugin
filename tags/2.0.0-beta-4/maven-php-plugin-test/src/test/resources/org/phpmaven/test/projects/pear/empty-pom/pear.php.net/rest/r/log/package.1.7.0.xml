@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>Log</name>
+  <summary>Logging utilities</summary>
+  <description>The Log framework provides an abstracted logging system.  It supports logging to console, file, syslog, SQL, mail, and mcal targets.  It also provides a subject - observer mechanism.</description>
+  <maintainers>
+    <maintainer>
+      <user>jon</user>
+      <name>Jon Parise</name>
+      <email>jon@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.7.0</version>
+    <date>2003-08-02</date>
+    <license>PHP 2.02</license>
+    <state>stable</state>
+    <notes>It is now possible to specific a specific mask that dictates exactly which levels will be logged.  
+
+A number of convenient &quot;shortcut&quot; functions have been added for logging messages at specific log messages.
+
+Two new log handers have been added: the 'error_log' handler wraps PHP's native error_log() function; and the 'win' handler outputs log messages to a separate browser window.
+
+The file log handler has been completely rewritten based on suggestions from Roman Neuhauser.  It no longer buffers log output in memory before writing to the log file.
+
+Greg Beaver submitted a change that allows callers to provide their own Log classes (that existing outside of the PEAR file hierarchy) by including them before invoking a factory() method.</notes>
+    <deps>
+      <dep type="pkg" rel="has">DB</dep>
+    </deps>
+    <provides type="class" name="Log" />
+    <provides type="function" name="Log::factory" />
+    <provides type="function" name="Log::singleton" />
+    <provides type="function" name="Log::close" />
+    <provides type="function" name="Log::emerg" />
+    <provides type="function" name="Log::alert" />
+    <provides type="function" name="Log::crit" />
+    <provides type="function" name="Log::err" />
+    <provides type="function" name="Log::warning" />
+    <provides type="function" name="Log::notice" />
+    <provides type="function" name="Log::info" />
+    <provides type="function" name="Log::debug" />
+    <provides type="function" name="Log::priorityToString" />
+    <provides type="function" name="Log::MASK" />
+    <provides type="function" name="Log::UPTO" />
+    <provides type="function" name="Log::setMask" />
+    <provides type="function" name="Log::getMask" />
+    <provides type="function" name="Log::attach" />
+    <provides type="function" name="Log::detach" />
+    <provides type="function" name="Log::isComposite" />
+    <provides type="function" name="Log::setIdent" />
+    <provides type="function" name="Log::getIdent" />
+    <provides type="class" name="Log_composite" extends="Log" />
+    <provides type="function" name="Log_composite::open" />
+    <provides type="function" name="Log_composite::close" />
+    <provides type="function" name="Log_composite::log" />
+    <provides type="function" name="Log_composite::isComposite" />
+    <provides type="function" name="Log_composite::setIdent" />
+    <provides type="function" name="Log_composite::addChild" />
+    <provides type="function" name="Log_composite::removeChild" />
+    <provides type="class" name="Log_console" extends="Log" />
+    <provides type="function" name="Log_console::log" />
+    <provides type="class" name="Log_error_log" extends="Log" />
+    <provides type="function" name="Log_error_log::log" />
+    <provides type="class" name="Log_file" extends="Log" />
+    <provides type="function" name="Log_file::open" />
+    <provides type="function" name="Log_file::close" />
+    <provides type="function" name="Log_file::log" />
+    <provides type="class" name="Log_mail" extends="Log" />
+    <provides type="function" name="Log_mail::open" />
+    <provides type="function" name="Log_mail::close" />
+    <provides type="function" name="Log_mail::log" />
+    <provides type="class" name="Log_mcal" extends="Log" />
+    <provides type="function" name="Log_mcal::open" />
+    <provides type="function" name="Log_mcal::close" />
+    <provides type="function" name="Log_mcal::log" />
+    <provides type="class" name="Log_observer" />
+    <provides type="function" name="Log_observer::factory" />
+    <provides type="function" name="Log_observer::notify" />
+    <provides type="class" name="Log_sql" extends="Log" />
+    <provides type="function" name="Log_sql::open" />
+    <provides type="function" name="Log_sql::close" />
+    <provides type="function" name="Log_sql::log" />
+    <provides type="class" name="Log_syslog" extends="Log" />
+    <provides type="function" name="Log_syslog::open" />
+    <provides type="function" name="Log_syslog::close" />
+    <provides type="function" name="Log_syslog::log" />
+    <provides type="class" name="Log_win" extends="Log" />
+    <provides type="function" name="Log_win::open" />
+    <provides type="function" name="Log_win::close" />
+    <provides type="function" name="Log_win::log" />
+    <filelist>
+      <file role="php" md5sum="64dcd442c1973a228db2eb3f41826249" name="Log.php"/>
+      <file role="php" md5sum="e68a625087c133492bd2ae1b3308d758" name="Log/composite.php"/>
+      <file role="php" md5sum="8cd68206f0199409654f422368f9764c" name="Log/console.php"/>
+      <file role="php" md5sum="eebb63004dbe450a8c4030561baa5e4c" name="Log/error_log.php"/>
+      <file role="php" md5sum="62f23db1540819325c002eacf615b42d" name="Log/file.php"/>
+      <file role="php" md5sum="238ea6d9bc66b8d8bc2a206eaad52154" name="Log/mail.php"/>
+      <file role="php" md5sum="76adeb0aacfff00d94fca8ac745285a5" name="Log/mcal.php"/>
+      <file role="php" md5sum="cb0b0a68bf3588d4f3b419d277fefd9a" name="Log/observer.php"/>
+      <file role="php" md5sum="6ca043905c8ae7cb36fe26f8ef5a8c30" name="Log/sql.php"/>
+      <file role="php" md5sum="3b0252c5355b812db64210ba52766b5b" name="Log/syslog.php"/>
+      <file role="php" md5sum="3c5b8dd861dd3ea9274436e87c98bfd2" name="Log/win.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>1.6.7</version>
+      <date>2003-06-16</date>
+      <state>stable</state>
+      <notes>It is now possible to set the identification string for all of a composite's child instances.
+
+The preamble of the mail handler's message is now configurable.
+        
+</notes>
+    </release>
+    <release>
+      <version>1.6.5</version>
+      <date>2003-04-26</date>
+      <state>stable</state>
+      <notes>The mail log handler needs to register its own destructer now that the Log class no longer inherits from the PEAR base class.
+        
+</notes>
+    </release>
+    <release>
+      <version>1.6.4</version>
+      <date>2003-04-08</date>
+      <state>stable</state>
+      <notes>The Log classes no longer inherits from the PEAR base class.  Not including the PEAR base class gives us smaller, faster Log objects.
+
+The Log_file class now registers its own destructor to ensure that the logfile is correctly closed upon shutdown.
+
+A ZendEngine 1 incompatibility was introduced in the previous release.  This has been corrrected.
+        
+</notes>
+    </release>
+    <release>
+      <version>1.6.3</version>
+      <date>2003-04-07</date>
+      <state>stable</state>
+      <notes>A unique identifier is now stored inside each Log instance.  Both the composite and subject-observer mechanisms use this identifier to index their object lists.
+
+The internals of the Log_observer system have been rewritten for general cleanliness.  The external interface remains unchanged.
+
+The Log class now offers public setIdent() and getIdent() members for setting and getting the Log instance's identification string during the object's lifetime.
+        
+</notes>
+    </release>
+    <release>
+      <version>1.6.2</version>
+      <date>2003-04-06</date>
+      <state>stable</state>
+      <notes>In the Log_observer class, operate directly on the reference to the Log instance (instead of on a copy of the object).
+        
+</notes>
+    </release>
+    <release>
+      <version>1.6.1</version>
+      <date>2003-04-02</date>
+      <state>stable</state>
+      <notes>- Fix a typo that broke the Log_Observer class.
+        
+</notes>
+    </release>
+    <release>
+      <version>1.6.0</version>
+      <date>2003-02-17</date>
+      <state>stable</state>
+      <notes>- The SQL handler now uses sequences instead of timestamps as unique identifiers.
+- The time format used by the file handler is now configurable.
+        
+</notes>
+    </release>
+    <release>
+      <version>1.5.3</version>
+      <date>2003-01-01</date>
+      <state>stable</state>
+      <notes>- Improved singleton()'s signature generation.
+- The SQL handler no longer closes existing database connections.
+- The log() method now returns a boolean result indicating success or failure.
+        
+</notes>
+    </release>
+    <release>
+      <version>1.5.2</version>
+      <date>2002-11-28</date>
+      <state>stable</state>
+      <notes>- Altered the singleton's &quot;signature&quot; construction to be shorter and more array-friendly.
+        
+</notes>
+    </release>
+    <release>
+      <version>1.5.1</version>
+      <date>2002-11-17</date>
+      <state>stable</state>
+      <notes>- The mail handler now implements a destructor to ensure close() is called.
+- The syslog handler now requires $name to be a valid syslog facility.
+        
+</notes>
+    </release>
+    <release>
+      <version>1.5</version>
+      <date>2002-10-24</date>
+      <state>stable</state>
+      <notes>- Adding the ability to set the mode of the logfile in the Log_file.
+- mail() failures in Log_mail are logged via error_log().
+- Replaced all remaining LOG_* constants with the PEAR_LOG_* versions.
+        
+</notes>
+    </release>
+    <release>
+      <version>1.4</version>
+      <date>2002-09-28</date>
+      <state>stable</state>
+      <notes>- Altered the format of the SQL logging table to use a TIMESTAMP field.
+- The Log class now extends the PEAR base class.
+- New file logger that keeps the log file open for the life of the request.
+        
+</notes>
+    </release>
+    <release>
+      <version>1.3</version>
+      <date>2002-09-15</date>
+      <state>stable</state>
+      <notes>Adding a mail logging target.
+</notes>
+    </release>
+    <release>
+      <version>1.2</version>
+      <date>2002-07-24</date>
+      <state>stable</state>
+      <notes>Introduce the PEAR_LOG_* constants.
+</notes>
+    </release>
+    <release>
+      <version>1.1</version>
+      <date>2002-04-12</date>
+      <state>stable</state>
+      <notes>Adding a new console logging target.
+</notes>
+    </release>
+  </changelog>
+</package>

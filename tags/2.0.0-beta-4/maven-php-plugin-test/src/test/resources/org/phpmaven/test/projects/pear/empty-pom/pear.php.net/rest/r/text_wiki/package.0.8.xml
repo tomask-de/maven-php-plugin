@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Text_Wiki</name>
+  <summary>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</summary>
+  <description>Abstracts parsing and rendering rules for Wiki markup in structured plain text.</description>
+  <maintainers>
+    <maintainer>
+      <user>pmjones</user>
+      <name>Paul M. Jones</name>
+      <email>pmjones@ciaweb.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.8</version>
+    <date>2004-01-31</date>
+    <license>PHP License</license>
+    <state>alpha</state>
+    <notes>* WARNING: There has been a major change to Wiki class property $rules definition.  This breaks backwards compatibility to 0.7 alpha and earlier for any user-defined rules.
+* The $rules property is now an associative array ('rule_name' =&gt; '/path/to/classfile.php'); this allows easier extension of rules by disconnecting the token name from the file name and the class name.
+* Minor change to directory structure (Text/Wiki/rules/ is now Text/Wiki/Rule/)
+* Removed Wiki class properties $_default_path and $rule_path (superseded by the new $rules property where the file name is explicitly defined)
+* Removed method Wiki::_fileExists()
+* Modified Wiki::render() to go through the source character-by-character instead of using str_replace (fixes bug where marked-up numbers would sometimes be mistaken for delimited token numbers)
+* Modified Rule.php class constructor and all related rule classes to take two params (matches the new $rules property definition)
+* Added rule &quot;bold&quot; (uses 3 single-quote ''' marking)
+* Added rule &quot;italic&quot; (uses 2 single-quote '' marking)
+* Added rule &quot;superscript&quot; (uses double-caret ^^ marking)
+* Modified rule &quot;strong&quot; to use double-star (**) marking
+* Modified rule &quot;emphasis&quot; to use double-slash (//) marking
+* Modified rule &quot;toc&quot; to pass through the source character-by-character instead of using str_replace (fixes bug where marked-up numbers would sometimes be mistaken for delimited token numbers)
+* Updated package documentation</notes>
+    <filelist>
+      <file role="php" name="Text/Wiki.php"/>
+      <file role="php" name="Text/Wiki/Rule.php"/>
+      <file role="php" name="Text/Wiki/Rule/blockquote.php"/>
+      <file role="php" name="Text/Wiki/Rule/bold.php"/>
+      <file role="php" name="Text/Wiki/Rule/code.php"/>
+      <file role="php" name="Text/Wiki/Rule/deflist.php"/>
+      <file role="php" name="Text/Wiki/Rule/delimiter.php"/>
+      <file role="php" name="Text/Wiki/Rule/emphasis.php"/>
+      <file role="php" name="Text/Wiki/Rule/entities.php"/>
+      <file role="php" name="Text/Wiki/Rule/freelink.php"/>
+      <file role="php" name="Text/Wiki/Rule/heading.php"/>
+      <file role="php" name="Text/Wiki/Rule/horiz.php"/>
+      <file role="php" name="Text/Wiki/Rule/html.php"/>
+      <file role="php" name="Text/Wiki/Rule/interwiki.php"/>
+      <file role="php" name="Text/Wiki/Rule/italic.php"/>
+      <file role="php" name="Text/Wiki/Rule/list.php"/>
+      <file role="php" name="Text/Wiki/Rule/newline.php"/>
+      <file role="php" name="Text/Wiki/Rule/paragraph.php"/>
+      <file role="php" name="Text/Wiki/Rule/phpcode.php"/>
+      <file role="php" name="Text/Wiki/Rule/phplookup.php"/>
+      <file role="php" name="Text/Wiki/Rule/prefilter.php"/>
+      <file role="php" name="Text/Wiki/Rule/raw.php"/>
+      <file role="php" name="Text/Wiki/Rule/revise.php"/>
+      <file role="php" name="Text/Wiki/Rule/strong.php"/>
+      <file role="php" name="Text/Wiki/Rule/superscript.php"/>
+      <file role="php" name="Text/Wiki/Rule/table.php"/>
+      <file role="php" name="Text/Wiki/Rule/tighten.php"/>
+      <file role="php" name="Text/Wiki/Rule/toc.php"/>
+      <file role="php" name="Text/Wiki/Rule/tt.php"/>
+      <file role="php" name="Text/Wiki/Rule/url.php"/>
+      <file role="php" name="Text/Wiki/Rule/wikilink.php"/>
+      <file role="doc" name="docs/free links.wiki.txt"/>
+      <file role="doc" name="docs/HomePage.wiki.txt"/>
+      <file role="doc" name="docs/index.php"/>
+      <file role="doc" name="docs/SamplePage.wiki.txt"/>
+      <file role="doc" name="docs/SmashWordsTogether.wiki.txt"/>
+      <file role="doc" name="docs/stylesheet.css"/>
+      <file role="doc" name="docs/TextWikiProposal.wiki.txt"/>
+      <file role="doc" name="docs/TokenRuleKeys.wiki.txt"/>
+      <file role="doc" name="docs/WikiPage.wiki.txt"/>
+      <file role="doc" name="docs/WordsSmashedTogether.wiki.txt"/>
+      <file role="test" name="tests/README"/>
+    </filelist>
+  </release>
+</package>

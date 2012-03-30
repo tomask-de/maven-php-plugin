@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/image_graph">Image_Graph</p>
+ <c>pear.php.net</c>
+ <v>0.3.0dev2</v>
+ <st>devel</st>
+ <l>LGPL</l>
+ <m>nosey</m>
+ <s>Graph rendering utility.</s>
+ <d>This package helps you to easily create highly versatile graphs.
+</d>
+ <da>2005-01-13 08:31:30</da>
+ <n>* Added functionality for multi-level labels (ticks, text, etc.) to support for minor and major labels (and more if needed)
+* Added fontmapping in GD drivers useful for mapping mnemonic fontnames, i.e. Times New Roman to font file names (either partial or full)
+* Added configuration option in Config.php (IMAGE_GRAPH_SYSTEM_FONT_PATH) enabling to specify default search path for system fonts
+    - On Windows systems this defaults to %SYSTEMROOT%\Fonts\
+* Added 'auto' split on layouts - calculated automatically based on actual sizes of the parts (supported only with titles)
+* Added visual tests - not PHPUnit, test cases:
+    - Basic testing if requirements are met (GD + Freetype)
+    - Testcases for testing drivers
+    - Plot tests
+    - Axis tests
+* Added support for setting width on the bars in a bar chart
+* Added setFontColor(), setFontSize(), setFontAngle() to elements for easy change of properties of propagating fonts, without needing to create a new object
+* Added new setTitle() method to axis to allow for easier displaying of axis titles
+* Added Image_Graph_Plot_CandleStick to display financial charts for the stock market
+* Added Image_Graph_Plot_Band
+* Added major tick customizability to axis
+* Added possibility to use user-defined values as axis-labels
+* Added support for adding an array to Image_Graph_Dataset_Trivial for easy point addition
+* Added some error/insanity checks
+* Added Image_Graph_Tool class with static function for bezier curve-smoothing for drivers without native support (fx. GD)
+* Added Image_Graph_Axis::setAxisIntersection() to specify a value for which the axis intersects another axis (i.e. Y-axis intersects X-axis in x=1 instead of x=0)
+* Implemented drivers to support different output formats
+    - Currently full GD (JPEG/PNG/GIF/WBMP), SVG and PDF (PDFlib) support
+    - Semi-supported drivers SWF (Ming)
+    - Drivers planned SVG (XML_SVG), PDF (File_PDF) and SWF (libswf)
+    - No BC breaking API changes
+    - Currently no support for animations, i.e. SVG and SWF
+* Re-implemented support for line styles
+* Fonts now propagate through the structure, meaning if you set a font on the Graph all other elements inherit this font (but can be overridden)
+    - This does *not* break BC
+* Modified Image_Graph_Axis_Radar to be a category axis
+* Modified Image_Graph_Dataset to allow for y-value to be an array of values (to support candlestick diagrams)
+* Changed pie chart legends, so they show all data values as legend except just one for complete chart
+* Changed logging behaviour (added Image_Graph::setLog() method)
+* Changed while-list-each to foreach for performance reasons (minor)
+* Changed Image_Graph_Title constructor slightly (second parameter, see Docs. for details)
+* Changed Image_Graph_Axis::setTitle() slightly to accomodate propagating fonts (no BC break)
+* Included some more aliases for the Image_Graph::factory() method
+* Updated how bar charts calculate width
+* Legends now scale properly
+* Legends now show differently depending on plot type
+* API Changes with minor impact on BC
+    - Removed caching
+    - Removed Image_Graph::saveAs(), functionality moved to Image_Graph_Driver::done() method
+    - Removed Image_Graph::thumbnail()
+    - Removed Image_Graph_Axis_Multidimensional, mainly for perfomance reasons
+    - Image_Graph_Fill now inherits from Image_Graph_Common (instead of Image_Graph_Element)
+    - Removed GLOBAL font variables
+* Fixed problems with Image_Graph_Axis_Radar showing values in wrong order
+* Fixed bug causing negative bars to display incorrecly (why o' why is 0 == 'some string'?)
+* Fixed bug causing setLineStyle() to fail
+* Fixed Bug #2684 &quot;Source typo breaking data selectors&quot;
+* Fixed Bug #2685 &quot;Plots do not honor ID tags for fills&quot;
+* Fixed bug #2791 &quot;wrong x-axis label position when using ttf font&quot;
+* Fixed bug causing displayErrors() to generate WARNING and FATAL ERROR
+* Fixed problems with gradient fills (did not display propery using GD drivers)
+* Fixed problem with bar-, area-, step- and impulse-charts when using forceMinimum(), causing bars to display 'below' x-axis
+* Fixed Image_Graph_Axis::force(Minimum|Maximum)
+* Removed default Image_Graph logo
+* Removed _graphWidth() and _graphHeight(), they are now handled by the driver</n>
+ <f>143229</f>
+ <g>http://pear.php.net/get/Image_Graph-0.3.0dev2</g>
+ <x xlink:href="package.0.3.0dev2.xml"/>
+</r>

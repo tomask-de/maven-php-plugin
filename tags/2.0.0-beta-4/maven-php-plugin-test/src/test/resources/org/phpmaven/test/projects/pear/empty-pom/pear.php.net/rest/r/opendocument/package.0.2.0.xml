@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.8.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0    http://pear.php.net/dtd/tasks-1.0.xsd    http://pear.php.net/dtd/package-2.0    http://pear.php.net/dtd/package-2.0.xsd">
+ <name>OpenDocument</name>
+ <channel>pear.php.net</channel>
+ <summary>Read, create and modify OASIS OpenDocument office files..</summary>
+ <description>OpenDocument is a package to read, create and modify office documents
+  in OASIS OpenDocument format.
+  Currently, only text documents are supported.</description>
+ <lead>
+  <name>Christian Weiske</name>
+  <user>cweiske</user>
+  <email>cweiske@php.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Alexander Pak</name>
+  <user>irokez</user>
+  <email>irokez@gmail.com</email>
+  <active>no</active>
+ </lead>
+ <date>2009-07-28</date>
+ <time>06:56:36</time>
+ <version>
+  <release>0.2.0</release>
+  <api>0.2.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>
+This release brings you a major overhaul of the document base classes
+as well as a brand new storage layer. The API is prepared to be used to
+create multiple document types (text, spreadsheets, drawings etc).
+Multiple storage methods are possible now, with the default Zip storage
+being implemented and working already. A single XML file storage is in
+the works, but is not functional yet.
+
+Backward compatibility has been broken, especially for creating new
+documents. The coming versions in the 0.x series will all break BC again.
+Planned are changes in the way elements get added to the document and to
+parental elements, as well as bigger changes in the underlying object
+structure - currently, 2 object layers (own + DOM) are held in memory,
+which is suboptiomal and wastes RAM. Style handling will probably also be
+changed a bit, but not much.
+
+- Fix bug #12106: PHP 4 dependency when the code is PHP 5 [dufuz]
+- Fix bug #12120: Missing zip extension dependency [dufuz]
+- Fix bug #13002: Styles for span elements are rendered with incorrect style:family
+- Fix bug #13821: Saving with full path not possible [cweiske]
+- Fix bug #16310: Docblocks are only half filled [cweiske]
+
+- Implement request #16307: No support for other document types than text [cweiske]
+- Implement request #16373: Rewrite output to support different storage models [cweiske]
+ </notes>
+ <contents>
+  <dir name="/">
+   <file md5sum="4366ab9aa651bbfe089ab2d622f6c2e3" name="data/templates/default.odt" role="data" />
+   <file md5sum="77d863672adaac2f0dce3bedd7dbc10a" name="examples/create.php" role="doc" />
+   <file md5sum="18f397b4f8c184bb1969e8a46d76e723" name="examples/html.php" role="doc" />
+   <file md5sum="9e50552f6f1d81627cd2edd421f205a5" name="examples/read.php" role="doc" />
+   <file md5sum="dd923e8faa86477f497f768709bc0754" name="OpenDocument/Debug/Text.php" role="php" />
+   <file md5sum="346cc2086d1ab0bc2bc3ab615b59b275" name="OpenDocument/Document/Text.php" role="php" />
+   <file md5sum="3798d6127359b56230241e46ef2b7562" name="OpenDocument/Element/Bookmark.php" role="php" />
+   <file md5sum="8b86775a31f9c55ff34f0b5327b1a70f" name="OpenDocument/Element/Heading.php" role="php" />
+   <file md5sum="e1329cc1c040c9dff93c81b19df65bd2" name="OpenDocument/Element/Hyperlink.php" role="php" />
+   <file md5sum="70fcce0fb0cf61d9bbb452f65b8a4db6" name="OpenDocument/Element/Paragraph.php" role="php" />
+   <file md5sum="d23240a8c987323f0839ebe4a7eb29e3" name="OpenDocument/Element/Span.php" role="php" />
+   <file md5sum="5d2d00974d89e9a9b0c42b5ff346a302" name="OpenDocument/Element/Text.php" role="php" />
+   <file md5sum="b5a08a60ee7a0434d7610183fb8e04ca" name="OpenDocument/Storage/Zip.php" role="php">
+    <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+   </file>
+   <file md5sum="6464a322ca2626ab4c8f25393b198c13" name="OpenDocument/Document.php" role="php" />
+   <file md5sum="d5c13bca10ce5603d2a1daea44361f9a" name="OpenDocument/Element.php" role="php" />
+   <file md5sum="d31f4fa011a5eed84b99cf458baf2977" name="OpenDocument/ElementStyle.php" role="php" />
+   <file md5sum="bbfe9cdb7de9f228a0214cf2f42918c4" name="OpenDocument/Exception.php" role="php" />
+   <file md5sum="14f93d4ae6adb21c97ceb744c29d50cb" name="OpenDocument/Manifest.php" role="php" />
+   <file md5sum="f8d6196fb8a83a8143c6b103bb704208" name="OpenDocument/Storage.php" role="php" />
+   <file md5sum="f3699acac033fc18ce5cfad832c3fa89" name="OpenDocument/StyledElement.php" role="php" />
+   <file md5sum="920797b4f96dc441c0506c5642507be2" name="OpenDocument/Style.php" role="php" />
+   <file md5sum="47966c31a3ae6d1abd6c647017e91327" name="tests/create-save-read.phpt" role="test" />
+   <file md5sum="866dc7e6c3db62608a5beaec0c100816" name="tests/manifest.phpt" role="test" />
+   <file md5sum="9b581a4e524a5eca4769c7d1a03b171f" name="tests/text-paragraph-styles.phpt" role="test" />
+   <file md5sum="d260e68f6ef05dee2779c3bd615ae762" name="tests/zipstorage.phpt" role="test" />
+   <file md5sum="d1377d192890ba0cd2621a9a2a7a369d" name="OpenDocument.php" role="php" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.8.1</min>
+   </pearinstaller>
+   <extension>
+    <name>zip</name>
+   </extension>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2009-07-28</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+This release brings you a major overhaul of the document base classes
+as well as a brand new storage layer. The API is prepared to be used to
+create multiple document types (text, spreadsheets, drawings etc).
+Multiple storage methods are possible now, with the default Zip storage
+being implemented and working already. A single XML file storage is in
+the works, but is not functional yet.
+
+Backward compatibility has been broken, especially for creating new
+documents. The coming versions in the 0.x series will all break BC again.
+Planned are changes in the way elements get added to the document and to
+parental elements, as well as bigger changes in the underlying object
+structure - currently, 2 object layers (own + DOM) are held in memory,
+which is suboptiomal and wastes RAM. Style handling will probably also be
+changed a bit, but not much.
+
+- Fix bug #12106: PHP 4 dependency when the code is PHP 5 [dufuz]
+- Fix bug #12120: Missing zip extension dependency [dufuz]
+- Fix bug #13002: Styles for span elements are rendered with incorrect style:family
+- Fix bug #13821: Saving with full path not possible [cweiske]
+- Fix bug #16310: Docblocks are only half filled [cweiske]
+
+- Implement request #16307: No support for other document types than text [cweiske]
+- Implement request #16373: Rewrite output to support different storage models [cweiske]
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.2</release>
+    <api>0.1.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2007-07-09</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Bug fix #11567: Class &apos;Zip&apos; not found
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.1</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2007-07-08</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Bug fix #11557: case mismatch and extra space
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2007-03-26</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+First release
+   </notes>
+  </release>
+ </changelog>
+</package>

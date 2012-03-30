@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>HTML_Template_Flexy</name>
+  <summary>An extremely powerful Tokenizer driven Template engine</summary>
+  <description>HTML_Template_Flexy started it's life as a simplification of HTML_Template_Xipe, 
+however in Version 0.2, It became one of the first template engine to use a real Lexer,
+rather than regex'es, making it possible to do things like ASP.net or Cold Fusion tags. 
+However, it still has a very simple set of goals.
+- Very Simple API, easy to learn...
+- Targeted at Object based systems - default behavior is to display object variables
+- Designed to allow the documentation of available variables using PEAR standards, eg. PHPDoc comments around object variables
+- Ability to edit the templates in WYSIWYG HTML editors, without breaking the tags
+- Extremely Fast, for normal variables and looping (or blocks), both for designing and runtime.
+- Full dynamic element support (like ASP.NET), so you can pick elements to replace at runtime
+
+Features:
+- {variable} to echo $object-&gt;variable
+- {method()} to echo $object-&gt;method();
+- {foreach:var,key,value} to PHP foreach loops
+- tag attributes FLEXY:FOREACH, FLEXY:IF for looping and conditional HTML inclusion
+- {if:variable} to PHP If statement
+- {if:method()} to PHP If statement
+- {else:} and {end:} to close or alternate If statements
+- FORM to HTML_Template_Flexy_Element's
+- replacement of INPUT, TEXTAREA and SELECT tags with HTML_Template_Flexy_Element code
+  use FLEXY:IGNORE (inherited) and FLEXY:IGNOREONLY (single) to prevent replacements
+- FLEXY:START/FLEXY:STARTCHILDREN tags to define where output starts/finishes
+- support for urlencoded braces {} in HTML attributes.  
+- documentation in the pear manual</description>
+  <maintainers>
+    <maintainer>
+      <user>alan_k</user>
+      <name>Alan Knowles</name>
+      <email>alan@akbkhome.com</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.5.1</version>
+    <date>2003-09-04</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>Fixes
+  - bufferedOutputObject correctly deals with elements array (Stephan Wentz)
+
+Note: See Version 0.5  release notes concerning BC issues with 0.4 series</notes>
+    <provides type="class" name="HTML_Template_Flexy" />
+    <provides type="function" name="HTML_Template_Flexy::outputObject" />
+    <provides type="function" name="HTML_Template_Flexy::bufferedOutputObject" />
+    <provides type="function" name="HTML_Template_Flexy::staticQuickTemplate" />
+    <provides type="function" name="HTML_Template_Flexy::compile" />
+    <provides type="function" name="HTML_Template_Flexy::compileAll" />
+    <provides type="function" name="HTML_Template_Flexy::isUpToDate" />
+    <provides type="function" name="HTML_Template_Flexy::debug" />
+    <provides type="function" name="HTML_Template_Flexy::mergeElement" />
+    <provides type="function" name="HTML_Template_Flexy::getElements" />
+    <provides type="class" name="HTML_Template_Flexy_Element" />
+    <provides type="function" name="HTML_Template_Flexy_Element::attributesToHTML" />
+    <provides type="function" name="HTML_Template_Flexy_Element::parseAttributes" />
+    <provides type="function" name="HTML_Template_Flexy_Element::setValue" />
+    <provides type="function" name="HTML_Template_Flexy_Element::setOptions" />
+    <provides type="function" name="HTML_Template_Flexy_Element::setAttributes" />
+    <provides type="function" name="HTML_Template_Flexy_Element::removeAttributes" />
+    <provides type="function" name="HTML_Template_Flexy_Element::toHtml" />
+    <provides type="function" name="HTML_Template_Flexy_Element::toHtmlnoClose" />
+    <provides type="function" name="HTML_Template_Flexy_Element::childrenToHtml" />
+    <provides type="class" name="HTML_Template_Flexy_Factory" />
+    <provides type="function" name="HTML_Template_Flexy_Factory::fromArray" />
+    <provides type="function" name="HTML_Template_Flexy_Factory::fromArrayPrefixed" />
+    <provides type="function" name="HTML_Template_Flexy_Factory::setErrors" />
+    <provides type="function" name="HTML_Template_Flexy_Factory::setRequired" />
+    <provides type="function" name="HTML_Template_Flexy_Factory::freeze" />
+    <provides type="class" name="HTML_Template_Flexy_Tokenizer" />
+    <provides type="function" name="HTML_Template_Flexy_Tokenizer::dump" />
+    <provides type="function" name="HTML_Template_Flexy_Tokenizer::raiseError" />
+    <provides type="function" name="HTML_Template_Flexy_Tokenizer::returnSimple" />
+    <provides type="function" name="HTML_Template_Flexy_Tokenizer::yybegin" />
+    <provides type="function" name="HTML_Template_Flexy_Tokenizer::yy_advance" />
+    <provides type="function" name="HTML_Template_Flexy_Tokenizer::yy_move_end" />
+    <provides type="function" name="HTML_Template_Flexy_Tokenizer::yy_mark_start" />
+    <provides type="function" name="HTML_Template_Flexy_Tokenizer::yy_mark_end" />
+    <provides type="function" name="HTML_Template_Flexy_Tokenizer::yy_to_mark" />
+    <provides type="function" name="HTML_Template_Flexy_Tokenizer::yytext" />
+    <provides type="function" name="HTML_Template_Flexy_Tokenizer::yylength" />
+    <provides type="function" name="HTML_Template_Flexy_Tokenizer::yy_error" />
+    <provides type="function" name="HTML_Template_Flexy_Tokenizer::yylex" />
+    <provides type="class" name="HTML_Template_Flexy_Token" />
+    <provides type="function" name="HTML_Template_Flexy_Token::factory" />
+    <provides type="function" name="HTML_Template_Flexy_Token::setValue" />
+    <provides type="function" name="HTML_Template_Flexy_Token::compile" />
+    <provides type="function" name="HTML_Template_Flexy_Token::compileChildren" />
+    <provides type="function" name="HTML_Template_Flexy_Token::buildTokens" />
+    <provides type="function" name="HTML_Template_Flexy_Token::buildChildren" />
+    <provides type="function" name="HTML_Template_Flexy_Token::pushState" />
+    <provides type="function" name="HTML_Template_Flexy_Token::pullState" />
+    <provides type="function" name="HTML_Template_Flexy_Token::toVar" />
+    <provides type="function" name="HTML_Template_Flexy_Token::findVar" />
+    <provides type="function" name="HTML_Template_Flexy_Token::pushVar" />
+    <provides type="class" name="HTML_Template_Flexy_Token_Tag" />
+    <provides type="function" name="HTML_Template_Flexy_Token_Tag::setValue" />
+    <provides type="function" name="HTML_Template_Flexy_Token_Tag::getAttribute" />
+    <provides type="function" name="HTML_Template_Flexy_Token_Tag::getAttributes" />
+    <provides type="function" name="HTML_Template_Flexy_Token_Tag::clearAttribute" />
+    <provides type="class" name="HTML_Template_Flexy_Token_EndTag" />
+    <provides type="class" name="HTML_Template_Flexy_Token_If" />
+    <provides type="function" name="HTML_Template_Flexy_Token_If::setValue" />
+    <provides type="class" name="HTML_Template_Flexy_Token_Else" />
+    <provides type="class" name="HTML_Template_Flexy_Token_End" />
+    <provides type="class" name="HTML_Template_Flexy_Token_Foreach" />
+    <provides type="function" name="HTML_Template_Flexy_Token_Foreach::setValue" />
+    <provides type="class" name="HTML_Template_Flexy_Token_Include" />
+    <provides type="class" name="HTML_Template_Flexy_Token_Var" />
+    <provides type="function" name="HTML_Template_Flexy_Token_Var::setValue" />
+    <provides type="class" name="HTML_Template_Flexy_Token_Method" />
+    <provides type="function" name="HTML_Template_Flexy_Token_Method::setValue" />
+    <provides type="class" name="HTML_Template_Flexy_Token_Processing" />
+    <provides type="class" name="HTML_Template_Flexy_Token_Text" />
+    <provides type="function" name="HTML_Template_Flexy_Token_Text::backSearch" />
+    <provides type="function" name="HTML_Template_Flexy_Token_Text::forwardSearch" />
+    <provides type="function" name="HTML_Template_Flexy_Token_Text::isWord" />
+    <provides type="class" name="HTML_Template_Flexy_Test" />
+    <provides type="function" name="HTML_Template_Flexy_Test::parseArgs" />
+    <provides type="function" name="HTML_Template_Flexy_Test::parse" />
+    <provides type="function" name="HTML_Template_Flexy_Test::error" />
+    <provides type="function" name="HTML_Template_Flexy_Test::debug" />
+    <provides type="class" name="HTML_Template_Flexy_Compiler" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler::factory" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler::compile" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler::appendHtml" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler::appendPhp" />
+    <provides type="class" name="HTML_Template_Flexy_Compiler_Standard" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Standard::compile" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Standard::toString" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Standard::toStringElse" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Standard::toStringEnd" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Standard::toStringEndTag" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Standard::toStringForeach" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Standard::toStringIf" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Standard::getModifierWrapper" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Standard::toStringVar" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Standard::toStringMethod" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Standard::toStringProcessing" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Standard::toStringText" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Standard::toStringTag" />
+    <provides type="class" name="HTML_Template_Flexy_Compiler_Standard_Tag" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Standard_Tag::factory" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Standard_Tag::toString" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Standard_Tag::parseAttributeIgnore" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Standard_Tag::parseAttributeForeach" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Standard_Tag::parseAttributeIf" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Standard_Tag::parseTags" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Standard_Tag::getElementPhp" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Standard_Tag::parseTagInput" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Standard_Tag::parseTagTextArea" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Standard_Tag::parseTagSelect" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Standard_Tag::parseTagForm" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Standard_Tag::reWriteURL" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Standard_Tag::toElement" />
+    <provides type="class" name="HTML_Template_Flexy_Compiler_Regex" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Regex::compile" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Regex::applyFilters" />
+    <provides type="class" name="HTML_Template_Flexy_Compiler_Regex_BodyOnly" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Regex_BodyOnly::strip_body_head" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Regex_BodyOnly::strip_body_foot" />
+    <provides type="class" name="HTML_Template_Flexy_Compiler_Regex_Php" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Regex_Php::pre_strip_php" />
+    <provides type="class" name="HTML_Template_Flexy_Compiler_Regex_RtfSimpleTags" />
+    <provides type="class" name="HTML_Template_Flexy_Compiler_Regex_SimpleTags" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Regex_SimpleTags::variables" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Regex_SimpleTags::urlencoded_variables" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Regex_SimpleTags::methods" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Regex_SimpleTags::looping" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Regex_SimpleTags::conditionals" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Regex_SimpleTags::include_template" />
+    <provides type="class" name="HTML_Template_Flexy_Compiler_Regex_Mail" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Regex_Mail::post_fix_php_cr" />
+    <provides type="class" name="HTML_Template_Flexy_Compiler_Regex_Xml" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Regex_Xml::pre_replace_xml" />
+    <provides type="class" name="HTML_Template_Flexy_Compiler_Regex_Math" />
+    <provides type="function" name="HTML_Template_Flexy_Compiler_Regex_Math::variables" />
+    <filelist>
+      <file role="php" baseinstalldir="HTML/Template" md5sum="b558b7d630c4f0af9e6e4ee82789635f" name="Flexy.php"/>
+      <file role="php" baseinstalldir="HTML/Template" md5sum="1cba4ee6d078e515efcb391cb9d1cd90" name="Flexy/example.ini"/>
+      <file role="php" baseinstalldir="HTML/Template" md5sum="b8a95dc4197c14041dc77d4b1e2ad4ea" name="Flexy/Element.php"/>
+      <file role="php" baseinstalldir="HTML/Template" md5sum="a8701fee6ad211eb5a731beb52c68e39" name="Flexy/Factory.php"/>
+      <file role="php" baseinstalldir="HTML/Template" md5sum="5cc185e4be38423619a5b8a748fa74f5" name="Flexy/compileAll.php"/>
+      <file role="php" baseinstalldir="HTML/Template" md5sum="10e9e651118b85dad979c3ae6b3dd309" name="Flexy/Tokenizer.php"/>
+      <file role="php" baseinstalldir="HTML/Template" md5sum="784427ddad7cd62bbda288bb67eabfc1" name="Flexy/Token.php"/>
+      <file role="php" baseinstalldir="HTML/Template" md5sum="484489648540e0d57a9392a85dd386f8" name="Flexy/Token/Tag.php"/>
+      <file role="php" baseinstalldir="HTML/Template" md5sum="f65b22917778508b7a4a52d665e07977" name="Flexy/Token/EndTag.php"/>
+      <file role="php" baseinstalldir="HTML/Template" md5sum="8e57b667533aaa0b685cadde4c9a7498" name="Flexy/Token/If.php"/>
+      <file role="php" baseinstalldir="HTML/Template" md5sum="33e81eb0d54a38324997f488783a9846" name="Flexy/Token/Else.php"/>
+      <file role="php" baseinstalldir="HTML/Template" md5sum="dc7fef385d28af1042a2e6d44ddfb603" name="Flexy/Token/End.php"/>
+      <file role="php" baseinstalldir="HTML/Template" md5sum="aaa0ecc7b4efe3836c327fd7cde71df8" name="Flexy/Token/Foreach.php"/>
+      <file role="php" baseinstalldir="HTML/Template" md5sum="a76d39ffd8b6113a36ed7382a6d6551a" name="Flexy/Token/Include.php"/>
+      <file role="php" baseinstalldir="HTML/Template" md5sum="e822820513b10be8b6ac2fd4f3987d2a" name="Flexy/Token/Var.php"/>
+      <file role="php" baseinstalldir="HTML/Template" md5sum="8ef1cf6a107c0cce337127d23b9d34ff" name="Flexy/Token/Method.php"/>
+      <file role="php" baseinstalldir="HTML/Template" md5sum="613c89f193ccdca8b07e9904cbc942cd" name="Flexy/Token/Processing.php"/>
+      <file role="php" baseinstalldir="HTML/Template" md5sum="647a3a16913fb5bcf453314ab41368de" name="Flexy/Token/Text.php"/>
+      <file role="php" baseinstalldir="HTML/Template" md5sum="69259be2c96e226f29727c8228a99054" name="Flexy/Test.php"/>
+      <file role="php" baseinstalldir="HTML/Template" md5sum="e9a4f12176e61f368de4c56aeb8e3f58" name="Flexy/Compiler.php"/>
+      <file role="php" baseinstalldir="HTML/Template" md5sum="ffdbe8b6fc47873a1bedd946f1ac550d" name="Flexy/Compiler/Standard.php"/>
+      <file role="php" baseinstalldir="HTML/Template" md5sum="aae2583c5adb24e02a7e130936ce28af" name="Flexy/Compiler/Standard/Tag.php"/>
+      <file role="php" baseinstalldir="HTML/Template" md5sum="ac4837d002d5ceb0d6ac0584f0ba3315" name="Flexy/Compiler/Regex.php"/>
+      <file role="php" baseinstalldir="HTML/Template" md5sum="5600f9b49e119cf8ee44999220e5f7c8" name="Flexy/Compiler/Regex/BodyOnly.php"/>
+      <file role="php" baseinstalldir="HTML/Template" md5sum="3e2f98d5c5d22ba6a13b879a57c8744e" name="Flexy/Compiler/Regex/Php.php"/>
+      <file role="php" baseinstalldir="HTML/Template" md5sum="7eadfd696244f811af8cdfb84efd229f" name="Flexy/Compiler/Regex/RtfSimpleTags.php"/>
+      <file role="php" baseinstalldir="HTML/Template" md5sum="038821f26262365cf23a6232d7f51ca4" name="Flexy/Compiler/Regex/SimpleTags.php"/>
+      <file role="php" baseinstalldir="HTML/Template" md5sum="b046cf00e96975b4876cd5d2f96168f3" name="Flexy/Compiler/Regex/Mail.php"/>
+      <file role="php" baseinstalldir="HTML/Template" md5sum="ede68cf8ce6fcd2444bc8cc46dbb7c4f" name="Flexy/Compiler/Regex/Xml.php"/>
+      <file role="php" baseinstalldir="HTML/Template" md5sum="b9f9c81da386f12400fe0630af5d0154" name="Flexy/Compiler/Regex/Math.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.5</version>
+      <date>2003-09-03</date>
+      <state>beta</state>
+      <notes>
+Warning: BC Breaking release
+Warning: Still in Beta Testing.. (although most of the API should now be settled)
+
+Due to the conclusion that the quickforms integration was not only messy, but 
+a heavy weight to be carried. The whole form/dynamic element layer was re-engineered.
+And the dependancy on QuickForms removed
+
+New Features
+  HTML_Template_Flexy_Element, is a small simple representation of  generic HTML,
+  it is used to store the representation of form elements, and any HTML element 
+  which contains the FLEXY:DYNAMIC attribute.
+  
+  you can override elements, by using the new second argument to outputObject($object,$elements)
+  where $elements is an associate array of (form name)=&gt;Element
+  and the data in the elements array is merged with the visable template at runtime.
+  (so you only need to define what is different to the HTML, not the whole tag.)
+  
+  You can make any tag 'dynamic', by just tagging it. - if you replace the element
+  in the elements array with an object that implements a toHtml method, This will be 
+  called rather than the drawn element.
+ 
+  A Utility class, HTML_Template_Flexy_Factory offers common static methods, like
+  - creating element values from a key=&gt;value array (eg. Dataobjects-&gt;toArray())
+  - setting error messages (as suffixes to elements)
+  - flag something as required. (prefixing strings to elements)
+  
+  
+Compiler Abstraction
+  The Compiler code in Flexy is now abstracted out, to make it possible to write
+  Other compilers and use the same caching/loading mechanism. (the old regex compiler
+  is included as an example of this.)
+  
+Other BC Issues:
+  all Flexy attributes must now be prefixed with &quot;flexy:&quot; namespace (eg. if, foreach, startchildren etc.)
+
+Other New Features
+  - support for array strings on variables and methods = eg. {somevar[xxx][yyy].toHtml():h}
+  - added new Modifiers :r (print_r), and :n (number_format), and in future may make available user defined modifiers
+  
+  
+  
+
+</notes>
+    </release>
+    <release>
+      <version>0.4.1</version>
+      <date>2003-06-11</date>
+      <state>beta</state>
+      <notes>
+ 
+Bug fixes
+  - fixed #literal# support for method calls - hopefully finally (Yuri Dyakonov)
+  - BC support for  getOptions call on objects (Marcin Galczynski)
+  
+Features
+  - method calls with literals at end can now use modifiers (:h/:u etc.)
+
+</notes>
+    </release>
+    <release>
+      <version>0.4</version>
+      <date>2003-04-17</date>
+      <state>beta</state>
+      <notes>
+Warning BC breaking release: 
+  - It is likely that form code may break with this due to the quickform integration
+  - likely issues: you will probably have to load the template and assign data to it
+    using $template-&gt;setQuickForm($this);
+    which will then expose $template-&gt;quickform as the template Object.
+  
+  
+
+Bug fixes
+  - fixed #literal# chopping bug (Yuri Dyakonov)
+  - fixed XML/XHTML support (no more munging of cases)
+  - fixed Fatal Error messages - with more details
+  - fixed whitespace in doctype tags. (wierd lexer stuff)
+  
+  
+  
+Features
+  - quickforms (3) integration added.
+  - quickforms with multiple forms $flexyobj-&gt;quickforms[0.....]
+  - Initial gettext/multilanguage support
+  - support variable[12] as a valid variable name.
+  - does syntax checking on form element names 
+  - fixed {outputBody()} (no prefix var methods)
+  - added url_rewrite for HREF and SRC tags - see example.ini for more details
+  - added compileAll.php script for bulk compilation on servers that do not have
+    write access to the directories they are serving off.
+  - Added extra Option - nonHTML to not make tokens of HTML tags, and enable postprocessing 
+    of compiled template to replace ?&gt;\n with ?&gt;\n\n (aimed at email templates)
+  - Added extra Option - allowPHP to enable PHP code in template to be left alone. - defaults
+    to off (eg. no PHP allowed) - 
+  - added support for &lt;TAG IF=&quot;somevar.xxxx&quot; and 
+    &lt;TAG  IF=&quot;somevar.method()&quot; maps to if (the test) &lt;TAG .....
+  - handles elements with same name, like radio buttons  - although performing modifications on 
+    them can be tricky..
+    
+  
+While may thanks are owed to the many beta testers, special mention to Xavier 
+for spotting some really annoying little bugs.
+
+</notes>
+    </release>
+    <release>
+      <version>0.3</version>
+      <date>2003-02-06</date>
+      <state>beta</state>
+      <notes>Bug fixes
+  - allow usage with only constructor options
+  - fixed form elements - should be htmlspecialchars, rather than urlencoding
+  - new Tokenizer is enabled by default - set 'useLegacy' in config/options to
+    use the old regex replacer.
+  - no variables are added (eg. o.*, a.* etc. to the page unless useLegacy is set)
+  - parsers are now private methods. (internal change)
+  
+New Features
+  - FLEXYSTART and FLEXYSTARTCHILDREN tags added so when use you include sub
+    templates, you can avoid including HEAD etc. tags.
+  
+
+</notes>
+    </release>
+    <release>
+      <version>0.2</version>
+      <date>2003-02-03</date>
+      <state>beta</state>
+      <notes>Major overhall of engine
+ 
+- Introduction of Lex based Parser. - A real syntax checking 
+  Template generator
+- Ability to do Coldfusion style HTML attributes like foreach=&quot;abc,b,c&quot; in TR or any tag.
+- Automatically converts form elements (INPUT, TEXTAREA, SELECT) contents to suitable PHP code
+  and adds error messages.
+
+- docs temporarily at http://devel.akbkhome.com/peardoc2/package.html.html-template-flexy.html
+
+Note: Filter features of original HTML_Template_Flexy are now depreciated.
+Note: This is not backwards compatible with version 0.1!  
+
+</notes>
+    </release>
+    <release>
+      <version>0.1</version>
+      <date>2002-09-07</date>
+      <state>beta</state>
+      <notes>First PEAR release,
+      - Renamed to HTML_Flexy_Template to conform to PEAR standards
+      - Added more phpdoc comments to filters
+      - Removed getTemplateDir method (legacy/unused)
+      - Added multilanguage support options['locale'] - in theory a i18n filter could be added.
+        Othewise it just checks to see if a template/compiled template with ????.{locale}.???
+        exists
+      - added staticQuickTemplate($template,$object) for quickly including subtemplates.
+      - added {q_include:#aaaaa.html#} to simpletags to support quicktemplate.
+      - changed to DIRECTORY_SEPERATOR and removed base directory check in windows.
+      
+</notes>
+    </release>
+  </changelog>
+</package>

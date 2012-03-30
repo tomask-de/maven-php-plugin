@@ -1,0 +1,1386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>HTML_Template_Flexy</name>
+ <channel>pear.php.net</channel>
+ <summary>An extremely powerful Tokenizer driven Template engine</summary>
+ <description>HTML_Template_Flexy started it&apos;s life as a simplification of HTML_Template_Xipe, 
+however in Version 0.2, It became one of the first template engine to use a real Lexer,
+rather than regex&apos;es, making it possible to do things like ASP.net or Cold Fusion tags. 
+However, it still has a very simple set of goals.
+- Very Simple API, 
+   o easy to learn...
+   o prevents to much logic going in templates
+- Easy to write document&apos;able code
+   o By using object vars for a template rather than &apos;assign&apos;, you 
+     can use phpdoc comments to list what variable you use.
+- Editable in WYSIWYG editors
+   o you can create full featured templates, that doesnt get broken every time you edit with 
+     Dreamweaver(tm) or Mozilla editor
+   o Uses namespaced attributes to add looping/conditionals  
+- Extremely Fast, 
+   o runtime is at least 4 time smaller than most other template engines (eg. Smarty)
+   o uses compiled templates, as a result it is many times faster on blocks and loops than 
+     than Regex templates (eg. IT/phplib)
+- Safer (for cross site scripting attacks)
+   o All variables default to be output as HTML escaped (overridden with the :h modifier)
+- Multilanguage support
+   o Parses strings out of template, so you can build translation tools
+   o Compiles language specific templates (so translation is only done once, not on every request)
+- Full dynamic element support (like ASP.NET), so you can pick elements to replace at runtime
+
+Features:
+- {variable} to echo $object-&gt;variable
+- {method()} to echo $object-&gt;method();
+- {foreach:var,key,value} to PHP foreach loops
+- tag attributes FLEXY:FOREACH, FLEXY:IF for looping and conditional HTML inclusion
+- {if:variable} to PHP If statement
+- {if:method()} to PHP If statement
+- {else:} and {end:} to close or alternate If statements
+- FORM to HTML_Template_Flexy_Element&apos;s
+- replacement of INPUT, TEXTAREA and SELECT tags with HTML_Template_Flexy_Element code
+  use FLEXY:IGNORE (inherited) and FLEXY:IGNOREONLY (single) to prevent replacements
+- FLEXY:START/FLEXY:STARTCHILDREN tags to define where template starts/finishes
+- support for urlencoded braces {} in HTML attributes.  
+- documentation in the pear manual
+
+- examples at http://cvs.php.net/cvs.php/pear/HTML_Template_Flexy/tests/</description>
+ <lead>
+  <name>Alan Knowles</name>
+  <user>alan_k</user>
+  <email>alan@akbkhome.com</email>
+  <active>yes</active>
+ </lead>
+ <date>2011-01-11</date>
+ <time>12:20:53</time>
+ <version>
+  <release>1.3.11</release>
+  <api>1.3.0</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.php.net/license">PHP License</license>
+ <notes>
+Minor fixes and feature release
+
+Bug Fixes	
+
+   #----- - PHP5 E_STRICT warnings removed
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <file baseinstalldir="/" md5sum="8a8ff096b84107b3646a9bfc9b2b24e7" name="examples/EMPTY_FOLDERS_NOTHING_IN_HERE" role="doc" />
+   <file baseinstalldir="/" md5sum="50209e1ae52553c614ca2dc7480f51db" name="HTML/Template/Flexy.php" role="php" />
+   <file baseinstalldir="/" md5sum="932c71cacaa23e818c9ff35c555270d0" name="HTML/Template/Flexy/Assign.php" role="php" />
+   <file baseinstalldir="/" md5sum="a8b45d5280042a4c5fb78f0d6e2cda46" name="HTML/Template/Flexy/compileAll.php" role="php" />
+   <file baseinstalldir="/" md5sum="b8a05be90624fe90e8ea86a7046ce7d0" name="HTML/Template/Flexy/Compiler.php" role="php" />
+   <file baseinstalldir="/" md5sum="24efc79077ce51c53708143dcfd61399" name="HTML/Template/Flexy/Element.php" role="php" />
+   <file baseinstalldir="/" md5sum="4145fc313dae9ebd14e291459fbd06cf" name="HTML/Template/Flexy/example.ini" role="data" />
+   <file baseinstalldir="/" md5sum="d4f2490d8f967fee7c32440b3db00489" name="HTML/Template/Flexy/Factory.php" role="php" />
+   <file baseinstalldir="/" md5sum="64f991610fa6e8dd8b277a5b3950f709" name="HTML/Template/Flexy/Plugin.php" role="php" />
+   <file baseinstalldir="/" md5sum="bc0dc8032c895b7b682729c626f4c220" name="HTML/Template/Flexy/SmartyAPI.php" role="php" />
+   <file baseinstalldir="/" md5sum="ee34ec9e54d3309436ddd171ff07fcb1" name="HTML/Template/Flexy/Test.php" role="php" />
+   <file baseinstalldir="/" md5sum="f7548667ee672ceb7a68657031975431" name="HTML/Template/Flexy/Token.php" role="php" />
+   <file baseinstalldir="/" md5sum="4c1d354936d0a6deebb877866dd842d5" name="HTML/Template/Flexy/Tokenizer.lex" role="data" />
+   <file baseinstalldir="/" md5sum="b070ba42cbf188c0528c4a5140f2ea58" name="HTML/Template/Flexy/Tokenizer.php" role="php" />
+   <file baseinstalldir="/" md5sum="74f4dc11530069934c86e29e70d93a43" name="HTML/Template/Flexy/Translator.php" role="php" />
+   <file baseinstalldir="/" md5sum="4a69eab3cd28138bfb2409bfe5a633ab" name="HTML/Template/Flexy/Tree.php" role="php" />
+   <file baseinstalldir="/" md5sum="6d573975fa014cc274a7fb2f926cf0ba" name="HTML/Template/Flexy/Compiler/Flexy.php" role="php" />
+   <file baseinstalldir="/" md5sum="6592604cb34e04f28816cda5cd5045e5" name="HTML/Template/Flexy/Compiler/Regex.php" role="php" />
+   <file baseinstalldir="/" md5sum="4c9945950d33eda39e541380dd014b9a" name="HTML/Template/Flexy/Compiler/SmartyConvertor.php" role="php" />
+   <file baseinstalldir="/" md5sum="994bb8245eda6e99285e828f851d0a26" name="HTML/Template/Flexy/Compiler/Standard.php" role="php" />
+   <file baseinstalldir="/" md5sum="023a75b2347a91eb2a1c32a40fc525cf" name="HTML/Template/Flexy/Compiler/Flexy/CustomFlexyAttributes.php" role="php" />
+   <file baseinstalldir="/" md5sum="7a5da3e9be2aa30b24ca380208c593b8" name="HTML/Template/Flexy/Compiler/Flexy/Flexy.php" role="php" />
+   <file baseinstalldir="/" md5sum="301b4df43ff796610bf78b532c77e89b" name="HTML/Template/Flexy/Compiler/Flexy/Tag.php" role="php" />
+   <file baseinstalldir="/" md5sum="5600f9b49e119cf8ee44999220e5f7c8" name="HTML/Template/Flexy/Compiler/Regex/BodyOnly.php" role="php" />
+   <file baseinstalldir="/" md5sum="70ece2c2644c51395e81234c486f3416" name="HTML/Template/Flexy/Compiler/Regex/Mail.php" role="php" />
+   <file baseinstalldir="/" md5sum="b9f9c81da386f12400fe0630af5d0154" name="HTML/Template/Flexy/Compiler/Regex/Math.php" role="php" />
+   <file baseinstalldir="/" md5sum="3e2f98d5c5d22ba6a13b879a57c8744e" name="HTML/Template/Flexy/Compiler/Regex/Php.php" role="php" />
+   <file baseinstalldir="/" md5sum="7eadfd696244f811af8cdfb84efd229f" name="HTML/Template/Flexy/Compiler/Regex/RtfSimpleTags.php" role="php" />
+   <file baseinstalldir="/" md5sum="568b9d0ffb27a05abf4cce8e085fcfdd" name="HTML/Template/Flexy/Compiler/Regex/SimpleTags.php" role="php" />
+   <file baseinstalldir="/" md5sum="ede68cf8ce6fcd2444bc8cc46dbb7c4f" name="HTML/Template/Flexy/Compiler/Regex/Xml.php" role="php" />
+   <file baseinstalldir="/" md5sum="1e3b6b3e4db8174cd708a030db67d4ea" name="HTML/Template/Flexy/Compiler/Standard/Flexy.php" role="php" />
+   <file baseinstalldir="/" md5sum="370bfd62d4ca8bacdc54d0b6e75900e2" name="HTML/Template/Flexy/Compiler/Standard/Tag.php" role="php" />
+   <file baseinstalldir="/" md5sum="debbe522d33fb93ad4e2c274f7623994" name="HTML/Template/Flexy/Element/Xul.php" role="php" />
+   <file baseinstalldir="/" md5sum="851121e801a08c234d60cc38741e805a" name="HTML/Template/Flexy/Plugin/Savant.php" role="php" />
+   <file baseinstalldir="/" md5sum="de220a60d41b99938c85b8ddf1fb7aa6" name="HTML/Template/Flexy/templates/translator.html" role="doc" />
+   <file baseinstalldir="/" md5sum="c809d4ece552759f3e6d3d6454da7d6e" name="HTML/Template/Flexy/Token/Cdata.php" role="php" />
+   <file baseinstalldir="/" md5sum="cc2c45751e1a1b1a0be2364efaa90bf8" name="HTML/Template/Flexy/Token/Else.php" role="php" />
+   <file baseinstalldir="/" md5sum="c633fb71e243e23382f95dc2d49ccae0" name="HTML/Template/Flexy/Token/End.php" role="php" />
+   <file baseinstalldir="/" md5sum="c3f6c71c7183462b25838339400e70b1" name="HTML/Template/Flexy/Token/EndTag.php" role="php" />
+   <file baseinstalldir="/" md5sum="88b2e62245d2ec2ff6ec7fbaeea8a330" name="HTML/Template/Flexy/Token/Foreach.php" role="php" />
+   <file baseinstalldir="/" md5sum="8eb512e43d24973a7804a4fca3729efa" name="HTML/Template/Flexy/Token/If.php" role="php" />
+   <file baseinstalldir="/" md5sum="5f29fa6aa7e05f88a2342754be172fe3" name="HTML/Template/Flexy/Token/Method.php" role="php" />
+   <file baseinstalldir="/" md5sum="ccbc4af70ae909431c0eedc38293456f" name="HTML/Template/Flexy/Token/Processing.php" role="php" />
+   <file baseinstalldir="/" md5sum="76afca7d2a66c2438f26a65e25d1d8b2" name="HTML/Template/Flexy/Token/Tag.php" role="php" />
+   <file baseinstalldir="/" md5sum="721697b8cdb41fbbba0d34a83f4b74ba" name="HTML/Template/Flexy/Token/Text.php" role="php" />
+   <file baseinstalldir="/" md5sum="cac8f3e0c2d66a3574bd2e407e21c7a5" name="HTML/Template/Flexy/Token/Var.php" role="php" />
+   <file baseinstalldir="/" md5sum="ded76467f24864875821f99d4228234d" name="tests/make_tests.php" role="test" />
+   <file baseinstalldir="/" md5sum="2f28c628e7fb0ad75e007cc257ba3b4f" name="tests/test.php" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="3625999541b17a1ad60755d80295f950" name="tests/testsuite.php" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="c5e87c139c5ae80064f042f3877ecf12" name="tests/test_blocks.html.phpt" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="13a67a45a034741e2806ea436a6dc5ca" name="tests/test_bug_2959.html.phpt" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="6c503743b6a04b17568530cc9e2615b1" name="tests/test_conditions.html.phpt" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="492b0b13e8ad4364bbbfe952d331d4ec" name="tests/test_error_foreach.html.phpt" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="d9c5011fd683b90b34f2f4d3435de345" name="tests/test_flexy_tojavascript.html.phpt" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="cbbece514c050be6343a4827c733aabf" name="tests/test_forms.html.phpt" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="89c780d12736ca98318fe3409cea7dc4" name="tests/test_function.html.phpt" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="f3a3a39555edcfaf0d0765ab61cec40b" name="tests/test_globals.html.phpt" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="c39eee821bb7aa89110f846a04623d82" name="tests/test_image_view.html.phpt" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="8300ab3345afa189afea9a0221cd685f" name="tests/test_include.html.phpt" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="dc00c7e50511608a3f402cc03c7daa21" name="tests/test_javascript.html.phpt" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="a00cbf6d0409ffeff97a894988943c94" name="tests/test_looping.html.phpt" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="5278f64f1cfa3df3842c226283cd944a" name="tests/test_methods.html.phpt" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="409091e3ed2cde1cb6495e778f6ced61" name="tests/test_namespaces.html.phpt" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="9ee43d2ed621fe2dac980c0796b8540b" name="tests/test_plugin_modifiers.html.phpt" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="123f511810275ef16d5306fd47504f86" name="tests/test_raw_php.html.phpt" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="f9ed3aaa5f75a38caf121f3dd6eb12c2" name="tests/test_raw_text.html.phpt" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="4473b55ff2741406ca64bf0658b9d423" name="tests/test_style.html.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="a86a60a7519d498e60225bcf25ab790c" name="tests/test_usesname.html.phpt" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="875e8857ec36342934b53fa4743bc047" name="tests/test_variables.html.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="32846cdfe2b7475e7671af2baae4736f" name="tests/treeTest.php" role="test" />
+   <file baseinstalldir="/" md5sum="d4d718a2280911c0dc80700738cdea14" name="tests/results2/blocks.html.en.php" role="test" />
+   <file baseinstalldir="/" md5sum="d4d718a2280911c0dc80700738cdea14" name="tests/results2/blocks.html.en.php#block1" role="test" />
+   <file baseinstalldir="/" md5sum="d4d718a2280911c0dc80700738cdea14" name="tests/results2/blocks.html.en.php#block2" role="test" />
+   <file baseinstalldir="/" md5sum="c2548393d6d96cbcd763d6d1944f3614" name="tests/results2/blocks.html.gettext.serial" role="test" />
+   <file baseinstalldir="/" md5sum="e4b0f536193c13c8ba3d2d7d27b6c7df" name="tests/results2/forms.html.elements.serial" role="test" />
+   <file baseinstalldir="/" md5sum="3755a69d9d24db0e1693473982cc7d85" name="tests/results2/forms.html.en.php" role="test" />
+   <file baseinstalldir="/" md5sum="423fa9978f4b7bc27235682db399c0df" name="tests/results2/forms.html.gettext.serial" role="test" />
+   <file baseinstalldir="/" md5sum="c5ecb2551e3321086bb5b2e0c4fc11bf" name="tests/results2/forms.result.html" role="test" />
+   <file baseinstalldir="/" md5sum="37499c536346c5f65416be72f37d9cd9" name="tests/results2/function.html.en.php" role="test" />
+   <file baseinstalldir="/" md5sum="09f20b7aac9757418d6ccd84d088db96" name="tests/results2/function.html.gettext.serial" role="test" />
+   <file baseinstalldir="/" md5sum="53c32ef96941908697f839670b466836" name="tests/results2/function.result.html" role="test" />
+   <file baseinstalldir="/" md5sum="1bd88a1891ee582279df978265906ab4" name="tests/results2/globals.html.en.php" role="test" />
+   <file baseinstalldir="/" md5sum="ae5ed1a39ee851e0cf028e0ca78fe1ae" name="tests/results2/globals.html.gettext.serial" role="test" />
+   <file baseinstalldir="/" md5sum="99565e3b1b6cb11aac03f3358639c4f2" name="tests/results2/namespaces.html.en.php" role="test" />
+   <file baseinstalldir="/" md5sum="286930545142448be66d9f6e0f2d596e" name="tests/results2/raw_php.html.en.php" role="test" />
+   <file baseinstalldir="/" md5sum="fb3a8ccc4563ec6937b5fd89fd706c5c" name="tests/smarty/index.tpl" role="test" />
+   <file baseinstalldir="/" md5sum="c807c30a4358d1d7a54c77c96a2c4595" name="tests/smarty/index.tpl.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="3b3e007b020eec530319c965ed843bd3" name="tests/smarty/smartytest.php" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="d4d718a2280911c0dc80700738cdea14" name="tests/templates/blocks.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="fbf7a7a90c23b2a905582406c4ad8613" name="tests/templates/bug_2959.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="d6fe8fdffa3c44b1d99342cb1c149348" name="tests/templates/conditions.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="fc2b96c50e63a7bc363df5e2ac2ae0a8" name="tests/templates/error_foreach.html" role="test" />
+   <file baseinstalldir="/" md5sum="80b9e7696aecfdf1f9d35bd6ce5aae33" name="tests/templates/flexy_raw_with_element.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="9324b07b02f21e7dbae6b2c0a19e73ac" name="tests/templates/flexy_tojavascript.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="e5e5e94e4dd2da8f178aad24298f50a1" name="tests/templates/forms.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="71ab5a8cbb8e51e7e7f7436f0e8df24d" name="tests/templates/function.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="28ac18df2f5ab965bb25baec11c09ef5" name="tests/templates/globals.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="2c9b6aaf510fa6e512b6b00852e09798" name="tests/templates/image_view.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="f3e61317f6443b809bd986336c1dcf20" name="tests/templates/include.html" role="test" />
+   <file baseinstalldir="/" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/templates/includes.html" role="test" />
+   <file baseinstalldir="/" md5sum="4c400b538197b3e9130813d88ec92642" name="tests/templates/include_block.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="2767e4c309d7659e13d85c23a4827dd2" name="tests/templates/javascript.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="03eeab3f9a872dfbc6d69c3a707f4545" name="tests/templates/looping.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="7b8e6f45f4c21ada4afa8cfc760420b8" name="tests/templates/methods.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="9c96bc467c89afa389a17a679e178ed1" name="tests/templates/namespaces.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="9b366667c6cb9526e3f4fd061bd2406b" name="tests/templates/plugin_modifiers.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="0e4982d2f4c462c96489d6330626634f" name="tests/templates/raw_php.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="a7d8c5005c607ad254eb5f35fabee9a1" name="tests/templates/raw_text.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="372d27c6c2405534a78e5dcca4b31a53" name="tests/templates/style.html" role="test" />
+   <file baseinstalldir="/" md5sum="9be3036b0bb05a41b3084d1a69012f64" name="tests/templates/usesname.html" role="test" />
+   <file baseinstalldir="HTML/Template" md5sum="93468f558bf2e9e181cf07cfd81d31e3" name="tests/templates/variables.html" role="test" />
+   <file baseinstalldir="/" md5sum="9f5f2e908c7131a8fef93027099017b4" name="tests/trees/blocks.html.tree" role="test" />
+   <file baseinstalldir="/" md5sum="19a1cc5c1cb122c05b4fba81098478ea" name="tests/trees/conditions.html.tree" role="test" />
+   <file baseinstalldir="/" md5sum="a24dcae72c885c46684f7e0500e8bbc7" name="tests/trees/error_foreach.html.tree" role="test" />
+   <file baseinstalldir="/" md5sum="72689abdf3107438b267ea1635b291a6" name="tests/trees/flexy_tojavascript.html.tree" role="test" />
+   <file baseinstalldir="/" md5sum="49040d18e8e36ceb688787c521abe215" name="tests/trees/forms.html.tree" role="test" />
+   <file baseinstalldir="/" md5sum="d4138e8347e7150ace16dce2b792c536" name="tests/trees/function.html.tree" role="test" />
+   <file baseinstalldir="/" md5sum="d459ed56c6af86e624f2136f92d43868" name="tests/trees/globals.html.tree" role="test" />
+   <file baseinstalldir="/" md5sum="06cbfc7e94c26e295b1fe382884418d6" name="tests/trees/image_view.html.tree" role="test" />
+   <file baseinstalldir="/" md5sum="f5b327bf31b3ea57509b56c4aa0c1613" name="tests/trees/includes.html.tree" role="test" />
+   <file baseinstalldir="/" md5sum="1549bc9eb38e61210abead2dbe6405f6" name="tests/trees/javascript.html.tree" role="test" />
+   <file baseinstalldir="/" md5sum="ab9007488ae47e398db0250dc884289f" name="tests/trees/looping.html.tree" role="test" />
+   <file baseinstalldir="/" md5sum="61b43b38e1a09893692e48fba59f5b7b" name="tests/trees/methods.html.tree" role="test" />
+   <file baseinstalldir="/" md5sum="206dfb504c19e252ad6708310aef5d30" name="tests/trees/namespaces.html.tree" role="test" />
+   <file baseinstalldir="/" md5sum="b185c03322f7ab9d09ebc47e2fc3e4dd" name="tests/trees/plugin_modifiers.html.tree" role="test" />
+   <file baseinstalldir="/" md5sum="e693f6f92e06e0b4e8a15d399aa28f19" name="tests/trees/raw_php.html.tree" role="test" />
+   <file baseinstalldir="/" md5sum="e95960a770ee57f7982119180df5badf" name="tests/trees/raw_text.html.tree" role="test" />
+   <file baseinstalldir="/" md5sum="8dba9452a5ca27ec3b12323a0c6cad4d" name="tests/trees/variables.html.tree" role="test" />
+   <file baseinstalldir="/" md5sum="bc32a98e207b4016f5d5edbde34484b5" name="ChangeLog" role="data" />
+   <file baseinstalldir="/" md5sum="f3b361e49bbb1bb73fd368fab38e2a8b" name="TODO" role="data" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.3</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+  </required>
+  <optional>
+   <package>
+    <name>HTML_Javascript</name>
+    <channel>pear.php.net</channel>
+    <min>1.1.0</min>
+   </package>
+   <package>
+    <name>File_Gettext</name>
+    <channel>pear.php.net</channel>
+    <min>0.2.0</min>
+   </package>
+   <package>
+    <name>Translation2</name>
+    <channel>pear.php.net</channel>
+    <min>0.0.1</min>
+   </package>
+  </optional>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <date>2010-06-07</date>
+   <version>
+    <release>1.3.10</release>
+    <api>1.3.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Minor fixes and feature release
+
+Bug Fixes	
+
+   #17390 - id nameuses replacement got broken on previous commit (Christophe Husson)
+   #17210 - remove error suppression
+   #16978 - support non-ascii vars
+   #14895 - local environment settings in test  (clockwerx)
+ 
+
+
+New Features/Changes		
+  #16554 - support dontCompile option
+  #----- - provisional support for label property of elements outputing as associated
+           label content (Stephane Matamontero)
+  #----- - new option disableTranslate - blocks all translation features, 
+           like writing .serial files. (Stephane Matamontero)
+  #----- - Element merge code moved element class - reducing size of base class (Alan)
+  #----- - SVN layout changed. (clockwerx)
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1</release>
+    <api>0.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2002-09-07</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+First PEAR release,
+      - Renamed to HTML_Flexy_Template to conform to PEAR standards
+      - Added more phpdoc comments to filters
+      - Removed getTemplateDir method (legacy/unused)
+      - Added multilanguage support options[&apos;locale&apos;] - in theory a i18n filter could be added.
+        Othewise it just checks to see if a template/compiled template with ????.{locale}.???
+        exists
+      - added staticQuickTemplate($template,$object) for quickly including subtemplates.
+      - added {q_include:#aaaaa.html#} to simpletags to support quicktemplate.
+      - changed to DIRECTORY_SEPERATOR and removed base directory check in windows.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2</release>
+    <api>0.2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2003-02-03</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Major overhall of engine
+ 
+- Introduction of Lex based Parser. - A real syntax checking 
+  Template generator
+- Ability to do Coldfusion style HTML attributes like foreach=&quot;abc,b,c&quot; in TR or any tag.
+- Automatically converts form elements (INPUT, TEXTAREA, SELECT) contents to suitable PHP code
+  and adds error messages.
+
+- docs temporarily at http://devel.akbkhome.com/peardoc2/package.html.html-template-flexy.html
+
+Note: Filter features of original HTML_Template_Flexy are now depreciated.
+Note: This is not backwards compatible with version 0.1!
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.3</release>
+    <api>0.3</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2003-02-06</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Bug fixes
+  - allow usage with only constructor options
+  - fixed form elements - should be htmlspecialchars, rather than urlencoding
+  - new Tokenizer is enabled by default - set &apos;useLegacy&apos; in config/options to
+    use the old regex replacer.
+  - no variables are added (eg. o.*, a.* etc. to the page unless useLegacy is set)
+  - parsers are now private methods. (internal change)
+  
+New Features
+  - FLEXYSTART and FLEXYSTARTCHILDREN tags added so when use you include sub
+    templates, you can avoid including HEAD etc. tags.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.4</release>
+    <api>0.4</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2003-04-17</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Warning BC breaking release: 
+  - It is likely that form code may break with this due to the quickform integration
+  - likely issues: you will probably have to load the template and assign data to it
+    using $template-&gt;setQuickForm($this);
+    which will then expose $template-&gt;quickform as the template Object.
+  
+  
+
+Bug fixes
+  - fixed #literal# chopping bug (Yuri Dyakonov)
+  - fixed XML/XHTML support (no more munging of cases)
+  - fixed Fatal Error messages - with more details
+  - fixed whitespace in doctype tags. (wierd lexer stuff)
+  
+  
+  
+Features
+  - quickforms (3) integration added.
+  - quickforms with multiple forms $flexyobj-&gt;quickforms[0.....]
+  - Initial gettext/multilanguage support
+  - support variable[12] as a valid variable name.
+  - does syntax checking on form element names 
+  - fixed {outputBody()} (no prefix var methods)
+  - added url_rewrite for HREF and SRC tags - see example.ini for more details
+  - added compileAll.php script for bulk compilation on servers that do not have
+    write access to the directories they are serving off.
+  - Added extra Option - nonHTML to not make tokens of HTML tags, and enable postprocessing 
+    of compiled template to replace ?&gt;\n with ?&gt;\n\n (aimed at email templates)
+  - Added extra Option - allowPHP to enable PHP code in template to be left alone. - defaults
+    to off (eg. no PHP allowed) - 
+  - added support for &lt;TAG IF=&quot;somevar.xxxx&quot; and 
+    &lt;TAG  IF=&quot;somevar.method()&quot; maps to if (the test) &lt;TAG .....
+  - handles elements with same name, like radio buttons  - although performing modifications on 
+    them can be tricky..
+    
+  
+While may thanks are owed to the many beta testers, special mention to Xavier 
+for spotting some really annoying little bugs.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.4.1</release>
+    <api>0.4.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2003-06-11</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Bug fixes
+ - fixed #literal# support for method calls - hopefully finally (Yuri Dyakonov)
+ - BC support for  getOptions call on objects (Marcin Galczynski)
+ 
+Features
+ - method calls with literals at end can now use modifiers (:h/:u etc.)
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5</release>
+    <api>0.5</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2003-09-03</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Warning: BC Breaking release
+Warning: Still in Beta Testing.. (although most of the API should now be settled)
+
+Due to the conclusion that the quickforms integration was not only messy, but 
+a heavy weight to be carried. The whole form/dynamic element layer was re-engineered.
+And the dependancy on QuickForms removed
+
+New Features
+  HTML_Template_Flexy_Element, is a small simple representation of  generic HTML,
+  it is used to store the representation of form elements, and any HTML element 
+  which contains the FLEXY:DYNAMIC attribute.
+  
+  you can override elements, by using the new second argument to outputObject($object,$elements)
+  where $elements is an associate array of (form name)=&gt;Element
+  and the data in the elements array is merged with the visable template at runtime.
+  (so you only need to define what is different to the HTML, not the whole tag.)
+  
+  You can make any tag &apos;dynamic&apos;, by just tagging it. - if you replace the element
+  in the elements array with an object that implements a toHtml method, This will be 
+  called rather than the drawn element.
+ 
+  A Utility class, HTML_Template_Flexy_Factory offers common static methods, like
+  - creating element values from a key=&gt;value array (eg. Dataobjects-&gt;toArray())
+  - setting error messages (as suffixes to elements)
+  - flag something as required. (prefixing strings to elements)
+  
+  
+Compiler Abstraction
+  The Compiler code in Flexy is now abstracted out, to make it possible to write
+  Other compilers and use the same caching/loading mechanism. (the old regex compiler
+  is included as an example of this.)
+  
+Other BC Issues:
+  all Flexy attributes must now be prefixed with &quot;flexy:&quot; namespace (eg. if, foreach, startchildren etc.)
+
+Other New Features
+  - support for array strings on variables and methods = eg. {somevar[xxx][yyy].toHtml():h}
+  - added new Modifiers :r (print_r), and :n (number_format), and in future may make available user defined modifiers
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5.1</release>
+    <api>0.5.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2003-09-04</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Fixes
+  - bufferedOutputObject correctly deals with elements array (Stephan Wentz)
+
+Note: See Version 0.5  release notes concerning BC issues with 0.4 series
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.6</release>
+    <api>0.6</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2003-12-20</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+This is a major fix release, along with quite a few new usefull features,
+many thanks to the various bug reporters, and especially from the Damein Turner and 
+The Seagull framework Team
+
+Hopefully, it is now the last beta before a stable release.....
+
+  New features 
+  - &amp;lt;flexy:include src=&quot;xxx.html&quot;/&gt; to include other templates
+  - &amp;lt;flexy:toJavascript flexy:prefix=&quot;js_name_prefix_&quot; jsvar=&quot;php_flexy_var&quot; ....&gt;
+    uses HTML_Javascript_Convert to import PHP variables into Javascript.
+  - new modifier :b (for NL2BR + HTMLSPECIALCHARS)
+  - support for mulitple paths in templateDir
+  - attribute flexy:raw=&quot;{checked}&quot; allows you to to put raw data into a tag.
+  - -- double minus, is valid inside comments (not really valid XHTML though)
+  - global flexyIgnore option, to prevent global conversion to Elements.
+  - better support for elements where name=&quot;someval[]&quot;
+  
+  Fixes
+  - array syntax supported in attributes (eg. urlencoded)
+  - setting values of elements with type works (bug #460)
+  - methods with multiple arguments fixed.
+  - HTML_Template_Flexy_Element::removeAttribute() works
+    (removing attributes is done by setting them to false)
+  - include error on EndTag
+  - closed element (eg. with /&gt; at end, can be used with flexy:if=
+  - radio buttons should auto create id&apos;s if none are set.
+  - xdebug recursion level increased (as the compiler recursion is high)
+  - buffered output with $elements fixed.
+  
+   
+Note: See Version 0.5  release notes concerning BC issues with 0.4 series
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.6.1</release>
+    <api>0.6.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2003-12-21</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Bugfix release
+  - got javascript script wrapper wrong.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.6.2</release>
+    <api>0.6.2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-01-20</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Minor Bugfix / mini feature release
+  - support flexy:if with method arguments eg.
+     flexy:if=&quot;somemethod(#with#,some,#args#)&quot;
+  - foreach works on objects and arrays. : eg.
+    flexy:foreach=&quot;someobject&quot;
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.6.3</release>
+    <api>0.6.3</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-01-21</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Minor Bugfix 
+  - fixed class=&quot;{some_method(with_some_args)}&quot;
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.7</release>
+    <api>0.7</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-04-03</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Last Beta release - (eg. it&apos;s a RC Release - next one will be stable!!! hopefully)
+
+
+
+Minor Bugfix 
+  - fixed bug #643 (compile incorrectly tests for string on windows.)
+  - fixed bug #615 constructor can not return errors 
+   * check for compileDir isDir is in the compile() anyway..
+  - fix bug 1120: remove necessity to use flexy:ignoreonly, 
+    * if a input tag has {variable} the engine assumes you dont want use a flexy_element.
+  - fix bug #809 - extra minuses in comments
+    (too may ---&gt; caused problems )  
+  - fix bug #874 (literals with commas in flexy:if)
+    flexy:if=(#aaa,bbb#) correctly seen as a single attribute
+  - fix bug 739 - syntax checking on foreach
+    flexy:foreach=&quot;singlevalue&quot; now flagged as error.
+  - /flexy:include and toJavascript closers now correctly ignored.
+  - fix #856 - fix get_class usage.
+  - Fix bug when too many closing tags could zero the stack and delete parts of the template.
+ 
+ 
+ 
+New Features
+  - config option templateDirOrder=reverse, allows you to prefer the first found template,
+    rather than the last found template (when using theme type configurations)
+  - Engine uses File_Gettext if gettext is not found. (or textdomain is set.)
+  - Provisional SmartyConverter compiler, 
+    * provides a basic Coversion of Smarty to Flexy templates
+  - Provisional SmartyAPI emulator added.
+    * allows drop in replacement of flexy with simple code that uses Smarty.
+  - strict option 
+    so variable can emit errors if they are not defined.
+  - multiSource option 
+    for enabling themes type systems, where you can override the default template folder
+    with your own custom designs.
+  
+   
+Behaviour changed
+  - templateDir can be an array, or string seperated by the system path seperatory
+  (; on windows,: on unix)
+  - If a file exists in multiple paths, then The LAST FOUND template will be used.
+  (previously this emited an error)
+  - If you use multiple paths in the template_dir, then the path will be modified to
+  write to {compileDir}/{basename(actualTemplateDir)}_{md5(actualTemplateDir)}/...template..
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.7.1</release>
+    <api>0.7.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-04-07</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Last Beta releases - (eg. it&apos;s a RC Release -  stable will be within a month!!! hopefully)
+
+Security: *** THIS AFFECTS __ALL__ PREVIOUS RELEASES ****
+  HTML_Template_Flexy_Element::setOptions and HTML_Template_Flexy_Element::setValue 
+  with textareas did not htmlspecialchars escape text automatically -
+  opening up potential for cross site scripting posibliities..
+  
+Bugs:
+  radio buttons and hidden fields with same name could be created - blanking out the radio buttons
+  url_rewrite option is now syntax tested.
+
+Features:
+  An attempt to create base Compile directory if it doesnt exist.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.8.0</release>
+    <api>0.8.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-04-22</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Feature addition release:
+
+  Moving to stable is posponed another month, so these new features get a thorough testing.
+  
+Bugs / Fixes:
+  * fixed overzealous closing on some tags 
+  * fixed double html escaping of some dynamic attributes
+  * ignore empty url_rewrite options (eg. images/:/templates/images,,)
+  * fixed recursion death, on &amp;lt;s&amp;gt; tags
+  * fixed flexy {variables} inside attributes=&apos;that are single quoted&apos;
+  * unknown namespaces are assumed to be HTML (so XUL with html works ok)
+  
+Features:
+  * Translation2 transparent translation backend support
+    $options[&apos;Translation2&apos;] = array(
+            &apos;driver&apos; =&gt; &apos;dataobjectsimple&apos;,
+            &apos;options&apos; =&gt; array()
+      )
+    will instantate Translation2 once , and call it to translate 
+    all strings found when compiling.
+    
+  * Strings to be translated can be explicitly marked by encapsulating them
+    in {_( ....... )_} 
+    Parsing is done prior to tokenizing, so you can include {variables} inside
+    the translation strings.
+    
+  * Access to private variables and methods now possible eg. 
+    {_myprivate_var}
+    ** requires option[&apos;privates&apos;] = true
+    
+  * Access to super global variables now possible eg. 
+    {_SESSION[lang]} {_GET[posted]} {_POST[posted]}
+    {_REQUEST[lang]} {GLOBALS[posted]} {_COOKIES[posted]}
+    ** requires option[&apos;globals&apos;] = true
+    (as per all variable, these are html escaped by default, for security reasons,
+     over-ride with the :h modifier)
+  
+  * Access to php functions now possible
+    {GLOBALS.date(mydate,#d/m/y#)}
+    ** requires option[&apos;globalfunctions&apos;] = true
+    ** this is a big security hole if you dont trust your template authors,
+       it exposes exec() etc.
+    
+  * New Test infrastructure in CVS - enabling better unit testing.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.8.1</release>
+    <api>0.8.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-04-24</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Bugfix release:
+
+  Moving to stable Planned Sometime after Late May 2004
+  
+Bugs / Fixes:
+  * Stoped Javascript being striped when language= tag not used.
+  * PHP5 tested
+  * javscript and php code not added to gettext string list.
+ 
+Add test suite to package.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.8.2</release>
+    <api>0.8.2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-05-05</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Bugfix release:
+
+Moving to stable Planned Sometime after Late May 2004
+  
+Bugs / Fixes:
+  * Bug #1274
+  * Test added for Bug #1310
+  * fix Flexy_Element::setOptions / Flexy_Element::setValue, using a value of 0 
+    highlighting everything.
+  * Closing Tags for XHTML closers correctly placed at end of tag.
+    (Flexy_Element only)
+  * url_rewriting now works in &amp;lt;?xml-stylesheet tags. (they are treaded similar to
+    normal html tags now. (and only the opening &amp;lt; is written using php.
+  * closers for namepaced tags are now output (big oops bug..)
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.9.0</release>
+    <api>0.9.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-05-06</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+minor BC break release:
+
+Moving to stable Planned Sometime after Late May 2004
+
+BC Break on Gettext string storage.
+  * during parsing of the template  flexy builds an array of strings that
+    can be used to automate translation.
+    The strings in this array used to be escaped (similar to addslashes).
+    
+    This proved to be a bad decision (As the unescaping and escaping got too messy)
+     - the strings are now stored as they are found. (albiet still trimmed)
+    
+New Features:
+  * strings from option tags, and value of input tags are added to gettext array.
+  * ability to generate namespaced options (eg. for XUL)
+    $x = new HTML_Template_Flexy_Element(&apos;html:select&apos;);
+    $x-&gt;setOptions(array(1=&gt;&apos;test&apos;));
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.9.1</release>
+    <api>0.9.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-06-17</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Feature addition release
+
+support for function blocks
+&lt;flexy:function name=&quot;myfunction&quot;&gt; define a  block here  &lt;/flexy:function&gt;
+&lt;flexy:function call=&quot;myfunction&quot;&gt; calls the function &lt;/flexy:functio&gt;
+&lt;flexy:function call=&quot;{somevar}&quot;&gt; variable function calls &lt;/flexy:function&gt;
+
+support for static template compiles
+options[compiler] = raw
+
+plugin support and user defined modifiers using plugins
+{this.plugin(#name#,var,var):h}
+{var:formatdate}  (calls plugin 
+{var:formatnumber}
+
+Assign API support using setData() and setDataByRef()
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.9.2</release>
+    <api>0.9.2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2004-06-24</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Feature addition release
+
+support for id blocks
+  $flexy-&gt;compile(&apos;sometemplate.html#mytag&apos;);
+  will compile a file {compileDir}/sometemplate.html#mytag
+  which contains the tag and contents of &lt;span id=&quot;mytag&quot;&gt; ... &lt;/span&gt;
+  
+flexy:function call=&quot;xxx&quot; checks that the user defined function block exists
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2004-08-07</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+The Long Awaited Gold Release.
+                                                                                                                  
+Bug Fixes:
+  #1675 - CRLF fixes on windows
+  #------ Elements with matching key = value where incorrectly rendered.
+                                                                                                                  
+Tweaks:
+  * minor changes to simple Smarty Template Converter/Processor
+  * Default Compiler is now called Flexy
+  * Added Translator tool to package (see Translator.php source for usage)
+  * Translator Tool includes clearTemplateCache - removes all files.
+  * Some error message improvements
+  * Added Tree.php - A HTML to Tree par ser, which can be used to process HTML,
+      or will eventually replace the Tree parsing code in the compiler.
+      tests/treeTest.php shows example usage
+  * HTML_Template_Flexy_Element used with &lt;FORM&gt; tags, now honours override property
+  * Minor reduction in size of parser Nodes
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2004-08-09</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Minor Bug Fix Release
+                                                                          
+Bugs
+  #------ Fix Missing include of Token.php
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.0</release>
+    <api>1.1.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2004-12-18</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Minor Feature Release
+ 
+ Changes
+  Note: This release may include some changes which may break BC, (in which case they 
+  _are_ bugs and will be fixed.).
+  
+ 
+
+                                                                                                                        
+ Features
+  #------ Forms without names, now are not generated as HTML_Elements, rather than given a default name.
+  #------ support for -ve numbers in {arrays[-1]}
+  #------ support for variable replacements in commented out blocks of styles
+  #2074 - allow literal numbers in methods, eg. {somemethod(3,#astring#,avar)}  
+          Features
+  #------ Limited support for Xul in Elements
+  #2097   Support for mixing flexy vars within dynamic elements. 
+          (If this causes problems, please file a bug report.)
+  #------ Forms without names render as plain HTML, rather than generating dynamic
+          elements.
+  #------ createToken code is simplified and supports writing the position of a token
+          (generally for usage in the Tree.php file for parsing html only.)
+  #------ Fixed tree builder so it is more tolerant of malformed HTML (eg. form tags
+          with closures in the wrong part of the html tree)
+  #------ Style element now works with flexy tags (rather than ignoring them within 
+          comments)
+  #------ Support for translation of alt tags of IMG
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2004-12-22</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Minor Feature Release
+ 
+ Changes
+  Note: This release does break BC in templates using the Translation tools,
+  (which since they are undocumented should really be regarded as beta I guess.).
+  
+  Support for Conversion of 
+  &lt;b&gt;this is {atag} in a sentence&lt;/b&gt;
+  
+  to a translatable string:
+  &quot;this is %s in a sentence&quot;
+  
+  Is now NOT supported, it will result in 2 strings
+  &quot;this is&quot;
+  &quot;in a sentence&quot;
+          
+  To effect a similar result, the translation markers should 
+  now be used:
+  
+  &lt;b&gt;{_(this is {atag} in a sentence)_}&lt;/b&gt;
+  
+  will convert into a translatable string
+  &quot;this is {atag} in a sentence&quot;
+ 
+ 
+ Features / Fixes
+  #------ support for translatable markers in html attributes added:
+          eg. &lt;a href=&quot;{_(http://www.example.com)_}&quot;&gt;.....
+  #3003   {var} replaced with %s - fixed by removing all string merging code.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.2</release>
+    <api>1.1.2</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2004-12-28</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Minor BugFix Release
+  
+ Features / Fixes
+  #3041 - Removed Warning raised during compilation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.0</release>
+    <api>1.2.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2004-12-28</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Minor Feature Release
+  phpt testsuite has replaced previous CVS diff tests. (and in turn picked up
+  a few bugs)
+  
+  
+ Features / Fixes
+  #---- - Nested included templates &lt;flexy:include src=&quot;....&quot;/&gt; inherit parent variables.
+  #---- - Fixed PHP code detection 
+  #---- - option[&apos;allowPHP&apos;] = &apos;delete&apos;, will just remove php code, rather than 
+          barf with error, or just add it.
+  #---- - CDATA sections supported, with limited flexy tags (eg. foreach and variables only)
+  #---- - Plugins now show correct warning when loading fails.
+  #---- - Plugins as modifiers work correctly 
+          (fixed previous bug if they started with h/r/t etc. they got ignored.)
+          
+  #3129 - add note that setRequired/setError/freeze are depreciated 
+          (they should really be examples, that end user can modify, rather than a method)
+  #3145 - fixed missing ; in an error message.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.1</release>
+    <api>1.2.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2005-01-27</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Minor Bugfix Release
+    
+  
+ Features / Fixes
+  #---- - Pass by reference warning fixed.
+  #---- - Left debuging code in plugins
+  
+  A very nice introduction to plugin&apos;s exists here:
+      http://seagull.phpkitchen.com/docs/wakka.php?wakka=Howto/Flexy/Plugins
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.2</release>
+    <api>1.2.2</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2005-07-23</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Minor Bugfix Release
+    
+  - Support Variables in Attributes of Flexy Elements (I would not recomend doing this, but
+    it appears to work!)
+  - Removed support for merging text and variables automatically for creating translation strings
+   (It never worked very well) the recommend way to mix variables and text for translation is to 
+   use the  translation markers {_( translation block with {flexy} {methods()} )_}
+    * Note these do not work correcty inside attributes values yet! - but will be fixed in the next release.
+  - Support for translator storing title= attribute values from &lt;a&gt; tags.
+  - Unix privaliges are 0664 for translation strings and element data.
+  
+  
+ Features / Fixes
+  bug #4103 - &amp; replaced with &amp;amp; in attribute values of flexy elements 
+      (&amp;nbsp; is still broken however.)
+  bug #3885 - Flexy_Factory::setRequired() did not reset return values correctly (note this feature is depreciated)
+  --- ----- - Fixed Number format modifier (found by new test suite)
+  --- ----- - Fixed Attribute method calls modifiers being chopped.
+  bug #3946 - Using flexy:raw (to put stuff like &quot;checked&quot; in) now produces a warning when used
+             with dynamic elements (use flexy:ignore=&quot;yes&quot;) to stop them being dynamic.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.3</release>
+    <api>1.2.3</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2005-10-29</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Minor Bugfix Release
+    
+    
+  Feature Requests:
+      bug #5752 - add support for :e modifier == htmlentities() call.
+      * flexy:nameuses also replaces in id (obviously if %s in included)
+  
+  Fixes
+      * dont bork with error if value is not set when setValue() on a
+        radio button is called.
+      * fix up flexy:nameuses with radio buttons.
+      * php4.4 compatibility issues (return by ref stuff)
+      * summarize security issues with SimpleTags backend
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.4</release>
+    <api>1.2.4</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-01-20</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Minor Bugfix / New Feature Release
+    
+    
+  Bugs  
+  ----
+  #6152 - default to using key in optgroup when novalue not set
+  #5267 - checkboxes using [], with ids
+  #5752 - add support for :e modifier == htmlentities() call.
+  
+  
+  Features/Changes and Fixes
+  --------------------------
+  * add ability to remove unused translations (in HTML_Template_Flexy_Translator,
+    tidy up javascript a little (ivan)
+    
+  * add support for gettext Translation2 backend - Requires uptodate version of 
+    Gettext/Translation2 packages ... (ivan)
+    
+  * remove warning from compiled template, when trying to merge possibly 
+    non-existant elements
+  
+  * remove short tags output from Simpletags compiler backend. + lots of 
+    whitespace changes, for some reason... (Demian Turner)
+  
+  * basic charset support in HTML_Template_Flexy_Element ... this is
+    a todo for the rendering layer though... (eg. utf8 / big5 sent to htmlspecialchars)
+    
+  * de-escaping of &amp;amp;nbsp; only used in select option text - removed this feature from
+    other elements
+    
+  * add XUL checkbox support.
+  
+  * correctly replace linefeeds on XUL textbox&apos;s
+  
+  * better handling of XUL textbox and menulist elements converted to
+    Flexy XUL Elements
+    
+  * flexy:nameuses also replaces in id (obviously if %s is included)
+   </notes>
+  </release>
+  <release>
+   <date>2006-11-10</date>
+   <version>
+    <release>1.2.5</release>
+    <api>1.2.5</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Minor Bugfix / Minor Feature Release 
+      Bugs
+      #9157 - fix regex that tests translation strings - support multilanguage text
+      Feature Request 
+      #7483 - implement subtemplating with variable passing support Thanks to anil at m3
+      Fixes
+      gettext based translationns using Translation2 now work
+   </notes>
+  </release>
+  <release>
+   <date>2008-01-30</date>
+   <version>
+    <release>1.3.0</release>
+    <api>1.3.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Bug Fix and Minor Feature release
+
+   Bug Fixes	
+       #7609  - user defined compilers causing warnings
+       #11751 - E_NOTICE in CustomFlexyAttributes, fix WS/TAB issue.
+       #9336  - nasty kludge fix to workaround stupidest decision in PHP history ;)
+              -fix PHP5/4 warning issues with is_a
+       #10830 - support title= on most tags, and alt= on input tags.
+       #12036 - prevent generation of closing tags for link, meta, hr, br
+       #9591 / #11740 - radio buttons can auto generate ID if none given        
+       #10002 - setData with array/object
+       #9157 - native language regex support
+       
+   New Features
+       #7609  - support user defined compilers as compiler object
+       #11741 - getOptions / clearOptions - thx to justdev
+       #----  - add experimental toJSON feature. flexy:toJSON
+       #12265 - support label in Element
+       #----- - change setlocale to use LC_MESSAGES to prevent bugs with strtoupper
+       #10248 - attributes: flexy:content, flexy:replace, flexy:omittag
+       #8008 - flexy:include src= allow variables { }
+       #9436 - support background for url rewriting
+   </notes>
+  </release>
+  <release>
+   <date>2008-01-31</date>
+   <version>
+    <release>1.3.1</release>
+    <api>1.3.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Minor Bug Fix release 
+
+   Bug Fixes	
+       #13010  - Missing CustomFlexyAttributes.php file
+   </notes>
+  </release>
+  <release>
+   <date>2008-01-31</date>
+   <version>
+    <release>1.3.2</release>
+    <api>1.3.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Major Bug Fix release 
+
+   Bug Fixes	
+       #13016  - Version 1.3.1 (and probably 1.3.0) where completely broken by CustomFlexyAttributes change
+                 Patch has been reverted - pending re-implementation.
+   </notes>
+  </release>
+  <release>
+   <date>2008-02-27</date>
+   <version>
+    <release>1.3.3</release>
+    <api>1.3.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Minor Bug Fix release 
+
+   Bug Fixes	
+       #9336, #13016, #13022, #13076, #13179  - is_a depreciation fix (hang internals for this!)
+   </notes>
+  </release>
+  <release>
+   <date>2008-05-05</date>
+   <version>
+    <release>1.3.4</release>
+    <api>1.3.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Minor Bug Fix release 
+
+   Bug Fixes	
+       #13419 - Windows compile throwed error with LC_MESSAGES - we now use LC_ALL and check for it.
+       #----- - PHP4 parse error in Flexy compiler      
+       #----- - flexy:toJSON incorrectly created variables using json_encode (PHP5 only)
+   </notes>
+  </release>
+  <release>
+   <date>2009-03-12</date>
+   <version>
+    <release>1.3.6</release>
+    <api>1.3.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Minor Bug Fix release 
+
+   Bug Fixes	
+   
+	#----- - fix include to only pass variables created by template, rather than 
+               flood the subtemplate - fixes various segfaults.
+	#----- - Add scopeVars fetch for better include
+	#----- - add some extra checks for writing merging elements
+	#14105 - Empty element tag ending with /&gt; and flexy:replace
+	#15961 - customflexyattributes  ignores multiple flexy attributes.
+	#14984 - PHP5 class_exists compat
+	#15272 - inherrited namesues checkboxes get wrong names - patch by Heikki Uusitalo
+	#15279 - early return from checkbox code with [] in name. - may have knock on effects
+	#15874 - single API for error reporting in Compiler/Flexy/Tag.php - to show
+            filename/line/tag etc.
+	#15263 - php5 merge elements needs to clone objects
+	#14899 - flexy:xhtml honored by element - fix by Geoff Beaumon
+   
+	
+	#14897 - xhtml not honored by element input etc.
+	#13887 - use is_callable on plugins
+   Request #14893 - improve PHPCS (clockwerx)
+   </notes>
+  </release>
+  <release>
+   <date>2009-03-13</date>
+   <version>
+    <release>1.3.7</release>
+    <api>1.3.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Friday the 13th Release - Minor Bug Fixes
+
+   Bug Fixes	
+   
+	#16026 - Fix is_callable in plugins - (refix to #13887)
+   #----- - Fix new include feature adding blank vars
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.9</release>
+    <api>1.3.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2009-03-24</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Fix The Unlucky Release - Minor Bug Fixes
+
+   Bug Fixes	
+   
+	
+   #----- - Plugin was broken by last fix in last release.
+   </notes>
+  </release>
+ </changelog>
+</package>

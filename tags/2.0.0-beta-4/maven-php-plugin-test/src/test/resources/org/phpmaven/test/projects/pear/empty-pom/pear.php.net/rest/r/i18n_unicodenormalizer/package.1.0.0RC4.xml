@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.6.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+ <name>I18N_UnicodeNormalizer</name>
+ <channel>pear.php.net</channel>
+ <summary>Unicode Normalizer</summary>
+ <description>&quot;...Unicode&apos;s normalization is the concept of character composition and decomposition.
+Character composition is the process of combining simpler characters into fewer precomposed characters, such as the n character and the combining ~ character into the single n+~ character. Decomposition is the opposite process, breaking precomposed characters back into their component pieces...
+...Normalization is important when comparing text strings for searching and sorting (collation)...&quot; [Wikipedia] 
+Performs the 4 normalizations:
+NFD:  Canonical Decomposition NFC:  Canonical Decomposition, followed by Canonical Composition NFKD: Compatibility Decomposition NFKC: Compatibility Decomposition, followed by Canonical Composition Complies with the official Unicode.org regression test.
+Uses UTF8 binary strings natively but can normalize a string in any UTF format.
+Fully tested with phpUnit. Code coverage test close to 100%.</description>
+ <lead>
+  <name>Michel Corne</name>
+  <user>mcorne</user>
+  <email>mcorne@yahoo.com</email>
+  <active>yes</active>
+ </lead>
+ <date>2007-07-25</date>
+ <time>14:33:35</time>
+ <version>
+  <release>1.0.0RC4</release>
+  <api>1.0.0RC4</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/bsd-license.php">The BSD License</license>
+ <notes>* Fixed Bug #11674: test failures on 64-bit Linux, 
+actually due to PHP Bug #42101: mb_substr error if length = PHP_INT_MAX</notes>
+ <contents>
+  <dir baseinstalldir="I18N" name="/">
+   <file baseinstalldir="I18N" md5sum="8e8638faa030af23e5e4cc5179a5d48e" name="UnicodeNormalizer/Compiler.php" role="php" />
+   <file baseinstalldir="I18N" md5sum="148c19846aabbcf2d702cdad72055b98" name="UnicodeNormalizer/File.php" role="php" />
+   <file baseinstalldir="I18N" md5sum="335cabe63b7a1a73336043cce5d213ed" name="UnicodeNormalizer/String.php" role="php" />
+   <file baseinstalldir="I18N" md5sum="3d59f3d308753a56eee9a0e105d9a606" name="data/ucn/BaseTests.php" role="data" />
+   <file baseinstalldir="I18N" md5sum="7976cb536f00bd4192cddf78b74272d0" name="data/ucn/CanonicalCombining.php" role="data" />
+   <file baseinstalldir="I18N" md5sum="0d1578e773d9049004a59fd4aed29fc7" name="data/ucn/CanonicalDecompositions.php" role="data" />
+   <file baseinstalldir="I18N" md5sum="3aab945347949fb60ff3464887f1f3ee" name="data/ucn/CanonicalDecompositionsX.php" role="data" />
+   <file baseinstalldir="I18N" md5sum="be82a7a246f4187c0fe6b5cbbeefa48b" name="data/ucn/CompatibilityDecompositions.php" role="data" />
+   <file baseinstalldir="I18N" md5sum="50ea7a6ff7eaa987bcbca7ff6dd45a36" name="data/ucn/CompatibilityDecompositionsX.php" role="data" />
+   <file baseinstalldir="I18N" md5sum="3134cfe0473a0678296910ad7f40e691" name="data/ucn/CompositionExclusions.php" role="data" />
+   <file baseinstalldir="I18N" md5sum="8adc682980143d23fdd8c082ddf28fb4" name="data/ucn/Compositions.php" role="data" />
+   <file baseinstalldir="I18N" md5sum="0d15703caf3682b89ea323a3f5641731" name="data/ucn/HangulCompositions.php" role="data" />
+   <file baseinstalldir="I18N" md5sum="33ddf073414ce87eb76fb4f3145c7490" name="data/ucn/HangulDecompositions.php" role="data" />
+   <file baseinstalldir="I18N" md5sum="a48a7cd0863e8b820a104fe619244e4e" name="data/ucn/HangulTests.php" role="data" />
+   <file baseinstalldir="I18N" md5sum="db0955c67f9334d866d769778335df8a" name="data/ucn/NormalizationCorrections.php" role="data" />
+   <file baseinstalldir="I18N" md5sum="d9042cb271c678848f7d03eded58070d" name="data/ucn/QuickCheckNFC.php" role="data" />
+   <file baseinstalldir="I18N" md5sum="ed81ee19b2032187b686dcb114f22d23" name="data/ucn/QuickCheckNFD.php" role="data" />
+   <file baseinstalldir="I18N" md5sum="326fbd614a3bc164190fa0fc13493030" name="data/ucn/QuickCheckNFKC.php" role="data" />
+   <file baseinstalldir="I18N" md5sum="6e2992395a5c88cede0907185241b511" name="data/ucn/QuickCheckNFKD.php" role="data" />
+   <file baseinstalldir="I18N" md5sum="e6f76ccb471490bf6c1d722b00986400" name="data/unicodedata/DerivedNormalizationProps.txt" role="data" />
+   <file baseinstalldir="I18N" md5sum="5d133ea6bf95dee4b14e5081cfa92b34" name="data/unicodedata/NormalizationCorrections.txt" role="data" />
+   <file baseinstalldir="I18N" md5sum="d2bcaf4d397c0691ed05aefc7e78b4d4" name="data/unicodedata/NormalizationTest-3.2.0.txt" role="data" />
+   <file baseinstalldir="I18N" md5sum="f5935d7b28029cacb265a727be7750b6" name="data/unicodedata/UnicodeData.txt" role="data" />
+   <file baseinstalldir="I18N" md5sum="15759ba7b8e68ee86d00a51420c25286" name="data/utf8/BaseTests.php" role="data" />
+   <file baseinstalldir="I18N" md5sum="3a2b07264a9c1a22dc6cf00c058ea0f8" name="data/utf8/CanonicalCombining.php" role="data" />
+   <file baseinstalldir="I18N" md5sum="a5628a76e70fba98360fce74a1a6cf6c" name="data/utf8/CanonicalDecompositions.php" role="data" />
+   <file baseinstalldir="I18N" md5sum="944f92c9ec32f6965555f29ae04320b2" name="data/utf8/CanonicalDecompositionsX.php" role="data" />
+   <file baseinstalldir="I18N" md5sum="ca7292690de9453eac9029e07c9dd071" name="data/utf8/CompatibilityDecompositions.php" role="data" />
+   <file baseinstalldir="I18N" md5sum="c29d42bc4e4bfa6811ddad4f6e0a20cc" name="data/utf8/CompatibilityDecompositionsX.php" role="data" />
+   <file baseinstalldir="I18N" md5sum="ad2f69ebe9623dff597d42dad869a331" name="data/utf8/CompositionExclusions.php" role="data" />
+   <file baseinstalldir="I18N" md5sum="b154919c978b67dad626235c873d109e" name="data/utf8/Compositions.php" role="data" />
+   <file baseinstalldir="I18N" md5sum="7f26deab4e1630194aaebbe008c7c137" name="data/utf8/HangulCompositions.php" role="data" />
+   <file baseinstalldir="I18N" md5sum="8c630006ef5f48bca52f5099df3c80cc" name="data/utf8/HangulDecompositions.php" role="data" />
+   <file baseinstalldir="I18N" md5sum="1db298fa3a426a16073cee5d54e94f54" name="data/utf8/HangulTests.php" role="data" />
+   <file baseinstalldir="I18N" md5sum="235fa0be77e26c6e6df32e5b5d851b2d" name="data/utf8/NormalizationCorrections.php" role="data" />
+   <file baseinstalldir="I18N" md5sum="cb36f23e8b7cb4c91482ceb0e32bbc2a" name="data/utf8/QuickCheckNFC.php" role="data" />
+   <file baseinstalldir="I18N" md5sum="4cb0b06a60572f617706adb6695e8a8d" name="data/utf8/QuickCheckNFD.php" role="data" />
+   <file baseinstalldir="I18N" md5sum="834aeaef26d2ac0a327011e1f825ce83" name="data/utf8/QuickCheckNFKC.php" role="data" />
+   <file baseinstalldir="I18N" md5sum="51b5df88ea04b1c9ffc0a6da63ab3443" name="data/utf8/QuickCheckNFKD.php" role="data" />
+   <file baseinstalldir="I18N" md5sum="4823954ac7aa9b8c1dcb96bceff8e787" name="docs/examples.txt" role="doc" />
+   <file baseinstalldir="I18N" md5sum="cc87e77ec65115e26ce8e64bcd905b16" name="tests/UnicodeNormalizer/CompilerTest.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="a5b37c76b382ef96170240037eeb09c0" name="tests/UnicodeNormalizer/FileTest.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="4cd60429c2793b1976171b56bb28e380" name="tests/UnicodeNormalizer/StringTest.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="e14ccdeecf7164fac1e55596ce0e1265" name="tests/benchmark/data/arabic.txt" role="test" />
+   <file baseinstalldir="I18N" md5sum="9e875bf6b874102a3416c86c8a401b86" name="tests/benchmark/data/english.txt" role="test" />
+   <file baseinstalldir="I18N" md5sum="73dd3664693294df2e9db173572d6c2b" name="tests/benchmark/data/french.txt" role="test" />
+   <file baseinstalldir="I18N" md5sum="f92728ba65219886f0407b93df647906" name="tests/benchmark/data/german.txt" role="test" />
+   <file baseinstalldir="I18N" md5sum="f2b0ded52fe3e6a9f008cce4d4f7e5fc" name="tests/benchmark/data/japanese.txt" role="test" />
+   <file baseinstalldir="I18N" md5sum="c9c34342261a3ac533204a66ca242d8c" name="tests/benchmark/data/javanese.txt" role="test" />
+   <file baseinstalldir="I18N" md5sum="96b4b4d7713fff2c54ed67cc73f34d4a" name="tests/benchmark/data/korean.txt" role="test" />
+   <file baseinstalldir="I18N" md5sum="0e639c9344c55cd2a4ebdb2784ba9d0b" name="tests/benchmark/data/mandarin.txt" role="test" />
+   <file baseinstalldir="I18N" md5sum="75e3fae0b3b5a54c472120317d952c80" name="tests/benchmark/data/russian.txt" role="test" />
+   <file baseinstalldir="I18N" md5sum="df7b1262878b882ebe930f74533d3b60" name="tests/benchmark/data/spanish.txt" role="test" />
+   <file baseinstalldir="I18N" md5sum="8e7752a7306ed3ed501d98c57ccfd7d9" name="tests/benchmark/data/tagalog.txt" role="test" />
+   <file baseinstalldir="I18N" md5sum="4a3bb2cd99e77fc5acdefba62e7ef220" name="tests/benchmark/data/turkish.txt" role="test" />
+   <file baseinstalldir="I18N" md5sum="6db3397668adfa4b09e3fc453ae46722" name="tests/benchmark/mediawiki/UtfNormal.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="3805db15fefc58acc28c74acd67c668a" name="tests/benchmark/mediawiki/UtfNormalData.inc" role="test" />
+   <file baseinstalldir="I18N" md5sum="34627d4f662b0b512f8c8e707fec82c0" name="tests/benchmark/mediawiki/UtfNormalDataK.inc" role="test" />
+   <file baseinstalldir="I18N" md5sum="1ec429b2f875cdffe48d418010bff360" name="tests/benchmark/mediawiki/UtfNormalUtil.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="edc25a4222ea57d46fe80589f32764e1" name="tests/benchmark/UnormVsMediawiki.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="88370a5465be91da268cee234c1e6889" name="tests/data/reference/BaseTests.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="6b790d73b737554808627548a208fb4d" name="tests/data/reference/CanonicalCombining.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="cc4a8d0944fc1b5ab2f04ba45f7cef27" name="tests/data/reference/CanonicalDecompositions.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="4cca084ad69bf387af7a9f02a6467183" name="tests/data/reference/CanonicalDecompositionsX.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="f90c9a759f7bc7a9f9ab6b2636dbae24" name="tests/data/reference/CompatibilityDecompositions.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="87ec8d9f701cd0b6f027185ec444653e" name="tests/data/reference/CompatibilityDecompositionsX.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="526b87094be36d3ec192adc01388bc4a" name="tests/data/reference/CompositionExclusions.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="73ad1a36d29bc3e816e64c54dcb4c845" name="tests/data/reference/Compositions.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="2663f665b97c3650ea734c47ea47b2d4" name="tests/data/reference/HangulCompositions.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="8f04561a366e2d891c5a5737377c264f" name="tests/data/reference/HangulDecompositions.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="f522494de03e5e7ce0ae8153365822ce" name="tests/data/reference/HangulTests.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="a54f46ca4bd6b814be10336cbe2cbf24" name="tests/data/reference/NormalizationCorrections.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="203e69734a56657566510d5e53bd5319" name="tests/data/reference/QuickCheckNFC.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="60493f05dc250e21c0e3002172650dec" name="tests/data/reference/QuickCheckNFD.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="de806d7842b5f1624505700669f690d6" name="tests/data/reference/QuickCheckNFKC.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="4ca8fe37dfab09047fc5a762e27ddeec" name="tests/data/reference/QuickCheckNFKD.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="f3b2c32120bed0a10ad78ffac91afaa1" name="tests/data/ucn/BaseTests.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="f043edbaed9a19bc0c95e3abc2fb5cc2" name="tests/data/ucn/CanonicalCombining.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="e8d903c8d2bc2a597f281b4aa88746b4" name="tests/data/ucn/CanonicalDecompositions.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="d57a88c6e0aae84eaca883a2f8e290f7" name="tests/data/ucn/CanonicalDecompositionsX.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="da2a8e008d8c54144d9db87709cc80a7" name="tests/data/ucn/CompatibilityDecompositions.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="cba15869e2d801ac1ef4c5b0e31ac936" name="tests/data/ucn/CompatibilityDecompositionsX.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="971584d76d243aa101854d2e07b05be1" name="tests/data/ucn/CompositionExclusions.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="c1cf8198abb4ff135d5996e70f875d2b" name="tests/data/ucn/Compositions.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="38db45a3260ae68611a4eb1423b731aa" name="tests/data/ucn/HangulCompositions.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="d27f5af9ba236fab5953f4e4d81eb8b6" name="tests/data/ucn/HangulDecompositions.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="081b324c8eb93ede65c13189cceeadac" name="tests/data/ucn/HangulTests.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="8e776c8efb011eec81ead75fa8e76605" name="tests/data/ucn/NormalizationCorrections.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="107bb9798e8f7c7fc128735c69c93f20" name="tests/data/ucn/QuickCheckNFC.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="9bd7f18702d1aa85ff13749c05761dc8" name="tests/data/ucn/QuickCheckNFD.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="0b6744b07977031f1bac4e08d743bb1b" name="tests/data/ucn/QuickCheckNFKC.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="1301659202f5a4da2c5364acbd7f6772" name="tests/data/ucn/QuickCheckNFKD.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="9ff4683b49efcd5773641480188ab71b" name="tests/data/unicodedata/DerivedNormalizationProps.txt" role="test" />
+   <file baseinstalldir="I18N" md5sum="223f219f71475b67f253241e3436021b" name="tests/data/unicodedata/NormalizationCorrections.txt" role="test" />
+   <file baseinstalldir="I18N" md5sum="66e759988d8e73060ac7efff1fa1e2b4" name="tests/data/unicodedata/NormalizationTest-3.2.0.txt" role="test" />
+   <file baseinstalldir="I18N" md5sum="7f8cee61c8e88af5034732c5c687e753" name="tests/data/unicodedata/UnicodeData.txt" role="test" />
+   <file baseinstalldir="I18N" md5sum="05c7b1667c9b34e0596b00bcf2203a09" name="tests/data/utf8/BaseTests.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="ba392a35250b8d0f1a842d126bfd5832" name="tests/data/utf8/CanonicalCombining.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="b11485cc12d591147b2994aec7f210ad" name="tests/data/utf8/CanonicalDecompositions.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="b9715fa3b0674481dd9eb03d6ab3c344" name="tests/data/utf8/CanonicalDecompositionsX.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="19637af1abda10bbd497cabcd51ec45e" name="tests/data/utf8/CompatibilityDecompositions.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="e7cd92d52c48cb9c5a2b69467e80b5a7" name="tests/data/utf8/CompatibilityDecompositionsX.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="41eac5e9aee0ef2cf22248a487a9b938" name="tests/data/utf8/CompositionExclusions.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="7e6d493da875498a2d883b7b0b30e96f" name="tests/data/utf8/Compositions.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="e8a33f178938d574afd7b56a0bdd4654" name="tests/data/utf8/HangulCompositions.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="01f5ee498b0b0bcc416288c7d224f08b" name="tests/data/utf8/HangulDecompositions.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="05c7ff1d3ede49b55fad06d94a2243b5" name="tests/data/utf8/HangulTests.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="a09232b00b22d1b431964da769fe2428" name="tests/data/utf8/NormalizationCorrections.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="166e5f00f819043ad9a9a1a324b0a9fa" name="tests/data/utf8/QuickCheckNFC.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="9bc680f982030f40c84c99e88e94bbce" name="tests/data/utf8/QuickCheckNFD.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="c73060b4ae3c11f8539dbd7863bd421b" name="tests/data/utf8/QuickCheckNFKC.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="94592c2ecaf00b19aed8d81f3c0bc552" name="tests/data/utf8/QuickCheckNFKD.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="cf18944010ceb471400d5aa877945573" name="tests/reports/benchmark/UnormVsMediawiki-0.001.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="7e9b15399dd86e73e0fabb2ffe461bf8" name="tests/reports/benchmark/UnormVsMediawiki-0.01.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="a68306c7d4bbb3470c3c9ecf826d0b53" name="tests/reports/benchmark/UnormVsMediawiki-0.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="4991fabe9f8064995a0ca420b0460cea" name="tests/reports/regression/i18n-unorm-all.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="8ba8c3cb97572093a02f609c46993017" name="tests/reports/regression/i18n-unorm-limited.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="01d79314defeb960ff9679d9623c9026" name="tests/reports/regression/mediawiki-all.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="d9957019e020f2cc58110f9b3642f31e" name="tests/AllTests.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="0c0f133a7afa28a7ac96861017402770" name="tests/UnicodeNormalizerTest.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="45f27b80c008baaabdbec828de769b47" name="tests/normtest.php" role="test" />
+   <file baseinstalldir="I18N" md5sum="7acd2bdc8d97d499ae69973d8288ec2c" name="UnicodeNormalizer.php" role="php" />
+   <file baseinstalldir="/" md5sum="53f4c8c09935f6835a3ceedbc3a4b45d" name="run.bat" role="script">
+    <tasks:windowseol />
+    <tasks:replace from="@bin_dir@" to="bin_dir" type="pear-config" />
+    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
+   </file>
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0</min>
+   </pearinstaller>
+  </required>
+  <optional>
+   <package>
+    <name>PEAR</name>
+    <channel>pear.php.net</channel>
+   </package>
+  </optional>
+ </dependencies>
+ <phprelease>
+  <installconditions>
+   <os>
+    <name>windows</name>
+   </os>
+  </installconditions>
+  <filelist>
+   <install as="ucn/BaseTests.php" name="data/ucn/BaseTests.php" />
+   <install as="ucn/CanonicalCombining.php" name="data/ucn/CanonicalCombining.php" />
+   <install as="ucn/CanonicalDecompositions.php" name="data/ucn/CanonicalDecompositions.php" />
+   <install as="ucn/CanonicalDecompositionsX.php" name="data/ucn/CanonicalDecompositionsX.php" />
+   <install as="ucn/CompatibilityDecompositions.php" name="data/ucn/CompatibilityDecompositions.php" />
+   <install as="ucn/CompatibilityDecompositionsX.php" name="data/ucn/CompatibilityDecompositionsX.php" />
+   <install as="ucn/CompositionExclusions.php" name="data/ucn/CompositionExclusions.php" />
+   <install as="ucn/Compositions.php" name="data/ucn/Compositions.php" />
+   <install as="ucn/HangulCompositions.php" name="data/ucn/HangulCompositions.php" />
+   <install as="ucn/HangulDecompositions.php" name="data/ucn/HangulDecompositions.php" />
+   <install as="ucn/HangulTests.php" name="data/ucn/HangulTests.php" />
+   <install as="ucn/NormalizationCorrections.php" name="data/ucn/NormalizationCorrections.php" />
+   <install as="ucn/QuickCheckNFC.php" name="data/ucn/QuickCheckNFC.php" />
+   <install as="ucn/QuickCheckNFD.php" name="data/ucn/QuickCheckNFD.php" />
+   <install as="ucn/QuickCheckNFKC.php" name="data/ucn/QuickCheckNFKC.php" />
+   <install as="ucn/QuickCheckNFKD.php" name="data/ucn/QuickCheckNFKD.php" />
+   <install as="unicodedata/DerivedNormalizationProps.txt" name="data/unicodedata/DerivedNormalizationProps.txt" />
+   <install as="unicodedata/NormalizationCorrections.txt" name="data/unicodedata/NormalizationCorrections.txt" />
+   <install as="unicodedata/NormalizationTest-3.2.0.txt" name="data/unicodedata/NormalizationTest-3.2.0.txt" />
+   <install as="unicodedata/UnicodeData.txt" name="data/unicodedata/UnicodeData.txt" />
+   <install as="utf8/BaseTests.php" name="data/utf8/BaseTests.php" />
+   <install as="utf8/CanonicalCombining.php" name="data/utf8/CanonicalCombining.php" />
+   <install as="utf8/CanonicalDecompositions.php" name="data/utf8/CanonicalDecompositions.php" />
+   <install as="utf8/CanonicalDecompositionsX.php" name="data/utf8/CanonicalDecompositionsX.php" />
+   <install as="utf8/CompatibilityDecompositions.php" name="data/utf8/CompatibilityDecompositions.php" />
+   <install as="utf8/CompatibilityDecompositionsX.php" name="data/utf8/CompatibilityDecompositionsX.php" />
+   <install as="utf8/CompositionExclusions.php" name="data/utf8/CompositionExclusions.php" />
+   <install as="utf8/Compositions.php" name="data/utf8/Compositions.php" />
+   <install as="utf8/HangulCompositions.php" name="data/utf8/HangulCompositions.php" />
+   <install as="utf8/HangulDecompositions.php" name="data/utf8/HangulDecompositions.php" />
+   <install as="utf8/HangulTests.php" name="data/utf8/HangulTests.php" />
+   <install as="utf8/NormalizationCorrections.php" name="data/utf8/NormalizationCorrections.php" />
+   <install as="utf8/QuickCheckNFC.php" name="data/utf8/QuickCheckNFC.php" />
+   <install as="utf8/QuickCheckNFD.php" name="data/utf8/QuickCheckNFD.php" />
+   <install as="utf8/QuickCheckNFKC.php" name="data/utf8/QuickCheckNFKC.php" />
+   <install as="utf8/QuickCheckNFKD.php" name="data/utf8/QuickCheckNFKD.php" />
+   <ignore name="run.bat" />
+  </filelist>
+ </phprelease>
+ <phprelease>
+  <filelist>
+   <install as="ucn/BaseTests.php" name="data/ucn/BaseTests.php" />
+   <install as="ucn/CanonicalCombining.php" name="data/ucn/CanonicalCombining.php" />
+   <install as="ucn/CanonicalDecompositions.php" name="data/ucn/CanonicalDecompositions.php" />
+   <install as="ucn/CanonicalDecompositionsX.php" name="data/ucn/CanonicalDecompositionsX.php" />
+   <install as="ucn/CompatibilityDecompositions.php" name="data/ucn/CompatibilityDecompositions.php" />
+   <install as="ucn/CompatibilityDecompositionsX.php" name="data/ucn/CompatibilityDecompositionsX.php" />
+   <install as="ucn/CompositionExclusions.php" name="data/ucn/CompositionExclusions.php" />
+   <install as="ucn/Compositions.php" name="data/ucn/Compositions.php" />
+   <install as="ucn/HangulCompositions.php" name="data/ucn/HangulCompositions.php" />
+   <install as="ucn/HangulDecompositions.php" name="data/ucn/HangulDecompositions.php" />
+   <install as="ucn/HangulTests.php" name="data/ucn/HangulTests.php" />
+   <install as="ucn/NormalizationCorrections.php" name="data/ucn/NormalizationCorrections.php" />
+   <install as="ucn/QuickCheckNFC.php" name="data/ucn/QuickCheckNFC.php" />
+   <install as="ucn/QuickCheckNFD.php" name="data/ucn/QuickCheckNFD.php" />
+   <install as="ucn/QuickCheckNFKC.php" name="data/ucn/QuickCheckNFKC.php" />
+   <install as="ucn/QuickCheckNFKD.php" name="data/ucn/QuickCheckNFKD.php" />
+   <install as="unicodedata/DerivedNormalizationProps.txt" name="data/unicodedata/DerivedNormalizationProps.txt" />
+   <install as="unicodedata/NormalizationCorrections.txt" name="data/unicodedata/NormalizationCorrections.txt" />
+   <install as="unicodedata/NormalizationTest-3.2.0.txt" name="data/unicodedata/NormalizationTest-3.2.0.txt" />
+   <install as="unicodedata/UnicodeData.txt" name="data/unicodedata/UnicodeData.txt" />
+   <install as="utf8/BaseTests.php" name="data/utf8/BaseTests.php" />
+   <install as="utf8/CanonicalCombining.php" name="data/utf8/CanonicalCombining.php" />
+   <install as="utf8/CanonicalDecompositions.php" name="data/utf8/CanonicalDecompositions.php" />
+   <install as="utf8/CanonicalDecompositionsX.php" name="data/utf8/CanonicalDecompositionsX.php" />
+   <install as="utf8/CompatibilityDecompositions.php" name="data/utf8/CompatibilityDecompositions.php" />
+   <install as="utf8/CompatibilityDecompositionsX.php" name="data/utf8/CompatibilityDecompositionsX.php" />
+   <install as="utf8/CompositionExclusions.php" name="data/utf8/CompositionExclusions.php" />
+   <install as="utf8/Compositions.php" name="data/utf8/Compositions.php" />
+   <install as="utf8/HangulCompositions.php" name="data/utf8/HangulCompositions.php" />
+   <install as="utf8/HangulDecompositions.php" name="data/utf8/HangulDecompositions.php" />
+   <install as="utf8/HangulTests.php" name="data/utf8/HangulTests.php" />
+   <install as="utf8/NormalizationCorrections.php" name="data/utf8/NormalizationCorrections.php" />
+   <install as="utf8/QuickCheckNFC.php" name="data/utf8/QuickCheckNFC.php" />
+   <install as="utf8/QuickCheckNFD.php" name="data/utf8/QuickCheckNFD.php" />
+   <install as="utf8/QuickCheckNFKC.php" name="data/utf8/QuickCheckNFKC.php" />
+   <install as="utf8/QuickCheckNFKD.php" name="data/utf8/QuickCheckNFKD.php" />
+   <ignore name="run.bat" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0RC3</release>
+    <api>1.0.0RC3</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2007-07-23</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">The BSD License</license>
+   <notes>* Added method calls debug trace
+* Fixed class version tags</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC2</release>
+    <api>1.0.0RC2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2007-07-07</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">The BSD License</license>
+   <notes>* Changed the AllTests main class name to comply with the QA PEAR-wide unit test</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC1</release>
+    <api>1.0.0RC1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2007-07-06</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">The BSD License</license>
+   <notes>* Initial PEAR release
+* Testing with PHPUnit
+* Various fixes and enhancements</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1</release>
+    <api>0.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2007-06-11</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">The BSD License</license>
+   <notes>* Initial release in sourceforge</notes>
+  </release>
+ </changelog>
+</package>
