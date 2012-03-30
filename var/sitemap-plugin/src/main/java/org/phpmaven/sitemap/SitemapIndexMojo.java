@@ -149,6 +149,9 @@ public class SitemapIndexMojo extends AbstractMojo
         root.setAttribute( "xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9" );
         
         for (final String url : urls) {
+            if (url == null) {
+                continue;
+            }
         	Element sitemap = xmldoc.createElement( "sitemap" );
     		Element location = xmldoc.createElement( "loc" );
     		location.appendChild( xmldoc.createTextNode( url + "sitemap.xml.gz" ) );
