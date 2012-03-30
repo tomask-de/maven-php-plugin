@@ -133,12 +133,15 @@ public class LintThread implements Runnable {
      * @throws InterruptedException 
      */
     public void join() throws InterruptedException {
-        if (this.thread.isAlive()) {
+        /*if (this.thread.isAlive()) {
             this.thread.join(5000);
         }
         if (this.thread.isAlive()) {
             this.thread.stop();
             // TODO Better error management. Why sometimes the lint check freezes???
+        }*/
+        if (this.thread.isAlive()) {
+            this.thread.join();
         }
     }
     
