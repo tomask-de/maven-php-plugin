@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Net_LDAP</name>
+  <summary>OO interface for searching and manipulating LDAP-entries</summary>
+  <description>Net Ldap is a clone of Perls Net::LDAP object interface to 
+  ldapservers. It does not contain all of Net::LDAPs features (ldif handling, schemas etc), 
+  but has:
+  * A simple OO-interface to connections, searches and entries.
+  * Support for tls and ldap v3.
+  * Simple modification, deletion and creation of ldapentries.
+  * Support for schema handling.
+
+
+Net-Ldap layers itself on top of PHP's existing ldap extensions.</description>
+  <maintainers>
+    <maintainer>
+      <user>tarjei</user>
+      <name>Tarjei Huse</name>
+      <email>tarjei@nu.no</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.5</version>
+    <date>2003-10-01</date>
+    <license>GPL License</license>
+    <state>beta</state>
+    <notes>Jan Wagner Contributed a new RootDSE object and a Schema object and some fixes to the Net_LDAP::search() method.
+
+
+The new Net_ldap_entry::modify() method seems to work very nice now.</notes>
+    <provides type="class" name="Net_Ldap" extends="PEAR" />
+    <provides type="class" name="Net_Ldap_Error" extends="PEAR_Error" />
+    <provides type="function" name="Net_Ldap::connect" />
+    <provides type="function" name="Net_Ldap::bind" />
+    <provides type="function" name="Net_Ldap::start_tls" />
+    <provides type="function" name="Net_Ldap::done" />
+    <provides type="function" name="Net_Ldap::add" />
+    <provides type="function" name="Net_Ldap::delete" />
+    <provides type="function" name="Net_Ldap::modify" />
+    <provides type="function" name="Net_Ldap::search" />
+    <provides type="function" name="Net_Ldap::getVersion" />
+    <provides type="function" name="Net_Ldap::errorMessage" />
+    <provides type="function" name="Net_Ldap::rootDse" />
+    <provides type="function" name="Net_Ldap::root_dse" />
+    <provides type="function" name="Net_Ldap::schema" />
+    <provides type="function" name="Net_Ldap_Error::LDAP_Error" />
+    <provides type="class" name="Net_Ldap_Entry" extends="PEAR" />
+    <provides type="function" name="Net_Ldap_Entry::attributes" />
+    <provides type="function" name="Net_Ldap_Entry::add" />
+    <provides type="function" name="Net_Ldap_Entry::dn" />
+    <provides type="function" name="Net_Ldap_Entry::exists" />
+    <provides type="function" name="Net_Ldap_Entry::get_value" />
+    <provides type="function" name="Net_Ldap_Entry::modify" />
+    <provides type="function" name="Net_Ldap_Entry::replace" />
+    <provides type="function" name="Net_Ldap_Entry::delete" />
+    <provides type="function" name="Net_Ldap_Entry::update" />
+    <provides type="class" name="Net_Ldap_Search" extends="PEAR" />
+    <provides type="function" name="Net_Ldap_Search::entries" />
+    <provides type="function" name="Net_Ldap_Search::shift_entry" />
+    <provides type="function" name="Net_Ldap_Search::pop_entry" />
+    <provides type="function" name="Net_Ldap_Search::sorted" />
+    <provides type="function" name="Net_Ldap_Search::as_struct" />
+    <provides type="function" name="Net_Ldap_Search::count" />
+    <provides type="function" name="Net_Ldap_Search::getErrorCode" />
+    <provides type="function" name="Net_Ldap_Search::done" />
+    <provides type="class" name="Net_LDAP_RootDSE" extends="PEAR" />
+    <provides type="function" name="Net_LDAP_RootDSE::get" />
+    <provides type="function" name="Net_LDAP_RootDSE::getValue" />
+    <provides type="function" name="Net_LDAP_RootDSE::get_value" />
+    <provides type="function" name="Net_LDAP_RootDSE::supportedExtension" />
+    <provides type="function" name="Net_LDAP_RootDSE::supported_extension" />
+    <provides type="function" name="Net_LDAP_RootDSE::supportedVersion" />
+    <provides type="function" name="Net_LDAP_RootDSE::supported_version" />
+    <provides type="function" name="Net_LDAP_RootDSE::supportedControl" />
+    <provides type="function" name="Net_LDAP_RootDSE::supported_control" />
+    <provides type="function" name="Net_LDAP_RootDSE::supportedSASLMechanism" />
+    <provides type="function" name="Net_LDAP_RootDSE::supported_sasl_mechanism" />
+    <provides type="class" name="Net_LDAP_Schema" extends="PEAR" />
+    <provides type="function" name="Net_LDAP_Schema::getAll" />
+    <provides type="function" name="Net_LDAP_Schema::get" />
+    <provides type="function" name="Net_LDAP_Schema::may" />
+    <provides type="function" name="Net_LDAP_Schema::must" />
+    <provides type="function" name="Net_LDAP_Schema::hasError" />
+    <provides type="function" name="Net_LDAP_Schema::getError" />
+    <filelist>
+      <file role="php" baseinstalldir="Net" md5sum="7dc8a45995c8a62e88d41f03fed62c6a" name="LDAP.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="4c098af5dea43ec94728c5c21ec21ed7" name="LDAP/Entry.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="b29f890019fcde0f11a903984a5a142e" name="LDAP/Search.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="b555ecbfcfd5975b39b8ba34f342e500" name="LDAP/RootDSE.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="afa5ed7cc28d8a3d0414dc96a7086968" name="LDAP/Schema.php"/>
+      <file role="test" baseinstalldir="Net" md5sum="edf1859f9fcd94182e626395cb13bb09" name="tests/tests.php"/>
+      <file role="doc" baseinstalldir="Net" md5sum="75fce98b7c0779c3a6f789da1847b858" name="doc/README.txt"/>
+      <file role="doc" baseinstalldir="Net" md5sum="989d5dadd8e5c7da21852ebc96f38bbb" name="doc/STATUS"/>
+      <file role="doc" baseinstalldir="Net" md5sum="3b5e3da1f0d8355043c607272371050f" name="doc/Schema.txt"/>
+      <file role="doc" baseinstalldir="Net" md5sum="25d4d2d30e88f9b698051726e82c1af7" name="doc/RootDSE.txt"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.1</version>
+      <date>2003-06-23</date>
+      <state>beta</state>
+      <notes>Initial release
+</notes>
+    </release>
+    <release>
+      <version>0.2</version>
+      <date>2003-08-23</date>
+      <state>beta</state>
+      <notes>Fixed a lot of bugs that jumped in during the pearification process
+</notes>
+    </release>
+    <release>
+      <version>0.3</version>
+      <date>2003-09-21</date>
+      <state>beta</state>
+      <notes>More bug squashing! Much better errorhandling in the -&gt;search() function. Also, all errors that create a Pear_error now includes the errornumber if appropriate (i.e. it was an ldap generated error).
+</notes>
+    </release>
+  </changelog>
+</package>

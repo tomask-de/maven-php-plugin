@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Math_Matrix</name>
+  <summary>Class to represent matrices and matrix operations</summary>
+  <description>Matrices are represented as 2 dimensional arrays of numbers. 
+This class defines methods for matrix objects, as well as static methods 
+to read, write and manipulate matrices, including methods to solve systems 
+of linear equations (with and without iterative error correction).
+Requires the Math_Vector package.
+For running the unit tests you will need PHPUnit version 0.6.2 or older.</description>
+  <maintainers>
+    <maintainer>
+      <user>jmcastagnetto</user>
+      <name>Jesus M. Castagnetto</name>
+      <email>jmcastagnetto@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.8.5</version>
+    <date>2003-11-01</date>
+    <license>PHP</license>
+    <state>beta</state>
+    <notes>Fixed some bugs in matrix multiplication reported by John Pye
+(john@curioussymbols.com) and Marcel Brunner (marcel@palmer.li).
+Fixed some minor documentation incosistencies.
+
+Modified the setData() method to accept a Math_Matrix object or
+an array of arrays of numbers.
+Added the setZeroThreshold() and getZeroThreshold() to set and get the
+value used as upper bound to minimize round-off errors.
+Added also two static methods to generate famous matrices:
+Math_Matrix::makeHilbert() for a square Hilber matrix, and 
+Math_Matrix::makeHankel() for m by n Hankel matrix.
+Reorganized the directories to comply to the current directory organization
+proposal.
+It is recommended to uninstall the older version of Math_Matrix (and
+Math_Vector) before installing this new release to avoid lingering files
+(there is also a new release of Math_Vector):
+$ pear uninstall Math_Matrix Math_Vector
+$ pear install Math_Vector
+$ pear install Math_Matrix
+Included explicitely the optional dependency on the PHPUnit package version
+0.6.2 or older, as current versions of that package need PHP5.</notes>
+    <deps>
+      <dep type="pkg" rel="has">Math_Vector</dep>
+      <dep type="pkg" rel="le" version="0.6.2" optional="yes">PHPUnit</dep>
+    </deps>
+    <provides type="class" name="Math_Matrix" />
+    <provides type="function" name="Math_Matrix::setData" />
+    <provides type="function" name="Math_Matrix::getData" />
+    <provides type="function" name="Math_Matrix::setZeroThreshold" />
+    <provides type="function" name="Math_Matrix::getZeroThreshold" />
+    <provides type="function" name="Math_Matrix::isEmpty" />
+    <provides type="function" name="Math_Matrix::getSize" />
+    <provides type="function" name="Math_Matrix::isSquare" />
+    <provides type="function" name="Math_Matrix::norm" />
+    <provides type="function" name="Math_Matrix::clone" />
+    <provides type="function" name="Math_Matrix::setElement" />
+    <provides type="function" name="Math_Matrix::getElement" />
+    <provides type="function" name="Math_Matrix::getRow" />
+    <provides type="function" name="Math_Matrix::setRow" />
+    <provides type="function" name="Math_Matrix::getCol" />
+    <provides type="function" name="Math_Matrix::setCol" />
+    <provides type="function" name="Math_Matrix::swapRows" />
+    <provides type="function" name="Math_Matrix::swapCols" />
+    <provides type="function" name="Math_Matrix::swapRowCol" />
+    <provides type="function" name="Math_Matrix::getMin" />
+    <provides type="function" name="Math_Matrix::getMax" />
+    <provides type="function" name="Math_Matrix::getValueIndex" />
+    <provides type="function" name="Math_Matrix::getMinIndex" />
+    <provides type="function" name="Math_Matrix::getMaxIndex" />
+    <provides type="function" name="Math_Matrix::transpose" />
+    <provides type="function" name="Math_Matrix::trace" />
+    <provides type="function" name="Math_Matrix::determinant" />
+    <provides type="function" name="Math_Matrix::normalizedDeterminant" />
+    <provides type="function" name="Math_Matrix::invert" />
+    <provides type="function" name="Math_Matrix::getSubMatrix" />
+    <provides type="function" name="Math_Matrix::toString" />
+    <provides type="function" name="Math_Matrix::toHTML" />
+    <provides type="function" name="Math_Matrix::add" />
+    <provides type="function" name="Math_Matrix::sub" />
+    <provides type="function" name="Math_Matrix::scale" />
+    <provides type="function" name="Math_Matrix::scaleRow" />
+    <provides type="function" name="Math_Matrix::multiply" />
+    <provides type="function" name="Math_Matrix::vectorMultiply" />
+    <provides type="function" name="Math_Matrix::readFromFile" />
+    <provides type="function" name="Math_Matrix::writeToFile" />
+    <provides type="function" name="Math_Matrix::isMatrix" />
+    <provides type="function" name="Math_Matrix::makeMatrix" />
+    <provides type="function" name="Math_Matrix::makeOne" />
+    <provides type="function" name="Math_Matrix::makeZero" />
+    <provides type="function" name="Math_Matrix::makeUnit" />
+    <provides type="function" name="Math_Matrix::makeIdentity" />
+    <provides type="function" name="Math_Matrix::makeHilbert" />
+    <provides type="function" name="Math_Matrix::makeHankel" />
+    <provides type="function" name="Math_Matrix::solve" />
+    <provides type="function" name="Math_Matrix::solveEC" />
+    <provides type="class" name="Math_Matrix_Instance_Methods_Test" extends="PHPUnit_TestCase" />
+    <provides type="function" name="Math_Matrix_Instance_Methods_Test::setUp" />
+    <provides type="function" name="Math_Matrix_Instance_Methods_Test::testIsSquare" />
+    <provides type="function" name="Math_Matrix_Instance_Methods_Test::testGetSize" />
+    <provides type="function" name="Math_Matrix_Instance_Methods_Test::testIsEmpty" />
+    <provides type="function" name="Math_Matrix_Instance_Methods_Test::testClone" />
+    <provides type="function" name="Math_Matrix_Instance_Methods_Test::testNorm" />
+    <provides type="function" name="Math_Matrix_Instance_Methods_Test::testTrace" />
+    <provides type="function" name="Math_Matrix_Instance_Methods_Test::testDeterminant" />
+    <provides type="function" name="Math_Matrix_Instance_Methods_Test::testNormalizedDeterminant" />
+    <provides type="function" name="Math_Matrix_Instance_Methods_Test::testGetRow" />
+    <provides type="function" name="Math_Matrix_Instance_Methods_Test::testGetCol" />
+    <provides type="function" name="Math_Matrix_Instance_Methods_Test::testGetElement" />
+    <provides type="function" name="Math_Matrix_Instance_Methods_Test::testGetData" />
+    <provides type="function" name="Math_Matrix_Instance_Methods_Test::testGetMin" />
+    <provides type="function" name="Math_Matrix_Instance_Methods_Test::testGetMax" />
+    <provides type="function" name="Math_Matrix_Instance_Methods_Test::testGetValueIndex" />
+    <provides type="function" name="Math_Matrix_Instance_Methods_Test::testGetMinIndex" />
+    <provides type="function" name="Math_Matrix_Instance_Methods_Test::testGetMaxIndex" />
+    <provides type="function" name="Math_Matrix_Instance_Methods_Test::testTranspose" />
+    <provides type="function" name="Math_Matrix_Instance_Methods_Test::testInvert" />
+    <provides type="function" name="Math_Matrix_Instance_Methods_Test::testMultiply" />
+    <provides type="function" name="Math_Matrix_Instance_Methods_Test::testGetSubMatrix" />
+    <provides type="function" name="Math_Matrix_Instance_Methods_Test::testAdd" />
+    <provides type="function" name="Math_Matrix_Instance_Methods_Test::testSub" />
+    <provides type="function" name="Math_Matrix_Instance_Methods_Test::testScale" />
+    <provides type="function" name="Math_Matrix_Instance_Methods_Test::testScaleRow" />
+    <provides type="function" name="Math_Matrix_Instance_Methods_Test::testSwapRows" />
+    <provides type="function" name="Math_Matrix_Instance_Methods_Test::testSwapCols" />
+    <provides type="function" name="Math_Matrix_Instance_Methods_Test::testSwapRowCol" />
+    <provides type="function" name="Math_Matrix_Instance_Methods_Test::testVectorMultiply" />
+    <provides type="class" name="Math_Matrix_Static_Methods_Test" extends="PHPUnit_TestCase" />
+    <provides type="function" name="Math_Matrix_Static_Methods_Test::setUp" />
+    <provides type="function" name="Math_Matrix_Static_Methods_Test::testWriteToFile" />
+    <provides type="function" name="Math_Matrix_Static_Methods_Test::testReadFromFile" />
+    <provides type="function" name="Math_Matrix_Static_Methods_Test::testIsMatrix" />
+    <provides type="function" name="Math_Matrix_Static_Methods_Test::testMakeMatrix" />
+    <provides type="function" name="Math_Matrix_Static_Methods_Test::testMakeZero" />
+    <provides type="function" name="Math_Matrix_Static_Methods_Test::testMakeOne" />
+    <provides type="function" name="Math_Matrix_Static_Methods_Test::testMakeUnit" />
+    <provides type="function" name="Math_Matrix_Static_Methods_Test::testMakeHilbert" />
+    <provides type="function" name="Math_Matrix_Static_Methods_Test::testMakeHankel" />
+    <provides type="function" name="Math_Matrix_Static_Methods_Test::testSolve" />
+    <provides type="function" name="Math_Matrix_Static_Methods_Test::testSolveEC" />
+    <filelist>
+      <file role="php" baseinstalldir="Math" md5sum="2dc0e614cb1e782674f8af6922bf95b7" name="Matrix.php"/>
+      <file role="doc" baseinstalldir="Math" md5sum="eda29d74f35d4a415e7e731badbd2995" name="docs/README-Math_Matrix"/>
+      <file role="php" baseinstalldir="Math" md5sum="ae7621e6f22d880c0d34fc7915843eb8" name="tests/test_Math_Matrix_instance_methods.php"/>
+      <file role="php" baseinstalldir="Math" md5sum="ddfe0e2bbec77d28342539f69e22dec9" name="tests/test_Math_Matrix_static_methods.php"/>
+      <file role="php" baseinstalldir="Math" md5sum="1927aa0b08bac7ed065ec37c3cb69ed3" name="tests/examples/ex_math_matrix.php"/>
+      <file role="php" baseinstalldir="Math" md5sum="f25a6cdb229ad85a1e0faf5603eff3b1" name="tests/examples/data.mat"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.8.0</version>
+      <date>2003-05-16</date>
+      <notes>Initial released under PEAR. Reestructured the package so the main class
+contains both instance and class methods to make things simpler.
+</notes>
+    </release>
+  </changelog>
+</package>

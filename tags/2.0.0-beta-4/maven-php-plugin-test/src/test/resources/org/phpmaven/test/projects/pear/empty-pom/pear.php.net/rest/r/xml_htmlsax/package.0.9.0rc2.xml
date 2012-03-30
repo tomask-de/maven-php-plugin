@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>XML_HTMLSax</name>
+  <summary>A SAX based parser for HTML and other badly formed XML documents</summary>
+  <description>XML_HTMLSax is a SAX based XML parser for badly formed XML documents, such as HTML.
+  The original code base was developed by Alexander Zhukov and published at
+  http://sourceforge.net/projects/phpshelve/, who in turn was inspired by the Python HTMLSax package.
+  Alexander kindly gave permission to modify the code and license for inclusion in PEAR.
+  PEAR::XML_HTMLSax takes the last release from Sourceforge (HTMLSax2002082201) and changes the API to make using HTMLSax very similar to using the native PHP Expat extension, opening it up for use with projects like SAX filters: http://phpxmlclasses.sourceforge.net/show_doc.php?class=class_sax_filters.html. This version also fixes some bugs and adds further features such as the ability to handle processing instructions and JSP/ASP markup.</description>
+  <maintainers>
+    <maintainer>
+      <user>hfuecks</user>
+      <name>Harry Fuecks</name>
+      <email>hfuecks@phppatterns.com</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.9.0rc2</version>
+    <date>2003-05-18</date>
+    <license>PHP</license>
+    <state>beta</state>
+    <notes>*First release under PEAR
+*Changed package name to XML_HTMLSax
+*Added patch from John Luxford to parse single quoted attributes
+*Modified State_Machine to be a simple variable store</notes>
+    <deps>
+      <dep type="php" rel="ge" version="4.1.0"/>
+    </deps>
+    <filelist>
+      <file role="doc" baseinstalldir="XML" md5sum="8cd16e31ae35f040b97be2613580acc6" name="docs/Readme"/>
+      <file role="php" baseinstalldir="XML" md5sum="1e3758bb72b3643b7e13d3eb4aa0c5c7" name="State_Machine.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="b218ee882f185d7a1e267a769dfb3ae1" name="Attributes_Parser.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="1200644000900c1891066a11bf775a71" name="XML_HTMLSax.php"/>
+      <file role="test" baseinstalldir="XML" md5sum="21933fbfcfdd67a9f7b5986ce422b40f" name="docs/examples/example.html"/>
+      <file role="php" baseinstalldir="XML" md5sum="b46cc33d745ce6ea61533cb31824833b" name="docs/examples/SimpleExample.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="af62be3e0d7faa43b7a17a93cb5af5c3" name="docs/examples/HTMLtoXHTML.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.9.0rc1</version>
+      <date>2003-05-09</date>
+      <state>beta</state>
+      <notes>A summary of the main differences between this version
+      of HTML_Sax and HTMLSax2002082201 are as follows;
+      *Instead of extending HTMLSax with your own &quot;handlers&quot; class,
+       you now use the set_object() method to pass an instance of the
+       class to HTMLSax.
+      *Class method callbacks are specified using the following methods;
+      *set_element_handler('startHandler','endHandler') &lt;tag&gt; and &lt;/tag&gt;
+      *set_data_handler('dataHandler') for contents of an element
+      *set_pi_handler('piHandler') for &lt;?php ?&gt;, &lt;?xml ?&gt; etc.
+      *set_escape_handler(') for anything beginning with &lt;!
+      *set_jasp_handler() - set listener for &lt;% %&gt; tags
+      *Attributes which no value are created and set to true
+      *Comments are handled and may contain entities; &lt; &gt;
+      *The callback handlers will all be passed an instance of HTMLSax
+       in the same way as the native PHP XML Expat extension
+      *Setting of parser options is handled specifically by the set_option()
+       method. Available options are;
+      *skipWhiteSpace; instruct the parser to ignore whitespace characters
+      *trimDataNodes; trim whitespace inside character data
+      *breakOnNewLine; newline characters found in character data are treated
+       as new events triggering another data callback
+      *caseFolding; converts element names to uppercase
+      
+</notes>
+    </release>
+  </changelog>
+</package>

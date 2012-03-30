@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.2">
+ <name>Text_Wiki_Doku</name>
+ <summary>Doku parser and renderer for Text_Wiki</summary>
+ <description>Parses DokuWiki mark-up to tokenize the text for Text_Wiki rendering and also renders for wiki conversion. You can see a reference for this syntax here: http://wiki.splitbrain.org/wiki:syntax
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>justinpatrin</user>
+   <name>Justin Patrin</name>
+   <email>papercrane@reversefold.com</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>0.0.1</version>
+  <date>2005-10-14</date>
+  <license>LGPL</license>
+  <state>alpha</state>
+  <notes>First released version of Text_Wiki_Doku.
+  </notes>
+  <deps>
+   <dep type="pkg" rel="ge" version="1.0.1">Text_Wiki</dep>
+  </deps>
+  <provides type="class" name="Text_Wiki_Render_Doku" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku::pre" />
+  <provides type="function" name="Text_Wiki_Render_Doku::post" />
+  <provides type="class" name="Text_Wiki_Parse_Wikilink" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Wikilink::parse" />
+  <provides type="function" name="Text_Wiki_Parse_Wikilink::processDescr" />
+  <provides type="class" name="Text_Wiki_Parse_Embed" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Embed::process" />
+  <provides type="class" name="Text_Wiki_Parse_Code" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Code::process" />
+  <provides type="class" name="Text_Wiki_Parse_Tighten" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Tighten::parse" />
+  <provides type="class" name="Text_Wiki_Parse_Heading" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Heading::process" />
+  <provides type="class" name="Text_Wiki_Parse_Url" extends="Text_Wiki_Parse" />
+  <provides type="class" name="Text_Wiki_Parse_Anchor" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Anchor::process" />
+  <provides type="class" name="Text_Wiki_Parse_emphasis" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_emphasis::process" />
+  <provides type="class" name="Text_Wiki_Parse_Interwiki" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Interwiki::parse" />
+  <provides type="function" name="Text_Wiki_Parse_Interwiki::processDescr" />
+  <provides type="class" name="Text_Wiki_Parse_Strong" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Strong::process" />
+  <provides type="class" name="Text_Wiki_Parse_Image" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Image::process" />
+  <provides type="class" name="Text_Wiki_Parse_Blockquote" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Blockquote::process" />
+  <provides type="class" name="Text_Wiki_Parse_Delimiter" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Delimiter::process" />
+  <provides type="class" name="Text_Wiki_Parse_Tt" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Tt::process" />
+  <provides type="class" name="Text_Wiki_Parse_Colortext" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Colortext::process" />
+  <provides type="class" name="Text_Wiki_Parse_Horiz" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Horiz::process" />
+  <provides type="class" name="Text_Wiki_Parse_Freelink" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Freelink::process" />
+  <provides type="class" name="Text_Wiki_Parse_Raw" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Raw::parse" />
+  <provides type="function" name="Text_Wiki_Parse_Raw::process" />
+  <provides type="class" name="Text_Wiki_Parse_Paragraph" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Paragraph::process" />
+  <provides type="class" name="Text_Wiki_Parse_Superscript" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Superscript::process" />
+  <provides type="class" name="Text_Wiki_Parse_Bold" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Bold::process" />
+  <provides type="class" name="Text_Wiki_Parse_Include" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Include::process" />
+  <provides type="class" name="Text_Wiki_Parse_Table" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Table::process" />
+  <provides type="class" name="Text_Wiki_Parse_Function" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Function::process" />
+  <provides type="class" name="Text_Wiki_Parse_Center" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Center::process" />
+  <provides type="class" name="Text_Wiki_Parse_Phplookup" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Phplookup::process" />
+  <provides type="class" name="Text_Wiki_Parse_Prefilter" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Prefilter::parse" />
+  <provides type="class" name="Text_Wiki_Parse_Subscript" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Subscript::process" />
+  <provides type="class" name="Text_Wiki_Parse_Underline" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Underline::process" />
+  <provides type="class" name="Text_Wiki_Parse_List" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_List::process" />
+  <provides type="class" name="Text_Wiki_Parse_Deflist" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Deflist::process" />
+  <provides type="class" name="Text_Wiki_Parse_Break" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Break::process" />
+  <provides type="class" name="Text_Wiki_Parse_Newline" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Newline::process" />
+  <provides type="class" name="Text_Wiki_Parse_Italic" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Italic::process" />
+  <provides type="class" name="Text_Wiki_Parse_Toc" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Toc::process" />
+  <provides type="class" name="Text_Wiki_Parse_Revise" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Revise::parse" />
+  <provides type="function" name="Text_Wiki_Parse_Revise::processDel" />
+  <provides type="function" name="Text_Wiki_Parse_Revise::process" />
+  <provides type="class" name="Text_Wiki_Parse_Html" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Html::process" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Wikilink" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Wikilink::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Embed" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Embed::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Code" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Code::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Tighten" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Tighten::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Heading" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Heading::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Url" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Url::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Anchor" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Anchor::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Emphasis" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Emphasis::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Interwiki" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Interwiki::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Strong" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Strong::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Image" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Image::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Blockquote" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Blockquote::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Box" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Box::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Delimiter" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Delimiter::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_tt" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_tt::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Colortext" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Colortext::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Horiz" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Horiz::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Freelink" extends="Text_Wiki_Render_Doku_Wikilink" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Raw" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Raw::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Paragraph" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Paragraph::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Superscript" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Superscript::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Bold" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Bold::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Include" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Include::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Table" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Table::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Function" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Function::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Center" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Center::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Phplookup" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Phplookup::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Prefilter" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Prefilter::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Subscript" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Subscript::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Underline" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Underline::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_List" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_List::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Deflist" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Deflist::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Break" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Break::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Newline" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Newline::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Italic" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Italic::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Toc" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Toc::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Revise" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Revise::token" />
+  <provides type="class" name="Text_Wiki_Render_Doku_Html" extends="Text_Wiki_Render" />
+  <provides type="function" name="Text_Wiki_Render_Doku_Html::token" />
+  <filelist>
+   <file role="php" md5sum="fe857a8b191e871d748cd190c139b7db" name="Text/Wiki/Render/Doku.php"/>
+   <file role="php" md5sum="b61a66e3d291bf594fde8fe5f3139626" name="Text/Wiki/Parse/Doku/Wikilink.php"/>
+   <file role="php" md5sum="bc3b1795c5ea83b6c117a2061f0d2d37" name="Text/Wiki/Parse/Doku/Embed.php"/>
+   <file role="php" md5sum="3451e5c7c5d0ec1ff06ddd43e3d1df89" name="Text/Wiki/Parse/Doku/Code.php"/>
+   <file role="php" md5sum="0ec1e5581f0367fb20ef60c0c694257f" name="Text/Wiki/Parse/Doku/Tighten.php"/>
+   <file role="php" md5sum="24a9a3e839c55e27e4b858f2d10bbb37" name="Text/Wiki/Parse/Doku/Heading.php"/>
+   <file role="php" md5sum="c03e0a2545f75d55f6697531beb96274" name="Text/Wiki/Parse/Doku/Url.php"/>
+   <file role="php" md5sum="2e1d647bf36910a9fb05a893d8762900" name="Text/Wiki/Parse/Doku/Anchor.php"/>
+   <file role="php" md5sum="4a95008945dc147f371af16b1b2ccc7c" name="Text/Wiki/Parse/Doku/Emphasis.php"/>
+   <file role="php" md5sum="46143223d8d0ce9d25a29ce9a345b38a" name="Text/Wiki/Parse/Doku/Interwiki.php"/>
+   <file role="php" md5sum="d30bea5f22c77b41aae2d16040936236" name="Text/Wiki/Parse/Doku/Strong.php"/>
+   <file role="php" md5sum="10cac4f377252e94c680fb1501959a60" name="Text/Wiki/Parse/Doku/Image.php"/>
+   <file role="php" md5sum="84aec9d13a5282d3c6bb1f94fa654188" name="Text/Wiki/Parse/Doku/Blockquote.php"/>
+   <file role="php" md5sum="f6ee6abae69a30c549c77ae94e18b83f" name="Text/Wiki/Parse/Doku/Delimiter.php"/>
+   <file role="php" md5sum="b8679474b3a2ecb17df9a88ccf112d83" name="Text/Wiki/Parse/Doku/Tt.php"/>
+   <file role="php" md5sum="023621fcd4be8229598fbef33258872d" name="Text/Wiki/Parse/Doku/Colortext.php"/>
+   <file role="php" md5sum="5b76da8cd202e62f004e0700c6f36326" name="Text/Wiki/Parse/Doku/Horiz.php"/>
+   <file role="php" md5sum="c0b0be652e773378418cd469d6a9b588" name="Text/Wiki/Parse/Doku/Freelink.php"/>
+   <file role="php" md5sum="09e27ee014a5bd6f7d8cce7591047355" name="Text/Wiki/Parse/Doku/Raw.php"/>
+   <file role="php" md5sum="6ee7e9c0d5d488c8667eb8406dd458ba" name="Text/Wiki/Parse/Doku/Paragraph.php"/>
+   <file role="php" md5sum="4782a60ae1eb2ea571bc4fcc0479366b" name="Text/Wiki/Parse/Doku/Superscript.php"/>
+   <file role="php" md5sum="030b28dd9ae1c37f2d14dff97b033082" name="Text/Wiki/Parse/Doku/Bold.php"/>
+   <file role="php" md5sum="0febc52123b201632b0044cf3c6f2f7a" name="Text/Wiki/Parse/Doku/Include.php"/>
+   <file role="php" md5sum="f481d5282f220fac96429ab503ff4504" name="Text/Wiki/Parse/Doku/Table.php"/>
+   <file role="php" md5sum="f7d2ae1ce0e15d30ccf2b3d42ceafd0c" name="Text/Wiki/Parse/Doku/Function.php"/>
+   <file role="php" md5sum="35e96e0e093741e2a1c50ce6be585f22" name="Text/Wiki/Parse/Doku/Center.php"/>
+   <file role="php" md5sum="2d86d7911359d843b29aa155aff94f98" name="Text/Wiki/Parse/Doku/Phplookup.php"/>
+   <file role="php" md5sum="61a0d398d983d50841706030aee7070f" name="Text/Wiki/Parse/Doku/Prefilter.php"/>
+   <file role="php" md5sum="f40ca13c474f23a560ce78d067eaec68" name="Text/Wiki/Parse/Doku/Subscript.php"/>
+   <file role="php" md5sum="e74612ac7a1f535c024d9dc9d81587a4" name="Text/Wiki/Parse/Doku/Underline.php"/>
+   <file role="php" md5sum="13eb7c8fcb912759aed93eb91bc69483" name="Text/Wiki/Parse/Doku/List.php"/>
+   <file role="php" md5sum="2b67b0d1d7b0ea1030201b35cca1347f" name="Text/Wiki/Parse/Doku/Deflist.php"/>
+   <file role="php" md5sum="2e170de4c2ed9a506a64c0814f87bc13" name="Text/Wiki/Parse/Doku/Break.php"/>
+   <file role="php" md5sum="0ca1ac1cfc21e14305097c59e2bd90a0" name="Text/Wiki/Parse/Doku/Newline.php"/>
+   <file role="php" md5sum="9bfeb8ed4e9f1375ce551dc16c100c76" name="Text/Wiki/Parse/Doku/Italic.php"/>
+   <file role="php" md5sum="6091cc9455126fe3841e3e774c98d01d" name="Text/Wiki/Parse/Doku/Toc.php"/>
+   <file role="php" md5sum="07f3c8569034d320738bf3852214d901" name="Text/Wiki/Parse/Doku/Revise.php"/>
+   <file role="php" md5sum="7fc841167230642cae56d28a312e8d62" name="Text/Wiki/Parse/Doku/Html.php"/>
+   <file role="php" md5sum="c3a137682ca4949d207d81b69ef1719e" name="Text/Wiki/Render/Doku/Wikilink.php"/>
+   <file role="php" md5sum="bfa76f1c1dddac861e3670917bced15c" name="Text/Wiki/Render/Doku/Embed.php"/>
+   <file role="php" md5sum="82c76ed20186dcf1d2b83cbc1524d2ca" name="Text/Wiki/Render/Doku/Code.php"/>
+   <file role="php" md5sum="555acbd7d263b2d1b5f5c03241664b77" name="Text/Wiki/Render/Doku/Tighten.php"/>
+   <file role="php" md5sum="65964b9c6e949609531705385dc7ee57" name="Text/Wiki/Render/Doku/Heading.php"/>
+   <file role="php" md5sum="59b0bd4de6d0ce8bf1a8de989c19372d" name="Text/Wiki/Render/Doku/Url.php"/>
+   <file role="php" md5sum="4b71d89b6f4a8001aa70aa59f20dc467" name="Text/Wiki/Render/Doku/Anchor.php"/>
+   <file role="php" md5sum="f9c36e20685ff910115368a068de5a74" name="Text/Wiki/Render/Doku/Emphasis.php"/>
+   <file role="php" md5sum="d9c4bdbd2e86b8579db27e9dd8637718" name="Text/Wiki/Render/Doku/Interwiki.php"/>
+   <file role="php" md5sum="0149f430eeba16a00b364a4c684dd3bf" name="Text/Wiki/Render/Doku/Strong.php"/>
+   <file role="php" md5sum="58fa0e2a568081d93ee758c83b8b1685" name="Text/Wiki/Render/Doku/Image.php"/>
+   <file role="php" md5sum="4103cf2b02a2dc172abfd714a7c0d9d4" name="Text/Wiki/Render/Doku/Blockquote.php"/>
+   <file role="php" md5sum="57a7bdac0e5bcb80d7ac48a4ecfb5a94" name="Text/Wiki/Render/Doku/Box.php"/>
+   <file role="php" md5sum="26a302da86bc07546ee82e4c211a94fb" name="Text/Wiki/Render/Doku/Delimiter.php"/>
+   <file role="php" md5sum="b8f2ba0fffc4ce60fb2862e2f7f950f0" name="Text/Wiki/Render/Doku/Tt.php"/>
+   <file role="php" md5sum="0a1e3d282d91a4c67f6e7536eca395de" name="Text/Wiki/Render/Doku/Colortext.php"/>
+   <file role="php" md5sum="d46741ef3a8e596c7e258ab8e5495f8a" name="Text/Wiki/Render/Doku/Horiz.php"/>
+   <file role="php" md5sum="e7e48c67d05ed72c3ba3b5453d9b46c3" name="Text/Wiki/Render/Doku/Freelink.php"/>
+   <file role="php" md5sum="580b512b56b7330711114dc98e931844" name="Text/Wiki/Render/Doku/Raw.php"/>
+   <file role="php" md5sum="ff957f5d2d78b588e4b709280cacecbd" name="Text/Wiki/Render/Doku/Paragraph.php"/>
+   <file role="php" md5sum="6f0aa2fba29bf3625bb70a3e16d9d6ad" name="Text/Wiki/Render/Doku/Superscript.php"/>
+   <file role="php" md5sum="fe3f5ae92654d3bf3f26ef7b3be04692" name="Text/Wiki/Render/Doku/Bold.php"/>
+   <file role="php" md5sum="955ed130da611ccd1a3df355dbffe0b5" name="Text/Wiki/Render/Doku/Include.php"/>
+   <file role="php" md5sum="2eac8a2adb6ae9ccb89588686f973cb2" name="Text/Wiki/Render/Doku/Table.php"/>
+   <file role="php" md5sum="c1ecc6695a45299c5d40329d39aef04a" name="Text/Wiki/Render/Doku/Function.php"/>
+   <file role="php" md5sum="36a6165553f0a5c38cdc0c3353799c64" name="Text/Wiki/Render/Doku/Center.php"/>
+   <file role="php" md5sum="6f8b2091d35c31d14b279e6f24441952" name="Text/Wiki/Render/Doku/Phplookup.php"/>
+   <file role="php" md5sum="abfd461fca9628f64139ce640173d39d" name="Text/Wiki/Render/Doku/Prefilter.php"/>
+   <file role="php" md5sum="c4a333f14c15c283d39db9f41bc12d01" name="Text/Wiki/Render/Doku/Subscript.php"/>
+   <file role="php" md5sum="28ca98eab644da2d45687f946aa1e4d1" name="Text/Wiki/Render/Doku/Underline.php"/>
+   <file role="php" md5sum="b76092b038a41c067915e7724406dc20" name="Text/Wiki/Render/Doku/List.php"/>
+   <file role="php" md5sum="528ab55624b1f66559dc6396cae339bf" name="Text/Wiki/Render/Doku/Deflist.php"/>
+   <file role="php" md5sum="8c6494e55a5d527fae15571b898300d2" name="Text/Wiki/Render/Doku/Break.php"/>
+   <file role="php" md5sum="3cda57bccf01470c553fdd2408e30eec" name="Text/Wiki/Render/Doku/Newline.php"/>
+   <file role="php" md5sum="dda41ed81f114bec23045835d109f412" name="Text/Wiki/Render/Doku/Italic.php"/>
+   <file role="php" md5sum="df2dd568c85a22e811fb0dbd440ee88f" name="Text/Wiki/Render/Doku/Toc.php"/>
+   <file role="php" md5sum="1d10cc4e204ce5380994196484fb7387" name="Text/Wiki/Render/Doku/Revise.php"/>
+   <file role="php" md5sum="74303c52fdcc0368dbb3a6df8d550219" name="Text/Wiki/Render/Doku/Html.php"/>
+  </filelist>
+ </release>
+</package>

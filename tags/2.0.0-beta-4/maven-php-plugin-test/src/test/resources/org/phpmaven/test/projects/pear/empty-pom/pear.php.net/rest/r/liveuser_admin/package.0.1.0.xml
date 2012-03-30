@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>LiveUser_Admin</name>
+  <summary>User authentication and permission management framework</summary>
+  <description>LiveUser_Admin is meant to be used with the LiveUser package.
+It is composed of all the classes necessary to administrate
+data used by LiveUser.</description>
+  <maintainers>
+    <maintainer>
+      <user>mw21st</user>
+      <name>Markus Wolff</name>
+      <email>mw21st@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>arnaud</user>
+      <name>Arnaud Limbourg</name>
+      <email>arnaud@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>lsmith</user>
+      <name>Lukas Kahwe Smith</name>
+      <email>smith@backendmedia.com</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>dufuz</user>
+      <name>Helgi Þormar</name>
+      <email>dufuz@php.net</email>
+      <role>developer</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.1.0</version>
+    <date>2004-12-20</date>
+    <license>LGPL</license>
+    <state>beta</state>
+    <notes>- refactored into a separate package from LiveUser
+- severe BC breaks in the permission API in order to unify the API
+- added ErrorStack
+- fixed outputRightsConstants() method
+- refactored storage layer to use an SQL query builder (DB and MDB support is
+  currently missing but will be added in the next minor update)
+- sql query builder should output more portable SQL code
+- sql query builder enables full aliasing of all field names
+- sql query builder only joins the necessary tables so the admin API does not
+  force the usage of any table (especially the translation table)
+- searchUser() now also fetches perm data
+- the complex container is currently not fully implemented</notes>
+    <deps>
+      <dep type="php" rel="ge" version="4.2.0" optional="no"/>
+      <dep type="pkg" rel="ge" version="1.3.1" optional="no">PEAR</dep>
+      <dep type="pkg" rel="ge" version="0.14.0" optional="no">LiveUser</dep>
+      <dep type="pkg" rel="ge" version="1.7.0" optional="yes">Log</dep>
+      <dep type="pkg" rel="ge" version="1.6.0" optional="yes">DB</dep>
+      <dep type="pkg" rel="ge" version="1.1.4" optional="yes">MDB</dep>
+      <dep type="pkg" rel="ge" version="2.0.0beta2" optional="yes">MDB2</dep>
+      <dep type="pkg" rel="has" optional="yes">XML_Tree</dep>
+      <dep type="pkg" rel="has" optional="yes">Crypt_RC4</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="/LiveUser/Admin" md5sum="80715d27fee3a6844daff0572ed9f8f0" name="Auth\Common.php"/>
+      <file role="php" baseinstalldir="/LiveUser/Admin" md5sum="521d6337ce280ec7b8933b9338263313" name="Auth\DB.php"/>
+      <file role="php" baseinstalldir="/LiveUser/Admin" md5sum="215fe96d7d51b7a9067345c7852ed03c" name="Auth\MDB.php"/>
+      <file role="php" baseinstalldir="/LiveUser/Admin" md5sum="c2dc65601e9e2d82af3b5cf435a4ae7a" name="Auth\MDB2.php"/>
+      <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="babe5eaf7e34f35bff82bcdafc536b55" name="docs\examples\Auth_XML.xml"/>
+      <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="a466a211e39d9aeb57450321b3a961c1" name="docs\examples\test.php"/>
+      <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="867da5080c02ffd93e20b0f6780e91ee" name="docs\examples\example 1\Application.php"/>
+      <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="51a710ab1f780d73afdc63fd1c6ad89b" name="docs\examples\example 1\Area.php"/>
+      <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="2111540e8a532adf3323fc69ba0af302" name="docs\examples\example 1\config.inc.php"/>
+      <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="eada6dff1090a449e7c3cdf940d39eb9" name="docs\examples\example 1\create_db.sql"/>
+      <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="025564cc0f34737ad532a445f2983fde" name="docs\examples\example 1\extra_sql.sql"/>
+      <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="746ccbea020ecdbdcd482e9d154bb0f9" name="docs\examples\example 1\Group.php"/>
+      <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="18155c453399f9754464114e1a277925" name="docs\examples\example 1\GroupRights.php"/>
+      <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="c06d7691f52f204a45529fa7c312f3fe" name="docs\examples\example 1\ImplyRights.php"/>
+      <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="5a25cac1d25dc0869e67a52b3ac209e3" name="docs\examples\example 1\index.php"/>
+      <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="a97325c851eb12d337eaae8a921d4e98" name="docs\examples\example 1\OutputRightsConstants.php"/>
+      <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="9f1dd6c19273d0994278130e1037687b" name="docs\examples\example 1\Rights.php"/>
+      <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="d5f0d109cd1327b6053f2c67706d8bfa" name="docs\examples\example 1\Subgroups.php"/>
+      <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="30b22d39aca979a053a64ebc1ddd1bb2" name="docs\examples\example 1\User.php"/>
+      <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="f0885f8b7a653a69b3c1b49738b3fbb8" name="docs\examples\example 1\UserGroup.php"/>
+      <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="663b8dc2c3bbc803eb90475d5934046d" name="docs\examples\example 1\UserRights.php"/>
+      <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="3fe4894b85668a5ee958dffbc404e1cf" name="docs\examples\example3\area51.php"/>
+      <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="8b862d19ad3d090105b113ecbddbd6d8" name="docs\examples\example3\coffeemaker.php"/>
+      <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="1b0a62573cc71e82cdc5f02c57734264" name="docs\examples\example3\conf.php"/>
+      <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="5dcd87e1681f3568d4e55ecb80c297fe" name="docs\examples\example3\demodata.sql"/>
+      <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="7fa6381a8a3231e7a0cb3acf8de5a85a" name="docs\examples\example3\example.php"/>
+      <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="08e670bf4efb5b153afffb2d44387135" name="docs\examples\example3\index.html"/>
+      <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="fdba00fc8da8d08ce3a2d1b2f7fc5bae" name="docs\examples\example3\loginscreen.php"/>
+      <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="c914ae7436bbd1d385b40eda52360b81" name="docs\examples\example3\main.php"/>
+      <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="6d0a114efb74e64f53ed29ac8c4fc817" name="docs\examples\example3\nav.php"/>
+      <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="9fff2f8f1040226a254e37f788446054" name="docs\examples\example3\testarea.php"/>
+      <file role="php" baseinstalldir="/LiveUser/Admin" md5sum="2b86ac2975755d3daf93e1a5a8de19f3" name="Perm\Complex.php"/>
+      <file role="php" baseinstalldir="/LiveUser/Admin" md5sum="784714356f41390d8413b4b2523fee68" name="Perm\Medium.php"/>
+      <file role="php" baseinstalldir="/LiveUser/Admin" md5sum="1e2730bee62302689f0d76e90be4efa3" name="Perm\Simple.php"/>
+      <file role="php" baseinstalldir="/LiveUser/Admin" md5sum="f77322ebd088aa77cf8a92f005b02cae" name="Perm\Storage\MDB2.php"/>
+      <file role="php" baseinstalldir="/LiveUser/Admin" md5sum="37777e1055432d5be54e4da29f67eafd" name="Storage\MDB2.php"/>
+      <file role="php" baseinstalldir="/LiveUser/Admin" md5sum="5dcafe8e5bd3e761a1dc8c84a85c80af" name="Storage\SQL.php"/>
+      <file role="php" baseinstalldir="/LiveUser" md5sum="38ca40a79a55c6f2cad4355038e47071" name="Admin.php"/>
+      <file role="php" baseinstalldir="/LiveUser/Admin" md5sum="62d0647bf698a1537af023f9086c40de" name="Storage.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.1.0</version>
+      <date>2004-12-20</date>
+      <license>LGPL</license>
+      <state>beta</state>
+      <notes>- refactored into a separate package from LiveUser
+- severe BC breaks in the permission API in order to unify the API
+- added ErrorStack
+- fixed outputRightsConstants() method
+- refactored storage layer to use an SQL query builder (DB and MDB support is
+  currently missing but will be added in the next minor update)
+- sql query builder should output more portable SQL code
+- sql query builder enables full aliasing of all field names
+- sql query builder only joins the necessary tables so the admin API does not
+  force the usage of any table (especially the translation table)
+- searchUser() now also fetches perm data
+- the complex container is currently not fully implemented
+</notes>
+    </release>
+    <release>
+      <version>0.14.0</version>
+      <date>2004-12-11</date>
+      <license>LGPL</license>
+      <state>beta</state>
+      <notes>- Refactored nto a separate package.
+</notes>
+    </release>
+  </changelog>
+</package>

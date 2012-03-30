@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/db">DB</p>
+ <c>pear.php.net</c>
+ <v>1.3</v>
+ <st>stable</st>
+ <l>PHP License</l>
+ <m>cox</m>
+ <s>Database Abstraction Layer</s>
+ <d>DB is a database abstraction layer providing:
+* an OO-style query API
+* a DSN (data source name) format for specifying database servers
+* prepare/execute (bind) emulation for databases that don't support it natively
+* a result object for each query response
+* portable error codes
+* sequence emulation
+* sequential and non sequential row fetching as well as bulk fetching
+* ordered array, associative array and object formats supported for the fetched rows
+* row limit support
+* transactions support
+* table information interface
+* DocBook and PHPDoc API documentation
+
+DB layers itself on top of PHP's existing database extensions.  The
+currently supported extensions are: dbase, fbsql, interbase, informix,
+msql, mssql, mysql, oci8, odbc, pgsql and sybase (DB style interfaces
+to LDAP servers and MS ADO (using COM) are also avaible from a separate package).
+</d>
+ <da>2002-07-04 15:58:00</da>
+ <n>New Features:
+- Added new option &quot;autofree&quot;, which will free the result automatically when there are no more rows.
+Use it with: $db = DB::connect($dsn, array('autofree' =&gt; true));
+- Added new methods: buildManipSQL(), autoPrepare() and autoExecute()
+- Dropped all references to the unused DB_Warning class
+- Added new driver DB_Ado (as a sepparate package), contributed by Alexios Fakos)
+
+Bugs fixed:
+- Fix MS SQL server multiple connections under the same script
+- The MySQL driver no longer needs to specify a database (allowing queries
+with the style database.table)
+- Fix parseDSN() to not confuse an Oracle TSN with the protocol
+- Adapt the tests paths to work with the new &quot;pear run-tests&quot; (do a &quot;pear download DB&quot;, uncompress
+the package and run &quot;pear run-tests tests&quot;).
+- Fix numRows() in Oracle driver, that was failing when using &quot;DISTINCT&quot; in query. (Bug #17989)</n>
+ <f>59332</f>
+ <g>http://pear.php.net/get/DB-1.3</g>
+ <x xlink:href="package.1.3.xml"/>
+</r>

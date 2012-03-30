@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Payment_Process</name>
+  <summary>Unified payment processor</summary>
+  <description>Payment_Process is a gateway-independent framework for processing credit cards, e-checks and eventually other forms of payments as well.</description>
+  <maintainers>
+    <maintainer>
+      <user>ieure</user>
+      <name>Ian Eure</name>
+      <email>ieure@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>jstump</user>
+      <name>Joe Stump</name>
+      <email>jstump@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.5.5</version>
+    <date>2004-03-31</date>
+    <license>PHP License, v3.0</license>
+    <state>beta</state>
+    <notes>* Added initial support for type eCheck in AuthorizeNet driver
+* Added new type checking via $_typeFieldMap
+* Cleaned up Common.php
+* Added example echeck.php</notes>
+    <deps>
+      <dep type="pkg" rel="ge" version="0.2">Net_Curl</dep>
+      <dep type="pkg" rel="ge" version="0.2.0">Validate</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="Payment" md5sum="8014fbd5c0a0108a0b5208bd591d1d4c" name="Process.php"/>
+      <file role="php" baseinstalldir="Payment" md5sum="d67fbc2520f93edae62e13565da9565e" name="Process/Common.php"/>
+      <file role="php" baseinstalldir="Payment" md5sum="fb8759c788da1a4243fe659511b55599" name="Process/AuthorizeNet.php"/>
+      <file role="php" baseinstalldir="Payment" md5sum="362eb6c1a1ed037b46ffafa5ed7acdff" name="Process/Dpilink.php"/>
+      <file role="php" baseinstalldir="Payment" md5sum="914856c5e79c6640b81ace530a2ddd82" name="Process/Dummy.php"/>
+      <file role="php" baseinstalldir="Payment" md5sum="1e1781e375862e3d0d838abe9e392e33" name="Process/Offline.php"/>
+      <file role="php" baseinstalldir="Payment" md5sum="3126ecd1d3b28ca9774974216ca4b821" name="Process/Type.php"/>
+      <file role="php" baseinstalldir="Payment" md5sum="19d523a1a8a95b880f0020fb5c8b6b82" name="Process/Type/CreditCard.php"/>
+      <file role="php" baseinstalldir="Payment" md5sum="808f672c77533c0e6cce53de458032c3" name="Process/Type/eCheck.php"/>
+      <file role="php" baseinstalldir="docs/Payment_Process" md5sum="e031fe1414203467bfc82f85f0df0c46" name="examples/Payment_Process-example.php"/>
+      <file role="php" baseinstalldir="docs/Payment_Process" md5sum="080326622c44d8c83c5d7128e986f7fe" name="examples/creditcard.php"/>
+      <file role="php" baseinstalldir="docs/Payment_Process" md5sum="c4378a76b858970957169770da84fd58" name="examples/echeck.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.5.2</version>
+      <date>2004-03-23</date>
+      <state>beta</state>
+      <notes>* Fix the DPI Processor's Result class, which was returning an error even when the transaction was approved.
+</notes>
+    </release>
+    <release>
+      <version>0.5.1</version>
+      <date>2004-03-23</date>
+      <state>beta</state>
+      <notes>* Add missing $_statusCodeMap to DPILink's Result class, otherwise validate() always thinks the transaction was declined.
+* Change minimum charge to $0.99.
+* Change version to 0.5.1.
+</notes>
+    </release>
+    <release>
+      <version>0.5</version>
+      <date>2004-03-22</date>
+      <state>beta</state>
+      <notes>* Information about the payment source is now contained in a Payment_Process_Type-derived class.
+* Authorize.net Processor added, by Joe Stump.
+* DPILink &amp; Dummy Processors updated to use new semantics.
+* A Common class was added, which contains utility functionality common to all Processors.
+</notes>
+    </release>
+    <release>
+      <version>0.2</version>
+      <date>2004-01-26</date>
+      <state>beta</state>
+      <notes>Initial PEAR package release.
+* New semantics for Payment_Process_Result class allows for processor-specific subclasses. Dummy &amp; Dpilink processors updated to new semantics.
+* Dpilink processor has been tested with TransFirst's system, and appears to be working.
+* Added example script.
+</notes>
+    </release>
+  </changelog>
+</package>

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>XML_SaxFilters</name>
+  <summary>A framework for building XML filters using the SAX API</summary>
+  <description>XML_SaxFilters provides a foundation for using Sax filters in PHP.
+The original code base was developed by Luis Argerich and published at
+phpxmlclasses.sourceforge.net/show_doc.php?class=class_sax_filters.html.
+Luis discussed how SaxFilters work, using the Sourceforge classes as
+an example, in Chapter 10 of Wrox &quot;PHP 4 XML&quot;.
+
+Luis kindly gave permission to modify the code and license for
+inclusion in PEAR.
+
+This version of the Sax Filters makes significant changes to Luis's
+original code (backwards compatibility is definately broken), seperating
+abstract classes from interfaces, providing interfaces for data readers
+and writers and providing methods to help parse XML documents recursively
+with filters (for example AbstractFilter::setParent()) for documents where
+the structure can vary significantly.
+
+Sax Filtering is an approach to making parsing XML documents with Sax modular
+and easy to maintain. The parser delegates events to a child filter which may
+in turn delegate events to another filter. In general it's possible to implement
+filters for a document which are as flexible and powerful as DOM.
+
+For some discussions on Sax filtering try;
+
+http://www.cafeconleche.org/books/xmljava/chapters/ch08.html (Java)
+http://www-106.ibm.com/developerworks/xml/library/x-tipsaxflex.html (Python)
+http://www.xml.com/pub/a/2001/10/10/sax-filters.html (Perl)
+
+The API provided by XML_SaxFilters is a little different from that commonly
+used in other languages, providing the concepts of &quot;parent&quot; and &quot;child&quot;.
+A parent of the current filter is the filter (or parser) &quot;upsteam&quot; which
+receive XML event notifications before the current filter.
+A &quot;child&quot; is a filter &quot;downstream&quot; of the current filter (or parser) to
+which XML events are delegated.
+The top of the &quot;family tree&quot; of filters is always the parser itself, which
+can have children but cannot have parents. Filters can have parents and
+children.
+The parsers themselves never handle any XML events personally but always
+delegate to a filter.
+The parser accepts an object implementing the reader interface from which
+it streams the XML.
+The filters can be given an object implementing the writer interface
+to write output to.
+
+For an example of SAX filters in action with PHP try;
+
+http://www.phppatterns.com/index.php/article/articleview/48/1/2/
+(example uses Luis Argerich original Sax Filters).</description>
+  <maintainers>
+    <maintainer>
+      <user>hfuecks</user>
+      <name>Harry Fuecks</name>
+      <email>hfuecks@phppatterns.com</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.2.0</version>
+    <date>2003-09-12</date>
+    <license>PHP</license>
+    <state>beta</state>
+    <notes>To use the HTMLSaxParser provided by XML_SaxFilters you need to install
+PEAR::XML_HTMLSax.
+* Fixed bug in StructWriter
+* New parser factory function for ease of use
+* Moved IO classes to seperate directory
+* Experimental FilterBuilder class for recursive filtering plus FormFilters example to demonstrate</notes>
+    <deps>
+      <dep type="php" rel="ge" version="4.1.0"/>
+    </deps>
+    <provides type="function" name="XML_SaxFilters_createParser" />
+    <provides type="class" name="XML_SaxFilters_AbstractFilter" extends="Pear" />
+    <provides type="function" name="XML_SaxFilters_AbstractFilter::setChild" />
+    <provides type="function" name="XML_SaxFilters_AbstractFilter::unsetChild" />
+    <provides type="function" name="XML_SaxFilters_AbstractFilter::setParent" />
+    <provides type="function" name="XML_SaxFilters_AbstractFilter::unsetParent" />
+    <provides type="function" name="XML_SaxFilters_AbstractFilter::attachToParent" />
+    <provides type="function" name="XML_SaxFilters_AbstractFilter::detachFromParent" />
+    <provides type="function" name="XML_SaxFilters_AbstractFilter::setWriter" />
+    <provides type="function" name="XML_SaxFilters_AbstractFilter::getWriter" />
+    <provides type="class" name="XML_SaxFilters_AbstractParser" extends="Pear" />
+    <provides type="function" name="XML_SaxFilters_AbstractParser::setChild" />
+    <provides type="function" name="XML_SaxFilters_AbstractParser::unsetChild" />
+    <provides type="function" name="XML_SaxFilters_AbstractParser::startElementHandler" />
+    <provides type="function" name="XML_SaxFilters_AbstractParser::endElementHandler" />
+    <provides type="function" name="XML_SaxFilters_AbstractParser::characterDataHandler" />
+    <provides type="class" name="XML_SaxFilters_ExpatParser" extends="XML_SaxFilters_AbstractParser" />
+    <provides type="function" name="XML_SaxFilters_ExpatParser::parserSetOption" />
+    <provides type="function" name="XML_SaxFilters_ExpatParser::parse" />
+    <provides type="class" name="XML_SaxFilters_FilterBuilder" />
+    <provides type="class" name="XML_SaxFilters_FilterMap" />
+    <provides type="function" name="XML_SaxFilters_FilterBuilder::makeFilter" />
+    <provides type="function" name="XML_SaxFilters_FilterBuilder::endFilter" />
+    <provides type="function" name="XML_SaxFilters_FilterMap::isFilter" />
+    <provides type="function" name="XML_SaxFilters_FilterMap::trigger" />
+    <provides type="class" name="XML_SaxFilters_FilterInterface" />
+    <provides type="function" name="XML_SaxFilters_FilterInterface::startElementHandler" />
+    <provides type="function" name="XML_SaxFilters_FilterInterface::endElementHandler" />
+    <provides type="function" name="XML_SaxFilters_FilterInterface::characterDataHandler" />
+    <provides type="class" name="XML_SaxFilters_HtmlSaxParser" extends="XML_SaxFilters_AbstractParser" />
+    <provides type="function" name="XML_SaxFilters_HtmlSaxParser::parserSetOption" />
+    <provides type="function" name="XML_SaxFilters_HtmlSaxParser::parse" />
+    <provides type="class" name="XML_SaxFilters_ParserInterface" />
+    <provides type="function" name="XML_SaxFilters_ParserInterface::parserSetOption" />
+    <provides type="function" name="XML_SaxFilters_ParserInterface::parse" />
+    <provides type="class" name="XML_SaxFilters_ReaderInterface" />
+    <provides type="function" name="XML_SaxFilters_ReaderInterface::read" />
+    <provides type="function" name="XML_SaxFilters_ReaderInterface::isFinal" />
+    <provides type="class" name="XML_SaxFilters_WriterInterface" />
+    <provides type="function" name="XML_SaxFilters_WriterInterface::write" />
+    <provides type="function" name="XML_SaxFilters_WriterInterface::getReader" />
+    <provides type="function" name="XML_SaxFilters_WriterInterface::close" />
+    <provides type="class" name="XML_SaxFilters_FileReader" extends="Pear" />
+    <provides type="function" name="XML_SaxFilters_FileReader::read" />
+    <provides type="function" name="XML_SaxFilters_FileReader::isFinal" />
+    <provides type="class" name="XML_SaxFilters_FileWriter" extends="Pear" />
+    <provides type="function" name="XML_SaxFilters_FileWriter::write" />
+    <provides type="function" name="XML_SaxFilters_FileWriter::getReader" />
+    <provides type="function" name="XML_SaxFilters_FileWriter::close" />
+    <provides type="class" name="XML_SaxFilters_StringReader" extends="Pear" />
+    <provides type="function" name="XML_SaxFilters_StringReader::read" />
+    <provides type="function" name="XML_SaxFilters_StringReader::isFinal" />
+    <provides type="class" name="XML_SaxFilters_StringWriter" extends="Pear" />
+    <provides type="function" name="XML_SaxFilters_StringWriter::write" />
+    <provides type="function" name="XML_SaxFilters_StringWriter::getReader" />
+    <provides type="function" name="XML_SaxFilters_StringWriter::close" />
+    <provides type="class" name="XML_SaxFilters_StructReader" extends="Pear" />
+    <provides type="function" name="XML_SaxFilters_StructReader::read" />
+    <provides type="function" name="XML_SaxFilters_StructReader::isFinal" />
+    <provides type="class" name="XML_SaxFilters_StructWriter" extends="Pear" />
+    <provides type="function" name="XML_SaxFilters_StructWriter::write" />
+    <provides type="function" name="XML_SaxFilters_StructWriter::getReader" />
+    <provides type="function" name="XML_SaxFilters_StructWriter::close" />
+    <filelist>
+      <file role="php" baseinstalldir="XML" md5sum="939469df5d78c0ac2f69de7241a4d8c6" name="XML_SaxFilters.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="ac1aeb1d24147cb64c6096f7d9e1aca6" name="SaxFilters/AbstractFilter.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="3cae2bb0cf63e46784c511829231d757" name="SaxFilters/AbstractParser.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="916eef5eae869c834abe4c9a16e646c8" name="SaxFilters/ExpatParser.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="2b151387ff6ff5149de90507c36d3cd0" name="SaxFilters/FilterBuilder.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="41f5329809ddbab4175820d1769d2e14" name="SaxFilters/FilterInterface.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="98486eaa7d7473acf6ab4e4a7c6acd82" name="SaxFilters/HTMLSaxParser.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="b4fc43429f86ed26c82400a380d7fb77" name="SaxFilters/ParserInterface.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="c0ee34efa0712cc84da664e9944edd3f" name="SaxFilters/IO/ReaderInterface.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="1ecd2d32e5aece515ca8b1d74dc71c66" name="SaxFilters/IO/WriterInterface.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="9fd1bbb2049e8d8333c19c12eac01efc" name="SaxFilters/IO/FileReader.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="a0e4d8a23f14cec40e33bf05772d02b0" name="SaxFilters/IO/FileWriter.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="17d2d9a76594f4f189b0a9553ec36e39" name="SaxFilters/IO/StringReader.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="cb179aa071510452252f01eeab4ddedc" name="SaxFilters/IO/StringWriter.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="359433f565719e21791bb739847629c8" name="SaxFilters/IO/StructReader.php"/>
+      <file role="php" baseinstalldir="XML" md5sum="677f3108bf9ac8c1393b9c58fb551552" name="SaxFilters/IO/StructWriter.php"/>
+      <file role="doc" baseinstalldir="XML" md5sum="dc15e025bc9f6918758994aa124931cc" name="docs/Readme"/>
+      <file role="doc" baseinstalldir="XML" md5sum="71cf016e165622cea7cef46f54a62034" name="docs/SaxFiltersGuide"/>
+      <file role="doc" baseinstalldir="XML" md5sum="f8e8fadb73686fce819a0573a11f21d3" name="docs/examples/simple.php"/>
+      <file role="doc" baseinstalldir="XML" md5sum="b154d2d5c6b3a3799b3cf22c7a09c39a" name="docs/examples/xml2html.php"/>
+      <file role="doc" baseinstalldir="XML" md5sum="cc950b95c17a86a1315422e5b37a77cb" name="docs/examples/founding_fathers.xml"/>
+      <file role="doc" baseinstalldir="XML" md5sum="b45e9477f8fedcca0d7b46666076065c" name="docs/examples/template.php"/>
+      <file role="doc" baseinstalldir="XML" md5sum="d231a82a0183f25235beeec78f5cc2c2" name="docs/examples/formfilter/index.php"/>
+      <file role="doc" baseinstalldir="XML" md5sum="4ea1487f02aae7560d2183bf86abdd37" name="docs/examples/formfilter/FormFilters.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.1.0</version>
+      <date>2003-06-25</date>
+      <state>beta</state>
+      <notes>To use the HTMLSaxParser provided by XML_SaxFilters you need to install
+PEAR::XML_HTMLSax.
+</notes>
+    </release>
+  </changelog>
+</package>

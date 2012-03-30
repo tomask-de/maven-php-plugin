@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.2">
+ <name>HTML_Table</name>
+ <summary>PEAR::HTML_Table makes the design of HTML tables easy, flexible, reusable and efficient.</summary>
+ <description>The PEAR::HTML_Table package provides methods for easy and efficient design of HTML tables.
+ - Lots of customization options.
+ - Tables can be modified at any time.
+ - The logic is the same as standard HTML editors.
+ - Handles col and rowspans.
+ - PHP code is shorter, easier to read and to maintain.
+ - Tables options can be reused.
+
+For auto filling of data and such then check out http://pear.php.net/package/HTML_Table_Matrix
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>mansion</user>
+   <name>Bertrand Mansion</name>
+   <email>bmansion@mamasam.com</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>thesaur</user>
+   <name>Klaus Guenther</name>
+   <email>thesaur@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>dufuz</user>
+   <name>Helgi &amp;#222;ormar</name>
+   <email>dufuz@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>wiesemann</user>
+   <name>Mark Wiesemann</name>
+   <email>wiesemann@php.net</email>
+   <role>developer</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>1.6.1</version>
+  <date>2005-10-26</date>
+  <license>PHP_License</license>
+  <state>stable</state>
+  <notes>- Bugfix: addCol() must not call Storage::updateRowAttributes(), but Storage::addCol()
+- Bugfix: addCol() had the same problem as in request #4988 (it did not accept array keys as row numbers)
+- Bugfix: toHtml() wrongly assumed that there are instances of $_thead and $_tfoot when $useTGroups == true
+- Bugfix: return PEAR_Error object in getCellContents when cell does not exist
+- Bug #5782: remove PHP warning if $contents == null in addCol() and addRow()
+- Couple of unit tests were added, covering a lot of ground.
+  </notes>
+  <deps>
+   <dep type="pkg" rel="has" optional="no">PEAR</dep>
+   <dep type="pkg" rel="ge" version="1.2.0" optional="no">HTML_Common</dep>
+  </deps>
+  <provides type="class" name="HTML_Table_Storage" extends="HTML_Common" />
+  <provides type="function" name="HTML_Table_Storage::setUseTGroups" />
+  <provides type="function" name="HTML_Table_Storage::getUseTGroups" />
+  <provides type="function" name="HTML_Table_Storage::setAutoFill" />
+  <provides type="function" name="HTML_Table_Storage::getAutoFill" />
+  <provides type="function" name="HTML_Table_Storage::setAutoGrow" />
+  <provides type="function" name="HTML_Table_Storage::getAutoGrow" />
+  <provides type="function" name="HTML_Table_Storage::setRowCount" />
+  <provides type="function" name="HTML_Table_Storage::setColCount" />
+  <provides type="function" name="HTML_Table_Storage::getRowCount" />
+  <provides type="function" name="HTML_Table_Storage::getColCount" />
+  <provides type="function" name="HTML_Table_Storage::setRowType" />
+  <provides type="function" name="HTML_Table_Storage::setColType" />
+  <provides type="function" name="HTML_Table_Storage::setCellAttributes" />
+  <provides type="function" name="HTML_Table_Storage::updateCellAttributes" />
+  <provides type="function" name="HTML_Table_Storage::getCellAttributes" />
+  <provides type="function" name="HTML_Table_Storage::setCellContents" />
+  <provides type="function" name="HTML_Table_Storage::getCellContents" />
+  <provides type="function" name="HTML_Table_Storage::setHeaderContents" />
+  <provides type="function" name="HTML_Table_Storage::addRow" />
+  <provides type="function" name="HTML_Table_Storage::setRowAttributes" />
+  <provides type="function" name="HTML_Table_Storage::updateRowAttributes" />
+  <provides type="function" name="HTML_Table_Storage::getRowAttributes" />
+  <provides type="function" name="HTML_Table_Storage::altRowAttributes" />
+  <provides type="function" name="HTML_Table_Storage::addCol" />
+  <provides type="function" name="HTML_Table_Storage::setColAttributes" />
+  <provides type="function" name="HTML_Table_Storage::updateColAttributes" />
+  <provides type="function" name="HTML_Table_Storage::setAllAttributes" />
+  <provides type="function" name="HTML_Table_Storage::updateAllAttributes" />
+  <provides type="function" name="HTML_Table_Storage::toHtml" />
+  <provides type="class" name="HTML_Table" extends="HTML_Common" />
+  <filelist>
+   <file role="doc" baseinstalldir="/HTML" md5sum="770a12cc1bb6d254097da730bdc365c7" name="docs/Table_example1.php"/>
+   <file role="doc" baseinstalldir="/HTML" md5sum="9c4a704a24b40526423db2cdd77a4512" name="docs/Table_example2.php"/>
+   <file role="php" baseinstalldir="/HTML" md5sum="adddf61b4562beba1241e4c1bc18d907" name="Table/Storage.php"/>
+   <file role="test" baseinstalldir="/HTML" md5sum="46730fb6c44f4ed6bfe583879f1630f0" name="tests/1.phpt"/>
+   <file role="test" baseinstalldir="/HTML" md5sum="dab0b60b11de4476d1d0fbf50e2dc6ec" name="tests/2.phpt"/>
+   <file role="test" baseinstalldir="/HTML" md5sum="fe6413abd505f3c3cea5bc0fe163bec9" name="tests/3.phpt"/>
+   <file role="test" baseinstalldir="/HTML" md5sum="8a6af58b2ae429bf9aa1913cb54a255e" name="tests/4.phpt"/>
+   <file role="test" baseinstalldir="/HTML" md5sum="889383026d7d954307deac3351724122" name="tests/5.phpt"/>
+   <file role="test" baseinstalldir="/HTML" md5sum="d2d249d259f456970c5e553ee0df63f7" name="tests/6.phpt"/>
+   <file role="test" baseinstalldir="/HTML" md5sum="20357098b234b5dcbc72efcf1d0765a4" name="tests/7.phpt"/>
+   <file role="test" baseinstalldir="/HTML" md5sum="5ba2d5b88c2238269f3c3b9ea14b5df4" name="tests/8.phpt"/>
+   <file role="test" baseinstalldir="/HTML" md5sum="8cc4d22c008ee578541310060636b19b" name="tests/9.phpt"/>
+   <file role="test" baseinstalldir="/HTML" md5sum="a9b76bea2691ac8b7e00629d48fbfbc5" name="tests/10.phpt"/>
+   <file role="test" baseinstalldir="/HTML" md5sum="19131a3e79c89d6d1784c8edf4c028c4" name="tests/11.phpt"/>
+   <file role="test" baseinstalldir="/HTML" md5sum="003a12b6c059d0010054d6acc91074d9" name="tests/12.phpt"/>
+   <file role="test" baseinstalldir="/HTML" md5sum="95f8c743ba45ce5841213def9895bc35" name="tests/13.phpt"/>
+   <file role="test" baseinstalldir="/HTML" md5sum="2a6e9549c7853c4d4b0d89b12b303060" name="tests/14.phpt"/>
+   <file role="test" baseinstalldir="/HTML" md5sum="f94c8337473068757236a3b20a627b62" name="tests/15.phpt"/>
+   <file role="test" baseinstalldir="/HTML" md5sum="ce4dd0b200056b887a94b6d2066dc8c4" name="tests/16.phpt"/>
+   <file role="test" baseinstalldir="/HTML" md5sum="cd1fce11f1d139b0ab619c298c665e10" name="tests/17.phpt"/>
+   <file role="test" baseinstalldir="/HTML" md5sum="6895a9ec5de6015d107d288673e8f5fb" name="tests/18.phpt"/>
+   <file role="test" baseinstalldir="/HTML" md5sum="5654a4b4bb2177259901bd9fec072fe9" name="tests/19.phpt"/>
+   <file role="php" baseinstalldir="/HTML" md5sum="0bd6f5f994ba9eeaddaca86779e3ed75" name="Table.php"/>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>1.6.1</version>
+    <date>2005-10-26</date>
+    <license>PHP_License</license>
+    <state>stable</state>
+    <notes>- Bugfix: addCol() must not call Storage::updateRowAttributes(), but Storage::addCol()
+- Bugfix: addCol() had the same problem as in request #4988 (it did not accept array keys as row numbers)
+- Bugfix: toHtml() wrongly assumed that there are instances of $_thead and $_tfoot when $useTGroups == true
+- Bugfix: return PEAR_Error object in getCellContents when cell does not exist
+- Bug #5782: remove PHP warning if $contents == null in addCol() and addRow()
+- Couple of unit tests were added, covering a lot of ground.
+    </notes>
+   </release>
+ </changelog>
+</package>

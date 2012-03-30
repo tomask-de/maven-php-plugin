@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>PEAR</name>
+  <summary>PEAR Base System</summary>
+  <description>The PEAR package contains:
+ * the PEAR base class
+ * the PEAR_Error error handling mechanism
+ * the PEAR installer, for creating, distributing
+   and installing packages</description>
+  <maintainers>
+    <maintainer>
+      <user>ssb</user>
+      <name>Stig Sæther Bakken</name>
+      <email>stig@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>cox</user>
+      <name>Tomas V.V.Cox</name>
+      <email>cox@idecnet.com</email>
+      <role>developer</role>
+    </maintainer>
+    <maintainer>
+      <user>mj</user>
+      <name>Martin Jansen</name>
+      <email>mj@php.net</email>
+      <role>helper</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.90</version>
+    <date>2002-05-28</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>* fix: &quot;help&quot; command was broken
+* new command: &quot;info&quot;
+* new command: &quot;config-help&quot;
+* un-indent multi-line data from xml description files
+* new command: &quot;build&quot;
+* fix: config-set did not work with &quot;set&quot; parameters
+* disable magic_quotes_runtime
+* &quot;install&quot; now builds and installs C extensions
+* added PEAR::delExpect()
+* System class no longer inherits PEAR
+* grouped PEAR_Config parameters
+* add --nobuild option to install/upgrade commands
+* new and more generic Frontend API</notes>
+    <deps>
+      <dep type="php" rel="ge" version="4.1"/>
+      <dep type="pkg" rel="has" version="0.4">Archive_Tar</dep>
+      <dep type="pkg" rel="ge" version="0.11">Console_Getopt</dep>
+    </deps>
+    <filelist>
+      <file role="data" md5sum="3cbf746d7d6fe9638cc9b89db7fa0593" name="package.dtd"/>
+      <file role="php" md5sum="751249b293edf62641b23fd1d9df8815" name="PEAR.php"/>
+      <file role="php" md5sum="4fd359b7d02d67dfd4ccc142bf723c32" name="System.php"/>
+      <file role="php" md5sum="d2d6ee883cce725fb0b8650438f66056" name="PEAR/Autoloader.php"/>
+      <file role="php" md5sum="83d8be6100cc2d3de4b88efe5742323e" name="PEAR/Command.php"/>
+      <file role="php" md5sum="4675905d718dde81c1ed0877b8963363" name="PEAR/Command/Auth.php"/>
+      <file role="php" md5sum="d74a845524778e2109b4fbc72cd6746f" name="PEAR/Command/Build.php"/>
+      <file role="php" md5sum="8b6167c32da3ff45c20f87f6a570e553" name="PEAR/Command/Common.php"/>
+      <file role="php" md5sum="12373e33b4a1300e77f7cbcc75140ae0" name="PEAR/Command/Config.php"/>
+      <file role="php" md5sum="b4571eac54aa0dd37412452779b6529f" name="PEAR/Command/Install.php"/>
+      <file role="php" md5sum="4e984d1a4f032e06378cd9f04a6aa4bc" name="PEAR/Command/Package.php"/>
+      <file role="php" md5sum="2d2023347fb3d1a299e43eada29ea6b7" name="PEAR/Command/Registry.php"/>
+      <file role="php" md5sum="7fef64838246a1bd308f27f060b9128a" name="PEAR/Command/Remote.php"/>
+      <file role="php" md5sum="99b7166917690b14258754f95f425190" name="PEAR/Common.php"/>
+      <file role="php" md5sum="e963d200baf497689eb833d1c004a440" name="PEAR/Config.php"/>
+      <file role="php" md5sum="2dc2e26447d6531f1e1863368732e26b" name="PEAR/Dependency.php"/>
+      <file role="php" md5sum="ad9942e8899d976841b4ff79bfa7d035" name="PEAR/Frontend/CLI.php"/>
+      <file role="php" md5sum="d0d90f2e2b64a97e08b24cb2291cfcf9" name="PEAR/Frontend/Gtk.php"/>
+      <file role="php" md5sum="02a38e530eca49607438a5a8034ed392" name="PEAR/Builder.php"/>
+      <file role="php" md5sum="bd947e85c6b88829e4603e3cca121c68" name="PEAR/Installer.php"/>
+      <file role="php" md5sum="9de11ce88253cea0331064853dea4af7" name="PEAR/Packager.php"/>
+      <file role="php" md5sum="139c405534b5d24dbe384a94da81a8b5" name="PEAR/Registry.php"/>
+      <file role="php" md5sum="e325e44e94d323eeabad653b1fe46cec" name="PEAR/Remote.php"/>
+      <file role="php" md5sum="0168228f4c3e0dd824d2d03f42098406" name="OS/Guess.php"/>
+      <file role="script" baseinstalldir="/" md5sum="73bd5c9e732366b573652d9c3941eaae" install-as="pear" name="scripts/pear.in">
+        <replace from="@prefix@/bin" to="PHP_BINDIR" type="php-const"/>
+        <replace from="@pear_version@" to="version" type="package-info"/>
+      </file>
+      <file role="script" baseinstalldir="/" md5sum="5320c1e5ef95efdff9f21b5a09e0662e" name="scripts/pear.bat"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.10</version>
+      <date>2002-05-26</date>
+      <state>beta</state>
+      <notes>Lots of stuff this time.  0.9 was not actually self-hosting, even
+though it claimed to be.  This version finally is self-hosting
+(really!), meaning you can upgrade the installer with the command
+&quot;pear upgrade PEAR&quot;.
+
+* new config paramers: http_proxy and umask
+* HTTP proxy support when downloading packages
+* generalized command handling code
+* and fixed the bug that would not let commands have the
+  same options as &quot;pear&quot; itself
+* added long options to every command
+* added command shortcuts (&quot;pear help shortcuts&quot;)
+* added stub for Gtk installer
+* some phpdoc fixes
+* added class dependency detector (using ext/tokenizer)
+* dependency handling fixes
+* added OS_Guess class for detecting OS
+* install files with the &quot;platform&quot; attribute set
+  only on matching operating systems
+* PEAR_Remote now falls back to the XML_RPC package
+  if xmlrpc-epi is not available
+* renamed command: package-list -&gt; list
+* new command: package-dependencies
+* lots of minor fixes
+
+</notes>
+    </release>
+    <release>
+      <version>0.9</version>
+      <date>2002-04-07</date>
+      <state>beta</state>
+      <notes>First package release.  Commands implemented:
+   remote-package-info
+   list-upgrades
+   list-remote-packages
+   download
+   config-show
+   config-get
+   config-set
+   list-installed
+   shell-test
+   install
+   uninstall
+   upgrade
+   package
+   package-list
+   package-info
+   login
+   logout
+
+</notes>
+    </release>
+  </changelog>
+</package>

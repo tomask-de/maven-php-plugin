@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release2
+    http://pear.php.net/dtd/rest.release2.xsd">
+ <p xlink:href="/rest/p/tree">Tree</p>
+ <c>pear.php.net</c>
+ <v>0.2.3</v>
+ <a>0.2.3</a>
+ <mp>4.3.0</mp>
+ <st>beta</st>
+ <l>PHP License</l>
+ <m>cain</m>
+ <s>Generic tree management, currently supports DB and XML as data sources</s>
+ <d>Provides methods to read and manipulate trees, which are stored in the DB
+or an XML file. The trees can be stored in the DB either as nested trees.
+Or as simple trees ('brain dead method'), which use parentId-like structure.
+Currently XML data can only be read from a file and accessed.
+The package offers a big number of methods to access and manipulate trees.
+For example methods like: getRoot, getChild[ren[Ids]], getParent[s[Ids]], getPath[ById] and many
+more.
+There are two ways of retreiving the data from the place where they are stored,
+one is by reading the entire tree into the memory - the Memory way. The other
+is reading the tree nodes as needed (very useful in combination with huge trees
+and the nested set model).
+The package is designed that way that it is possible to convert/copy tree data
+from either structure to another (from XML into DB).
+</d>
+ <da>2003-03-11 09:41:00</da>
+ <n>* Make switchDataSource work for Memory/Array, this enables you to
+read the data from any source and switch the source on the run. This writes the data 
+from the current tree into the new source. I.e. you read the data from a DB and write
+it into an array. 
+Switching from DB to Array makes sense i.e. if you read a tree from the DB, which you want to show
+(i.e. using HTML_TreeMenu) but therefore you need to set additional properties for each
+node which you don't want to save in the DB, since they are only for the presentation.
+Properties for HTML_TreeMenu are i.e. the icon and some events (like 'onClick'). Since you switched 
+the source from DB to Array you can change any data without worrying that they are written into
+the DB and modify your actual data in the DB.
+* Bring Memory/Array closer to be fully useable.
+* getPathAsString() takes two more parameters where you can determine from and offset
+* getChildrenIds() has a new optional parameter for determining the level
+* Add getDepth() to determine the maximum depth of the tree
+* Make setup work with custom data optionally (only relevant for Memory_*)
+* Show a nicer varDump
+* add UML class diagram</n>
+ <f>48576</f>
+ <g>http://pear.php.net/get/Tree-0.2.3</g>
+ <x xlink:href="package.0.2.3.xml"/>
+</r>

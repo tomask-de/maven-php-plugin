@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>Net_DNS</name>
+  <summary>Resolver library used to communicate with a DNS server</summary>
+  <description>A resolver library used to communicate with a name server to perform DNS queries, zone transfers, dynamic DNS updates, etc.  Creates an object hierarchy from a DNS server's response, which allows you to view all of the information given by the DNS server.  It bypasses the system's resolver library and communicates directly with the server.</description>
+  <maintainers>
+    <maintainer>
+      <user>ekilfoil</user>
+      <name>Eric Kilfoil</name>
+      <email>eric@ypass.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>pollita</user>
+      <name>Sara Golemon</name>
+      <email>pollita@php.net</email>
+      <role>developer</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.00b2</version>
+    <date>2003-06-10</date>
+    <license>LGPL 2.1</license>
+    <state>beta</state>
+    <notes>- More RR types supported: AAAA, HINFO, NAPTR, SRV, and TXT (Sara Goleman).
+- Fixed bug 23812 (as well as other unreported bugs)
+- Added capability for extracting arbritrary lables from a packet (Sara Goleman).</notes>
+    <provides type="class" name="Net_DNS" />
+    <provides type="function" name="Net_DNS::opcodesbyname" />
+    <provides type="function" name="Net_DNS::opcodesbyval" />
+    <provides type="function" name="Net_DNS::rcodesbyname" />
+    <provides type="function" name="Net_DNS::rcodesbyval" />
+    <provides type="function" name="Net_DNS::typesbyname" />
+    <provides type="function" name="Net_DNS::typesbyval" />
+    <provides type="function" name="Net_DNS::classesbyname" />
+    <provides type="function" name="Net_DNS::classesbyval" />
+    <provides type="class" name="Net_DNS_Packet" />
+    <provides type="function" name="Net_DNS_Packet::buildQuestion" />
+    <provides type="function" name="Net_DNS_Packet::parse" />
+    <provides type="function" name="Net_DNS_Packet::data" />
+    <provides type="function" name="Net_DNS_Packet::dn_comp" />
+    <provides type="function" name="Net_DNS_Packet::dn_expand" />
+    <provides type="function" name="Net_DNS_Packet::label_extract" />
+    <provides type="function" name="Net_DNS_Packet::parse_question" />
+    <provides type="function" name="Net_DNS_Packet::parse_rr" />
+    <provides type="function" name="Net_DNS_Packet::display" />
+    <provides type="function" name="Net_DNS_Packet::string" />
+    <provides type="class" name="Net_DNS_Header" />
+    <provides type="function" name="Net_DNS_Header::display" />
+    <provides type="function" name="Net_DNS_Header::string" />
+    <provides type="function" name="Net_DNS_Header::data" />
+    <provides type="class" name="Net_DNS_Question" />
+    <provides type="function" name="Net_DNS_Question::display" />
+    <provides type="function" name="Net_DNS_Question::string" />
+    <provides type="function" name="Net_DNS_Question::data" />
+    <provides type="class" name="Net_DNS_Resolver" />
+    <provides type="function" name="Net_DNS_Resolver::res_init" />
+    <provides type="function" name="Net_DNS_Resolver::read_config" />
+    <provides type="function" name="Net_DNS_Resolver::read_env" />
+    <provides type="function" name="Net_DNS_Resolver::string" />
+    <provides type="function" name="Net_DNS_Resolver::nextid" />
+    <provides type="function" name="Net_DNS_Resolver::nameservers" />
+    <provides type="function" name="Net_DNS_Resolver::cname_addr" />
+    <provides type="function" name="Net_DNS_Resolver::search" />
+    <provides type="function" name="Net_DNS_Resolver::query" />
+    <provides type="function" name="Net_DNS_Resolver::send" />
+    <provides type="function" name="Net_DNS_Resolver::printhex" />
+    <provides type="function" name="Net_DNS_Resolver::send_tcp" />
+    <provides type="function" name="Net_DNS_Resolver::send_udp_no_sock_lib" />
+    <provides type="function" name="Net_DNS_Resolver::send_udp_with_sock_lib" />
+    <provides type="function" name="Net_DNS_Resolver::send_udp" />
+    <provides type="function" name="Net_DNS_Resolver::make_query_packet" />
+    <provides type="function" name="Net_DNS_Resolver::axfr_old" />
+    <provides type="function" name="Net_DNS_Resolver::axfr" />
+    <provides type="function" name="Net_DNS_Resolver::axfr_start" />
+    <provides type="function" name="Net_DNS_Resolver::axfr_next" />
+    <provides type="function" name="Net_DNS_Resolver::read_tcp" />
+    <provides type="class" name="Net_DNS_RR" />
+    <provides type="function" name="Net_DNS_RR::new_from_data" />
+    <provides type="function" name="Net_DNS_RR::new_from_string" />
+    <provides type="function" name="Net_DNS_RR::new_from_array" />
+    <provides type="function" name="Net_DNS_RR::display" />
+    <provides type="function" name="Net_DNS_RR::string" />
+    <provides type="function" name="Net_DNS_RR::rdatastr" />
+    <provides type="function" name="Net_DNS_RR::rdata" />
+    <provides type="function" name="Net_DNS_RR::rr_rdata" />
+    <provides type="function" name="Net_DNS_RR::data" />
+    <provides type="class" name="Net_DNS_RR_A" extends="Net_DNS_RR" />
+    <provides type="function" name="Net_DNS_RR_A::rdatastr" />
+    <provides type="function" name="Net_DNS_RR_A::rr_rdata" />
+    <provides type="class" name="Net_DNS_RR_NS" extends="Net_DNS_RR" />
+    <provides type="function" name="Net_DNS_RR_NS::rdatastr" />
+    <provides type="function" name="Net_DNS_RR_NS::rr_rdata" />
+    <provides type="class" name="Net_DNS_RR_CNAME" extends="Net_DNS_RR" />
+    <provides type="function" name="Net_DNS_RR_CNAME::rdatastr" />
+    <provides type="function" name="Net_DNS_RR_CNAME::rr_rdata" />
+    <provides type="class" name="Net_DNS_RR_MX" extends="Net_DNS_RR" />
+    <provides type="function" name="Net_DNS_RR_MX::rdatastr" />
+    <provides type="function" name="Net_DNS_RR_MX::rr_rdata" />
+    <provides type="class" name="Net_DNS_RR_SOA" extends="Net_DNS_RR" />
+    <provides type="function" name="Net_DNS_RR_SOA::rdatastr" />
+    <provides type="function" name="Net_DNS_RR_SOA::rr_rdata" />
+    <provides type="class" name="Net_DNS_RR_PTR" extends="Net_DNS_RR" />
+    <provides type="function" name="Net_DNS_RR_PTR::rdatastr" />
+    <provides type="function" name="Net_DNS_RR_PTR::rr_rdata" />
+    <provides type="class" name="Net_DNS_RR_TSIG" extends="Net_DNS_RR" />
+    <provides type="function" name="Net_DNS_RR_TSIG::rdatastr" />
+    <provides type="function" name="Net_DNS_RR_TSIG::rr_rdata" />
+    <provides type="function" name="Net_DNS_RR_TSIG::error" />
+    <provides type="class" name="Net_DNS_RR_AAAA" extends="Net_DNS_RR" />
+    <provides type="function" name="Net_DNS_RR_AAAA::rdatastr" />
+    <provides type="function" name="Net_DNS_RR_AAAA::rr_rdata" />
+    <provides type="function" name="Net_DNS_RR_AAAA::ipv6_compress" />
+    <provides type="function" name="Net_DNS_RR_AAAA::ipv6_decompress" />
+    <provides type="class" name="Net_DNS_RR_HINFO" extends="Net_DNS_RR" />
+    <provides type="function" name="Net_DNS_RR_HINFO::rdatastr" />
+    <provides type="function" name="Net_DNS_RR_HINFO::rr_rdata" />
+    <provides type="class" name="Net_DNS_RR_NAPTR" extends="Net_DNS_RR" />
+    <provides type="function" name="Net_DNS_RR_NAPTR::rdatastr" />
+    <provides type="function" name="Net_DNS_RR_NAPTR::rr_rdata" />
+    <provides type="class" name="Net_DNS_RR_SRV" extends="Net_DNS_RR" />
+    <provides type="function" name="Net_DNS_RR_SRV::rdatastr" />
+    <provides type="function" name="Net_DNS_RR_SRV::rr_rdata" />
+    <provides type="class" name="Net_DNS_RR_TXT" extends="Net_DNS_RR" />
+    <provides type="function" name="Net_DNS_RR_TXT::rdatastr" />
+    <provides type="function" name="Net_DNS_RR_TXT::rr_rdata" />
+    <filelist>
+      <file role="php" baseinstalldir="Net" md5sum="6aebf1b27d7fb3aae5de323f4ca2f5f1" name="DNS.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="669ef7a923c431c4a055a6637d8366b0" name="DNS/Packet.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="80e214ee57c79ab7ab382ac555e03e3a" name="DNS/Header.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="26b40e35e6831f2e7f307aac0b5e7e88" name="DNS/Question.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="6760719dbbdcbb60d71557f2299886a1" name="DNS/Resolver.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="2845477eef454f8a388dfecfaa942c69" name="DNS/RR.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="2acf0c2c0339bfcf6300a10b7b0dff05" name="DNS/RR/A.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="e49983dfecddf3acdbc5de4388942d99" name="DNS/RR/NS.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="06915d56d8c0ac4598e46fb291c13462" name="DNS/RR/CNAME.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="4ff89ebea59feba34e1dd3ac1e12bfc5" name="DNS/RR/MX.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="12ffac7249e2db7c85058ce7e407b461" name="DNS/RR/SOA.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="652d0df7cc8aad887244cf84633c6a5d" name="DNS/RR/PTR.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="bb4d97b66139a53cd5e3d7529258614c" name="DNS/RR/TSIG.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="374ba30d4edbc958c532bdb847947027" name="DNS/RR/AAAA.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="56ce3f39654b2dacd30afad476fe14a6" name="DNS/RR/HINFO.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="618b53f78233fc8a074ca6afeb4aa5bc" name="DNS/RR/NAPTR.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="ce99c4205319ee571ab451d91c94baef" name="DNS/RR/SRV.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="1a1a36db72da9fc6bc9b3ba6fbc6655b" name="DNS/RR/TXT.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>1.00b1</version>
+      <date>2003-02-24</date>
+      <state>beta</state>
+      <notes>- Tested with PHP 4.3.0
+- Should have no warnings under with maximum error_reporting setting 
+- Fixed bug: did not understand name server responses using the one-answer zone transfer format
+- Fixed more problems with PHP warning about uninitialized variables
+
+Note that the interface to the axfr function has changed.  Software relying on the old (buggy) style of axfr queries will need to be updated to call axfr_old() instead of axfr().  The new axfr() function will not return a DNS packet, but an array of RRs ONLY.
+      
+</notes>
+    </release>
+    <release>
+      <version>0.03</version>
+      <date>2002-08-15</date>
+      <state>beta</state>
+      <notes>Now has stable support of DNS queries, socket handling, and packet parsing/generating. Any problems at this point should be considered bugs and should be reported ASAP. Running this code with E_ALL should be acceptable -- any warnings generated should be submitted to eric@ypass.net.
+      
+</notes>
+    </release>
+    <release>
+      <version>0.02</version>
+      <date>2002-08-15</date>
+      <state>beta</state>
+      <notes>Supports TSIG signed DNS packets for generating DNS update packets (re: rfc2485)
+</notes>
+    </release>
+    <release>
+      <version>0.01</version>
+      <date>2002-05-14</date>
+      <state>devel</state>
+      <notes>Currently only supports A, CNAME, NS, PTR, MX, and SOA records.
+</notes>
+    </release>
+  </changelog>
+</package>

@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>DB_NestedSet</name>
+  <summary>API to build and query nested sets</summary>
+  <description>DB_NestedSet let's you create trees with infinite depth
+inside a relational database.
+The package provides a way to
+o create/update/delete nodes
+o query nodes, trees and subtrees
+o copy (clone) nodes, trees and subtrees
+o move nodes, trees and subtrees
+        o Works with PEAR::DB and PEAR::MDB
+o output the tree with
+  - PEAR::HTML_TreeMenu
+  - TigraMenu (http://www.softcomplex.com/products/tigra_menu/)
+  - CoolMenus (http://www.dhtmlcentral.com/projects/coolmenus/)
+  - PEAR::Image_GraphViz (http://pear.php.net/package/Image_GraphViz)
+  - PEAR::HTML_Menu</description>
+  <maintainers>
+    <maintainer>
+      <user>datenpunk</user>
+      <name>Daniel Khan</name>
+      <email>dk@webcluster.at</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>jrust</user>
+      <name>Jason Rust</name>
+      <email>jrust@rustyparts.com</email>
+      <role>developer</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.3.4</version>
+    <date>2004-04-04</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>This is a quick fix to quoting problems in pgsql.
+As MDB doesn't support all needed quoting methods for now it's not possible to use
+any reserved words (key, order, group,...) for column names with MDB.
+As soon as MDB also supports this it should work,
+Please test it as much as possible while I am now finally will finish the docs.
+Please file bugs using the great bug reporting system on pear.php.net.
+If no further bugs are found this branch will be turned to stable. 
+
+- Fixed Bug #1114: bug fix 561 flawed; single-quoting fields errors in pgsql reported by Andy Crain
++ The TreeMenu output driver now supports all params supported by PEAR::HTML_TreeMenu</notes>
+    <filelist>
+      <file role="php" baseinstalldir="DB" name="NestedSet.php"/>
+      <file role="php" baseinstalldir="DB" name="NestedSet/DB.php"/>
+      <file role="php" baseinstalldir="DB" name="NestedSet/MDB.php"/>
+      <file role="php" baseinstalldir="DB" name="NestedSet/Event.php"/>
+      <file role="php" baseinstalldir="DB" name="NestedSet/Output.php"/>
+      <file role="php" baseinstalldir="DB" name="NestedSet/TreeMenu.php"/>
+      <file role="php" baseinstalldir="DB" name="NestedSet/TigraMenu.php"/>
+      <file role="php" baseinstalldir="DB" name="NestedSet/CoolMenu.php"/>
+      <file role="php" baseinstalldir="DB" name="NestedSet/GraphViz.php"/>
+      <file role="php" baseinstalldir="DB" name="NestedSet/Menu.php"/>
+      <file role="doc" baseinstalldir="DB" name="docs/README"/>
+      <file role="doc" baseinstalldir="DB" name="docs/mysql.sql"/>
+      <file role="doc" baseinstalldir="DB" name="docs/migrateDB.txt"/>
+      <file role="doc" baseinstalldir="DB" name="docs/testdb_mysql.sql"/>
+      <file role="doc" baseinstalldir="DB" name="docs/TreeMenu_example.php"/>
+      <file role="doc" baseinstalldir="DB" name="docs/TigraMenu_example.php"/>
+      <file role="doc" baseinstalldir="DB" name="docs/CoolMenu_example.php"/>
+      <file role="doc" baseinstalldir="DB" name="docs/Menu_example.php"/>
+      <file role="doc" baseinstalldir="DB" name="docs/GraphViz_example.php"/>
+      <file role="test" baseinstalldir="DB" name="tests/index.php"/>
+      <file role="test" baseinstalldir="DB" name="tests/TestBase.php"/>
+      <file role="test" baseinstalldir="DB" name="tests/UnitTest.php"/>
+      <file role="test" baseinstalldir="DB" name="tests/NestedSet/api.php"/>
+      <file role="test" baseinstalldir="DB" name="tests/NestedSet/creation.php"/>
+      <file role="test" baseinstalldir="DB" name="tests/NestedSet/manipulation.php"/>
+      <file role="test" baseinstalldir="DB" name="tests/NestedSet/query.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>1.3.3</version>
+      <date>2004-04-31</date>
+      <state>beta</state>
+      <notes>This is mostly a bugfix release with little additions.
+Please test it as much as possible while I am now finally will finish the docs.
+Please file bugs using the great bug reporting system on pear.php.net.
+If no further bugs are found this branch will be turned to stable. 
+
++ Added PEAR::HTML_Menu output driver
+  This driver is also useful if one wants to transform a tree into a nested array.
+  Use returnStructure() for this.
+- Fixed Bug #510: NESE_SORT_PREORDER doesn't work with $aliasFields and $addSQL reported by Beat Kipfer
+- Changed the SQL statement for setting a lock to be ANSI compatible. Thank's to Tobias Marquart
+- Fixed wrong parameter count in getSiblings which caused $addSQL to be ignored. Thank's to Karsten Fernkorn.
+- Fixed Bug #561: Reserved words are now escpaed using the quote() method of the DB layer. Thank's to c dot weyland at gmx dot de.
+- Fixed Bug #600: Inconsitency in APPEND between methods. Now there is a new param for $addSQL called $addSQL['where'] which takes a SQL condition
+  without 'AND' or 'WHERE' at the beginning. Thank' s to Simon Hamilton and Beat Kipfer.
+- Fixed Bug #808: use of other DB as mysql (MSSQL). Thank's to j dot forstner at a1 dot net.
+- Fixed Bug #1097: getSubBranch does not work with sort_preorder. Thank's to Markus Cecot.
+
+</notes>
+    </release>
+    <release>
+      <version>1.3.2</version>
+      <date>2003-12-29</date>
+      <state>beta</state>
+      <notes>- Added Image_GraphViz output driver (Arnaud Limbourg)
+    - Fixed wrong rootnode order field incremention on rootnode deletion (Daniel Khan)
+    - Applied a little patch to the CoolMenu output driver (Andy Crain)
+</notes>
+    </release>
+    <release>
+      <version>1.3.1</version>
+      <date>2003-11-26</date>
+      <state>beta</state>
+      <notes>- Extended Unit Tests
+- Added the CoolMenu output driver by Andy Crain
+- Added Andy Crain's patch which fixes
+  + the can't move a rootnode below another rootnode bug
+  + the 'Parent id not updated on move' bug
+  + a bug which led to wrong l/r values on tree operations
+- Replaces non ANSI (mysql specific) queries.
+  PLEASE test with other RDBMS than mySQL - this should work now
+* Coding style fixes
+* Took out a few of the abstract methods and _getmicrotime() to try and cut down on the size of the class.
+* Optimized the query for createRootNode() slightly
+* Fixed createRootNode() to work when only required parameters are passed, so that now
+  $db-&gt;createRootNode($node) will successfully create a root node at the end of the tree instead of erroring out.
+- Fixed [Bug #138]: moveTree doesn't return anything
+  (Thanks to [thomas at bytefreak dot de] for the report)
+- Applied Lukas Smith's MDB patch - MDB support is back again!
+- Adopted unit tests for MDB
+- Changed the name of the property _flparams back to flparams as some applications may rely on this.
+</notes>
+    </release>
+    <release>
+      <version>1.3</version>
+      <date>2003-10-07</date>
+      <state>beta</state>
+      <notes>This release includes many internal changes and some (long demanded) feature additions.
+The API and database structure should be fully backward compatible.
+Please test this release as much as possible, so that any remaining issues can be
+uncovered and resolved prior to the final release.
+o Notes:
+If you want to use new features like preorder sorting you will
+have to convert the tree to meet the new db model.
+See docs/migrateDB.txt on how to migrate your existing tree.
+o Fixes:
+* MDB support is back again.
+* Fixed a problem with some move operations where the moving tree gets changed during
+  the move operation.
+* Many small internal fixes.
+o New features:
+* Added a method setSortMode($mode) where $mode is NESE_SORT_LEVEL or NESE_SORT_PREORDER.
+  This will change the way the query methods return the tree.
+  NESE_SORT_LEVEL is the default.
+  NESE_SORT_PREORDER returns the tree preorder sorted. This sorting method
+  was often demanded as it's the way one would usually expect the tree to be returned.
+  Preorder sorting will also work with the property $secondarySort.
+  So it's possible to get the siblings of one level sorted alphabetically by name.
+  Note that you will have to switch back to NESE_SORT_LEVEL if you want to display
+  a tree with the output drivers.
+* Added method getParent() to get the immediate parent of a node
+* Added method getSiblings() to get all siblings of a node + the node itself
+* Added method createLeftNode() to create a node before a node given by it's node id.
+* Added method apiVersion() which obviously returns the current API version
+* Added convertTreeModel() to convert a tree into the new tree model
+* Added magic parent db field. If a column with the field mapping 'parent' is present
+  the parent id of a node is stored inside this column.
+  This doesn't exactly meet the nested sets theory and will only be used by some
+  methods like getParent(). It's recommended to use this column for new installations
+  or converted trees.
+* Now values passed to creation methods are verfified so that a script can't set
+  params like the parent id by itself
+* Added listbox_toHTML() and tree_toHTML() methods to the TreeMenu output driver.
+  Thanks to Emanuel Zueger for this additions.
+* Added regression tests for all public methods and common options
+  The regression test setup isn't very userfriendly for now.
+  The db schema can be found under docs and you will have to customize tests/UnitTest.php
+  to set your database connection params.
+* The main class now uses the array representation of the tree for internal operations.
+  This should gain some performance.
+o Notes on next major version (2.0):
+* The API will change.
+* The class won't return objects anymore. It will act as if $keepAsArray is set to true
+  when calling the query methods.
+  It's a good idea to switch to set this param to be mostly compatible.
+* Callback handlers will be removed - I don't even know if someone uses them.
+  Please mail me at dk@webcluster.at if you really see a use.
+  -- To be continued --
+</notes>
+    </release>
+    <release>
+      <version>1.2.4</version>
+      <date>2003-08-13</date>
+      <state>stable</state>
+      <notes>o Fixed a problem in re-sorting after node deletion
+o Added an example for building a JavaScript tree with TreeMenu
+</notes>
+    </release>
+    <release>
+      <version>1.2.3</version>
+      <date>2003-07-16</date>
+      <state>stable</state>
+      <notes>o Fixes a typo in _addSQL()
+  Thanks to Rense Klinkenberg for sending patch
+</notes>
+    </release>
+    <release>
+      <version>1.2.2</version>
+      <date>2003-07-15</date>
+      <state>stable</state>
+      <notes>This release fixes some bugs which occured since 1.2.1
+We will now move towards 2.0 which will include big improvements
+but also some BC breaks.
+FIXES
+ o Fixed a bug which leads to wrong results when copying nodes
+ o Fixed a node ordering bug in createRightNode (Thanks to Stefan Wimmer)
+ o Fixed bug that had crept in so that $aliasFields was not working
+ o Doc and style fixes
+
+</notes>
+    </release>
+    <release>
+      <version>1.2.1</version>
+      <date>2003-05-25</date>
+      <state>stable</state>
+      <notes>- NEW FEATURES
+o Now $NeSe-&gt;setAttr() allows a PEAR function cache object to be passed using
+  $NeSe-&gt;setAttr(array('cache'=&gt;$cache_object));
+  if this object is set, the class will use it to cache database queries.
+  It will also flush this cache if the structure changes.
+o All tree query methods now support an additional array named $addSQL.
+  This can be used to pass additional params to a query.
+  Means: You may now use joins to other tables.
+- FIXES
+o createRightNode() returned the node object instead of the new node id, which
+  caused problems whith some internal method calls.
+o TreeMenu and TigraMenu output drivers contained a bug which made them not
+  create the whole tree under certain circumstances
+  Thanks to Alain Petignat for reporting this
+o Some minor E_ALL fixes (The package shouldn't produce notices/warnings with
+  E_ALL set)
+o Added TigraMenu.php to the package which was missing in the last release
+</notes>
+    </release>
+    <release>
+      <version>1.2pl1</version>
+      <date>2003-05-08</date>
+      <state>stable</state>
+      <notes>- Fixed a bug which leads to the deletion of a node or subtree if a node
+  is moved into _itself_.
+  Thanks to Christian Reininger for catching this!
+- Now a proper PEAR::Error object is returned in case of recursion instead of
+  returning false.
+</notes>
+    </release>
+    <release>
+      <version>1.2</version>
+      <date>2003-05-05</date>
+      <state>stable</state>
+      <notes>The core package is now stable.
+You should be able to manipulate a nested set without problems.
+The output driver development will always be in progress and there
+may always be drivers in beta state.
+This package introduces an output driver for TigraMenu
+(http://www.softcomplex.com/products/tigra_menu/)
+and examples on using the output drivers.
+ * Fixed bug in triggerEvent() which produced an error on node move (Daniel Khan)
+ * Added isParent() which provides a simple way to query if a given node is parent of another given node. (Daniel Khan)
+ * Added a variable to pickNode() which can be used to get a node by another value than id (Daniel Khan)
+ * TreeMenu: Fixed bug where two sub nodes that both have children were not being processed correctly (Jason Rust)
+ * TreeMenu: Took off example usage since there is now an example page in docs/ (Jason Rust)
+ * TigraMenu: Initial import of TigraMenu output driver
+</notes>
+    </release>
+    <release>
+      <version>1.1-beta</version>
+      <date>2003-04-29</date>
+      <state>beta</state>
+      <notes>- Added a unified API to access other output drivers
+- Added a output driver for HTML_TreeMenu (Jason Rust)
+- Added a variable '$idfield' to pickNode() which can be used to get a node by another value than id (Daniel Khan)
+- Made getChildren() consistent with how the other methods work in terms of the secondarySort property (Jason Rust)
+- Added new attribute: secondarySort. Normally it is the order field, but can be set to another field
+  in the table such as name so that the tree can be displayed alphabetically. (Jason Rust)
+- Improved the error handling so that nasty fatal errors no longer occur if invalid ids are specified (Jason Rust)
+- Now using the NESE_MOVE_* constants instead of AF, BE, and SUB (Jason Rust)
+- Added vim folds (Jason Rust)
+- Several style fixes to be compliant with PEAR style (Jason Rust)
+- Several E_ALL fixes (Jason Rust)
+- Avoid repetitive setting of variables by using sprintf to form the SQL queries in many of the _doget* methods (Jason Rust)
+- db-&gt;quote() is now used to quote strings to be compliant with other databases (Jason Rust)
+- Added new property: sequence_table so that it can be configurable (Jason Rust)
+- Added new method: setDbOption in order to be able to set database options (Jason Rust)
+- Added new method to NestedSet_Node: getData() to obtain the data from the node in an array (Jason Rust)
+- NestedSet_Node no longer extends PEAR since it doesn't need to (Jason Rust)
+- Fixed a bug for when moving a node within its level (Jason Rust)
+- Locking does not produce DB &quot;database not set&quot; errors any longer since the database destructor calls the parent destructor first (Jason Rust)
+- Fixed a bug in _dogetParents() which made it return also return the parent's sibblings (Daniel Khan)
+
+</notes>
+    </release>
+  </changelog>
+</package>

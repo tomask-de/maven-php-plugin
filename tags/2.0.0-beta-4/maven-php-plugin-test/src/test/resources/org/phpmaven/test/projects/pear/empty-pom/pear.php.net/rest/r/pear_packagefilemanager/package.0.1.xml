@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>PEAR_PackageFileManager</name>
+  <summary>PEAR_PackageFileManager takes an existing package.xml file and updates it with a new filelist and changelog</summary>
+  <description>This package revolutionizes the maintenance of PEAR packages.  With a few parameters,
+the entire package.xml is automatically updated with a listing of all files in a package.
+Features include
+ - reads in an existing package.xml file, and only changes the release/changelog
+ - a plugin system for retrieving files in a directory.  Currently two plugins
+   exist, one for standard recursive directory content listing, and one that
+   reads the CVS/Entries files and generates a file listing based on the contents
+   of a checked out CVS repository
+ - incredibly flexible options for assigning install roles to files/directories
+ - ability to ignore any file based on a * ? wildcard-enabled string
+ - ability to manage dependencies
+ - can output the package.xml in any directory, and read in the package.xml
+   file from any directory.
+ - can specify a different name for the package.xml file</description>
+  <maintainers>
+    <maintainer>
+      <user>CelloG</user>
+      <name>Gregory Beaver</name>
+      <email>cellog@users.sourceforge.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.1</version>
+    <date>2003-07-21</date>
+    <license>PHP License</license>
+    <state>alpha</state>
+    <notes>First release of PEAR_PackageFileManager</notes>
+    <deps>
+      <dep type="pkg" rel="ge" version="1.1">PEAR</dep>
+    </deps>
+    <provides type="class" name="PEAR_PackageFileManager_Cvs" extends="PEAR_PackageFileManager_File" />
+    <provides type="function" name="PEAR_PackageFileManager_Cvs::dirList" />
+    <provides type="class" name="PEAR_PackageFileManager_File" />
+    <provides type="function" name="PEAR_PackageFileManager_File::getFileList" />
+    <provides type="function" name="PEAR_PackageFileManager_File::dirList" />
+    <provides type="function" name="PEAR_PackageFileManager_File::sortfiles" />
+    <provides type="function" name="PEAR_PackageFileManager_File::mystrucsort" />
+    <provides type="class" name="PEAR_PackageFileManager" />
+    <provides type="function" name="PEAR_PackageFileManager::setOptions" />
+    <provides type="function" name="PEAR_PackageFileManager::addRole" />
+    <provides type="function" name="PEAR_PackageFileManager::addDependency" />
+    <provides type="function" name="PEAR_PackageFileManager::writePackageFile" />
+    <provides type="function" name="PEAR_PackageFileManager::debugPackageFile" />
+    <provides type="function" name="PEAR_PackageFileManager::raiseError" />
+    <provides type="function" name="file_get_contents" />
+    <filelist>
+      <file role="doc" baseinstalldir="PEAR" md5sum="80a75604579bdccc89574e016afaba78" name="docs/classtrees_PEAR_PackageFileManager.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="e26db5dc2f71bf7b35e413ca6a81bc1b" name="docs/elementindex.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="8c12646d569fb5d1eae462b4370d664c" name="docs/elementindex_PEAR_PackageFileManager.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="0a88abd0bcd0d15be23646908feb16fd" name="docs/errors.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="bbfe10fa13b5b304e4b114614ba1cc0b" name="docs/index.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="bbfe10fa13b5b304e4b114614ba1cc0b" name="docs/li_PEAR_PackageFileManager.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="908a7af2b36fa04f1b869ff74b6a8d37" name="docs/media/background.png"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="4c480a60db1ab64317fe351a24396eb1" name="docs/media/empty.png"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="45923cad7340f4184f27e287c17e2429" name="docs/media/logo.png"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="cfa1203cc96f584f6e44da9aef3aab73" name="docs/media/style.css"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="ecb50f22b52e86cab388ff99d2b423e8" name="docs/PEAR_PackageFileManager/PEAR_PackageFileManager.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="e6fa7831c4c88ba0c1e78484ad85ee93" name="docs/PEAR_PackageFileManager/PEAR_PackageFileManager_Cvs.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="2653eafdf5a186b274f531b088e10029" name="docs/PEAR_PackageFileManager/PEAR_PackageFileManager_File.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="b3fccd70c8ccef991149e2d48041a4cb" name="docs/PEAR_PackageFileManager/_PackageFileManager_PackageFileManager_Cvs_php.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="f939245eb6565c4407fb5e3f9b7aa3b0" name="docs/PEAR_PackageFileManager/_PackageFileManager_PackageFileManager_File_php.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="c0d7d95af6806cf03e988468479311e0" name="docs/PEAR_PackageFileManager/_PackageFileManager_PackageFileManager_php.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="2dbc568c5ce008609e2fc672ce4ee632" name="docs/__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="8250d47d5916c2422ab872abe562b169" name="docs/__filesource/fsource_PEAR_PackageFileManager__PackageFileManager_Cvs.php.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="040e3a00b272c8949daf11a84427ebd2" name="docs/__filesource/fsource_PEAR_PackageFileManager__PackageFileManager_File.php.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="471fc85077539c984d63c6f6bef6bf7f" name="examples/generatePackage.xml.php"/>
+      <file role="php" baseinstalldir="PEAR" md5sum="998d1756f2c1ab5e465f2e9d1dfe5c30" name="PackageFileManager/Cvs.php"/>
+      <file role="php" baseinstalldir="PEAR" md5sum="f0c43239e3d5005f168447e758dd1da8" name="PackageFileManager/File.php"/>
+      <file role="php" baseinstalldir="PEAR" md5sum="ae6fdcbf0c77de59d93960e8e5ba9324" name="PackageFileManager.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.1</version>
+      <date>2003-07-21</date>
+      <state>alpha</state>
+      <notes>First release of PEAR_PackageFileManager
+</notes>
+    </release>
+  </changelog>
+</package>

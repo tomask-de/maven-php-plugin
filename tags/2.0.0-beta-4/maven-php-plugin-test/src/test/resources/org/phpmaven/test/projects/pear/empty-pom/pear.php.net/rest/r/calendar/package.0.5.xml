@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>Calendar</name>
+  <summary>A package for building Calendar data structures (irrespective of output)</summary>
+  <description>Calendar provides an API for building Calendar data structures. Using
+the simple iterator and it's &quot;query&quot; API, a user interface can easily be
+built on top of the calendar data structure, at the same time easily connecting it
+to some kind of underlying data store, where &quot;event&quot; information is
+being held.
+
+It provides different calculation &quot;engines&quot; the default being based on
+Unix timestamps (offering fastest performance) with an alternative using PEAR::Date
+which extends the calendar past the limitations of Unix timestamps. Other engines
+should be implementable for other types of calendar (e.g. a Chinese Calendar based
+on lunar cycles).</description>
+  <maintainers>
+    <maintainer>
+      <user>hfuecks</user>
+      <name>Harry Fuecks</name>
+      <email>hfuecks@phppatterns.com</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>quipo</user>
+      <name>Lorenzo Alberton</name>
+      <email>l.alberton@quipo.it</email>
+      <role>developer</role>
+    </maintainer>
+    <maintainer>
+      <user>cellog</user>
+      <name>Greg Beaver</name>
+      <email>greg@chiaraquartet.net</email>
+      <role>helper</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.5</version>
+    <date>2004-01-29</date>
+    <license>PHP</license>
+    <state>beta</state>
+    <notes>* Added new return-value-formats for each [prev|this|next]*() method
+  Allowed formats are: 'int', 'timestamp' , 'array' and 'object'. Returns
+  data of specified type e.g. $Day = $Hour-&gt;prevDay('object');
+* Added factory for creating calendar objects (in conjunction with above change)
+* Added decorator to determine the day of the week for any calendar object
+* Minor bug fix in Decorator</notes>
+    <deps>
+      <dep type="php" rel="ge" version="4.0.5"/>
+      <dep type="pkg" rel="has">Date</dep>
+    </deps>
+    <provides type="class" name="Calendar_Engine_Factory" />
+    <provides type="class" name="Calendar" />
+    <provides type="function" name="Calendar_Engine_Factory::getEngine" />
+    <provides type="function" name="Calendar::setTimestamp" />
+    <provides type="function" name="Calendar::getTimestamp" />
+    <provides type="function" name="Calendar::setSelected" />
+    <provides type="function" name="Calendar::isSelected" />
+    <provides type="function" name="Calendar::adjust" />
+    <provides type="function" name="Calendar::toArray" />
+    <provides type="function" name="Calendar::returnValue" />
+    <provides type="function" name="Calendar::build" />
+    <provides type="function" name="Calendar::setSelection" />
+    <provides type="function" name="Calendar::fetch" />
+    <provides type="function" name="Calendar::fetchAll" />
+    <provides type="function" name="Calendar::size" />
+    <provides type="function" name="Calendar::isValid" />
+    <provides type="function" name="Calendar::getValidator" />
+    <provides type="function" name="Calendar::getEngine" />
+    <provides type="function" name="Calendar::prevYear" />
+    <provides type="function" name="Calendar::thisYear" />
+    <provides type="function" name="Calendar::nextYear" />
+    <provides type="function" name="Calendar::prevMonth" />
+    <provides type="function" name="Calendar::thisMonth" />
+    <provides type="function" name="Calendar::nextMonth" />
+    <provides type="function" name="Calendar::prevDay" />
+    <provides type="function" name="Calendar::thisDay" />
+    <provides type="function" name="Calendar::nextDay" />
+    <provides type="function" name="Calendar::prevHour" />
+    <provides type="function" name="Calendar::thisHour" />
+    <provides type="function" name="Calendar::nextHour" />
+    <provides type="function" name="Calendar::prevMinute" />
+    <provides type="function" name="Calendar::thisMinute" />
+    <provides type="function" name="Calendar::nextMinute" />
+    <provides type="function" name="Calendar::prevSecond" />
+    <provides type="function" name="Calendar::thisSecond" />
+    <provides type="function" name="Calendar::nextSecond" />
+    <provides type="class" name="Calendar_Factory" />
+    <provides type="function" name="Calendar_Factory::create" />
+    <provides type="function" name="Calendar_Factory::createByTimestamp" />
+    <provides type="class" name="Calendar_Year" extends="Calendar" />
+    <provides type="function" name="Calendar_Year::build" />
+    <provides type="function" name="Calendar_Year::setSelection" />
+    <provides type="class" name="Calendar_Month" extends="Calendar" />
+    <provides type="function" name="Calendar_Month::build" />
+    <provides type="function" name="Calendar_Month::setSelection" />
+    <provides type="class" name="Calendar_Month_Weekdays" extends="Calendar_Month" />
+    <provides type="function" name="Calendar_Month_Weekdays::build" />
+    <provides type="function" name="Calendar_Month_Weekdays::buildEmptyDaysBefore" />
+    <provides type="function" name="Calendar_Month_Weekdays::shiftDays" />
+    <provides type="function" name="Calendar_Month_Weekdays::buildEmptyDaysAfter" />
+    <provides type="function" name="Calendar_Month_Weekdays::setWeekMarkers" />
+    <provides type="class" name="Calendar_Month_Weeks" extends="Calendar_Month" />
+    <provides type="function" name="Calendar_Month_Weeks::build" />
+    <provides type="function" name="Calendar_Month_Weeks::setSelection" />
+    <provides type="class" name="Calendar_Week" extends="Calendar" />
+    <provides type="function" name="Calendar_Week::build" />
+    <provides type="function" name="Calendar_Week::setFirst" />
+    <provides type="function" name="Calendar_Week::setLast" />
+    <provides type="function" name="Calendar_Week::setSelection" />
+    <provides type="function" name="Calendar_Week::prevWeek" />
+    <provides type="function" name="Calendar_Week::thisWeek" />
+    <provides type="function" name="Calendar_Week::nextWeek" />
+    <provides type="function" name="Calendar_Week::getHelper" />
+    <provides type="function" name="Calendar_Week::findFirstDay" />
+    <provides type="class" name="Calendar_Table_Helper" />
+    <provides type="function" name="Calendar_Table_Helper::setFirstDay" />
+    <provides type="function" name="Calendar_Table_Helper::setDaysOfMonth" />
+    <provides type="function" name="Calendar_Table_Helper::getFirstDay" />
+    <provides type="function" name="Calendar_Table_Helper::getDaysOfWeek" />
+    <provides type="function" name="Calendar_Table_Helper::getNumWeeks" />
+    <provides type="function" name="Calendar_Table_Helper::getNumTableDaysInMonth" />
+    <provides type="function" name="Calendar_Table_Helper::getEmptyDaysBefore" />
+    <provides type="function" name="Calendar_Table_Helper::getEmptyDaysAfter" />
+    <provides type="function" name="Calendar_Table_Helper::getEmptyDaysAfterOffset" />
+    <provides type="function" name="Calendar_Table_Helper::getWeekStart" />
+    <provides type="class" name="Calendar_Day" extends="Calendar" />
+    <provides type="function" name="Calendar_Day::build" />
+    <provides type="function" name="Calendar_Day::setSelection" />
+    <provides type="function" name="Calendar_Day::setFirst" />
+    <provides type="function" name="Calendar_Day::setLast" />
+    <provides type="function" name="Calendar_Day::isFirst" />
+    <provides type="function" name="Calendar_Day::isLast" />
+    <provides type="function" name="Calendar_Day::setEmpty" />
+    <provides type="function" name="Calendar_Day::isEmpty" />
+    <provides type="class" name="Calendar_Hour" extends="Calendar" />
+    <provides type="function" name="Calendar_Hour::build" />
+    <provides type="function" name="Calendar_Hour::setSelection" />
+    <provides type="class" name="Calendar_Minute" extends="Calendar" />
+    <provides type="function" name="Calendar_Minute::build" />
+    <provides type="function" name="Calendar_Minute::setSelection" />
+    <provides type="class" name="Calendar_Second" extends="Calendar" />
+    <provides type="function" name="Calendar_Second::build" />
+    <provides type="function" name="Calendar_Second::fetch" />
+    <provides type="function" name="Calendar_Second::fetchAll" />
+    <provides type="function" name="Calendar_Second::size" />
+    <provides type="class" name="Calendar_Validator" />
+    <provides type="class" name="Calendar_Validation_Error" />
+    <provides type="function" name="Calendar_Validator::isValid" />
+    <provides type="function" name="Calendar_Validator::isValidYear" />
+    <provides type="function" name="Calendar_Validator::isValidMonth" />
+    <provides type="function" name="Calendar_Validator::isValidDay" />
+    <provides type="function" name="Calendar_Validator::isValidHour" />
+    <provides type="function" name="Calendar_Validator::isValidMinute" />
+    <provides type="function" name="Calendar_Validator::isValidSecond" />
+    <provides type="function" name="Calendar_Validator::fetch" />
+    <provides type="function" name="Calendar_Validation_Error::getUnit" />
+    <provides type="function" name="Calendar_Validation_Error::getValue" />
+    <provides type="function" name="Calendar_Validation_Error::getMessage" />
+    <provides type="function" name="Calendar_Validation_Error::toString" />
+    <provides type="class" name="Calendar_Decorator" />
+    <provides type="function" name="Calendar_Decorator::setTimestamp" />
+    <provides type="function" name="Calendar_Decorator::getTimestamp" />
+    <provides type="function" name="Calendar_Decorator::setSelected" />
+    <provides type="function" name="Calendar_Decorator::isSelected" />
+    <provides type="function" name="Calendar_Decorator::adjust" />
+    <provides type="function" name="Calendar_Decorator::toArray" />
+    <provides type="function" name="Calendar_Decorator::returnValue" />
+    <provides type="function" name="Calendar_Decorator::setFirst" />
+    <provides type="function" name="Calendar_Decorator::setLast" />
+    <provides type="function" name="Calendar_Decorator::isFirst" />
+    <provides type="function" name="Calendar_Decorator::isLast" />
+    <provides type="function" name="Calendar_Decorator::setEmpty" />
+    <provides type="function" name="Calendar_Decorator::isEmpty" />
+    <provides type="function" name="Calendar_Decorator::build" />
+    <provides type="function" name="Calendar_Decorator::fetch" />
+    <provides type="function" name="Calendar_Decorator::fetchAll" />
+    <provides type="function" name="Calendar_Decorator::size" />
+    <provides type="function" name="Calendar_Decorator::isValid" />
+    <provides type="function" name="Calendar_Decorator::getValidator" />
+    <provides type="function" name="Calendar_Decorator::getEngine" />
+    <provides type="function" name="Calendar_Decorator::prevYear" />
+    <provides type="function" name="Calendar_Decorator::thisYear" />
+    <provides type="function" name="Calendar_Decorator::nextYear" />
+    <provides type="function" name="Calendar_Decorator::prevMonth" />
+    <provides type="function" name="Calendar_Decorator::thisMonth" />
+    <provides type="function" name="Calendar_Decorator::nextMonth" />
+    <provides type="function" name="Calendar_Decorator::prevWeek" />
+    <provides type="function" name="Calendar_Decorator::thisWeek" />
+    <provides type="function" name="Calendar_Decorator::nextWeek" />
+    <provides type="function" name="Calendar_Decorator::prevDay" />
+    <provides type="function" name="Calendar_Decorator::thisDay" />
+    <provides type="function" name="Calendar_Decorator::nextDay" />
+    <provides type="function" name="Calendar_Decorator::prevHour" />
+    <provides type="function" name="Calendar_Decorator::thisHour" />
+    <provides type="function" name="Calendar_Decorator::nextHour" />
+    <provides type="function" name="Calendar_Decorator::prevMinute" />
+    <provides type="function" name="Calendar_Decorator::thisMinute" />
+    <provides type="function" name="Calendar_Decorator::nextMinute" />
+    <provides type="function" name="Calendar_Decorator::prevSecond" />
+    <provides type="function" name="Calendar_Decorator::thisSecond" />
+    <provides type="function" name="Calendar_Decorator::nextSecond" />
+    <provides type="class" name="Calendar_Engine_Interface" />
+    <provides type="function" name="Calendar_Engine_Interface::stampToYear" />
+    <provides type="function" name="Calendar_Engine_Interface::stampToMonth" />
+    <provides type="function" name="Calendar_Engine_Interface::stampToDay" />
+    <provides type="function" name="Calendar_Engine_Interface::stampToHour" />
+    <provides type="function" name="Calendar_Engine_Interface::stampToMinute" />
+    <provides type="function" name="Calendar_Engine_Interface::stampToSecond" />
+    <provides type="function" name="Calendar_Engine_Interface::dateToStamp" />
+    <provides type="function" name="Calendar_Engine_Interface::getMaxYears" />
+    <provides type="function" name="Calendar_Engine_Interface::getMinYears" />
+    <provides type="function" name="Calendar_Engine_Interface::getMonthsInYear" />
+    <provides type="function" name="Calendar_Engine_Interface::getDaysInMonth" />
+    <provides type="function" name="Calendar_Engine_Interface::getFirstDayInMonth" />
+    <provides type="function" name="Calendar_Engine_Interface::getDaysInWeek" />
+    <provides type="function" name="Calendar_Engine_Interface::getWeekNInYear" />
+    <provides type="function" name="Calendar_Engine_Interface::getWeekNInMonth" />
+    <provides type="function" name="Calendar_Engine_Interface::getWeeksInMonth" />
+    <provides type="function" name="Calendar_Engine_Interface::getDayOfWeek" />
+    <provides type="function" name="Calendar_Engine_Interface::getWeekDays" />
+    <provides type="function" name="Calendar_Engine_Interface::getFirstDayOfWeek" />
+    <provides type="function" name="Calendar_Engine_Interface::getHoursInDay" />
+    <provides type="function" name="Calendar_Engine_Interface::getMinutesInHour" />
+    <provides type="function" name="Calendar_Engine_Interface::getSecondsInMinute" />
+    <provides type="class" name="Calendar_Engine_UnixTS" />
+    <provides type="function" name="Calendar_Engine_UnixTS::stampToYear" />
+    <provides type="function" name="Calendar_Engine_UnixTS::stampToMonth" />
+    <provides type="function" name="Calendar_Engine_UnixTS::stampToDay" />
+    <provides type="function" name="Calendar_Engine_UnixTS::stampToHour" />
+    <provides type="function" name="Calendar_Engine_UnixTS::stampToMinute" />
+    <provides type="function" name="Calendar_Engine_UnixTS::stampToSecond" />
+    <provides type="function" name="Calendar_Engine_UnixTS::dateToStamp" />
+    <provides type="function" name="Calendar_Engine_UnixTS::getMaxYears" />
+    <provides type="function" name="Calendar_Engine_UnixTS::getMinYears" />
+    <provides type="function" name="Calendar_Engine_UnixTS::getMonthsInYear" />
+    <provides type="function" name="Calendar_Engine_UnixTS::getDaysInMonth" />
+    <provides type="function" name="Calendar_Engine_UnixTS::getFirstDayInMonth" />
+    <provides type="function" name="Calendar_Engine_UnixTS::getDaysInWeek" />
+    <provides type="function" name="Calendar_Engine_UnixTS::getWeekNInYear" />
+    <provides type="function" name="Calendar_Engine_UnixTS::getWeekNInMonth" />
+    <provides type="function" name="Calendar_Engine_UnixTS::getWeeksInMonth" />
+    <provides type="function" name="Calendar_Engine_UnixTS::getDayOfWeek" />
+    <provides type="function" name="Calendar_Engine_UnixTS::getWeekDays" />
+    <provides type="function" name="Calendar_Engine_UnixTS::getFirstDayOfWeek" />
+    <provides type="function" name="Calendar_Engine_UnixTS::getHoursInDay" />
+    <provides type="function" name="Calendar_Engine_UnixTS::getMinutesInHour" />
+    <provides type="function" name="Calendar_Engine_UnixTS::getSecondsInMinute" />
+    <provides type="class" name="Calendar_Engine_PearDate" />
+    <provides type="function" name="Calendar_Engine_PearDate::stampToYear" />
+    <provides type="function" name="Calendar_Engine_PearDate::stampToMonth" />
+    <provides type="function" name="Calendar_Engine_PearDate::stampToDay" />
+    <provides type="function" name="Calendar_Engine_PearDate::stampToHour" />
+    <provides type="function" name="Calendar_Engine_PearDate::stampToMinute" />
+    <provides type="function" name="Calendar_Engine_PearDate::stampToSecond" />
+    <provides type="function" name="Calendar_Engine_PearDate::dateToStamp" />
+    <provides type="function" name="Calendar_Engine_PearDate::adjustDate" />
+    <provides type="function" name="Calendar_Engine_PearDate::getMaxYears" />
+    <provides type="function" name="Calendar_Engine_PearDate::getMinYears" />
+    <provides type="function" name="Calendar_Engine_PearDate::getMonthsInYear" />
+    <provides type="function" name="Calendar_Engine_PearDate::getDaysInMonth" />
+    <provides type="function" name="Calendar_Engine_PearDate::getFirstDayInMonth" />
+    <provides type="function" name="Calendar_Engine_PearDate::getDaysInWeek" />
+    <provides type="function" name="Calendar_Engine_PearDate::getWeekNInYear" />
+    <provides type="function" name="Calendar_Engine_PearDate::getWeekNInMonth" />
+    <provides type="function" name="Calendar_Engine_PearDate::getWeeksInMonth" />
+    <provides type="function" name="Calendar_Engine_PearDate::getDayOfWeek" />
+    <provides type="function" name="Calendar_Engine_PearDate::getWeekDays" />
+    <provides type="function" name="Calendar_Engine_PearDate::getFirstDayOfWeek" />
+    <provides type="function" name="Calendar_Engine_PearDate::getHoursInDay" />
+    <provides type="function" name="Calendar_Engine_PearDate::getMinutesInHour" />
+    <provides type="function" name="Calendar_Engine_PearDate::getSecondsInMinute" />
+    <provides type="class" name="Calendar_Decorator_Textual" extends="Calendar_Decorator" />
+    <provides type="function" name="Calendar_Decorator_Textual::monthNames" />
+    <provides type="function" name="Calendar_Decorator_Textual::weekdayNames" />
+    <provides type="function" name="Calendar_Decorator_Textual::prevMonthName" />
+    <provides type="function" name="Calendar_Decorator_Textual::thisMonthName" />
+    <provides type="function" name="Calendar_Decorator_Textual::nextMonthName" />
+    <provides type="function" name="Calendar_Decorator_Textual::prevDayName" />
+    <provides type="function" name="Calendar_Decorator_Textual::thisDayName" />
+    <provides type="function" name="Calendar_Decorator_Textual::nextDayName" />
+    <provides type="function" name="Calendar_Decorator_Textual::orderedWeekdays" />
+    <provides type="class" name="Calendar_Decorator_Uri" extends="Calendar_Decorator" />
+    <provides type="function" name="Calendar_Decorator_Uri::setFragments" />
+    <provides type="function" name="Calendar_Decorator_Uri::setSeparator" />
+    <provides type="function" name="Calendar_Decorator_Uri::setScalar" />
+    <provides type="function" name="Calendar_Decorator_Uri::prev" />
+    <provides type="function" name="Calendar_Decorator_Uri::this" />
+    <provides type="function" name="Calendar_Decorator_Uri::next" />
+    <provides type="function" name="Calendar_Decorator_Uri::buildUriString" />
+    <provides type="class" name="Calendar_Decorator_Weekday" extends="Calendar_Decorator" />
+    <provides type="function" name="Calendar_Decorator_Weekday::setFirstDay" />
+    <provides type="function" name="Calendar_Decorator_Weekday::prevWeekDay" />
+    <provides type="function" name="Calendar_Decorator_Weekday::thisWeekDay" />
+    <provides type="function" name="Calendar_Decorator_Weekday::nextWeekDay" />
+    <provides type="function" name="Calendar_Decorator_Weekday::adjustWeekScale" />
+    <provides type="class" name="Calendar_Decorator_Wrapper" extends="Calendar_Decorator" />
+    <provides type="function" name="Calendar_Decorator_Wrapper::fetch" />
+    <provides type="function" name="Calendar_Decorator_Wrapper::fetchAll" />
+    <filelist>
+      <file role="php" baseinstalldir="Calendar" md5sum="01ec4424774ce3de2d2921496d8960e8" name="Calendar.php"/>
+      <file role="php" baseinstalldir="Calendar" md5sum="253497467617643502ce5aea17533e3a" name="Factory.php"/>
+      <file role="php" baseinstalldir="Calendar" md5sum="2cabdc483614202bcb09cac2ca5d12db" name="Year.php"/>
+      <file role="php" baseinstalldir="Calendar" md5sum="7ac9be1983b6206f37675c7a9b878225" name="Month.php"/>
+      <file role="php" baseinstalldir="Calendar" md5sum="1da3ec0bd937733146be843a0ad97f87" name="Month/Weekdays.php"/>
+      <file role="php" baseinstalldir="Calendar" md5sum="cbd4fc9043baad0f8537ee73416c1f69" name="Month/Weeks.php"/>
+      <file role="php" baseinstalldir="Calendar" md5sum="ce018f5c9a5fc5d3ec2db385503a4cae" name="Week.php"/>
+      <file role="php" baseinstalldir="Calendar" md5sum="e7bde50d07f2cf5470fbcfe8ca0f450e" name="Table/Helper.php"/>
+      <file role="php" baseinstalldir="Calendar" md5sum="dc4f04b7ccdaf51eeba81f2668bf50bd" name="Day.php"/>
+      <file role="php" baseinstalldir="Calendar" md5sum="a52bf65cf75bbb3a258151c62a7ff449" name="Hour.php"/>
+      <file role="php" baseinstalldir="Calendar" md5sum="8042b69ba0e9a0fe9a7a0540aac79be5" name="Minute.php"/>
+      <file role="php" baseinstalldir="Calendar" md5sum="04a596334c8fbb47b6f2545a6f5a76a4" name="Second.php"/>
+      <file role="php" baseinstalldir="Calendar" md5sum="5c7799e853eab6cbe08f11ac5897648f" name="Validator.php"/>
+      <file role="php" baseinstalldir="Calendar" md5sum="e3ae39fc374ef9a7d064727f89b20348" name="Decorator.php"/>
+      <file role="php" baseinstalldir="Calendar" md5sum="3bfad75403d6de20bc389fb70ba35a1f" name="Engine\Interface.php"/>
+      <file role="php" baseinstalldir="Calendar" md5sum="d4a93df9b37fd5ee2c55ef028a4b10f8" name="Engine\UnixTS.php"/>
+      <file role="php" baseinstalldir="Calendar" md5sum="480e4196aa1830174e1e35b114320bbe" name="Engine\PearDate.php"/>
+      <file role="php" baseinstalldir="Calendar" md5sum="cf7f0d516ba23925e4cddaca7c10dbc0" name="Decorator\Textual.php"/>
+      <file role="php" baseinstalldir="Calendar" md5sum="d0964c2d833691ced35fc5853aeeb3b3" name="Decorator\Uri.php"/>
+      <file role="php" baseinstalldir="Calendar" md5sum="05894668dd17c90ab005dea73d9ea98d" name="Decorator\Weekday.php"/>
+      <file role="php" baseinstalldir="Calendar" md5sum="f21fa6d3623ff05e7cc343e3ff7aa699" name="Decorator\Wrapper.php"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="5c71e186c4d2499c198ff004dc222d55" name="docs\Readme"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="1f5e0dd354eb9e36713c2b8179ad8402" name="docs\examples\index.html"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="314ca5492542748d82f7d383b10e31ee" name="docs\examples\1.php"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="1124f9118326bfc4142b252824b27947" name="docs\examples\2.php"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="4121b3441aacc11b011a7fd7f45eba53" name="docs\examples\3.php"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="da50dc763ce45629eac484875f0251ba" name="docs\examples\4.php"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="b8943a332e4c193381882448d89103bb" name="docs\examples\5.php"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="af0e73106f6d8384031d0e599151ecdf" name="docs\examples\6.php"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="72c463ca4fa135752d0b143b095fef88" name="docs\examples\7.php"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="788d5217a361b79c4037ac304d2e5144" name="docs\examples\8.php"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="9303ba13d2a991a0a45bb6101a9b86a5" name="docs\examples\9.php"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="df7179ee8efbb5e49478e6db356269b2" name="docs\examples\10.php"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="472ad9447d8c23ef63cd1e84f6e12b7a" name="docs\examples\11.php"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="341a2311825e6cf566dc1592999977cd" name="docs\examples\12.php"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="bb6df393fe1a558040fa5df69c052c77" name="docs\examples\13.php"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="2b339631733abeb87b0215f487ba1e4d" name="docs\examples\14.php"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="b6b50810ebad7efb93b683de43a3ac71" name="docs\examples\15.php"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="a336d0d2862c7b1d7845aedb47464796" name="docs\examples\16.php"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="c85d8a562973e241214182caad47be60" name="docs\examples\17.php"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="9e939a79ceddfa5cfb0464d1da52f3fa" name="docs\examples\18.php"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="1c6c9fd06364d39ef5c0e4e5676ca6a3" name="docs\examples\19.php"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="314ca5492542748d82f7d383b10e31ee" name="docs\examples\1.phps"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="1124f9118326bfc4142b252824b27947" name="docs\examples\2.phps"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="4121b3441aacc11b011a7fd7f45eba53" name="docs\examples\3.phps"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="da50dc763ce45629eac484875f0251ba" name="docs\examples\4.phps"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="b8943a332e4c193381882448d89103bb" name="docs\examples\5.phps"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="af0e73106f6d8384031d0e599151ecdf" name="docs\examples\6.phps"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="72c463ca4fa135752d0b143b095fef88" name="docs\examples\7.phps"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="788d5217a361b79c4037ac304d2e5144" name="docs\examples\8.phps"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="9303ba13d2a991a0a45bb6101a9b86a5" name="docs\examples\9.phps"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="df7179ee8efbb5e49478e6db356269b2" name="docs\examples\10.phps"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="472ad9447d8c23ef63cd1e84f6e12b7a" name="docs\examples\11.phps"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="341a2311825e6cf566dc1592999977cd" name="docs\examples\12.phps"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="bb6df393fe1a558040fa5df69c052c77" name="docs\examples\13.phps"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="2b339631733abeb87b0215f487ba1e4d" name="docs\examples\14.phps"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="b6b50810ebad7efb93b683de43a3ac71" name="docs\examples\15.phps"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="a336d0d2862c7b1d7845aedb47464796" name="docs\examples\16.phps"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="c85d8a562973e241214182caad47be60" name="docs\examples\17.phps"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="9e939a79ceddfa5cfb0464d1da52f3fa" name="docs\examples\18.phps"/>
+      <file role="doc" baseinstalldir="Calendar" md5sum="1c6c9fd06364d39ef5c0e4e5676ca6a3" name="docs\examples\19.phps"/>
+      <file role="test" baseinstalldir="Calendar" md5sum="dc8669cb613ef82011fce2eec7188b9c" name="tests\README"/>
+      <file role="test" baseinstalldir="Calendar" md5sum="7825ceb3c09867f268f23ee5fd65496a" name="tests\all_tests.php"/>
+      <file role="test" baseinstalldir="Calendar" md5sum="9ef240b45d0ceb919982bc37d0e54fb3" name="tests\calendar_engine_tests.php"/>
+      <file role="test" baseinstalldir="Calendar" md5sum="2c078a2a5ed72a61bc00ede78733d10c" name="tests\calendar_include.php"/>
+      <file role="test" baseinstalldir="Calendar" md5sum="0dc8ebfa998d62cfa0d95be6dbeff786" name="tests\calendar_tabular_tests.php"/>
+      <file role="test" baseinstalldir="Calendar" md5sum="9d8009e2729d52d25288cee5e7aeba31" name="tests\calendar_test.php"/>
+      <file role="test" baseinstalldir="Calendar" md5sum="29358239e8b8ed2a63d6bf146046922b" name="tests\calendar_tests.php"/>
+      <file role="test" baseinstalldir="Calendar" md5sum="c896549b90874cdf5490bee5156513ae" name="tests\day_test.php"/>
+      <file role="test" baseinstalldir="Calendar" md5sum="992e3b599f7491bd919e703e7aaa35f8" name="tests\decorator_test.php"/>
+      <file role="test" baseinstalldir="Calendar" md5sum="cdcd2c8a4d3ea3231e0c78eb0fcb2374" name="tests\decorator_tests.php"/>
+      <file role="test" baseinstalldir="Calendar" md5sum="897da6ab2bf880c34fb30fed12908147" name="tests\decorator_textual_test.php"/>
+      <file role="test" baseinstalldir="Calendar" md5sum="02de4a35f4bc64882eb03f0156c1676f" name="tests\decorator_uri_test.php"/>
+      <file role="test" baseinstalldir="Calendar" md5sum="b64ff06283225e7daf1da267102fa886" name="tests\helper_test.php"/>
+      <file role="test" baseinstalldir="Calendar" md5sum="72ccf129efceb61f88cc8b6f23cb7863" name="tests\hour_test.php"/>
+      <file role="test" baseinstalldir="Calendar" md5sum="56f03a41ab3080eb5b093f4e6856dafc" name="tests\minute_test.php"/>
+      <file role="test" baseinstalldir="Calendar" md5sum="a623357cb51ba04a2a5607d1a96de906" name="tests\month_test.php"/>
+      <file role="test" baseinstalldir="Calendar" md5sum="8dc18efc7a5a282766c94e2eb958e640" name="tests\month_weekdays_test.php"/>
+      <file role="test" baseinstalldir="Calendar" md5sum="a49cd2bf28d2e986392ccdfec8bbeef0" name="tests\month_weeks_test.php"/>
+      <file role="test" baseinstalldir="Calendar" md5sum="156596f0a0de38954cbf7d18564020b5" name="tests\peardate_engine_test.php"/>
+      <file role="test" baseinstalldir="Calendar" md5sum="44e36506e8510c3a8432ac6d6f820f7a" name="tests\second_test.php"/>
+      <file role="test" baseinstalldir="Calendar" md5sum="aa27f20d4a82de407098657a0e982f23" name="tests\simple_include.php"/>
+      <file role="test" baseinstalldir="Calendar" md5sum="b6ff5a9009d3ae4d12c189d766cc9866" name="tests\table_helper_tests.php"/>
+      <file role="test" baseinstalldir="Calendar" md5sum="640723a4ab04e3f60cfd2e5539fc1ec8" name="tests\unixts_engine_test.php"/>
+      <file role="test" baseinstalldir="Calendar" md5sum="3111c07fb7342d7a8ef8103456e02e9f" name="tests\validator_error_test.php"/>
+      <file role="test" baseinstalldir="Calendar" md5sum="84ba63e525298ee0fea1d32ae8bcbb2e" name="tests\validator_tests.php"/>
+      <file role="test" baseinstalldir="Calendar" md5sum="fb012a06734b940d596bce61e1060e25" name="tests\validator_unit_test.php"/>
+      <file role="test" baseinstalldir="Calendar" md5sum="2881e86fe66f57952f4d0d99ee939cf1" name="tests\week_test.php"/>
+      <file role="test" baseinstalldir="Calendar" md5sum="38750e291944a53c8085e11cb0fe67e8" name="tests\year_test.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.4</version>
+      <date>2003-11-22</date>
+      <state>beta</state>
+      <notes>* Fixed bug in setTimeStamp where year wasn't set
+* Fixed bugs and changed API for Calendar_Week
+* Added Calendar::adjust method to adjust invalid dates
+* Added Calendar_Decorator_Uri to help with building links
+* Added Calendar_Decorator_Textual to help fetching month and weekday names
+* Added Calendar_Decorator_Wrapper to help apply decorators to built calendar
+
+</notes>
+    </release>
+    <release>
+      <version>0.3</version>
+      <date>2003-10-30</date>
+      <state>beta</state>
+      <notes>* Fixed bugs in Calendar_Validator for day and month ranges
+* Fixed bug with first day of week as 0
+* Modified weeks to extend beyond current month with prevWeek() and nextWeek()
+* More unit tests
+
+</notes>
+    </release>
+    <release>
+      <version>0.2</version>
+      <date>2003-10-28</date>
+      <state>beta</state>
+      <notes>First release
+</notes>
+    </release>
+  </changelog>
+</package>

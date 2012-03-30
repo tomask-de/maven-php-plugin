@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>File_Archive</name>
+  <summary>File_Archive will let you manipulate easily the tar, gz, bz2 and zip files</summary>
+  <description>This library is strongly object oriented. It makes it very easy to use, writing simple code, yet the library is very powerfull.
+File_Archive is made of two objects : readers and writers. Are currently implemented readers from file, directory, tar, gz, zip and bzip2 archives.
+You can write to file(s), send mails with files attached, or create tar, gz, zip, bzip2 archives.</description>
+  <maintainers>
+    <maintainer>
+      <user>VincentLascaux</user>
+      <name>Vincent Lascaux</name>
+      <email>vincent.lascaux@centraliens.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.1.0</version>
+    <date>2005-05-08</date>
+    <license>LGPL</license>
+    <state>stable</state>
+    <notes>+ Add the makeAppendWriter function on readers to allow to append data to an existing archive</notes>
+    <deps>
+      <dep type="php" rel="ge" version="4.3.0"/>
+      <dep type="pkg" rel="has">MIME_Type</dep>
+      <dep type="pkg" rel="has" optional="yes">Mail_Mime</dep>
+      <dep type="pkg" rel="has" optional="yes">Mail</dep>
+    </deps>
+    <filelist>
+      <file role="php" name="File\Archive.php"/>
+      <file role="php" name="File\Archive\Predicate.php"/>
+      <file role="php" name="File\Archive\Reader.php"/>
+      <file role="php" name="File\Archive\Writer.php"/>
+      <file role="php" name="File\Archive\Predicate\And.php"/>
+      <file role="php" name="File\Archive\Predicate\Custom.php"/>
+      <file role="php" name="File\Archive\Predicate\Ereg.php"/>
+      <file role="php" name="File\Archive\Predicate\Eregi.php"/>
+      <file role="php" name="File\Archive\Predicate\Extension.php"/>
+      <file role="php" name="File\Archive\Predicate\False.php"/>
+      <file role="php" name="File\Archive\Predicate\MaxDepth.php"/>
+      <file role="php" name="File\Archive\Predicate\MIME.php"/>
+      <file role="php" name="File\Archive\Predicate\MinSize.php"/>
+      <file role="php" name="File\Archive\Predicate\MinTime.php"/>
+      <file role="php" name="File\Archive\Predicate\Not.php"/>
+      <file role="php" name="File\Archive\Predicate\Or.php"/>
+      <file role="php" name="File\Archive\Predicate\True.php"/>
+      <file role="php" name="File\Archive\Reader\Archive.php"/>
+      <file role="php" name="File\Archive\Reader\Bzip2.php"/>
+      <file role="php" name="File\Archive\Reader\ChangeName.php"/>
+      <file role="php" name="File\Archive\Reader\Concat.php"/>
+      <file role="php" name="File\Archive\Reader\Directory.php"/>
+      <file role="php" name="File\Archive\Reader\File.php"/>
+      <file role="php" name="File\Archive\Reader\Filter.php"/>
+      <file role="php" name="File\Archive\Reader\Gzip.php"/>
+      <file role="php" name="File\Archive\Reader\Memory.php"/>
+      <file role="php" name="File\Archive\Reader\MimeList.php"/>
+      <file role="php" name="File\Archive\Reader\Multi.php"/>
+      <file role="php" name="File\Archive\Reader\Relay.php"/>
+      <file role="php" name="File\Archive\Reader\Select.php"/>
+      <file role="php" name="File\Archive\Reader\Tar.php"/>
+      <file role="php" name="File\Archive\Reader\Uncompress.php"/>
+      <file role="php" name="File\Archive\Reader\Zip.php"/>
+      <file role="php" name="File\Archive\Writer\Archive.php"/>
+      <file role="php" name="File\Archive\Writer\Bzip2.php"/>
+      <file role="php" name="File\Archive\Writer\Files.php"/>
+      <file role="php" name="File\Archive\Writer\Gzip.php"/>
+      <file role="php" name="File\Archive\Writer\Mail.php"/>
+      <file role="php" name="File\Archive\Writer\Memory.php"/>
+      <file role="php" name="File\Archive\Writer\MemoryArchive.php"/>
+      <file role="php" name="File\Archive\Writer\Multi.php"/>
+      <file role="php" name="File\Archive\Writer\Output.php"/>
+      <file role="php" name="File\Archive\Writer\Tar.php"/>
+      <file role="php" name="File\Archive\Writer\Zip.php"/>
+      <file role="test" name="File\tests\test.php"/>
+      <file role="doc" name="File\doc\readme.txt"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>1.0.1</version>
+      <date>2005-04-21</date>
+      <state>stable</state>
+      <notes>+ Bug 4192 (&lt;? instead of &lt;?php in some source files)
++ Functions File_Archive::isKnownExtension and File_Archive:;readArchive
+  added. They allow to specify the type of an archive. This is usefull is the extension
+  of the file doesn't reflect its real type.
+</notes>
+    </release>
+    <release>
+      <version>1.0.0</version>
+      <date>2005-04-17</date>
+      <state>stable</state>
+      <notes>+ Bug 4159 (PHP4 compatibility)
++ Bug 4165 (Better USTAR handling in tar files)
++ The package now use temporary files to reduce the amount of memory used
+  when reading or writing large archives. The following indicates the current
+  memory usage of the different reader / writers
+  - Tar writer: constant memory usage
+  - GZip writer: constant memory usage, temporary file
+  - BZ2 writer: constant memory usage, temporary file
+  - ZIP writer: size of the largest file written to the archive
+  
+  - Tar reader: constant memory usage
+  - GZip reader: constant memory usage, temporary file
+  - BZ2 reader: constant memory usage, temporary file
+  - ZIP reader: size of the largest file read from the archive
+  
+  The temporary files are created in the current directory. Their name start with
+  far, their extension is tmp. They are automatically deleted when the reader / writer
+  is closed.
+</notes>
+    </release>
+    <release>
+      <version>0.3.0</version>
+      <date>2005-04-08</date>
+      <state>beta</state>
+      <notes>+ Bug 3894
++ The File_Archive::read function does no longer take the optional source parameter
+  A File_Archive::readSource function has been created that takes the source parameter
++ The mail parameter in File_Archive::toMail is now mandatory, but giving a null variable will
+  result in using Mail::factory(&quot;mail&quot;)
++ The File_Archive::toMemory function does no longer take a variable argument
+  A File_Archive::toVariable function has been created for that
+</notes>
+    </release>
+    <release>
+      <version>0.2.0</version>
+      <date>2005-02-24</date>
+      <state>beta</state>
+      <notes>+ Add a MIME predicate
++ Change the toArchive function to detect the compression format using the extension of the file
+  (Warning: this is not backward compatible since the order of the arguments have changed)
+</notes>
+    </release>
+    <release>
+      <version>0.1.0</version>
+      <date>2005-02-20</date>
+      <state>alpha</state>
+      <notes>First release
+</notes>
+    </release>
+  </changelog>
+</package>

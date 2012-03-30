@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release2
+    http://pear.php.net/dtd/rest.release2.xsd">
+ <p xlink:href="/rest/p/net_dns2">Net_DNS2</p>
+ <c>pear.php.net</c>
+ <v>1.2.0</v>
+ <a>1.2.0</a>
+ <mp>5.1.2</mp>
+ <st>stable</st>
+ <l>BSD License</l>
+ <m>mikepultz</m>
+ <s>PHP5 Resolver library used to communicate with a DNS server.</s>
+ <d>Provides (roughly) the same functionality as Net_DNS, but using PHP5 objects, exceptions for error handling, better sockets support.
+
+This release is (in most cases) 2x - 10x faster than Net_DNS, as well as includes more RR's (including DNSSEC RR's), and improved sockets and streams support.</d>
+ <da>2011-12-05 05:02:28</da>
+ <n>- added numeric error codes to the Lookups class, and had each method that throws an exception throw a numeric error code along with the message.
+- dropped all references to InvalidArgumentException; we only use the Net_DNS2_Exception from now on.
+- added the CAA, URI, TALINK, CDS and TA resource records. Some of these are experimental, but are pretty straight forward.
+- fixed a bug in formatString(); my version was only putting double quotes around strings that have spaces, but apparently ALL strings should have double quotes around them. This is how BIND does it.
+- re-organized the Net_DNS2_Lookups initialization code; it no longer creates a global object of itself.
+- fixed a bug in the caching code; in some cases it wouldn't cache the same content more than once.
+- added an option to use JSON to serialize the cache data rather than using the PHP serialize function. JSON is much faster, but loses the class definition, and becomes a stdClass object.
+- fixed a handful of cases where I was using double quotes where a single quote would be fine.</n>
+ <f>61217</f>
+ <g>http://pear.php.net/get/Net_DNS2-1.2.0</g>
+ <x xlink:href="package.1.2.0.xml"/>
+</r>

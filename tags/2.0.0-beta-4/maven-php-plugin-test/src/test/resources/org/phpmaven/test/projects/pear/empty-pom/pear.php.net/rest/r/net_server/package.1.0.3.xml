@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.4" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Net_Server</name>
+ <channel>pear.php.net</channel>
+ <summary>Generic server class</summary>
+ <description>Generic server class based on ext/sockets, used to develop any kind of server.</description>
+ <lead>
+  <name>Stephan Schmidt</name>
+  <user>schst</user>
+  <email>schst@php-tools.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Luca Mariano</name>
+  <user>lucamariano</user>
+  <email>luca.mariano@email.it</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Christian Weiske</name>
+  <user>cweiske</user>
+  <email>cweiske@php.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2012-01-26</date>
+ <time>01:19:42</time>
+ <version>
+  <release>1.0.3</release>
+  <api>1.0.2</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.php.net/license">PHP License</license>
+ <notes>
+QA release
+Bug #17457 No way to close connection without exiting
+closeConnection() no longer calls exit() directly.
+Doc Bug #11884
+Bug #12743 Bug in Net_Server_Driver::readFromSocket
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <file baseinstalldir="Net" md5sum="30a8202b722269b62a73e91a158dc839" name="docs/todo.txt" role="doc" />
+   <file baseinstalldir="Net" md5sum="b9ad3f4ff50ffe5cf0e3cabef5163a51" name="examples/talkback.php" role="doc" />
+   <file baseinstalldir="/" md5sum="2f07fcc7399e69076fac7ae674cd4cb5" name="Net/Server.php" role="php" />
+   <file baseinstalldir="/" md5sum="084de4c4a65a664518cca4572ffabbfa" name="Net/Server/Driver.php" role="php" />
+   <file baseinstalldir="/" md5sum="ca0f8da3428be2b8e5366d98a7327c6d" name="Net/Server/Handler.php" role="php" />
+   <file baseinstalldir="/" md5sum="2e9b877e99b27999975e995136c59b28" name="Net/Server/Driver/Fork.php" role="php" />
+   <file baseinstalldir="/" md5sum="fde43226a04670503f275255e0b8252a" name="Net/Server/Driver/Multiprocess.php" role="php" />
+   <file baseinstalldir="/" md5sum="a8ec22c1f9c09801d2f711f954e30a6c" name="Net/Server/Driver/Sequential.php" role="php" />
+   <file baseinstalldir="/" md5sum="12c0a1ca0d903cde29da59a492e3532d" name="Net/Server/Driver/Multiprocess/MPM-prefork.php" role="php" />
+   <file baseinstalldir="/" md5sum="163f24bf3b09de567ec55e6b371de0c8" name="Net/Server/Driver/Multiprocess/Processor.php" role="php" />
+   <file baseinstalldir="/" md5sum="6cddaf4f9a15d0687f5a0f2bd3e6da1b" name="Net/Server/Driver/Multiprocess/remoteConsole.php" role="php" />
+   <file baseinstalldir="/" md5sum="45f5010176a2ee89e4b83330b7ac1b58" name="README" role="data" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <package>
+    <name>PEAR</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <extension>
+    <name>sockets</name>
+   </extension>
+  </required>
+  <optional>
+   <package>
+    <name>PHP_Fork</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <extension>
+    <name>pcntl</name>
+   </extension>
+  </optional>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.9</release>
+    <api>0.9</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2002-07-21</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+pearified version of patServer v1.0.1
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.10</release>
+    <api>0.10</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2003-10-31</date>
+   <license uri="http://www.php.net/license">PHP</license>
+   <notes>
+BC breakage release:
+Net_Server is now working with drivers
+and callback handlers inseatd of extending
+a base class
+Driver based on pcntl is now included that
+forks new processes.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.11</release>
+    <api>0.11</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2004-01-02</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Added auto-detect for clients that use no readEndCharacter
+Restructuring:
+* added driver base class
+* moved code from Net_Server to Net_Server_Driver
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.11.2</release>
+    <api>0.11.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2004-07-02</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+- fixed bug #1244 (check for required extensions),
+- fixed bug #1429 (fails on reading a 0 character),
+- fixed some coding style issues
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.11.2pl1</release>
+    <api>0.11.2pl1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2004-07-02</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+- fixed bug with autodetection of connection abort
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.11.3</release>
+    <api>0.11.3</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2004-07-02</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+- fixed bug with autodetection of connection abort
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.11.4</release>
+    <api>0.11.4</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2004-07-17</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+- fixed bug #1890 (Server.php needs PEAR.php)
+- fixed notices in Fork.php
+- added missing dependencies
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.11.5</release>
+    <api>0.11.5</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2004-07-25</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+- fixed bug #1972 (script runs in endless loop)
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.12.0</release>
+    <api>0.12.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2004-11-16</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+- fixed Bug #2092 (typo in variable name)
+- fixed bug #2157 (socket_shutdown not called)
+- fixes bug #1945 (removed some variables that have been left over from Net_Server_Driver_Sequential)
+- fixed Request #1946 (improved debug output)
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-06-22</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+After two years of being alpha, this is the first stable version.
+Many bugs have been fixed:
+- Fixing bug #2761
+- Fixing request #5907: setEndCharacter
+- Fixing request #4462IPv6 support
+- Fixing bug: If the server is under full load, it can happen that
+        two data packets are delivered when doing a single
+        socket_read() call. If that happens, the two packets are
+        delivered as one.
+- Adding onIdle handler
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-06-27</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+- Fixing bug #8006: readEndCharacter size wasn&apos;t taken into account
+  and stopped HTTP_Server functioning
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.2</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-11-16</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+Using package.xml v2
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.3</release>
+    <api>1.0.2</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2012-01-26</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+QA release
+Bug #17457 No way to close connection without exiting
+closeConnection() no longer calls exit() directly.
+Doc Bug #11884
+Bug #12743 Bug in Net_Server_Driver::readFromSocket
+   </notes>
+  </release>
+ </changelog>
+</package>

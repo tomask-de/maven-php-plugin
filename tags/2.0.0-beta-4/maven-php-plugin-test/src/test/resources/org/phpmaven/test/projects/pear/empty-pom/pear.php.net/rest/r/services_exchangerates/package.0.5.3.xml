@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.5">
+ <name>Services_ExchangeRates</name>
+ <summary>Performs currency conversion</summary>
+ <description>Extendable to work with any source that provides exchange rate data, this class downloads
+exchange rates and the name of each currency (US Dollar, Euro, Maltese Lira, etc.) and 
+converts between any two of the available currencies (the actual number of currencies 
+supported depends on the exchange rate feed used).
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>mroch</user>
+   <name>Marshall Roch</name>
+   <email>marshall@exclupen.com</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>cross</user>
+   <name>Colin Ross</name>
+   <email>cross@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>0.5.3</version>
+  <date>2005-11-22</date>
+  <license>PHP License</license>
+  <state>beta</state>
+  <notes>* Re-released with fixed package.xml
+* As far as I can tell, M. Roch is not activly developing this package, so I will set him as inactive in the project.
+* Fixed character encoding problems in package.xml (reported by danielc)
+  [mroch] [cross 11/22/2005]
+* Updated XML Struct to be inline with ECB and UN changes [cross]
+* Added boolean second argument to convert() to allow the user to disable 
+  formatting [mroch]
+* Added optional parameters to format() to make it possible to change the
+  formatting options on a per-call basis, instead of only in the constructor
+  [mroch]
+* Added getRates() to return current rates in use [cross]
+  </notes>
+  <deps>
+   <dep type="pkg" rel="has">HTTP_Request</dep>
+   <dep type="pkg" rel="has">Cache_Lite</dep>
+   <dep type="pkg" rel="has">XML_Tree</dep>
+  </deps>
+  <provides type="class" name="Services_ExchangeRates_Common" />
+  <provides type="function" name="Services_ExchangeRates_Common::retrieveFile" />
+  <provides type="function" name="Services_ExchangeRates_Common::retrieveXML" />
+  <provides type="class" name="Services_ExchangeRates_Rates_ECB" extends="Services_ExchangeRates_Common" />
+  <provides type="function" name="Services_ExchangeRates_Rates_ECB::retrieve" />
+  <provides type="class" name="Services_ExchangeRates_Rates_NBP" extends="Services_ExchangeRates_Common" />
+  <provides type="function" name="Services_ExchangeRates_Rates_NBP::retrieve" />
+  <provides type="class" name="Services_ExchangeRates_Rates_NBI" extends="Services_ExchangeRates_Common" />
+  <provides type="function" name="Services_ExchangeRates_Rates_NBI::retrieve" />
+  <provides type="class" name="Services_ExchangeRates_Currencies_UN" extends="Services_ExchangeRates_Common" />
+  <provides type="function" name="Services_ExchangeRates_Currencies_UN::retrieve" />
+  <provides type="class" name="Services_ExchangeRates_Countries_UN" extends="Services_ExchangeRates_Common" />
+  <provides type="function" name="Services_ExchangeRates_Countries_UN::retrieve" />
+  <provides type="class" name="Services_ExchangeRates" />
+  <provides type="function" name="Services_ExchangeRates::retrieveData" />
+  <provides type="function" name="Services_ExchangeRates::getValidCurrencies" />
+  <provides type="function" name="Services_ExchangeRates::isValidCurrency" />
+  <provides type="function" name="Services_ExchangeRates::convert" />
+  <provides type="function" name="Services_ExchangeRates::format" />
+  <provides type="function" name="Services_ExchangeRates::getRates" />
+  <provides type="function" name="Services_ExchangeRates::setToDebug" />
+  <provides type="function" name="Services_ExchangeRates::raiseError" />
+  <filelist>
+   <file role="php" baseinstalldir="Services" md5sum="606086cc6b976fc1e4ec5ed883eb313c" name="ExchangeRates/Common.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="47d8bd933a06e68a328ca9586670e5aa" name="ExchangeRates/Rates_ECB.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="63599715d81c16277503ec1ed348bf8c" name="ExchangeRates/Rates_NBP.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="c05b4a499a3bce6e2c29585c58d3ef34" name="ExchangeRates/Rates_NBI.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="02c2125ca689b61cbba4a6f320947fce" name="ExchangeRates/Currencies_UN.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="083f214e7fcb00c94962a3d57956b3b6" name="ExchangeRates/Countries_UN.php"/>
+   <file role="php" baseinstalldir="Services" md5sum="513e3de69157239ac972709a85aba903" name="ExchangeRates.php"/>
+   <file role="doc" baseinstalldir="Services" md5sum="67c54983fe9a19b1c8a7564b6457ffa3" name="example.php"/>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>0.5.0</version>
+    <date>2004-02-22</date>
+    <state>beta</state>
+    <notes>* Added National Bank of Israel driver (Thanks Simon Brüchner!)
+* Everything seems pretty stable, so changed state to beta
+    </notes>
+   </release>
+   <release>
+    <version>0.4.1</version>
+    <date>2003-09-12</date>
+    <state>alpha</state>
+    <notes>* Fixed documentation install path
+    </notes>
+   </release>
+   <release>
+    <version>0.4</version>
+    <date>2003-08-28</date>
+    <state>alpha</state>
+    <notes>* Changed package name from Services_Exchange to Services_ExchangeRates
+* Implemented conditional GETs with HTTP_Request and Cache_Lite
+* Improved file retrieval/caching methods in Common.php
+* Allowed default settings to be overridden with $options parameter in the constructor
+* Implemented PEAR error handling
+* Added National Bank of Poland exchange rate driver
+* Added dependency on HTTP_Request
+* Added dependency on Cache_Lite
+* Removed dependency on Cache
+    </notes>
+   </release>
+   <release>
+    <version>0.3</version>
+    <date>2003-08-28</date>
+    <state>alpha</state>
+    <notes>* Changed package name from Payment_Exchange to Services_Exchange
+* Generalized data retrieval by creating drivers for all data feeds
+* Created Common.php to store common parsing mechanisms (XML parsing,
+  CSV parsing, database querying, etc).  XML is the only one currently
+  supported, but others can be added as needed.
+    </notes>
+   </release>
+   <release>
+    <version>0.2</version>
+    <date>2003-08-27</date>
+    <state>alpha</state>
+    <notes>* Quit using XML_Serializer since it would have required an ugly patch
+* Now using XML_Tree to parse XML files
+* Improved documentation
+* Added additional number formatting options
+    </notes>
+   </release>
+   <release>
+    <version>0.1</version>
+    <date>2003-08-26</date>
+    <state>alpha</state>
+    <notes>This is the first release.
+    </notes>
+   </release>
+ </changelog>
+</package>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.8">
+ <name>CodeGen_MySQL_UDF</name>
+ <summary>Tool to generate MySQL UDF extensions from an XML description</summary>
+ <description>CodeGen_MySQL_UDF is a code generator for MySQL User Defined Function (UDF)
+extensions similar to PECL_Gen for PHP. 
+It reads in configuration options, function prototypes and code fragments
+from an XML description file and generates a complete ready-to-compile
+UDF extension.
+Preliminary documentation can be found here:
+http://talks.php.net/show/UDF_Gen
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>hholzgra</user>
+   <name>Hartmut Holzgraefe</name>
+   <email>hartmut@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>0.9.5dev</version>
+  <date>2006-05-06</date>
+  <license>PHP</license>
+  <state>beta</state>
+  <notes>trying to stabelize for release
+  </notes>
+  <deps>
+   <dep type="php" rel="ge" version="5.0"/>
+   <dep type="pkg" rel="ge" version="1.2">PEAR</dep>
+   <dep type="pkg" rel="ge" version="0.9">CodeGen</dep>
+  </deps>
+  <provides type="class" name="CodeGen_MySQL_UDF_Extension" extends="CodeGen_MySQL_Extension" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Extension::version" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Extension::copyright" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Extension::addFunction" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Extension::writeHeaderFile" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Extension::writeCodeFile" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Extension::writeReadme" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Extension::writeInstall" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Extension::writeTests" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Extension::testFactory" />
+  <provides type="class" name="CodeGen_MySQL_UDF_ExtensionParser" extends="CodeGen_MySQL_ExtensionParser" />
+  <provides type="function" name="CodeGen_MySQL_UDF_ExtensionParser::tagstart_udf" />
+  <provides type="function" name="CodeGen_MySQL_UDF_ExtensionParser::tagstart_function" />
+  <provides type="function" name="CodeGen_MySQL_UDF_ExtensionParser::tagend_function_summary" />
+  <provides type="function" name="CodeGen_MySQL_UDF_ExtensionParser::tagend_function_description" />
+  <provides type="function" name="CodeGen_MySQL_UDF_ExtensionParser::tagend_function_proto" />
+  <provides type="function" name="CodeGen_MySQL_UDF_ExtensionParser::tagend_function_code" />
+  <provides type="function" name="CodeGen_MySQL_UDF_ExtensionParser::tagstart_function_param" />
+  <provides type="function" name="CodeGen_MySQL_UDF_ExtensionParser::tagstart_function_data" />
+  <provides type="function" name="CodeGen_MySQL_UDF_ExtensionParser::tagstart_function_data_element" />
+  <provides type="function" name="CodeGen_MySQL_UDF_ExtensionParser::tagend_function_init" />
+  <provides type="function" name="CodeGen_MySQL_UDF_ExtensionParser::tagend_function_deinit" />
+  <provides type="function" name="CodeGen_MySQL_UDF_ExtensionParser::tagend_function_start" />
+  <provides type="function" name="CodeGen_MySQL_UDF_ExtensionParser::tagend_function_add" />
+  <provides type="function" name="CodeGen_MySQL_UDF_ExtensionParser::tagend_function_clear" />
+  <provides type="function" name="CodeGen_MySQL_UDF_ExtensionParser::tagend_function_result" />
+  <provides type="function" name="CodeGen_MySQL_UDF_ExtensionParser::tagstart_function_documentation" />
+  <provides type="function" name="CodeGen_MySQL_UDF_ExtensionParser::tagstart_function_notest" />
+  <provides type="function" name="CodeGen_MySQL_UDF_ExtensionParser::tagend_function_notest" />
+  <provides type="function" name="CodeGen_MySQL_UDF_ExtensionParser::tagstart_function_test" />
+  <provides type="function" name="CodeGen_MySQL_UDF_ExtensionParser::tagstart_function_test_description" />
+  <provides type="function" name="CodeGen_MySQL_UDF_ExtensionParser::tagend_function_test_description" />
+  <provides type="function" name="CodeGen_MySQL_UDF_ExtensionParser::tagstart_function_test_code" />
+  <provides type="function" name="CodeGen_MySQL_UDF_ExtensionParser::tagend_function_test_code" />
+  <provides type="function" name="CodeGen_MySQL_UDF_ExtensionParser::tagstart_function_test_result" />
+  <provides type="function" name="CodeGen_MySQL_UDF_ExtensionParser::tagend_function_test_result" />
+  <provides type="function" name="CodeGen_MySQL_UDF_ExtensionParser::tagend_function_test" />
+  <provides type="function" name="CodeGen_MySQL_UDF_ExtensionParser::tagend_function" />
+  <provides type="function" name="CodeGen_MySQL_UDF_ExtensionParser::tagend_udf_code" />
+  <provides type="class" name="CodeGen_MySQL_UDF_Element_Function" extends="CodeGen_Element" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Function::setName" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Function::getName" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Function::setType" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Function::setLength" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Function::setDecimals" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Function::setNull" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Function::setReturns" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Function::addParam" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Function::addDataElement" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Function::setCode" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Function::setInitCode" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Function::setDeinitCode" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Function::setStartCode" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Function::setAddCode" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Function::setClearCode" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Function::setResultCode" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Function::cCode" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Function::cPrototype" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Function::cData" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Function::returnType" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Function::signature" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Function::createStatement" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Function::dropStatement" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Function::dropIfExistsStatement" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Function::setTestCode" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Function::getTestCode" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Function::setTestResult" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Function::getTestResult" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Function::setTestDescription" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Function::getTestDescription" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Function::writeTest" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Function::createTest" />
+  <provides type="class" name="CodeGen_MySQL_UDF_Element_Test" extends="CodeGen_MySQL_Element_Test" />
+  <provides type="function" name="CodeGen_MySQL_UDF_Element_Test::writeTest" />
+  <filelist>
+   <file role="script" baseinstalldir="/" md5sum="0ed7b1d709f10bb41adece1632c73ae0" name="udf-gen">
+    <replace from="/usr/local/bin" to="PHP_BINDIR" type="php-const"/>
+    <replace from="@php_dir@" to="php_dir" type="pear-config"/>
+   </file>
+   <file role="doc" baseinstalldir="/" md5sum="0f7510b20e0f65445105b94d1835fcae" name="docs/manual.html"/>
+   <file role="doc" baseinstalldir="/" md5sum="bb8cc8d5f295af93293412c7333861ec" name="docs/examples/example.xml"/>
+   <file role="doc" baseinstalldir="/" md5sum="68d07e6972b885679c5f2ae92d7f4b41" name="docs/examples/corr.xml"/>
+   <file role="doc" baseinstalldir="/" md5sum="4a24766ff320619c8f1c73df50f4d830" name="docs/examples/ora_funcs.xml"/>
+   <file role="doc" baseinstalldir="/" md5sum="2aed9c2413001b0a352cbb67c351c156" name="docs/examples/oracle_date.l"/>
+   <file role="doc" baseinstalldir="/" md5sum="09a7f497c5471df97f670b287e9ae1d7" name="docs/examples/rlimit.xml"/>
+   <file role="doc" baseinstalldir="/" md5sum="a2c7c1a2cfc6249dc30a4ba3bdc2eaa7" name="docs/examples/gc_dist.xml"/>
+   <file role="php" baseinstalldir="CodeGen" md5sum="af01405252faf372b63fd108b81b9320" name="MySQL/UDF/Extension.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="CodeGen" md5sum="0b5ff816ced62d575c73fa4c435d9994" name="MySQL/UDF/ExtensionParser.php"/>
+   <file role="php" baseinstalldir="CodeGen" md5sum="8ca7d76c5c96cae95a6355e2aedd7378" name="MySQL/UDF/Element/Function.php"/>
+   <file role="php" baseinstalldir="CodeGen" md5sum="31863fa26503bb22d01af5d30e36d861" name="MySQL/UDF/Element/Test.php"/>
+  </filelist>
+ </release>
+</package>

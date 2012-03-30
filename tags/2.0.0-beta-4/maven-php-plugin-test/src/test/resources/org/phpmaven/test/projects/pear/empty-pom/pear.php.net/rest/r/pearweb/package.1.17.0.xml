@@ -1,0 +1,2144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.7.0RC2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0                              http://pear.php.net/dtd/tasks-1.0.xsd                              http://pear.php.net/dtd/package-2.0                              http://pear.php.net/dtd/package-2.0.xsd">
+ <name>pearweb</name>
+ <channel>pear.php.net</channel>
+ <summary>The source code for the PEAR website</summary>
+ <description>The pearweb package contains:
+ - cron jobs for the website in cron/
+ - off-public web files in include
+ - public web files
+ - the PEAR bug tracker public_html/bugs
+ - the PEPr proposal system public_html/pepr
+ - sql defining the database and an MDB2_Schema files
+ - a few regression tests
+ - templates
+
+ See the pearweb_phars package for install-pear-nozlib.phar/go-pear.phar
+ See the pearweb_channelxml package for channel.xml
+ See the pearweb_index package for regularly changed content files
+ like index.php</description>
+ <lead>
+  <name>Martin Jansen</name>
+  <user>mj</user>
+  <email>mj@php.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Greg Beaver</name>
+  <user>cellog</user>
+  <email>cellog@php.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>David Coallier</name>
+  <user>davidc</user>
+  <email>davidc@php.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Helgi Thormar</name>
+  <user>dufuz</user>
+  <email>dufuz@php.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Pierre-Alain Joye</name>
+  <user>pajoye</user>
+  <email>pajoye@pearfr.org</email>
+  <active>no</active>
+ </lead>
+ <developer>
+  <name>Stig Bakken</name>
+  <user>ssb</user>
+  <email>stig@php.net</email>
+  <active>no</active>
+ </developer>
+ <developer>
+  <name>Tomas V.V.Cox</name>
+  <user>cox</user>
+  <email>cox@idecnet.com</email>
+  <active>no</active>
+ </developer>
+ <developer>
+  <name>Daniel Convissor</name>
+  <user>danielc</user>
+  <email>danielc@php.net</email>
+  <active>no</active>
+ </developer>
+ <developer>
+  <name>Tobias Schlitt</name>
+  <user>toby</user>
+  <email>toby@php.net</email>
+  <active>no</active>
+ </developer>
+ <developer>
+  <name>Mark Wiesemann</name>
+  <user>wiesemann</user>
+  <email>wiesemann@php.net</email>
+  <active>yes</active>
+ </developer>
+ <date>2008-01-03</date>
+ <time>21:15:26</time>
+ <version>
+  <release>1.17.0</release>
+  <api>0.1.1</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.php.net/license">PHP License</license>
+ <notes>* Fix Bug #9476: schema validation error on postinstall script [dufuz]
+* Fix Bug #11094: users table should include longitude, latitude on creation [dufuz]
+* Fix Bug #11295: Fixed in CVS does not mark a bug as closed [dufuz]
+* Fix Bug #11308: Bug tracker: no feedback after (un)subscribing [cellog]
+* Fix Bug #11382: Tell registering users they need to provide &amp;quot;Firstname Lastname&amp;quot; [dufuz]
+* Fix Bug #11412: Incorrect Package Statistics for Category [dufuz]
+* Fix Bug #11421: Developers should be able to read unconfirmed bugcomments [dufuz]
+* Fix Bug #11422: &amp;quot;Status: Open | Feedback | All&amp;quot; header not displayed when no bugs are
+  found [wiesemann]
+* Fix Bug #11441: Package releases not available [cellog]
+* Fix Bug #11456: Admin page account overview [cellog]
+* Fix Bug #11497: RSS feed description field should contain breaks [dufuz]
+* Fix Bug #11502: Uploading patch doesn&amp;apos;t work [cellog]
+* Fix Bug #11638: Link to Bug Tracker on User Note Entry Screen fails [dufuz]
+* Fix Bug #11759: Manual: Note form loses page URL [cellog]
+* Fix Bug #11760: Bug tracker: summary is shown twice [wiesemann]
+* Fix Bug #11180  User note&apos;s timestamp is updated on approval [cellog]
+* Fix Bug #11804: Forgotten Password Field for mailaddress too short [cellog]
+* Fix Bug #12004: Roadmap lacks error handling in case of duplicate roadmap versions [dufuz]
+* Fix Bug #12021: Inconsistent bug tracker behaviour [dufuz]
+* Fix Bug #12237: Patch upload doesn&amp;apos;t work during ticket creation [dufuz]
+* Fix Bug #12296: 17k patch won&amp;apos;t upload - described limit is 20k but actual is 10k. [dufuz]
+* Fix Bug #12467: adding 5.2.5 to the PHP version select box [wiesemann]
+* Fix Bug #12470: don&amp;apos;t list non-developers [dufuz]
+* Fix Bug #12502: Bug tracker: &amp;quot;Add Comment&amp;quot; tab not always visible [dufuz]
+* Fix Bug #12526: Last updated on bottom of each page [dufuz]
+* Fix Bug #12718: Unnecessary space in package list on account info page [wiesemann]
+* Fix Bug #12728: Undefined variable error in notes system [wiesemann]
+* Implement Feature #3085: Link to package page from finished proposals [dufuz]
+* Implement Feature #10800: Copy closed tickets since last release into a new roadmap [dufuz]
+* Implement Feature #10900: link developer maps from pearweb [cweiske]
+* Implement Feature #10943: Remove verification screen for developers [dufuz]
+* Implement Feature #11086: tabs &amp;amp; whitespace mixing in assorted files [dufuz]
+* Implement Feature #11109: Restyle the warning message css [dufuz]
+* Implement Feature #11118: List of PEAR packages should not show deprecated packages [dufuz]
+* Implement Feature #11270: Replace all image CAPTCHA with math one [dufuz]
+* Implement Feature #11362: Get rid of captcha for pear.dev when sending mail to user via webform [dufuz]
+* Implement Feature #11436: split go-pear in its own package [dufuz]
+* Implement Feature #11450: When showing bugs by user handle, hide those [quipo]
+* Implement Feature #11530: bug reports should have a panel/div explaining the colour coding [dufuz]
+* Implement Feature #11851: Assigned bugs that are not maintained by developer made visable on
+  info page [dufuz]
+* Implement Feature #11985: Developer map rest link should be application/rdf+xml [davidc]
+* Implement Feature #12013: package name is shown in bug list even you select only one package [dufuz]
+* Implement Feature #12472: choose a sensible font size [dufuz]
+* Implement Feature #12591: Removing all code dealing with DES passwords [dufuz]
+* Implement Feature #12623: Removal of the xmlrpc gateway [dufuz]
+* Implement Feature #12631: Ditch the builtin HTML_Menu class for upstream one [dufuz]
+* Implement Feature #12632: Use the new file roles added in PEAR 1.7.0 [dufuz]
+* Implement Feature #12646: Package: field should link to the package home page [dufuz]
+* Implement Feature #12691: New presentation slide [ifeghali]
+* Implement Feature #12721: Show dependent packages in alphabetic order on package info page [wiesemann]
+* Implement Feature #12724: Cron job for fetching PHP versions into the bug tracker version
+  dropdown list [dufuz]
+* Implement Feature #12786: Redesign of the menu system [dufuz]
+* Implement Feature #12787: YUI Reset CSS to unify the site more properly between A grade browsers [dufuz]
+* Implement Feature #12788: Make the layout fluid via Divs where it make sense [dufuz]
+* Implement Feature #12789: Move the developer bugs stats into it&amp;apos;s own file [dufuz]</notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <file baseinstalldir="/" md5sum="e67f50ab47ce573d4c4585a8b2a33923" name="cron/mirror/download_stats.php" role="www" />
+   <file baseinstalldir="/" md5sum="49102cc9e07e66cac606267952387933" name="cron/mirror/mirrorupdate.php" role="www" />
+   <file baseinstalldir="/" md5sum="a8e64340fec3c4b059be4c1ef5e4e3ca" name="cron/mirror/pear-grabstats.php" role="www" />
+   <file baseinstalldir="/" md5sum="fe54a0e51fc879e5b91ebc08bc1ba727" name="cron/mirror/pear.php.net.mirror" role="www" />
+   <file baseinstalldir="/" md5sum="9a7f1e2d2e489c0015f424079d57220e" name="cron/mirror/README" role="www" />
+   <file baseinstalldir="/" md5sum="ee737233dedcdd626b727e8328920017" name="cron/apidoc-queue.php" role="www" />
+   <file baseinstalldir="/" md5sum="ccb13d25086eb8c955e2ca2d83e8d2a3" name="cron/bug-summary.php" role="www" />
+   <file baseinstalldir="/" md5sum="67f8b6e7e4ec0b0b952708ce83923175" name="cron/bug-update-php-version.php" role="www" />
+   <file baseinstalldir="/" md5sum="487d74de191c17593ccc63f79766c920" name="cron/election_results.php" role="www" />
+   <file baseinstalldir="/" md5sum="90fefbeb839907737d9f810c40039758" name="cron/find-documentation.php" role="www" />
+   <file baseinstalldir="/" md5sum="5563bb411907f1d2ab57431ee5911f03" name="cron/load-chm.sh" role="www" />
+   <file baseinstalldir="/" md5sum="4630bfc413cffed6b037b02a9d4fdbfb" name="cron/pepr.php" role="www" />
+   <file baseinstalldir="/" md5sum="26b9532ae44a471c9357abca35a0efc7" name="cron/trackback-cleanup.php" role="www" />
+   <file baseinstalldir="/" md5sum="a02075a6a13654cdf0f120735101edb9" name="cron/update-website.php" role="www" />
+   <file baseinstalldir="/" md5sum="ea309707e97289d6fe006c15fc1a701b" name="doc/apache-setup.txt" role="www" />
+   <file baseinstalldir="/" md5sum="f35739cbabc8fbaff2e1c2ede9511515" name="doc/karma.txt" role="www" />
+   <file baseinstalldir="/" md5sum="05fd608460fd1430d1a1bdd233a5ce27" name="doc/logging.txt" role="www" />
+   <file baseinstalldir="/" md5sum="a98f2f6259d84be011dfab6872a1ca50" name="doc/pear_package_manager.txt" role="www" />
+   <file baseinstalldir="/" md5sum="bf7ad2f6e082f9575817c39fdfe14d98" name="doc/xmlrpc-api.txt" role="www" />
+   <file baseinstalldir="/" md5sum="7ba451624c75570febadddf73bc1eb44" name="include/bugs/Diff/pearweb.php" role="www" />
+   <file baseinstalldir="/" md5sum="46a24d66d01760754a2b753d6dec7bab" name="include/bugs/patchtracker.php" role="www" />
+   <file baseinstalldir="/" md5sum="2081a3ee02a9311a390472a3e22c2989" name="include/bugs/pear-bug-accountrequest.php" role="www" />
+   <file baseinstalldir="/" md5sum="841b8f57b7f984f40bae607c2242cc16" name="include/bugs/pear-bugs.php" role="www" />
+   <file baseinstalldir="/" md5sum="a90598187f682cb45a66c35f8f0f99c3" name="include/bugs/pear.ini" role="www" />
+   <file baseinstalldir="/" md5sum="fde907057c116e7c17cf9c76590c3c97" name="include/bugs/pear.links.ini" role="www" />
+   <file baseinstalldir="/" md5sum="517edcb99f9fc2e725695f7ba17384fb" name="include/Damblan/Log/Mail.php" role="www" />
+   <file baseinstalldir="/" md5sum="64554427d62b2bf293eb11ffd40fcd7e" name="include/Damblan/Log/Print.php" role="www" />
+   <file baseinstalldir="/" md5sum="8eca3b64b7c58ed955175ba92c265efc" name="include/Damblan/Mail/Patch_Added.tpl.php" role="www" />
+   <file baseinstalldir="/" md5sum="70ed8340d61188d10273e4d4cdf5bc31" name="include/Damblan/Mail/pearweb_account_request.tpl.php" role="www" />
+   <file baseinstalldir="/" md5sum="1564f02e3ad5d88d3b9c3dd204d1423c" name="include/Damblan/Mail/pearweb_account_request_bug.tpl.php" role="www" />
+   <file baseinstalldir="/" md5sum="bb15138809692b33477b3a8d06ffbb01" name="include/Damblan/Mail/pearweb_account_request_existing.tpl.php" role="www" />
+   <file baseinstalldir="/" md5sum="f918cf0abccc9436d4a0dd22e841e22b" name="include/Damblan/Mail/pearweb_account_request_new.tpl.php" role="www" />
+   <file baseinstalldir="/" md5sum="64a3a006d2342cf3bccc84483463bddb" name="include/Damblan/Mail/pearweb_account_request_vote.tpl.php" role="www" />
+   <file baseinstalldir="/" md5sum="43818d9db8b2dfb88afc24bc57a2692b" name="include/Damblan/Mail/Trackback_Approve.tpl.php" role="www" />
+   <file baseinstalldir="/" md5sum="cc836fe9cbe3165fde402c2b01f52b5d" name="include/Damblan/Mail/Trackback_Delete.tpl.php" role="www" />
+   <file baseinstalldir="/" md5sum="153b3f60b59897ffde873296a1a6fd3e" name="include/Damblan/Mail/Trackback_New.tpl.php" role="www" />
+   <file baseinstalldir="/" md5sum="fac128818aba25d96b2fb8b19487686b" name="include/Damblan/Search/Lists.php" role="www" />
+   <file baseinstalldir="/" md5sum="7b5110a07c77ca0c381fc3b331d7df49" name="include/Damblan/Search/Packages.php" role="www" />
+   <file baseinstalldir="/" md5sum="2358b10157d1c2f50f58e19e71c6b443" name="include/Damblan/Search/PEPr.php" role="www" />
+   <file baseinstalldir="/" md5sum="3d9a80b6747b6d0de95088767557f55a" name="include/Damblan/Search/Site.php" role="www" />
+   <file baseinstalldir="/" md5sum="74691c9efd59c2c11b6e20735db84c03" name="include/Damblan/Search/Users.php" role="www" />
+   <file baseinstalldir="/" md5sum="877608d7a2e6fe943685551c473c7043" name="include/Damblan/Bugs.php" role="www" />
+   <file baseinstalldir="/" md5sum="d211fa68f53cbc9bae49cb6cd71d675e" name="include/Damblan/Karma.php" role="www" />
+   <file baseinstalldir="/" md5sum="dc5b8bd6ab1be4039b2d57b45b389230" name="include/Damblan/Log.php" role="www" />
+   <file baseinstalldir="/" md5sum="b5ab49c18f23253c2f1f61e8b7117f4e" name="include/Damblan/Mailer.php" role="www" />
+   <file baseinstalldir="/" md5sum="4aeafd538dffee165317f714cc9539fe" name="include/Damblan/Search.php" role="www" />
+   <file baseinstalldir="/" md5sum="0ee86bb5f0a4e953af5fa7e09e642ebd" name="include/Damblan/Site.php" role="www" />
+   <file baseinstalldir="/" md5sum="2407a308777fd884d8a88fbda179aeab" name="include/Damblan/Trackback.php" role="www" />
+   <file baseinstalldir="/" md5sum="7a1bffffb5d217fe46da1f8f999945cc" name="include/Damblan/URL.php" role="www" />
+   <file baseinstalldir="/" md5sum="9376176ba72301e79bedcdce472f7258" name="include/DataObject/Bugdb.php" role="www" />
+   <file baseinstalldir="/" md5sum="995cba48ce06770f3ef6a873da5e7e23" name="include/DataObject/Bugdb_comments.php" role="www" />
+   <file baseinstalldir="/" md5sum="1e43646b2cb08457906fe3f26eb75e41" name="include/DataObject/Bugdb_roadmap.php" role="www" />
+   <file baseinstalldir="/" md5sum="08677b3c91fbceeeae0aa5426773a07e" name="include/DataObject/Bugdb_roadmap_link.php" role="www" />
+   <file baseinstalldir="/" md5sum="f139fe877809fee4ba6858d6c02d639e" name="include/DataObject/Categories.php" role="www" />
+   <file baseinstalldir="/" md5sum="3f80baa416bf4a142bcb096e6de75fc1" name="include/DataObject/Maintains.php" role="www" />
+   <file baseinstalldir="/" md5sum="0b01d9a0fcff2e752f4803cba6db84bb" name="include/DataObject/Packages.php" role="www" />
+   <file baseinstalldir="/" md5sum="c52e2a388cfce90413af73a9a8c0cd81" name="include/DataObject/Releases.php" role="www" />
+   <file baseinstalldir="/" md5sum="966bb00f3f6be048ed73681f87403719" name="include/DataObject/Users.php" role="www" />
+   <file baseinstalldir="/" md5sum="5fae2dd96aa7c348d10d5603712486ff" name="include/election/pear-election-accountrequest.php" role="www" />
+   <file baseinstalldir="/" md5sum="073263b823b628cc62323efc45898b41" name="include/election/pear-election.php" role="www" />
+   <file baseinstalldir="/" md5sum="dba336f30864c5760fd77984da98cb70" name="include/election/pear-voter.php" role="www" />
+   <file baseinstalldir="/" md5sum="c92a76c78cce1709863e6007a1e6e8e8" name="include/fonts/coolveti.ttf" role="www" />
+   <file baseinstalldir="/" md5sum="788101c0b4ea8a0f74a7a1818be2cbf3" name="include/jpgraph/jpgraph.php" role="www" />
+   <file baseinstalldir="/" md5sum="b27b638802640c7023fd0f82ced56f00" name="include/jpgraph/jpgraph_bar.php" role="www" />
+   <file baseinstalldir="/" md5sum="707832b34d1376a59abd582a93ed262d" name="include/jpgraph/jpgraph_canvas.php" role="www" />
+   <file baseinstalldir="/" md5sum="3c3c503c0e3cbfd40dd52daa8fa898ce" name="include/jpgraph/jpgraph_error.php" role="www" />
+   <file baseinstalldir="/" md5sum="fb55b2ce7fe1bc9831ad52fde9e62938" name="include/jpgraph/jpgraph_gantt.php" role="www" />
+   <file baseinstalldir="/" md5sum="45f0f252dab4c216a2a2d334352d90fc" name="include/jpgraph/jpgraph_line.php" role="www" />
+   <file baseinstalldir="/" md5sum="13e718a2134cabc32e7f4ca89568563f" name="include/jpgraph/jpgraph_log.php" role="www" />
+   <file baseinstalldir="/" md5sum="fad8c31f4972f545628cc24fe3c5a472" name="include/jpgraph/jpgraph_pie.php" role="www" />
+   <file baseinstalldir="/" md5sum="2e01091526e4fb0b9f1f396f4a812b65" name="include/jpgraph/jpgraph_pie3d.php" role="www" />
+   <file baseinstalldir="/" md5sum="907447d2a9b85f967b6506a151596def" name="include/jpgraph/jpgraph_scatter.php" role="www" />
+   <file baseinstalldir="/" md5sum="4ea30ef643e6f5632f83425775e4c176" name="include/jpgraph/jpgraph_spider.php" role="www" />
+   <file baseinstalldir="/" md5sum="a2f1e88ecf51f16c21f611e7a5dd010f" name="include/notes/ManualNotes.class.php" role="www" />
+   <file baseinstalldir="/" md5sum="c261adf0816c28b42dde0d246b2d1e40" name="include/package/releasehelper.php" role="www" />
+   <file baseinstalldir="/" md5sum="dd358f58e366e6a7113578647804f5ed" name="include/pepr/HTML_BBCodeParser_Filter_Extended.php" role="www" />
+   <file baseinstalldir="/" md5sum="1a3eb8a8a50d22e97ff30dd47171285c" name="include/pepr/pepr-emails.php" role="www" />
+   <file baseinstalldir="/" md5sum="7d465250100fa583b7a23c0b978f44ea" name="include/pepr/pepr.php" role="www" />
+   <file baseinstalldir="/" md5sum="2a2beb9fd2b8b392de3a8c2f1f537339" name="include/roadmap/info.php" role="www" />
+   <file baseinstalldir="/" md5sum="c2d65fe1fb6eaa80bb91697dd0272cba" name="include/roadmap/package-generator.php" role="www" />
+   <file baseinstalldir="/" md5sum="8ee026c5a37c4d653b97ad4e121e4eac" name="include/tags/Cloud.php" role="www" />
+   <file baseinstalldir="/" md5sum="e43bff863ae39eafd57f568e03c0ef48" name="include/tags/Manager.php" role="www" />
+   <file baseinstalldir="/" md5sum="299e47cceea95b758c03675b074cdc80" name="include/users/passwordmanage.php" role="www" />
+   <file baseinstalldir="/" md5sum="416ea99305c6418812f139e807db7310" name="include/browser.php" role="www" />
+   <file baseinstalldir="/" md5sum="b24b665c283a74cb0f0860b783431fb1" name="include/pear-auth.php" role="www" />
+   <file baseinstalldir="/" md5sum="e7e6b9fc494575fab156be7231c22c5f" name="include/pear-category.php" role="www" />
+   <file baseinstalldir="/" md5sum="f046ea985ee9f9566ce10575bf69477c" name="include/pear-config.php" role="www" />
+   <file baseinstalldir="/" md5sum="1865ca17bb400748a1cdfb7863bf16f6" name="include/pear-database-category.php" role="www" />
+   <file baseinstalldir="/" md5sum="048851ff02a9a73974d583d433b607d7" name="include/pear-database-channel.php" role="www" />
+   <file baseinstalldir="/" md5sum="b1048965a2cfaa673777c9c6c363ed9a" name="include/pear-database-maintainer.php" role="www" />
+   <file baseinstalldir="/" md5sum="47d0e02c7d9aae30aec813fbff569c21" name="include/pear-database-note.php" role="www" />
+   <file baseinstalldir="/" md5sum="18ad9e9643233f34a00a771b1d8a0474" name="include/pear-database-package.php" role="www" />
+   <file baseinstalldir="/" md5sum="f18899047fa19db004572bee1f1bc22a" name="include/pear-database-release.php" role="www" />
+   <file baseinstalldir="/" md5sum="39c28577f62b4fcf3a0a17bdbd8801a3" name="include/pear-database-statistics.php" role="www" />
+   <file baseinstalldir="/" md5sum="f8bdfe16a30756d8bacf255f0b48c23e" name="include/pear-database-user.php" role="www" />
+   <file baseinstalldir="/" md5sum="1b5d4471f41be6e4874189f5e17a678c" name="include/pear-format-html-form.php" role="www" />
+   <file baseinstalldir="/" md5sum="96d25191f48e8d14fc2d39953f3dd3a7" name="include/pear-format-html.php" role="www" />
+   <file baseinstalldir="/" md5sum="4912644a65a4ecb04e87a6fbd98bd5d1" name="include/pear-manual.php" role="www" />
+   <file baseinstalldir="/" md5sum="26dd0bf787030fd4d8d9b4196607042c" name="include/pear-patches.php" role="www" />
+   <file baseinstalldir="/" md5sum="dd4f73f1e5554b95502fb933e5efd9a0" name="include/pear-prepend.php" role="www" />
+   <file baseinstalldir="/" md5sum="6b12a0d34427fc0658785bc4163d674c" name="include/pear-rest.php" role="www" />
+   <file baseinstalldir="/" md5sum="b5a15c5a630df3207954cf6ad1113831" name="include/site.php" role="www" />
+   <file baseinstalldir="/" md5sum="aed8fcb7e277a0210f9b08a14894b5d5" name="public_html/about/damblan.php" role="www" />
+   <file baseinstalldir="/" md5sum="f2790f4bb47fdc218cf348368a2d7042" name="public_html/about/forgot-password.php" role="www" />
+   <file baseinstalldir="/" md5sum="6b4c59e74a3811ac29b5aed0d725c243" name="public_html/account/password-confirm-change.php" role="www" />
+   <file baseinstalldir="/" md5sum="19e05537281c4d0f7aa44fcef1127c42" name="public_html/admin/apidoc-log.php" role="www" />
+   <file baseinstalldir="/" md5sum="c2ec0f600cf2a5b4d5a62970801536b1" name="public_html/admin/category-manager.php" role="www" />
+   <file baseinstalldir="/" md5sum="0f9c614586764ab58f7a5b0c50546749" name="public_html/admin/chm-upload.php" role="www" />
+   <file baseinstalldir="/" md5sum="c425ac5f32dd725aa4a05c39e1122cc9" name="public_html/admin/index.php" role="www" />
+   <file baseinstalldir="/" md5sum="2e999ec759e03cce09bdf428ecccd89f" name="public_html/admin/karma.php" role="www" />
+   <file baseinstalldir="/" md5sum="bfd4369f5a94713ba58003892e665b18" name="public_html/admin/package-approval.php" role="www" />
+   <file baseinstalldir="/" md5sum="b8fe50893d64e4fba7f657269b2dba8a" name="public_html/admin/package-maintainers.php" role="www" />
+   <file baseinstalldir="/" md5sum="ed0384ad29e60110b310a02e95287ee6" name="public_html/admin/tags.php" role="www" />
+   <file baseinstalldir="/" md5sum="7d12aa4af2dd63a605eddc16ddd81cfa" name="public_html/bugs/include/cvs-auth.inc" role="www" />
+   <file baseinstalldir="/" md5sum="c5d0976a6327cd359515de40a4bfb333" name="public_html/bugs/include/functions.inc" role="www" />
+   <file baseinstalldir="/" md5sum="da61e7b705337463c1a73ef0c1109069" name="public_html/bugs/include/layout.inc" role="www" />
+   <file baseinstalldir="/" md5sum="69386ff110698d0885c18972026c0b6e" name="public_html/bugs/include/php_versions.php" role="www" />
+   <file baseinstalldir="/" md5sum="d88ac9252fbc7d3616093d99fc39dd02" name="public_html/bugs/include/prepend.inc" role="www" />
+   <file baseinstalldir="/" md5sum="e088cc6f39c8b59b9f209a619cf4186b" name="public_html/bugs/include/resolve.inc" role="www" />
+   <file baseinstalldir="/" md5sum="436293e29d6ff567c5f9151b191ea762" name="public_html/bugs/include/trusted-devs.inc" role="www" />
+   <file baseinstalldir="/" md5sum="6a1b33c86a825e30713137e9f724fdc4" name="public_html/bugs/rss/bug.php" role="www" />
+   <file baseinstalldir="/" md5sum="32298bb37856523d131b18f5d2e26d8c" name="public_html/bugs/rss/search.php" role="www" />
+   <file baseinstalldir="/" md5sum="5dcdcebc00a8894b33d12fc6a761563c" name="public_html/bugs/bug-pwd-finder.php" role="www" />
+   <file baseinstalldir="/" md5sum="7c8ebabcec5658094eb3ec1b12afe767" name="public_html/bugs/bug.php" role="www" />
+   <file baseinstalldir="/" md5sum="bb12c886fddf0b6d045f3572d48ab083" name="public_html/bugs/index.php" role="www" />
+   <file baseinstalldir="/" md5sum="a68c1adad704c84b19d14e9998136bf3" name="public_html/bugs/lstat.php" role="www" />
+   <file baseinstalldir="/" md5sum="49e01d8bcba161fb84fa8d970ca06208" name="public_html/bugs/patch-add.php" role="www" />
+   <file baseinstalldir="/" md5sum="4af1699e2946ca588dbec62f4bb3f5df" name="public_html/bugs/patch-display.php" role="www" />
+   <file baseinstalldir="/" md5sum="9cbf6e538af5c5774c6348c42f8893f5" name="public_html/bugs/quick-fix-desc.php" role="www" />
+   <file baseinstalldir="/" md5sum="281ff463fce0607f9457affd72c18284" name="public_html/bugs/report.php" role="www" />
+   <file baseinstalldir="/" md5sum="fe3f17d8a92afe4e63b0d49407bf7550" name="public_html/bugs/resend-request-email.php" role="www" />
+   <file baseinstalldir="/" md5sum="e3aea2f16c401cb17b65f434254f771b" name="public_html/bugs/roadmap.php" role="www" />
+   <file baseinstalldir="/" md5sum="20380e65021aca095334764a610580ee" name="public_html/bugs/search.php" role="www" />
+   <file baseinstalldir="/" md5sum="ace7f1c002e08e581b7c9c7597bac4b7" name="public_html/bugs/stats.php" role="www" />
+   <file baseinstalldir="/" md5sum="8ce18946d83d7964d3670d02e5144521" name="public_html/bugs/stats_dev.php" role="www" />
+   <file baseinstalldir="/" md5sum="e5c5f98f32fe41eef322eed7e274c644" name="public_html/channels/add.php" role="www" />
+   <file baseinstalldir="/" md5sum="b80f744901ae7a1e794d26288ae3b06e" name="public_html/channels/index.php" role="www" />
+   <file baseinstalldir="/" md5sum="aafebd41040e4ecbed411bfb69ea2d14" name="public_html/css/bugs-controls.css" role="www" />
+   <file baseinstalldir="/" md5sum="c530c588eed5a5bd2376c913a739d873" name="public_html/css/bugs.css" role="www" />
+   <file baseinstalldir="/" md5sum="dc55c96a97ed25b1ae3d6a7a00844f9e" name="public_html/css/IE6styles.css" role="www" />
+   <file baseinstalldir="/" md5sum="dc55c96a97ed25b1ae3d6a7a00844f9e" name="public_html/css/IE7styles.css" role="www" />
+   <file baseinstalldir="/" md5sum="958c95add939df109f0a2612b83b25c2" name="public_html/css/manual.css" role="www" />
+   <file baseinstalldir="/" md5sum="2b3ca7b3f6021995cbb2371e125c6626" name="public_html/css/packages_status.css" role="www" />
+   <file baseinstalldir="/" md5sum="eae81a1e284e223d353103305f816053" name="public_html/css/reset-fonts.css" role="www" />
+   <file baseinstalldir="/" md5sum="ee366eadf4d92dfd940cc9fb724c1389" name="public_html/css/style.css" role="www" />
+   <file baseinstalldir="/" md5sum="a8a3b4733b5e5b380c16bb963e9c0f8a" name="public_html/css/thickbox.css" role="www" />
+   <file baseinstalldir="/" md5sum="f1f05850e04d85df2d74dd2498784ada" name="public_html/doc/index.php" role="www" />
+   <file baseinstalldir="/" md5sum="75592aabad59013f14c9cca5ae295bd0" name="public_html/downloads/pear-folder.ico" role="www" />
+   <file baseinstalldir="/" md5sum="b37444c2e8d3fa3606fe8fc64202811f" name="public_html/downloads/pear-folder.svg" role="www" />
+   <file baseinstalldir="/" md5sum="5f091a833d410c411bea3e6cd023e717" name="public_html/downloads/pear-logos.svg" role="www" />
+   <file baseinstalldir="/" md5sum="a6b946a042ad4afd4fb84d48aeb0c832" name="public_html/downloads/pear-poster.pdf" role="www" />
+   <file baseinstalldir="/" md5sum="ecafd98cc8fbb0a0f9449d481f55c9a0" name="public_html/dtd/channel-1.0.xsd" role="www" />
+   <file baseinstalldir="/" md5sum="218e4530e6f90abd217753569268762d" name="public_html/dtd/index.php" role="www" />
+   <file baseinstalldir="/" md5sum="d96758dd644ef3b5fe04b2b21381a06a" name="public_html/dtd/package-1.0" role="www" />
+   <file baseinstalldir="/" md5sum="3d0dd1f8c89e16b5722ef5f47bf85108" name="public_html/dtd/package-1.0.xsd" role="www" />
+   <file baseinstalldir="/" md5sum="5c6fe46c9ba538efd94ad29f8f1b91b4" name="public_html/dtd/package-2.0.xsd" role="www" />
+   <file baseinstalldir="/" md5sum="b9a82d6037038d0e8b95f58ed344fb99" name="public_html/dtd/package-2.1.xsd" role="www" />
+   <file baseinstalldir="/" md5sum="1ecd4769ab7da7ef0cb998cedb9a9a47" name="public_html/dtd/package1_0to2_0.xsl" role="www" />
+   <file baseinstalldir="/" md5sum="3d1d0f2842fa38826cca848f531cac1c" name="public_html/dtd/rest.allcategories.xsd" role="www" />
+   <file baseinstalldir="/" md5sum="241f7e68aa543f4269ca3e09717b3824" name="public_html/dtd/rest.allmaintainers.xsd" role="www" />
+   <file baseinstalldir="/" md5sum="ec916a299970751fd136cc316fbb8593" name="public_html/dtd/rest.allpackages.xsd" role="www" />
+   <file baseinstalldir="/" md5sum="1d15aae9e77207e0b11666c28b0ba0a0" name="public_html/dtd/rest.allreleases.xsd" role="www" />
+   <file baseinstalldir="/" md5sum="7f97d9be66c357d4a2b02e9b78d50f36" name="public_html/dtd/rest.allreleases2.xsd" role="www" />
+   <file baseinstalldir="/" md5sum="4080a168d543a6806b13607d1d79ad42" name="public_html/dtd/rest.category.xsd" role="www" />
+   <file baseinstalldir="/" md5sum="b20864fd0252dd645e399f89dbcb80ce" name="public_html/dtd/rest.categorypackageinfo.xsd" role="www" />
+   <file baseinstalldir="/" md5sum="78256a6ff0f4361190be1aac4ab4362d" name="public_html/dtd/rest.categorypackages.xsd" role="www" />
+   <file baseinstalldir="/" md5sum="1b5dd9b4b529a174249d7fe8b6c4c200" name="public_html/dtd/rest.maintainer.xsd" role="www" />
+   <file baseinstalldir="/" md5sum="34c95c9c0c80f829591237256c820dfb" name="public_html/dtd/rest.package.xsd" role="www" />
+   <file baseinstalldir="/" md5sum="298849e866cbc74c3f73c6c4b7230952" name="public_html/dtd/rest.packagemaintainers.xsd" role="www" />
+   <file baseinstalldir="/" md5sum="eeebb86e7dddb74be277cbd11e0f4f50" name="public_html/dtd/rest.packagemaintainers2.xsd" role="www" />
+   <file baseinstalldir="/" md5sum="5e24cd5819b157493fa0e1280440f3f8" name="public_html/dtd/rest.release.xsd" role="www" />
+   <file baseinstalldir="/" md5sum="09b85b1fe89ed3f8ad921735cdef266c" name="public_html/dtd/rest.release2.xsd" role="www" />
+   <file baseinstalldir="/" md5sum="450c415e06d48d443b83e5ca13e5a8f8" name="public_html/dtd/tasks-1.0.xsd" role="www" />
+   <file baseinstalldir="/" md5sum="b3b8a76dc6bc0b38b9bd5d4852398dae" name="public_html/election/edit.php" role="www" />
+   <file baseinstalldir="/" md5sum="a656a9fb9d34e54abba5c425e3596767" name="public_html/election/index.php" role="www" />
+   <file baseinstalldir="/" md5sum="058400985fd8c989b0d66f1031fcb6ea" name="public_html/election/info.php" role="www" />
+   <file baseinstalldir="/" md5sum="0f338df25f6e87d2ad3065d8cfcf542b" name="public_html/election/new.php" role="www" />
+   <file baseinstalldir="/" md5sum="f8bc113633766b3865355019298654c7" name="public_html/error/404-manual.php" role="www" />
+   <file baseinstalldir="/" md5sum="0ab4e93b934da5afb0e403ccbf3e938f" name="public_html/error/404.php" role="www" />
+   <file baseinstalldir="/" md5sum="448c2cf4972ee6b8dd5294cabaaf7486" name="public_html/feeds/feeds.php" role="www" />
+   <file baseinstalldir="/" md5sum="5f7c10446447d2dbc3410e4d925e5004" name="public_html/feeds/index.php" role="www" />
+   <file baseinstalldir="/" md5sum="bc3d77fea860e5bd0071ec45bbb7d083" name="public_html/gifs/books/1904811191.png" role="www" />
+   <file baseinstalldir="/" md5sum="4cefcebb324e32d676a07b54099aec0d" name="public_html/gifs/books/foundations-of-pear.gif" role="www" />
+   <file baseinstalldir="/" md5sum="e4f1b2d3f998559804aa1ac3450d88ad" name="public_html/gifs/TreeMenu/branch.gif" role="www" />
+   <file baseinstalldir="/" md5sum="335459315ad97fe76b7a7ccce9e4c57e" name="public_html/gifs/TreeMenu/branchbottom.gif" role="www" />
+   <file baseinstalldir="/" md5sum="0573af115f27abdcefb8bfcd3ce4a3e1" name="public_html/gifs/TreeMenu/branchtop.gif" role="www" />
+   <file baseinstalldir="/" md5sum="3665b03f0b6b099595415224ccc68285" name="public_html/gifs/TreeMenu/folder.gif" role="www" />
+   <file baseinstalldir="/" md5sum="4d5a8ed6dc7cd5d6e71fcb6acd100955" name="public_html/gifs/TreeMenu/line.gif" role="www" />
+   <file baseinstalldir="/" md5sum="9445d29997b70a66fbf5e9430db2b49c" name="public_html/gifs/TreeMenu/linebottom.gif" role="www" />
+   <file baseinstalldir="/" md5sum="e64b766cbe159f3b4fac5fb4c11bf780" name="public_html/gifs/TreeMenu/minus.gif" role="www" />
+   <file baseinstalldir="/" md5sum="fb07076002b84c04f14f19c7cf6fe332" name="public_html/gifs/TreeMenu/minusbottom.gif" role="www" />
+   <file baseinstalldir="/" md5sum="4edfa5cd18f12847054c5a603c345c50" name="public_html/gifs/TreeMenu/minustop.gif" role="www" />
+   <file baseinstalldir="/" md5sum="5a65d2890a595d8218d4d00e59c47e9d" name="public_html/gifs/TreeMenu/plus.gif" role="www" />
+   <file baseinstalldir="/" md5sum="5ac0b1e10996aa9ad70730527842739d" name="public_html/gifs/TreeMenu/plusbottom.gif" role="www" />
+   <file baseinstalldir="/" md5sum="d0ae25b71adb33404ed64bd1a131bfe7" name="public_html/gifs/TreeMenu/plustop.gif" role="www" />
+   <file baseinstalldir="/" md5sum="5ededa26310c7c1d8affbf6e369c3191" name="public_html/gifs/arrow_top.gif" role="www" />
+   <file baseinstalldir="/" md5sum="93c15c17277177906902605806ff6209" name="public_html/gifs/beta_bg.gif" role="www" />
+   <file baseinstalldir="/" md5sum="5ce154a1d7a793c33cffe3a8ed2806f8" name="public_html/gifs/black.gif" role="www" />
+   <file baseinstalldir="/" md5sum="b877a219a57a3ff575b34f3bca5a97eb" name="public_html/gifs/blank.gif" role="www" />
+   <file baseinstalldir="/" md5sum="9227f527fda05fdc93c2f532409a7d35" name="public_html/gifs/box-0.gif" role="www" />
+   <file baseinstalldir="/" md5sum="234c3f3f4952dd0de761762e3eb24676" name="public_html/gifs/box-1.gif" role="www" />
+   <file baseinstalldir="/" md5sum="7a0550dfefb7e8dad8d8efd98e272e9f" name="public_html/gifs/calendar.gif" role="www" />
+   <file baseinstalldir="/" md5sum="44e5ec48ee7e9aef11e02dac4ad368c4" name="public_html/gifs/caret-l.gif" role="www" />
+   <file baseinstalldir="/" md5sum="e690ef30acaed7d125996946d02d08bb" name="public_html/gifs/caret-r.gif" role="www" />
+   <file baseinstalldir="/" md5sum="4ef03000cb037ffbe99902d8fd44ab4d" name="public_html/gifs/caret-t.gif" role="www" />
+   <file baseinstalldir="/" md5sum="0ae301344e3ce6be9fae661eca2b22f9" name="public_html/gifs/caret-u.gif" role="www" />
+   <file baseinstalldir="/" md5sum="a13e8860459c3a53973dc38871205383" name="public_html/gifs/checkerboard.gif" role="www" />
+   <file baseinstalldir="/" md5sum="1642ee53d859c0b1b3e050c2a90f9c75" name="public_html/gifs/close.gif" role="www" />
+   <file baseinstalldir="/" md5sum="9c0a6603645bc8966c648f08d88febd0" name="public_html/gifs/delete.gif" role="www" />
+   <file baseinstalldir="/" md5sum="7a0550dfefb7e8dad8d8efd98e272e9f" name="public_html/gifs/dynCalendar.gif" role="www" />
+   <file baseinstalldir="/" md5sum="c794ec7ee6c6d63578cb23d60aa81f57" name="public_html/gifs/edit.gif" role="www" />
+   <file baseinstalldir="/" md5sum="0b6130b7067e9f615315c7128d64be64" name="public_html/gifs/favicon.ico" role="www" />
+   <file baseinstalldir="/" md5sum="640fd0c17a8b6ba4dcd0f60e34f227a4" name="public_html/gifs/feed.png" role="www" />
+   <file baseinstalldir="/" md5sum="e70fee8ccf8e67c55c269b1775ca6555" name="public_html/gifs/loadingAnimation.gif" role="www" />
+   <file baseinstalldir="/" md5sum="65f243d19eb715541ca50154346945b0" name="public_html/gifs/moreinfo-no.gif" role="www" />
+   <file baseinstalldir="/" md5sum="598a51046ce2ee49a20d160590a3ed9d" name="public_html/gifs/moreinfo-yes.gif" role="www" />
+   <file baseinstalldir="/" md5sum="b6442eff9f15e0c0b7f5b57dd93f21f8" name="public_html/gifs/moreinfo.gif" role="www" />
+   <file baseinstalldir="/" md5sum="f7732cdeaac4148263af8b40155620b1" name="public_html/gifs/next.gif" role="www" />
+   <file baseinstalldir="/" md5sum="416b28d34a0b141272568a16578bb1c2" name="public_html/gifs/pear-blogbutton1.png" role="www" />
+   <file baseinstalldir="/" md5sum="09570fcac5b07297dcae8559611ab1a1" name="public_html/gifs/pear-blogbutton2.png" role="www" />
+   <file baseinstalldir="/" md5sum="0069743921ea23212394d7a1e39c9084" name="public_html/gifs/pear-eps.png" role="www" />
+   <file baseinstalldir="/" md5sum="a34dc52ca2b608a3dfacdc6af329e25d" name="public_html/gifs/pear-icon.gif" role="www" />
+   <file baseinstalldir="/" md5sum="fa5c8de54f615176ce77221188aef76b" name="public_html/gifs/pear-icon.png" role="www" />
+   <file baseinstalldir="/" md5sum="d88a2ab9d7b4d74fb321f415f288425b" name="public_html/gifs/pear-poster.png" role="www" />
+   <file baseinstalldir="/" md5sum="20882a74eb1c49de571f982c1b11fe5e" name="public_html/gifs/pear-power.gif" role="www" />
+   <file baseinstalldir="/" md5sum="8610764d4921e1dc89f1daf81cb71b53" name="public_html/gifs/pear-power.png" role="www" />
+   <file baseinstalldir="/" md5sum="5a2fe69e0ee6e3f1111a497333edb376" name="public_html/gifs/pear.gif" role="www" />
+   <file baseinstalldir="/" md5sum="a3a0872d6df05f7cd3e4271cc14938b6" name="public_html/gifs/pearpoint.gif" role="www" />
+   <file baseinstalldir="/" md5sum="1f0ca8116ffeafac272a3f1a8325e408" name="public_html/gifs/pearsmall.gif" role="www" />
+   <file baseinstalldir="/" md5sum="ef1b488ce5a7ac8a33a6c409f108d77e" name="public_html/gifs/pear_item.gif" role="www" />
+   <file baseinstalldir="/" md5sum="26039c278d72ee81a8ea6827061da2b8" name="public_html/gifs/pecl-icon.gif" role="www" />
+   <file baseinstalldir="/" md5sum="705bc473578cf9b40ff80c00df1bbd59" name="public_html/gifs/pecl-icon.png" role="www" />
+   <file baseinstalldir="/" md5sum="6f7fdd69b6180f4931e6947f8aa2d0de" name="public_html/gifs/pecl-power.gif" role="www" />
+   <file baseinstalldir="/" md5sum="4844382fe6fc15baa77668ba414a8f58" name="public_html/gifs/pecl-power.png" role="www" />
+   <file baseinstalldir="/" md5sum="f1e4f309b645f612cecf802ee3857164" name="public_html/gifs/pecl.gif" role="www" />
+   <file baseinstalldir="/" md5sum="9ef95c9830858dc890ed55aebee719d8" name="public_html/gifs/peclsmall.gif" role="www" />
+   <file baseinstalldir="/" md5sum="97e07ecaea4d263aa8251c626bfd5d1a" name="public_html/gifs/pecl_item.gif" role="www" />
+   <file baseinstalldir="/" md5sum="da30a83b916099d498ff56b5f1537ce2" name="public_html/gifs/php-logo.gif" role="www" />
+   <file baseinstalldir="/" md5sum="fbcc9cbaaa8b47c283d65fa715389bf1" name="public_html/gifs/phpmag02cover.gif" role="www" />
+   <file baseinstalldir="/" md5sum="edcbc8aad52db60bcfca5ebb8ee67ec3" name="public_html/gifs/phpmagazine.gif" role="www" />
+   <file baseinstalldir="/" md5sum="5bec18eb0a0ce7fec0feef8fadcb5df3" name="public_html/gifs/prev.gif" role="www" />
+   <file baseinstalldir="/" md5sum="c88d0a18452841331671acba3016e471" name="public_html/gifs/small_submit_black.gif" role="www" />
+   <file baseinstalldir="/" md5sum="a09e703eea882e40ed1bf3839e6d8d23" name="public_html/gifs/small_submit_white.gif" role="www" />
+   <file baseinstalldir="/" md5sum="9bb191c6827273aa978cab39a3587950" name="public_html/gifs/spacer.gif" role="www" />
+   <file baseinstalldir="/" md5sum="5bec18eb0a0ce7fec0feef8fadcb5df3" name="public_html/gifs/tri-back.gif" role="www" />
+   <file baseinstalldir="/" md5sum="f7732cdeaac4148263af8b40155620b1" name="public_html/gifs/tri.gif" role="www" />
+   <file baseinstalldir="/" md5sum="5823447f4f84544953ffe4cfc90df5e5" name="public_html/javascript/calendar/browserSniffer.js" role="www" />
+   <file baseinstalldir="/" md5sum="fed8ed697b33a389b185b870c5822f41" name="public_html/javascript/calendar/dynCalendar.css" role="www" />
+   <file baseinstalldir="/" md5sum="236d4090f693dcc6596a5f4af2f52ca7" name="public_html/javascript/calendar/dynCalendar.js" role="www" />
+   <file baseinstalldir="/" md5sum="8fecaafea290558cc734c62da7f5865b" name="public_html/javascript/TreeMenu/TreeMenu.js" role="www" />
+   <file baseinstalldir="/" md5sum="63c5aaa7a899a40f9bb0bca2419104fa" name="public_html/javascript/ie7-css3-selectors.js" role="www" />
+   <file baseinstalldir="/" md5sum="348be9c4b53968275305d4c2715514d7" name="public_html/javascript/ie7-standard-p.js" role="www" />
+   <file baseinstalldir="/" md5sum="ea2a36d3f1b17f1b3292551413824531" name="public_html/javascript/jquery.js" role="www" />
+   <file baseinstalldir="/" md5sum="8fc77ffd9c8d37e6cc46f44d2fba09d6" name="public_html/javascript/md5.js" role="www" />
+   <file baseinstalldir="/" md5sum="5593364ffae17f744eea76a4cc79209b" name="public_html/javascript/package-maintainers.js" role="www" />
+   <file baseinstalldir="/" md5sum="7e1e089b76b0784fff4991cf7e58ce00" name="public_html/javascript/peardev_map.js" role="www" />
+   <file baseinstalldir="/" md5sum="5c5d556aecf4acf31ec5010607aba5db" name="public_html/javascript/pear_editor.js" role="www" />
+   <file baseinstalldir="/" md5sum="133ec040f5658b1b28cbd9583afe6ff0" name="public_html/javascript/popmap.js" role="www" />
+   <file baseinstalldir="/" md5sum="67ba34c731aa6cf3717a4b8d0eda477b" name="public_html/javascript/showmap.js" role="www" />
+   <file baseinstalldir="/" md5sum="f1158320f19269b67bfa431079df13bd" name="public_html/javascript/sorttable.js" role="www" />
+   <file baseinstalldir="/" md5sum="d09f01ef2d1ac57a6151e70ce4287ea7" name="public_html/javascript/thickbox.js" role="www" />
+   <file baseinstalldir="/" md5sum="37024a0961e0766d0960481bbba110cd" name="public_html/manual/index.php" role="www" />
+   <file baseinstalldir="/" md5sum="0d63e840f3317f45bcd2b420c99bb2ae" name="public_html/map/index.php" role="www" />
+   <file baseinstalldir="/" md5sum="438a373a7c90f3363797fe085eb1ff96" name="public_html/map/locationREST.php" role="www" />
+   <file baseinstalldir="/" md5sum="a3e91199812ea9a8143b02aa1ea6212c" name="public_html/notes/admin/index.php" role="www" />
+   <file baseinstalldir="/" md5sum="436c9c65db7e2f497074d1a1a7bd42ee" name="public_html/notes/admin/trans.php" role="www" />
+   <file baseinstalldir="/" md5sum="0a5e0b755706319b1164926b9d54a055" name="public_html/notes/admin/view-note.php" role="www" />
+   <file baseinstalldir="/" md5sum="765d6af951330b50d278d4ee0a4afc8d" name="public_html/notes/add-note-form.php" role="www" />
+   <file baseinstalldir="/" md5sum="f88eb3849e02d3a45ae344159aa56557" name="public_html/notes/add-note.php" role="www" />
+   <file baseinstalldir="/" md5sum="ce31b591a872ac2d9ed13c90ad97225c" name="public_html/pepr/index.php" role="www" />
+   <file baseinstalldir="/" md5sum="a538be7bc039fe5d34809b7b41b5963f" name="public_html/pepr/pepr-bbcode-help.php" role="www" />
+   <file baseinstalldir="/" md5sum="4e8bfcfa93a9e38adee7f2e4c805efab" name="public_html/pepr/pepr-comments-show.php" role="www" />
+   <file baseinstalldir="/" md5sum="b87a8b1d7f77b19d19e1d1a37cd9c399" name="public_html/pepr/pepr-proposal-delete.php" role="www" />
+   <file baseinstalldir="/" md5sum="6e0bee5eaeefb9028d390fb62abe6994" name="public_html/pepr/pepr-proposal-edit.php" role="www" />
+   <file baseinstalldir="/" md5sum="452e794a19dfd091a3a9bde3391b7f1c" name="public_html/pepr/pepr-proposal-show.php" role="www" />
+   <file baseinstalldir="/" md5sum="28a31b4a3bb7c10b61de3dbb15fe8998" name="public_html/pepr/pepr-qa-stats.php" role="www" />
+   <file baseinstalldir="/" md5sum="e6ee35cf70e460aab981dd1b534d5127" name="public_html/pepr/pepr-vote-show.php" role="www" />
+   <file baseinstalldir="/" md5sum="80e3205b6575f42261e2be61ca1b5734" name="public_html/pepr/pepr-votes-show.php" role="www" />
+   <file baseinstalldir="/" md5sum="c7723be8ba049cc8a546356268556cae" name="public_html/pngs/dev.png" role="www" />
+   <file baseinstalldir="/" md5sum="6e89d334d9d8f710667c00f937d836e5" name="public_html/pngs/pearpoint.png" role="www" />
+   <file baseinstalldir="/" md5sum="8ba6e700849414976cfeb86f0250a3a0" name="public_html/pngs/users.png" role="www" />
+   <file baseinstalldir="/" md5sum="04cd57a49bd73129e7ffb10d87bc492d" name="public_html/qa/index.php" role="www" />
+   <file baseinstalldir="/" md5sum="62f9f909743e6b58aca4e463ba5e1100" name="public_html/qa/packages_orphan.php" role="www" />
+   <file baseinstalldir="/" md5sum="a1a6df2e8cdbaad9d15fa0652300414d" name="public_html/qa/packages_status.php" role="www" />
+   <file baseinstalldir="/" md5sum="821d1ea71e28245394d6cc41736bf848" name="public_html/qa/packages_status_detail.php" role="www" />
+   <file baseinstalldir="/" md5sum="5f446bcca69afda74b2b9f968a3d5be4" name="public_html/sidebar/pear.src" role="www" />
+   <file baseinstalldir="/" md5sum="52908fd1af2ef6e8752212508220f7dd" name="public_html/tags/admin.php" role="www" />
+   <file baseinstalldir="/" md5sum="9269a8823876311a2b0fee1cda3b98a4" name="public_html/tags/packages.php" role="www" />
+   <file baseinstalldir="/" md5sum="d36b75b565a1ce589084328f8d780633" name="public_html/trackback/trackback-admin.php" role="www" />
+   <file baseinstalldir="/" md5sum="ece3d54323c63543bc1aa63f685e737a" name="public_html/trackback/trackback-overview.php" role="www" />
+   <file baseinstalldir="/" md5sum="d5626edc5e815b349f02ab4bcbef9aca" name="public_html/trackback/trackback.php" role="www" />
+   <file baseinstalldir="/" md5sum="4471138030f2c90049a84d634c0bf65a" name="public_html/account-edit.php" role="www" />
+   <file baseinstalldir="/" md5sum="058cd64846e9ede8c8be88d982687826" name="public_html/account-info.php" role="www" />
+   <file baseinstalldir="/" md5sum="1d87e98d31b0a8d2e8303639da2c3888" name="public_html/account-mail.php" role="www" />
+   <file baseinstalldir="/" md5sum="fb1afa96d496a2c567f36262cf75ee70" name="public_html/account-request-confirm.php" role="www" />
+   <file baseinstalldir="/" md5sum="2e62af119a42550a812917d62f76a79d" name="public_html/account-request-existingpackage.php" role="www" />
+   <file baseinstalldir="/" md5sum="ec74678c3fd191a532e5bea862397425" name="public_html/account-request-newpackage.php" role="www" />
+   <file baseinstalldir="/" md5sum="ccfdd96edb8dc03bffdc3928a08b5da1" name="public_html/account-request-vote.php" role="www" />
+   <file baseinstalldir="/" md5sum="664cc55078c9018259c9e7cf6e3f6c0b" name="public_html/account-request.php" role="www" />
+   <file baseinstalldir="/" md5sum="fee5bb6dd04f21c96464bdad9b7263a6" name="public_html/accounts.php" role="www" />
+   <file baseinstalldir="/" md5sum="d915145acd1f9995a6e6bdc25d288c34" name="public_html/advisory-20051104.txt" role="www" />
+   <file baseinstalldir="/" md5sum="d9b252f11f0d5f07b41b550af8017a40" name="public_html/advisory-20060108.txt" role="www" />
+   <file baseinstalldir="/" md5sum="afee791b6215773ca4423cc708885fbf" name="public_html/advisory-20070507.txt" role="www" />
+   <file baseinstalldir="/" md5sum="0b6130b7067e9f615315c7128d64be64" name="public_html/favicon.ico" role="www" />
+   <file baseinstalldir="/" md5sum="6d324cd2c6473213b9494d7efb01ce44" name="public_html/get" role="www" />
+   <file baseinstalldir="/" md5sum="3ddd146e0edd08b2921a1672c4727a36" name="public_html/gophp5.php" role="www" />
+   <file baseinstalldir="/" md5sum="93b77ad7e34285905934e9c29ca813e5" name="public_html/login.php" role="www" />
+   <file baseinstalldir="/" md5sum="92837c5b0beb1f97ff38467b8b6a832d" name="public_html/package-changelog.php" role="www" />
+   <file baseinstalldir="/" md5sum="e66e414426b911c53ccffed06634890b" name="public_html/package-delete.php" role="www" />
+   <file baseinstalldir="/" md5sum="5b33dc8e198499249f0ff4ef4609bd3b" name="public_html/package-edit.php" role="www" />
+   <file baseinstalldir="/" md5sum="fd625f0c2b805947bdff9dd1357e812f" name="public_html/package-info.php" role="www" />
+   <file baseinstalldir="/" md5sum="f5e7902f9934814d2a60f7b10c0f2381" name="public_html/package-new.php" role="www" />
+   <file baseinstalldir="/" md5sum="edd811b3c275c6f42d1695e99cde32ae" name="public_html/package-stats-graph.php" role="www" />
+   <file baseinstalldir="/" md5sum="c8a502cc4fc48aa1b238c423878092b4" name="public_html/package-stats.php" role="www" />
+   <file baseinstalldir="/" md5sum="d39d511407a294afa8565d0b3288f54f" name="public_html/packages.php" role="www" />
+   <file baseinstalldir="/" md5sum="96483652e0538939211689e06adf0ca6" name="public_html/release-upload.php" role="www" />
+   <file baseinstalldir="/" md5sum="afb26ecd104ee1ea741be794fbff1319" name="public_html/rest-login.php" role="www" />
+   <file baseinstalldir="/" md5sum="ff60dbad9766d81dfa326a638d333cc0" name="public_html/robots.txt" role="www" />
+   <file baseinstalldir="/" md5sum="00d958663453249ba5b391e5096a7bb7" name="public_html/search.php" role="www" />
+   <file baseinstalldir="/" md5sum="e9be0cedd24e06f5ede0f2e064ff6266" name="public_html/wishlist.php" role="www" />
+   <file baseinstalldir="/" md5sum="69fafafc73f9bb26defd6d58322de4b6" name="rfc/003-dependencies.txt" role="www" />
+   <file baseinstalldir="/" md5sum="2f61641a1f2c5fb042d163123b0afd3b" name="rfc/stats.txt" role="www" />
+   <file baseinstalldir="/" md5sum="852bb5720a95f2ec883604ec20f5ffe2" name="sql/aggregated_package_stats.sql" role="www" />
+   <file baseinstalldir="/" md5sum="a85e57862d543354f2156b82d4b3ae4e" name="sql/apidoc_queue.sql" role="www" />
+   <file baseinstalldir="/" md5sum="5f935c6907ba386d7bb7443864ba8457" name="sql/bugs.sql" role="www" />
+   <file baseinstalldir="/" md5sum="8b0bdce2e0a6f4709ced090d622165e8" name="sql/categories.sql" role="www" />
+   <file baseinstalldir="/" md5sum="01d637b73dcd3f2f8d4ee8ecaf8d3007" name="sql/channels.sql" role="www" />
+   <file baseinstalldir="/" md5sum="82ee99fe704855ce6059cb14ad97ff22" name="sql/create2drop" role="www" />
+   <file baseinstalldir="/" md5sum="b9877bfb7055bc5b133ce9ee83272225" name="sql/createdb.sql" role="www" />
+   <file baseinstalldir="/" md5sum="288d291d8e097792268fdcc930468717" name="sql/cvs_acl.sql" role="www" />
+   <file baseinstalldir="/" md5sum="ab5479fff8e8bffe792aa9a4832af02b" name="sql/cvs_groups.sql" role="www" />
+   <file baseinstalldir="/" md5sum="2c5699b4eb66820adf8087bc410f3338" name="sql/cvs_group_membership.sql" role="www" />
+   <file baseinstalldir="/" md5sum="778015b9752d1e1fb8f4e78a143abd60" name="sql/deps.sql" role="www" />
+   <file baseinstalldir="/" md5sum="3e4f2ef07e4b68e34206c33db4f0ba8b" name="sql/design.txt" role="www" />
+   <file baseinstalldir="/" md5sum="b60e436067af092d65a702350684e2dd" name="sql/dropdb.sql" role="www" />
+   <file baseinstalldir="/" md5sum="43d0041cc08b42418e4290ad79d448ca" name="sql/election.sql" role="www" />
+   <file baseinstalldir="/" md5sum="fbf51b73a04c91e9c7df7134411198cb" name="sql/files.sql" role="www" />
+   <file baseinstalldir="/" md5sum="b66775eb9cfe6fff51c35df74f1694b0" name="sql/karma.sql" role="www" />
+   <file baseinstalldir="/" md5sum="5e8062ae5b3fd20c1ba180deff9545da" name="sql/maintains.sql" role="www" />
+   <file baseinstalldir="/" md5sum="34c5b5a21208f70abfcaff57bcfbcb0e" name="sql/Makefile" role="www" />
+   <file baseinstalldir="/" md5sum="de05a3ca7a7b5b3cbe31869733618e03" name="sql/manual_notes.sql" role="www" />
+   <file baseinstalldir="/" md5sum="3382d567e56b4fa2a6252280b1bb4f00" name="sql/mirrors.sql" role="www" />
+   <file baseinstalldir="/" md5sum="a3efdfb1ac00c0c4729b81ad633f6e61" name="sql/notes.sql" role="www" />
+   <file baseinstalldir="/" md5sum="93d38c162c91ca0ceab6abc94cb76e0e" name="sql/packages.sql" role="www" />
+   <file baseinstalldir="/" md5sum="a11f551a99f39370f02ac90ca48048d1" name="sql/package_stats.sql" role="www" />
+   <file baseinstalldir="/" md5sum="ac43b5bd410352cf4886ad32f3d032e2" name="sql/pearweb_mdb2schema.xml" role="www" />
+   <file baseinstalldir="/" md5sum="aceedadf0e07b4e42220c7540706265d" name="sql/pepr.sql" role="www" />
+   <file baseinstalldir="/" md5sum="342dfd873e382f51ae7ca09dd45984fa" name="sql/process_mysqldump_for5.sh" role="www" />
+   <file baseinstalldir="/" md5sum="813933bcecfe4f3e53e1a2c75300c3a1" name="sql/README" role="www" />
+   <file baseinstalldir="/" md5sum="a9f5d7440bb77346f27585524f5bbeff" name="sql/releases.sql" role="www" />
+   <file baseinstalldir="/" md5sum="47cb7532c4b96dfe557f26a3283f7bfb" name="sql/tags.sql" role="www" />
+   <file baseinstalldir="/" md5sum="ab51f36f54b4f24d20b3ff282878a448" name="sql/users.sql" role="www" />
+   <file baseinstalldir="/" md5sum="4fc719d06e06aa12ca9d15a24d6fd511" name="templates/bugs/addpatch.php" role="www" />
+   <file baseinstalldir="/" md5sum="c19cf908a6f18bf5e88dfdbbe6c4281b" name="templates/bugs/listpatches.php" role="www" />
+   <file baseinstalldir="/" md5sum="5614ea7462050b34433d97a3328b2974" name="templates/bugs/patchadded.php" role="www" />
+   <file baseinstalldir="/" md5sum="c0476c43257c9f883a316da1979027a0" name="templates/bugs/patchdiff.php" role="www" />
+   <file baseinstalldir="/" md5sum="f89e2dd955d2302015c15e7fd3714b79" name="templates/bugs/patchdisplay.php" role="www" />
+   <file baseinstalldir="/" md5sum="1048d0a49abe5e4da95ac7b2fae8e999" name="templates/bugs/patchform.php" role="www" />
+   <file baseinstalldir="/" md5sum="f174f8e4ee729414fa9f063ea7654f22" name="templates/bugs/registernewaccount.php" role="www" />
+   <file baseinstalldir="/" md5sum="798e589749430cf06292c6d71b02b95b" name="templates/bugs/roadmap.php" role="www" />
+   <file baseinstalldir="/" md5sum="df4a9928f9c261f3d433d2cc778f2649" name="templates/bugs/roadmapadd.php" role="www" />
+   <file baseinstalldir="/" md5sum="e45f8986d97410f70891e0a2a0f84357" name="templates/bugs/roadmapform.php" role="www" />
+   <file baseinstalldir="/" md5sum="c2f8971010b5bccf5942f62984aad67e" name="templates/bugs/roadmap_packagexml.php" role="www" />
+   <file baseinstalldir="/" md5sum="bea4ee4957f7b08d91e5e9fc70673a32" name="templates/bugs/searchresults.php" role="www" />
+   <file baseinstalldir="/" md5sum="80ce0cd06998ededb6173cd6a29efd6c" name="templates/notes/add-note-form.tpl.php" role="www" />
+   <file baseinstalldir="/" md5sum="cec9c22f1cf88e1d8f440779f0944b13" name="templates/notes/add-note.tpl.php" role="www" />
+   <file baseinstalldir="/" md5sum="6872d248d4cd1b6aaedd2697007fbb40" name="templates/notes/note-manage-admin.tpl.php" role="www" />
+   <file baseinstalldir="/" md5sum="26f57ea95e6ac6280693c5bc91371277" name="templates/notes/note-manage-links.tpl.php" role="www" />
+   <file baseinstalldir="/" md5sum="9dc66ab564e6da64c0e1750d937a870e" name="templates/notes/note.tpl.php" role="www" />
+   <file baseinstalldir="/" md5sum="1cb5fcb8f252782a830eaabe26f96633" name="templates/notes/view-full-note.tpl.php" role="www" />
+   <file baseinstalldir="/" md5sum="88a86c6d2c6401b08e5f8c630aa808ba" name="templates/release/upload-form.php" role="www" />
+   <file baseinstalldir="/" md5sum="2bef157b3518bde9a0b0472ec20588f6" name="templates/release/verification-form.php" role="www" />
+   <file baseinstalldir="/" md5sum="0d4df4f1b9e86e0a3598b51823478422" name="templates/tags/admin.tpl.php" role="www" />
+   <file baseinstalldir="/" md5sum="7c215fe8731fe74c45d5bd23bc28bba9" name="templates/tags/cloud.tpl.php" role="www" />
+   <file baseinstalldir="/" md5sum="340472a04925859e3c67c92b421fd4ff" name="templates/tags/package.tpl.php" role="www" />
+   <file baseinstalldir="/" md5sum="6a5ae7fe46c5eba34e1644b28a868e5d" name="templates/users/lostpassword.php" role="www" />
+   <file baseinstalldir="/" md5sum="91b0c2e55c1c1527abc0a6a589e8957c" name="templates/users/passwordform.php" role="www" />
+   <file baseinstalldir="/" md5sum="1c5e9dfd5333e11aa0b89b54c1ec5547" name="templates/users/passwordreset.php" role="www" />
+   <file baseinstalldir="/" md5sum="9ab5a78bc47a2d44428b57864c1755d0" name="templates/users/passwordresetconfirmed.php" role="www" />
+   <file baseinstalldir="/" md5sum="07228677b9fa78e5de8cae1141c3a5c8" name="templates/category-manager.html" role="www" />
+   <file baseinstalldir="/" md5sum="e9f127853cbac0cfc6af5fe66d3d7e11" name="templates/election-confirm.tpl.php" role="www" />
+   <file baseinstalldir="/" md5sum="00c653aaf99f99c3bb00f320778bb679" name="templates/election-confirmed.tpl.php" role="www" />
+   <file baseinstalldir="/" md5sum="1932f8fd4553fc6e9ab4afba6bba114a" name="templates/election-dovote.tpl.php" role="www" />
+   <file baseinstalldir="/" md5sum="dd7f76bded0022647450f6c7a183a14a" name="templates/election-listforedit.tpl.php" role="www" />
+   <file baseinstalldir="/" md5sum="173d90b19bd665a16de3d7099c98b019" name="templates/election-new-step1.tpl.php" role="www" />
+   <file baseinstalldir="/" md5sum="e44a07d33f2c5f0598ea869f2cff3a8c" name="templates/election-new-step2.tpl.php" role="www" />
+   <file baseinstalldir="/" md5sum="10ef5548f7cec047aedd32f151d9642a" name="templates/election-new-step3.tpl.php" role="www" />
+   <file baseinstalldir="/" md5sum="8c03a2672697eb04e8792758e521eb43" name="templates/election-pending.tpl.php" role="www" />
+   <file baseinstalldir="/" md5sum="c8a9b499387ab8d10ac14009fa311650" name="templates/election-register.tpl.php" role="www" />
+   <file baseinstalldir="/" md5sum="3a17415c8b6ac0dee1e2bb3db9c10ef1" name="templates/election-results.tpl.php" role="www" />
+   <file baseinstalldir="/" md5sum="1ba4e4fc0e13c7e342e9fb1b2967fd5f" name="templates/election-showresults.tpl.php" role="www" />
+   <file baseinstalldir="/" md5sum="3a63781c48d11ed67f7bd3127e2f077c" name="templates/election-vote.tpl.php" role="www" />
+   <file baseinstalldir="/" md5sum="93248b510bde412e544b8189edea9792" name="templates/packages.html" role="www" />
+   <file baseinstalldir="/" md5sum="108ad407c059cc46efa6e431d5344099" name="weeklynews/locale/de/LC_MESSAGES/weeklynews.mo" role="www" />
+   <file baseinstalldir="/" md5sum="e3e914d9eb3e0b97915bb98f7d1cd034" name="weeklynews/locale/de/LC_MESSAGES/weeklynews.po" role="www" />
+   <file baseinstalldir="/" md5sum="108ad407c059cc46efa6e431d5344099" name="weeklynews/locale/en/LC_MESSAGES/weeklynews.mo" role="www" />
+   <file baseinstalldir="/" md5sum="51d16472e08d3f30e97adc8d630987b9" name="weeklynews/locale/en/LC_MESSAGES/weeklynews.po" role="www" />
+   <file baseinstalldir="/" md5sum="54408b606c221a407a0ea755d45d4eab" name="weeklynews/locale/es/LC_MESSAGES/weeklynews.mo" role="www" />
+   <file baseinstalldir="/" md5sum="fe39bd9e89509463f82c370e109a928d" name="weeklynews/locale/es/LC_MESSAGES/weeklynews.po" role="www" />
+   <file baseinstalldir="/" md5sum="6eb5afcb4f41d2d2db96722819ce84b0" name="weeklynews/locale/fr/LC_MESSAGES/weeklynews.mo" role="www" />
+   <file baseinstalldir="/" md5sum="1fb93530b489f7dd22d0aec4d26c3425" name="weeklynews/locale/fr/LC_MESSAGES/weeklynews.po" role="www" />
+   <file baseinstalldir="/" md5sum="708905770aa90b03a5a58d67d010830e" name="weeklynews/locale/pl/LC_MESSAGES/weeklynews.mo" role="www" />
+   <file baseinstalldir="/" md5sum="07a7326c5f925210138978e4e7cc55fc" name="weeklynews/locale/pl/LC_MESSAGES/weeklynews.po" role="www" />
+   <file baseinstalldir="/" md5sum="44964b3beabc0fae2fe2205e7cafb60f" name="weeklynews/locale/pt_BR/LC_MESSAGES/weeklynews.mo" role="www" />
+   <file baseinstalldir="/" md5sum="ddee4f74ef20212528d324ffdcde86ba" name="weeklynews/locale/pt_BR/LC_MESSAGES/weeklynews.po" role="www" />
+   <file baseinstalldir="/" md5sum="10eeaf78e72964392a59710949e84974" name="weeklynews/weeklynews-2002.tar.gz" role="www" />
+   <file baseinstalldir="/" md5sum="1677d3872eef1dc864acb340fb8cb469" name="weeklynews/weeklynews-2003.tar.gz" role="www" />
+   <file baseinstalldir="/" md5sum="5fa3d41c0216ba737d278e4190b31f51" name="generateREST.php" role="www" />
+   <file baseinstalldir="/" md5sum="e9dc366c619f031224876aa9c85562c6" name="package-index.xml" role="www" />
+   <file baseinstalldir="/" md5sum="7e4c66b039d08dbf7b96be57bb0f2403" name="pearweb.php" role="php">
+    <tasks:postinstallscript>
+     <tasks:paramgroup>
+      <tasks:id>askdb</tasks:id>
+      <tasks:param>
+       <tasks:name>yesno</tasks:name>
+       <tasks:prompt>Update pearweb database?</tasks:prompt>
+       <tasks:type>yesno</tasks:type>
+       <tasks:default>y</tasks:default>
+      </tasks:param>
+     </tasks:paramgroup>
+     <tasks:paramgroup>
+      <tasks:id>init</tasks:id>
+      <tasks:param>
+       <tasks:name>driver</tasks:name>
+       <tasks:prompt>Database driver</tasks:prompt>
+       <tasks:type>string</tasks:type>
+       <tasks:default>mysqli</tasks:default>
+      </tasks:param>
+      <tasks:param>
+       <tasks:name>user</tasks:name>
+       <tasks:prompt>Database User name</tasks:prompt>
+       <tasks:type>string</tasks:type>
+       <tasks:default>pear</tasks:default>
+      </tasks:param>
+      <tasks:param>
+       <tasks:name>password</tasks:name>
+       <tasks:prompt>Database password</tasks:prompt>
+       <tasks:type>password</tasks:type>
+       <tasks:default>pear</tasks:default>
+      </tasks:param>
+      <tasks:param>
+       <tasks:name>host</tasks:name>
+       <tasks:prompt>Database host</tasks:prompt>
+       <tasks:type>string</tasks:type>
+       <tasks:default>localhost</tasks:default>
+      </tasks:param>
+      <tasks:param>
+       <tasks:name>database</tasks:name>
+       <tasks:prompt>Database name</tasks:prompt>
+       <tasks:type>string</tasks:type>
+       <tasks:default>pear</tasks:default>
+      </tasks:param>
+     </tasks:paramgroup>
+     <tasks:paramgroup>
+      <tasks:id>askhttpd</tasks:id>
+      <tasks:param>
+       <tasks:name>yesno</tasks:name>
+       <tasks:prompt>Update httpd.conf to add pearweb? (y/n)</tasks:prompt>
+       <tasks:type>yesno</tasks:type>
+       <tasks:default>y</tasks:default>
+      </tasks:param>
+     </tasks:paramgroup>
+     <tasks:paramgroup>
+      <tasks:id>httpdconf</tasks:id>
+      <tasks:param>
+       <tasks:name>path</tasks:name>
+       <tasks:prompt>Full path to httpd.conf</tasks:prompt>
+       <tasks:type>string</tasks:type>
+      </tasks:param>
+      <tasks:param>
+       <tasks:name>addnamev</tasks:name>
+       <tasks:prompt>Add NameVirtualHost directive? (yes/no)</tasks:prompt>
+       <tasks:type>string</tasks:type>
+       <tasks:default>yes</tasks:default>
+      </tasks:param>
+      <tasks:param>
+       <tasks:name>namehost</tasks:name>
+       <tasks:prompt>Virtual Host IP address</tasks:prompt>
+       <tasks:type>string</tasks:type>
+       <tasks:default>*</tasks:default>
+      </tasks:param>
+      <tasks:param>
+       <tasks:name>pear</tasks:name>
+       <tasks:prompt>PEAR subdomain name</tasks:prompt>
+       <tasks:type>string</tasks:type>
+       <tasks:default>localhost</tasks:default>
+      </tasks:param>
+     </tasks:paramgroup>
+    </tasks:postinstallscript>
+    <tasks:replace from="@web-dir@" to="web_dir" type="pear-config" />
+    <tasks:replace from="@php-dir@" to="php_dir" type="pear-config" />
+    <tasks:replace from="@version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="3661e413647c1b50bf1ab524abdf58c3" name="processReleases.php" role="www" />
+   <file baseinstalldir="/" md5sum="19e70035f9f0e6d7807dd7d9f7214873" name="README" role="www" />
+   <file baseinstalldir="/" md5sum="15ca498210f5bf5536ea7b7ce5726d30" name="TODO" role="www" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0RC2</min>
+   </pearinstaller>
+   <package>
+    <name>PEAR</name>
+    <channel>pear.php.net</channel>
+    <min>1.7.0RC2</min>
+   </package>
+   <package>
+    <name>Archive_Tar</name>
+    <channel>pear.php.net</channel>
+    <min>1.3.2</min>
+   </package>
+   <package>
+    <name>HTTP_Request</name>
+    <channel>pear.php.net</channel>
+    <min>1.2.2</min>
+   </package>
+   <package>
+    <name>HTTP</name>
+    <channel>pear.php.net</channel>
+    <min>1.4.0</min>
+   </package>
+   <package>
+    <name>Text_CAPTCHA_Numeral</name>
+    <channel>pear.php.net</channel>
+    <min>1.1.0</min>
+   </package>
+   <package>
+    <name>DB</name>
+    <channel>pear.php.net</channel>
+    <min>1.6.5</min>
+   </package>
+   <package>
+    <name>DB_DataObject</name>
+    <channel>pear.php.net</channel>
+    <min>1.8.5</min>
+   </package>
+   <package>
+    <name>Savant2</name>
+    <channel>savant.pearified.com</channel>
+    <min>2.4.2</min>
+   </package>
+   <package>
+    <name>Cache</name>
+    <channel>pear.php.net</channel>
+    <min>1.2</min>
+   </package>
+   <package>
+    <name>HTML_BBCodeParser</name>
+    <channel>pear.php.net</channel>
+    <min>1.2.1</min>
+   </package>
+   <package>
+    <name>HTML_Form</name>
+    <channel>pear.php.net</channel>
+    <min>1.3.0</min>
+   </package>
+   <package>
+    <name>HTML_TagCloud</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>HTML_Table</name>
+    <channel>pear.php.net</channel>
+    <min>1.5</min>
+   </package>
+   <package>
+    <name>HTML_Menu</name>
+    <channel>pear.php.net</channel>
+    <min>2.1.4</min>
+   </package>
+   <package>
+    <name>Pager</name>
+    <channel>pear.php.net</channel>
+    <min>2.2.0</min>
+   </package>
+   <package>
+    <name>PEAR_PackageUpdate</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>Net_URL2</name>
+    <channel>pear.php.net</channel>
+    <min>0.1.0</min>
+   </package>
+   <package>
+    <name>Text_Diff</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>HTTP_Upload</name>
+    <channel>pear.php.net</channel>
+    <min>0.8.1</min>
+   </package>
+   <package>
+    <name>MDB2_Schema</name>
+    <channel>pear.php.net</channel>
+    <min>0.6.0</min>
+   </package>
+   <package>
+    <name>DB_Pager</name>
+    <channel>pear.php.net</channel>
+    <min>0.7</min>
+   </package>
+   <package>
+    <name>Log</name>
+    <channel>pear.php.net</channel>
+    <min>1.8.4</min>
+   </package>
+   <package>
+    <name>Mail</name>
+    <channel>pear.php.net</channel>
+    <min>1.1.13</min>
+   </package>
+   <package>
+    <name>Services_Trackback</name>
+    <channel>pear.php.net</channel>
+    <min>0.4.0</min>
+   </package>
+   <package>
+    <name>Text_Wiki</name>
+    <channel>pear.php.net</channel>
+    <min>1.2.0</min>
+   </package>
+   <package>
+    <name>HTML_QuickForm</name>
+    <channel>pear.php.net</channel>
+    <min>3.2.3</min>
+   </package>
+   <package>
+    <name>HTML_TreeMenu</name>
+    <channel>pear.php.net</channel>
+    <min>1.2.0</min>
+   </package>
+   <package>
+    <name>Role_Web</name>
+    <channel>pearified.com</channel>
+   </package>
+   <extension>
+    <name>pcre</name>
+   </extension>
+  </required>
+  <optional>
+   <package>
+    <name>pearweb_index</name>
+    <channel>pear.php.net</channel>
+    <min>1.16.4</min>
+   </package>
+   <package>
+    <name>pearweb_gopear</name>
+    <channel>pear.php.net</channel>
+    <min>0.6.0</min>
+   </package>
+   <extension>
+    <name>mysql</name>
+   </extension>
+   <extension>
+    <name>mysqli</name>
+   </extension>
+  </optional>
+  <group hint="Use this for PHP 4 (mysql ext)" name="php4">
+   <package>
+    <name>MDB2_Driver_mysql</name>
+    <channel>pear.php.net</channel>
+   </package>
+  </group>
+  <group hint="Use this for PHP 5 (mysqli ext)" name="php5">
+   <package>
+    <name>MDB2_Driver_mysqli</name>
+    <channel>pear.php.net</channel>
+   </package>
+  </group>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.1</release>
+    <api>0.1</api>
+   </version>
+   <stability>
+    <release>devel</release>
+    <api>devel</api>
+   </stability>
+   <date>2004-02-20</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Initial attempt to package the core elements of the PEAR website</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>devel</release>
+    <api>devel</api>
+   </stability>
+   <date>2006-10-01</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>use web role, add post-install script</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.3.0</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>devel</release>
+    <api>devel</api>
+   </stability>
+   <date>2006-10-01</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>use web role, add post-install script</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.4.0</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>devel</release>
+    <api>devel</api>
+   </stability>
+   <date>2006-10-02</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* add HTML_TreeMenu dep
+* add dep group for PHP4-based install and mysql
+* add dep group for PHP5-based install and mysqli</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.4.1</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>devel</release>
+    <api>devel</api>
+   </stability>
+   <date>2006-10-14</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* add gettext extension dep for VFS package (simplifies installation)</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5.0</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>devel</release>
+    <api>devel</api>
+   </stability>
+   <date>2006-10-18</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* new statistics
+* remove unused database table &quot;downloads&quot;
+* add popular packages to homepage</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.6.0</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>devel</release>
+    <api>devel</api>
+   </stability>
+   <date>2006-10-19</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* add license dropdown to PEPr</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.7.0</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>devel</release>
+    <api>devel</api>
+   </stability>
+   <date>2006-10-21</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* fix Bug #9113: Package stats problems
+  - order releases in category page
+  - remove stats for removed releases
+* implement Request #9112 Changes for &quot;Popular Packages&quot;</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC1</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-10-29</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Prepare for deployment through PEAR channel</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-12-13</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* fix REST generation for deprecated packages/channels
+* fix REST generation of packagesinfo.xml for categories
+* fix winner calculation in election interface
+* fix Bug #5340: User details are overescaped
+* fix Bug #8842: package.xml package name need not match case and must
+* fix Bug #9209: Missing package description in proposal editor
+* fix Bug #9368: election interface needs labels for radio buttons/checkboxes
+* fix Bug #9369: email vote hash and vote choice
+* fix Bug #9370: add easy &quot;back&quot; navigation button for voting interface
+* fix Bug #9371: election interface: each page should check whether voting
+                 has already occurred
+* fix Bug #9372: election interface should separate Abstain button visually on page
+* fix Bug #9403: more informative election vote email
+* fix Bug #9404: clarify &quot;retrieve vote&quot;
+* fix Bug #9405: add back button to info.php
+* fix Bug #9476: schema validation error on postinstall script
+* fix Bug #9483: registering for voter account &quot;enter intended purpose&quot;
+* fix Bug #9526: if date is next year, election interface won&apos;t
+                 properly save new election
+* implement Request #7828: PEAR Bug Summary Report
+* implement Request #9118: Added new feature to pepr
+* implement Request #9527: Implement automatic voter registration (arnaud, cellog)
+* completely rework account requests, both to simplify/clarify and to allow
+  for the possibility of having general election accounts with no developer
+  privileges
+* add missing PEPr tables to the MDB2 schema .xml file
+* add list of PEAR books in the support section
+* add bug summary statistics to package homepages, clearly showing
+  packages with little or no attention to bugs</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-12-13</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* hide emails of developers in maps who request it</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.0</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-12-23</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* add statistics for developers&apos; bug activity
+* auto-assign to developer when a developer marks a bug closed
+* adjusted the bugtracker&apos;s database schema to handle developer usernames of up to 20 characters length
+* fix Bug #7246: missing &quot;Need reproduce script&quot; quick fix
+* fix Bug #8082: Developer&apos;s bugs list doesn&apos;t include Feedback status
+* fix Bug #8682: Assigning a bug to a new package doesn&apos;t reset the package version field.
+* fix Bug #8795: Bug ID is given two times in mails
+* fix Bug #9134: Bugtracker suggests PECL bugs
+* fix Bug #9205: URL needs to be escaped in &quot;quick fix&quot; text</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-12-23</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* add statistics for developers&apos; bug activity
+* auto-assign to developer when a developer marks a bug closed
+* adjusted the bugtracker&apos;s database schema to handle developer usernames of up to 20 characters length
+* fix Bug #7246: missing &quot;Need reproduce script&quot; quick fix
+* fix Bug #8082: Developer&apos;s bugs list doesn&apos;t include Feedback status
+* fix Bug #8682: Assigning a bug to a new package doesn&apos;t reset the package version field.
+* fix Bug #8795: Bug ID is given two times in mails
+* fix Bug #9134: Bugtracker suggests PECL bugs
+* fix Bug #9205: URL needs to be escaped in &quot;quick fix&quot; text</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.2</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-12-23</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* fix line spacing in jpgraph_bar.php so statistics graphs will display</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.3</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-12-23</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* fix line spacing in jpgraph_bar.php so statistics graphs will display</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.4</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2006-12-27</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* fix line spacing in jpgraph_bar.php so statistics graphs will display
+* fix Bug #9702: captcha problem</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.5</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-01-05</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>updated install-pear-nozlib.phar/go-pear.phar for PHP 5.2 fixes problems users have encountered</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.6</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-01-06</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>updated install-pear-nozlib.phar/go-pear.phar for PHP 5.2 fixes problems users have encountered
+(32-bit only had problem)</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.7</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-01-23</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Hide PECL packages in the developer profiles.
+* fix #9796: xmlrpc function package.info raised DB error syntax
+* update go-pear for PEAR 1.5.0 release</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.8</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-01-23</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* fix go-pear to work with PEAR 1.5.0</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.0RC1</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-01-31</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* add helpful hints on next package versions to package homepages
+* add vivid warning for packages using package.xml 1.0
+* officially deprecate package.xml 1.0 on the homepage
+* dis-allow uploading of package.xml 1.0-based packages in release-upload.php</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.0RC2</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-02-01</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes># fix next version for 1.0.0RC3 and company
+* add helpful hints on next package versions to package homepages
+* add vivid warning for packages using package.xml 1.0
+* officially deprecate package.xml 1.0 on the homepage
+* dis-allow uploading of package.xml 1.0-based packages in release-upload.php</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.0</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-02-01</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes># fix next version for 1.0.0RC3 and company
+* add helpful hints on next package versions to package homepages
+* add vivid warning for packages using package.xml 1.0
+* officially deprecate package.xml 1.0 on the homepage
+* dis-allow uploading of package.xml 1.0-based packages in release-upload.php
+* up PEAR and Archive_Tar dependencies</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.1</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-02-01</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* fix unneeded require, fatal error</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.2</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-02-02</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* fix Bug #9974: BBCode dependency
+* fix Bug #10014: package2.xml is never used</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.3</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-02-02</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* fix Bug #10009: Two errors on developer map
+* do not generate API docs for the pearweb package</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.4</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-02-06</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* fix Bug #10038: PHP License = PHP License 3.01, or latest license</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2.5</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-02-09</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* add PHP 5.2.1 to the list of versions
+* fix Bug #10039: Bug suggestions return duplicate and incorrect bug titles
+* fix Bug #10040: Download page shows &lt;conflicts/&gt; deps as &quot;dependencies&quot;
+* fix Bug #9603: deprecated packages should use channel/package</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.0</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-02-10</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* remove the phars, release as package pearweb_phars</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.0</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-02-12</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* fix email headers for auto-generated mails
+* fix Bug #9165: Category dropdown in New Package should indent subcategories
+* fix implementation of Request #7828 (now Bug #7828): PEAR Bug Summary Report
+* implement Request #9543: Change the bug summary, add total</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.1</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-02-12</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* don&apos;t generate docs for pearweb_phars package
+* remove unneeded headers from Damblan_Mailer templates</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.2</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-02-17</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* another attempt to stop spamming pear-sys</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.5.0RC1</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-02-17</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* implement initial roadmap support for packages</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.5.0</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-02-19</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* implement initial roadmap support for packages
+* fix potential fatal error in package editing while updating REST
+* fix pearweb.php run-scripts
+* fix mdb2 schema xml
+* fix Bug #1467: Two E-mails are sent when the proposer comments on his own PEPr
+* fix Bug #10115: if you don&apos;t maintain a bug, and are assigned, no update emails</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.5.1</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-02-19</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* roadmap description not being set on creation
+* wrong parameter order for in_array() caused fatal error on assigning bugs to a roadmap</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.5.2</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-02-20</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* fix Bug #10133: foreach() error when closing PEAR bug</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.6.0</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-02-21</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* fix Bug #10133: foreach() error when closing PEAR bug
+* enhance roadmap functionality - make it much easier to add/remove bugs from a roadmap</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.6.1</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-02-21</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* add needed authorization for roadmap modification ease form</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.6.2</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-02-21</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* add list of closed bugs since last release</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.6.3</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-02-22</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* hide old elections
+* fix election creation interface date validation
+* fix display of election detail</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.6.4</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-02-22</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* hide old elections
+* fix election creation interface date validation
+* fix display of election detail</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.7.0</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-02-22</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* add note about PEAR structure election on front page</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.7.1</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-02-23</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* hide bug/feature detail by default in roadmap
+* re-order PHP versions so that 5.x is first, remove old CVS tags, add HEAD</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.8.0</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-02-24</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* hide bug/feature detail by default in roadmap [cellog]
+* re-order PHP versions so that 5.x is first, remove old CVS tags, add HEAD [cellog]
+* implement REST1.2 (maintainer role information in p/maintainers2.xml)
+* Fixed bug #9127 extending make_ticket_links() matched words [mj]</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.9.0</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-03-04</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* fix release upload: don&apos;t let custom non-pear built packages with no package.xml
+  in root dir slip through the cracks
+* fix .xsd for REST1.2
+* fix Bug #10183: roadmap link to bug tracker needs &amp;cmd=display
+* fix Bug #10212: if multiple roadmaps exist, assigning bugs to one
+  may overwrite the other
+* implement Request #9973: Add a &quot;developing with PEAR effectively&quot;
+  document to the site
+* implement Request #10150: Allow &quot;future&quot; roadmap versions
+* implement Request #10176: patch tracker for bugs
+* implement Request #10179: implement package.xml generation with auto-changelog
+  from roadmap
+* implement Request #10180: require account to open/edit bugs,
+  use auto-email verification like pear.voter
+* implement Request #10197: add PHP version and API version to release REST</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.9.1</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-03-05</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* fix Bug #10267: Wrong link to user profile [quipo]
+* fix Bug #10271: passwords are double-MD5()ed [cellog]</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.9.2</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-03-05</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Fix Bug #10263: old roadmaps not hidden upon release [cellog]
+* Fix Bug #10268: Incorrect vote retrieval link [cellog]
+* Fix Bug #10270: roadmap versions should be sorted by release date [cellog]</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.9.3</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-03-05</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Fix patch tracker developer naming</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.9.4</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-03-05</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Implement *much* better popular packages algorithm: only
+  count downloads per day for the current month.  This gives
+  newer packages a fighting chance to be popular :)</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.9.5</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-03-07</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Fix Bug #10293: &quot;Comment by:&quot; is emtpy in bug emails [cellog]
+* Fix Bug #10294: problems with &quot;voting-only&quot;-account [cellog]
+* Fix Bug #10301: no easy way to edit old bugs submitted [cellog]</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.9.6</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-03-07</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Fix Bug #10293: &quot;Comment by:&quot; is emtpy in bug emails [cellog]
+* Fix Bug #10294: problems with &quot;voting-only&quot;-account [cellog]
+* Fix Bug #10301: no easy way to edit old bugs submitted [cellog]</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.10.0</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-03-07</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Implement Request #10302: password reset form for pear.dev accounts</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.10.1</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-03-12</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Fix Bug #10307: Feature #1234 texts don&apos;t become links [davidc]
+* Fix Bug #10309: Badly formed XML schema [davidc]
+* Fix Bug #10318: Don&apos;t send remainders for Spam bugs [mj]
+* Fix Bug #10319: Wrong ID in links for Documentation bugs [mj]
+* Fix Bug #10321: Separate patches from comments in the bug report page [mj]
+* Fix Bug #10323: HTML special characters not escaped in patch output [mj]
+* Fix Bug #10324: Unescaped values on invalid bugs [davidc]
+* Fix Bug #10328: no verification sent for new users who comment on bugs [cellog]
+* Fix Bug #10331: no log-in needed until after the bug is reported/comment is added [cellog]
+* Fix Bug #10334: edit=2 should shunt to edit=1 for newer bugs [cellog]
+* Implement Feature #9214: Patch to add &quot;Users&quot; category on main page [davidc]
+* Implement Feature #10035: No trackback notifications for in active developers [davidc]
+* Implement Feature #10320: Allow numbers in patch name [mj]
+* Implement Feature #10322: Explain allowed chars in patch name [mj]
+* Implement Feature #10329: add &quot;resend account confirmation&quot; link for unconfirmed account bugs [cellog]</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.10.2</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-03-12</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Fix Bug #10332: in bug.php, roadmaps randomly ordered [cellog]
+* Fix Bug #10344: don&apos;t send out bug emails until accounts are confirmed [cellog]
+* Fix Bug #10345: if logged in, email address is asked for [cellog]</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.10.3</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-03-13</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Fix Bug #10360: trackbacks for non-existent packages allowed [cellog]
+* Fix Bug #10361: emails still bounce to pear-sys@php.net [timj]
+* Implement Feature #10322: Explain allowed chars in patch name [mj]
+* Implement Feature #10351: Don&apos;t show edit/delete links in roadmap view [mj]</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.10.4</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-03-22</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Fix Bug #9999: release is a reserved work in mysql 5 [saltybeagle]
+* Fix Bug #10445: election edit does not allow changing choices [cellog]
+* Fix Bug #10446: election choices not shown if the election has not yet happened [cellog]
+* Fix Bug #10455: multiple bug account requests with the same email [cellog]
+* Implement Feature #10078: add user notes to manual [davidc]
+* Implement Feature #10330: allow users to log in using their email address as well as handle [cellog]
+* Implement Feature #10355: notification emails when patches are attached/modified [davidc]
+* Implement Feature #10356: notification emails when roadmap has bugs assigned/removed [cellog]
+* Implement Feature #10357: Allow dots in patch name [quipo]
+* Implement Feature #10362: fade roadmap versions already released in bug edit [cellog]
+Also, fix fatal error in some cases if user is not pear.dev karma user</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.11.0</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-03-23</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Fix Bug #9999: release is a reserved work in mysql 5 [saltybeagle]
+* Fix Bug #10445: election edit does not allow changing choices [cellog]
+* Fix Bug #10446: election choices not shown if the election has not yet happened [cellog]
+* Fix Bug #10455: multiple bug account requests with the same email [cellog]
+* Implement Feature #10078: add user notes to manual [davidc]
+* Implement Feature #10330: allow users to log in using their email address as well as handle [cellog]
+* Implement Feature #10355: notification emails when patches are attached/modified [davidc]
+* Implement Feature #10356: notification emails when roadmap has bugs assigned/removed [cellog]
+* Implement Feature #10357: Allow dots in patch name [quipo]
+* Implement Feature #10362: fade roadmap versions already released in bug edit [cellog]
+Also, fix fatal error in some cases if user is not pear.dev karma user</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.11.1</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-03-24</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Fix Bug #10468: user notes approval page needs links back to comments [davidc]
+* Fix Bug #10470: timestamp is displayed as 1969 for all notes [cellog]
+* Implement Feature #10463: Moving a comment to pending [davidc]
+* Implement Feature #10464: display assigned roadmap versions in non-edit [davidc]
+* Implement Feature #10477: onload focus [davidc]</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.11.2</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-03-25</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Fix Bug #10482: PHP4 obsolete package [davidc]
+* Fix Bug #10486: Opera centers text in the new notes section of the manual [davidc]
+* Implement Feature #10480: split channel.xml into its own package [cellog]
+* Implement Feature #10481: Adding link to manage notes in the developer menu [davidc]</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.11.3</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-03-27</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Fix Bug #10470: timestamp is displayed as 1969 for all notes [cellog]
+* Fix Bug #10484: Bug edit form has gotten &amp;quot;ugly&amp;quot; [cellog]
+* Fix Bug #10487: Package description is almost empty [cellog]
+* Fix Bug #10498: extra symbols are appended to patches [cellog]
+* Fix Bug #10523: Bug tracker emails need validation to prevent ,another@example.com [cellog]</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.12.0</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-04-05</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Fix Bug #10479: Approving a bug accont to a developer account doesn&apos;t show the right
+  notes [cellog]
+* Fix Bug #10485: Difference between &quot;Notes&quot; and &quot;User comments&quot; [davidc]
+* Fix Bug #10504: MySQL 5 and DEFAULT value for INT columns [davidc]
+* Fix Bug #10514: Pending manual notes are shown on every page [cellog]
+* Fix Bug #10528: Wrongly formatted packageinfo.xml [cellog]
+* Fix Bug #10540: obfuscated emails [davidc]
+* Fix Bug #10576: Wrong time format for patches [davidc]
+* Fix Bug #10577: roadmap.php warning (server is no display_error=off ??? [cellog]
+* Fix Bug #10587: release version validation does not catch bad versions [cellog]
+* Fix Bug #10622: use \z instead of $ in regexes [cellog]
+* Implement Feature #10370: attaching patch with initial bug-report [cellog]
+* Implement Feature #10462: add tags to packages in order to define subgroups [cellog]
+* Implement Feature #10492: Patch obsoletes previous one [cellog]
+* Implement Feature #10519: Jump to notes page from notes manager [cellog]
+* Implement Feature #10526: anonymous patch registration like bug tracker registration [cellog]
+* Implement Feature #10582: shunt Bug System/Website/PEPr bugs to pearweb package [cellog]</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.12.1</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-04-09</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Fix Bug #10644: Add patch when creating bug fails [cellog]
+* Fix Bug #10658: Error when removing all bugs from a roadmap [davidc]</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.13.0</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-04-21</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Fix Bug #10563: search bugs for current package [cellog]
+* Fix Bug #10683: &quot;This package been superseded&quot; problem [cweiske]
+* Fix Bug #10694: RC releases not accepted when uploading new release [cipri]
+* Fix Bug #10706: popular.rss feed broken [cellog]
+* Fix Bug #10710: errors/glitches confirming account [cellog]
+* Fix Bug #10756: Can&apos;t upload patch [cellog]
+* Implement Feature #10359: Developer bugfix stats for last month [cellog]
+* Implement Feature #10368: Bug reporting stats [cellog]</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.14.0</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-04-24</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Fix Bug #10725: bug date/time values inconsistent [dufuz]
+* Fix Bug #10773: email is not validated for bug comments [cellog]
+* Fix Bug #10802: Opening up the detailed roadmap doesn&apos;t jump down to the proper anchor [dufuz]
+* Fix Bug #10831: Election Interface Bug [davidc]
+* Fix Bug #10832: Election election id is not checked [davidc]
+* Implement Feature #6829: Full involved bugs information in personal menu [cellog]
+* Implement Feature #10668: Assign roadmap version at bug entry time [dufuz]
+* Implement Feature #10724: show closed bugs since last release [dufuz]
+* Implement Feature #10764: strike-through obsolete patches [dufuz]
+* Implement Feature #10766: highlight own name on bug stats page [dufuz]
+* Implement Feature #10798: Split up the pear-database file [dufuz]
+* Implement Feature #10801: Links to packages homepage in the search view [dufuz]
+* Implement Feature #10818: add Igor&apos;s slides [davidc]
+* Implement Feature #10824: Missing link to elections [davidc]
+* Implement Feature #10826: Missing &quot;select all&quot; notes [davidc]</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.14.1</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-05-04</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Fixed Bug #10841 warnings raised on public_html/bugs/stats.php [dufuz]
+* Request #10849 Remove DB_Storage [dufuz]</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.15.0</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-05-04</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Fix Bug #9589: Link input field on requestform too short [cellog]
+* Fix Bug #10709: Can not reset my password [cellog]
+* Fix Bug #10731: &amp;quot;Doc Bug&amp;quot; doesn&amp;apos;t appear on Roadmap [davidc]
+* Fix Bug #10841: warnings raised on public_html/bugs/stats.php [dufuz]
+* Fix Bug #10855: &amp;quot;Fixed Since Version...&amp;quot; a misnomer [davidc]
+* Fix Bug #10863: &amp;quot;Doc #&amp;quot; not hyperlink in Changelog View [davidc]
+* Fix Bug #10868: User note link pointing to nowhere [cellog]
+* Fix Bug #10872: &amp;quot;New search&amp;quot; link in bug tracker does not work [dufuz]
+* Fix Bug #10874: roadmap generated package.xml contains info from previous package.xml [cellog]
+* Fix Bug #10876: The handle part in My Bugs url collieds with author_email [dufuz]
+* Fix Bug #10880: Registration Link Broken [cellog]
+* Fix Bug #10907: SECURITY: login.php redirects to any URL [cellog]
+* Fix Bug #10908: improper fix of XSS in bug tracker [cellog]
+* Implement Feature #10512: side-by-side diff of patch revisions [cellog]
+* Implement Feature #10561: Open bug stats include bugs with unconfirmed identities [cellog]
+* Implement Feature #10562: Mark complete user as inactive [cellog]
+* Implement Feature #10829: Enhance Patch Upload process [cellog]
+* Implement Feature #10849: Remove DB_Storage [dufuz]</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.15.1</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-05-07</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Add Security announcement
+http://pear.php.net/advisory-20070507.txt
+* Fix Bug #10856: proposal stays in voting phase [mj]
+* Fix Bug #10885: Milestones not saved when submitting a bug [cellog]
+* Fix Bug #10898: Broken link from /news [bjori]
+* Fix Bug #10902: Unable to view elections (not logged in) [cellog]
+* Fix Bug #10927: Typo in pearweb_mdb2schema.xml [wiesemann]
+* Fix Bug #10928: Notices generated in bug tracker [cellog]
+* Fix Bug #10929: Non-Dev Comments Cause Bug to Unassign Dev/Roadmap [cellog]
+* Fix Bug #10932: Admin package maintainers error [davidc]
+* Fix Bug #10933: Patch diff view shows warnings [cellog]
+* Fix Bug #10948: Unclosed tags in bug tracker [wiesemann]
+* Fix Bug #10950: Fix for #10908 removed &quot;CVS&quot; package version selection for new bugs [cellog]
+* Fix Bug #10957: dufuz broke voter account registration [cellog]
+* Fix Bug #10958: &quot;Old patches&quot; list does not UTC [mj]
+* Fix Bug #10959: context is not htmlspecialchar()ed in patch diff [cellog]
+* Fix Bug #10960: registration fails for voter [cellog]
+* Implement Feature #8808: RSS feed for bug system [cellog]
+* Implement Feature #10624: Generated package.xml mis-orders releases. [cellog]</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.15.2</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-05-08</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Add Security announcement
+http://pear.php.net/advisory-20070507.txt
+* Fix Bug #10856: proposal stays in voting phase [mj]
+* Fix Bug #10885: Milestones not saved when submitting a bug [cellog]
+* Fix Bug #10898: Broken link from /news [bjori]
+* Fix Bug #10902: Unable to view elections (not logged in) [cellog]
+* Fix Bug #10927: Typo in pearweb_mdb2schema.xml [wiesemann]
+* Fix Bug #10928: Notices generated in bug tracker [cellog]
+* Fix Bug #10929: Non-Dev Comments Cause Bug to Unassign Dev/Roadmap [cellog]
+* Fix Bug #10932: Admin package maintainers error [davidc]
+* Fix Bug #10933: Patch diff view shows warnings [cellog]
+* Fix Bug #10948: Unclosed tags in bug tracker [wiesemann]
+* Fix Bug #10950: Fix for #10908 removed &quot;CVS&quot; package version selection for new bugs [cellog]
+* Fix Bug #10957: dufuz broke voter account registration [cellog]
+* Fix Bug #10958: &quot;Old patches&quot; list does not UTC [mj]
+* Fix Bug #10959: context is not htmlspecialchar()ed in patch diff [cellog]
+* Fix Bug #10960: registration fails for voter [cellog]
+* Implement Feature #8808: RSS feed for bug system [cellog]
+* Implement Feature #10624: Generated package.xml mis-orders releases. [cellog]
+* Added developer implemented feature using Net_URL and now is correctly using Net_URL2 [davidc]</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.16.0</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-06-01</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Fix Bug #10660: go-pear won&apos;t install with PHP 4.4.4 [cellog]
+* Fix Bug #10877: Post install script results in a syntax error in httpd.conf [wiesemann]
+* Fix Bug #10906: Bug tracker escapes too much [cellog]
+* Fix Bug #10985: Showing panes where user has no rights [wiesemann]
+* Fix Bug #10991: Bug RSS feed contains duplicated square brackets [wiesemann]
+* Fix Bug #11007: Can&apos;t repropose rejected package [cellog]
+* Fix Bug #11016: Fixes for manual user notes [wiesemann]
+* Fix Bug #11018: Misleading column name in bugs stats [wiesemann]
+* Fix Bug #11024: Wrong copyright [davidc]
+* Fix Bug #11043: Too short lines in bug tracker [wiesemann]
+* Fix Bug #11062: Fatal error on package creation [wiesemann]
+* Fix Bug #11072: Account request form doesn&apos;t make clear that it requires usernames in
+  lowercase [wiesemann]
+* Fix Bug #11078: Release upload form: RC error message is wrong if state is alpha [wiesemann]
+* Fix Bug #11126: patch tracker email never sent when patch attached with initial bug
+  report [cellog]
+* Fix Bug #11134: patch error when CVS diff: creates empty patch [cellog]
+* Fix Bug #11146: account opening causes critical error [cellog]
+* Implement Feature #9555: Add list with mirrors [cellog]
+* Implement Feature #10539: Ability to transform doc notes into Documentation bugs [davidc]
+Split off index-updated files into pearweb_index package</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.16.1</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-06-24</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Fix Bug #11180 User note&apos;s timestamp is updated on approval [dufuz]
+* Fix Bug #11192 Bug comments create wrong links to other bugs+
+               Now a bug link has to have # to be valid and thus parsed [dufuz]
+* Fix Bug #11194 source code input on account creation [dufuz]
+* Fix Bug #11199  	&quot;New search&quot; does not select current package [cellog]
+* Fix Bug #11200 Add html anchors for letters in proposal list [dufuz]
+* Fix Bug #11201 RFCs miss text [dufuz / justinpatrin]
+* Fix Bug #11223 User info page lists unapproved packages[wiesemann]
+* Fix Bug #11240 can&apos;t submit patch (wrong mimetype reported)[wiesemann]
+* Fix Bug #11242 Constraint violation when requesting an account for voting [wiesemann]
+* Fix Bug #11259 cannot show bug detail on [html_progress2] roadmap [dufuz]
+* Fix Bug #11267 Pecl account requests are shown in pearweb admin ui and via versa [dufuz]
+* Fix Bug #11268 success/warning/error messages don&apos;t stay consistent enough [dufuz]
+* Fix Bug #11269 Roadmap only calcs bugs marked as Closed as finished [dufuz]
+* Fix Bug #11327 allreleases2.xml is not updated on release [cellog]
+* Fix Bug #11349 Net_URL2 isn&apos;t listed as a dependency [dufuz]
+* Fix Bug #11397 Roadmap: new entry on generated package.xml&apos;s changelog has wrong(new) version [dufuz]
+* Request #11249 unit tests for index.php and login.php [cellog]
+* Request #11272 release-upload.php needs unit tests [cellog]
+* Request #11273 account-request.php needs unit tests [dufuz]
+* Request #11274 account-request-vote.php needs unit tests [dufuz]
+* Request #11275 account-request-confirm.php needs unit tests [dufuz]
+* Request #11276 public_html/get needs unit tests [cellog]
+* Request #11339 account-request-newpackage.php needs unit tests [dufuz]
+* Request #11340 account-request-existingpackage.php needs unit tests [dufuz]</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.16.2</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-07-29</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Request #11109 Restyle the warning message css [dufuz]
+* Request #11362 Get rid of captcha for pear.dev when sending mail to user via webform [dufuz]
+* Request #11436 split go-pear in its own package [dufuz]
+* Request #10539 Transform note into documentation bugs [davidc]
+* Request #11086 Tabs and Whitespace mixing in assorted file [dufuz]
+* Request #11094 Users table to include long/lat on creation [dufuz]
+* Request #11109 Restyle warning message css [dufuz]
+* Request #11270 Replace all image captcha with math ones [dufuz]
+* Request #11362 Get rid of captcha for pear.dev when sending mail to users via the web form. [dufuz]
+* Request #11436 Split go-pear into its own package [dufuz]
+* Fix Bug #11418 Undefined index REDIRECT_URL fixes [davidc]
+* Fix Bug #11423 Comments from unconfirmed identities are shown when submitting a similar bug [davidc]
+* Fix Bug #11441 Package releases not available
+* Fix Bug #11498 User note to bug converter [davidc]
+* Fix Bug #11534 API docs missing for some packages [mj]
+* Fix Bug #11570 Browse the source tree link broken [davidc]
+* Fix Bug #11669 Open bugs reporting error [Duplicate]
+* Fix Bug #11672 Email  failure notice [Duplicate]
+* Fix Bug #11680 Wrong Bug Count [davidc]
+* Fix Bug #11094 users table should include longitude, latitude on creation [dufuz]</notes>
+  </release>
+  <release>
+   <version>
+    <release>1.17.0</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2008-01-03</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Fix Bug #9476: schema validation error on postinstall script [dufuz]
+* Fix Bug #11094: users table should include longitude, latitude on creation [dufuz]
+* Fix Bug #11295: Fixed in CVS does not mark a bug as closed [dufuz]
+* Fix Bug #11308: Bug tracker: no feedback after (un)subscribing [cellog]
+* Fix Bug #11382: Tell registering users they need to provide &amp;quot;Firstname Lastname&amp;quot; [dufuz]
+* Fix Bug #11412: Incorrect Package Statistics for Category [dufuz]
+* Fix Bug #11421: Developers should be able to read unconfirmed bugcomments [dufuz]
+* Fix Bug #11422: &amp;quot;Status: Open | Feedback | All&amp;quot; header not displayed when no bugs are
+  found [wiesemann]
+* Fix Bug #11441: Package releases not available [cellog]
+* Fix Bug #11456: Admin page account overview [cellog]
+* Fix Bug #11497: RSS feed description field should contain breaks [dufuz]
+* Fix Bug #11502: Uploading patch doesn&amp;apos;t work [cellog]
+* Fix Bug #11638: Link to Bug Tracker on User Note Entry Screen fails [dufuz]
+* Fix Bug #11759: Manual: Note form loses page URL [cellog]
+* Fix Bug #11760: Bug tracker: summary is shown twice [wiesemann]
+* Fix Bug #11180  User note&apos;s timestamp is updated on approval [cellog]
+* Fix Bug #11804: Forgotten Password Field for mailaddress too short [cellog]
+* Fix Bug #12004: Roadmap lacks error handling in case of duplicate roadmap versions [dufuz]
+* Fix Bug #12021: Inconsistent bug tracker behaviour [dufuz]
+* Fix Bug #12237: Patch upload doesn&amp;apos;t work during ticket creation [dufuz]
+* Fix Bug #12296: 17k patch won&amp;apos;t upload - described limit is 20k but actual is 10k. [dufuz]
+* Fix Bug #12467: adding 5.2.5 to the PHP version select box [wiesemann]
+* Fix Bug #12470: don&amp;apos;t list non-developers [dufuz]
+* Fix Bug #12502: Bug tracker: &amp;quot;Add Comment&amp;quot; tab not always visible [dufuz]
+* Fix Bug #12526: Last updated on bottom of each page [dufuz]
+* Fix Bug #12718: Unnecessary space in package list on account info page [wiesemann]
+* Fix Bug #12728: Undefined variable error in notes system [wiesemann]
+* Implement Feature #3085: Link to package page from finished proposals [dufuz]
+* Implement Feature #10800: Copy closed tickets since last release into a new roadmap [dufuz]
+* Implement Feature #10900: link developer maps from pearweb [cweiske]
+* Implement Feature #10943: Remove verification screen for developers [dufuz]
+* Implement Feature #11086: tabs &amp;amp; whitespace mixing in assorted files [dufuz]
+* Implement Feature #11109: Restyle the warning message css [dufuz]
+* Implement Feature #11118: List of PEAR packages should not show deprecated packages [dufuz]
+* Implement Feature #11270: Replace all image CAPTCHA with math one [dufuz]
+* Implement Feature #11362: Get rid of captcha for pear.dev when sending mail to user via webform [dufuz]
+* Implement Feature #11436: split go-pear in its own package [dufuz]
+* Implement Feature #11450: When showing bugs by user handle, hide those [quipo]
+* Implement Feature #11530: bug reports should have a panel/div explaining the colour coding [dufuz]
+* Implement Feature #11851: Assigned bugs that are not maintained by developer made visable on
+  info page [dufuz]
+* Implement Feature #11985: Developer map rest link should be application/rdf+xml [davidc]
+* Implement Feature #12013: package name is shown in bug list even you select only one package [dufuz]
+* Implement Feature #12472: choose a sensible font size [dufuz]
+* Implement Feature #12591: Removing all code dealing with DES passwords [dufuz]
+* Implement Feature #12623: Removal of the xmlrpc gateway [dufuz]
+* Implement Feature #12631: Ditch the builtin HTML_Menu class for upstream one [dufuz]
+* Implement Feature #12632: Use the new file roles added in PEAR 1.7.0 [dufuz]
+* Implement Feature #12646: Package: field should link to the package home page [dufuz]
+* Implement Feature #12691: New presentation slide [ifeghali]
+* Implement Feature #12721: Show dependent packages in alphabetic order on package info page [wiesemann]
+* Implement Feature #12724: Cron job for fetching PHP versions into the bug tracker version
+  dropdown list [dufuz]
+* Implement Feature #12786: Redesign of the menu system [dufuz]
+* Implement Feature #12787: YUI Reset CSS to unify the site more properly between A grade browsers [dufuz]
+* Implement Feature #12788: Make the layout fluid via Divs where it make sense [dufuz]
+* Implement Feature #12789: Move the developer bugs stats into it&amp;apos;s own file [dufuz]</notes>
+  </release>
+ </changelog>
+</package>

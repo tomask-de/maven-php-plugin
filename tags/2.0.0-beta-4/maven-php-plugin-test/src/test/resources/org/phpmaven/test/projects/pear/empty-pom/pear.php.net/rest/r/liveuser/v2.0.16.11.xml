@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release2
+    http://pear.php.net/dtd/rest.release2.xsd">
+ <p xlink:href="/rest/p/liveuser">LiveUser</p>
+ <c>pear.php.net</c>
+ <v>0.16.11</v>
+ <a>0.16.11</a>
+ <mp>4.3.0</mp>
+ <st>beta</st>
+ <l>LGPL</l>
+ <m>lsmith</m>
+ <s>User authentication and permission management framework</s>
+ <d>LiveUser is a set of classes for dealing with user authentication
+  and permission management. Basically, there are three main elements that
+  make up this package:
+
+  * The LiveUser class
+  * The Auth containers
+  * The Perm containers
+
+  The LiveUser class takes care of the login process and can be configured
+  to use a certain permission container and one or more different auth containers.
+  That means, you can have your users' data scattered amongst many data containers
+  and have the LiveUser class try each defined container until the user is found.
+  For example, you can have all website users who can apply for a new account online
+  on the webserver's local database. Also, you want to enable all your company's
+  employees to login to the site without the need to create new accounts for all of
+  them. To achieve that, a second container can be defined to be used by the LiveUser class.
+
+  You can also define a permission container of your choice that will manage the rights for
+  each user. Depending on the container, you can implement any kind of permission schemes
+  for your application while having one consistent API.
+
+  Using different permission and auth containers, it's easily possible to integrate
+  newly written applications with older ones that have their own ways of storing permissions
+  and user data. Just make a new container type and you're ready to go!
+
+  Currently available are containers using:
+  PEAR::DB, PEAR::MDB, PEAR::MDB2, PECL::PDO, PEAR::XML_Tree, PEAR::Auth, Session.
+ 
+</d>
+ <da>2006-04-19 04:44:56</da>
+ <n>- parse error typo fix in PEARAuth container (bug #6968)
+- minor improvements to the phpdoc comments in PEARAuth container
+- use ugly fopen() hack in fileExists()
+  http://marc.theaimsgroup.com/?l=pear-dev&amp;m=114148949106207&amp;w=2
+- changed API for readuserData(), auth_user_id parameter now contains the
+  auth_user_id to use
+- login() now supports passing in an auth_user_id instead of the handle/password
+- made stack property public
+- typo fix in PDO container readImplyingRights() method (bug #7195)
+- expanded error handling in Log instance creation
+- handle if no proper credentials where passed to readUserData() (bug #7262)
+- replace isset() with array_key_exists() where applicable
+- disable __autoload() in class_exists() calls (bug #7304)
+- brought property names in line s/rights/right_ids *BC break*
+- MDB2_Schema 0.5 and MDB2 2.0.1 handles nulls in schema files properly so
+  there is no need to disable MDB2_PORTABILITY_EMPTY_TO_NULL in the installer</n>
+ <f>76510</f>
+ <g>http://pear.php.net/get/LiveUser-0.16.11</g>
+ <x xlink:href="package.0.16.11.xml"/>
+</r>

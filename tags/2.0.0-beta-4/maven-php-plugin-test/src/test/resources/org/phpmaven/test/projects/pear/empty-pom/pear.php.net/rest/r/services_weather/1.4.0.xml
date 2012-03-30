@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/services_weather">Services_Weather</p>
+ <c>pear.php.net</c>
+ <v>1.4.0</v>
+ <st>stable</st>
+ <l>BSD License</l>
+ <m>eru</m>
+ <s>This class acts as an interface to various online weather-services.</s>
+ <d>Services_Weather searches for given locations and retrieves current
+        weather data and, dependent on the used service, also forecasts. Up to
+        now, GlobalWeather from CapeScience, Weather XML from EJSE (US only),
+        a XOAP service from Weather.com and METAR/TAF from NOAA are supported.
+        Further services will get included, if they become available, have a
+        usable API and are properly documented.</d>
+ <da>2006-03-08 07:55:04</da>
+ <n>o Changed license to BSD
+o Added package2.xml for PEAR 1.4 compatibility
+o Changed header-style as proposed in RFC::Header Comment Blocks
+- Weather.php
+    o Fixed wrong cache-time for locations (Seth Price)
+- Common.php
+    o Added function to calculate sunrise and sunset (taken from the example file php_sunrise_sunset.php) (Seth Price)
+    o Added function for determining a weather icon for current conditions (Seth Price)
+- Metar.php
+    o Fixed ignoring $useFirst in searchLocation return
+    o Added icon for current conditions (Seth Price)
+    o Added using HTTP_Request or Net_FTP for retrieving the data
+    o Fixed location searching for certain cases (Christophe Messager)
+    o Added parsing of australian FM notation in TAF (Murray)
+    o Added error-checking for faulty locations in getWeather/getForecast (Jay Kramer)
+    o Added raw METAR/TAF-data to return array (Jay Kramer)
+    o Fixed improper parsing of fractional visibility data (Dave Parsons: Bug #4929)
+    o Fixed missing quotation of SQL search (hh at fsck dot dk: Bug #6652)
+    o Fixed rejection of valid ICAO codes by _checkLocationID (Seth Price: Bug #6781)
+- Weatherdotcom.php
+    o Added caching of location searches (Seth Price)
+    o Changed searching for location to incorporate HTTP_Request, so that we can use a timeout
+    o Added mechanism for pre-fetching of server data (Seth Price)
+- Weather.php, Common.php, Ejse.php, Globalweather.php, Weatherdotcom.php
+    o Added mechanism for using a proxy in HTTP_Request (Michael Metz)
+- Ejse.php, Globalweather.php
+    o Changed retrieval of SOAP data to avoid delays on cached items (Plix)
+- Globalweather.php, Metar.php
+    o Add sunrise/sunset information, based on the new function in Common.php (Seth Price)
+- metar-extensive.php
+    o Added icon for current condition
+- weather.com-extensive.php
+    o Fixed bug in handling of non-standard condition-icons delivered by Weather.com (J.P. van Oyen)
+    o Fixed bug in display of wind direction in forecast</n>
+ <f>54183</f>
+ <g>http://pear.php.net/get/Services_Weather-1.4.0</g>
+ <x xlink:href="package.1.4.0.xml"/>
+</r>

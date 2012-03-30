@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/auth">Auth</p>
+ <c>pear.php.net</c>
+ <v>1.4.0</v>
+ <st>stable</st>
+ <l>PHP License</l>
+ <m>aashley</m>
+ <s>Creating an authentication system.</s>
+ <d>The PEAR::Auth package provides methods for creating an authentication
+system using PHP.
+
+Currently it supports the following storage containers to read/write
+the login data:
+
+* All databases supported by the PEAR database layer
+* All databases supported by the MDB database layer
+* All databases supported by the MDB2 database layer
+* Plaintext files
+* LDAP servers
+* POP3 servers
+* IMAP servers
+* vpopmail accounts
+* RADIUS
+* SAMBA password files
+* SOAP (Using either PEAR SOAP package or PHP5 SOAP extension)
+* PEAR website
+* Kerberos V servers
+* SAP servers</d>
+ <da>2006-10-19 21:42:47</da>
+ <n>* Added new SOAP container that makes use of the PHP5 SOAP Client. Thanks to
+  Marcel Oelke &lt;puRe at rednoize dot com&gt;. Fixes #2612.
+* Added support for trying all the user accounts returned from an LDAP server
+  not just the first one so as to support authenticating against Lotus Notes
+  which allows identical usernames where the only difference is the password.
+  Fixes #5365.
+* Added new Array container for simple authentication setups where it's easier
+  to list users in the file than setup some sort of backend. Thanks to 
+  georg_1 at have2 dot com. Fixes #5832.
+* Added KADM5 container that makes use of the PECL kadm5 extension to 
+  authenticate against Kerberos 5 servers. Thanks to Andrew Teixeira 
+  &lt;ateixeira at gmail dot com&gt;. Fixes #6671.
+* Fixed #8597. Remove references to $GLOBALS['HTTP_*_VARS'] now that we require
+  PHP 4.3.3+ for other reasons.
+* Added SAP container that makes use of the SAPRFC extension available from
+  http://saprfc.sourceforge.net/. Thanks to Stoyan Stefanov &lt;ssttoo at gmail dot com&gt;.
+  Fixes #8637.
+* Fix #8599. Allow identifier quoting in DB, DBLite, MDB and MDB2 backends to 
+  be switched off by developer.
+* Fix Bug #8732: Auth_Container_DB having problems with SQLite databases.
+  SQLite returns the name of quoted field names including the quotes instead
+  of stripping the quotes like all other DBs.
+* Fix Bug #8735: Auth_Container_File::addUser() working on different instances
+  of File_Passwrd object.</n>
+ <f>52830</f>
+ <g>http://pear.php.net/get/Auth-1.4.0</g>
+ <x xlink:href="package.1.4.0.xml"/>
+</r>

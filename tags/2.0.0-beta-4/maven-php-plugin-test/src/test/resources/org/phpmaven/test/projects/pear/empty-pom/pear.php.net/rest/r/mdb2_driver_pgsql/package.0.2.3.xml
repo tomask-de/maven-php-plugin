@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.6">
+ <name>MDB2_Driver_pgsql</name>
+ <summary>pgsql MDB2 driver</summary>
+ <description>This is the PostGreSQL MDB2 driver.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>lsmith</user>
+   <name>Lukas Kahwe Smith</name>
+   <email>smith@pooteeweet.org</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>0.2.3</version>
+  <date>2006-01-13</date>
+  <license>BSD License</license>
+  <state>beta</state>
+  <notes>- explicitly pass if the module is phptype specific in all loadModule calls (bug #6226)
+- fixed signature of executeStoredProc()
+- typo fixes in error handling of nextResult() and numRows() calls
+- _fixIndexName() now just attempts to remove possible formatting
+- renamed _isSequenceName() to _fixSequenceName()
+- _fixSequenceName() now just attempts to remove possible formatting, and only
+  returns a boolean if no formatting was applied when the new &quot;check&quot; parameter is set to true
+- fixed bug that caused unique indexes from not being seen (bug #6476)
+
+open todo items:
+- considering migrating away from OID&apos;s to bytea, since this is encourage
+  since version 8 and is also what PDO expects, however there is no streaming
+  API for bytea columns .. this needs to be done using manually chunked reads/writes
+  </notes>
+  <deps>
+   <dep type="php" rel="ge" version="4.3.0" optional="no"/>
+   <dep type="pkg" rel="ge" version="1.0b1" optional="no">PEAR</dep>
+   <dep type="pkg" rel="ge" version="2.0.0RC4" optional="no">MDB2</dep>
+   <dep type="ext" rel="has" optional="no">pgsql</dep>
+  </deps>
+  <provides type="class" name="MDB2_Driver_Datatype_pgsql" extends="MDB2_Driver_Datatype_Common" />
+  <provides type="function" name="MDB2_Driver_Datatype_pgsql::convertResult" />
+  <provides type="function" name="MDB2_Driver_Datatype_pgsql::getTypeDeclaration" />
+  <provides type="function" name="MDB2_Driver_Datatype_pgsql::writeLOBToFile" />
+  <provides type="function" name="MDB2_Driver_Datatype_pgsql::mapNativeDatatype" />
+  <provides type="function" name="MDB2_Driver_Datatype_pgsql::mapPrepareDatatype" />
+  <provides type="class" name="MDB2_Driver_Function_pgsql" extends="MDB2_Driver_Function_Common" />
+  <provides type="function" name="MDB2_Driver_Function_pgsql::executeStoredProc" />
+  <provides type="class" name="MDB2_Driver_Manager_pgsql" extends="MDB2_Driver_Manager_Common" />
+  <provides type="function" name="MDB2_Driver_Manager_pgsql::createDatabase" />
+  <provides type="function" name="MDB2_Driver_Manager_pgsql::dropDatabase" />
+  <provides type="function" name="MDB2_Driver_Manager_pgsql::alterTable" />
+  <provides type="function" name="MDB2_Driver_Manager_pgsql::listDatabases" />
+  <provides type="function" name="MDB2_Driver_Manager_pgsql::listUsers" />
+  <provides type="function" name="MDB2_Driver_Manager_pgsql::listViews" />
+  <provides type="function" name="MDB2_Driver_Manager_pgsql::listFunctions" />
+  <provides type="function" name="MDB2_Driver_Manager_pgsql::listTables" />
+  <provides type="function" name="MDB2_Driver_Manager_pgsql::listTableFields" />
+  <provides type="function" name="MDB2_Driver_Manager_pgsql::listTableIndexes" />
+  <provides type="function" name="MDB2_Driver_Manager_pgsql::listTableConstraints" />
+  <provides type="function" name="MDB2_Driver_Manager_pgsql::createSequence" />
+  <provides type="function" name="MDB2_Driver_Manager_pgsql::dropSequence" />
+  <provides type="function" name="MDB2_Driver_Manager_pgsql::listSequences" />
+  <provides type="class" name="MDB2_Driver_Native_pgsql" extends="MDB2_Module_Common" />
+  <provides type="function" name="MDB2_Driver_Native_pgsql::deleteOID" />
+  <provides type="class" name="MDB2_Driver_Reverse_pgsql" extends="MDB2_Driver_Reverse_Common" />
+  <provides type="function" name="MDB2_Driver_Reverse_pgsql::getTableFieldDefinition" />
+  <provides type="function" name="MDB2_Driver_Reverse_pgsql::getTableIndexDefinition" />
+  <provides type="function" name="MDB2_Driver_Reverse_pgsql::getTableConstraintDefinition" />
+  <provides type="function" name="MDB2_Driver_Reverse_pgsql::tableInfo" />
+  <provides type="class" name="MDB2_Driver_pgsql" extends="MDB2_Driver_Common" />
+  <provides type="class" name="MDB2_Result_pgsql" extends="MDB2_Result_Common" />
+  <provides type="class" name="MDB2_BufferedResult_pgsql" extends="MDB2_Result_pgsql" />
+  <provides type="class" name="MDB2_Statement_pgsql" extends="MDB2_Statement_Common" />
+  <provides type="function" name="MDB2_Driver_pgsql::errorInfo" />
+  <provides type="function" name="MDB2_Driver_pgsql::beginTransaction" />
+  <provides type="function" name="MDB2_Driver_pgsql::commit" />
+  <provides type="function" name="MDB2_Driver_pgsql::rollback" />
+  <provides type="function" name="MDB2_Driver_pgsql::connect" />
+  <provides type="function" name="MDB2_Driver_pgsql::disconnect" />
+  <provides type="function" name="MDB2_Driver_pgsql::standaloneQuery" />
+  <provides type="function" name="MDB2_Driver_pgsql::getServerVersion" />
+  <provides type="function" name="MDB2_Driver_pgsql::prepare" />
+  <provides type="function" name="MDB2_Driver_pgsql::nextID" />
+  <provides type="function" name="MDB2_Driver_pgsql::currID" />
+  <provides type="function" name="MDB2_Result_pgsql::fetchRow" />
+  <provides type="function" name="MDB2_Result_pgsql::numCols" />
+  <provides type="function" name="MDB2_Result_pgsql::free" />
+  <provides type="function" name="MDB2_BufferedResult_pgsql::seek" />
+  <provides type="function" name="MDB2_BufferedResult_pgsql::valid" />
+  <provides type="function" name="MDB2_BufferedResult_pgsql::numRows" />
+  <provides type="function" name="MDB2_Statement_pgsql::free" />
+  <filelist>
+   <file role="php" baseinstalldir="/" md5sum="b686c2c79cfbdfb10e4799ccd54654e2" name="MDB2/Driver/Datatype/pgsql.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="f9602e694066cbac2097571a4c2cb96e" name="MDB2/Driver/Function/pgsql.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="c6cc915aa032af6f157d3a33f46b6080" name="MDB2/Driver/Manager/pgsql.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="bf993bdc6d3bfabb09baeca71545b0bd" name="MDB2/Driver/Native/pgsql.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="bd23929819e588e8d1277fb301b2f05d" name="MDB2/Driver/Reverse/pgsql.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="fec45d5803eaf2a947a7847485135a34" name="MDB2/Driver/pgsql.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>0.2.3</version>
+    <date>2006-01-13</date>
+    <license>BSD License</license>
+    <state>beta</state>
+    <notes>- explicitly pass if the module is phptype specific in all loadModule calls (bug #6226)
+- fixed signature of executeStoredProc()
+- typo fixes in error handling of nextResult() and numRows() calls
+- _fixIndexName() now just attempts to remove possible formatting
+- renamed _isSequenceName() to _fixSequenceName()
+- _fixSequenceName() now just attempts to remove possible formatting, and only
+  returns a boolean if no formatting was applied when the new &quot;check&quot; parameter is set to true
+- fixed bug that caused unique indexes from not being seen (bug #6476)
+
+open todo items:
+- considering migrating away from OID&apos;s to bytea, since this is encourage
+  since version 8 and is also what PDO expects, however there is no streaming
+  API for bytea columns .. this needs to be done using manually chunked reads/writes
+    </notes>
+   </release>
+   <release>
+    <version>0.2.2</version>
+    <date>2005-12-30</date>
+    <license>BSD License</license>
+    <state>beta</state>
+    <notes>- types can now always be keyed by name or by order
+
+open todo items:
+- considering migrating away from OID&apos;s to bytea, since this is encourage
+  since version 8 and is also what PDO expects, however there is no streaming
+  API for bytea columns .. this needs to be done using manually chunked reads/writes
+    </notes>
+   </release>
+   <release>
+    <version>0.2.1</version>
+    <date>2005-12-28</date>
+    <license>BSD License</license>
+    <state>beta</state>
+    <notes>- fixed datatype conversion for &quot;time&quot; values
+- fixed getTableFieldDefinition() default handling (though still a bit shaky)
+- reverse module: ensure that parameters in queries are properly quoted
+- fixed bug in alterTable() where &quot;rename&quot; would be skipped if no other alteration is done
+- do not use multiple commands in ALTER TABLE (only supported since 8.0)
+- implemented native prepared queries
+- use proper error code in alterTable()
+- renamed table as the last step in alterTable()
+- proper quote new table name in alterTable()
+
+open todo items:
+- considering migrating away from OID&apos;s to bytea, since this is encourage
+  since version 8 and is also what PDO expects, however there is no streaming
+  API for bytea columns .. this needs to be done using manually chunked reads/writes
+    </notes>
+   </release>
+   <release>
+    <version>0.2.0</version>
+    <date>2005-12-21</date>
+    <license>BSD License</license>
+    <state>beta</state>
+    <notes>- do not fix case in listUsers()
+- unified case fixing in the list*() methods
+- tweaked text handling in mapNativeDatatype()
+- use getConnection() to access connection property
+- split index and constraint handling
+- quote identifiers where possible inside the manager methods depending on
+  the new &apos;quote_identifier&apos; option (defaults to off)
+- refactored get*Declaration() methods to use getTypeDeclaration()
+- added support for table and column renaming as well as default and nullability
+  changing in alterTable()
+- setting in_transaction to false on disconnect
+- added new Function modules to handle difference in SQL functions
+- force rollback() with open transactions on disconnect
+- escape floats to make sure they do not contain evil characters (bug #5608)
+- split off manipulation queries into exec() method from the query() method *BC BREAK*
+- if result_types is set to false in prepare() method the query will be handled as a DML statement *BC BREAK*
+- use a proper default value if a field is set to not null in _getDeclaration*() (bug #5930)
+- added ability to determine unsigned in mapNativeDatatype()
+  (only really implemented in the mysql(i) drivers) (bug #6054)
+- use MDB2_ERROR_NOT_FOUND in getTableConstraintDefinition() and getTableIndexDefinition() (bug #6055)
+- added getServerVersion()
+- unified array structure in mapNativeDatatype() *BC BREAK*
+- added &apos;mdbtype&apos; to tableInfo() output that is generated from mapNativeDatatype()
+- changed &apos;len&apos; to &apos;length&apos; in tableInfo() output *BC BREAK*
+
+open todo items:
+- implement native prepared queries
+- migrate away from OID&apos;s to bytea, since this is encourage since version 8
+  and is also what PDO expects
+- testgettablefielddefinition and testnow test cases fail
+    </notes>
+   </release>
+   <release>
+    <version>0.1.1</version>
+    <date>2005-10-10</date>
+    <license>BSD License</license>
+    <state>beta</state>
+    <notes>Warning: this release features numerous BC breaks!
+
+There have been considerable improvements to the datatype, manager and reverse
+modules. Furthermore preliminary support for auto increment and primary keys
+has been added. Please note that making a field auto increment implies a single
+column primary key on this field.
+
+- increased php dependency to 4.3.0 due to the usage of the streams API since beta5
+- fixed typo in _getTextDeclaration()
+- alterTable now needs the full definition to work (use getTableFieldDefinition
+ from Reverse module if you do not have a definition at hand) this eliminates the need
+ of the declaration part in the alterTable array.
+- fix PHP4.4 breakage
+- improved error mapping (ported from DB)
+- better detect if the query returned a result set or not in _doQuery()
+- minor tweaks to LOB handling
+- use !empty() instead of isset() in fetchRow to determine if result cols were bound or result types were set
+- moved all private fetch mode fix methods into _fixResultArrayValues() for performance reasons
+- renamed MDB2_PORTABILITY_LOWERCASE to MDB2_PORTABILITY_FIX_CASE and use &apos;field_case&apos; option to determine if to upper- or lowercase (CASE_LOWER/CASE_UPPER)
+- use array_key_exists() instead of isset() where possible
+- changed structure of field add/remove/change in alterTable() to match MDB2_Schema
+- added createIndex()
+- return 0 for manipulation queries when disable_query is enabled
+- tweaked getTableFieldDefinition() in reverse module
+- added getTypeDeclaration() in the datatype module
+- tweaked field changing in alterTable()
+- fixed alterTable() signature
+
+open todo items:
+- implement native prepared queries
+    </notes>
+   </release>
+ </changelog>
+</package>

@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Spreadsheet_Excel_Writer</name>
+  <summary>Package for generating Excel spreadsheets</summary>
+  <description>Spreadsheet_Excel_Writer was born as a porting of the Spreadsheet::WriteExcel Perl module to PHP. 
+It allows writing of Excel spreadsheets without the need for COM objects.
+It supports formulas, images (BMP) and all kinds of formatting for text and cells.
+It currently supports the BIFF5 format (Excel 5.0), so functionality appeared in the latest Excel versions is not yet available.</description>
+  <maintainers>
+    <maintainer>
+      <user>xnoguer</user>
+      <name>Xavier Noguer</name>
+      <email>xnoguer@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>tuupola</user>
+      <name>Mika Tuupola</name>
+      <email>tuupola@appelsiini.net</email>
+      <role>developer</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.7</version>
+    <date>2004-02-27</date>
+    <license>LGPL</license>
+    <state>beta</state>
+    <notes>New features:
+ - allow setting temp dir other than default using setTempDir() (using OLE 5.0 for this).
+ - added setMerge() for merging (only for experimental Excel97 generation)
+ - added setCountry() method.
+ - added setLocked() method.
+Bug fixes:
+ - Fixed bug #415, typo in BIFF8 code (papercrane at reversefold dot com)</notes>
+    <deps>
+      <dep type="pkg" rel="ge" version="0.5">OLE</dep>
+    </deps>
+    <provides type="class" name="Spreadsheet_Excel_Writer" extends="Spreadsheet_Excel_Writer_Workbook" />
+    <provides type="function" name="Spreadsheet_Excel_Writer::send" />
+    <provides type="function" name="Spreadsheet_Excel_Writer::rowcolToCell" />
+    <provides type="class" name="Spreadsheet_Excel_Writer_BIFFwriter" extends="PEAR" />
+    <provides type="class" name="Spreadsheet_Excel_Writer_Workbook" extends="Spreadsheet_Excel_Writer_BIFFwriter" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Workbook::close" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Workbook::sheets" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Workbook::worksheets" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Workbook::setVersion" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Workbook::setCountry" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Workbook::addWorksheet" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Workbook::addFormat" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Workbook::addValidator" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Workbook::setCustomColor" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Workbook::setTempDir" />
+    <provides type="class" name="Spreadsheet_Excel_Writer_Format" extends="PEAR" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::getXf" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::getFont" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::getFontKey" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::getXfIndex" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::setAlign" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::setMerge" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::setBold" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::setBottom" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::setTop" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::setLeft" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::setRight" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::setBorder" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::setBorderColor" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::setBottomColor" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::setTopColor" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::setLeftColor" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::setRightColor" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::setFgColor" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::setBgColor" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::setColor" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::setPattern" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::setUnderline" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::setItalic" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::setSize" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::setTextWrap" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::setTextRotation" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::setNumFormat" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::setStrikeOut" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::setOutLine" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::setShadow" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::setScript" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::setLocked" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::setUnLocked" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Format::setFontFamily" />
+    <provides type="class" name="Spreadsheet_Excel_Writer_Worksheet" extends="Spreadsheet_Excel_Writer_BIFFwriter" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::close" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::getName" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::getData" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::setMerge" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::select" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::activate" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::setFirstSheet" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::protect" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::setColumn" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::setSelection" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::freezePanes" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::thawPanes" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::setPortrait" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::setLandscape" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::setPaper" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::setHeader" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::setFooter" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::centerHorizontally" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::centerVertically" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::setMargins" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::setMargins_LR" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::setMargins_TB" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::setMarginLeft" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::setMarginRight" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::setMarginTop" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::setMarginBottom" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::repeatRows" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::repeatColumns" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::printArea" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::hideGridlines" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::printRowColHeaders" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::fitToPages" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::setHPagebreaks" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::setVPagebreaks" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::setZoom" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::setPrintScale" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::write" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::writeRow" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::writeCol" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::setOutline" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::writeNumber" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::writeString" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::writeStringBIFF8" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::writeNote" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::writeBlank" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::writeFormula" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::writeUrl" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::setRow" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::mergeCells" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::insertBitmap" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Worksheet::setValidation" />
+    <provides type="class" name="Spreadsheet_Excel_Writer_Parser" extends="PEAR" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Parser::setExtSheet" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Parser::parse" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Parser::toReversePolish" />
+    <provides type="class" name="Spreadsheet_Excel_Writer_Validator" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Validator::setPrompt" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Validator::setError" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Validator::allowBlank" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Validator::onInvalidStop" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Validator::onInvalidWarn" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Validator::onInvalidInfo" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Validator::setFormula1" />
+    <provides type="function" name="Spreadsheet_Excel_Writer_Validator::setFormula2" />
+    <filelist>
+      <file role="php" baseinstalldir="Spreadsheet/Excel/" md5sum="658e3ecff08e3572981473f28b99c647" name="Writer.php"/>
+      <file role="php" baseinstalldir="Spreadsheet/Excel/" md5sum="8f9c013c7d15ac5571abb11a233c9f69" name="Writer/BIFFwriter.php"/>
+      <file role="php" baseinstalldir="Spreadsheet/Excel/" md5sum="5dbc5c0a3054f2d05830f054efe05d23" name="Writer/Workbook.php"/>
+      <file role="php" baseinstalldir="Spreadsheet/Excel/" md5sum="c57321f61132ca8f1f46dab580947652" name="Writer/Format.php"/>
+      <file role="php" baseinstalldir="Spreadsheet/Excel/" md5sum="bc3765a24390536d5695e83ede9c8a33" name="Writer/Worksheet.php"/>
+      <file role="php" baseinstalldir="Spreadsheet/Excel/" md5sum="326939d64c5b23d932ce2b23a7bd22c3" name="Writer/Parser.php"/>
+      <file role="php" baseinstalldir="Spreadsheet/Excel/" md5sum="5ba05644ffe02932b7195db5f5338c18" name="Writer/Validator.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.2</version>
+      <date>2003-03-17</date>
+      <state>beta</state>
+      <notes>-added several formatting methods: setTextRotation(), setStrikeOut(), 
+setOutLine(), setShadow(), setScript().
+-fixed bug in Workbook::sheets() (Björn Schotte).
+-fixed range for references in formulas (Edward).
+-added support for external references in formulas.
+-added support for comparisons in formulas.
+-added support for strings in formulas.
+
+</notes>
+    </release>
+    <release>
+      <version>0.3</version>
+      <date>2003-05-02</date>
+      <notes>New features:
+ -added support for row ranges (JT Hughes)
+ -added method method Format::setUnLocked() (Ajit Dixit)
+ -added Worksheet::writeRow() and Worksheet::writeCol()
+Bug fixes:
+ -fixed problem with unparenthesized expresions in formulas (Brent Laminack)
+ -fixed problems with non ISO-8859-1 characters (KUBO Atsuhiro)
+ -fixed swapping of columns in formulas (JT Hughes)
+ -fixed assorted bugs in tokenizing formulas (JT Hughes)
+ -fixed Worksheet::activate() (JT Hughes)
+
+</notes>
+    </release>
+    <release>
+      <version>0.4</version>
+      <date>2003-08-21</date>
+      <notes>New features:
+ -using OLE package (&gt;= 0.3) to generate files bigger than 7MB
+ -changed setFgColor() and setBgColor()'s behavior to something more intuitive.
+Bug fixes:
+ -fixed bug #25133, lowercase cell references (jkwiat03 at hotmail dot com)
+ -fixed Bug #23730, worksheet names containing spaces in formulas (Robin Ericsson)
+ -fixed Bug #24147, formulas ended in '0' (paul at classical dot com)
+ -fixed swapping of arguments in variable arguments functions (JT Hughes)
+</notes>
+    </release>
+    <release>
+      <version>0.5</version>
+      <date>2003-10-01</date>
+      <notes>New features:
+ -added rowcolToCell() utility method for easy writing of formula's cell references (JT Hughes).
+ -added Worksheet::setOutline() method (Herman Kuiper)
+ -added Format::setFontFamily() method (Donnie Miller)
+Bug fixes:
+ -fixed bug #21, cyrillic characters in sheet references (arhip at goldentele dot com)
+</notes>
+    </release>
+    <release>
+      <version>0.6</version>
+      <date>2003-11-15</date>
+      <notes>New features:
+ - allow semicolon as argument separator (Axel Pratzner)
+ - added experimental Excel97 generation. You can test it with setVersion():
+   Beware! this method will be deprecated in a future release (when
+   Excel97 becomes the default). It is only available for testing
+   purposes. Use it at your own risk.
+ - strings longer than 255 bytes are now available using the experimental
+   Excel97 generation. But not all Excel97 features are available yet!
+Bug fixes:
+ - Fixed bug #225, error in writeUrl() (jamesn at tocquigny dot com)
+ - Fixed bug #59, retval undefined for writeRow() (Bertrand)
+</notes>
+    </release>
+  </changelog>
+</package>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Auth_RADIUS</name>
+  <summary>Wrapper Classes for the RADIUS PECL.</summary>
+  <description>This package provides wrapper-classes for the RADIUS PECL.
+There are different Classes for the different authentication methods.
+If you are using CHAP-MD5 or MS-CHAP you need also the Crypt_CHAP package.
+If you are using MS-CHAP you need also the mhash and mcrypt extension.</description>
+  <maintainers>
+    <maintainer>
+      <user>mbretter</user>
+      <name>Michael Bretterklieber</name>
+      <email>mbretter@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.0.4</version>
+    <date>2004-03-30</date>
+    <license>BSD</license>
+    <state>stable</state>
+    <notes>* BugFix: wrong dependencies</notes>
+    <deps>
+      <dep type="pkg" rel="ge" version="1.2.4">radius</dep>
+    </deps>
+    <provides type="class" name="Auth_RADIUS" extends="PEAR" />
+    <provides type="class" name="Auth_RADIUS_PAP" extends="Auth_RADIUS" />
+    <provides type="class" name="Auth_RADIUS_CHAP_MD5" extends="Auth_RADIUS_PAP" />
+    <provides type="class" name="Auth_RADIUS_MSCHAPv1" extends="Auth_RADIUS_CHAP_MD5" />
+    <provides type="class" name="Auth_RADIUS_MSCHAPv2" extends="Auth_RADIUS_MSCHAPv1" />
+    <provides type="class" name="Auth_RADIUS_Acct" extends="Auth_RADIUS" />
+    <provides type="class" name="Auth_RADIUS_Acct_Start" extends="Auth_RADIUS_Acct" />
+    <provides type="class" name="Auth_RADIUS_Acct_Stop" extends="Auth_RADIUS_Acct" />
+    <provides type="class" name="Auth_RADIUS_Acct_Update" extends="Auth_RADIUS_Acct" />
+    <provides type="function" name="Auth_RADIUS::addServer" />
+    <provides type="function" name="Auth_RADIUS::getError" />
+    <provides type="function" name="Auth_RADIUS::setConfigfile" />
+    <provides type="function" name="Auth_RADIUS::putAttribute" />
+    <provides type="function" name="Auth_RADIUS::putVendorAttribute" />
+    <provides type="function" name="Auth_RADIUS::dumpAttributes" />
+    <provides type="function" name="Auth_RADIUS::open" />
+    <provides type="function" name="Auth_RADIUS::createRequest" />
+    <provides type="function" name="Auth_RADIUS::putStandardAttributes" />
+    <provides type="function" name="Auth_RADIUS::putAuthAttributes" />
+    <provides type="function" name="Auth_RADIUS::putServer" />
+    <provides type="function" name="Auth_RADIUS::putConfigfile" />
+    <provides type="function" name="Auth_RADIUS::start" />
+    <provides type="function" name="Auth_RADIUS::send" />
+    <provides type="function" name="Auth_RADIUS::getAttributes" />
+    <provides type="function" name="Auth_RADIUS::close" />
+    <provides type="function" name="Auth_RADIUS_PAP::open" />
+    <provides type="function" name="Auth_RADIUS_PAP::createRequest" />
+    <provides type="function" name="Auth_RADIUS_PAP::putAuthAttributes" />
+    <provides type="function" name="Auth_RADIUS_CHAP_MD5::putAuthAttributes" />
+    <provides type="function" name="Auth_RADIUS_CHAP_MD5::close" />
+    <provides type="function" name="Auth_RADIUS_MSCHAPv1::putAuthAttributes" />
+    <provides type="function" name="Auth_RADIUS_MSCHAPv2::putAuthAttributes" />
+    <provides type="function" name="Auth_RADIUS_MSCHAPv2::close" />
+    <provides type="function" name="Auth_RADIUS_Acct::open" />
+    <provides type="function" name="Auth_RADIUS_Acct::createRequest" />
+    <provides type="function" name="Auth_RADIUS_Acct::putAuthAttributes" />
+    <filelist>
+      <file role="php" baseinstalldir="Auth" md5sum="3760816c7ff57759b5a2bd7b20580340" name="RADIUS.php"/>
+      <file role="doc" baseinstalldir="Auth" md5sum="9ecb8e207de80611ea554b9fe0b755df" name="examples/radius-acct.php"/>
+      <file role="doc" baseinstalldir="Auth" md5sum="20862f2aec63044bed1a46149bbf2661" name="examples/radius-auth.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>1.0.4</version>
+      <date>2004-03-30</date>
+      <state>stable</state>
+      <notes>* BugFix: wrong dependencies
+
+      
+</notes>
+    </release>
+    <release>
+      <version>1.0.3</version>
+      <date>2004-03-25</date>
+      <state>stable</state>
+      <notes>* Changed the examples to for version 1.0.0 of Crypt_CHAP
+* Added a new class for sending interim accounting updates
+
+      
+</notes>
+    </release>
+    <release>
+      <version>1.0.2</version>
+      <date>2003-07-17</date>
+      <state>stable</state>
+      <notes>* BugFix: wrong status_type in Auth_RADIUS_Acct_Start
+
+      
+</notes>
+    </release>
+    <release>
+      <version>1.0.1</version>
+      <date>2003-05-02</date>
+      <state>stable</state>
+      <notes>* Added support for LAN-Manager-Responses
+* BugFix: The RADIUS_USER_NAME was sent twice
+* Send also the RADIUS_NAS_PORT_TYPE
+
+      
+</notes>
+    </release>
+    <release>
+      <version>1.0.0</version>
+      <date>2003-02-01</date>
+      <state>stable</state>
+      <notes>* Fully functional and reasonably tested
+
+      
+</notes>
+    </release>
+  </changelog>
+</package>

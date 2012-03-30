@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/mdb2_driver_oci8">MDB2_Driver_oci8</p>
+ <c>pear.php.net</c>
+ <v>1.0.0</v>
+ <st>stable</st>
+ <l>BSD License</l>
+ <m>lsmith</m>
+ <s>oci8 MDB2 driver</s>
+ <d>This is the Oracle OCI8 MDB2 driver.
+ 
+</d>
+ <da>2006-07-23 03:20:24</da>
+ <n>- added ability to escape wildcard characters in escape() and quote()
+- added setTransactionIsolation()
+- added savepoint support to beginTransaction(), commit() and rollback()
+- added debug() call at the end of a query/prepare/execute calling (Request #7933)
+- added context array parameter to debug() and make use of it whereever sensible
+- added optional method name parameter to raiseError() and use whereever possible
+- added ability to escape wildcard characters in escape() and quote()
+- added debug() call at the end of a query/prepare/execute calling (Request #7933)
+- added 'nativetype' output to tableInfo() and getTableFieldDefinition()
+- added 'mdb2type' output to getTableFieldDefinition()
+- reworked tableInfo() to use a common implementation based on getTableFieldDefinition()
+  when a table name is passed (Bug #8124)
+- fixed incorrect regex in mapNativeDatatype() (Bug #8256) (thx ioz at ionosfera dot com)
+- use old dsn when rolling back open transactions in disconnect()
+- fixed testcreateautoincrementtable for oci8
+  There is still a problem when dropping the sequence, it gets inserted with a
+  seemingly random string as a name
+- load datatype module in tableInfo() (Bug #8116)
+- surround _makeAutoincrement() and _dropAutoincrement() with a nested transaction
+- grant create trigger when creating an emulated database to fix autoincrement emulation
+- ensure proper quoting in _dropAutoincrement()
+
+note: please use the latest ext/oci8 version from pecl.php.net/oci8
+(binaries are available from snaps.php.net and pecl4win.php.net)
+
+note: that by default this driver emulates the database concept other RDBMS
+have by using the &quot;database&quot; instead of &quot;username&quot; in the DSN as the username
+name. this behaviour can be disabled by setting the &quot;emulate_database&quot; option
+to false.
+
+open todo items:
+- enable use of read() for LOBs to read a LOB in chunks</n>
+ <f>25665</f>
+ <g>http://pear.php.net/get/MDB2_Driver_oci8-1.0.0</g>
+ <x xlink:href="package.1.0.0.xml"/>
+</r>

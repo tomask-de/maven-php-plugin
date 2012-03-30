@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.7.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Net_Vpopmaild</name>
+ <channel>pear.php.net</channel>
+ <summary>Class for accessing Vpopmail&apos;s vpopmaild daemon</summary>
+ <description>Supports all vpopmaild commands, such as adding/removing domains, users, robots (autoresponders), and ezmlm lists (todo), as well as modifying domain limits, ip maps, etc</description>
+ <lead>
+  <name>Bill Shupp</name>
+  <user>shupp</user>
+  <email>hostmaster@shupp.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2008-04-19</date>
+ <time>11:28:20</time>
+ <version>
+  <release>0.3.0</release>
+  <api>0.2.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.php.net/license">PHP License</license>
+ <notes>Made the string and flag parameters for the modUser and setLimits methods available through the API:
+        * Added getSetLimitsParms() method
+        * Added getMod() method
+        * Upgraded from alpha to beta</notes>
+ <contents>
+  <dir name="/">
+   <file baseinstalldir="doc/Net_Vpopmaild" md5sum="6918d04af09fa2c80c8ae15b39d4635a" name="docs/docs.sh" role="doc" />
+   <file baseinstalldir="doc/Net_Vpopmaild" md5sum="0a8b5142ba776945f3dfc14c98dd63fa" name="docs/README" role="doc" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="dfaccc3e71e30ade9053771eb423abef" name="tests/000-vpopmaild-connect.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="0f9270763cfd45971001f097a336f76c" name="tests/005-vpopmaild-clogin.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="139bef777faa363f9760ca9aab82f38c" name="tests/010-vpopmaild-setDebug.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="90eab4b8ac3163d2f3486356396fb86c" name="tests/015-vpopmaild-status-functions.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="9aba695101c344ed5a454c93b43bc045" name="tests/020-vpopmaild-acceptLog-recordio.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="7a97d1b15f3a3d69e90d245d0cfb53c7" name="tests/025-vpopmaild-domainCount.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="121c274de892cbc2916bcef8201c50cb" name="tests/030-vpopmaild-getGidBit.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="f8c06c7a78f2c6cc3e4e9f3a79965c91" name="tests/035-vpopmaild-setGidBit.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="cb7ff490707b0ab2037e7d121485bb66" name="tests/040-vpopmaild-ip_map_tests.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="72f1c141ef27528347beb1e01762f60b" name="tests/060-vpopmaild-dotQmailSplit.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="12fa43653e42d656817c7acd59194333" name="tests/070-vpopmaild-robotSet.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="92f29454e317eee08b701b846f783b28" name="tests/075-vpopmaild-robotGet.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="e8c158ea0c6e70e54970f681129df5f7" name="tests/080-vpopmaild-robotDel.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="61f927d1691b416b67ce5e0430566c26" name="tests/085-vpopmaild-listLists.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="a65b118ee6e30ac34b678390aa7172d3" name="tests/090-vpopmaild-writeFile.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="c9d9a04ca27c51bdafb7ac88bae1bda7" name="tests/095-vpopmaild-readFile.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="d1b9fdf110465c2e0d9bc5e35087245c" name="tests/100-vpopmaild-rmFile.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="6ebf5b406085b47a33b7e65d8b82271f" name="tests/105-vpopmaild-mkDir.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="7d9d7cb851f7aa6ed419a1163392fccf" name="tests/110-vpopmaild-listDir.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="2c090b3e4fcf17a72348bac08a7a1048" name="tests/115-vpopmaild-rmDir.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="478cd6bf24d5b543a64942e3ebfa4ec6" name="tests/125-vpopmaild-setLimits.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="93fef74582da5c802ec650220526bb60" name="tests/130-vpopmaild-getLimits.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="8d8ed4956863fbcd517d00b3d86680a2" name="tests/135-vpopmaild-delLimits.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="fb8c52dc6209f9708323ff1b10b0c497" name="tests/140-vpopmaild-domainInfo.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="9445031d72d8e2d37a832cc854e27747" name="tests/145-vpopmaild-listDomains.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="1b0de8f38c0a24ad9219176ec93e9a7d" name="tests/150-vpopmaild-addDomain.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="a65956e0de25550d8290a0cc34002abd" name="tests/155-vpopmaild-addAliasDomain_delDomain.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="cc256df8244e7752fefe9d6a5198cd86" name="tests/160-vpopmaild-findDomain.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="bb5f5ffab43b037741c7a37ab2465134" name="tests/165-vpopmaild-authenticate.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="2c36b168f1f961aef87139297304b0c9" name="tests/170-vpopmaild-add_del_mod-user-functions.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="75bb731486b090e608bd6acf1303cb88" name="tests/185-vpopmaild-userInfo.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="e3bc1788057b201b9787c7772e62c8c3" name="tests/190-vpopmaild-listUsers.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="142f18aae0a5946fc84474d85f8dc1a0" name="tests/195-vpopmaild-userCount.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="ebc7072ac4ba99e6da9f6b052a7cd474" name="tests/200-vpopmaild-getQuota.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="259a5c4df42284ba86570d5336898935" name="tests/205-vpopmaild-getLastAuth.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="6738b131b659292317c26dd32830bfc3" name="tests/210-vpopmaild-isSysAdmin.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="2a24b5915dc35a61ce8c94f2a3212cc5" name="tests/215-vpopmaild-isDomainAdmin.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="1cfddcbc86c30723ff97cc9865540fb2" name="tests/220-vpopmaild-isUserAdmin.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="acc61406bbe9bd38cbd908b56806a45d" name="tests/225-vpopmaild-readInfo.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="bb27b4ab465f54cb635135cb58eca65c" name="tests/230-vpopmaild-formatBasePath.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="bcc3021c5b4f7b8b0372cf6231c0b031" name="tests/235-vpopmaild-setVacation.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="8f86f47fc90a36c3ae643d5d7e1bbd9f" name="tests/240-vpopmaild-getVacation.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="1e1f45736f44a411ce831a0abb08ab4f" name="tests/245-vpopmaild-delVacation.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="6ee032b3b06dd9bc2eaded6468f47327" name="tests/250-vpopmaild-aliasesToArray.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="43a154c3a6f6289717637ee85b83deef" name="tests/255-vpopmaild-addAlias.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="faaac06e8c7d6d47479cd06e7d983f9e" name="tests/260-vpopmaild-listAlias.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="686aceb4cd0d9afef11debf814bd4f2a" name="tests/265-vpopmaild-removeAlias.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="b2705845e66d6171a5cf5e92af87067d" name="tests/270-vpopmaild-deleteAlias.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="165141a60a03f31d967718845ddd4d7d" name="tests/275-vpopmaild-getAliasContents.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="64736145f104199a8eb351383f52bbf7" name="tests/280-vpopmaild-parseAliases.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="45c838032018f7d7f0bd6b0f0f98451e" name="tests/285-vpopmaild-displayForwardLine.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="6ec696f48a614bf2e3fee3e67c278748" name="tests/290-vpopmaild-paginateArray.phpt" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="32fc812cac9e9ba1c51f57d67ee93968" name="tests/README" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="4f68375e749d0890cd4b0982496e8178" name="tests/tests-setpath.php.dist" role="test" />
+   <file baseinstalldir="tests/Net_Vpopmaild" md5sum="c740c5df85279322da7231738c848be3" name="tests/tests-config.php.dist" role="test" />
+   <file baseinstalldir="doc/Net_Vpopmaild" md5sum="4c95655af1c67df3612d00f2c8947c50" name="examples/login.php" role="doc" />
+   <file baseinstalldir="/Net" md5sum="f814ddc82895a6d5f9b7a802e86ef671" name="Vpopmaild/Base.php" role="php" />
+   <file baseinstalldir="/Net" md5sum="22cee56965433dbd0fe986b231711b2e" name="Vpopmaild/Exception.php" role="php" />
+   <file baseinstalldir="/Net" md5sum="e45df36e891d3c5909d8af15cd0366bb" name="Vpopmaild/FatalException.php" role="php" />
+   <file baseinstalldir="/Net" md5sum="6d150872ead75f6383e678476fc5edbb" name="Vpopmaild.php" role="php" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <package>
+    <name>Net_Socket</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>Log</name>
+    <channel>pear.php.net</channel>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.3.0</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2008-04-19</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Made the string and flag parameters for the modUser and setLimits methods available through the API:
+                * Added getSetLimitsParms() method
+                * Added getMod() method
+                * Upgraded from alpha to beta</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.1</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2008-04-10</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Fix notice in dotQmailSplit()</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2008-04-06</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Fix bug in setLimits() - use isset() instead of !emtpy() so you don&apos;t lose values of 0.
+* Some docblock updates
+* Fix login example</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2007-11-27</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Update @return tags in doc blocks.  First public PEAR release</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.3</release>
+    <api>0.0.3</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2007-11-15</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Split Class into Net_Vpopmaild_Base and Net_Vpopmaild.  Coding standard fixes.  Use System::tmpdir().  Remove parseHomeDotqmail(), as it&apos;s application specific.  Remove Validate dependency.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.2</release>
+    <api>0.0.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2007-11-01</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Major internal changes</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2007-07-16</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Initial PEAR package</notes>
+  </release>
+ </changelog>
+</package>

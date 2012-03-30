@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.4">
+ <name>Event_Dispatcher</name>
+ <summary>Dispatch notifications using PHP callbacks</summary>
+ <description>The Event_Dispatcher acts as a notification dispatch table.
+It is used to notify other objects of interesting things. This 
+information is encapsulated in Event_Notification objects. Client 
+objects register themselves with the Event_Dispatcher as observers of
+specific notifications posted by other objects. When an event occurs, 
+an object posts an appropriate notification to the Event_Dispatcher.
+The Event_Dispatcher dispatches a message to each registered 
+observer, passing the notification as the sole argument.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>mansion</user>
+   <name>Bertrand Mansion</name>
+   <email>bmansion@mamasam.com</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>schst</user>
+   <name>Stephan Schmidt</name>
+   <email>schst@php.net</email>
+   <role>developer</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>1.0.0</version>
+  <date>2005-11-12</date>
+  <license>BSD License</license>
+  <state>stable</state>
+  <notes>First stable release.
+
+* Request #4927, two new introspection methods added:
+- observerRegistered()
+- getObservers()
+  </notes>
+  <provides type="class" name="Event_Dispatcher" />
+  <provides type="function" name="Event_Dispatcher::getInstance" />
+  <provides type="function" name="Event_Dispatcher::addObserver" />
+  <provides type="function" name="Event_Dispatcher::post" />
+  <provides type="function" name="Event_Dispatcher::postNotification" />
+  <provides type="function" name="Event_Dispatcher::removeObserver" />
+  <provides type="function" name="Event_Dispatcher::observerRegistered" />
+  <provides type="function" name="Event_Dispatcher::getObservers" />
+  <provides type="function" name="Event_Dispatcher::getName" />
+  <provides type="function" name="Event_Dispatcher::addNestedDispatcher" />
+  <provides type="function" name="Event_Dispatcher::removeNestedDispatcher" />
+  <provides type="function" name="Event_Dispatcher::setNotificationClass" />
+  <provides type="class" name="Event_Notification" />
+  <provides type="function" name="Event_Notification::getNotificationName" />
+  <provides type="function" name="Event_Notification::getNotificationObject" />
+  <provides type="function" name="Event_Notification::getNotificationInfo" />
+  <provides type="function" name="Event_Notification::increaseNotificationCount" />
+  <provides type="function" name="Event_Notification::getNotificationCount" />
+  <provides type="function" name="Event_Notification::cancelNotification" />
+  <provides type="function" name="Event_Notification::isNotificationCancelled" />
+  <filelist>
+   <file role="php" baseinstalldir="Event" md5sum="1de1c409a27f5a8bd3bb78cbcf54c44f" name="Dispatcher.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="Event" md5sum="208af8f4e73679a9823c9d2c5ffb78d1" name="Notification.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="test" baseinstalldir="Event" md5sum="6f2083d21499d888cbde51f88e883429" name="tests/Console_TestListener.php"/>
+   <file role="test" baseinstalldir="Event" md5sum="5116d91786c12e4f73a445bfc42f10f5" name="tests/Dispatcher_testcase.php"/>
+   <file role="test" baseinstalldir="Event" md5sum="c15fc5e39a2954a0fb01bb386a425d2a" name="tests/test.php"/>
+   <file role="doc" baseinstalldir="Event" md5sum="61771165a729b498ee044252910b7931" name="examples/bubbling.php"/>
+   <file role="doc" baseinstalldir="Event" md5sum="e16819bdbdecf1c9a0d1f5719abcb41f" name="examples/cancel.php"/>
+   <file role="doc" baseinstalldir="Event" md5sum="8c944a6fc80a379beef1afd201ef5d5d" name="examples/debugging.php"/>
+   <file role="doc" baseinstalldir="Event" md5sum="52a0fe5ab5a49e33f07c3650b2c18b1a" name="examples/notification-class.php"/>
+   <file role="doc" baseinstalldir="Event" md5sum="29b60fc5f773f4ce76073afc3650085b" name="examples/object.php"/>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>0.9.1</version>
+    <date>2005-02-05</date>
+    <license>BSD License</license>
+    <state>beta</state>
+    <notes>First release
+    </notes>
+   </release>
+ </changelog>
+</package>

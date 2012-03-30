@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.1">
+ <name>MDB2_Driver_mysql</name>
+ <summary>mysql MDB2 driver</summary>
+ <description>This is the MySQL MDB2 driver.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>lsmith</user>
+   <name>Lukas Kahwe Smith</name>
+   <email>smith@pooteeweet.org</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>0.1.1</version>
+  <date>2005-10-10</date>
+  <license>BSD License</license>
+  <state>beta</state>
+  <notes>Warning: this release features numerous BC breaks!
+
+There have been considerable improvements to the datatype, manager and reverse
+modules. Furthermore preliminary support for auto increment and primary keys
+has been added. Please note that making a field auto increment implies a single
+column primary key on this field.
+
+- increased php dependency to 4.3.0 due to the usage of the streams API since beta5
+- ensure that instance is connected before using connection property in tableInfo()
+- added support for auto increment and primary key in schema.
+- alterTable now needs the full definition to work (use getTableFieldDefinition
+ from Reverse module if you do not have a definition at hand) this eliminates the need
+ of the declaration part in the alterTable array.
+- ensure that instance is connected before using connection property in tableInfo()
+- removed support for dummy_primary_key
+- fix PHP4.4 breakage
+- moved getInsertID() into core as lastInsertID()
+- use !empty() instead of isset() in fetchRow to determine if result cols were bound or result types were set
+- moved all private fetch mode fix methods into _fixResultArrayValues() for performance reasons
+- renamed MDB2_PORTABILITY_LOWERCASE to MDB2_PORTABILITY_FIX_CASE and use &apos;field_case&apos; option to determine if to upper- or lowercase (CASE_LOWER/CASE_UPPER)
+- count() -&gt; !empty() where possible
+- use array_map() instead of array_flip(array_change_key_case(array_flip())) to fix case of array values
+- use array_key_exists() instead of isset() where possible
+- changed structure of field add/remove/change in alterTable() to match MDB2_Schema
+- removed subSelect() implementation (now in already included in common)
+- return 0 for manipulation queries when disable_query is enabled
+- tweaked handling of notnull and default in field reverse engineering
+- tweaked getTableFieldDefinition() in reverse module
+  </notes>
+  <deps>
+   <dep type="php" rel="ge" version="4.3.0" optional="no"/>
+   <dep type="pkg" rel="ge" version="1.0b1" optional="no">PEAR</dep>
+   <dep type="pkg" rel="ge" version="2.0.0beta6" optional="no">MDB2</dep>
+   <dep type="ext" rel="has" optional="no">mysql</dep>
+  </deps>
+  <provides type="class" name="MDB2_Driver_Datatype_mysql" extends="MDB2_Driver_Datatype_Common" />
+  <provides type="function" name="MDB2_Driver_Datatype_mysql::mapNativeDatatype" />
+  <provides type="class" name="MDB2_Driver_Manager_mysql" extends="MDB2_Driver_Manager_Common" />
+  <provides type="function" name="MDB2_Driver_Manager_mysql::createDatabase" />
+  <provides type="function" name="MDB2_Driver_Manager_mysql::dropDatabase" />
+  <provides type="function" name="MDB2_Driver_Manager_mysql::createTable" />
+  <provides type="class" name="MDB2_Driver_Native_mysql" extends="MDB2_Module_Common" />
+  <provides type="class" name="MDB2_Driver_Reverse_mysql" extends="MDB2_Driver_Reverse_Common" />
+  <provides type="function" name="MDB2_Driver_Reverse_mysql::getTableFieldDefinition" />
+  <provides type="class" name="MDB2_Driver_mysql" extends="MDB2_Driver_Common" />
+  <provides type="function" name="MDB2_Driver_mysql::errorInfo" />
+  <provides type="function" name="MDB2_Driver_mysql::escape" />
+  <provides type="function" name="MDB2_Driver_mysql::quoteIdentifier" />
+  <provides type="function" name="MDB2_Driver_mysql::beginTransaction" />
+  <provides type="function" name="MDB2_Driver_mysql::commit" />
+  <provides type="function" name="MDB2_Driver_mysql::rollback" />
+  <provides type="function" name="MDB2_Driver_mysql::connect" />
+  <provides type="function" name="MDB2_Driver_mysql::disconnect" />
+  <filelist>
+   <file role="php" baseinstalldir="/" md5sum="8bf5c317a7e0973ad82ad641374bba0a" name="MDB2/Driver/Datatype/mysql.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="ef736bded4b9735b48d94af9037a5346" name="MDB2/Driver/Manager/mysql.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="819d6678ed957a67176be694d35b9964" name="MDB2/Driver/Native/mysql.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="b91e8dba20f70667cf47fdfd25f619a5" name="MDB2/Driver/Reverse/mysql.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="79c21797633b0999757786da7357c3f3" name="MDB2/Driver/mysql.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="f3e6186c462f75335f64033a566e1abb" name="package_mysql.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>0.1.1</version>
+    <date>2005-10-10</date>
+    <license>BSD License</license>
+    <state>beta</state>
+    <notes>Warning: this release features numerous BC breaks!
+
+There have been considerable improvements to the datatype, manager and reverse
+modules. Furthermore preliminary support for auto increment and primary keys
+has been added. Please note that making a field auto increment implies a single
+column primary key on this field.
+
+- increased php dependency to 4.3.0 due to the usage of the streams API since beta5
+- ensure that instance is connected before using connection property in tableInfo()
+- added support for auto increment and primary key in schema.
+- alterTable now needs the full definition to work (use getTableFieldDefinition
+ from Reverse module if you do not have a definition at hand) this eliminates the need
+ of the declaration part in the alterTable array.
+- ensure that instance is connected before using connection property in tableInfo()
+- removed support for dummy_primary_key
+- fix PHP4.4 breakage
+- moved getInsertID() into core as lastInsertID()
+- use !empty() instead of isset() in fetchRow to determine if result cols were bound or result types were set
+- moved all private fetch mode fix methods into _fixResultArrayValues() for performance reasons
+- renamed MDB2_PORTABILITY_LOWERCASE to MDB2_PORTABILITY_FIX_CASE and use &apos;field_case&apos; option to determine if to upper- or lowercase (CASE_LOWER/CASE_UPPER)
+- count() -&gt; !empty() where possible
+- use array_map() instead of array_flip(array_change_key_case(array_flip())) to fix case of array values
+- use array_key_exists() instead of isset() where possible
+- changed structure of field add/remove/change in alterTable() to match MDB2_Schema
+- removed subSelect() implementation (now in already included in common)
+- return 0 for manipulation queries when disable_query is enabled
+- tweaked handling of notnull and default in field reverse engineering
+- tweaked getTableFieldDefinition() in reverse module
+    </notes>
+   </release>
+   <release>
+    <version>0.1.0</version>
+    <date>2005-04-29</date>
+    <license>BSD License</license>
+    <state>beta</state>
+    <notes>first unbundled release from MDB2 core
+
+- fixed new_link support (bug #4308)
+- dont just check for isset() for boolean values in order to support
+  setting them false as well (bug #4373)
+- ensure SQL injection protection in all _quote() methods (was missing in
+  some decimal, float, time, date and timestamp implementations)
+- dont inherite from the mysqli driver anymore to prevent indirect dependency on mysqli
+    </notes>
+   </release>
+ </changelog>
+</package>

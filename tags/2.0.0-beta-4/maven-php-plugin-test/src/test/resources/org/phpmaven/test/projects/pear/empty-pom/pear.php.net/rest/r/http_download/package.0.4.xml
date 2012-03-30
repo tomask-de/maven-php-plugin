@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>HTTP_Download</name>
+  <summary>Send HTTP Downloads</summary>
+  <description>Provides an easy interface to send hidden files or any arbitrary data to the client over HTTP. It features HTTP Caching, Compression and Ranges (partial downloads and resuming).
+
+NOTE:
+Don't use with PHP's on-the-fly output compression, because files may be sent corrupted.</description>
+  <maintainers>
+    <maintainer>
+      <user>mike</user>
+      <name>Michael Wallner</name>
+      <email>mike@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.4</version>
+    <date>2003-11-25</date>
+    <license>PHP</license>
+    <state>beta</state>
+    <notes>* Bugfix (HTTP): 'Last-Modified' was sent as unix timestamp instead of HTTP date
+* Bugfix (HTTP Range): conditional GET requests didn't come through because of wrong 'Last-Modified'
+* Bugfix (HTTP Range): 'Content-Length' MUST contain the ACTUAL length of the body
+* Bugfix (HTTP Range): 'Content-Range' was sent incorrectly (though Apache usually overrules that)
+* Bugfix (HTTP Range): 'HTTP 200 Ok' was sent instead of 'HTTP 206 Partial Content' (though Apache usually overrules that)
+
+* Modified the PCRE of setContentType() to allow additions like '; charset=UTF-8'
+* Added a check if ext/mime_magic is configured with a valid filename (avoiding fatal error)</notes>
+    <deps>
+      <dep type="pkg" rel="has">HTTP_Header</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="HTTP" name="Download.php"/>
+    </filelist>
+  </release>
+</package>

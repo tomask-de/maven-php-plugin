@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>MDB_QueryTool</name>
+  <summary>An OO-interface for easily retreiving and modifying data in a DB.</summary>
+  <description>This package is an OO-abstraction to the SQL-Query language, it provides methods such
+as setWhere, setOrder, setGroup, setJoin, etc. to easily build queries.
+It also provides an easy to learn interface that interacts nicely with HTML-forms using
+arrays that contain the column data, that shall be updated/added in a DB.
+This package bases on an SQL-Builder which lets you easily build
+SQL-Statements and execute them.
+NB: this is just a MDB porting from the original DB_QueryTool
+written by Wolfram Kriesing and Paolo Panto (vision:produktion, wk@visionp.de).</description>
+  <maintainers>
+    <maintainer>
+      <user>quipo</user>
+      <name>Lorenzo Alberton</name>
+      <email>l.alberton@quipo.it</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.9.6</version>
+    <date>2003-09-23</date>
+    <license>PHP</license>
+    <state>stable</state>
+    <notes>- added new method getQueryString() which returns the rendered query
+- added setDbInstance() which lets you supply an existing MDB-instance to work with
+  using this you dont need to pass a DSN to the constructor!
+- use Log 1.7 API
+- addWhereSearch now only prefixes known columns as it is supposed to be
+- make setLimit also work to unset it</notes>
+    <deps>
+      <dep type="php" rel="ge" version="4.1"/>
+      <dep type="pkg" rel="has">MDB</dep>
+    </deps>
+    <provides type="class" name="MDB_QueryTool" extends="MDB_QueryTool_EasyJoin" />
+    <provides type="class" name="MDB_QueryTool_Query" />
+    <provides type="function" name="MDB_QueryTool_Query::connect" />
+    <provides type="function" name="MDB_QueryTool_Query::getDbInstance" />
+    <provides type="function" name="MDB_QueryTool_Query::setDbInstance" />
+    <provides type="function" name="MDB_QueryTool_Query::get" />
+    <provides type="function" name="MDB_QueryTool_Query::getMultiple" />
+    <provides type="function" name="MDB_QueryTool_Query::getAll" />
+    <provides type="function" name="MDB_QueryTool_Query::getCol" />
+    <provides type="function" name="MDB_QueryTool_Query::getCount" />
+    <provides type="function" name="MDB_QueryTool_Query::getDefaultValues" />
+    <provides type="function" name="MDB_QueryTool_Query::getEmptyElement" />
+    <provides type="function" name="MDB_QueryTool_Query::getQueryString" />
+    <provides type="function" name="MDB_QueryTool_Query::save" />
+    <provides type="function" name="MDB_QueryTool_Query::update" />
+    <provides type="function" name="MDB_QueryTool_Query::add" />
+    <provides type="function" name="MDB_QueryTool_Query::addMultiple" />
+    <provides type="function" name="MDB_QueryTool_Query::remove" />
+    <provides type="function" name="MDB_QueryTool_Query::removeAll" />
+    <provides type="function" name="MDB_QueryTool_Query::removeMultiple" />
+    <provides type="function" name="MDB_QueryTool_Query::removePrimary" />
+    <provides type="function" name="MDB_QueryTool_Query::setLimit" />
+    <provides type="function" name="MDB_QueryTool_Query::getLimit" />
+    <provides type="function" name="MDB_QueryTool_Query::setWhere" />
+    <provides type="function" name="MDB_QueryTool_Query::getWhere" />
+    <provides type="function" name="MDB_QueryTool_Query::addWhere" />
+    <provides type="function" name="MDB_QueryTool_Query::addWhereSearch" />
+    <provides type="function" name="MDB_QueryTool_Query::setOrder" />
+    <provides type="function" name="MDB_QueryTool_Query::addOrder" />
+    <provides type="function" name="MDB_QueryTool_Query::getOrder" />
+    <provides type="function" name="MDB_QueryTool_Query::setHaving" />
+    <provides type="function" name="MDB_QueryTool_Query::getHaving" />
+    <provides type="function" name="MDB_QueryTool_Query::addHaving" />
+    <provides type="function" name="MDB_QueryTool_Query::setJoin" />
+    <provides type="function" name="MDB_QueryTool_Query::setLeftJoin" />
+    <provides type="function" name="MDB_QueryTool_Query::addLeftJoin" />
+    <provides type="function" name="MDB_QueryTool_Query::setRightJoin" />
+    <provides type="function" name="MDB_QueryTool_Query::getJoin" />
+    <provides type="function" name="MDB_QueryTool_Query::addJoin" />
+    <provides type="function" name="MDB_QueryTool_Query::setTable" />
+    <provides type="function" name="MDB_QueryTool_Query::getTable" />
+    <provides type="function" name="MDB_QueryTool_Query::setGroup" />
+    <provides type="function" name="MDB_QueryTool_Query::getGroup" />
+    <provides type="function" name="MDB_QueryTool_Query::setSelect" />
+    <provides type="function" name="MDB_QueryTool_Query::addSelect" />
+    <provides type="function" name="MDB_QueryTool_Query::getSelect" />
+    <provides type="function" name="MDB_QueryTool_Query::setDontSelect" />
+    <provides type="function" name="MDB_QueryTool_Query::getDontSelect" />
+    <provides type="function" name="MDB_QueryTool_Query::reset" />
+    <provides type="function" name="MDB_QueryTool_Query::setOption" />
+    <provides type="function" name="MDB_QueryTool_Query::getOption" />
+    <provides type="function" name="MDB_QueryTool_Query::debug" />
+    <provides type="function" name="MDB_QueryTool_Query::metadata" />
+    <provides type="function" name="MDB_QueryTool_Query::getTableShortName" />
+    <provides type="function" name="MDB_QueryTool_Query::getTableSpec" />
+    <provides type="function" name="MDB_QueryTool_Query::execute" />
+    <provides type="function" name="MDB_QueryTool_Query::writeLog" />
+    <provides type="function" name="MDB_QueryTool_Query::returnResult" />
+    <provides type="function" name="MDB_QueryTool_Query::setIndex" />
+    <provides type="function" name="MDB_QueryTool_Query::getIndex" />
+    <provides type="function" name="MDB_QueryTool_Query::useResult" />
+    <provides type="function" name="MDB_QueryTool_Query::setErrorCallback" />
+    <provides type="function" name="MDB_QueryTool_Query::setErrorLogCallback" />
+    <provides type="function" name="MDB_QueryTool_Query::setErrorSetCallback" />
+    <provides type="class" name="MDB_QueryTool_EasyJoin" extends="MDB_QueryTool_Query" />
+    <provides type="function" name="MDB_QueryTool_EasyJoin::autoJoin" />
+    <provides type="class" name="MDB_QueryTool_Result" />
+    <provides type="function" name="MDB_QueryTool_Result::getCount" />
+    <provides type="function" name="MDB_QueryTool_Result::getData" />
+    <provides type="function" name="MDB_QueryTool_Result::getFirst" />
+    <provides type="function" name="MDB_QueryTool_Result::getNext" />
+    <provides type="function" name="MDB_QueryTool_Result::hasMore" />
+    <filelist>
+      <file role="php" baseinstalldir="MDB" md5sum="714d4b3148d1b26222754ed1425ef642" name="QueryTool.php"/>
+      <file role="php" baseinstalldir="MDB" md5sum="22e820d0ed76d84706c128a919083138" name="QueryTool\Query.php"/>
+      <file role="php" baseinstalldir="MDB" md5sum="44e034dbe9b0092af8641e7b2f974653" name="QueryTool\EasyJoin.php"/>
+      <file role="php" baseinstalldir="MDB" md5sum="a87815de03d25975b1614aba19916233" name="QueryTool\Result.php"/>
+      <file role="doc" baseinstalldir="MDB" md5sum="566ffbf048c10885688dae856a46fb4d" name="docs\example.php"/>
+      <file role="doc" baseinstalldir="MDB" md5sum="7bd8b3c0dde5b2811203e58d4d1bd058" name="docs\mysql.sql"/>
+      <file role="doc" baseinstalldir="MDB" md5sum="c0f62bc23d8e438997eb6711820b1242" name="docs\pgsql.sql"/>
+      <file role="test" baseinstalldir="MDB" md5sum="8e9c42f3f250c404e71994dcc9bc5cc8" name="tests\Common.php"/>
+      <file role="test" baseinstalldir="MDB" md5sum="ea0b84bede109040086b93a4f836d7c8" name="tests\index.php"/>
+      <file role="test" baseinstalldir="MDB" md5sum="217930c8913a5053c499e28dec4ffad4" name="tests\Get.php"/>
+      <file role="test" baseinstalldir="MDB" md5sum="6d80e0d129a631bdf9f4dbb46942a023" name="tests\GetAll.php"/>
+      <file role="test" baseinstalldir="MDB" md5sum="8d02058419b5dbe626180f208c73655d" name="tests\GetCount.php"/>
+      <file role="test" baseinstalldir="MDB" md5sum="b82de8bf31a26356e00b29c001eab83a" name="tests\GetQueryString.php"/>
+      <file role="test" baseinstalldir="MDB" md5sum="f6636f72af34ce5eb7009b8a282b21c9" name="tests\Having.php"/>
+      <file role="test" baseinstalldir="MDB" md5sum="a2a479da9f463813620a8dae7657694c" name="tests\Limit.php"/>
+      <file role="test" baseinstalldir="MDB" md5sum="e57769ad4006061ca2cce302ccf46fcf" name="tests\SetDbInstance.php"/>
+      <file role="test" baseinstalldir="MDB" md5sum="00f5a7e2e3c2f1be8ec42bbcb1cf2ebc" name="tests\sql.php"/>
+      <file role="test" baseinstalldir="MDB" md5sum="00e3786e030c13bc713f30cfac147472" name="tests\UnitTest.php"/>
+      <file role="test" baseinstalldir="MDB" md5sum="19faf9979c2d59802c80849dd71b37b0" name="tests\Where.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.9.6</version>
+      <date>2003-09-23</date>
+      <license>PHP</license>
+      <state>stable</state>
+      <notes>- added new method getQueryString() which returns the rendered query
+- added setDbInstance() which lets you supply an existing MDB-instance to work with
+  using this you dont need to pass a DSN to the constructor!
+- use Log 1.7 API
+- addWhereSearch now only prefixes known columns as it is supposed to be
+- make setLimit also work to unset it
+
+</notes>
+    </release>
+    <release>
+      <version>0.9.5-pl1</version>
+      <date>2003-06-17</date>
+      <license>PHP</license>
+      <state>stable</state>
+      <notes>- added missing bugfix in addHaving and unit test, thanks to Johannes Schäfer
+</notes>
+    </release>
+    <release>
+      <version>0.9.5</version>
+      <date>2003-06-17</date>
+      <license>PHP</license>
+      <state>stable</state>
+      <notes>- bugfix when writing log files, times were wrong
+- bugfix in EasyJoin, which added unnecessary conditions
+- bugfix in building column alias which is at the end of the string
+- bugfix in addMultiple() which didnt work without primaryCol
+- bugfix in addHaving, thanks to Johannes Schäfer
+
+</notes>
+    </release>
+    <release>
+      <version>0.9.4</version>
+      <date>2003-06-09</date>
+      <state>stable</state>
+      <notes>- added set/getLimit(), which set the limit globally, getAll() and getCol() can still overwrite this temporarily
+- added addOrder()
+- added *Having() methods by Johannes Schaefer
+- fix bug in building group clause for getCount()
+- bug fix in building join
+
+</notes>
+    </release>
+    <release>
+      <version>0.9.4-RC1</version>
+      <date>2003-05-24</date>
+      <state>beta</state>
+      <notes>- added UnitTest
+- new method getCol() which lets you retrieve just one column
+- getAll() takes an additional optional parameter, where you can define
+  the method that should be used for firing the query
+- update() does also consider the value of setWhere() now when no primary column is given
+  added a _buildUpdateQuery() for that too
+- bugfix in update, use fully qualified table name (Uwe Dörl)
+- bugfix in _buildSelectQuery, enclose column names by &quot;&quot;
+  now Oracle should work and also reserved keywords can be used as column names (Uwe Dörl)
+- added some log functionality
+- added condition parameter to addWhereSearch
+- Implemented datatype quoting: now it should autodetect the right MDB datatype before inserting the corresponding value in the db.
+  Note that this can't be 100% right everytime, since it's based on an autodetection, but it's definitely an improvement over the previous versions, where everything was treated as 'text'.
+
+</notes>
+    </release>
+    <release>
+      <version>0.9.3</version>
+      <date>2003-02-21</date>
+      <state>beta</state>
+      <notes>- fixed stupid connection bug (my bad :p)
+- other minor fixes/updates
+</notes>
+    </release>
+    <release>
+      <version>0.9.2</version>
+      <date>2003-02-10</date>
+      <state>beta</state>
+      <notes>- fixed missing custom sequence name handling
+- enhancing the constructor to take the error/log callbacks
+</notes>
+    </release>
+    <release>
+      <version>0.9</version>
+      <date>2003-01-17</date>
+      <state>beta</state>
+      <notes>- initial release in PEAR
+</notes>
+    </release>
+  </changelog>
+</package>

@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>DB</name>
+  <summary>Database Abstraction Layer</summary>
+  <description>DB is a database abstraction layer providing:
+* an OO-style query API
+* portability features that make programs written for one DBMS work with other DBMS's
+* a DSN (data source name) format for specifying database servers
+* prepare/execute (bind) emulation for databases that don't support it natively
+* a result object for each query response
+* portable error codes
+* sequence emulation
+* sequential and non-sequential row fetching as well as bulk fetching
+* formats fetched rows as associative arrays, ordered arrays or objects
+* row limit support
+* transactions support
+* table information interface
+* DocBook and phpDocumentor API documentation
+
+DB layers itself on top of PHP's existing
+database extensions.
+
+Drivers for the following extensions pass
+the complete test suite and provide
+interchangeability when all of DB's
+portability options are enabled:
+
+  fbsql, ibase, informix, msql, mssql,
+  mysql, mysqli, oci8, odbc, pgsql,
+  sqlite and sybase.
+
+There is also a driver for the dbase
+extension, but it can't be used
+interchangeably because dbase doesn't
+support many standard DBMS features.
+
+DB is compatible with both PHP 4 and PHP 5.</description>
+  <maintainers>
+    <maintainer>
+      <user>ssb</user>
+      <name>Stig Bakken</name>
+      <email>stig@php.net</email>
+      <role>developer</role>
+    </maintainer>
+    <maintainer>
+      <user>cox</user>
+      <name>Tomas V.V.Cox</name>
+      <email>cox@idecnet.com</email>
+      <role>developer</role>
+    </maintainer>
+    <maintainer>
+      <user>danielc</user>
+      <name>Daniel Convissor</name>
+      <email>danielc@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>lsmith</user>
+      <name>Lukas Kahwe Smith</name>
+      <email>smith@backendmedia.com</email>
+      <role>helper</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.7.0RC1</version>
+    <date>2005-02-22</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>all:
+* PEAR DB can now be used on more OS's due to
+  switching from DB::assertExtension() to
+  PEAR::loadExtension().  Request 1337.
+* Resolve tableInfo() issue caused by PHP 5.0.3.
+  Bug 2988.
+* Add __sleep() and __wakeup().  Request 928.
+* Added __toString() and deprecated toString().
+  Request 1209.
+* Added DB_result::getQuery() method for
+  determining what query created the present
+  result.  Request 1677.
+* If DSN contains &quot;dbsyntax&quot;, always use that for
+  $this-&gt;dbsyntax.  Used to only be done for odbc.
+* When trying to DROP an index that doesn't exist,
+  use the DB_ERROR_NOT_FOUND error code.
+* When the number of values in an INSERT query
+  doesn't match the number columns, use the
+  DB_ERROR_VALUE_COUNT_ON_ROW error code.
+* Removed the unused DB_ERROR_CANNOT_DELETE constant.
+* When using getOne() and getRow(), if the DBMS
+  supports LIMIT queries, limit the output to
+  one row.  Request 1771.
+* Consider SELECT INTO and COPY data manipulation
+  queries in isManip().  Bug 2883.
+* Add $free_resource argument to freePrepared().
+
+dbase:
+* Provide tableInfo().  Request 2142.
+* Add 'mode' option to DSN and connect.
+* When connecting, if the database doesn't exist,
+  use the new 'fields' DSN option to create the
+  database.
+* No longer use strip_tags() on $php_errormsg
+  when reporting connection errors.
+
+fbsql:
+* The FrontBase driver now works and passes all tests.
+
+ibase:
+* The InterBase driver now passes all tests (using PHP 5).
+* Add getListOf() support.
+* Add affectedRows() support.
+* Add numRows() support (Note:
+  DB_PORTABILITY_NUMROWS must be enabled).
+* Add items to errorcode_map:
+  -303 =&gt; DB_ERROR_INVALID
+  -413 =&gt; DB_ERROR_INVALID_NUMBER
+  -625 =&gt; DB_ERROR_CONSTRAINT_NOT_NULL
+  -904 =&gt; DB_ERROR_CONNECT_FAILED
+* Refactor error handling to be like the other drivers:
+  Moved most code from ibaseRaiseError() into the new
+  errorNative() and errorCode() methods.
+* In errorNative():
+  + If PHP is &gt;= 5.0.0, use ibase_errcode()
+  + Otherwise use a refined error code extraction regex
+    to keep it from catching numbers other than error codes.
+* Drop the bogus, non-standard $native_errmsg parameter
+  in ibaseRaiseError().
+* Remove the bogus error code 88.  It was a hack to catch
+  errors in nextID().  Now, when a generator does not exist,
+  &quot;DB Error: syntax error&quot; is produced instead of
+  &quot;DB Error: no such table&quot;.
+
+ifx:
+* Add numRows() support (Note:
+  DB_PORTABILITY_NUMROWS must be enabled).
+* Add $this-&gt;DB_common() call to the constructor,
+  just like is done in all the other drivers.
+* Add items to error map:
+  + -236: insert column count doesn't match value count
+  + -316: create duplicate index
+  + -319: drop non-existant index
+  + -692: delete record with foreign key constraint
+
+msql:
+* The mSQL driver now works and passes most tests.
+
+mssql:
+* Use &quot;,&quot; to delimit port only for Windows.  Use &quot;:&quot;
+  for other OS's.  This bug was introduced when
+  resolving Bug 2140.  (Bug 2731)
+* Add 1913 (duplicate index creation) to errorcode_map.
+* Changed error code: When trying to DROP an index that
+  doesn't exist, use DB_ERROR_NOT_FOUND instead of
+  DB_ERROR_NOSUCHTABLE.
+
+mysql &amp; mysqli:
+* Added the following items to the error map:
+  1061 =&gt; DB_ERROR_ALREADY_EXISTS
+  1044 =&gt; DB_ERROR_ACCESS_VIOLATION
+  1049 =&gt; DB_ERROR_NOSUCHDB
+  1142 =&gt; DB_ERROR_ACCESS_VIOLATION
+* Remove $num_rows property.  Wasn't used in all
+  drivers and numRows() can get the answer
+  directly from the DBMS' API.
+
+mysql:
+* Add new_link and client_flags support to connect().
+  Request 1905.
+* If you want to use mysql_unbuffered_query() set
+  the &quot;result_buffering&quot; option to 0 using setOptions().
+  Request 2813.
+
+oci8:
+* Allow use of oci_new_connect() via the new_link DSN
+  option.
+* Add ocisetprefetch() calls in query() and execute().
+  This determines how many rows of a result set get
+  buffered.  To adjust the quantity, see the
+  &quot;result_buffering&quot; option in setOptions().
+  Request 3241.
+* When running PHP5, use the new oci_connect() and
+  oci_close() functions instead of the old ones.
+  Works around crashes caused by PHP bug
+  http://bugs.php.net/bug.php?id=28924
+  (PEAR Bug #2622)
+* The autoCommit property was renamed autocommit to be
+  in line with the other drivers.
+* getListOf() now supports synonyms.  Request 752.
+
+odbc:
+* Add tableInfo() support.  Request 2669.
+* Add getListOf() support.  Request 2669.
+* Add '23504' =&gt; DB_ERROR_CONSTRAINT to error map.
+* Deal with MS Access' excessive use of the
+  S1000 (&quot;General Error&quot;) code by trying to
+  pin down a more specific error.
+* Changed error code: when the number values in an
+  INSERT statement doesn't match the number of columns,
+  use DB_ERROR_VALUE_COUNT_ON_ROW instead of
+  DB_ERROR_MISMATCH.
+* Remove the $row property because it's not used.
+* Rename the $manip_result property $affected because
+  it's more descriptive and is the name used in other
+  drivers.
+* Raise error on problems in numRows().
+
+pgsql:
+* Add connect_timeout (Request 3228), new_link, sslmode,
+  and service support to connect().
+* Allow multiple open parentheses in query strings
+  (due to regex in simpleQuery()).  Bug 2586.
+* Use pg_affected_rows() instead of the undocumented
+  pg_cmdtuples() in affectedRows().
+* Make $num_rows property private.
+* Add duplicate index creation to errorcode_map.
+* When doing getListOf() for views (Bug 2085) or
+  functions, only show non-system items.
+* getListOf() now supports listing the schema and table
+  by using the 'schema.tables' type.  Request 682.
+* Rename _modifyQuery() to modifyQuery() as it is in
+  the other drivers.
+
+sqlite:
+* Add tableInfo().  Request 1317.
+* Capture $php_errormsg on connection errors to make
+  debugging easier.
+* Add duplicate index creation to errorcode_map.
+
+sybase:
+* Provide debugging information to raiseError() when
+  connections fail so getUserInfo() and getDebugInfo()
+  provide useful information.
+* Remove $num_rows property.  Wasn't used in all
+  drivers and numRows() can get the answer
+  directly from the DBMS' API.
+* Add items to error mapping:
+  + insert column count doesn't match value count
+  + create duplicate index
+  + drop non-existant index
+  + illegal float/int conversion
+* Change identifier delimiting from [] to &quot;&quot;.
+  Note: &quot;SET QUOTED_IDENTIFIER ON&quot; must be executed
+  sometime prior to using quoteIdentifier().
+
+tests:
+* setup.inc now uses an array for the DSN's
+  instead of defining constants.
+* Added the multiconnect.php test.
+* Added the 19getlistof.phpt test.
+* Reworked 10errormap.phpt so it passes when all
+  expected conditions are met.  Also tweaked it
+  to make it work under fbsql.</notes>
+    <deps>
+      <dep type="php" rel="ge" version="4.2.0"/>
+      <dep type="pkg" rel="ge" version="1.0b1">PEAR</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="/" md5sum="ea7037643a27c7d1eb0f818efcbf35ee" name="DB.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="php" md5sum="e87b72b9756124ea98cdde89e6982a0c" name="DB\common.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="php" md5sum="921d3cde2d8295ca978caae22ab48761" name="DB\dbase.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="php" md5sum="4642f8eab8343a70dc64ffc27dcb6926" name="DB\fbsql.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="php" md5sum="54c5ff403ff0d1f467b14d18f992a674" name="DB\ibase.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="php" md5sum="a27b90a13bfc9580d3954ca420d87c01" name="DB\ifx.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="php" md5sum="0fc78181842e1b47893a0be27f680bd9" name="DB\msql.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="php" md5sum="cae330f22007f01f0ffbdb76efe83e85" name="DB\mssql.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="php" md5sum="df1d17668d73559f662d79814a8c59b6" name="DB\mysql.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="php" md5sum="141c06885fe83a9cf050932a0c0756d3" name="DB\mysqli.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="php" md5sum="0bfcbcca837713e71434747ce146cfea" name="DB\oci8.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="php" md5sum="9d3c50662b17df9f33260bea97a361a7" name="DB\odbc.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="php" md5sum="5572d08457e0b7134d52c87a2b93b475" name="DB\pgsql.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="php" md5sum="fdc093d71420407c0034206c4068d332" name="DB\sybase.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="php" md5sum="0a920908d899cf8ce620449207de5e89" name="DB\storage.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="php" md5sum="996daea7f2c4ca4fc6eae6cdf3005686" name="DB\sqlite.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="doc" md5sum="651a644b6f3495fc39279d75b8099372" name="doc\IDEAS"/>
+      <file role="doc" md5sum="8c5779871e07720a032615177403b691" name="doc\MAINTAINERS"/>
+      <file role="doc" md5sum="30bc4ceeccd51413ab81fa98c1fb9aa8" name="doc\STATUS"/>
+      <file role="doc" md5sum="31f276d6ff710a1f048c50cd533ffe5c" name="doc\TESTERS"/>
+      <file role="test" md5sum="2e7f987503b8b5e2a7fc4c3c30e79c13" name="tests\db_error.phpt"/>
+      <file role="test" md5sum="ca733f1d806681c6522ab993c999b12f" name="tests\db_parsedsn.phpt"/>
+      <file role="test" md5sum="79e88e6db0c25ca1ee5e2aac35a24d6c" name="tests\db_factory.phpt"/>
+      <file role="test" md5sum="859cffe6ae0f54122485879805629261" name="tests\db_ismanip.phpt"/>
+      <file role="test" md5sum="5f5068a8a1a3742ff0810be61b57288d" name="tests\db_error2.phpt"/>
+      <file role="test" md5sum="b7f7a4018fec4f2b1a4d6593c81d0ca1" name="tests\errors.inc"/>
+      <file role="test" md5sum="3732edbe1c159b16d82c0cefb23fb283" name="tests\fetchmode_object.inc"/>
+      <file role="test" md5sum="2cdad3e62c059414ddab8a410781458c" name="tests\fetchmodes.inc"/>
+      <file role="test" md5sum="f3d663fdf145e5bb3797c96b3d0dcf47" name="tests\include.inc">
+        <replace from="@include_path@" to="php_dir" type="pear-config"/>
+      </file>
+      <file role="test" md5sum="600316395dc9ebe05f8249b4252088e6" name="tests\limit.inc"/>
+      <file role="test" md5sum="3abeeb0a61cdd7f4108a647cccb55810" name="tests\numcols.inc"/>
+      <file role="test" md5sum="26fb3581b281991838b2dfacf4e86f5d" name="tests\numrows.inc"/>
+      <file role="test" md5sum="06f6cd517eb324113c8cedf1c64a1e3e" name="tests\prepexe.inc"/>
+      <file role="test" md5sum="aac444f47ed3ad1642013539d99f5757" name="tests\run.cvs"/>
+      <file role="test" md5sum="0a3b6c14fb3a8cb6e3cd8ece9736e9eb" name="tests\sequences.inc"/>
+      <file role="test" md5sum="8f773eb10ee19145937296dca60d296e" name="tests\simplequery.inc"/>
+      <file role="test" md5sum="8b42ffcce8bbe68507f0ed21dab3200c" name="tests\transactions.inc"/>
+      <file role="test" md5sum="5f6f6b62f9779b97adf57bdbbcffe450" name="tests\skipif.inc"/>
+      <file role="test" md5sum="2cbff4d99f59d9ad71adf0833794f9e5" name="tests\driver\01connect.phpt"/>
+      <file role="test" md5sum="0261a7e827ff9581e4aca6dd6b13642e" name="tests\driver\02fetch.phpt"/>
+      <file role="test" md5sum="b671efeac9fd34b83309de8413531317" name="tests\driver\03simplequery.phpt"/>
+      <file role="test" md5sum="a5ecf473f648022af5dc9fbb2f33e371" name="tests\driver\04numcols.phpt"/>
+      <file role="test" md5sum="1ab9a3b8a98c691a222a510eb8134355" name="tests\driver\05sequences.phpt"/>
+      <file role="test" md5sum="8d651d2da580619ed5abeaaa9e1f71ad" name="tests\driver\06prepexec.phpt"/>
+      <file role="test" md5sum="b2e5ebe28916e63d8502845d58f74d49" name="tests\driver\08affectedrows.phpt"/>
+      <file role="test" md5sum="7efee695096e0cf6e243e5590915b6fc" name="tests\driver\09numrows.phpt"/>
+      <file role="test" md5sum="1d9be40f19c8f8885a83b8e0a33f5762" name="tests\driver\10errormap.phpt"/>
+      <file role="test" md5sum="f53ca06e8370629e5ab6717bf7bbe2a7" name="tests\driver\11transactions.phpt"/>
+      <file role="test" md5sum="7f2d525fc8d2038157a736b64b774811" name="tests\driver\13limit.phpt"/>
+      <file role="test" md5sum="13870a67a986287a1dd7b8616538cb90" name="tests\driver\14fetchmode_object.phpt"/>
+      <file role="test" md5sum="2cf853766a1c1dc21f0b38988cd5a406" name="tests\driver\15quote.phpt"/>
+      <file role="test" md5sum="a7db7211ac1faebce9248ffba535472e" name="tests\driver\16tableinfo.phpt"/>
+      <file role="test" md5sum="f796eae81fce16bc2a03cbea5af80b49" name="tests\driver\17query.phpt"/>
+      <file role="test" md5sum="8363274c9471e5b8038856ec4b111bea" name="tests\driver\18get.phpt"/>
+      <file role="test" md5sum="871bdd4a90291602c206042742922a71" name="tests\driver\19getlistof.phpt"/>
+      <file role="test" md5sum="4180a5d038d41a1262d1cc41951f0f3d" name="tests\driver\connect.inc"/>
+      <file role="test" md5sum="6f4a4b1e45c94733717a21ef26f388ba" name="tests\driver\mktable.inc"/>
+      <file role="test" md5sum="4af9cff841e14f1c94e358346747e7b6" name="tests\driver\multiconnect.php"/>
+      <file role="test" md5sum="7023d979e8bcb94a93d48597d864feb3" name="tests\driver\run.cvs"/>
+      <file role="test" md5sum="a7ee27ff0a2aacf0ef906eea8569718f" name="tests\driver\setup.inc.cvs">
+        <replace from="@include_path@" to="php_dir" type="pear-config"/>
+      </file>
+      <file role="test" md5sum="5e3ad6fb4ab28735d788396ab80a63b5" name="tests\driver\skipif.inc"/>
+    </filelist>
+  </release>
+</package>

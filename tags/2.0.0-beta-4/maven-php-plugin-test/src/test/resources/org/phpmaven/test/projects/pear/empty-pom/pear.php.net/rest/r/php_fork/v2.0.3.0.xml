@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release2
+    http://pear.php.net/dtd/rest.release2.xsd">
+ <p xlink:href="/rest/p/php_fork">PHP_Fork</p>
+ <c>pear.php.net</c>
+ <v>0.3.0</v>
+ <a>0.3.0</a>
+ <mp>4.3.0</mp>
+ <st>beta</st>
+ <l>PHP License</l>
+ <m>lucamariano</m>
+ <s>PHP_Fork class. Wrapper around the pcntl_fork() stuff with a API set like Java language</s>
+ <d>PHP_Fork class. Wrapper around the pcntl_fork() stuff
+with a API set like Java language.
+Practical usage is done by extending this class, and re-defining
+the run() method.
+[see basic example]
+This way PHP developers can enclose logic into a class that extends
+PHP_Fork, then execute the start() method that forks a child process.
+Communications with the forked process is ensured by using a Shared Memory
+Segment; by using a user-defined signal and this shared memory developers
+can access to child process methods that returns a serializable variable.
+The shared variable space can be accessed with the tho methods:
+o void setVariable($name, $value)
+o mixed getVariable($name)
+$name must be a valid PHP variable name;
+$value must be a variable or a serializable object.
+Resources (db connections, streams, etc.) cannot be serialized and so they're not correctly handled.
+Requires PHP build with --enable-cli --with-pcntl --enable-shmop.
+Only runs on *NIX systems, because Windows lacks of the pcntl ext.
+@example browser_pool.php an interactive tool to perform multiple cuncurrent request over an URL.
+@example simple_controller.php shows how to attach a controller to started pseudo-threads.
+@example exec_methods.php shows a workaround to execute methods into the child process.
+@example passing_vars.php shows variable exchange between the parent process and started pseudo-threads.
+@example basic.php a basic example, only two pseudo-threads that increment a counter simultaneously.
+</d>
+ <da>2005-03-24 09:05:20</da>
+ <n>Added isActive() facilty to check if the process is into its run() method.
+           Added IPC segments cleanup after the stop() method is called (this totally free up detached shared memory as revealed by the ipcs command).
+	   Added a complex usage example (examples/browser_pool.php).
+	   Some minor changes into example scripts to accomplish php5 syntax rules.</n>
+ <f>12796</f>
+ <g>http://pear.php.net/get/PHP_Fork-0.3.0</g>
+ <x xlink:href="package.0.3.0.xml"/>
+</r>

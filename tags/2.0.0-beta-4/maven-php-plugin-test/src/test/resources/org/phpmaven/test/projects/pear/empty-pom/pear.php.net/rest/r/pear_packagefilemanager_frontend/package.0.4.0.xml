@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+ <name>PEAR_PackageFileManager_Frontend</name>
+ <channel>pear.php.net</channel>
+ <summary>PEAR_PackageFileManager_Frontend, the singleton-based frontend for user input/output.</summary>
+ <description>PEAR_PackageFileManager_Frontend is designed to act as a backend with all features required by frontend such as Web or Gtk2.
+
+Features:
+- keep and manage all errors/warnings through a PEAR ErrorStack
+- allow to import/export users preferences
+- logs all frontend activities
+- retrieve user package informations on import with common API getDefaults()
+- provides also basic methods to get list of maintainers, files with roles and replacements,
+list of dependencies (packages, extensions), and specific files roles.
+- provides a common Decorator pattern class for any frontend (Web, Gtk2, ...)
+- works with PHP 4 and PHP 5.</description>
+ <lead>
+  <name>Laurent Laville</name>
+  <user>farell</user>
+  <email>pear@laurent-laville.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2006-05-21</date>
+ <time>15:32:20</time>
+ <version>
+  <release>0.4.0</release>
+  <api>0.4.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+ <notes>* news
+- new api : getPreferences() to retrieve easily user options loaded.
+- options filelistgenerator was renamed to plugingenerator, and new filelistgenerator begin equal to PFM same option.
+- new configuration structure (more simple)
+  gui options are now only supported by PFM FE Web.
+- setOption() and getOption() did not used any more the xpath ability of PEAR::Config
+
+* improvements
+- realpathnix() and array_merge_recursive2() are static class methods so they don&apos;t pollute the global namespace.
+- loadPreferences() is no more mandatory, and you can reload default options.
+- add a hack for PEAR::Config that cannot parse correctly boolean for XML container.
+- reduces amount of data stored in session</notes>
+ <contents>
+  <dir baseinstalldir="PEAR/PackageFileManager" name="/">
+   <file baseinstalldir="PEAR/PackageFileManager" md5sum="d174d91aa4896a2086ac0528f414c6f7" name="examples/PFM_MaintainersList.php" role="doc" />
+   <file baseinstalldir="PEAR/PackageFileManager" md5sum="071a27f377f7409f9a0b44cf4f71b1d5" name="examples/THL_Infos.php" role="doc" />
+   <file baseinstalldir="PEAR/PackageFileManager" md5sum="af68b60f618797ac8ca0e2fd879aa0fc" name="Frontend/Decorator.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PEAR/PackageFileManager" md5sum="2c6f0a6ac190f8558457ebbf0d617831" name="Frontend.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+    <tasks:replace from="@package_name@" to="name" type="package-info" />
+    <tasks:replace from="@api_version@" to="api-version" type="package-info" />
+   </file>
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.3</min>
+   </pearinstaller>
+   <package>
+    <name>PEAR_PackageFileManager</name>
+    <channel>pear.php.net</channel>
+    <min>1.6.0a8</min>
+   </package>
+   <package>
+    <name>Config</name>
+    <channel>pear.php.net</channel>
+    <min>1.10.6</min>
+   </package>
+  </required>
+  <optional>
+   <package>
+    <name>Log</name>
+    <channel>pear.php.net</channel>
+    <min>1.9.0</min>
+   </package>
+   <package>
+    <name>Var_Dump</name>
+    <channel>pear.php.net</channel>
+    <min>1.0.1</min>
+   </package>
+  </optional>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.4.0</release>
+    <api>0.4.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-05-21</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+   <notes>* news
+- new api : getPreferences() to retrieve easily user options loaded.
+- options filelistgenerator was renamed to plugingenerator, and new filelistgenerator begin equal to PFM same option.
+- new configuration structure (more simple)
+  gui options are now only supported by PFM FE Web.
+- setOption() and getOption() did not used any more the xpath ability of PEAR::Config
+
+* improvements
+- realpathnix() and array_merge_recursive2() are static class methods so they don&apos;t pollute the global namespace.
+- loadPreferences() is no more mandatory, and you can reload default options.
+- add a hack for PEAR::Config that cannot parse correctly boolean for XML container.
+- reduces amount of data stored in session</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.3.0</release>
+    <api>0.3.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-05-13</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+   <notes>Initial PEAR release after last step of proposal http://pear.php.net/pepr/pepr-proposal-show.php?id=381
+
+Since 0.2.0
+More tags of package.xml version 2.0 are now fully supported :
+- group
+- installconditions
+
+TODO
+- rewrite config file management (too much complex)</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-04-02</date>
+   <license>PHP License 3.01</license>
+   <notes>second alpha release for proposal http://pear.php.net/pepr/pepr-proposal-show.php?id=381</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-03-28</date>
+   <license>PHP License 3.01</license>
+   <notes>first alpha release for proposal http://pear.php.net/pepr/pepr-proposal-show.php?id=381</notes>
+  </release>
+ </changelog>
+</package>

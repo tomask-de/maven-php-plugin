@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.0a1">
+ <name>Pager</name>       
+ <summary>Data paging class</summary>
+ <description>It takes an array of data as input and page it according to various parameters. It also builds links within a specified range, and allows complete customization of the output (it even works with mod_rewrite).
+Two operating modes available: &quot;Jumping&quot; and &quot;Sliding&quot; window style.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>quipo</user>
+   <name>Lorenzo Alberton</name>
+   <email>l.alberton@quipo.it</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>richard</user>
+   <name>Richard Heyes</name>
+   <email>richard@phpguru.org</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>2.2.7</version>
+  <date>2005-03-18</date>
+  <license>PHP License</license>
+  <state>stable</state>
+  <notes>- added Pager_Wrapper_Eclipse() function in the /examples/Pager_Wrapper example
+  (thanks to Matte Edens)
+- added support for statements with subqueries in the Pager Wrappers 
+  (thanks to Tobias Kuckuck)
+- fixed bug #3451 (arrays in extraVars not handled correctly)
+  </notes>
+  <provides type="class" name="Pager_Common" />
+  <provides type="function" name="Pager_Common::getPageData" />
+  <provides type="function" name="Pager_Common::getPageIdByOffset" />
+  <provides type="function" name="Pager_Common::getOffsetByPageId" />
+  <provides type="function" name="Pager_Common::getPageRangeByPageId" />
+  <provides type="function" name="Pager_Common::getLinks" />
+  <provides type="function" name="Pager_Common::getCurrentPageID" />
+  <provides type="function" name="Pager_Common::getNextPageID" />
+  <provides type="function" name="Pager_Common::getPreviousPageID" />
+  <provides type="function" name="Pager_Common::numItems" />
+  <provides type="function" name="Pager_Common::numPages" />
+  <provides type="function" name="Pager_Common::isFirstPage" />
+  <provides type="function" name="Pager_Common::isLastPage" />
+  <provides type="function" name="Pager_Common::isLastPageComplete" />
+  <provides type="function" name="Pager_Common::getPerPageSelectBox" />
+  <provides type="function" name="Pager_Common::raiseError" />
+  <provides type="function" name="Pager_Common::errorMessage" />
+  <provides type="class" name="Pager_Jumping" extends="Pager_Common" />
+  <provides type="function" name="Pager_Jumping::getPageIdByOffset" />
+  <provides type="function" name="Pager_Jumping::getPageRangeByPageId" />
+  <provides type="function" name="Pager_Jumping::getLinks" />
+  <provides type="class" name="Pager" />
+  <provides type="function" name="Pager::factory" />
+  <provides type="class" name="Pager_Sliding" extends="Pager_Common" />
+  <provides type="function" name="Pager_Sliding::getPageIdByOffset" />
+  <provides type="function" name="Pager_Sliding::getPageRangeByPageId" />
+  <provides type="function" name="Pager_Sliding::getLinks" />
+  <filelist>
+   <file role="php" baseinstalldir="Pager" md5sum="d0fc94da3264b6d649832f8949e42a4f" name="Common.php"/>
+   <file role="php" baseinstalldir="Pager" md5sum="1e027a61070ff5f4f095292fa3693e0e" name="Jumping.php"/>
+   <file role="php" baseinstalldir="Pager" md5sum="6d263306503f88d4a89e1c89ed033dd5" name="Pager.php"/>
+   <file role="php" baseinstalldir="Pager" md5sum="31789586733a50c231bbdfe1115feff3" name="Sliding.php"/>
+   <file role="doc" baseinstalldir="Pager" md5sum="8c3dc80f27a08d6bb5348c5bc56fb69a" name="examples/example.php"/>
+   <file role="doc" baseinstalldir="Pager" md5sum="79cbaf9695a6e2498d5b78778298be05" name="examples/Pager_Wrapper.php"/>
+   <file role="test" baseinstalldir="Pager" md5sum="cff566507ea22e27a3cae2fc38a6489f" name="tests/all_tests.php"/>
+   <file role="test" baseinstalldir="Pager" md5sum="6e068785210abb19d568902ed7b3db19" name="tests/pager_include.php"/>
+   <file role="test" baseinstalldir="Pager" md5sum="f1adfff3b881e77ec465d6c1bc9c111a" name="tests/pager_jumping_noData_test.php"/>
+   <file role="test" baseinstalldir="Pager" md5sum="f2568e2d05dc9de946311dafd1d3f118" name="tests/pager_jumping_test.php"/>
+   <file role="test" baseinstalldir="Pager" md5sum="91fae6a7dea9df24f632eccdaace5419" name="tests/pager_jumping_tests.php"/>
+   <file role="test" baseinstalldir="Pager" md5sum="4921ac72c61a7b3f093fa9326101879f" name="tests/pager_noData_test.php"/>
+   <file role="test" baseinstalldir="Pager" md5sum="f41cab3c66ac187dd95e8ed866c22622" name="tests/pager_sliding_noData_test.php"/>
+   <file role="test" baseinstalldir="Pager" md5sum="76bb535b48edb758f3ea8aa23d9d7929" name="tests/pager_sliding_notExpanded_test.php"/>
+   <file role="test" baseinstalldir="Pager" md5sum="d621527b24e7e3ebe7eb01af6c39f511" name="tests/pager_sliding_test.php"/>
+   <file role="test" baseinstalldir="Pager" md5sum="0fda8a38280c6fa489828bb9b9c80f9c" name="tests/pager_sliding_tests.php"/>
+   <file role="test" baseinstalldir="Pager" md5sum="5bb5ffb4b225512a743ad19e3e7d7d1f" name="tests/pager_test.php"/>
+   <file role="test" baseinstalldir="Pager" md5sum="0bf7c89c0f90e4cefbef7c126c4f57db" name="tests/pager_tests.php"/>
+   <file role="test" baseinstalldir="Pager" md5sum="efae9f4b4a69d70e41d8a24c0a923e52" name="tests/simple_include.php"/>
+   <file role="test" baseinstalldir="Pager" md5sum="dc8669cb613ef82011fce2eec7188b9c" name="tests/README"/>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>2.2.7</version>
+    <date>2005-03-18</date>
+    <state>stable</state>
+    <notes>- added Pager_Wrapper_Eclipse() function in the /examples/Pager_Wrapper example
+  (thanks to Matte Edens)
+- added support for statements with subqueries in the Pager Wrappers 
+  (thanks to Tobias Kuckuck)
+- fixed bug #3451 (arrays in extraVars not handled correctly)
+    </notes>
+   </release>
+   <release>
+    <version>2.2.6</version>
+    <date>2005-02-04</date>
+    <state>stable</state>
+    <notes>- better 'currentPage' option support (thanks to Andrew Nagy)
+- fixed typo (thanks to Massimiliano Arione)
+    </notes>
+   </release>
+   <release>
+    <version>2.2.5</version>
+    <date>2005-01-17</date>
+    <state>stable</state>
+    <notes>- allowed use of a javascript function in the fileName [bugs #2555 and #2754]
+- added Pager_Wrapper_DBDO() function in the /examples/Pager_Wrapper example
+  (thanks to garak AT studenti DOT it)
+- replaced urlencode() with htmlentities() because it was too aggressive
+  [bugs #2908, #3043 and #3212]
+- added 'currentPage' option (patch by Kendrick Vargas)
+    </notes>
+   </release>
+   <release>
+    <version>2.2.4</version>
+    <date>2004-11-20</date>
+    <state>stable</state>
+    <notes>- fixed &quot;Notice: Undefined property: _totalPages&quot; [bug #2714]
+- enforce errors (which weren't displayed at all)
+- fixed Pager_Wrapper (examples dir) with GROUP BY queries
+- changed $_GET to $_REQUEST. POST values should be valid too, now.
+- Pager can be used on a DirectoryIndex script, now (patch by ieure)  [bug #2617]
+    </notes>
+   </release>
+   <release>
+    <version>2.2.3</version>
+    <date>2004-08-17</date>
+    <state>stable</state>
+    <notes>- just the last one of a set of array values given as GET parameters
+  (i.e. site.php?foo[]=1&amp;foo[]=2&amp;foo[]=3) was carried on (bug #1904).
+- make 4th parameter of getPerPageSelectBox() an array, and add an
+  &quot;attribute&quot; parameter to allow extra attributes for the select tag.
+- added an example to show how this class can be used with big database
+  resultsets efficiently.
+- prevent XSS attacks (bug #2131), thanks to sou_sk at nifty dot com
+    </notes>
+   </release>
+   <release>
+    <version>2.2.2</version>
+    <date>2004-05-18</date>
+    <state>stable</state>
+    <notes>- set correct selected value for getPerPageSelectBox even when &quot;useSession&quot;
+  option is false (bug #1263).
+- added two parameters to getPerPageSelectBox():
+  * $showAllData (if true, an &lt;option&gt; to show
+    all the data is displayed in the generated &lt;select&gt;);
+  * $optionText (text to show in each &lt;option&gt;; use '%d' where you want to see
+    the number of pages selected)
+- added showAllText option for alternate text in the $showAllData &lt;option&gt;
+  (the default is the number of total items).
+- fixed getPageData() when $pageID is specified (bug #1377) (thanks to Ian Eure)
+- added tests for getPageData()
+- avoid duplicate vars in querystring when using 'extraVars' option (bug #1383)
+  (thanks to pauluz at gazeta dot pl)
+    </notes>
+   </release>
+   <release>
+    <version>2.2.1</version>
+    <date>2004-04-15</date>
+    <state>stable</state>
+    <notes>- PHP5 compatibility (fixed bug #812)
+- Forced ucfirst() on filename too
+    </notes>
+   </release>
+   <release>
+    <version>2.2.0</version>
+    <date>2004-01-23</date>
+    <state>stable</state>
+    <notes>- Fixed handling of errors raised in common base class
+- Added an 'extraVars' option to add vars to the querystring
+- Added &lt;link&gt; tags building (patch by Joerg Bruckmann)
+- Fixed Bug #589 (common.php raise a notice if the querystring has no '=' character)
+- Use '&amp;amp;' instead of '&amp;' in urls for better XHTML conformance
+    </notes>
+   </release>
+   <release>
+    <version>2.1.0</version>
+    <date>2003-12-22</date>
+    <license>BSD</license>
+    <state>stable</state>
+    <notes>- Added getPageRangeByPageId()
+- Fix getOffsetByPageId() in Pager_Jumping when totalItems == 0.
+- Fix getOffsetByPageId() in Pager_Sliding for BC with Pager 1.x and Pager_Jumping.
+  N.B.: its previous (not-indended) behaviour is now provided by the new getPageRangeByPageId() method.
+- Fix isFirstPage() when totalItems == 0
+- Added test suite.
+    </notes>
+   </release>
+   <release>
+    <version>2.0</version>
+    <date>2003-09-10</date>
+    <license>BSD</license>
+    <state>stable</state>
+    <notes>- New major version.
+- Pager and Pager_Sliding are now merged in the same package.
+  Every option available in Pager_Sliding is now also available
+  in Pager. The API is the same as the old one, BC is kept 100%.
+- Switch between &quot;Jumping&quot; and &quot;Sliding&quot; window mode just setting
+  an option.
+- Improved error handling.
+    </notes>
+   </release>
+   <release>
+    <version>1.0.8</version>
+    <date>2003-09-10</date>
+    <license>BSD</license>
+    <state>stable</state>
+    <notes>- Minor patch for script_name vs php_self (not included in v.1.0.7)
+- Prevent URL modification
+    </notes>
+   </release>
+   <release>
+    <version>1.0.7</version>
+    <date>2002-12-01</date>
+    <license>BSD</license>
+    <state>stable</state>
+    <notes>Minor patch for script_name vs php_self
+    </notes>
+   </release>
+   <release>
+    <version>1.0.6</version>
+    <date>2002-09-08</date>
+    <license>BSD</license>
+    <state>stable</state>
+    <notes>Updated to no longer require an array of data. Now
+can be used with just a number of items. Thanks to
+Christian Dickmann for the patch.
+    </notes>
+   </release>
+   <release>
+    <version>1.0.5</version>
+    <date>2002-07-27</date>
+    <license>PHP</license>
+    <state>stable</state>
+    <notes>Changed getCurrentPage() to getCurrentPageID() and
+added getNextPageID() and getPreviousPageID()
+    </notes>
+   </release>
+   <release>
+    <version>1.0.4</version>
+    <date>2002-06-29</date>
+    <state>stable</state>
+    <notes>Changed getCurrentPage() to getCurrentPageID() and
+added getNextPageID() and getPreviousPageID()
+    </notes>
+   </release>
+   <release>
+    <version>1.0.3</version>
+    <date>2002-05-31</date>
+    <state>stable</state>
+    <notes>Couple of minor bugs
+    </notes>
+   </release>
+   <release>
+    <version>1.0.2</version>
+    <date>2002-05-31</date>
+    <state>stable</state>
+    <notes>Applied patch from Christian Dickmann adding getCurrentPage(), numItems()
+and optional CSS class for links.
+    </notes>
+   </release>
+   <release>
+    <version>1.0.1</version>
+    <date>2002-05-27</date>
+    <state>stable</state>
+    <notes>o No longer barfs with no querystring
+o Now works with associative data array
+    </notes>
+   </release>
+   <release>
+    <version>1.0</version>
+    <date>2002-02-09</date>
+    <state>stable</state>
+    <notes>This is the initial release of the Pager package.
+    </notes>
+   </release>
+ </changelog>
+</package>

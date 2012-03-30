@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.11" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>PHP_ParserGenerator</name>
+ <channel>pear.php.net</channel>
+ <summary>translate grammar files in Lemon Parser Generator format into a PHP 5 parser</summary>
+ <description>Translate a grammar file in the lemon parser generator format
+  into a PHP 5-based parser
+  
+  There are a few PHP-specific changes to the lemon parser generator.
+  
+  - %extra_argument is removed, as class constructor can be used to
+    pass in extra information
+  - %token_type and company are irrelevant in PHP, and so are removed
+  - %declare_class is added to define the parser class name and any
+    implements/extends information
+  - %include_class is added to allow insertion of extra class information
+    such as constants, a class constructor, etc.
+
+  Other changes make the parser more robust, and also make reporting
+  syntax errors simpler.  Detection of expected tokens eliminates some
+  problematic edge cases where an unexpected token could cause the parser
+  to simply accept input.
+  
+  Otherwise, the file format is identical to the Lemon parser generator</description>
+ <lead>
+  <name>Greg Beaver</name>
+  <user>cellog</user>
+  <email>cellog@php.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2006-10-12</date>
+ <time>13:39:00</time>
+ <version>
+  <release>0.1.2</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+ <notes>fix replacements in phplemon script in unix (Hartmut Holzgraefe) (no code changes)</notes>
+ <contents>
+  <dir baseinstalldir="PHP" name="/">
+   <file baseinstalldir="PHP" md5sum="cf2eeb0b4f48104fa1da441ad5d3c26d" name="ParserGenerator/Action.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="2d6f9106edc61ae0fc86634c1775b523" name="ParserGenerator/ActionTable.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="4de4c806fffd86ec86d7faf49517c9bd" name="ParserGenerator/Config.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="0d3fbd77b5a8f66fd2f0a4a34598cc37" name="ParserGenerator/Data.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="0b3c9741b0c35a0643d8a32b698a48bb" name="ParserGenerator/Parser.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="100e93d443aa4284cb7c244d5c989231" name="ParserGenerator/PropagationLink.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="41997618dc8f9882f6067bbc22d6f063" name="ParserGenerator/Rule.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="b51476e0abe5049c2631caf429147aa6" name="ParserGenerator/State.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="d84b3d83877531b0a8bc6b1778880502" name="ParserGenerator/Symbol.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="fa3601611a067d9dd0b219940bd0f1c5" name="ParserGenerator/cli.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="e26fdb8b090d1291743f5c525ae492a7" name="LICENSE.txt" role="doc" />
+   <file baseinstalldir="PHP" md5sum="bd3100381e0c1e58bfc6e05be7d356cd" name="Lempar.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="f4bbe26212e5d8cd2388b1d0dfcdc81d" name="ParserGenerator.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="" md5sum="fe16f7b01fe19514e0e058115f8169b6" name="phplemon.bat" role="script">
+    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
+    <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
+    <tasks:windowseol />
+   </file>
+   <file baseinstalldir="" md5sum="9ea08e9573f3ce76a2fd3694ad5e75bd" name="phplemon" role="script">
+    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
+    <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
+    <tasks:unixeol />
+   </file>
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.1.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.3</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-06-24</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+   <notes>initial release</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.1</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-07-18</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>update to New BSD license (no code changes)</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.2</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-10-12</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>fix replacements in phplemon script in unix (Hartmut Holzgraefe) (no code changes)</notes>
+  </release>
+ </changelog>
+</package>

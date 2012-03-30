@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>DB</name>
+  <summary>Database Abstraction Layer</summary>
+  <description>DB is a database abstraction layer providing:
+* an OO-style query API
+* a DSN (data source name) format for specifying database servers
+* prepare/execute (bind) emulation for databases that don't support
+  it natively
+* a result object for each query response
+* portable error codes
+* sequence emulation
+* sequential and non sequential row fetching as well as bulk fetching
+* ordered array, associative array and object formats supported for
+  the fetched rows
+* row limit support
+* transactions support
+* table information interface
+* DocBook and PHPDoc API documentation
+
+DB layers itself on top of PHP's existing database extensions.  The
+currently supported extensions are: dbase, fbsql, interbase, informix,
+msql, mssql, mysql, oci8, odbc, pgsql, sqlite and sybase (DB style interfaces
+to LDAP servers and MS ADO (using COM) are also avaible from a separate package).</description>
+  <maintainers>
+    <maintainer>
+      <user>ssb</user>
+      <name>Stig Sæther Bakken</name>
+      <email>stig@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>cox</user>
+      <name>Tomas V.V.Cox</name>
+      <email>cox@idecnet.com</email>
+      <role>developer</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.5.0RC1</version>
+    <date>2003-06-23</date>
+    <license>PHP License</license>
+    <state>stable</state>
+    <notes>New Features:
+- Added $dbh-&gt;freePrepared(), for explicitily free a prepared result
+- Test suite enhanced
+- Added new *experimental* driver for SQLite
+
+Bugs fixed:
+- Fixed memory leaks with methods that did automatic prepare/execute
+- ibase: better error handling and various bugfixes
+- mssql: added port setting to connect and enhancements to the error hanlder
+- mysql: $db-&gt;createSequence(); $db-&gt;nextID(); now returns 1 and other minor fixes
+- odbc: added native quote() function, better error handling, and other bugfixes
+- pgsql: minor bugfixes
+
+Special thanks for those persons who sent patches and bug reports. This release
+is done for public testing before the final release in sync with the
+upcomming PHP 4.3.3 version.</notes>
+    <provides type="function" name="array_change_key_case" />
+    <filelist>
+      <file role="php" baseinstalldir="/" md5sum="60f4bee62caad5819386a7083cdf8bef" name="DB.php"/>
+      <file role="php" md5sum="6e1d2729f23156914cc7cb2638f3cde0" name="DB/common.php"/>
+      <file role="php" md5sum="79fdc45c2dd9681848b8a3995875b927" name="DB/dbase.php"/>
+      <file role="php" md5sum="88cf3bf558c11ce53abceed2b12f0d0a" name="DB/fbsql.php"/>
+      <file role="php" md5sum="ecd71fa6f478337c53f454b1634f33bd" name="DB/ibase.php"/>
+      <file role="php" md5sum="5f46e685b67648d229ed0dfaa82366a6" name="DB/ifx.php"/>
+      <file role="php" md5sum="f9b47f34552af5f0cc86a5a91d8b22ba" name="DB/msql.php"/>
+      <file role="php" md5sum="e6abafbfc988a25a0c922fc4946b37d5" name="DB/mssql.php"/>
+      <file role="php" md5sum="07c83a61830a75620f2aabb275812270" name="DB/mysql.php"/>
+      <file role="php" md5sum="6e03bb2b9ed4e4e8b1d7ef1a4f22645d" name="DB/oci8.php"/>
+      <file role="php" md5sum="c211b48429f26f1a2338480866a1ad93" name="DB/odbc.php"/>
+      <file role="php" md5sum="f3bf95c344f347b26f510880203d7cfd" name="DB/pgsql.php"/>
+      <file role="php" md5sum="ededc20be257a01f5702d62150b6211a" name="DB/sybase.php"/>
+      <file role="php" md5sum="2737dfc709344a2e70eadae79592a97b" name="DB/storage.php"/>
+      <file role="php" md5sum="2beef1057428eeaadfdfb695d07ea7a8" name="DB/sqlite.php"/>
+      <file role="doc" md5sum="651a644b6f3495fc39279d75b8099372" name="doc/IDEAS"/>
+      <file role="doc" md5sum="ddcd1bfdcd6aec2b228aead9b1d52a09" name="doc/MAINTAINERS"/>
+      <file role="doc" md5sum="c923f7b23e9585638b134f2a15c5a6cc" name="doc/STATUS"/>
+      <file role="doc" md5sum="22e4d96c9c741e7f2744f6c6caaee246" name="doc/TESTERS"/>
+      <file role="test" md5sum="de562646dfb74dbad24f0e9607e8f1db" name="tests/db_error.phpt"/>
+      <file role="test" md5sum="b3f805aa2c883be285630edfb8da3f29" name="tests/db_parsedsn.phpt"/>
+      <file role="test" md5sum="1d2908eac269bb4e29cabb9f8c349e38" name="tests/db_factory.phpt"/>
+      <file role="test" md5sum="3c4e6e14b024a9c610638d33c2ce9d48" name="tests/db_ismanip.phpt"/>
+      <file role="test" md5sum="56b322591040894cafbd6e42b9fe693c" name="tests/db_error2.phpt"/>
+      <file role="test" md5sum="78105307ff520cd23879c7ffbb295d88" name="tests/errors.inc"/>
+      <file role="test" md5sum="5cde550f4727d1ace15ed504067275cc" name="tests/fetchmode_object.inc"/>
+      <file role="test" md5sum="65e55bb70716de263e3ee2ff09bd3683" name="tests/fetchmodes.inc"/>
+      <file role="test" md5sum="4beeb9c4150e3d347e97df83ab72638a" name="tests/fetchrow.inc"/>
+      <file role="test" md5sum="1ebfc638738cdd23df956a774b319f06" name="tests/include.inc"/>
+      <file role="test" md5sum="24bc92dfa8428297ed9bbc6179a91566" name="tests/limit.inc"/>
+      <file role="test" md5sum="ff4547953be1eea607759f6aaa20fc83" name="tests/numcols.inc"/>
+      <file role="test" md5sum="399b28b1d6944110ed746c203d2bd26f" name="tests/numrows.inc"/>
+      <file role="test" md5sum="280b86bbc133dcb1f257c5a2de2bfc32" name="tests/prepexe.inc"/>
+      <file role="test" md5sum="3a79b5afdc8887639522751f6430169d" name="tests/sequences.inc"/>
+      <file role="test" md5sum="587f1b51759a650a1bce533f4eb9516a" name="tests/simplequery.inc"/>
+      <file role="test" md5sum="13b4dde8eb0f648fe1f64b306f9a42cd" name="tests/tableinfo.inc"/>
+      <file role="test" md5sum="f004217c2b908c28e4fcf4c9e3f08d02" name="tests/transactions.inc"/>
+      <file role="test" md5sum="3e9db7e275c43c15214b3e64f8e9496f" name="tests/driver/01connect.phpt"/>
+      <file role="test" md5sum="a921e61f3de520abca73bae2f9c79c11" name="tests/driver/02fetch.phpt"/>
+      <file role="test" md5sum="56294c3b143da861d63cd00a1b6bff44" name="tests/driver/03simplequery.phpt"/>
+      <file role="test" md5sum="d42b1cf8fa76e96fa19bbabe41dcdc7a" name="tests/driver/04numcols.phpt"/>
+      <file role="test" md5sum="72ff91ae2a3eb94e03ff0f19aafb8200" name="tests/driver/05sequences.phpt"/>
+      <file role="test" md5sum="0c4e3194185a16b54fcb96578129f12e" name="tests/driver/06prepexec.phpt"/>
+      <file role="test" md5sum="c2d83322323a1c2b6182f1c327090a73" name="tests/driver/08affectedrows.phpt"/>
+      <file role="test" md5sum="9f537a1950a7f8136d2bd04236fe13e5" name="tests/driver/09numrows.phpt"/>
+      <file role="test" md5sum="1df3dfc8fdc479ff5f50f10053972e2e" name="tests/driver/10errormap.phpt"/>
+      <file role="test" md5sum="243481a5224e78a4dac1e096c8957c28" name="tests/driver/13limit.phpt"/>
+      <file role="test" md5sum="7887b0d4796fd58879a6281d49afa681" name="tests/driver/14fetchmode_object.phpt"/>
+      <file role="test" md5sum="ea0d932571a6c21a2bec9183983fd7ba" name="tests/driver/15quote.phpt"/>
+      <file role="test" md5sum="6ea424e4bc8c3230ee46e1b316414a2b" name="tests/driver/bug22328.phpt"/>
+      <file role="test" md5sum="ed771036e744bdcd04ed609b0477f6e5" name="tests/driver/connect.inc"/>
+      <file role="test" md5sum="4d4ecc7426c68cbadbc56741769ccc51" name="tests/driver/mktable.inc"/>
+      <file role="test" md5sum="70dcc8c3b38243c8a49c382e4163ea0f" name="tests/driver/setup.inc"/>
+      <file role="test" md5sum="ae0d74bcaa96a88e463ea45cd404a139" name="tests/driver/skipif.inc"/>
+    </filelist>
+  </release>
+</package>

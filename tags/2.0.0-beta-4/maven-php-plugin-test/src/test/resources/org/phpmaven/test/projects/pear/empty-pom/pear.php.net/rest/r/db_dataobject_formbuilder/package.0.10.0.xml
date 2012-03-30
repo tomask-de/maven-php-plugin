@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>DB_DataObject_FormBuilder</name>
+  <summary>Class to automatically build HTML_QuickForm objects from a DB_DataObject-derived class</summary>
+  <description>DB_DataObject_FormBuilder will aid you in rapid application development using the packages DB_DataObject and HTML_QuickForm. For having a quick but working prototype of your application, simply model the database, run DataObject´s createTable script over it and write a script that passes one of the resulting objects to the FormBuilder class. The FormBuilder will automatically generate a simple but working HTML_QuickForm object that you can use to test your application. It also provides a processing method that will automatically detect if an insert() or update() command has to be executed after the form has been submitted. If you have set up DataObject´s links.ini file correctly, it will also automatically detect if a table field is a foreign key and will populate a selectbox with the linked table's entries. There are many optional parameters that you can place in your DataObjects.ini or in the properties of your derived classes, that you can use to fine-tune the form-generation, gradually turning the prototypes into fully-featured forms, and you can take control at any stage of the process.</description>
+  <maintainers>
+    <maintainer>
+      <user>mw21st</user>
+      <name>Markus Wolff</name>
+      <email>mw21st@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>justinpatrin</user>
+      <name>Justin Patrin</name>
+      <email>justinpatrin@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>norbert</user>
+      <name>Norbert Mocsnik</name>
+      <email>norbert@php.net</email>
+      <role>developer</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.10.0</version>
+    <date>2004-08-27</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>This version introduces major BC breaks, mostly dealing with the names and locations of configuration variables most of which can be corrected by using a provided fix script(s). If you have already used FormBuilder in your current projects, please read all of this very carefully!
+
+MAJOR BC BREAKS -- Please read all comments below before trying to use this version!
+This checkin is the result of an attempt at unifying the various parts of the FormBuilder API, unifying the coding styles, and conforming to PEAR CS. This *will* break your application.
+
+All options are now configurable through the DataObject. Any option that could be in the FormBuilder can now be in the DataObject.
+
+All options in the DataObject now have a &quot;fb_&quot; prefix to distinguish them from field names.
+
+All options in both the FormBuilder and DataObject were changed to use studlyCaps instead_of_underscores.
+
+Some few options have changed names. For example, follow_links is now linkDisplayLevel.
+
+All options may be specified in the [DB_DataObject_FormBuilder] section of the ini file. For options that are DataObject specific, these are set as defaults. The DataObject may change them through its options. linkDisplayFields and linkOrderFields (see below) are arrays and set the same as elementTypeMap.
+
+All options in the [DB_DataObject_FormBuilder] section of the ini file are copied into the FormBuilder when it is instantiated. Hence, changing $GLOBALS['_DB_DATAOVJECT_FORMBUILDER']['CONFIG'] after you create your FormBuilder will no longer work.
+
+All options in the DataObject (except for those that start with &quot;select&quot;) are copied to the FormBuilder after preGenerateForm is called. This is to cut down on the internal complexity of FormBuilder. This means that you cannot change options in the DataObject after preGenerateForm (such as in postGenerateForm). We don't see this as a problem as you can set everything up before then and (nearly) all options are used once postGenerateForm is called. If you know of a problem with this, please send us an e-mail or a bug report. This also means that you cannot re-use a FormBuilder object as the settings of the previous FormBuilder will persist.
+
+The database.formBuilder.ini file is no longer used. Select display and order fields should be put in the DO file as linkDisplayFields and linkOrderFields. The fix0.9.0Files.php script will move these options into your DataObject classes automatically.
+
+If you were previously using the 0.9.0 release, the script in CVS called fix0.9.0Files.php should be able to fix all BC breaks in your code and ini files. If it doesn't please send an e-mail to justinpatrin@php.net so that I can fix it. You can download the script from this URL: http://cvs.php.net/pear/DB_DataObject_FormBuilder/fix0.9.0Files.php
+
+If you were previously using a CVS version of FormBuilder.php after 1.36 up to 1.52, the script in CVS called fixPre1.52CVSFiles.php should be able to fix any BC problems you have. All this script does is rename sleect*Fields to link*Fields. You can download the script from this URL: http://cvs.php.net/pear/DB_DataObject_FormBuilder/fixPre1.52CVSFiles.php
+
+For a list of all changes, please see the CVS changelogs for FormBuilder.php. Of particular interest should be the changelog for CVS version 1.37.
+
+FURTHER IMPROVEMENTS AND MODIFICATIONS:
+- Added crossLinkSeparator option
+- Added TIME element handling (Thanks to Frank Fahs)
+- Added support for ENUM select or radio generation
+3 new options: enumFields, enumOptions, and enumOptionsCallback
+- Added linkElementTypes option
+- selectAddEmpty is now an array which should be filled with link fields that should have an empty option in their select box i.e., the option has moved from the linked to the linker
+- Removed QuickForm-specific functions from main class and introduced new QuickForm-driver class. A third parameter was added to the factory method to determine which driver is to be used.
+- Fixed bug 1829 - date callbacks not called correctly
+- Fixed issues with unset member vars and $options array in constructor
+- Better array handling for ini-arrays
+- Added more ini options to array handling
+- Array based options may be single values without a comma
+- Array based options which have no need for keys (selectDisplayFields, etc.) don't need the key
+- Fixed bug where linked fields in selectDisplayFields didn't know their own selectDisplayFields
+- Fixed bug where cross/tripleLinks are frozen if not in userEditableFields array
+- Added missing createSubmit option
+- Fixed Bug #1715 (minutes and seconds are lost in _array2date)
+- Got rid of Required QF rule for NOT NULL fields which are frozen
+- Fixed bug 1699 (Notice: Undefined property _triple/_crossLinks)
+- Fixed bug 1700 (Notice: Array to string conversion)
+- Added freezing of triplelink elements accoring to elements_to_freeze
+- Added missing code to freeze fields not in userEditableFields (if it exists)
+- Added code to allow any field to be a link field
+- Fixed bug #1500, adding fallback to displaying the primary key in selectboxes if a select_display_field cannot be identified (patch by Justin Patrin)
+- Fixed bug #1459 (Thanks to Justin Patrin)
+- New feature: Add required rule for NOT NULL fields (Bug #1487, thanks to Justin Patrin)
+- New feature: Add field name to error messages.
+- Small change to getDataObjectSelectDisplayValue() making use of getLink() instead of links().
+
+The FormBuilder Wiki has up-to-date documentation:
+http://opensource.21st.de/tiki-index.php?page=DB_DataObject_FormBuilder</notes>
+    <deps>
+      <dep type="php" rel="ge" version="4.1.0"/>
+      <dep type="pkg" rel="has" optional="no">HTML_QuickForm</dep>
+      <dep type="pkg" rel="has" optional="no">DB_DataObject</dep>
+      <dep type="pkg" rel="has" optional="yes">Date</dep>
+      <dep type="pkg" rel="has" optional="yes">HTML_Table</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="/DB/DataObject" md5sum="1c8485ce0f116ce68eb3d4d4ff728718" name="FormBuilder.php"/>
+      <file role="php" baseinstalldir="/DB/DataObject" md5sum="eaef2eaf440226e9e41889f0f83ab752" name="FormBuilder/QuickForm.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.9.0</version>
+      <date>2004-05-16</date>
+      <state>beta</state>
+      <notes>Lots of lots of fixes/changes:
+- New configuration option &quot;elementTypeMap&quot;: Allows you to define
+  a list of FormBuilder field types and HTML_QuickForm element types
+  that should be used for those field types. This way, you can for
+  example use a WYSYWIG HTML editing component instead of textareas.
+- New configuration options: &quot;dateToDatabaseCallback&quot; and
+  &quot;dateFromDatabaseCallback&quot; allow you to define callback functions
+  for date format conversion. This way, you can use any input and
+  storage format for dates that you desire.
+- Fixed bug #624: Incompatibility with schema files generated by
+  DB_DataObject 1.4.0 and up. Side-effect: FormBuilder now also
+  recognizes DATE, DATETIME and TEXT fields automatically, so there
+  is no more need to use class properties to define them manually.
+- Conversion of ISO dates to QuickForm date arrays no longer
+  relies on strtotime(), but uses PEAR::Date instead to get rid of the
+  date range limitations of Unix timestamps
+- You can now also use DATETIME fields, as more formatting
+  options for date fields are supported (m,M,d,Y,H,i,s)
+- New experimental option &quot;dateFieldLanguage&quot; allows setting the
+  language for date fields, this doesn't seem to work yet though
+- useForm() now knows a second parameter that allows to add elements
+  from an existing form to the generated one ... this, too, is to be considered
+  highly experimental as the current implementation relies on supposedly private
+  QuickForm properties to be public
+- Support for a new callback method in your DataObjects: &quot;dateOptions()&quot;
+  allows to return an option array for all or individual date elements. See docs
+  for QuickForm's date element for details on possible options
+- Added support for recursive link lookups (by Justin Patrin)
+- Implemented changes by Norbert Moscnik:
+  a) added &quot;fieldsToRender&quot; configuration option
+  b) added &quot;userEditableFields&quot; configuration option
+  c) added &quot;forced_values&quot; configuration option
+  d) additional empty option (value=&quot;&quot;) as the first element of the &lt;select&gt; lists
+- Fixed file upload handling: http://pear.php.net/bugs/bug.php?id=423
+- Added usage of setter methods: http://pear.php.net/bugs/bug.php?id=422
+- When processing the form, the new getUserEditableFields() method is used
+  to check against manipulated POST requests
+- Added support for definition of display_fields and custom field ordering in
+  a separate .ini file (contributed by Justin Patrin)
+- Fixed: Threw notices when no primary key was detected in processForm().
+  Will now exit and return false.
+- Added: New method forceQueryType() will let you override the autodetection
+  for the query command (insert/update) using new predefined constants.
+- Fixed inconsistency with documentation regarding hide_primary_key (spotted by Norbert Mocsnik)
+- Fixed bug with checks for postProcess() and preProcess() user-methods, spotted by Ron McClain
+- Fixed bug that occured when building selectboxes (if select_order_field was not defined,
+  and the linked class had its own select_display_field property, FormBuilder was trying
+  to order by a nonexisting field)
+- Fixed small issue in processForm method (detection if submitted values really belong 
+  to the current DataObject)
+- Minor change in configuration method (check inline docs!!)
+- New options &quot;createSubmit&quot; and &quot;submitText&quot; to set creation of
+  a submit button on/off and specify its text
+- fix bug preventing the options array from being used (Arnaud Limbourg)
+- use raiseError instead of new PEAR_Error, use a variable to make php5 happy (Arnaud Limbourg)
+- Automatically making the primary key a hidden field is now optional
+- Fixed notices when working with E_ALL
+- Fixed bug with element reordering (Arnaud Limbourg)
+- Additions and corrections in inline docs
+- Changed bullshit implementation: Existing form objects are no longer passed
+  through the options array, but by using a new method useForm().
+</notes>
+    </release>
+    <release>
+      <version>0.8.2</version>
+      <date>2003-08-28</date>
+      <state>beta</state>
+      <notes>New features:
+- Support for custom field order (Fabien Franzen)
+- Support for grouped elements (Fabien Franzen)
+- Optional call to DB_DataObject::validate() on processing form data (suggested by Ron McClain)
+- Possibility to optionally use existing form objects (suggested by Alexey Borzoff)
+</notes>
+    </release>
+    <release>
+      <version>0.8.1</version>
+      <date>2003-08-23</date>
+      <state>beta</state>
+      <notes>Bugfix release:
+- Fixed a bug in getSelectOptions() that occured if the linked field was NULL
+- Fixed a bug with tables containing integer fields but having no entry in the links.ini (thanks to Fabien Franzen for reporting it)
+
+</notes>
+    </release>
+    <release>
+      <version>0.8</version>
+      <date>2003-08-21</date>
+      <state>beta</state>
+      <notes>- Initial release.
+
+</notes>
+    </release>
+  </changelog>
+</package>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.2">
+ <name>XML_CSSML</name>
+ <summary>The PEAR::XML_CSSML package provides methods for creating cascading style sheets (CSS) from an XML standard called CSSML.</summary>
+ <description>The best way to describe this library is to classify it as a template system for generating cascading style sheets (CSS). It is ideal for storing all of the CSS in a single location and allowing it to be parsed as needed at runtime (or from cache) using both general and browser filters specified in the attribute for the style tags. It can be driven with either the libxslt pear extenstion (part of xmldom) or the xslt extension (part of the sablotron libraries).
+My hope is that such a system becomes the standard for the organization of stylesheet information in the future.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>dallen</user>
+   <name>Daniel Allen</name>
+   <email>dallen@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>1.1.1</version>
+  <date>2005-10-12</date>
+  <license>PHP License</license>
+  <state>stable</state>
+  <notes>Fixed Bug #830 Assignment to $this, won&apos;t work in php5 so dependency added (toggg)
+Fixed Bug #902 PEAR QA: improvement for get_class()-usage
+Corrected package.xml (toggg)
+Created XML_CSSML/CSSML.php redirecting to the correct path (toggg)
+Check for extension existence at run-time (toggg)
+Refactored the example to give the right usage (toggg)
+  </notes>
+  <deps>
+   <dep type="php" rel="lt" version="5.0.0"/>
+  </deps>
+  <provides type="class" name="XML_CSSML" />
+  <provides type="function" name="XML_CSSML::factory" />
+  <provides type="function" name="XML_CSSML::load" />
+  <provides type="function" name="XML_CSSML::setParams" />
+  <provides type="function" name="XML_CSSML::process" />
+  <provides type="function" name="XML_CSSML::isError" />
+  <provides type="function" name="XML_CSSML::errorMessage" />
+  <provides type="function" name="XML_CSSML::reset" />
+  <provides type="function" name="XML_CSSML::free" />
+  <provides type="function" name="is_a" />
+  <provides type="class" name="XML_CSSML_Error" extends="PEAR_Error" />
+  <provides type="class" name="XML_CSSML_libxslt" extends="XML_CSSML" />
+  <provides type="function" name="XML_CSSML_libxslt::process" />
+  <provides type="function" name="XML_CSSML_libxslt::load" />
+  <provides type="class" name="XML_CSSML_xslt" extends="XML_CSSML" />
+  <provides type="function" name="XML_CSSML_xslt::process" />
+  <provides type="function" name="XML_CSSML_xslt::load" />
+  <filelist>
+   <file role="php" baseinstalldir="XML" md5sum="6020a82d6cb9bbc284599588e49cdfcf" name="CSSML.php"/>
+   <file role="php" baseinstalldir="XML" md5sum="651fa0685beecd7546c43f7d912fc04b" name="CSSML/Error.php"/>
+   <file role="php" baseinstalldir="XML" md5sum="a7bf8490ae8c4ef3c2afbf2693225427" name="CSSML/libxslt.php"/>
+   <file role="php" baseinstalldir="XML" md5sum="3f8270399967f47204a2bb651496b5ef" name="CSSML/libxslt.xsl"/>
+   <file role="php" baseinstalldir="XML" md5sum="6c36f708cf787ef89ea913ae770ea9ba" name="CSSML/xslt.php"/>
+   <file role="php" baseinstalldir="XML" md5sum="112310fcf50227424ad22f906bcbb201" name="CSSML/xslt.xsl"/>
+   <file role="php" baseinstalldir="XML" md5sum="0d2b18a24709a4f9af41a45646f65b02" name="docs/CSSML.xml"/>
+   <file role="php" baseinstalldir="XML" md5sum="df78b6d9b55a90e21065e13ffe3de5ad" name="docs/example.php"/>
+   <file role="php" baseinstalldir="/" md5sum="7c804fdd0d5c278ac98de719c6058a1d" name="XML_CSSML/CSSML.php"/>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>0.1</version>
+    <date>2002-04-29</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>This is the initial independent release of the XML_CSSML package.  It includes support for both the domxml_xslt functions and the sablotron xslt extension.  The main file includes a factory function, which calls the relevant container object depending on the extension the user wishes to use.  It can either create an output css file or it can return the string.  It has support for browser specific styles using the codes of Net_UserAgent_Detect as well as a filter to extract only applicable styles.  There is an example file in the docs/ to better understand the usage.
+    </notes>
+   </release>
+   <release>
+    <version>1.0</version>
+    <date>2002-05-20</date>
+    <license>PHP License</license>
+    <state>stable</state>
+    <notes>This is the first stable release of the XML_CSSML package.  The hopes of this package are to erase the awkwardness of having to create many stylesheets for many pages and sections of a site, and having to infiltrate it with language constructions.  One can think of CSSML as being a template for CSS documents, in fact that is the best description it has been given so far.
+    </notes>
+   </release>
+   <release>
+    <version>1.1</version>
+    <date>2002-05-20</date>
+    <license>PHP License</license>
+    <state>stable</state>
+    <notes>Restructuring the directory using Stig&apos;s suggestion for how to organize &quot;Driver&quot; sub-classes.
+    </notes>
+   </release>
+ </changelog>
+</package>

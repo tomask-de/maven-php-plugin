@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>HTTP_Download</name>
+  <summary>Send HTTP Downloads</summary>
+  <description>Provides an interface to easily send hidden files or any arbitrary data to 
+HTTP clients.  HTTP_Download can gain its data from variables, files or
+stream resources.
+
+It features:
+ - Basic caching capabilities
+ - Basic throttling mechanism
+ - On-the-fly gzip-compression
+ - Ranges (partial downloads and resuming)
+ - Delivery of on-the-fly generated archives through Archive_Tar and Archive_Zip</description>
+  <maintainers>
+    <maintainer>
+      <user>mike</user>
+      <name>Michael Wallner</name>
+      <email>mike@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.0.0RC3</version>
+    <date>2004-01-17</date>
+    <license>PHP</license>
+    <state>beta</state>
+    <notes>3rd RC for stable release
+* Fixed Bug #2110 - long delay until &quot;Save as...&quot; popup
+* Fixed Bug #3194 - problems with &quot;uncached&quot; downloads in IE6
++ Applied throttling mechanism to the &quot;send data&quot; functionality</notes>
+    <deps>
+      <dep type="pkg" rel="has" optional="no">PEAR</dep>
+      <dep type="pkg" rel="has" optional="no">HTTP_Header</dep>
+      <dep type="pkg" rel="has" optional="yes">Archive_Tar</dep>
+      <dep type="pkg" rel="has" optional="yes">Archive_Zip</dep>
+      <dep type="ext" rel="has" optional="no">pcre</dep>
+      <dep type="ext" rel="has" optional="yes">mime_magic</dep>
+      <dep type="php" rel="ge" version="4.3.0" optional="yes"/>
+      <dep type="php" rel="ge" version="4.2.0" optional="no"/>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="HTTP" md5sum="0308522d383c4fc77f928876565cdf36" name="Download.php"/>
+      <file role="php" baseinstalldir="HTTP" md5sum="f24dd1489888be2c2c702cde403a3b5d" name="Download\PgLOB.php"/>
+      <file role="test" baseinstalldir="HTTP" md5sum="1aa65d7d9f48e3b050a4c068e6d54db0" install-as="send.php" name="tests/send.php"/>
+      <file role="test" baseinstalldir="HTTP" md5sum="8b4f61cfee76981b4a9fe46123a43ced" install-as="testcase.php" name="tests/testcase.php"/>
+      <file role="test" baseinstalldir="HTTP" md5sum="49cb3608e2b33fad6b65df8cb8f49668" install-as="data.txt" name="tests/data.txt"/>
+    </filelist>
+  </release>
+</package>

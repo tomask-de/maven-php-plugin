@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/html_template_sigma">HTML_Template_Sigma</p>
+ <c>pear.php.net</c>
+ <v>1.0</v>
+ <st>stable</st>
+ <l>PHP License</l>
+ <m>avb</m>
+ <s>An implementation of Integrated Templates API with template 'compilation' added</s>
+ <d>HTML_Template_Sigma implements Integrated Templates API designed by Ulf Wendel.
+
+Features:
+* Nested blocks. Nesting is controlled by the engine.
+* Ability to include files from within template: &amp;lt;!-- INCLUDE --&amp;gt;
+* Automatic removal of empty blocks and unknown variables (methods to manually tweak/override this are also available)
+* Methods for runtime addition and replacement of blocks in templates
+* Ability to insert simple function calls into templates: func_uppercase('Hello world!') and to define callback functions for these
+* 'Compiled' templates: the engine has to parse a template file using regular expressions to find all the blocks and variable placeholders. This is a very &quot;expensive&quot; operation and is an overkill to do on every page request: templates seldom change on production websites. Thus this feature: an internal representation of the template structure is saved into a file and this file gets loaded instead of the source one on subsequent requests (unless the source changes)
+* PHPUnit-based tests to define correct behaviour
+* Usage examples for most of the features are available, look in the docs/ directory
+</d>
+ <da>2003-04-28 09:06:00</da>
+ <n>This release has Sigma's template functions/callbacks infrastructure significantly enhanced.
+This unfortunately means some backwards compatibility breaks. If you were using callbacks before, please carefully examine the release notes and test you scripts before upgrading to 1.0.
+If you weren't using callbacks due to their shortcomings it is a good time to give them a try, consult docs/example_4.php for some of their possible applications.
+
+Template functions/callbacks changes and incompatibilities:
+
+* Templates are parsed for function calls not only on setTemplate()/loadTemplatefile(), but on addBlock()/addBlockfile() and replaceBlock()/replaceBlockfile() as well.
+* The arguments to template functions can now contain variable placeholders: func_uppercase('Hello, {username}!).
+* Template functions are now compatible with template caching.
+* Method setCallbackFunction() now accepts a callback that is compatible with call_user_func() as its second argument. Its third argument is used to control variable substitution in function arguments.
+* Method performCallback() was removed. Callbacks are now called automatically when the block containing them is parse()'d.
+* Callbacks are now called via call_user_func_array() instead of call_user_func(). This makes it possible to use built-in functions as callbacks, but also means that you have to rewrite your old functions!
+* Usage example is available in docs/example_4.php
+
+Other changes:
+
+* Option 'use_preg' was removed.
+* Stricter error checking when doing addBlockfile() with a prepared template.</n>
+ <f>26626</f>
+ <g>http://pear.php.net/get/HTML_Template_Sigma-1.0</g>
+ <x xlink:href="package.1.0.xml"/>
+</r>

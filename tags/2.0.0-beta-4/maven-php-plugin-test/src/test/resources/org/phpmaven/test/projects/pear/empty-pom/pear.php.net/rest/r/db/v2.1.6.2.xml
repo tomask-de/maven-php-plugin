@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release2
+    http://pear.php.net/dtd/rest.release2.xsd">
+ <p xlink:href="/rest/p/db">DB</p>
+ <c>pear.php.net</c>
+ <v>1.6.2</v>
+ <a>1.6.2</a>
+ <mp>4.3.0</mp>
+ <st>stable</st>
+ <l>PHP License</l>
+ <m>danielc</m>
+ <s>Database Abstraction Layer</s>
+ <d>DB is a database abstraction layer providing:
+* an OO-style query API
+* portability features that make programs written
+   for one DBMS work with other DBMS's
+* a DSN (data source name) format for specifying
+   database servers
+* prepare/execute (bind) emulation for databases
+   that don't support it natively
+* a result object for each query response
+* portable error codes
+* sequence emulation
+* sequential and non-sequential row fetching as
+   well as bulk fetching
+* formats fetched rows as associative arrays,
+   ordered arrays or objects
+* row limit support
+* transactions support
+* table information interface
+* DocBook and PHPDoc API documentation
+
+DB layers itself on top of PHP's existing
+database extensions.  The currently supported
+extensions are:
+dbase, fbsql, interbase, informix,
+msql, mssql, mysql, mysqli,
+oci8, odbc, pgsql, sqlite and sybase.
+
+DB is compatible with both PHP 4 and PHP 5.
+</d>
+ <da>2004-04-07 13:17:40</da>
+ <n>=============
+BUGS FIXED:
+
+- mysql, mysqli, sqlite, tests:
+Eliminate object to integer conversion notices in
+PHP5.  Issue arose due to change in PHP between
+2004-03-21 and 2004-03-28.  Bug 1088.  (danielc)
+
+- mysqli:
+Move connection id to first argument in
+mysqli_*() functions.  (Mark Reidenbach)
+
+- mysqli:
+Bring tableInfo() closer to working by using
+mysqli_fetch_field().  (danielc)
+
+- oci8:
+Pass $params from limitQuery() to
+modifyLimitQuery() so can limit prepared queries.
+(danielc)
+
+- pgsql:
+Change isset() to !empty() for 'options' and 'tty'
+elements of $dsninfo to keep empty strings from
+being used in pg_connect() arguments.  (danielc)</n>
+ <f>90423</f>
+ <g>http://pear.php.net/get/DB-1.6.2</g>
+ <x xlink:href="package.1.6.2.xml"/>
+</r>

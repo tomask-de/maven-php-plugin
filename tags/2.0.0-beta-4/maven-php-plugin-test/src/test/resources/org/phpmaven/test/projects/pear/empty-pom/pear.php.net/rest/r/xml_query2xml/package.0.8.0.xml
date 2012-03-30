@@ -1,0 +1,823 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.11" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>XML_Query2XML</name>
+ <channel>pear.php.net</channel>
+ <summary>Creates XML data from SQL queries</summary>
+ <description>XML_Query2XML allows you to transform the records retrieved
+with one or more SQL SELECT queries into XML data. Very simple to
+highly complex transformations are supported. Is was written with
+performance in mind and can handle large amounts of data. No XSLT needed!
+Major features:
+1. XML_Query2XML works with the classes provided by PHP5&apos;s DOM XML extension
+2. minimum effort necessary to get the simple jobs done
+3. highly configurable for more complex tasks
+4. ISO/IEC 9075-14:2005 support: mapping of SQL identifiers to XML names
+5. works with any database that is supported by PEAR DB, PEAR MDB2 or ADOdb
+6. debugging and logging features
+7. provides profiling features
+8. in-depth documentation: tutorials and API documentation
+9. Eight case studies: from very simple to highly complex scenarios
+10. 433 phpt unit tests</description>
+ <lead>
+  <name>Lukas Feiler</name>
+  <user>lukasfeiler</user>
+  <email>lukas.feiler@lukasfeiler.com</email>
+  <active>yes</active>
+ </lead>
+ <date>2006-11-04</date>
+ <time>01:13:22</time>
+ <version>
+  <release>0.8.0</release>
+  <api>0.8.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>This release is *NOT BACKWARD COMPATIBLE*.
+I&apos;m sorry for the BC break, but due to security considerations XML_Query2XML
+does not use the native function eval() anymore. Therefore
+- the &quot;!&quot; prefix is not supported anymore
+- the behaviour of the &quot;condition&quot; option was changed
+- the new callback prefix &quot;#&quot; was added (use it instead of the &quot;!&quot; prefix)
+
+A migration strategy is documented at
+http://query2xml.sf.net/docs/html/XML_Query2XML/tutorial_XML_Query2XML.pkg.html#migration
+
+Also:
+- unit tests were migrated from PHPUnit2 to phpt
+- XML_Query2XML now comes with 433 unit tests
+- migrated from package.xml version 1.0 to version 2.0</notes>
+ <contents>
+  <dir name="/">
+   <file baseinstalldir="/" md5sum="7d4a958a5e77cd820ba4d70517270db2" name="cases/case01/case01.php" role="doc" />
+   <file baseinstalldir="/" md5sum="c1560aa6e16d11c5e3ae75eaf9662e19" name="cases/case01/case01.xml" role="doc" />
+   <file baseinstalldir="/" md5sum="2485f542336f6615b52ad32d787de363" name="cases/case02/case02.log" role="doc" />
+   <file baseinstalldir="/" md5sum="613a19139e97140c31f169de5e56d571" name="cases/case02/case02.php" role="doc" />
+   <file baseinstalldir="/" md5sum="f59a9e2553dc77089c1e06c1848b04b0" name="cases/case02/case02.profile" role="doc" />
+   <file baseinstalldir="/" md5sum="75005152d6151140ec86c56119c8945f" name="cases/case02/case02.xml" role="doc" />
+   <file baseinstalldir="/" md5sum="7df5917f1134ac60a328cffa17955973" name="cases/case02/case02_debug.php" role="doc" />
+   <file baseinstalldir="/" md5sum="67e516a753dbba067b8ae2a6dc406892" name="cases/case03/case03.log" role="doc" />
+   <file baseinstalldir="/" md5sum="3500fc4638dab9409256998bc216b710" name="cases/case03/case03.php" role="doc" />
+   <file baseinstalldir="/" md5sum="692e19d7a70305a0e06b55f237fa90b2" name="cases/case03/case03.profile" role="doc" />
+   <file baseinstalldir="/" md5sum="75005152d6151140ec86c56119c8945f" name="cases/case03/case03.xml" role="doc" />
+   <file baseinstalldir="/" md5sum="c53e7efb5462ff68eed299f2ba623feb" name="cases/case03/case03_debug.php" role="doc" />
+   <file baseinstalldir="/" md5sum="4293f90e2c20a294b9ed48044f68f3cf" name="cases/case04/case04.log" role="doc" />
+   <file baseinstalldir="/" md5sum="bf062f6c7a6fab172003b619085ea3bf" name="cases/case04/case04.php" role="doc" />
+   <file baseinstalldir="/" md5sum="a37c9c18f539a504afcdcfdeae55fc46" name="cases/case04/case04.profile" role="doc" />
+   <file baseinstalldir="/" md5sum="6a3cac8d4252b12d29e4e2f6a4467d98" name="cases/case04/case04.xml" role="doc" />
+   <file baseinstalldir="/" md5sum="18f0faf0e6397f320fc2a6b0d0c3ebf3" name="cases/case04/case04_debug.php" role="doc" />
+   <file baseinstalldir="/" md5sum="85d79048d682381568640b9b9d417c61" name="cases/case05/case05.log" role="doc" />
+   <file baseinstalldir="/" md5sum="e0a60fe97d953d9d65f3496457f7cb9b" name="cases/case05/case05.php" role="doc" />
+   <file baseinstalldir="/" md5sum="4d39cfae1dc0c793526a43a796acbac8" name="cases/case05/case05.profile" role="doc" />
+   <file baseinstalldir="/" md5sum="6d89a44d1d2724f45f39dffc6edb90fd" name="cases/case05/case05.xml" role="doc" />
+   <file baseinstalldir="/" md5sum="704e1b929da320322f6689ab1af5ee94" name="cases/case05/case05_debug.php" role="doc" />
+   <file baseinstalldir="/" md5sum="d5b0a9082fac7b88c6b119b072633844" name="cases/case06/case06.log" role="doc" />
+   <file baseinstalldir="/" md5sum="807964cdb76c003670e237b472bc1917" name="cases/case06/case06.php" role="doc" />
+   <file baseinstalldir="/" md5sum="2c2c6c51f3d188e5cac11a8f18e4e23c" name="cases/case06/case06.profile" role="doc" />
+   <file baseinstalldir="/" md5sum="5e465edfafc9e1355010c0f33d93b7f5" name="cases/case06/case06.xml" role="doc" />
+   <file baseinstalldir="/" md5sum="f3112ce7b0f60621493eb89ccffd0c7f" name="cases/case06/case06_debug.php" role="doc" />
+   <file baseinstalldir="/" md5sum="5e786a24912726cd111490d3d3d350bb" name="cases/case07/case07.log" role="doc" />
+   <file baseinstalldir="/" md5sum="e6d4fbd9d98739c4e79c4a4f2ced638f" name="cases/case07/case07.php" role="doc" />
+   <file baseinstalldir="/" md5sum="d407028014147186b0b7d79bd3857695" name="cases/case07/case07.profile" role="doc" />
+   <file baseinstalldir="/" md5sum="75005152d6151140ec86c56119c8945f" name="cases/case07/case07.xml" role="doc" />
+   <file baseinstalldir="/" md5sum="3a8514d50cf52c3f307e0bc6b8d54d11" name="cases/case07/case07_debug.php" role="doc" />
+   <file baseinstalldir="/" md5sum="dcc402f40abdd8929046e4ce77729360" name="cases/case08/case08.log" role="doc" />
+   <file baseinstalldir="/" md5sum="fa6a049389c6a68d0913aa0d1ebe82fe" name="cases/case08/case08.php" role="doc" />
+   <file baseinstalldir="/" md5sum="ba6beb8bb09410fa3fa678495629831e" name="cases/case08/case08.profile" role="doc" />
+   <file baseinstalldir="/" md5sum="71c3e6aac68f46e6efc99c13b233f564" name="cases/case08/case08.xml" role="doc" />
+   <file baseinstalldir="/" md5sum="63bd47f2911d16a1ea9c0c2a9ccad38e" name="cases/case08/case08_debug.php" role="doc" />
+   <file baseinstalldir="/" md5sum="e8254154aaae46b009d35af20055bae2" name="tests/XML_Query2XML/ADOdbDefault/clearProfiling/clearProfiling.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="009198ec023cc91585a13b2338f3cc2d" name="tests/XML_Query2XML/ADOdbDefault/disableDebugLog/disableDebugLog.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="6e40e01c01504705c0b6f3f0501fdbc9" name="tests/XML_Query2XML/ADOdbDefault/enableDebugLog/enableDebugLog.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="79b9344b2da3c4567e318424dda858fc" name="tests/XML_Query2XML/ADOdbDefault/factory/throwDBException.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="fbfbf2332cb1885a8907e00a18c8e681" name="tests/XML_Query2XML/ADOdbDefault/getFlatXML/case01.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="68904d8b5a440bcc20d711bc361d4841" name="tests/XML_Query2XML/ADOdbDefault/getFlatXML/simpleSelect.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e3ba2582248fd10737f357f8f96e0c1b" name="tests/XML_Query2XML/ADOdbDefault/getFlatXML/throwDBException.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="9f2f590a75bc8db42a416fd358ff7fe6" name="tests/XML_Query2XML/ADOdbDefault/getProfile/getProfile.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="5c78f4a417b456bde907d62365288b91" name="tests/XML_Query2XML/ADOdbDefault/getRawProfile/getRawProfile.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="f9346c5ffed2f684b1594bef79ae996c" name="tests/XML_Query2XML/ADOdbDefault/getXML/asteriskShortcut_attributes1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="5bb32af79db23464ae9090bb81af6533" name="tests/XML_Query2XML/ADOdbDefault/getXML/asteriskShortcut_attributes2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="31f0cbc2edf52e165013a02e7c18338a" name="tests/XML_Query2XML/ADOdbDefault/getXML/asteriskShortcut_attributes3.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b59d7af2bf2d9f1bbc7c4a24f91f1cb7" name="tests/XML_Query2XML/ADOdbDefault/getXML/asteriskShortcut_attributes4.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="dd71a1f44ee9de36b90f730f6ed81ae3" name="tests/XML_Query2XML/ADOdbDefault/getXML/asteriskShortcut_attributes5.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="cfe52ce95e30c88f7e87635d58c6a891" name="tests/XML_Query2XML/ADOdbDefault/getXML/asteriskShortcut_attributes6.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="21a3a85ff44eb39d7d8719ef91400920" name="tests/XML_Query2XML/ADOdbDefault/getXML/asteriskShortcut_elements1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="34cc16198e54235c6171d42b0e5be72b" name="tests/XML_Query2XML/ADOdbDefault/getXML/asteriskShortcut_elements2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b695140f1dfce69b5e84f21cd5ed8b42" name="tests/XML_Query2XML/ADOdbDefault/getXML/asteriskShortcut_elements3.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="784f781ec17f7ddafd20ea41d89278b8" name="tests/XML_Query2XML/ADOdbDefault/getXML/asteriskShortcut_elements4.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="4e7746f1a941122bc6ad9ea585dd5d69" name="tests/XML_Query2XML/ADOdbDefault/getXML/asteriskShortcut_elements5.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="570c0b195e3ab1f86a09957f114798b4" name="tests/XML_Query2XML/ADOdbDefault/getXML/asteriskShortcut_elements6.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b1a404ba62b1371aa937514c8f08eb01" name="tests/XML_Query2XML/ADOdbDefault/getXML/case02.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="011f663d27532f4e084218668ecd55c2" name="tests/XML_Query2XML/ADOdbDefault/getXML/case03.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="48b33639045bf73b5d0b84e508995400" name="tests/XML_Query2XML/ADOdbDefault/getXML/case04.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e5a9b22e004202c879ba6bcd4fbc5444" name="tests/XML_Query2XML/ADOdbDefault/getXML/case05.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e995a5fd08a58b43dae803572db6caf8" name="tests/XML_Query2XML/ADOdbDefault/getXML/case06.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b3f5f2254e2320dff0cfa06692268a5e" name="tests/XML_Query2XML/ADOdbDefault/getXML/case07.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e16f986f940bfdfad318f871a94bf9ac" name="tests/XML_Query2XML/ADOdbDefault/getXML/case08.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="3e7c27ed9bf2124d0db918cb86139810" name="tests/XML_Query2XML/ADOdbDefault/getXML/complexAttributeSpecification_complexQuerySpecification.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="9d1814f0b7db6e746aea170e104418b1" name="tests/XML_Query2XML/ADOdbDefault/getXML/complexAttributeSpecification_complexQuerySpecification_valueCallback.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="51b78164e35ed246cdcefb9b91914e6c" name="tests/XML_Query2XML/ADOdbDefault/getXML/complexAttributeSpecification_conditionOption.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b94b01cec1145cf8acf22a325eb4914a" name="tests/XML_Query2XML/ADOdbDefault/getXML/complexAttributeSpecification_simpleQuerySpecification.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="825a79b85829a3436a738603e38782d9" name="tests/XML_Query2XML/ADOdbDefault/getXML/complexAttributeSpecification_valuePrefixes.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="88fa5b4846cab919815df0b48a88b856" name="tests/XML_Query2XML/ADOdbDefault/getXML/complexElementSpecification_conditionOption1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="8f58969241a03f3341f24f1bad27744d" name="tests/XML_Query2XML/ADOdbDefault/getXML/complexElementSpecification_conditionOption2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="0f76834b818ffbe98288bbf730fd6abe" name="tests/XML_Query2XML/ADOdbDefault/getXML/conditionPrefix_attribute_columnName.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="dcb15137f57a5475c8adda3d5497683d" name="tests/XML_Query2XML/ADOdbDefault/getXML/conditionPrefix_attribute_callback.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="c294b8950c90ad8251ddf4e0b02633bb" name="tests/XML_Query2XML/ADOdbDefault/getXML/conditionPrefix_attribute_staticText.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e4d0b78c6edb6d3d25d01cf3a84985a1" name="tests/XML_Query2XML/ADOdbDefault/getXML/conditionPrefix_element_columnName.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="1948ae0575bdf1b07b48fb84cc61a3dc" name="tests/XML_Query2XML/ADOdbDefault/getXML/conditionPrefix_element_callback.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="a808e9c1cac847a4c080a2563907af02" name="tests/XML_Query2XML/ADOdbDefault/getXML/conditionPrefix_element_staticText.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e7bf20d5216d0761c7fd927e58b1ea4f" name="tests/XML_Query2XML/ADOdbDefault/getXML/conditionPrefix_value_columnName.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="cfde233296456aaa8063a4015c785560" name="tests/XML_Query2XML/ADOdbDefault/getXML/conditionPrefix_value_callback.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="f002ef49fb7eb0f134c4b7b5df2c6c8a" name="tests/XML_Query2XML/ADOdbDefault/getXML/conditionPrefix_value_staticText.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="4fb84feda64381d9ce0392f9dbb813dd" name="tests/XML_Query2XML/ADOdbDefault/getXML/throwDBException.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="6f795f9ede0dd3693ce7086b03e3f10f" name="tests/XML_Query2XML/ADOdbDefault/startProfiling/startProfiling.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e160e9c8a37092876031a0de515657fd" name="tests/XML_Query2XML/ADOdbDefault/stopProfiling/stopProfiling.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="0a7d87128777109c17960175a9fed8e4" name="tests/XML_Query2XML/ADOdbDefault/_applyColumnStringToRecord/callbacks.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="fd938d4a93c0a1a6920f610fda15921d" name="tests/XML_Query2XML/ADOdbDefault/_applyColumnStringToRecord/throwConfigException_callback_function1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="d7efa8f80e1d275f6831c126880cea53" name="tests/XML_Query2XML/ADOdbDefault/_applyColumnStringToRecord/throwConfigException_callback_function2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="34226853adccd562f63d782ba238d7a6" name="tests/XML_Query2XML/ADOdbDefault/_applyColumnStringToRecord/throwConfigException_callback_method1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="c95e7661b8a434bd05de9c2bc05ff5c7" name="tests/XML_Query2XML/ADOdbDefault/_applyColumnStringToRecord/throwConfigException_callback_method2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="c6f928ff8de6c7269962cdf015523088" name="tests/XML_Query2XML/ADOdbDefault/_applyColumnStringToRecord/throwConfigException_element1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e62e7c87aa05bf306eded344a8925564" name="tests/XML_Query2XML/ADOdbDefault/_applyColumnStringToRecord/throwConfigException_element2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="92233fc7e3fc252cec04f4c6404ba051" name="tests/XML_Query2XML/ADOdbDefault/_applyColumnStringToRecord/throwConfigException_idcolumn.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="8870bce8fc722493dd2c8c2bb4170d73" name="tests/XML_Query2XML/ADOdbDefault/_applySqlOptionsToRecord/throwConfigException_dataOptionWrongType.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="789dd8256bd360cefa62c422bfe465c0" name="tests/XML_Query2XML/ADOdbDefault/_applySqlOptionsToRecord/throwConfigException_mergeMasterFalse.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="ae970e98fb859a20d42501adb104ef2d" name="tests/XML_Query2XML/ADOdbDefault/_applySqlOptionsToRecord/throwConfigException_mergeMasterTrue.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="4791ee1bfb2f6da192e2d74ad664306e" name="tests/XML_Query2XML/ADOdbDefault/_applySqlOptionsToRecord/throwConfigException_mergeselectiveOptionWrongType.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="1e89bd103a5464100f27563a877e8f6a" name="tests/XML_Query2XML/ADOdbDefault/_applySqlOptionsToRecord/throwConfigException_queryOptionMissing.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="8185f353d50bc4fa93e9ab7f52a1de34" name="tests/XML_Query2XML/ADOdbDefault/_applySqlOptionsToRecord/throwConfigException_sqlOptionWrongType.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="8de899dff1b4d9d84548fca89a6c8f7c" name="tests/XML_Query2XML/ADOdbDefault/_createDOMElement/throwXMLException_elementInvalid1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="a39fc75563a1796a79c390842f5c110c" name="tests/XML_Query2XML/ADOdbDefault/_createDOMElement/throwXMLException_elementInvalid2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b09da6e65884683f63e764a09e93f0b4" name="tests/XML_Query2XML/ADOdbDefault/_createDOMElement/throwXMLException_roottagOptionInvalid1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="926e48eee8c8c27707a0df645fab5959" name="tests/XML_Query2XML/ADOdbDefault/_createDOMElement/throwXMLException_roottagOptionInvalid2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="0d430367f13772096dfbfa15405661a4" name="tests/XML_Query2XML/ADOdbDefault/_createDOMElement/throwXMLException_rowtagOptionInvalid.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="117fac2df2d1caa2625dc185c68f53dd" name="tests/XML_Query2XML/ADOdbDefault/_getNestedXMLRecord/throwConfigException_attributesOptionWrongType.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="9a895f1338b5da4a42dce19d50bdca45" name="tests/XML_Query2XML/ADOdbDefault/_getNestedXMLRecord/throwConfigException_attributeSpecWrongType.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e39f9dc967f7ed445a80fbe93d1c4fa5" name="tests/XML_Query2XML/ADOdbDefault/_getNestedXMLRecord/throwConfigException_elementsOptionWrongType.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="d4a2c717526b288bfc2b5889be481201" name="tests/XML_Query2XML/ADOdbDefault/_getNestedXMLRecord/throwConfigException_idcolumnOptionMissing.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b778d07d16414c142d471945018bcba0" name="tests/XML_Query2XML/ADOdbDefault/_getNestedXMLRecord/throwConfigException_mapperNotCallableFunction.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="effd22754d1ac0166ca0a910ecc14102" name="tests/XML_Query2XML/ADOdbDefault/_getNestedXMLRecord/throwConfigException_mapperNotCallableNonstaticMethod.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="5bed9254bebdda63a1719786a907b6bc" name="tests/XML_Query2XML/ADOdbDefault/_getNestedXMLRecord/throwConfigException_mapperNotCallableStaticMethod1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="54738b437d10efaa5b6bef5284c6f4f1" name="tests/XML_Query2XML/ADOdbDefault/_getNestedXMLRecord/throwConfigException_mapperNotCallableStaticMethod2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="2f599834a0b3fddc3945e0455893f1ac" name="tests/XML_Query2XML/ADOdbDefault/_mapSQLIdentifierToXMLName/throwXMLException.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="75eabe0da7c3f5abbaa9d05cfc45e26b" name="tests/XML_Query2XML/ADOdbDefault/_prepareAndExecute/throwDBException_complexQuery.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="25170b29aa756a444e0c9b67414f1623" name="tests/XML_Query2XML/ADOdbDefault/_prepareAndExecute/throwDBException_simpleQuery.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="09a0bb4383eed0c2524fe86acedb02f1" name="tests/XML_Query2XML/ADOdbDefault/_processComplexElementSpecification/condition_function.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="f6a6be22d6f125413901f71dd0d2b791" name="tests/XML_Query2XML/ADOdbDefault/_processComplexElementSpecification/condition_staticMethod.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="135402bba33e90aa10070c4f947ec968" name="tests/XML_Query2XML/ADOdbDefault/_processComplexElementSpecification/rethrowConfigException.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="1dfb31b109e3f76e38847e44a336dbb2" name="tests/XML_Query2XML/ADOdbDefault/_processComplexElementSpecification/throwConfigException_valueOptionMissing.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="5f0380c3bbb808289b58be0bb1cd5223" name="tests/XML_Query2XML/ADOdbDefault/db_init.php" role="test" />
+   <file baseinstalldir="/" md5sum="22dff88dfd002811a44c65abe9792d58" name="tests/XML_Query2XML/ADOdbDefault/skipif.php" role="test" />
+   <file baseinstalldir="/" md5sum="be69ecb3c2234c8ee699474d81f93396" name="tests/XML_Query2XML/ADOdbDefault/skipif_XML_Beautifier.php" role="test" />
+   <file baseinstalldir="/" md5sum="e8254154aaae46b009d35af20055bae2" name="tests/XML_Query2XML/ADOdbException/clearProfiling/clearProfiling.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="009198ec023cc91585a13b2338f3cc2d" name="tests/XML_Query2XML/ADOdbException/disableDebugLog/disableDebugLog.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="6e40e01c01504705c0b6f3f0501fdbc9" name="tests/XML_Query2XML/ADOdbException/enableDebugLog/enableDebugLog.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="79b9344b2da3c4567e318424dda858fc" name="tests/XML_Query2XML/ADOdbException/factory/throwDBException.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="fbfbf2332cb1885a8907e00a18c8e681" name="tests/XML_Query2XML/ADOdbException/getFlatXML/case01.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="68904d8b5a440bcc20d711bc361d4841" name="tests/XML_Query2XML/ADOdbException/getFlatXML/simpleSelect.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e3ba2582248fd10737f357f8f96e0c1b" name="tests/XML_Query2XML/ADOdbException/getFlatXML/throwDBException.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="9f2f590a75bc8db42a416fd358ff7fe6" name="tests/XML_Query2XML/ADOdbException/getProfile/getProfile.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="5c78f4a417b456bde907d62365288b91" name="tests/XML_Query2XML/ADOdbException/getRawProfile/getRawProfile.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="f9346c5ffed2f684b1594bef79ae996c" name="tests/XML_Query2XML/ADOdbException/getXML/asteriskShortcut_attributes1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="5bb32af79db23464ae9090bb81af6533" name="tests/XML_Query2XML/ADOdbException/getXML/asteriskShortcut_attributes2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="31f0cbc2edf52e165013a02e7c18338a" name="tests/XML_Query2XML/ADOdbException/getXML/asteriskShortcut_attributes3.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b59d7af2bf2d9f1bbc7c4a24f91f1cb7" name="tests/XML_Query2XML/ADOdbException/getXML/asteriskShortcut_attributes4.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="dd71a1f44ee9de36b90f730f6ed81ae3" name="tests/XML_Query2XML/ADOdbException/getXML/asteriskShortcut_attributes5.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="cfe52ce95e30c88f7e87635d58c6a891" name="tests/XML_Query2XML/ADOdbException/getXML/asteriskShortcut_attributes6.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="21a3a85ff44eb39d7d8719ef91400920" name="tests/XML_Query2XML/ADOdbException/getXML/asteriskShortcut_elements1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="34cc16198e54235c6171d42b0e5be72b" name="tests/XML_Query2XML/ADOdbException/getXML/asteriskShortcut_elements2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b695140f1dfce69b5e84f21cd5ed8b42" name="tests/XML_Query2XML/ADOdbException/getXML/asteriskShortcut_elements3.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="784f781ec17f7ddafd20ea41d89278b8" name="tests/XML_Query2XML/ADOdbException/getXML/asteriskShortcut_elements4.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="4e7746f1a941122bc6ad9ea585dd5d69" name="tests/XML_Query2XML/ADOdbException/getXML/asteriskShortcut_elements5.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="570c0b195e3ab1f86a09957f114798b4" name="tests/XML_Query2XML/ADOdbException/getXML/asteriskShortcut_elements6.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b1a404ba62b1371aa937514c8f08eb01" name="tests/XML_Query2XML/ADOdbException/getXML/case02.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="011f663d27532f4e084218668ecd55c2" name="tests/XML_Query2XML/ADOdbException/getXML/case03.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="48b33639045bf73b5d0b84e508995400" name="tests/XML_Query2XML/ADOdbException/getXML/case04.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e5a9b22e004202c879ba6bcd4fbc5444" name="tests/XML_Query2XML/ADOdbException/getXML/case05.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e995a5fd08a58b43dae803572db6caf8" name="tests/XML_Query2XML/ADOdbException/getXML/case06.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b3f5f2254e2320dff0cfa06692268a5e" name="tests/XML_Query2XML/ADOdbException/getXML/case07.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e16f986f940bfdfad318f871a94bf9ac" name="tests/XML_Query2XML/ADOdbException/getXML/case08.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="3e7c27ed9bf2124d0db918cb86139810" name="tests/XML_Query2XML/ADOdbException/getXML/complexAttributeSpecification_complexQuerySpecification.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="9d1814f0b7db6e746aea170e104418b1" name="tests/XML_Query2XML/ADOdbException/getXML/complexAttributeSpecification_complexQuerySpecification_valueCallback.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="51b78164e35ed246cdcefb9b91914e6c" name="tests/XML_Query2XML/ADOdbException/getXML/complexAttributeSpecification_conditionOption.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b94b01cec1145cf8acf22a325eb4914a" name="tests/XML_Query2XML/ADOdbException/getXML/complexAttributeSpecification_simpleQuerySpecification.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="825a79b85829a3436a738603e38782d9" name="tests/XML_Query2XML/ADOdbException/getXML/complexAttributeSpecification_valuePrefixes.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="88fa5b4846cab919815df0b48a88b856" name="tests/XML_Query2XML/ADOdbException/getXML/complexElementSpecification_conditionOption1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="8f58969241a03f3341f24f1bad27744d" name="tests/XML_Query2XML/ADOdbException/getXML/complexElementSpecification_conditionOption2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="0f76834b818ffbe98288bbf730fd6abe" name="tests/XML_Query2XML/ADOdbException/getXML/conditionPrefix_attribute_columnName.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="dcb15137f57a5475c8adda3d5497683d" name="tests/XML_Query2XML/ADOdbException/getXML/conditionPrefix_attribute_callback.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="c294b8950c90ad8251ddf4e0b02633bb" name="tests/XML_Query2XML/ADOdbException/getXML/conditionPrefix_attribute_staticText.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e4d0b78c6edb6d3d25d01cf3a84985a1" name="tests/XML_Query2XML/ADOdbException/getXML/conditionPrefix_element_columnName.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="1948ae0575bdf1b07b48fb84cc61a3dc" name="tests/XML_Query2XML/ADOdbException/getXML/conditionPrefix_element_callback.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="a808e9c1cac847a4c080a2563907af02" name="tests/XML_Query2XML/ADOdbException/getXML/conditionPrefix_element_staticText.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e7bf20d5216d0761c7fd927e58b1ea4f" name="tests/XML_Query2XML/ADOdbException/getXML/conditionPrefix_value_columnName.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="cfde233296456aaa8063a4015c785560" name="tests/XML_Query2XML/ADOdbException/getXML/conditionPrefix_value_callback.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="f002ef49fb7eb0f134c4b7b5df2c6c8a" name="tests/XML_Query2XML/ADOdbException/getXML/conditionPrefix_value_staticText.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="4fb84feda64381d9ce0392f9dbb813dd" name="tests/XML_Query2XML/ADOdbException/getXML/throwDBException.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="6f795f9ede0dd3693ce7086b03e3f10f" name="tests/XML_Query2XML/ADOdbException/startProfiling/startProfiling.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e160e9c8a37092876031a0de515657fd" name="tests/XML_Query2XML/ADOdbException/stopProfiling/stopProfiling.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="0a7d87128777109c17960175a9fed8e4" name="tests/XML_Query2XML/ADOdbException/_applyColumnStringToRecord/callbacks.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="fd938d4a93c0a1a6920f610fda15921d" name="tests/XML_Query2XML/ADOdbException/_applyColumnStringToRecord/throwConfigException_callback_function1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="d7efa8f80e1d275f6831c126880cea53" name="tests/XML_Query2XML/ADOdbException/_applyColumnStringToRecord/throwConfigException_callback_function2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="34226853adccd562f63d782ba238d7a6" name="tests/XML_Query2XML/ADOdbException/_applyColumnStringToRecord/throwConfigException_callback_method1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="c95e7661b8a434bd05de9c2bc05ff5c7" name="tests/XML_Query2XML/ADOdbException/_applyColumnStringToRecord/throwConfigException_callback_method2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="c6f928ff8de6c7269962cdf015523088" name="tests/XML_Query2XML/ADOdbException/_applyColumnStringToRecord/throwConfigException_element1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e62e7c87aa05bf306eded344a8925564" name="tests/XML_Query2XML/ADOdbException/_applyColumnStringToRecord/throwConfigException_element2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="92233fc7e3fc252cec04f4c6404ba051" name="tests/XML_Query2XML/ADOdbException/_applyColumnStringToRecord/throwConfigException_idcolumn.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="8870bce8fc722493dd2c8c2bb4170d73" name="tests/XML_Query2XML/ADOdbException/_applySqlOptionsToRecord/throwConfigException_dataOptionWrongType.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="789dd8256bd360cefa62c422bfe465c0" name="tests/XML_Query2XML/ADOdbException/_applySqlOptionsToRecord/throwConfigException_mergeMasterFalse.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="ae970e98fb859a20d42501adb104ef2d" name="tests/XML_Query2XML/ADOdbException/_applySqlOptionsToRecord/throwConfigException_mergeMasterTrue.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="4791ee1bfb2f6da192e2d74ad664306e" name="tests/XML_Query2XML/ADOdbException/_applySqlOptionsToRecord/throwConfigException_mergeselectiveOptionWrongType.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="1e89bd103a5464100f27563a877e8f6a" name="tests/XML_Query2XML/ADOdbException/_applySqlOptionsToRecord/throwConfigException_queryOptionMissing.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="8185f353d50bc4fa93e9ab7f52a1de34" name="tests/XML_Query2XML/ADOdbException/_applySqlOptionsToRecord/throwConfigException_sqlOptionWrongType.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="8de899dff1b4d9d84548fca89a6c8f7c" name="tests/XML_Query2XML/ADOdbException/_createDOMElement/throwXMLException_elementInvalid1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="a39fc75563a1796a79c390842f5c110c" name="tests/XML_Query2XML/ADOdbException/_createDOMElement/throwXMLException_elementInvalid2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b09da6e65884683f63e764a09e93f0b4" name="tests/XML_Query2XML/ADOdbException/_createDOMElement/throwXMLException_roottagOptionInvalid1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="926e48eee8c8c27707a0df645fab5959" name="tests/XML_Query2XML/ADOdbException/_createDOMElement/throwXMLException_roottagOptionInvalid2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="0d430367f13772096dfbfa15405661a4" name="tests/XML_Query2XML/ADOdbException/_createDOMElement/throwXMLException_rowtagOptionInvalid.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="117fac2df2d1caa2625dc185c68f53dd" name="tests/XML_Query2XML/ADOdbException/_getNestedXMLRecord/throwConfigException_attributesOptionWrongType.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="9a895f1338b5da4a42dce19d50bdca45" name="tests/XML_Query2XML/ADOdbException/_getNestedXMLRecord/throwConfigException_attributeSpecWrongType.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e39f9dc967f7ed445a80fbe93d1c4fa5" name="tests/XML_Query2XML/ADOdbException/_getNestedXMLRecord/throwConfigException_elementsOptionWrongType.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="d4a2c717526b288bfc2b5889be481201" name="tests/XML_Query2XML/ADOdbException/_getNestedXMLRecord/throwConfigException_idcolumnOptionMissing.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b778d07d16414c142d471945018bcba0" name="tests/XML_Query2XML/ADOdbException/_getNestedXMLRecord/throwConfigException_mapperNotCallableFunction.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="effd22754d1ac0166ca0a910ecc14102" name="tests/XML_Query2XML/ADOdbException/_getNestedXMLRecord/throwConfigException_mapperNotCallableNonstaticMethod.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="5bed9254bebdda63a1719786a907b6bc" name="tests/XML_Query2XML/ADOdbException/_getNestedXMLRecord/throwConfigException_mapperNotCallableStaticMethod1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="54738b437d10efaa5b6bef5284c6f4f1" name="tests/XML_Query2XML/ADOdbException/_getNestedXMLRecord/throwConfigException_mapperNotCallableStaticMethod2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="2f599834a0b3fddc3945e0455893f1ac" name="tests/XML_Query2XML/ADOdbException/_mapSQLIdentifierToXMLName/throwXMLException.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="75eabe0da7c3f5abbaa9d05cfc45e26b" name="tests/XML_Query2XML/ADOdbException/_prepareAndExecute/throwDBException_complexQuery.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="25170b29aa756a444e0c9b67414f1623" name="tests/XML_Query2XML/ADOdbException/_prepareAndExecute/throwDBException_simpleQuery.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="09a0bb4383eed0c2524fe86acedb02f1" name="tests/XML_Query2XML/ADOdbException/_processComplexElementSpecification/condition_function.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="f6a6be22d6f125413901f71dd0d2b791" name="tests/XML_Query2XML/ADOdbException/_processComplexElementSpecification/condition_staticMethod.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="135402bba33e90aa10070c4f947ec968" name="tests/XML_Query2XML/ADOdbException/_processComplexElementSpecification/rethrowConfigException.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="1dfb31b109e3f76e38847e44a336dbb2" name="tests/XML_Query2XML/ADOdbException/_processComplexElementSpecification/throwConfigException_valueOptionMissing.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="3bf71f154adf5d58a1cd914ae3149684" name="tests/XML_Query2XML/ADOdbException/db_init.php" role="test" />
+   <file baseinstalldir="/" md5sum="23f4d9fa68530f3b35e92bccfb52e20a" name="tests/XML_Query2XML/ADOdbException/skipif.php" role="test" />
+   <file baseinstalldir="/" md5sum="be69ecb3c2234c8ee699474d81f93396" name="tests/XML_Query2XML/ADOdbException/skipif_XML_Beautifier.php" role="test" />
+   <file baseinstalldir="/" md5sum="e8254154aaae46b009d35af20055bae2" name="tests/XML_Query2XML/ADOdbPEAR/clearProfiling/clearProfiling.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="009198ec023cc91585a13b2338f3cc2d" name="tests/XML_Query2XML/ADOdbPEAR/disableDebugLog/disableDebugLog.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="6e40e01c01504705c0b6f3f0501fdbc9" name="tests/XML_Query2XML/ADOdbPEAR/enableDebugLog/enableDebugLog.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="79b9344b2da3c4567e318424dda858fc" name="tests/XML_Query2XML/ADOdbPEAR/factory/throwDBException.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="fbfbf2332cb1885a8907e00a18c8e681" name="tests/XML_Query2XML/ADOdbPEAR/getFlatXML/case01.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="68904d8b5a440bcc20d711bc361d4841" name="tests/XML_Query2XML/ADOdbPEAR/getFlatXML/simpleSelect.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e3ba2582248fd10737f357f8f96e0c1b" name="tests/XML_Query2XML/ADOdbPEAR/getFlatXML/throwDBException.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="9f2f590a75bc8db42a416fd358ff7fe6" name="tests/XML_Query2XML/ADOdbPEAR/getProfile/getProfile.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="5c78f4a417b456bde907d62365288b91" name="tests/XML_Query2XML/ADOdbPEAR/getRawProfile/getRawProfile.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="f9346c5ffed2f684b1594bef79ae996c" name="tests/XML_Query2XML/ADOdbPEAR/getXML/asteriskShortcut_attributes1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="5bb32af79db23464ae9090bb81af6533" name="tests/XML_Query2XML/ADOdbPEAR/getXML/asteriskShortcut_attributes2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="31f0cbc2edf52e165013a02e7c18338a" name="tests/XML_Query2XML/ADOdbPEAR/getXML/asteriskShortcut_attributes3.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b59d7af2bf2d9f1bbc7c4a24f91f1cb7" name="tests/XML_Query2XML/ADOdbPEAR/getXML/asteriskShortcut_attributes4.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="dd71a1f44ee9de36b90f730f6ed81ae3" name="tests/XML_Query2XML/ADOdbPEAR/getXML/asteriskShortcut_attributes5.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="cfe52ce95e30c88f7e87635d58c6a891" name="tests/XML_Query2XML/ADOdbPEAR/getXML/asteriskShortcut_attributes6.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="21a3a85ff44eb39d7d8719ef91400920" name="tests/XML_Query2XML/ADOdbPEAR/getXML/asteriskShortcut_elements1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="34cc16198e54235c6171d42b0e5be72b" name="tests/XML_Query2XML/ADOdbPEAR/getXML/asteriskShortcut_elements2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b695140f1dfce69b5e84f21cd5ed8b42" name="tests/XML_Query2XML/ADOdbPEAR/getXML/asteriskShortcut_elements3.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="784f781ec17f7ddafd20ea41d89278b8" name="tests/XML_Query2XML/ADOdbPEAR/getXML/asteriskShortcut_elements4.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="4e7746f1a941122bc6ad9ea585dd5d69" name="tests/XML_Query2XML/ADOdbPEAR/getXML/asteriskShortcut_elements5.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="570c0b195e3ab1f86a09957f114798b4" name="tests/XML_Query2XML/ADOdbPEAR/getXML/asteriskShortcut_elements6.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b1a404ba62b1371aa937514c8f08eb01" name="tests/XML_Query2XML/ADOdbPEAR/getXML/case02.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="011f663d27532f4e084218668ecd55c2" name="tests/XML_Query2XML/ADOdbPEAR/getXML/case03.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="48b33639045bf73b5d0b84e508995400" name="tests/XML_Query2XML/ADOdbPEAR/getXML/case04.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e5a9b22e004202c879ba6bcd4fbc5444" name="tests/XML_Query2XML/ADOdbPEAR/getXML/case05.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e995a5fd08a58b43dae803572db6caf8" name="tests/XML_Query2XML/ADOdbPEAR/getXML/case06.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b3f5f2254e2320dff0cfa06692268a5e" name="tests/XML_Query2XML/ADOdbPEAR/getXML/case07.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e16f986f940bfdfad318f871a94bf9ac" name="tests/XML_Query2XML/ADOdbPEAR/getXML/case08.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="3e7c27ed9bf2124d0db918cb86139810" name="tests/XML_Query2XML/ADOdbPEAR/getXML/complexAttributeSpecification_complexQuerySpecification.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="9d1814f0b7db6e746aea170e104418b1" name="tests/XML_Query2XML/ADOdbPEAR/getXML/complexAttributeSpecification_complexQuerySpecification_valueCallback.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="51b78164e35ed246cdcefb9b91914e6c" name="tests/XML_Query2XML/ADOdbPEAR/getXML/complexAttributeSpecification_conditionOption.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b94b01cec1145cf8acf22a325eb4914a" name="tests/XML_Query2XML/ADOdbPEAR/getXML/complexAttributeSpecification_simpleQuerySpecification.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="825a79b85829a3436a738603e38782d9" name="tests/XML_Query2XML/ADOdbPEAR/getXML/complexAttributeSpecification_valuePrefixes.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="88fa5b4846cab919815df0b48a88b856" name="tests/XML_Query2XML/ADOdbPEAR/getXML/complexElementSpecification_conditionOption1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="8f58969241a03f3341f24f1bad27744d" name="tests/XML_Query2XML/ADOdbPEAR/getXML/complexElementSpecification_conditionOption2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="0f76834b818ffbe98288bbf730fd6abe" name="tests/XML_Query2XML/ADOdbPEAR/getXML/conditionPrefix_attribute_columnName.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="dcb15137f57a5475c8adda3d5497683d" name="tests/XML_Query2XML/ADOdbPEAR/getXML/conditionPrefix_attribute_callback.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="c294b8950c90ad8251ddf4e0b02633bb" name="tests/XML_Query2XML/ADOdbPEAR/getXML/conditionPrefix_attribute_staticText.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e4d0b78c6edb6d3d25d01cf3a84985a1" name="tests/XML_Query2XML/ADOdbPEAR/getXML/conditionPrefix_element_columnName.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="1948ae0575bdf1b07b48fb84cc61a3dc" name="tests/XML_Query2XML/ADOdbPEAR/getXML/conditionPrefix_element_callback.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="a808e9c1cac847a4c080a2563907af02" name="tests/XML_Query2XML/ADOdbPEAR/getXML/conditionPrefix_element_staticText.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e7bf20d5216d0761c7fd927e58b1ea4f" name="tests/XML_Query2XML/ADOdbPEAR/getXML/conditionPrefix_value_columnName.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="cfde233296456aaa8063a4015c785560" name="tests/XML_Query2XML/ADOdbPEAR/getXML/conditionPrefix_value_callback.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="f002ef49fb7eb0f134c4b7b5df2c6c8a" name="tests/XML_Query2XML/ADOdbPEAR/getXML/conditionPrefix_value_staticText.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="4fb84feda64381d9ce0392f9dbb813dd" name="tests/XML_Query2XML/ADOdbPEAR/getXML/throwDBException.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="6f795f9ede0dd3693ce7086b03e3f10f" name="tests/XML_Query2XML/ADOdbPEAR/startProfiling/startProfiling.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e160e9c8a37092876031a0de515657fd" name="tests/XML_Query2XML/ADOdbPEAR/stopProfiling/stopProfiling.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="0a7d87128777109c17960175a9fed8e4" name="tests/XML_Query2XML/ADOdbPEAR/_applyColumnStringToRecord/callbacks.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="fd938d4a93c0a1a6920f610fda15921d" name="tests/XML_Query2XML/ADOdbPEAR/_applyColumnStringToRecord/throwConfigException_callback_function1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="d7efa8f80e1d275f6831c126880cea53" name="tests/XML_Query2XML/ADOdbPEAR/_applyColumnStringToRecord/throwConfigException_callback_function2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="34226853adccd562f63d782ba238d7a6" name="tests/XML_Query2XML/ADOdbPEAR/_applyColumnStringToRecord/throwConfigException_callback_method1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="c95e7661b8a434bd05de9c2bc05ff5c7" name="tests/XML_Query2XML/ADOdbPEAR/_applyColumnStringToRecord/throwConfigException_callback_method2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="c6f928ff8de6c7269962cdf015523088" name="tests/XML_Query2XML/ADOdbPEAR/_applyColumnStringToRecord/throwConfigException_element1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e62e7c87aa05bf306eded344a8925564" name="tests/XML_Query2XML/ADOdbPEAR/_applyColumnStringToRecord/throwConfigException_element2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="92233fc7e3fc252cec04f4c6404ba051" name="tests/XML_Query2XML/ADOdbPEAR/_applyColumnStringToRecord/throwConfigException_idcolumn.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="8870bce8fc722493dd2c8c2bb4170d73" name="tests/XML_Query2XML/ADOdbPEAR/_applySqlOptionsToRecord/throwConfigException_dataOptionWrongType.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="789dd8256bd360cefa62c422bfe465c0" name="tests/XML_Query2XML/ADOdbPEAR/_applySqlOptionsToRecord/throwConfigException_mergeMasterFalse.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="ae970e98fb859a20d42501adb104ef2d" name="tests/XML_Query2XML/ADOdbPEAR/_applySqlOptionsToRecord/throwConfigException_mergeMasterTrue.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="4791ee1bfb2f6da192e2d74ad664306e" name="tests/XML_Query2XML/ADOdbPEAR/_applySqlOptionsToRecord/throwConfigException_mergeselectiveOptionWrongType.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="1e89bd103a5464100f27563a877e8f6a" name="tests/XML_Query2XML/ADOdbPEAR/_applySqlOptionsToRecord/throwConfigException_queryOptionMissing.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="8185f353d50bc4fa93e9ab7f52a1de34" name="tests/XML_Query2XML/ADOdbPEAR/_applySqlOptionsToRecord/throwConfigException_sqlOptionWrongType.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="8de899dff1b4d9d84548fca89a6c8f7c" name="tests/XML_Query2XML/ADOdbPEAR/_createDOMElement/throwXMLException_elementInvalid1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="a39fc75563a1796a79c390842f5c110c" name="tests/XML_Query2XML/ADOdbPEAR/_createDOMElement/throwXMLException_elementInvalid2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b09da6e65884683f63e764a09e93f0b4" name="tests/XML_Query2XML/ADOdbPEAR/_createDOMElement/throwXMLException_roottagOptionInvalid1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="926e48eee8c8c27707a0df645fab5959" name="tests/XML_Query2XML/ADOdbPEAR/_createDOMElement/throwXMLException_roottagOptionInvalid2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="0d430367f13772096dfbfa15405661a4" name="tests/XML_Query2XML/ADOdbPEAR/_createDOMElement/throwXMLException_rowtagOptionInvalid.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="117fac2df2d1caa2625dc185c68f53dd" name="tests/XML_Query2XML/ADOdbPEAR/_getNestedXMLRecord/throwConfigException_attributesOptionWrongType.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="9a895f1338b5da4a42dce19d50bdca45" name="tests/XML_Query2XML/ADOdbPEAR/_getNestedXMLRecord/throwConfigException_attributeSpecWrongType.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e39f9dc967f7ed445a80fbe93d1c4fa5" name="tests/XML_Query2XML/ADOdbPEAR/_getNestedXMLRecord/throwConfigException_elementsOptionWrongType.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="d4a2c717526b288bfc2b5889be481201" name="tests/XML_Query2XML/ADOdbPEAR/_getNestedXMLRecord/throwConfigException_idcolumnOptionMissing.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b778d07d16414c142d471945018bcba0" name="tests/XML_Query2XML/ADOdbPEAR/_getNestedXMLRecord/throwConfigException_mapperNotCallableFunction.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="effd22754d1ac0166ca0a910ecc14102" name="tests/XML_Query2XML/ADOdbPEAR/_getNestedXMLRecord/throwConfigException_mapperNotCallableNonstaticMethod.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="5bed9254bebdda63a1719786a907b6bc" name="tests/XML_Query2XML/ADOdbPEAR/_getNestedXMLRecord/throwConfigException_mapperNotCallableStaticMethod1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="54738b437d10efaa5b6bef5284c6f4f1" name="tests/XML_Query2XML/ADOdbPEAR/_getNestedXMLRecord/throwConfigException_mapperNotCallableStaticMethod2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="2f599834a0b3fddc3945e0455893f1ac" name="tests/XML_Query2XML/ADOdbPEAR/_mapSQLIdentifierToXMLName/throwXMLException.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="75eabe0da7c3f5abbaa9d05cfc45e26b" name="tests/XML_Query2XML/ADOdbPEAR/_prepareAndExecute/throwDBException_complexQuery.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="25170b29aa756a444e0c9b67414f1623" name="tests/XML_Query2XML/ADOdbPEAR/_prepareAndExecute/throwDBException_simpleQuery.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="09a0bb4383eed0c2524fe86acedb02f1" name="tests/XML_Query2XML/ADOdbPEAR/_processComplexElementSpecification/condition_function.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="f6a6be22d6f125413901f71dd0d2b791" name="tests/XML_Query2XML/ADOdbPEAR/_processComplexElementSpecification/condition_staticMethod.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="135402bba33e90aa10070c4f947ec968" name="tests/XML_Query2XML/ADOdbPEAR/_processComplexElementSpecification/rethrowConfigException.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="1dfb31b109e3f76e38847e44a336dbb2" name="tests/XML_Query2XML/ADOdbPEAR/_processComplexElementSpecification/throwConfigException_valueOptionMissing.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="18e891944f3c27a2ed76f51f3b8db5a3" name="tests/XML_Query2XML/ADOdbPEAR/db_init.php" role="test" />
+   <file baseinstalldir="/" md5sum="279aa8f6b71014c0640a1d7e26c80eab" name="tests/XML_Query2XML/ADOdbPEAR/skipif.php" role="test" />
+   <file baseinstalldir="/" md5sum="be69ecb3c2234c8ee699474d81f93396" name="tests/XML_Query2XML/ADOdbPEAR/skipif_XML_Beautifier.php" role="test" />
+   <file baseinstalldir="/" md5sum="e8254154aaae46b009d35af20055bae2" name="tests/XML_Query2XML/DB/clearProfiling/clearProfiling.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="009198ec023cc91585a13b2338f3cc2d" name="tests/XML_Query2XML/DB/disableDebugLog/disableDebugLog.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="6e40e01c01504705c0b6f3f0501fdbc9" name="tests/XML_Query2XML/DB/enableDebugLog/enableDebugLog.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="79b9344b2da3c4567e318424dda858fc" name="tests/XML_Query2XML/DB/factory/throwDBException.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="fbfbf2332cb1885a8907e00a18c8e681" name="tests/XML_Query2XML/DB/getFlatXML/case01.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="68904d8b5a440bcc20d711bc361d4841" name="tests/XML_Query2XML/DB/getFlatXML/simpleSelect.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e3ba2582248fd10737f357f8f96e0c1b" name="tests/XML_Query2XML/DB/getFlatXML/throwDBException.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="9f2f590a75bc8db42a416fd358ff7fe6" name="tests/XML_Query2XML/DB/getProfile/getProfile.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="5c78f4a417b456bde907d62365288b91" name="tests/XML_Query2XML/DB/getRawProfile/getRawProfile.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="f9346c5ffed2f684b1594bef79ae996c" name="tests/XML_Query2XML/DB/getXML/asteriskShortcut_attributes1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="5bb32af79db23464ae9090bb81af6533" name="tests/XML_Query2XML/DB/getXML/asteriskShortcut_attributes2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="31f0cbc2edf52e165013a02e7c18338a" name="tests/XML_Query2XML/DB/getXML/asteriskShortcut_attributes3.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b59d7af2bf2d9f1bbc7c4a24f91f1cb7" name="tests/XML_Query2XML/DB/getXML/asteriskShortcut_attributes4.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="dd71a1f44ee9de36b90f730f6ed81ae3" name="tests/XML_Query2XML/DB/getXML/asteriskShortcut_attributes5.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="cfe52ce95e30c88f7e87635d58c6a891" name="tests/XML_Query2XML/DB/getXML/asteriskShortcut_attributes6.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="21a3a85ff44eb39d7d8719ef91400920" name="tests/XML_Query2XML/DB/getXML/asteriskShortcut_elements1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="34cc16198e54235c6171d42b0e5be72b" name="tests/XML_Query2XML/DB/getXML/asteriskShortcut_elements2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b695140f1dfce69b5e84f21cd5ed8b42" name="tests/XML_Query2XML/DB/getXML/asteriskShortcut_elements3.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="784f781ec17f7ddafd20ea41d89278b8" name="tests/XML_Query2XML/DB/getXML/asteriskShortcut_elements4.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="4e7746f1a941122bc6ad9ea585dd5d69" name="tests/XML_Query2XML/DB/getXML/asteriskShortcut_elements5.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="570c0b195e3ab1f86a09957f114798b4" name="tests/XML_Query2XML/DB/getXML/asteriskShortcut_elements6.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b1a404ba62b1371aa937514c8f08eb01" name="tests/XML_Query2XML/DB/getXML/case02.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="011f663d27532f4e084218668ecd55c2" name="tests/XML_Query2XML/DB/getXML/case03.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="48b33639045bf73b5d0b84e508995400" name="tests/XML_Query2XML/DB/getXML/case04.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e5a9b22e004202c879ba6bcd4fbc5444" name="tests/XML_Query2XML/DB/getXML/case05.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e995a5fd08a58b43dae803572db6caf8" name="tests/XML_Query2XML/DB/getXML/case06.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b3f5f2254e2320dff0cfa06692268a5e" name="tests/XML_Query2XML/DB/getXML/case07.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e16f986f940bfdfad318f871a94bf9ac" name="tests/XML_Query2XML/DB/getXML/case08.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="3e7c27ed9bf2124d0db918cb86139810" name="tests/XML_Query2XML/DB/getXML/complexAttributeSpecification_complexQuerySpecification.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="9d1814f0b7db6e746aea170e104418b1" name="tests/XML_Query2XML/DB/getXML/complexAttributeSpecification_complexQuerySpecification_valueCallback.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="51b78164e35ed246cdcefb9b91914e6c" name="tests/XML_Query2XML/DB/getXML/complexAttributeSpecification_conditionOption.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b94b01cec1145cf8acf22a325eb4914a" name="tests/XML_Query2XML/DB/getXML/complexAttributeSpecification_simpleQuerySpecification.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="825a79b85829a3436a738603e38782d9" name="tests/XML_Query2XML/DB/getXML/complexAttributeSpecification_valuePrefixes.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="88fa5b4846cab919815df0b48a88b856" name="tests/XML_Query2XML/DB/getXML/complexElementSpecification_conditionOption1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="8f58969241a03f3341f24f1bad27744d" name="tests/XML_Query2XML/DB/getXML/complexElementSpecification_conditionOption2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="0f76834b818ffbe98288bbf730fd6abe" name="tests/XML_Query2XML/DB/getXML/conditionPrefix_attribute_columnName.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="dcb15137f57a5475c8adda3d5497683d" name="tests/XML_Query2XML/DB/getXML/conditionPrefix_attribute_callback.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="c294b8950c90ad8251ddf4e0b02633bb" name="tests/XML_Query2XML/DB/getXML/conditionPrefix_attribute_staticText.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e4d0b78c6edb6d3d25d01cf3a84985a1" name="tests/XML_Query2XML/DB/getXML/conditionPrefix_element_columnName.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="1948ae0575bdf1b07b48fb84cc61a3dc" name="tests/XML_Query2XML/DB/getXML/conditionPrefix_element_callback.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="a808e9c1cac847a4c080a2563907af02" name="tests/XML_Query2XML/DB/getXML/conditionPrefix_element_staticText.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e7bf20d5216d0761c7fd927e58b1ea4f" name="tests/XML_Query2XML/DB/getXML/conditionPrefix_value_columnName.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="cfde233296456aaa8063a4015c785560" name="tests/XML_Query2XML/DB/getXML/conditionPrefix_value_callback.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="f002ef49fb7eb0f134c4b7b5df2c6c8a" name="tests/XML_Query2XML/DB/getXML/conditionPrefix_value_staticText.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="4fb84feda64381d9ce0392f9dbb813dd" name="tests/XML_Query2XML/DB/getXML/throwDBException.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="6f795f9ede0dd3693ce7086b03e3f10f" name="tests/XML_Query2XML/DB/startProfiling/startProfiling.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e160e9c8a37092876031a0de515657fd" name="tests/XML_Query2XML/DB/stopProfiling/stopProfiling.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="0a7d87128777109c17960175a9fed8e4" name="tests/XML_Query2XML/DB/_applyColumnStringToRecord/callbacks.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="fd938d4a93c0a1a6920f610fda15921d" name="tests/XML_Query2XML/DB/_applyColumnStringToRecord/throwConfigException_callback_function1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="d7efa8f80e1d275f6831c126880cea53" name="tests/XML_Query2XML/DB/_applyColumnStringToRecord/throwConfigException_callback_function2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="34226853adccd562f63d782ba238d7a6" name="tests/XML_Query2XML/DB/_applyColumnStringToRecord/throwConfigException_callback_method1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="c95e7661b8a434bd05de9c2bc05ff5c7" name="tests/XML_Query2XML/DB/_applyColumnStringToRecord/throwConfigException_callback_method2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="c6f928ff8de6c7269962cdf015523088" name="tests/XML_Query2XML/DB/_applyColumnStringToRecord/throwConfigException_element1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e62e7c87aa05bf306eded344a8925564" name="tests/XML_Query2XML/DB/_applyColumnStringToRecord/throwConfigException_element2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="92233fc7e3fc252cec04f4c6404ba051" name="tests/XML_Query2XML/DB/_applyColumnStringToRecord/throwConfigException_idcolumn.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="8870bce8fc722493dd2c8c2bb4170d73" name="tests/XML_Query2XML/DB/_applySqlOptionsToRecord/throwConfigException_dataOptionWrongType.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="789dd8256bd360cefa62c422bfe465c0" name="tests/XML_Query2XML/DB/_applySqlOptionsToRecord/throwConfigException_mergeMasterFalse.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="ae970e98fb859a20d42501adb104ef2d" name="tests/XML_Query2XML/DB/_applySqlOptionsToRecord/throwConfigException_mergeMasterTrue.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="4791ee1bfb2f6da192e2d74ad664306e" name="tests/XML_Query2XML/DB/_applySqlOptionsToRecord/throwConfigException_mergeselectiveOptionWrongType.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="1e89bd103a5464100f27563a877e8f6a" name="tests/XML_Query2XML/DB/_applySqlOptionsToRecord/throwConfigException_queryOptionMissing.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="8185f353d50bc4fa93e9ab7f52a1de34" name="tests/XML_Query2XML/DB/_applySqlOptionsToRecord/throwConfigException_sqlOptionWrongType.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="8de899dff1b4d9d84548fca89a6c8f7c" name="tests/XML_Query2XML/DB/_createDOMElement/throwXMLException_elementInvalid1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="a39fc75563a1796a79c390842f5c110c" name="tests/XML_Query2XML/DB/_createDOMElement/throwXMLException_elementInvalid2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b09da6e65884683f63e764a09e93f0b4" name="tests/XML_Query2XML/DB/_createDOMElement/throwXMLException_roottagOptionInvalid1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="926e48eee8c8c27707a0df645fab5959" name="tests/XML_Query2XML/DB/_createDOMElement/throwXMLException_roottagOptionInvalid2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="0d430367f13772096dfbfa15405661a4" name="tests/XML_Query2XML/DB/_createDOMElement/throwXMLException_rowtagOptionInvalid.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="117fac2df2d1caa2625dc185c68f53dd" name="tests/XML_Query2XML/DB/_getNestedXMLRecord/throwConfigException_attributesOptionWrongType.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="9a895f1338b5da4a42dce19d50bdca45" name="tests/XML_Query2XML/DB/_getNestedXMLRecord/throwConfigException_attributeSpecWrongType.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e39f9dc967f7ed445a80fbe93d1c4fa5" name="tests/XML_Query2XML/DB/_getNestedXMLRecord/throwConfigException_elementsOptionWrongType.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="d4a2c717526b288bfc2b5889be481201" name="tests/XML_Query2XML/DB/_getNestedXMLRecord/throwConfigException_idcolumnOptionMissing.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b778d07d16414c142d471945018bcba0" name="tests/XML_Query2XML/DB/_getNestedXMLRecord/throwConfigException_mapperNotCallableFunction.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="effd22754d1ac0166ca0a910ecc14102" name="tests/XML_Query2XML/DB/_getNestedXMLRecord/throwConfigException_mapperNotCallableNonstaticMethod.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="5bed9254bebdda63a1719786a907b6bc" name="tests/XML_Query2XML/DB/_getNestedXMLRecord/throwConfigException_mapperNotCallableStaticMethod1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="54738b437d10efaa5b6bef5284c6f4f1" name="tests/XML_Query2XML/DB/_getNestedXMLRecord/throwConfigException_mapperNotCallableStaticMethod2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="2f599834a0b3fddc3945e0455893f1ac" name="tests/XML_Query2XML/DB/_mapSQLIdentifierToXMLName/throwXMLException.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="75eabe0da7c3f5abbaa9d05cfc45e26b" name="tests/XML_Query2XML/DB/_prepareAndExecute/throwDBException_complexQuery.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="25170b29aa756a444e0c9b67414f1623" name="tests/XML_Query2XML/DB/_prepareAndExecute/throwDBException_simpleQuery.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="09a0bb4383eed0c2524fe86acedb02f1" name="tests/XML_Query2XML/DB/_processComplexElementSpecification/condition_function.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="f6a6be22d6f125413901f71dd0d2b791" name="tests/XML_Query2XML/DB/_processComplexElementSpecification/condition_staticMethod.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="135402bba33e90aa10070c4f947ec968" name="tests/XML_Query2XML/DB/_processComplexElementSpecification/rethrowConfigException.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="1dfb31b109e3f76e38847e44a336dbb2" name="tests/XML_Query2XML/DB/_processComplexElementSpecification/throwConfigException_valueOptionMissing.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="fa86db3c37115f363f5fc296fcf90170" name="tests/XML_Query2XML/DB/db_init.php" role="test" />
+   <file baseinstalldir="/" md5sum="6ff176d95e397ef395b730fd5887a25a" name="tests/XML_Query2XML/DB/skipif.php" role="test" />
+   <file baseinstalldir="/" md5sum="be69ecb3c2234c8ee699474d81f93396" name="tests/XML_Query2XML/DB/skipif_XML_Beautifier.php" role="test" />
+   <file baseinstalldir="/" md5sum="e8254154aaae46b009d35af20055bae2" name="tests/XML_Query2XML/MDB2/clearProfiling/clearProfiling.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="009198ec023cc91585a13b2338f3cc2d" name="tests/XML_Query2XML/MDB2/disableDebugLog/disableDebugLog.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="6e40e01c01504705c0b6f3f0501fdbc9" name="tests/XML_Query2XML/MDB2/enableDebugLog/enableDebugLog.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="79b9344b2da3c4567e318424dda858fc" name="tests/XML_Query2XML/MDB2/factory/throwDBException.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="fbfbf2332cb1885a8907e00a18c8e681" name="tests/XML_Query2XML/MDB2/getFlatXML/case01.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="68904d8b5a440bcc20d711bc361d4841" name="tests/XML_Query2XML/MDB2/getFlatXML/simpleSelect.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e3ba2582248fd10737f357f8f96e0c1b" name="tests/XML_Query2XML/MDB2/getFlatXML/throwDBException.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="9f2f590a75bc8db42a416fd358ff7fe6" name="tests/XML_Query2XML/MDB2/getProfile/getProfile.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="5c78f4a417b456bde907d62365288b91" name="tests/XML_Query2XML/MDB2/getRawProfile/getRawProfile.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="f9346c5ffed2f684b1594bef79ae996c" name="tests/XML_Query2XML/MDB2/getXML/asteriskShortcut_attributes1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="5bb32af79db23464ae9090bb81af6533" name="tests/XML_Query2XML/MDB2/getXML/asteriskShortcut_attributes2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="31f0cbc2edf52e165013a02e7c18338a" name="tests/XML_Query2XML/MDB2/getXML/asteriskShortcut_attributes3.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b59d7af2bf2d9f1bbc7c4a24f91f1cb7" name="tests/XML_Query2XML/MDB2/getXML/asteriskShortcut_attributes4.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="dd71a1f44ee9de36b90f730f6ed81ae3" name="tests/XML_Query2XML/MDB2/getXML/asteriskShortcut_attributes5.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="cfe52ce95e30c88f7e87635d58c6a891" name="tests/XML_Query2XML/MDB2/getXML/asteriskShortcut_attributes6.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="21a3a85ff44eb39d7d8719ef91400920" name="tests/XML_Query2XML/MDB2/getXML/asteriskShortcut_elements1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="34cc16198e54235c6171d42b0e5be72b" name="tests/XML_Query2XML/MDB2/getXML/asteriskShortcut_elements2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b695140f1dfce69b5e84f21cd5ed8b42" name="tests/XML_Query2XML/MDB2/getXML/asteriskShortcut_elements3.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="784f781ec17f7ddafd20ea41d89278b8" name="tests/XML_Query2XML/MDB2/getXML/asteriskShortcut_elements4.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="4e7746f1a941122bc6ad9ea585dd5d69" name="tests/XML_Query2XML/MDB2/getXML/asteriskShortcut_elements5.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="570c0b195e3ab1f86a09957f114798b4" name="tests/XML_Query2XML/MDB2/getXML/asteriskShortcut_elements6.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b1a404ba62b1371aa937514c8f08eb01" name="tests/XML_Query2XML/MDB2/getXML/case02.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="011f663d27532f4e084218668ecd55c2" name="tests/XML_Query2XML/MDB2/getXML/case03.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="48b33639045bf73b5d0b84e508995400" name="tests/XML_Query2XML/MDB2/getXML/case04.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e5a9b22e004202c879ba6bcd4fbc5444" name="tests/XML_Query2XML/MDB2/getXML/case05.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e995a5fd08a58b43dae803572db6caf8" name="tests/XML_Query2XML/MDB2/getXML/case06.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b3f5f2254e2320dff0cfa06692268a5e" name="tests/XML_Query2XML/MDB2/getXML/case07.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e16f986f940bfdfad318f871a94bf9ac" name="tests/XML_Query2XML/MDB2/getXML/case08.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="3e7c27ed9bf2124d0db918cb86139810" name="tests/XML_Query2XML/MDB2/getXML/complexAttributeSpecification_complexQuerySpecification.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="9d1814f0b7db6e746aea170e104418b1" name="tests/XML_Query2XML/MDB2/getXML/complexAttributeSpecification_complexQuerySpecification_valueCallback.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="51b78164e35ed246cdcefb9b91914e6c" name="tests/XML_Query2XML/MDB2/getXML/complexAttributeSpecification_conditionOption.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b94b01cec1145cf8acf22a325eb4914a" name="tests/XML_Query2XML/MDB2/getXML/complexAttributeSpecification_simpleQuerySpecification.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="825a79b85829a3436a738603e38782d9" name="tests/XML_Query2XML/MDB2/getXML/complexAttributeSpecification_valuePrefixes.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="88fa5b4846cab919815df0b48a88b856" name="tests/XML_Query2XML/MDB2/getXML/complexElementSpecification_conditionOption1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="8f58969241a03f3341f24f1bad27744d" name="tests/XML_Query2XML/MDB2/getXML/complexElementSpecification_conditionOption2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="0f76834b818ffbe98288bbf730fd6abe" name="tests/XML_Query2XML/MDB2/getXML/conditionPrefix_attribute_columnName.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="dcb15137f57a5475c8adda3d5497683d" name="tests/XML_Query2XML/MDB2/getXML/conditionPrefix_attribute_callback.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="c294b8950c90ad8251ddf4e0b02633bb" name="tests/XML_Query2XML/MDB2/getXML/conditionPrefix_attribute_staticText.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e4d0b78c6edb6d3d25d01cf3a84985a1" name="tests/XML_Query2XML/MDB2/getXML/conditionPrefix_element_columnName.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="1948ae0575bdf1b07b48fb84cc61a3dc" name="tests/XML_Query2XML/MDB2/getXML/conditionPrefix_element_callback.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="a808e9c1cac847a4c080a2563907af02" name="tests/XML_Query2XML/MDB2/getXML/conditionPrefix_element_staticText.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e7bf20d5216d0761c7fd927e58b1ea4f" name="tests/XML_Query2XML/MDB2/getXML/conditionPrefix_value_columnName.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="cfde233296456aaa8063a4015c785560" name="tests/XML_Query2XML/MDB2/getXML/conditionPrefix_value_callback.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="f002ef49fb7eb0f134c4b7b5df2c6c8a" name="tests/XML_Query2XML/MDB2/getXML/conditionPrefix_value_staticText.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="4fb84feda64381d9ce0392f9dbb813dd" name="tests/XML_Query2XML/MDB2/getXML/throwDBException.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="6f795f9ede0dd3693ce7086b03e3f10f" name="tests/XML_Query2XML/MDB2/startProfiling/startProfiling.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e160e9c8a37092876031a0de515657fd" name="tests/XML_Query2XML/MDB2/stopProfiling/stopProfiling.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="0a7d87128777109c17960175a9fed8e4" name="tests/XML_Query2XML/MDB2/_applyColumnStringToRecord/callbacks.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="fd938d4a93c0a1a6920f610fda15921d" name="tests/XML_Query2XML/MDB2/_applyColumnStringToRecord/throwConfigException_callback_function1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="d7efa8f80e1d275f6831c126880cea53" name="tests/XML_Query2XML/MDB2/_applyColumnStringToRecord/throwConfigException_callback_function2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="34226853adccd562f63d782ba238d7a6" name="tests/XML_Query2XML/MDB2/_applyColumnStringToRecord/throwConfigException_callback_method1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="c95e7661b8a434bd05de9c2bc05ff5c7" name="tests/XML_Query2XML/MDB2/_applyColumnStringToRecord/throwConfigException_callback_method2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="c6f928ff8de6c7269962cdf015523088" name="tests/XML_Query2XML/MDB2/_applyColumnStringToRecord/throwConfigException_element1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e62e7c87aa05bf306eded344a8925564" name="tests/XML_Query2XML/MDB2/_applyColumnStringToRecord/throwConfigException_element2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="92233fc7e3fc252cec04f4c6404ba051" name="tests/XML_Query2XML/MDB2/_applyColumnStringToRecord/throwConfigException_idcolumn.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="8870bce8fc722493dd2c8c2bb4170d73" name="tests/XML_Query2XML/MDB2/_applySqlOptionsToRecord/throwConfigException_dataOptionWrongType.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="789dd8256bd360cefa62c422bfe465c0" name="tests/XML_Query2XML/MDB2/_applySqlOptionsToRecord/throwConfigException_mergeMasterFalse.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="ae970e98fb859a20d42501adb104ef2d" name="tests/XML_Query2XML/MDB2/_applySqlOptionsToRecord/throwConfigException_mergeMasterTrue.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="4791ee1bfb2f6da192e2d74ad664306e" name="tests/XML_Query2XML/MDB2/_applySqlOptionsToRecord/throwConfigException_mergeselectiveOptionWrongType.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="1e89bd103a5464100f27563a877e8f6a" name="tests/XML_Query2XML/MDB2/_applySqlOptionsToRecord/throwConfigException_queryOptionMissing.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="8185f353d50bc4fa93e9ab7f52a1de34" name="tests/XML_Query2XML/MDB2/_applySqlOptionsToRecord/throwConfigException_sqlOptionWrongType.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="8de899dff1b4d9d84548fca89a6c8f7c" name="tests/XML_Query2XML/MDB2/_createDOMElement/throwXMLException_elementInvalid1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="a39fc75563a1796a79c390842f5c110c" name="tests/XML_Query2XML/MDB2/_createDOMElement/throwXMLException_elementInvalid2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b09da6e65884683f63e764a09e93f0b4" name="tests/XML_Query2XML/MDB2/_createDOMElement/throwXMLException_roottagOptionInvalid1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="926e48eee8c8c27707a0df645fab5959" name="tests/XML_Query2XML/MDB2/_createDOMElement/throwXMLException_roottagOptionInvalid2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="0d430367f13772096dfbfa15405661a4" name="tests/XML_Query2XML/MDB2/_createDOMElement/throwXMLException_rowtagOptionInvalid.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="117fac2df2d1caa2625dc185c68f53dd" name="tests/XML_Query2XML/MDB2/_getNestedXMLRecord/throwConfigException_attributesOptionWrongType.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="9a895f1338b5da4a42dce19d50bdca45" name="tests/XML_Query2XML/MDB2/_getNestedXMLRecord/throwConfigException_attributeSpecWrongType.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e39f9dc967f7ed445a80fbe93d1c4fa5" name="tests/XML_Query2XML/MDB2/_getNestedXMLRecord/throwConfigException_elementsOptionWrongType.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="d4a2c717526b288bfc2b5889be481201" name="tests/XML_Query2XML/MDB2/_getNestedXMLRecord/throwConfigException_idcolumnOptionMissing.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b778d07d16414c142d471945018bcba0" name="tests/XML_Query2XML/MDB2/_getNestedXMLRecord/throwConfigException_mapperNotCallableFunction.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="effd22754d1ac0166ca0a910ecc14102" name="tests/XML_Query2XML/MDB2/_getNestedXMLRecord/throwConfigException_mapperNotCallableNonstaticMethod.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="5bed9254bebdda63a1719786a907b6bc" name="tests/XML_Query2XML/MDB2/_getNestedXMLRecord/throwConfigException_mapperNotCallableStaticMethod1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="54738b437d10efaa5b6bef5284c6f4f1" name="tests/XML_Query2XML/MDB2/_getNestedXMLRecord/throwConfigException_mapperNotCallableStaticMethod2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="2f599834a0b3fddc3945e0455893f1ac" name="tests/XML_Query2XML/MDB2/_mapSQLIdentifierToXMLName/throwXMLException.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="75eabe0da7c3f5abbaa9d05cfc45e26b" name="tests/XML_Query2XML/MDB2/_prepareAndExecute/throwDBException_complexQuery.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="25170b29aa756a444e0c9b67414f1623" name="tests/XML_Query2XML/MDB2/_prepareAndExecute/throwDBException_simpleQuery.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="09a0bb4383eed0c2524fe86acedb02f1" name="tests/XML_Query2XML/MDB2/_processComplexElementSpecification/condition_function.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="f6a6be22d6f125413901f71dd0d2b791" name="tests/XML_Query2XML/MDB2/_processComplexElementSpecification/condition_staticMethod.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="135402bba33e90aa10070c4f947ec968" name="tests/XML_Query2XML/MDB2/_processComplexElementSpecification/rethrowConfigException.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="1dfb31b109e3f76e38847e44a336dbb2" name="tests/XML_Query2XML/MDB2/_processComplexElementSpecification/throwConfigException_valueOptionMissing.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e31c8c7d5512142f9c14ae4bfd502617" name="tests/XML_Query2XML/MDB2/db_init.php" role="test" />
+   <file baseinstalldir="/" md5sum="ca565e535d14d449e0960b22530c9477" name="tests/XML_Query2XML/MDB2/skipif.php" role="test" />
+   <file baseinstalldir="/" md5sum="be69ecb3c2234c8ee699474d81f93396" name="tests/XML_Query2XML/MDB2/skipif_XML_Beautifier.php" role="test" />
+   <file baseinstalldir="/" md5sum="69ade7ca78fd91a2f72375f58e6f98c7" name="tests/XML_Query2XML/NoDBLayer/factory/throwConfigException.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="bd4d4cd638b1a1449969f9cb2690541e" name="tests/XML_Query2XML/NoDBLayer/factory/throwDBException.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="3c637ab1109fd8f001a62de4ec4972bd" name="tests/XML_Query2XML/settings.php" role="test" />
+   <file baseinstalldir="/" md5sum="5c707863f6c784e90086d59c2e287265" name="tests/XML_Query2XML_ISO9075Mapper/map/at.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="1d3911a89ab5a4c998c576e64c61bce3" name="tests/XML_Query2XML_ISO9075Mapper/map/colon.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="46cde320679e4a54162d2eef118b0da0" name="tests/XML_Query2XML_ISO9075Mapper/map/curlyBraceClose.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="5e78071e3cc9eb87f45911a5f14ab160" name="tests/XML_Query2XML_ISO9075Mapper/map/curlyBraceOpen.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="62cd074e19ee9d9f110fd7a1414ba3c8" name="tests/XML_Query2XML_ISO9075Mapper/map/equalSign.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="f2a34138ce642e40d5f5f761978351fa" name="tests/XML_Query2XML_ISO9075Mapper/map/greaterThan.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="7ced5954706c4480a51f886b2f455bac" name="tests/XML_Query2XML_ISO9075Mapper/map/invalidNameStartChars.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e682979cfc72531fd70f71a40120b417" name="tests/XML_Query2XML_ISO9075Mapper/map/invalidNametChars.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="665b13bebd975e8640d4e0ea91d1990c" name="tests/XML_Query2XML_ISO9075Mapper/map/lessThan.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="185b2a4846ce09a015aa10bae0bf3e97" name="tests/XML_Query2XML_ISO9075Mapper/map/poundSign.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="b49072e404d3dbfd794c2a8bf7157d3c" name="tests/XML_Query2XML_ISO9075Mapper/map/semicolon.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="8e7eb3a8036a58ea016c75f5b2d76e79" name="tests/XML_Query2XML_ISO9075Mapper/map/space.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="d25476a09be6c1d8f35f763afe256179" name="tests/XML_Query2XML_ISO9075Mapper/map/startWith_xml.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="3da2229123363b85632f87907c1190d8" name="tests/XML_Query2XML_ISO9075Mapper/map/startWith_XML_UC.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="f8edbffcf83d85ba76fd2989b1a6f617" name="tests/XML_Query2XML_ISO9075Mapper/map/throwException1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="75363ba66f71abc5b86927683d6122df" name="tests/XML_Query2XML_ISO9075Mapper/map/throwException2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="4c4a9b41fddd178e2f7bfc19ed2db3c5" name="tests/XML_Query2XML_ISO9075Mapper/map/throwException3.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="c8e3808d0e5c84fdbcc81c96f36de34b" name="tests/XML_Query2XML_ISO9075Mapper/map/unmodified1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="c42a998440a908fa789706b03f3d099a" name="tests/XML_Query2XML_ISO9075Mapper/map/unmodified2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="e968a60519d743a2b5b5040c9fcbb00c" name="tests/XML_Query2XML_ISO9075Mapper/map/validNameChars.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="a55d39285c8f8dc7fea4d2aefab880ad" name="tests/XML_Query2XML_ISO9075Mapper/map/validNameStartChars.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="55204296a79942621f4ca6d1b3d6a199" name="tests/XML_Query2XML_ISO9075Mapper/map/validSpecialChars1.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="6e39958959e24841abb53511bdf9e9cf" name="tests/XML_Query2XML_ISO9075Mapper/map/validSpecialChars2.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="fffc7bb03571de938d3ce0bf0a856563" name="tests/XML_Query2XML_ISO9075Mapper/map/variousChars.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="5eefaf437e64ae493d717603b1189778" name="tests/XML_Query2XML_ISO9075Mapper/map/_x.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="9817c59c85ad8ea20bde5372725d0ac1" name="tests/XML_Query2XML_ISO9075Mapper/map/_X_UC.phpt" role="test" />
+   <file baseinstalldir="/" md5sum="bbc3c5837ef7d71d635ce566a4186c8b" name="tests/XML_Query2XML_ISO9075Mapper/skipif.php" role="test" />
+   <file baseinstalldir="/" md5sum="a5bc7b187ddebc7f01b6693903c68423" name="tests/Query2XML_Tests.sql" role="test" />
+   <file baseinstalldir="/" md5sum="01195133e21b92a6009fb196f23075e2" name="XML/Query2XML/ISO9075Mapper.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="0c2937178e9a2a57ca40c7d17e631623" name="XML/Query2XML.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="d8fe6ff878d8b719fab87c63e5ba4e71" name="ChangeLog" role="doc" />
+   <file baseinstalldir="/" md5sum="0da63d3f20c2cb05ad8e3cc4e74a438a" name="ChangeLog-until-v0.6.0" role="doc" />
+   <file baseinstalldir="/" md5sum="8a9b3baef5503c8c45b42a727574ddd0" name="INSTALL" role="doc" />
+   <file baseinstalldir="/" md5sum="7fbc338309ac38fefcd64b04bb903e34" name="LICENSE" role="doc" />
+   <file baseinstalldir="/" md5sum="f1fc75bf87aca1b9dfaaec3bd2748b1a" name="README" role="doc" />
+   <file baseinstalldir="/" md5sum="92d21c11b3997b2630f788e050797b46" name="RELEASES" role="doc" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.0.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+  </required>
+  <optional>
+   <package>
+    <name>DB</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>MDB2</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>Log</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>XML_Beautifier</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>I18N_UnicodeString</name>
+    <channel>pear.php.net</channel>
+   </package>
+  </optional>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2005-09-19</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>first release</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.1</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2005-09-23</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>elements are now always ordered the way they are supposed to; concept of hidden elements introduced</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-02-08</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>This is the first public release!
+    Changes: minor updates of the tutorial and bug fixes.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.3.0</release>
+    <api>0.3.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-02-25</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>This release includes two major changes:
+- XML_Query2XML now uses PHP5&apos;s DOM XML extension. Therefore
+  DomDocument, DomNode, etc are now used in favor of XML_Query2XML_XMLElement.
+  XML_Query2XML does not come with XML_Query2XML_XMLElement anymore!
+- Back to the roots! XML_Query2XML concentrates on its core features and
+  therefore drops the functionality of generating an XML schema from XML data.
+
+Minor changes:
+- reduction of unit tests (fewer public methods to test): 20
+- complete review of the tutorial and the API documentation
+- changes of testCases.sh: schema validation is not supported
+  anymore</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.4.0</release>
+    <api>0.4.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-02-28</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>This release includes one major change:
+Public methods will now only throw exceptions that extend PEAR_Exception.
+No PEAR errors or special XML will be returned anymore.
+Therefore the public method XML_Query2XML::factory() now
+only knows one argument.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5.0</release>
+    <api>0.5.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-03-13</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>This release includes a couple of major changes:
+- full MDB2 support
+- all new exception handling: just three different
+  exceptions that all extend XML_Query2XML_Exception.
+- now comes with 99 PHPUnit2 unit tests
+- every exception that is thrown or bubbles up is
+  documented in the API-docs; the tutorial has a
+  new &quot;Exception Handling&quot; section.
+This release implements all recommendations made by
+PEAR developers during a first proposal.
+
+Minor changes include:
+- using &apos; instead of &quot; where-ever possible
+- as PHP5 uses references for objects by default &amp; (such as
+  in =&amp;) is now only used where necessary.
+- the tutorial now renders just fine in all common browsers</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5.1</release>
+    <api>0.5.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-03-17</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>This release includes a couple of minor changes:
+- all lines now have a maximum length of 85 characters
+- no () with require_once
+- always using {} with code blocks
+- no silencing of any calls using @
+- using /* ... */ for all multi-line comments
+- enhanced documentation for private methods
+- code enhancements inside XML_Query2XML::getXML()</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.6.0</release>
+    <api>0.6.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-04-23</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>This release includes all changes recommeded during the PEPr voting process.
+Major changes:
+- asterisk shortcut that expands to all columns in the result set;
+  the tutorial was updated to document this feature and a new
+  case study (case 07) was added to provide a good example
+- implementation of ISO/IEC 9075-14:2005 for mapping SQL identifiers to
+  XML names; the tutorial was updates to document this feature and
+  a new case study (case 08) was added to provide lots of examples
+- new complex attribute specifications (from my own wish list)
+
+Minor changes:
+- simplification of the inner workings of the methods _hasDOMChild()
+  and _getDOMChild()
+- using foreach($array as $key =&gt; $value) instead of
+  while(list($key, $value) = each($array))
+- now comes with 168 unit tests</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.6.1</release>
+    <api>0.6.1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-09-28</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>This release fixes a minor bug with PHP5 prior to 5.1.0.
+Thanks a lot to Christophe Laratte &lt;christophe dot laratte at openflyers dot org&gt;
+for reporting this!
+
+Bug fixes:
+- Fixed Bug #8799 &quot;DB/common.php required&quot;: compatibility fix for
+  PHP5 &lt; 5.1.0: added class_exists() calls before using instanceof
+  operator in XML_Query2XML constructor;
+  see also: http://bugs.php.net/bug.php?id=29736</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.7.0</release>
+    <api>0.7.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-10-14</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>This release adds support for ADOdb (adodb.sf.net).
+ADOdb can be used with different error handling mechanisms:
+- default: methods return false on failure; these errors
+  will be caught by XML_Query2XML and an XML_Query2XML_DBException
+  will be thrown
+- PEAR_Error: methods return PEAR_Error on failure (or false
+  and require ADODB_Pear_Error() to be called);
+  XML_Query2XML will catch these errors and throw an
+  XML_Query2XML_DBException that contains the information provided
+  by the PEAR_Error instance.
+- exceptions: if an ADODB_Exception is thrown by ADOdb
+  XML_Query2XML will catch it and throw an XML_Query2XML_DBException
+
+This means that no matter which error handling mechanism is used within
+ADOdb, XML_Query2XML will behave the same. It will throw an
+XML_Query2XML_DBException in case of a database error.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.8.0</release>
+    <api>0.8.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-11-04</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>This release is *NOT BACKWARD COMPATIBLE*.
+I&apos;m sorry for the BC break, but due to security considerations XML_Query2XML
+does not use the native function eval() anymore. Therefore
+- the &quot;!&quot; prefix is not supported anymore
+- the behaviour of the &quot;condition&quot; option was changed
+- the new callback prefix &quot;#&quot; was added (use it instead of the &quot;!&quot; prefix)
+
+A migration strategy is documented at
+http://query2xml.sf.net/docs/html/XML_Query2XML/tutorial_XML_Query2XML.pkg.html#migration
+
+Also:
+- unit tests were migrated from PHPUnit2 to phpt
+- XML_Query2XML now comes with 433 unit tests
+- migrated from package.xml version 1.0 to version 2.0</notes>
+  </release>
+ </changelog>
+</package>

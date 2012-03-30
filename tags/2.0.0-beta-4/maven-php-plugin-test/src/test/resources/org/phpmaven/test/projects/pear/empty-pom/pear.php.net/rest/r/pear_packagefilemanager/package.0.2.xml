@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>PEAR_PackageFileManager</name>
+  <summary>PEAR_PackageFileManager takes an existing package.xml file and updates it with a new filelist and changelog</summary>
+  <description>This package revolutionizes the maintenance of PEAR packages.  With a few parameters,
+the entire package.xml is automatically updated with a listing of all files in a package.
+Features include
+ - reads in an existing package.xml file, and only changes the release/changelog
+ - a plugin system for retrieving files in a directory.  Currently two plugins
+   exist, one for standard recursive directory content listing, and one that
+   reads the CVS/Entries files and generates a file listing based on the contents
+   of a checked out CVS repository
+ - incredibly flexible options for assigning install roles to files/directories
+ - ability to ignore any file based on a * ? wildcard-enabled string
+ - ability to manage dependencies
+ - can output the package.xml in any directory, and read in the package.xml
+   file from any directory.
+ - can specify a different name for the package.xml file</description>
+  <maintainers>
+    <maintainer>
+      <user>CelloG</user>
+      <name>Gregory Beaver</name>
+      <email>cellog@users.sourceforge.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.2</version>
+    <date>2003-07-21</date>
+    <license>PHP License</license>
+    <state>alpha</state>
+    <notes>Generation of package.xml from scratch is now supported.  In addition,
+generation of &lt;provides&gt; is supported and so is addition of
+maintainers and configure options</notes>
+    <deps>
+      <dep type="pkg" rel="ge" version="1.1">PEAR</dep>
+    </deps>
+    <provides type="class" name="PEAR_PackageFileManager_Cvs" extends="PEAR_PackageFileManager_File" />
+    <provides type="function" name="PEAR_PackageFileManager_Cvs::dirList" />
+    <provides type="class" name="PEAR_PackageFileManager_File" />
+    <provides type="function" name="PEAR_PackageFileManager_File::getFileList" />
+    <provides type="function" name="PEAR_PackageFileManager_File::dirList" />
+    <provides type="function" name="PEAR_PackageFileManager_File::sortfiles" />
+    <provides type="function" name="PEAR_PackageFileManager_File::mystrucsort" />
+    <provides type="class" name="PEAR_PackageFileManager" />
+    <provides type="function" name="PEAR_PackageFileManager::setOptions" />
+    <provides type="function" name="PEAR_PackageFileManager::addRole" />
+    <provides type="function" name="PEAR_PackageFileManager::addMaintainer" />
+    <provides type="function" name="PEAR_PackageFileManager::addConfigureOption" />
+    <provides type="function" name="PEAR_PackageFileManager::addDependency" />
+    <provides type="function" name="PEAR_PackageFileManager::writePackageFile" />
+    <provides type="function" name="PEAR_PackageFileManager::debugPackageFile" />
+    <provides type="function" name="PEAR_PackageFileManager::raiseError" />
+    <provides type="function" name="file_get_contents" />
+    <filelist>
+      <file role="doc" baseinstalldir="PEAR" md5sum="462c6a1d5e6cf797739765cfe6a15fbc" name="docs/classtrees_PEAR_PackageFileManager.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="bfae556011334a3cb6b19af9c673e881" name="docs/elementindex.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="02b7dad20fc9f1608111fb9cd9631d2e" name="docs/elementindex_PEAR_PackageFileManager.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="583c9bc3ff08b7a628a637f191b7cfb4" name="docs/errors.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="9a8b5579091ca5704fe17290934489fa" name="docs/index.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="9a8b5579091ca5704fe17290934489fa" name="docs/li_PEAR_PackageFileManager.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="908a7af2b36fa04f1b869ff74b6a8d37" name="docs/media/background.png"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="4c480a60db1ab64317fe351a24396eb1" name="docs/media/empty.png"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="45923cad7340f4184f27e287c17e2429" name="docs/media/logo.png"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="cfa1203cc96f584f6e44da9aef3aab73" name="docs/media/style.css"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="90a3ac6185c8998a0033962113313954" name="docs/PEAR_PackageFileManager/PEAR_PackageFileManager.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="f46296e7f49f9517de5b707f6fedd66a" name="docs/PEAR_PackageFileManager/PEAR_PackageFileManager_Cvs.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="b390abfa2f34280532fe56a08327f57b" name="docs/PEAR_PackageFileManager/PEAR_PackageFileManager_File.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="a55c2696676684990195dc09b10eb8ec" name="docs/PEAR_PackageFileManager/_PackageFileManager_PackageFileManager_Cvs_php.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="6a4c4527d48c274cf1eabe8cd518e1ad" name="docs/PEAR_PackageFileManager/_PackageFileManager_PackageFileManager_File_php.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="435e576a4cbce1146bb53c56d5d9cea5" name="docs/PEAR_PackageFileManager/_PackageFileManager_PackageFileManager_php.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="cea0958f5ef3746c120885a26eab29e7" name="docs/__filesource/fsource_PEAR_PackageFileManager__PackageFileManager.php.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="868cdcb81b5a406f72856af4aed5f5d4" name="docs/__filesource/fsource_PEAR_PackageFileManager__PackageFileManager_Cvs.php.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="e1bbf4c3746d8f29aa2c1763df1fb2e2" name="docs/__filesource/fsource_PEAR_PackageFileManager__PackageFileManager_File.php.html"/>
+      <file role="doc" baseinstalldir="PEAR" md5sum="471fc85077539c984d63c6f6bef6bf7f" name="examples/generatePackage.xml.php"/>
+      <file role="php" baseinstalldir="PEAR" md5sum="998d1756f2c1ab5e465f2e9d1dfe5c30" name="PackageFileManager/Cvs.php"/>
+      <file role="php" baseinstalldir="PEAR" md5sum="1ab3b1b3767bea769e86509dcca29a6a" name="PackageFileManager/File.php"/>
+      <file role="php" baseinstalldir="PEAR" md5sum="83ae11c78c719c01664f63df209d494f" name="PackageFileManager.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.1</version>
+      <date>2003-07-21</date>
+      <state>alpha</state>
+      <notes>First release of PEAR_PackageFileManager
+
+
+</notes>
+    </release>
+    <release>
+      <version>0.2</version>
+      <date>2003-07-21</date>
+      <state>alpha</state>
+      <notes>Generation of package.xml from scratch is now supported.  In addition,
+generation of &lt;provides&gt; is supported and so is addition of
+maintainers and configure options
+
+- Fixed a bug in &lt;release&gt; generation
+- Added _addProvides() to generate a &lt;provides&gt; section
+</notes>
+    </release>
+  </changelog>
+</package>

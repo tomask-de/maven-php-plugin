@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.7.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0                              http://pear.php.net/dtd/tasks-1.0.xsd                              http://pear.php.net/dtd/package-2.0                              http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Net_Gearman</name>
+ <channel>pear.php.net</channel>
+ <summary>A PHP interface to Danga&apos;s Gearman</summary>
+ <description>Gearman (http://www.danga.com/gearman) is a system to farm out work to other machines. It can load balance function calls to lots of machines and allows you to call functions between languages. It can also run all function calls in parallel.</description>
+ <lead>
+  <name>Joe Stump</name>
+  <user>jstump</user>
+  <email>joe@joestump.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Chris Goffinet</name>
+  <user>lenn0x</user>
+  <email>cg@chrisgoffinet.com</email>
+  <active>yes</active>
+ </lead>
+ <date>2008-05-04</date>
+ <time>15:59:55</time>
+ <version>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+ <notes>* Changed Net_Gearman_Connection so it cannot be instantiated
+* Cleaned up documentation
+* Moved magic initialization into Net_Gearman_Connection::connect()
+* Fixed bug in port detection in Net_Gearman_Manager</notes>
+ <contents>
+  <dir name="/">
+   <file md5sum="978bfc222d14d75b26b0b8f915b07f15" name="Net/Gearman/Job/Common.php" role="php" />
+   <file md5sum="4fb40c3801615a11d3ac645324db69cb" name="Net/Gearman/Job/Exception.php" role="php" />
+   <file md5sum="dd93cff39f7c0291686be177372c22bc" name="Net/Gearman/Client.php" role="php" />
+   <file md5sum="a2900f66e93fd0f1e97895da0a41ac44" name="Net/Gearman/Connection.php" role="php" />
+   <file md5sum="8948a1d453749520870a3e8e10a9189c" name="Net/Gearman/Exception.php" role="php" />
+   <file md5sum="969ec089e14836a8ee29ef70b3c20ee3" name="Net/Gearman/Job.php" role="php" />
+   <file md5sum="b48a81bd2b801edcbc084e07df352eaa" name="Net/Gearman/Manager.php" role="php" />
+   <file md5sum="a9a240adec7d3faea7293aa34bcc0d0c" name="Net/Gearman/Set.php" role="php" />
+   <file md5sum="24670ed4be53bb119cb90ecbc9077063" name="Net/Gearman/Task.php" role="php" />
+   <file md5sum="17a99a533a6c56aa98ca6bb8f246f91b" name="Net/Gearman/Worker.php" role="php" />
+   <file baseinstalldir="doc/Net_Gearman" md5sum="69207c962ea23d93b4b6440d2157a8c5" name="examples/SQL.php" role="doc" />
+   <file baseinstalldir="doc/Net_Gearman" md5sum="25bd1ac502fc0665b8f36c2c28e70a17" name="examples/Sum.php" role="doc" />
+   <file baseinstalldir="doc/Net_Gearman" md5sum="d3f46da6eab3c9282eb3d74076577c3d" name="examples/tasks.php" role="doc" />
+   <file baseinstalldir="doc/Net_Gearman" md5sum="f70f180083baaee0f5529523ad998560" name="examples/worker.php" role="doc" />
+   <file md5sum="ecf59561622b01633ad78b0f3c8d88f5" name="tests/001-echo_req.phpt" role="test" />
+   <file md5sum="d3de74a5d67a4a96076a64caf2167752" name="tests/010-client-call.phpt" role="test" />
+   <file md5sum="ce104142aa2d93842ff7e7964d6bfb86" name="tests/012-client-runSet.phpt" role="test" />
+   <file md5sum="488cc7dac5877911d6922abb83777b34" name="tests/tests-config.php" role="test" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.1.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <extension>
+    <name>mbstring</name>
+   </extension>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <date>2008-04-05</date>
+   <version>
+    <release>0.0.9</release>
+    <api>0.0.9</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>* Fixed a bug where Net_Gearman would munge large data results
+* Added Net_Gearman_Manager for collecting stats and managing Gearmand
+* Added Net_Gearman_Connection::stringLength() for detecting mbstring
+* Added reconnection support to Net_Gearman_Worker so workers don&apos;t die when the Gearman server disappears sporatically
+* Cleaned up the code to satisfy phpcs
+* Made all private functions/member variables protected</notes>
+   <contents>
+    <dir name="/">
+     <dir name="Net">
+      <dir name="Gearman">
+       <file name="Client.php" role="php" />
+       <file name="Connection.php" role="php" />
+       <file name="Exception.php" role="php" />
+       <file name="Job.php" role="php" />
+       <file name="Manager.php" role="php" />
+       <file name="Set.php" role="php" />
+       <file name="Task.php" role="php" />
+       <file name="Worker.php" role="php" />
+       <dir name="Job">
+        <file name="Common.php" role="php" />
+        <file name="Exception.php" role="php" />
+       </dir>
+      </dir>
+     </dir>
+     <dir baseinstalldir="doc/Net_Gearman" name="examples" role="doc">
+      <file name="SQL.php" role="doc" />
+      <file name="Sum.php" role="doc" />
+      <file name="tasks.php" role="doc" />
+      <file name="worker.php" role="doc" />
+     </dir>
+     <dir name="tests" role="test">
+      <file name="001-echo_req.phpt" role="test" />
+      <file name="010-client-call.phpt" role="test" />
+      <file name="012-client-runSet.phpt" role="test" />
+      <file name="tests-config.php" role="test" />
+     </dir>
+    </dir>
+   </contents>
+  </release>
+  <release>
+   <date>2008-04-05</date>
+   <version>
+    <release>0.0.9</release>
+    <api>0.0.9</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>* Added reconnection support to workers.
+* Suppressed socket_write warnings
+* Cleaned up connection handling
+* Added attachCallback() to Sets</notes>
+   <contents>
+    <dir name="/">
+     <dir name="Net">
+      <dir name="Gearman">
+       <file name="Client.php" role="php" />
+       <file name="Connection.php" role="php" />
+       <file name="Exception.php" role="php" />
+       <file name="Job.php" role="php" />
+       <file name="Set.php" role="php" />
+       <file name="Task.php" role="php" />
+       <file name="Worker.php" role="php" />
+       <dir name="Job">
+        <file name="Common.php" role="php" />
+        <file name="Exception.php" role="php" />
+       </dir>
+      </dir>
+     </dir>
+     <dir baseinstalldir="doc/Net_Gearman" name="examples" role="doc">
+      <file name="SQL.php" role="doc" />
+      <file name="Sum.php" role="doc" />
+      <file name="tasks.php" role="doc" />
+      <file name="worker.php" role="doc" />
+     </dir>
+     <dir name="tests" role="test">
+      <file name="001-echo_req.phpt" role="test" />
+      <file name="010-client-call.phpt" role="test" />
+      <file name="012-client-runSet.phpt" role="test" />
+      <file name="tests-config.php" role="test" />
+     </dir>
+    </dir>
+   </contents>
+  </release>
+  <release>
+   <date>2008-03-04</date>
+   <version>
+    <release>0.0.7</release>
+    <api>0.0.7</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>* Fixed a bug with strlen() and mbstring.func_overload. As a result we always use mb_strlen($string, &apos;8bit&apos;) and mbstring is now required.
+* Moved Chris Goffinet to lead</notes>
+   <contents>
+    <dir name="/">
+     <dir name="Net">
+      <dir name="Gearman">
+       <file name="Client.php" role="php" />
+       <file name="Connection.php" role="php" />
+       <file name="Exception.php" role="php" />
+       <file name="Job.php" role="php" />
+       <file name="Set.php" role="php" />
+       <file name="Task.php" role="php" />
+       <file name="Worker.php" role="php" />
+       <dir name="Job">
+        <file name="Common.php" role="php" />
+        <file name="Exception.php" role="php" />
+       </dir>
+      </dir>
+     </dir>
+     <dir baseinstalldir="doc/Net_Gearman" name="examples" role="doc">
+      <file name="SQL.php" role="doc" />
+      <file name="Sum.php" role="doc" />
+      <file name="tasks.php" role="doc" />
+      <file name="worker.php" role="doc" />
+     </dir>
+     <dir name="tests" role="test">
+      <file name="001-echo_req.phpt" role="test" />
+      <file name="010-client-call.phpt" role="test" />
+      <file name="012-client-runSet.phpt" role="test" />
+      <file name="tests-config.php" role="test" />
+     </dir>
+    </dir>
+   </contents>
+  </release>
+  <release>
+   <date>2007-12-11</date>
+   <version>
+    <release>0.0.6</release>
+    <api>0.0.6</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>* Removed Net_Gearman_Task::$hash in favor of Net_Gearman_Task::$uniq
+* Added NET_GEARMAN_JOB_PATH to allow developers to overload where Net_Gearman_Job looks for jobs
+* Fixed a bug when running high quantities of back ground jobs from a single set (Chris Goffinet)
+* Fixed a major bug where tasks in a set were not being ran in parallel
+* Set $job = null in Net_Gearman_Worker::doWork() to ensure the destructor runs
+* Moved from O(n) to O(1) for checking if all tasks are finished (Chris Goffinet)
+* Added Chris Goffinet as a developer</notes>
+   <contents>
+    <dir name="/">
+     <dir name="Net">
+      <dir name="Gearman">
+       <file name="Client.php" role="php" />
+       <file name="Connection.php" role="php" />
+       <file name="Exception.php" role="php" />
+       <file name="Job.php" role="php" />
+       <file name="Set.php" role="php" />
+       <file name="Task.php" role="php" />
+       <file name="Worker.php" role="php" />
+       <dir name="Job">
+        <file name="Common.php" role="php" />
+        <file name="Exception.php" role="php" />
+       </dir>
+      </dir>
+     </dir>
+     <dir baseinstalldir="doc/Net_Gearman" name="examples" role="doc">
+      <file name="SQL.php" role="doc" />
+      <file name="Sum.php" role="doc" />
+      <file name="tasks.php" role="doc" />
+      <file name="worker.php" role="doc" />
+     </dir>
+     <dir name="tests" role="test">
+      <file name="001-echo_req.phpt" role="test" />
+      <file name="010-client-call.phpt" role="test" />
+      <file name="012-client-runSet.phpt" role="test" />
+      <file name="tests-config.php" role="test" />
+     </dir>
+    </dir>
+   </contents>
+  </release>
+  <release>
+   <date>2007-11-12</date>
+   <version>
+    <release>0.0.4</release>
+    <api>0.0.4</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>* Added a timeout for connection attempts. Net_Gearman_Connection now attempts to connect for one full second before failing.
+* Added a timeout option to Net_Gearman_Client that is passed onto Net_Gearman_Connection.
+* Changed the way Net_Gearman_Client connects to Gearman servers.
+* Fixed a serious bug where Net_Gearman_Client would disconnect from the Gearman server after the first set was ran.
+* Fixed how Net_Gearman_Task::$uniq was set.</notes>
+   <contents>
+    <dir name="/">
+     <dir name="Net">
+      <dir name="Gearman">
+       <file name="Client.php" role="php" />
+       <file name="Connection.php" role="php" />
+       <file name="Exception.php" role="php" />
+       <file name="Job.php" role="php" />
+       <file name="Set.php" role="php" />
+       <file name="Task.php" role="php" />
+       <file name="Worker.php" role="php" />
+       <dir name="Job">
+        <file name="Common.php" role="php" />
+        <file name="Exception.php" role="php" />
+       </dir>
+      </dir>
+     </dir>
+     <dir baseinstalldir="doc/Net_Gearman" name="examples" role="doc">
+      <file name="SQL.php" role="doc" />
+      <file name="Sum.php" role="doc" />
+      <file name="tasks.php" role="doc" />
+      <file name="worker.php" role="doc" />
+     </dir>
+     <dir name="tests" role="test">
+      <file name="001-echo_req.phpt" role="test" />
+      <file name="010-client-call.phpt" role="test" />
+      <file name="012-client-runSet.phpt" role="test" />
+      <file name="tests-config.php" role="test" />
+     </dir>
+    </dir>
+   </contents>
+  </release>
+  <release>
+   <date>2007-10-31</date>
+   <version>
+    <release>0.0.3</release>
+    <api>0.0.3</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>* Added Net_Gearman_Worker callbacks for monitoring jobs as they come through the worker.
+* Changed Net_Gearman_Task callbacks to pass more information about the job.
+* Changed the json_encode()/json_decode() to decode to generic arrays rather than stdClass.
+* Fixed a bug in how Net_Gearman_Client handles tasks that are waiting for job handles.
+* Fixed a bug in a case statement when a task would fail in Net_Gearman_Client.</notes>
+   <contents>
+    <dir name="/">
+     <dir name="Net">
+      <dir name="Gearman">
+       <file name="Client.php" role="php" />
+       <file name="Connection.php" role="php" />
+       <file name="Exception.php" role="php" />
+       <file name="Job.php" role="php" />
+       <file name="Set.php" role="php" />
+       <file name="Task.php" role="php" />
+       <file name="Worker.php" role="php" />
+       <dir name="Job">
+        <file name="Common.php" role="php" />
+        <file name="Exception.php" role="php" />
+       </dir>
+      </dir>
+     </dir>
+     <dir baseinstalldir="doc/Net_Gearman" name="examples" role="doc">
+      <file name="SQL.php" role="doc" />
+      <file name="Sum.php" role="doc" />
+      <file name="tasks.php" role="doc" />
+      <file name="worker.php" role="doc" />
+     </dir>
+     <dir name="tests" role="test">
+      <file name="001-echo_req.phpt" role="test" />
+      <file name="010-client-call.phpt" role="test" />
+      <file name="012-client-runSet.phpt" role="test" />
+      <file name="tests-config.php" role="test" />
+     </dir>
+    </dir>
+   </contents>
+  </release>
+  <release>
+   <date>2007-10-25</date>
+   <version>
+    <release>0.0.2</release>
+    <api>0.0.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>* Added Net_Gearman_Connection::blockingRead() to keep the worker from constantly polling Gearman.</notes>
+   <contents>
+    <dir name="/">
+     <dir name="Net">
+      <dir name="Gearman">
+       <file name="Client.php" role="php" />
+       <file name="Connection.php" role="php" />
+       <file name="Exception.php" role="php" />
+       <file name="Job.php" role="php" />
+       <file name="Set.php" role="php" />
+       <file name="Task.php" role="php" />
+       <file name="Worker.php" role="php" />
+       <dir name="Job">
+        <file name="Common.php" role="php" />
+        <file name="Exception.php" role="php" />
+       </dir>
+      </dir>
+     </dir>
+     <dir baseinstalldir="doc/Net_Gearman" name="examples" role="doc">
+      <file name="SQL.php" role="doc" />
+      <file name="Sum.php" role="doc" />
+      <file name="tasks.php" role="doc" />
+      <file name="worker.php" role="doc" />
+     </dir>
+     <dir name="tests" role="test">
+      <file name="001-echo_req.phpt" role="test" />
+      <file name="010-client-call.phpt" role="test" />
+      <file name="012-client-runSet.phpt" role="test" />
+      <file name="tests-config.php" role="test" />
+     </dir>
+    </dir>
+   </contents>
+  </release>
+  <release>
+   <date>2007-10-19</date>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>* Initial release.</notes>
+   <contents>
+    <dir name="/">
+     <dir name="Net">
+      <dir name="Gearman">
+       <file name="Client.php" role="php" />
+       <file name="Connection.php" role="php" />
+       <file name="Exception.php" role="php" />
+       <file name="Job.php" role="php" />
+       <file name="Set.php" role="php" />
+       <file name="Task.php" role="php" />
+       <file name="Worker.php" role="php" />
+       <dir name="Job">
+        <file name="Common.php" role="php" />
+        <file name="Exception.php" role="php" />
+       </dir>
+      </dir>
+     </dir>
+     <dir baseinstalldir="doc/Net_Gearman" name="examples" role="doc">
+      <file name="SQL.php" role="doc" />
+      <file name="Sum.php" role="doc" />
+      <file name="tasks.php" role="doc" />
+      <file name="worker.php" role="doc" />
+     </dir>
+     <dir name="tests" role="test">
+      <file name="001-echo_req.phpt" role="test" />
+      <file name="010-client-call.phpt" role="test" />
+      <file name="012-client-runSet.phpt" role="test" />
+      <file name="tests-config.php" role="test" />
+     </dir>
+    </dir>
+   </contents>
+  </release>
+ </changelog>
+</package>

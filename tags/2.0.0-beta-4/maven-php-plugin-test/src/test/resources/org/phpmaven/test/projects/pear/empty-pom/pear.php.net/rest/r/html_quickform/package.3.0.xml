@@ -1,0 +1,706 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>HTML_QuickForm</name>
+  <summary>The PEAR::HTML_QuickForm package provides methods for creating, validating, processing HTML forms.</summary>
+  <description>The PEAR::HTML_QuickForm package provides methods for creating, validating, processing HTML forms.
+Features:
+* Creates xHTML compliant form elements of various type.
+* Allows you to choose an unlimited number of html attributes.
+* Allows you to create your own custom elements using your own classes.
+* Process form values (you should override the process method).
+* Creates javascript validation code using regular expression.
+* Server-side validation too.
+* Allows you to create your own validation rules.
+* Manages file uploads.
+* Allows you to freeze some elements in your form.
+* Allows you to customize the look of your form in many ways.
+* Template-like form elements customization...</description>
+  <maintainers>
+    <maintainer>
+      <user>mansion</user>
+      <name>Bertrand Mansion</name>
+      <email>bmansion@mamasam.com</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>adaniel</user>
+      <name>Adam Daniel</name>
+      <email>adaniel1@eesus.jnj.com</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>avb</user>
+      <name>Alexey Borzov</name>
+      <email>borz_off@cs.msu.su</email>
+      <role>developer</role>
+    </maintainer>
+    <maintainer>
+      <user>jrust</user>
+      <name>Jason Rust</name>
+      <email>jason@rustyparts.com</email>
+      <role>developer</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>3.0</version>
+    <date>2003-06-04</date>
+    <license>PHP License</license>
+    <state>stable</state>
+    <notes>* Fixes
+
+- do not use submit values for 'submit' elements also (reported by Thomas Schulz, Mike Carter)
+- assorted small fixes to HTML_QuickForm's methods and PHPDoc documentation
+- HTML_QuickForm::apiVersion() returns 3.0 now</notes>
+    <deps>
+      <dep type="php" rel="ge" version="4.2"/>
+      <dep type="pkg" rel="ge" version="1.1">HTML_Common</dep>
+    </deps>
+    <provides type="class" name="HTML_QuickForm" />
+    <provides type="class" name="HTML_QuickForm_Error" />
+    <provides type="function" name="HTML_QuickForm::apiVersion" />
+    <provides type="function" name="HTML_QuickForm::registerElementType" />
+    <provides type="function" name="HTML_QuickForm::registerRule" />
+    <provides type="function" name="HTML_QuickForm::elementExists" />
+    <provides type="function" name="HTML_QuickForm::setDefaults" />
+    <provides type="function" name="HTML_QuickForm::setConstants" />
+    <provides type="function" name="HTML_QuickForm::moveUploadedFile" />
+    <provides type="function" name="HTML_QuickForm::setMaxFileSize" />
+    <provides type="function" name="HTML_QuickForm::getMaxFileSize" />
+    <provides type="function" name="HTML_QuickForm::isUploadedFile" />
+    <provides type="function" name="HTML_QuickForm::getUploadedFile" />
+    <provides type="function" name="HTML_QuickForm::createElement" />
+    <provides type="function" name="HTML_QuickForm::addElement" />
+    <provides type="function" name="HTML_QuickForm::addGroup" />
+    <provides type="function" name="HTML_QuickForm::addElementGroup" />
+    <provides type="function" name="HTML_QuickForm::getElement" />
+    <provides type="function" name="HTML_QuickForm::getElementValue" />
+    <provides type="function" name="HTML_QuickForm::getSubmitValue" />
+    <provides type="function" name="HTML_QuickForm::getElementError" />
+    <provides type="function" name="HTML_QuickForm::setElementError" />
+    <provides type="function" name="HTML_QuickForm::getElementType" />
+    <provides type="function" name="HTML_QuickForm::updateElementAttr" />
+    <provides type="function" name="HTML_QuickForm::removeElement" />
+    <provides type="function" name="HTML_QuickForm::addHeader" />
+    <provides type="function" name="HTML_QuickForm::addRule" />
+    <provides type="function" name="HTML_QuickForm::addGroupRule" />
+    <provides type="function" name="HTML_QuickForm::addData" />
+    <provides type="function" name="HTML_QuickForm::applyFilter" />
+    <provides type="function" name="HTML_QuickForm::isTypeRegistered" />
+    <provides type="function" name="HTML_QuickForm::getRegisteredTypes" />
+    <provides type="function" name="HTML_QuickForm::isRuleRegistered" />
+    <provides type="function" name="HTML_QuickForm::getRegisteredRules" />
+    <provides type="function" name="HTML_QuickForm::isElementRequired" />
+    <provides type="function" name="HTML_QuickForm::isElementFrozen" />
+    <provides type="function" name="HTML_QuickForm::setJsWarnings" />
+    <provides type="function" name="HTML_QuickForm::setElementTemplate" />
+    <provides type="function" name="HTML_QuickForm::setHeaderTemplate" />
+    <provides type="function" name="HTML_QuickForm::setFormTemplate" />
+    <provides type="function" name="HTML_QuickForm::setRequiredNoteTemplate" />
+    <provides type="function" name="HTML_QuickForm::clearAllTemplates" />
+    <provides type="function" name="HTML_QuickForm::setRequiredNote" />
+    <provides type="function" name="HTML_QuickForm::getRequiredNote" />
+    <provides type="function" name="HTML_QuickForm::validate" />
+    <provides type="function" name="HTML_QuickForm::freeze" />
+    <provides type="function" name="HTML_QuickForm::isFrozen" />
+    <provides type="function" name="HTML_QuickForm::process" />
+    <provides type="function" name="HTML_QuickForm::accept" />
+    <provides type="function" name="HTML_QuickForm::defaultRenderer" />
+    <provides type="function" name="HTML_QuickForm::toHtml" />
+    <provides type="function" name="HTML_QuickForm::getValidationScript" />
+    <provides type="function" name="getAttributesString" />
+    <provides type="function" name="getSubmitValues" />
+    <provides type="function" name="toArray" />
+    <provides type="function" name="isError" />
+    <provides type="function" name="errorMessage" />
+    <provides type="class" name="HTML_QuickForm_advcheckbox" />
+    <provides type="function" name="HTML_QuickForm_advcheckbox::getPrivateName" />
+    <provides type="function" name="HTML_QuickForm_advcheckbox::getOnclickJs" />
+    <provides type="function" name="HTML_QuickForm_advcheckbox::setValues" />
+    <provides type="function" name="HTML_QuickForm_advcheckbox::toHtml" />
+    <provides type="function" name="HTML_QuickForm_advcheckbox::onQuickFormEvent" />
+    <provides type="class" name="HTML_QuickForm_button" />
+    <provides type="function" name="HTML_QuickForm_button::freeze" />
+    <provides type="class" name="HTML_QuickForm_checkbox" />
+    <provides type="function" name="HTML_QuickForm_checkbox::setChecked" />
+    <provides type="function" name="HTML_QuickForm_checkbox::getChecked" />
+    <provides type="function" name="HTML_QuickForm_checkbox::toHtml" />
+    <provides type="function" name="HTML_QuickForm_checkbox::getFrozenHtml" />
+    <provides type="function" name="HTML_QuickForm_checkbox::setText" />
+    <provides type="function" name="HTML_QuickForm_checkbox::getText" />
+    <provides type="function" name="HTML_QuickForm_checkbox::setValue" />
+    <provides type="function" name="HTML_QuickForm_checkbox::getValue" />
+    <provides type="function" name="HTML_QuickForm_checkbox::onQuickFormEvent" />
+    <provides type="class" name="HTML_QuickForm_date" />
+    <provides type="function" name="HTML_QuickForm_date::setName" />
+    <provides type="function" name="HTML_QuickForm_date::getName" />
+    <provides type="function" name="HTML_QuickForm_date::setFormat" />
+    <provides type="function" name="HTML_QuickForm_date::setMinYear" />
+    <provides type="function" name="HTML_QuickForm_date::setMaxYear" />
+    <provides type="function" name="HTML_QuickForm_date::setLanguage" />
+    <provides type="function" name="HTML_QuickForm_date::setSelectedDate" />
+    <provides type="function" name="HTML_QuickForm_date::toHtml" />
+    <provides type="function" name="HTML_QuickForm_date::onQuickFormEvent" />
+    <provides type="class" name="HTML_QuickForm_element" />
+    <provides type="function" name="HTML_QuickForm_element::apiVersion" />
+    <provides type="function" name="HTML_QuickForm_element::getType" />
+    <provides type="function" name="HTML_QuickForm_element::setName" />
+    <provides type="function" name="HTML_QuickForm_element::getName" />
+    <provides type="function" name="HTML_QuickForm_element::setValue" />
+    <provides type="function" name="HTML_QuickForm_element::getValue" />
+    <provides type="function" name="HTML_QuickForm_element::freeze" />
+    <provides type="function" name="HTML_QuickForm_element::getFrozenHtml" />
+    <provides type="function" name="HTML_QuickForm_element::isFrozen" />
+    <provides type="function" name="HTML_QuickForm_element::setPersistantFreeze" />
+    <provides type="function" name="HTML_QuickForm_element::setLabel" />
+    <provides type="function" name="HTML_QuickForm_element::getLabel" />
+    <provides type="function" name="HTML_QuickForm_element::onQuickFormEvent" />
+    <provides type="function" name="HTML_QuickForm_element::accept" />
+    <provides type="class" name="HTML_QuickForm_file" />
+    <provides type="function" name="HTML_QuickForm_file::setSize" />
+    <provides type="function" name="HTML_QuickForm_file::getSize" />
+    <provides type="function" name="HTML_QuickForm_file::freeze" />
+    <provides type="function" name="HTML_QuickForm_file::setValue" />
+    <provides type="function" name="HTML_QuickForm_file::getValue" />
+    <provides type="function" name="HTML_QuickForm_file::onQuickFormEvent" />
+    <provides type="class" name="HTML_QuickForm_group" />
+    <provides type="function" name="HTML_QuickForm_group::setName" />
+    <provides type="function" name="HTML_QuickForm_group::getName" />
+    <provides type="function" name="HTML_QuickForm_group::setValue" />
+    <provides type="function" name="HTML_QuickForm_group::getValue" />
+    <provides type="function" name="HTML_QuickForm_group::setElements" />
+    <provides type="function" name="HTML_QuickForm_group::getElements" />
+    <provides type="function" name="HTML_QuickForm_group::getGroupType" />
+    <provides type="function" name="HTML_QuickForm_group::toHtml" />
+    <provides type="function" name="HTML_QuickForm_group::setElementTemplate" />
+    <provides type="function" name="HTML_QuickForm_group::setGroupTemplate" />
+    <provides type="function" name="HTML_QuickForm_group::getElementName" />
+    <provides type="function" name="HTML_QuickForm_group::getFrozenHtml" />
+    <provides type="function" name="HTML_QuickForm_group::onQuickFormEvent" />
+    <provides type="function" name="HTML_QuickForm_group::accept" />
+    <provides type="class" name="HTML_QuickForm_header" />
+    <provides type="function" name="HTML_QuickForm_header::accept" />
+    <provides type="class" name="HTML_QuickForm_hidden" />
+    <provides type="function" name="HTML_QuickForm_hidden::freeze" />
+    <provides type="function" name="HTML_QuickForm_hidden::accept" />
+    <provides type="class" name="HTML_QuickForm_hiddenselect" />
+    <provides type="function" name="HTML_QuickForm_hiddenselect::toHtml" />
+    <provides type="class" name="HTML_QuickForm_html" />
+    <provides type="function" name="HTML_QuickForm_html::accept" />
+    <provides type="class" name="HTML_QuickForm_image" />
+    <provides type="function" name="HTML_QuickForm_image::setSource" />
+    <provides type="function" name="HTML_QuickForm_image::setBorder" />
+    <provides type="function" name="HTML_QuickForm_image::setAlign" />
+    <provides type="function" name="HTML_QuickForm_image::freeze" />
+    <provides type="class" name="HTML_QuickForm_input" />
+    <provides type="function" name="HTML_QuickForm_input::setType" />
+    <provides type="function" name="HTML_QuickForm_input::setName" />
+    <provides type="function" name="HTML_QuickForm_input::getName" />
+    <provides type="function" name="HTML_QuickForm_input::setValue" />
+    <provides type="function" name="HTML_QuickForm_input::getValue" />
+    <provides type="function" name="HTML_QuickForm_input::toHtml" />
+    <provides type="function" name="HTML_QuickForm_input::onQuickFormEvent" />
+    <provides type="class" name="HTML_QuickForm_link" />
+    <provides type="function" name="HTML_QuickForm_link::setName" />
+    <provides type="function" name="HTML_QuickForm_link::getName" />
+    <provides type="function" name="HTML_QuickForm_link::setValue" />
+    <provides type="function" name="HTML_QuickForm_link::getValue" />
+    <provides type="function" name="HTML_QuickForm_link::setHref" />
+    <provides type="function" name="HTML_QuickForm_link::toHtml" />
+    <provides type="function" name="HTML_QuickForm_link::getFrozenHtml" />
+    <provides type="class" name="HTML_QuickForm_password" />
+    <provides type="function" name="HTML_QuickForm_password::setSize" />
+    <provides type="function" name="HTML_QuickForm_password::setMaxlength" />
+    <provides type="function" name="HTML_QuickForm_password::getFrozenHtml" />
+    <provides type="class" name="HTML_QuickForm_radio" />
+    <provides type="function" name="HTML_QuickForm_radio::setChecked" />
+    <provides type="function" name="HTML_QuickForm_radio::getChecked" />
+    <provides type="function" name="HTML_QuickForm_radio::toHtml" />
+    <provides type="function" name="HTML_QuickForm_radio::getFrozenHtml" />
+    <provides type="function" name="HTML_QuickForm_radio::setText" />
+    <provides type="function" name="HTML_QuickForm_radio::getText" />
+    <provides type="function" name="HTML_QuickForm_radio::onQuickFormEvent" />
+    <provides type="class" name="HTML_QuickForm_reset" />
+    <provides type="function" name="HTML_QuickForm_reset::freeze" />
+    <provides type="class" name="HTML_QuickForm_select" />
+    <provides type="function" name="HTML_QuickForm_select::apiVersion" />
+    <provides type="function" name="HTML_QuickForm_select::setSelected" />
+    <provides type="function" name="HTML_QuickForm_select::getSelected" />
+    <provides type="function" name="HTML_QuickForm_select::setName" />
+    <provides type="function" name="HTML_QuickForm_select::getName" />
+    <provides type="function" name="HTML_QuickForm_select::getPrivateName" />
+    <provides type="function" name="HTML_QuickForm_select::setValue" />
+    <provides type="function" name="HTML_QuickForm_select::getValue" />
+    <provides type="function" name="HTML_QuickForm_select::setSize" />
+    <provides type="function" name="HTML_QuickForm_select::getSize" />
+    <provides type="function" name="HTML_QuickForm_select::setMultiple" />
+    <provides type="function" name="HTML_QuickForm_select::getMultiple" />
+    <provides type="function" name="HTML_QuickForm_select::addOption" />
+    <provides type="function" name="HTML_QuickForm_select::loadArray" />
+    <provides type="function" name="HTML_QuickForm_select::loadDbResult" />
+    <provides type="function" name="HTML_QuickForm_select::loadQuery" />
+    <provides type="function" name="HTML_QuickForm_select::load" />
+    <provides type="function" name="HTML_QuickForm_select::toHtml" />
+    <provides type="function" name="HTML_QuickForm_select::getFrozenHtml" />
+    <provides type="class" name="HTML_QuickForm_static" />
+    <provides type="function" name="HTML_QuickForm_static::setName" />
+    <provides type="function" name="HTML_QuickForm_static::getName" />
+    <provides type="function" name="HTML_QuickForm_static::setText" />
+    <provides type="function" name="HTML_QuickForm_static::setValue" />
+    <provides type="function" name="HTML_QuickForm_static::toHtml" />
+    <provides type="function" name="HTML_QuickForm_static::getFrozenHtml" />
+    <provides type="function" name="HTML_QuickForm_static::onQuickFormEvent" />
+    <provides type="class" name="HTML_QuickForm_submit" />
+    <provides type="function" name="HTML_QuickForm_submit::freeze" />
+    <provides type="class" name="HTML_QuickForm_text" />
+    <provides type="function" name="HTML_QuickForm_text::setSize" />
+    <provides type="function" name="HTML_QuickForm_text::setMaxlength" />
+    <provides type="class" name="HTML_QuickForm_textarea" />
+    <provides type="function" name="HTML_QuickForm_textarea::setName" />
+    <provides type="function" name="HTML_QuickForm_textarea::getName" />
+    <provides type="function" name="HTML_QuickForm_textarea::setValue" />
+    <provides type="function" name="HTML_QuickForm_textarea::getValue" />
+    <provides type="function" name="HTML_QuickForm_textarea::setWrap" />
+    <provides type="function" name="HTML_QuickForm_textarea::setRows" />
+    <provides type="function" name="HTML_QuickForm_textarea::setCols" />
+    <provides type="function" name="HTML_QuickForm_textarea::toHtml" />
+    <provides type="function" name="HTML_QuickForm_textarea::getFrozenHtml" />
+    <provides type="class" name="HTML_QuickForm_Renderer" />
+    <provides type="function" name="HTML_QuickForm_Renderer::startForm" />
+    <provides type="function" name="HTML_QuickForm_Renderer::finishForm" />
+    <provides type="function" name="HTML_QuickForm_Renderer::renderHeader" />
+    <provides type="function" name="HTML_QuickForm_Renderer::renderElement" />
+    <provides type="function" name="HTML_QuickForm_Renderer::renderHidden" />
+    <provides type="function" name="HTML_QuickForm_Renderer::renderHtml" />
+    <provides type="function" name="HTML_QuickForm_Renderer::startGroup" />
+    <provides type="function" name="HTML_QuickForm_Renderer::finishGroup" />
+    <provides type="class" name="HTML_QuickForm_Renderer_Array" />
+    <provides type="function" name="HTML_QuickForm_Renderer_Array::toArray" />
+    <provides type="function" name="HTML_QuickForm_Renderer_Array::startForm" />
+    <provides type="function" name="HTML_QuickForm_Renderer_Array::renderHeader" />
+    <provides type="function" name="HTML_QuickForm_Renderer_Array::renderElement" />
+    <provides type="function" name="HTML_QuickForm_Renderer_Array::renderHidden" />
+    <provides type="function" name="HTML_QuickForm_Renderer_Array::startGroup" />
+    <provides type="function" name="HTML_QuickForm_Renderer_Array::finishGroup" />
+    <provides type="function" name="HTML_QuickForm_Renderer_Array::setElementStyle" />
+    <provides type="class" name="HTML_QuickForm_Renderer_ArraySmarty" />
+    <provides type="function" name="HTML_QuickForm_Renderer_ArraySmarty::renderHeader" />
+    <provides type="function" name="HTML_QuickForm_Renderer_ArraySmarty::startGroup" />
+    <provides type="function" name="HTML_QuickForm_Renderer_ArraySmarty::setRequiredTemplate" />
+    <provides type="function" name="HTML_QuickForm_Renderer_ArraySmarty::setErrorTemplate" />
+    <provides type="class" name="HTML_QuickForm_Renderer_Default" />
+    <provides type="function" name="HTML_QuickForm_Renderer_Default::toHtml" />
+    <provides type="function" name="HTML_QuickForm_Renderer_Default::startForm" />
+    <provides type="function" name="HTML_QuickForm_Renderer_Default::finishForm" />
+    <provides type="function" name="HTML_QuickForm_Renderer_Default::renderHeader" />
+    <provides type="function" name="HTML_QuickForm_Renderer_Default::renderElement" />
+    <provides type="function" name="HTML_QuickForm_Renderer_Default::renderHidden" />
+    <provides type="function" name="HTML_QuickForm_Renderer_Default::renderHtml" />
+    <provides type="function" name="HTML_QuickForm_Renderer_Default::startGroup" />
+    <provides type="function" name="HTML_QuickForm_Renderer_Default::finishGroup" />
+    <provides type="function" name="HTML_QuickForm_Renderer_Default::setElementTemplate" />
+    <provides type="function" name="HTML_QuickForm_Renderer_Default::setGroupTemplate" />
+    <provides type="function" name="HTML_QuickForm_Renderer_Default::setGroupElementTemplate" />
+    <provides type="function" name="HTML_QuickForm_Renderer_Default::setHeaderTemplate" />
+    <provides type="function" name="HTML_QuickForm_Renderer_Default::setFormTemplate" />
+    <provides type="function" name="HTML_QuickForm_Renderer_Default::setRequiredNoteTemplate" />
+    <provides type="function" name="HTML_QuickForm_Renderer_Default::clearAllTemplates" />
+    <provides type="class" name="HTML_QuickForm_Renderer_ITDynamic" />
+    <provides type="function" name="HTML_QuickForm_Renderer_ITDynamic::finishForm" />
+    <provides type="function" name="HTML_QuickForm_Renderer_ITDynamic::renderHeader" />
+    <provides type="function" name="HTML_QuickForm_Renderer_ITDynamic::renderElement" />
+    <provides type="function" name="HTML_QuickForm_Renderer_ITDynamic::renderHidden" />
+    <provides type="function" name="HTML_QuickForm_Renderer_ITDynamic::startGroup" />
+    <provides type="function" name="HTML_QuickForm_Renderer_ITDynamic::finishGroup" />
+    <provides type="function" name="HTML_QuickForm_Renderer_ITDynamic::setElementBlock" />
+    <provides type="function" name="HTML_QuickForm_Renderer_ITDynamic::setHeaderBlock" />
+    <provides type="class" name="HTML_QuickForm_Renderer_ITStatic" />
+    <provides type="function" name="HTML_QuickForm_Renderer_ITStatic::startForm" />
+    <provides type="function" name="HTML_QuickForm_Renderer_ITStatic::finishForm" />
+    <provides type="function" name="HTML_QuickForm_Renderer_ITStatic::renderHeader" />
+    <provides type="function" name="HTML_QuickForm_Renderer_ITStatic::renderElement" />
+    <provides type="function" name="HTML_QuickForm_Renderer_ITStatic::renderHidden" />
+    <provides type="function" name="HTML_QuickForm_Renderer_ITStatic::startGroup" />
+    <provides type="function" name="HTML_QuickForm_Renderer_ITStatic::finishGroup" />
+    <provides type="function" name="HTML_QuickForm_Renderer_ITStatic::setRequiredTemplate" />
+    <provides type="function" name="HTML_QuickForm_Renderer_ITStatic::setErrorTemplate" />
+    <filelist>
+      <file role="php" baseinstalldir="HTML" md5sum="7950c4f2388ff763e3a8931955158bb7" name="QuickForm.php"/>
+      <file role="php" baseinstalldir="HTML" md5sum="058f810e661cc6090138b21140ed13e5" name="QuickForm/advcheckbox.php"/>
+      <file role="php" baseinstalldir="HTML" md5sum="7d2d8b8f1d72d7656fb1188e147462a7" name="QuickForm/button.php"/>
+      <file role="php" baseinstalldir="HTML" md5sum="c21875ad9f6ee4c4ca39c49f87fd58b1" name="QuickForm/checkbox.php"/>
+      <file role="php" baseinstalldir="HTML" md5sum="9f81c7621936927bd6928358dfdd3321" name="QuickForm/date.php"/>
+      <file role="php" baseinstalldir="HTML" md5sum="dcc0eb42b5d15824f8c394bf16e8f928" name="QuickForm/element.php"/>
+      <file role="php" baseinstalldir="HTML" md5sum="c0c278b36c574ed178959ee09550f27e" name="QuickForm/file.php"/>
+      <file role="php" baseinstalldir="HTML" md5sum="745061ceec6cd1c5d6276bf80e56b4c2" name="QuickForm/group.php"/>
+      <file role="php" baseinstalldir="HTML" md5sum="dee78b16f6a56434ab2a7b8cf8eb73af" name="QuickForm/header.php"/>
+      <file role="php" baseinstalldir="HTML" md5sum="da59fcc304f237a90b6558037ef2925f" name="QuickForm/hidden.php"/>
+      <file role="php" baseinstalldir="HTML" md5sum="c33f58fe5eb3b607a26c880e014a1487" name="QuickForm/hiddenselect.php"/>
+      <file role="php" baseinstalldir="HTML" md5sum="b9d114a2887aa86f1d3f392e3554fa00" name="QuickForm/html.php"/>
+      <file role="php" baseinstalldir="HTML" md5sum="ac3191d0349875446b52f00ec7275bfc" name="QuickForm/image.php"/>
+      <file role="php" baseinstalldir="HTML" md5sum="b32fb38060a25e2b9a8fbe267dbd68a6" name="QuickForm/input.php"/>
+      <file role="php" baseinstalldir="HTML" md5sum="a7e5e6fa43fc3b0c01ebf8a4bc339378" name="QuickForm/link.php"/>
+      <file role="php" baseinstalldir="HTML" md5sum="29a7694223a0bd5ef4dae54c07f3619f" name="QuickForm/password.php"/>
+      <file role="php" baseinstalldir="HTML" md5sum="aad9750176e8cb4389ccbcee61347d5e" name="QuickForm/radio.php"/>
+      <file role="php" baseinstalldir="HTML" md5sum="c554fffe14d909e39fbddfcec62bcd4e" name="QuickForm/reset.php"/>
+      <file role="php" baseinstalldir="HTML" md5sum="a74b850551cd7dfc6570fd801563b2eb" name="QuickForm/select.php"/>
+      <file role="php" baseinstalldir="HTML" md5sum="69dd73e80e78dc239f81ad56dc32f687" name="QuickForm/static.php"/>
+      <file role="php" baseinstalldir="HTML" md5sum="1847c59e7ee404d8ebd92440ed8be179" name="QuickForm/submit.php"/>
+      <file role="php" baseinstalldir="HTML" md5sum="e4c611c22962f3b3ee1d4f45332f8168" name="QuickForm/text.php"/>
+      <file role="php" baseinstalldir="HTML" md5sum="9360181850bc772e29f0d887dd732dfb" name="QuickForm/textarea.php"/>
+      <file role="php" baseinstalldir="HTML" md5sum="054ff5702bb76dff0fbc8f61c2dc03a8" name="QuickForm/Renderer.php"/>
+      <file role="php" baseinstalldir="HTML" md5sum="b27418e35f4664774021117fe14c288e" name="QuickForm/Renderer/Array.php"/>
+      <file role="php" baseinstalldir="HTML" md5sum="d9f025fb3fb54088b223eebfbfb7516c" name="QuickForm/Renderer/ArraySmarty.php"/>
+      <file role="php" baseinstalldir="HTML" md5sum="7299afba0fd3cd28204a2df932279f84" name="QuickForm/Renderer/Default.php"/>
+      <file role="php" baseinstalldir="HTML" md5sum="97638da6bfbcbf8f89ea3b9c94959faa" name="QuickForm/Renderer/ITDynamic.php"/>
+      <file role="php" baseinstalldir="HTML" md5sum="17d51455b31cdf97fa92248bc5e827e2" name="QuickForm/Renderer/ITStatic.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="d86bd0de571072821d88dc72399b0fdd" name="docs/QuickForm_example.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="67533f84ad1181698adf40da26912400" name="docs/QuickForm_example2.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="072046bf3e1cc7ccf1be031df61f353d" name="docs/QuickForm_example3.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="d2c95eadcac4ecbc7275127d4d4eeab5" name="docs/QuickForm_example4.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="276e6c5c502dd212b73e97f971a75b68" name="docs/QuickForm_example5.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="f4f240970a2eef8076bb9a912dd0499e" name="docs/QuickForm_example6.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="39079482dd3b690280b9df621a43cf9a" name="docs/QuickForm_example7.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="6cc7b5e3c267c8f45717e77a331a2b56" name="docs/renderers/ITDynamic_example.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="af7a7c17c5d017ee163e1014fd8985ec" name="docs/renderers/ITDynamic_example2.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="cfbf65b08b783210b0e0f66c797bbd55" name="docs/renderers/ITStatic_example.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="c4f69e9a523192d84d988c512d4e1a79" name="docs/renderers/SmartyDynamic_example.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="ed94c91df8c684510ad4b0faef331851" name="docs/renderers/SmartyStatic_example.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="adb2114b903797dc018598720118002b" name="docs/renderers/it-dynamic-2.html"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="7b55130f4373582f809249dfb2a6ade1" name="docs/renderers/it-dynamic.html"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="97a14259f587ce8cb8610454363dd9c9" name="docs/renderers/it-static.html"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="d97e1ad6e579d556f60eae2dc8de2a94" name="docs/renderers/labels-default.php"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="c4e02540cc39bce8642a28f011a7b331" name="docs/renderers/templates/smarty-dynamic-fancygroup.tpl"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="9cd1fd5872348b6569cf53d61366d25b" name="docs/renderers/templates/smarty-dynamic-green.tpl"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="0039ce970e8ec4bdf7aaf64d0f09ec35" name="docs/renderers/templates/smarty-dynamic.tpl"/>
+      <file role="doc" baseinstalldir="HTML" md5sum="b8c2d72d6899585296777f9e0d0a69c4" name="docs/renderers/templates/smarty-static.tpl"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>3.0RC1</version>
+      <date>2003-05-28</date>
+      <state>beta</state>
+      <notes>* Bugfixes
+
+- setMaxfileSize() does not throw pear error anymore (Alexey Borzov)
+- onQuickFormEvent 'updateValue' fixes, elements that cannot actually have a submit value do not try to use one (Alexey Borzov)
+- _loadElement() now returns a reference (Alexey Borzov)
+- Several fixes to usage examples (Alexey Borzov, Thomas Schulz, Joerg Bruckmann)
+
+* Changes
+
+- Added time to the date element (Jason Rust)
+- Required groups now show the asterisk (Bertrand Mansion)
+- Optimizations in HTML_QuickForm_group's methods (Alexey Borzov)
+- ArraySmarty renderer now requires a Smarty object and uses Smarty templates for 'required' and errors output (Thomas Schulz)
+    
+</notes>
+    </release>
+    <release>
+      <version>3.0Beta2</version>
+      <date>2003-05-13</date>
+      <state>beta</state>
+      <notes>- PHP 4.2+ is now required for file uploads
+
+* Bugfixes
+
+- Fixed bug with selected values in select element
+- Fixed bug when form method was changed from get to post by adding a file element
+- addRule() and addGroupRule() now return a PEAR error when the rule is not registered
+- &lt;label&gt; tags are no more generated for frozen checkboxes and radios
+
+* Changes
+
+- Added new Array-based renderer for Smarty, with examples (Thomas Schulz)
+- Array renderer generates more info on the form, possibility to set styles for elements (Thomas Schulz)
+- Example of usage for Array renderer with Smarty (Thomas Schulz)
+- Better XHTML compliance for Default renderer output (Klaus Guenther, Alexey Borzov)
+- Added possibility to have multiple labels for one element (Jon Wood)
+- Added support for multiple labels in ITStatic and ITDynamic renderers (Jon Wood, Alexey, Bertrand)
+
+- Added client-side validation parameter to addGroupRule() (Bertrand Mansion)
+
+- getSubmitValues() can now return uploaded files (Markus Wolff, Alexey Borzov)
+- Added new methods set/getMaxFileSize (Tommy Ipsen)
+
+- Removed unwanted linefeeds in frozen checkboxes (Thomas Schulz)
+- Added Spanish translation for date element (The PhP_KiD)
+- Added a setValue() method to static element (Jon Wood)
+    
+</notes>
+    </release>
+    <release>
+      <version>3.0Beta1</version>
+      <date>2003-04-17</date>
+      <state>beta</state>
+      <notes>* Major changes in this release
+
+- Renderers
+   QuickForm now uses external renderers to output the form. Currently 
+   available renderers are: Default - based on old toHtml() code, 
+   Array - based on old toArray() code, ITStatic and ITDynamic - these work
+   through an ITX/Sigma template engine. More renderers are expected to follow. 
+- Validation
+   Validation rules are tested in the order they are set. Groups can 
+   now be validated with custom functions. File validation only happens 
+   if a file is required. It is also tested if the file has been uploaded.
+- Static elements
+   Headers and Data (html) elements are treated like other form elements. 
+   Headers can have a name, this makes it possible to use different templates
+   for different headers.
+- XHTML
+   HTML_Common and QuickForm have been reworked to be more XHTML compliant.
+
+* Migration to 3.0
+
+Incompatibilities:
+
+- Filters registration is not used anymore. Just give applyFilter() the function name as a parameter.
+- toArray() now returns a different structure and calls an external renderer: elements in groups are rendered as seperate elements, every element has a numeric index for key.
+- Validation rules are validated in the order they were set.
+- File validation happens only when the file is required.
+- Direct calls to onQuickFormEvent() with 'setDefault' and 'setConstant' events won't work anymore, these events have been replaced by an 'updateValue' event.
+- Grouped elements index is now a numeric key only. This can break some group rules if you used their associative key in addGroupRule().
+- Groups must have a name. If you don't want the name to be appended to the elements names, set the appendName parameter to false.
+
+Deprecated features:
+- addHeader() and addData(), while still there, are deprecated. Use addElement('header') and addElement('html').
+- If you want to customize form output, do so by using a renderer object. setElementTemplate() and the like are now deprecated.
+
+* Changes
+
+- Added support for external renderers, added a default and an array renderer based on old QuickForm code (Alexey Borzov)
+- Added a dynamic ITX/Sigma renderer with examples (Alexey Borzov)
+- Added a static ITX/Sigma renderer with examples (Bertrand Mansion)
+
+- Added possibility to validate a group with a function using addRule() (Bertrand Mansion)
+- Added possibility to validate groups when appendName is false (Bertrand Mansion)
+- Rules are validated in the order they are set (Bertrand Mansion)
+- Fixed problems when validating a file not uploaded (Frederic Poeydomenge, Bertrand Mansion)
+
+- addHeader() and addData() now call addElement(), added new 'header' and 'html' elements (Alexey Borzov)
+- Got rid of registering filters, now only function existence is checked. First parameter to applyFilter can be an array (Alexey Borzov)
+- Automatically generate a name for group element when no name given. Added possibility to append the group name or not to grouped elements (Alexey Borzov)
+- process() now accepts a callback function to process the form (Bertrand Mansion)
+
+- Added XHTML compliant labels in radio and checkboxes (Alexey Borzov, Alexander Radivanovich)
+- XHTML for form tag (Bertrand Mansion)
+
+- Elements values are now set through a uniform 'updateValue' event (Alexey Borzov)
+- Elements with value 0 are not considered empty when validating (Bertrand Mansion)
+- Fix warning with uploaded files (Frederic Poeydomenge)
+- Changed _findElementValue to work with appendName (Bertrand Mansion)
+
+- Added Polish date names in date element (Robert Janeczek)
+- Added Hungarian date names in date element (Kovacs Gergely)
+- Added Russian date names in date element (Alexey Borzov)
+
+- Optimized select element addOption() and toHtml() methods (Alexey Borzov)
+- Added method getElementName() in group element (Bertrand Mansion)
+- Fix bug when setting attributes in date element (Bertrand Mansion)
+- Removed method display(), exists in parent class (Bertrand Mansion)
+    
+</notes>
+    </release>
+    <release>
+      <version>2.10</version>
+      <date>2003-03-07</date>
+      <state>stable</state>
+      <notes>* Email validation regex accepts lower and uppercases (Derick Rethans).
+* Added getUploadedFile() and isUploadedFile() methods (Wotjek Gdela).
+* XHTML compliant for the form tags (Jules Szemere).
+* Fixed Javascript validation when empty elements are not required (Joern Barthel).
+* Added possibility to call setDefaults() and setConstants() anytime.
+* Fix problem with duplicate element names (ex: radio).
+* Added method updateElementAttr() to update the attributes of multiple elements (Dan Wilson).
+* Slovanian translation of date in date element (Matej Dakol).
+* Fix bug in date element preventing submitted values to be used.
+* Removed nbsp; replace in frozen textarea (Carsten Bleek, Dan Wilson).
+
+This is probably the last release of QuickForm without template support.
+The next release will have two BC breaks:
+- Use of filters will be easier, no registration needed.
+- Groups with no name will not be supported anymore, even if name is not used.
+    
+</notes>
+    </release>
+    <release>
+      <version>2.9</version>
+      <date>2003-02-20</date>
+      <state>stable</state>
+      <notes>* Added htmlspecialchars() to frozen elements output in every case.
+* Elements are not validated against a function if they are empty and not required.
+  It is easier this way for QuickForm to work with external validators.
+  This is already the way it is done when using regex validation.
+* Added javascript validation for select multiple and checkboxes.
+* Added simple javascript validation for groups: values are imploded in a string.
+    
+</notes>
+    </release>
+    <release>
+      <version>2.8</version>
+      <date>2003-02-18</date>
+      <state>stable</state>
+      <notes>* IMPORTANT: favour the use of addGroup() instead of addElementGroup().
+* Fix bug when validating grouped elements.
+* Removed useless call to toHtml() in toArray(), was disturbing the date element.
+* Fix bug with select multiple for display and validation.
+* Textarea element now uses nl2br() instead of pre tags so it won't mess your layout.
+    
+</notes>
+    </release>
+    <release>
+      <version>2.7</version>
+      <date>2003-02-12</date>
+      <state>stable</state>
+      <notes>* Use moveUploadedFile() (PHP 4.1) for file uploads instead of copy() and unlink(). (Matthias Englert)
+* Added support for element names with brackets ie. element[name][firstname].
+* Added static element to add static text in form. (Wojciech Gdela)
+* Removed extra tabs created when wrapping form elements (Tim Glen)
+* Added validation for whole group with addRule('group') in complement to validation for group elements with addGroupRule('group').
+* Added ability to use a method from a class or from an object for validation using registerRule().
+* Fixed bug with radio button validation. (Jack Kline)
+* Fixed bug when validating checkboxes named with backets ie. checkbox[A]
+* Fixed a problem with stripslashes() in element.php
+* Fixed a bug in hidden.php preventing its value to be set under some conditions. (Arne Gellhaus)
+* In progress : fix bug with toArray() for the date element, use a layout object (templates), implement function validation for elements in group.
+    
+</notes>
+    </release>
+    <release>
+      <version>2.6</version>
+      <date>2003-01-29</date>
+      <state>stable</state>
+      <notes>* IMPORTANT: addElement now returns a reference to the added element.
+* Added new date element to create formatted date selects.
+* Added example for the new date element in QuickForm_Example.php
+* Fixed a warning in checkbox element
+* Default values are always overidden by submitted values.
+* Email validation rules accept 4 chars extensions (.info, .name, ...)
+* Fixed bug in applyFilter()
+    
+</notes>
+    </release>
+    <release>
+      <version>2.5</version>
+      <date>2002-11-20</date>
+      <state>stable</state>
+      <notes>* Refine the use of setDefaults and setContants.
+setDefaults is used to fill the form with defaults values that will be overriden by submitted values once the form is submitted.
+setConstants is used to overide default and submitted values for example if form is not valid when submitted. In this case, constant values will be shown again in the field.
+In all cases, values won't be overriden by the other method anymore.
+* Added grouped elements validation on the server-side.
+* Added grouped elements customization through templates.
+* Fixes in rules for file uploads on maxsize, mime... when element is not required.
+* Added a new example for groups customization and validation.
+    
+</notes>
+    </release>
+    <release>
+      <version>2.4</version>
+      <date>2002-10-21</date>
+      <state>stable</state>
+      <notes>* Use $_POST, $_GET and $_FILES instead of $HTTP_.
+* Better error checking in renderElement().
+* Fixed freeze() for removed elements.
+* Added new element 'hiddenselect'.
+* Added optional $in_data parameter to method toHtml so that data can be added to the form right before it is rendered.  Useful when using with a template system.
+* Changed the way the key is obtained for _elementIndex in addElement() to accomodate with removeElement().
+* Some changes to _buildRules(): Made some of the javascript variables private which did not need have a global scope (such as frm).
+* Added new rule: emailorblank.
+* Fixes in HTML_QuickForm_Element.
+* Fixes in QuickForm_example2.php.
+* Added getElements() in HTML_QuickForm_Group which returns an array of all elements in group by reference.
+* Added getGroupType() in HTML_QuickForm_Group which returns the type of group as string or 'mixed' if group is composed of different element types.
+* Fixes in file upload validation rules.
+* Added a few new examples for filters, rules, file uploads usage.
+    
+</notes>
+    </release>
+    <release>
+      <version>2.3</version>
+      <date>2002-06-19</date>
+      <state>stable</state>
+      <notes>* Important API change in the way select elements load arrays.
+* Added the possibility to set a template for an element only.
+* Fixes in the creation of select elements with multiple attribute.
+* Added consistency in the magic_quotes handling.
+* Added recursive filters on setDefaults an setConstants values.
+* Added getSubmitValue (same as getSubmitValues but for one value only).
+* Removed HTML_QuickForm_date element: it needs more work.
+* Added the HTML_QuickForm_advcheckbox element in package and in registered elements.
+* Added one example for the HTML_QuickForm_advcheckbox element.
+* Added setPersistantFreeze accessor method in element.php.
+* Fixed problems with password field values.
+    
+</notes>
+    </release>
+    <release>
+      <version>2.2</version>
+      <date>2002-05-29</date>
+      <state>stable</state>
+      <notes>* Some fixes for file uploads.
+* Some fixes for hidden fields.
+      
+</notes>
+    </release>
+    <release>
+      <version>2.0</version>
+      <date>2002-04-15</date>
+      <state>stable</state>
+      <notes>New API for new version 2.0 !
+Here is a list of what's new in this version:
+* Moved all the elements from HTML/QuickForm/Elements/ to HTML/QuickForm/
+* Added $_elementIndex to keep track of the elements
+* Changed $_elementValues to $_defaultValues
+* Removed $_hidden and $_frozen
+* Added Filter support
+* Added templates for the _wrap functions
+* Changed loadDefault() to setDefaults()
+* Moved most of the logic to the element classes
+* Created an abstraction between the form class and the elements
+* Added getElement() and getElementValue()
+* Added toArray()
+* Cleaned up a lot of the code
+* Added the // {{{ markers to all files to make it for easier reading in vim
+* Added the error handlers and codes to make errors more descriptive
+* Added new method setConstants() which is like setDefaults() except that it overrides the POST or GET variables.
+* Added methods setElementTemplate(), setFormTemplate(), setHeaderTemplate() and setRequiredNotTemplate().  They are pretty self-explanatory.
+* Added method addData().  Same as before.
+* Added new method clearAllTemplates() which basically strips out all HTML.  This is useful if you want to create a completely custom looking form using addData()
+* Fixed the toHtml() method so that it is a while statement so that freeze() works.
+* Fixed a bug in the hidden type, where it was setting the value when you created the element, thus not allowing the value to be set by POST or GET variables.
+* Took out the is_int test in select.php.
+* Made the caller a global variable in element.php, so that it can be accessed, if need be, in other element classes.
+* Changed it so that if an element is frozen and has no value it outputs '&amp;nbsp;' instead of nothing which messes up old browsers like NS4.
+* Added renderElement() method which will return the html for one element.
+* Added removeElement() method which removes the element from the elements list. Both methods accept parameters.
+      
+</notes>
+    </release>
+    <release>
+      <version>2.1</version>
+      <date>2002-05-24</date>
+      <state>stable</state>
+      <notes>* Fixes for many if not all E_ALL warnings.
+* Filter function is now recursive.
+* Better handling of registered rules.
+* New regex for numeric validation.
+      
+</notes>
+    </release>
+    <release>
+      <version>1.12</version>
+      <date>2002-03-22</date>
+      <state>stable</state>
+      <notes>Changed directory structure for package installation.
+</notes>
+    </release>
+    <release>
+      <version>1.0</version>
+      <date>2001-09-06</date>
+      <notes>This is the initial release of the HTML_QuickForm package.
+</notes>
+    </release>
+  </changelog>
+</package>

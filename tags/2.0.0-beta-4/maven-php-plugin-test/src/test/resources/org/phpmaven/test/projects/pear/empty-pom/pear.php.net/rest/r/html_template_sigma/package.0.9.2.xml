@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>HTML_Template_Sigma</name>
+  <summary>An implementation of Integrated Templates API with template 'compilation' added</summary>
+  <description>HTML_Template_Sigma implements Integrated Templates API designed by Ulf Wendel.
+
+Features:
+* Nested blocks. Nesting is controlled by the engine.
+* Ability to include files from within template: &amp;lt;!-- INCLUDE --&amp;gt;
+* Automatic removal of empty blocks and unknown variables (methods to manually tweak/override this are also available)
+* Methods for runtime addition and replacement of blocks in templates
+* Callback functions (NOT RECOMMENDED FOR NOW, API will change in future release)
+* 'Compiled' templates: the engine has to parse a template file using regular expressions to find all the blocks and variable placeholders. This is a very &quot;expensive&quot; operation and is an overkill to do on every page request: templates seldom change on production websites. Thus this feature: an internal representation of the template structure is saved into a file and this file gets loaded instead of the source one on subsequent requests (unless the source changes)
+* PHPUnit-based tests to define correct behaviour
+* Usage examples for most of the features are available, look in the docs/ directory</description>
+  <maintainers>
+    <maintainer>
+      <user>avb</user>
+      <name>Alexey Borzov</name>
+      <email>avb@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.9.2</version>
+    <date>2003-04-21</date>
+    <license>PHP License</license>
+    <state>stable</state>
+    <notes>* Added usage examples
+* Added the cache FAQ
+* This is the last 0.9.x release unless some bugs are found. The 1.0 release will 
+  have callbacks significantly redone and will require changes to your scripts if
+  you use callbacks.</notes>
+    <filelist>
+      <file role="php" baseinstalldir="HTML/Template" md5sum="01e075977f9052d11b610b6290d722ca" name="Sigma.php"/>
+      <file role="data" baseinstalldir="HTML/Template" md5sum="bca97392b741f553d10203f04549a423" name="tests/templates/addblock.html"/>
+      <file role="data" baseinstalldir="HTML/Template" md5sum="d4e1caf0b07b85e49e0e82ab83e91ed3" name="tests/templates/blockiteration.html"/>
+      <file role="data" baseinstalldir="HTML/Template" md5sum="aa11dc0ba8c94c71f0ed6e448770f913" name="tests/templates/blocks.html"/>
+      <file role="data" baseinstalldir="HTML/Template" md5sum="ed6cb6de29d69890c611f11ce90e1e85" name="tests/templates/globals.html"/>
+      <file role="data" baseinstalldir="HTML/Template" md5sum="fb1681e6ffa470d92859fac3496b960e" name="tests/templates/__include.html"/>
+      <file role="data" baseinstalldir="HTML/Template" md5sum="8ac12c5d1c85787dd44ed5c93a392dfe" name="tests/templates/include.html"/>
+      <file role="data" baseinstalldir="HTML/Template" md5sum="bd4c99366021b8bd88ba220ec829eae5" name="tests/templates/loadtemplatefile.html"/>
+      <file role="data" baseinstalldir="HTML/Template" md5sum="a3d70ab52bdb9f3c14702879865a55d6" name="tests/templates/replaceblock.html"/>
+      <file role="test" baseinstalldir="HTML/Template" md5sum="a8d6c62134b4dc4c0cd2d2bd26341f70" name="tests/Console_TestListener.php"/>
+      <file role="test" baseinstalldir="HTML/Template" md5sum="3013369760ba444c57413bac99519635" name="tests/Sigma_api_testcase.php"/>
+      <file role="test" baseinstalldir="HTML/Template" md5sum="b162c80cfc96df17408768d24b79c3e7" name="tests/Sigma_cache_testcase.php"/>
+      <file role="test" baseinstalldir="HTML/Template" md5sum="a4f2215dc390f5285b5603720f822e35" name="tests/Sigma_usage_testcase.php"/>
+      <file role="test" baseinstalldir="HTML/Template" md5sum="169b08d036d1ce57efc2306d446613c3" name="tests/test.php"/>
+      <file role="doc" baseinstalldir="HTML/Template" md5sum="809a73caac373e177dada80d261811c6" name="docs/readme.txt"/>
+      <file role="doc" baseinstalldir="HTML/Template" md5sum="8d53b7afdda62da1d4a0e5ca80dd7964" name="docs/cache-faq.txt"/>
+      <file role="doc" baseinstalldir="HTML/Template" md5sum="b81356fc1a5c1a4b68d14f3c94d9787a" name="docs/example_1.php"/>
+      <file role="doc" baseinstalldir="HTML/Template" md5sum="97ff7c39a6f5e6cf12b10d2ae019597a" name="docs/example_2.php"/>
+      <file role="doc" baseinstalldir="HTML/Template" md5sum="f392f2bbe8dc6f294e86b6f90d69bcd1" name="docs/example_3.php"/>
+      <file role="doc" baseinstalldir="HTML/Template" md5sum="c73aa61cf3768876de63134621b4ec73" name="docs/templates/example_1.html"/>
+      <file role="doc" baseinstalldir="HTML/Template" md5sum="611d8ffadff7a34221e06f1256e9093d" name="docs/templates/example_2.html"/>
+      <file role="doc" baseinstalldir="HTML/Template" md5sum="a215039ffd864141c9899bd1e8226f47" name="docs/templates/example_3.html"/>
+      <file role="doc" baseinstalldir="HTML/Template" md5sum="c08c9adbd1875e61ce6a1c101d897f23" name="docs/templates/example_3_add.html"/>
+      <file role="doc" baseinstalldir="HTML/Template" md5sum="268bb32ea6c4da9022ece99d0e19d778" name="docs/templates/example_3_include.html"/>
+      <file role="doc" baseinstalldir="HTML/Template" md5sum="f056556a005b4df22f0ba68292e0362f" name="docs/templates/example_3_replace_1.html"/>
+      <file role="doc" baseinstalldir="HTML/Template" md5sum="8ab37c7241e4cbdd133f1fb7ab4e8a8a" name="docs/templates/example_3_replace_2.html"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.9.1</version>
+      <date>2003-04-18</date>
+      <state>stable</state>
+      <notes>* Fix: if source template does not exist, do not load the 'prepared' one, throw an error instead.
+  Thanks to Maxim Panasiuk for the report.
+      
+</notes>
+    </release>
+    <release>
+      <version>0.9</version>
+      <date>2003-04-04</date>
+      <state>stable</state>
+      <notes>Initial PEAR release
+</notes>
+    </release>
+  </changelog>
+</package>
