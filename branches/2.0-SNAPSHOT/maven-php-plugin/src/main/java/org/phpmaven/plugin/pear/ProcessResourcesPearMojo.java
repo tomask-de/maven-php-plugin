@@ -127,9 +127,13 @@ public class ProcessResourcesPearMojo extends AbstractPhpMojo
         this.getLog().info("copying content");
         
         try {
+            final IPackage pkg = version.getPackage();
+            final IPearChannel channel = pkg.getChannel();
+            final IPearUtility utility = channel.getPearUtility();
+            final File phpDir = utility.getPhpDir();
             for (final String relativeName : version.getPhpFiles()) {
                 try {
-                    final File file = new File(version.getPackage().getChannel().getPearUtility().getPhpDir(), relativeName);
+                    final File file = new File(phpDir, relativeName);
                     final File destination = new File(this.getProject().getBuild().getOutputDirectory(), relativeName);
                     getLog().debug("copying " + file.getAbsolutePath() + " to " + destination.getAbsolutePath());
                     FileUtils.copyFile(file, destination);
