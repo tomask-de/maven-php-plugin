@@ -15,6 +15,7 @@
 package org.phpmaven.plugin.pear;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -131,6 +132,7 @@ public class ProcessResourcesPearMojo extends AbstractPhpMojo
             final IPearChannel channel = pkg.getChannel();
             final IPearUtility utility = channel.getPearUtility();
             final File phpDir = utility.getPhpDir();
+            boolean copied = false;
             for (final String relativeName : version.getPhpFiles()) {
                 try {
                     // some packages use backslashes. they do not work on linux
@@ -138,8 +140,19 @@ public class ProcessResourcesPearMojo extends AbstractPhpMojo
                     final File destination = new File(this.getProject().getBuild().getOutputDirectory(), relativeName.replace("\\", "/"));
                     getLog().debug("copying " + file.getAbsolutePath() + " to " + destination.getAbsolutePath());
                     FileUtils.copyFile(file, destination);
+                    copied = true;
                 } catch (IOException e) {
                     throw new MojoExecutionException("Problems copying resource " + relativeName, e);
+                }
+            }
+            
+            if (!copied) {
+                // this would cause the build to fail (empty package). let us create a readme.
+                final File file = new File(phpDir, "__README.EMPTY.PACKAGE.TXT");
+                try {
+                    new FileWriter(file).append("this is an empty pear package or import failed.").close();
+                } catch (IOException e) {
+                    throw new MojoExecutionException("Problems creating __README.EMPTY.PACKAGE.TXT", e);
                 }
             }
         } catch (PhpException e) {
