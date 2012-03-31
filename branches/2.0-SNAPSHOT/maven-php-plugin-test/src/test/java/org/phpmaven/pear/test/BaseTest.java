@@ -17,6 +17,7 @@
 package org.phpmaven.pear.test;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Iterator;
 
 import org.apache.maven.execution.MavenSession;
@@ -265,6 +266,37 @@ public class BaseTest extends AbstractTestCase {
         for (final String fname : files) {
             final File file = new File(channel.getPearUtility().getPhpDir(), fname);
             assertTrue(file.exists());
+        }
+    }
+    
+    /**
+     * Tests all packages can be read.
+     * @throws Exception exception
+     */
+    public void testAllPackages() throws Exception {
+        final IPearChannel channel = getChannel(false);
+        channel.initializePackages(true, true);
+        // the getters may throw exceptions if a package cannot be read
+        for (final IPackage pkg : channel.getKnownPackages()) {
+            System.out.println("test pkg " + pkg.getPackageName());
+            for (final IPackageVersion version : pkg.getKnownVersions()) {
+                // this forces the read of the package
+                System.out.println("test version " + 
+                    pkg.getPackageName() + "/" + 
+                    version.getVersion().getPearVersion());
+                try {
+                    version.getReleasingDeveloper();
+                    version.getMaintainers();
+                } catch (PhpException ex) {
+                    // we ignore the file not found exception because some of the pear packages
+                    // are referred in the pear channel but do not exist. mostly early versions.
+                    // all non-FileNotFoundException will be rethrown to let the test case fail
+                    if (!(ex.getCause() instanceof FileNotFoundException)) {
+                        throw ex;
+                    }
+                    System.out.println("Package.xml not found... ignoring failure...");
+                }
+            }
         }
     }
     
