@@ -133,8 +133,9 @@ public class ProcessResourcesPearMojo extends AbstractPhpMojo
             final File phpDir = utility.getPhpDir();
             for (final String relativeName : version.getPhpFiles()) {
                 try {
-                    final File file = new File(phpDir, relativeName);
-                    final File destination = new File(this.getProject().getBuild().getOutputDirectory(), relativeName);
+                    // some packages use backslashes. they do not work on linux
+                    final File file = new File(phpDir, relativeName.replace("\\", "/"));
+                    final File destination = new File(this.getProject().getBuild().getOutputDirectory(), relativeName.replace("\\", "/"));
                     getLog().debug("copying " + file.getAbsolutePath() + " to " + destination.getAbsolutePath());
                     FileUtils.copyFile(file, destination);
                 } catch (IOException e) {
