@@ -197,7 +197,9 @@ public class Package implements IPackage {
                 // already installed
                 return;
             }
-            this.uninstall(ignoreDeps || forceUninstall);
+            if (forceUninstall) {
+                this.uninstall(true);
+            }
         }
         
         final String cmd = "install " +

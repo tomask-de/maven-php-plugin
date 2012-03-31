@@ -949,6 +949,11 @@ public class PackageVersion implements IPackageVersion {
         this.pearChannel.getPackage(this.getPackageName()).install(this, true, true, true);
     }
 
+    @Override
+    public void install(boolean noUninstall) throws PhpException {
+        this.pearChannel.getPackage(this.getPackageName()).install(this, !noUninstall, true, true);
+    }
+
     /**
      * {@inheritDoc}
      */

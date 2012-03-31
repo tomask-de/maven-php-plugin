@@ -99,7 +99,17 @@ public class ProcessResourcesPearMojo extends AbstractPhpMojo
             final IPearChannel channel = utility.channelDiscover(this.pearChannelAlias);
             final IPackage pkg = channel.getPackage(this.pearPackage);
             final IPackageVersion version = pkg.getVersion(this.pearPackageVersion);
-            version.install();
+            if ("pear.php.net".equals(this.pearChannelAlias) && (
+                    "Archive_Tar".equals(this.pearPackage)
+                    || "Console_Getopt".equals(this.pearPackage)
+                    || "PEAR".equals(this.pearPackage)
+                    || "Structures_Graph".equals(this.pearPackage)
+                    || "XML_Util".equals(this.pearPackage))) {
+                // do not try to uninstall the core packages
+                version.install(true);
+            } else {
+                version.install();
+            }
             
             this.fetchPackage(version);
             
