@@ -106,6 +106,8 @@ public class PhpDocumentor extends AbstractApiDocReport {
             
             final IPhpdocRequest request = this.factory.lookup(IPhpdocRequest.class, IComponentFactory.EMPTY_CONFIG, this.session);
             request.addFolder(getSourceDirectory());
+            request.setReportFolder(new File(getApiDocOutputDirectory().
+                  getAbsoluteFile().getPath() + "/" + getFolderName()));
             support.generateReport(getLog(), request);
             
 //            final Properties properties = new Properties();
