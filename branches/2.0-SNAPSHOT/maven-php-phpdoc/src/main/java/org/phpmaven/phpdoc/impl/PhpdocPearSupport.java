@@ -17,13 +17,7 @@
 package org.phpmaven.phpdoc.impl;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.Properties;
-import java.util.Set;
 
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.logging.Log;
@@ -41,8 +35,10 @@ import org.phpmaven.exec.IPhpExecutableConfiguration;
 import org.phpmaven.exec.PhpCoreException;
 import org.phpmaven.exec.PhpErrorException;
 import org.phpmaven.exec.PhpException;
-import org.phpmaven.phpdoc.IPhpdocEntry;
-import org.phpmaven.phpdoc.IPhpdocEntry.EntryType;
+import org.phpmaven.pear.IPackage;
+import org.phpmaven.pear.IPackageVersion;
+import org.phpmaven.pear.IPearConfiguration;
+import org.phpmaven.pear.IPearUtility;
 import org.phpmaven.phpdoc.IPhpdocRequest;
 import org.phpmaven.phpdoc.IPhpdocSupport;
 
@@ -52,15 +48,11 @@ import org.phpmaven.phpdoc.IPhpdocSupport;
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
-@Component(role = IPhpdocSupport.class, instantiationStrategy = "per-lookup", hint = "PHP_EXE")
-@BuildPluginConfiguration(groupId = "org.phpmaven", artifactId = "maven-php-phpdoc")
-public class PhpdocSupport extends AbstractPhpdocSupport implements IPhpdocSupport {
-
-    /**
-     * Path to phpDoc. If nothing is configured phpdoc is expected in the path.
-     */
-    @Configuration(name = "phpDocFilePath", value = "phpdoc")
-    private String phpDocFilePath;
+@Component(role = IPhpdocSupport.class, instantiationStrategy = "per-lookup", hint = "PEAR")
+@BuildPluginConfiguration(groupId = "org.phpmaven", artifactId = "maven-php-phpdoc", filter = {
+        "phpdocService", "installPhpdoc", "installFolder", "phpDocFilePath"
+        })
+public class PhpdocPearSupport extends AbstractPhpdocSupport implements IPhpdocSupport {
 
     /**
      * The phpdoc configuraton file. The default is ${project.basedir}/src/site/phpdoc/phpdoc.config
@@ -93,6 +85,18 @@ public class PhpdocSupport extends AbstractPhpdocSupport implements IPhpdocSuppo
      */
     @ConfigurationParameter(name = "session", expression = "${session}")
     private MavenSession session;
+    
+    /**
+     * The phpdoc version to be used.
+     */
+    @Configuration(name = "phpdocVersion", value = "1.4.2")
+    private String phpdocVersion;
+    
+    /**
+     * The additional arguments passed to phpdoc.
+     */
+    @Configuration(name = "arguments", value = "")
+    private String arguments;
 
     /**
      * {@inheritDoc}
@@ -105,26 +109,39 @@ public class PhpdocSupport extends AbstractPhpdocSupport implements IPhpdocSuppo
                     this.executableConfig,
                     this.session).getPhpExecutable(log);
             
-            writeIni(log, request, phpDocConfigFile, generatedPhpDocConfigFile);
-            final String path = System.getProperty("java.library.path") + File.pathSeparator + System.getenv("PATH");
-            log.debug("PATH: " + path);
-            final String[] paths = path.split(File.pathSeparator);
-            File phpDocFile = null;
-            if ("phpdoc".equals(phpDocFilePath)) {
-                for (int i = 0; i < paths.length; i++) {
-                    final File file = new File(paths[i], "phpdoc");
-                    if (file.isFile()) {
-                        phpDocFile = file;
-                        break;
-                    }
-                }
+            final IPearUtility util = this.factory.lookup(
+                    IPearConfiguration.class,
+                    this.executableConfig,
+                    this.session).getUtility(log);
+
+            IPackage pkg = null;
+            if (this.phpdocVersion.startsWith("1.")) {
+                writeIni(log, request, phpDocConfigFile, generatedPhpDocConfigFile);
+                pkg = util.channelDiscover("pear.php.net").getPackage("PhpDocumentor");
             } else {
-                phpDocFile = new File(phpDocFilePath);
+                writeXml(log, request, phpDocConfigFile, generatedPhpDocConfigFile);
+                pkg = util.channelDiscover("pear.phpdoc.org").getPackage("PhpDocumentor");
             }
+            
+            if (!util.isInstalled()) {
+                util.installPear(false);
+            }
+            final IPackageVersion version = pkg.getVersion(this.phpdocVersion);
+            if (pkg.getInstalledVersion() == null) {
+                version.install();
+            } else if (!pkg.getInstalledVersion().getVersion().getPearVersion().equals(
+                    version.getVersion().getPearVersion())) {
+                version.install();
+            }
+            
+            final File phpDocFile = new File(util.getBinDir(), "phpdoc");
             if (phpDocFile == null || !phpDocFile.isFile()) {
                 throw new PhpCoreException("phpdoc not found in path");
             }
-            final String command = "\"" + phpDocFile + "\" -c \"" + generatedPhpDocConfigFile.getAbsolutePath() + "\"";
+            String command = "\"" + phpDocFile + "\" -c \"" + generatedPhpDocConfigFile.getAbsolutePath() + "\"";
+            if (arguments != null && arguments.length() > 0) {
+                command += " " + arguments;
+            }
             log.debug("Executing PHPDocumentor: " + command);
             // XXX: commandLine.setWorkingDirectory(phpDocFile.getParent());
             final String result = exec.execute(command, phpDocFile);

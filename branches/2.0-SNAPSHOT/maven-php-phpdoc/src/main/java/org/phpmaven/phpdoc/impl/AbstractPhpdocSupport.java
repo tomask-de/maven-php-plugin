@@ -77,7 +77,7 @@ abstract class AbstractPhpdocSupport implements IPhpdocSupport {
 
         this.writePropFile(properties, "[Parse Data]", generatedPhpDocConfigFile);
     }
-
+    
     /**
      * Writes a xml log file.
      * @param log log
@@ -89,7 +89,8 @@ abstract class AbstractPhpdocSupport implements IPhpdocSupport {
      */
     protected void writeXml(Log log, IPhpdocRequest request, File phpDocConfigFile, File generatedPhpDocConfigFile)
         throws IOException, PhpCoreException {
-        throw new PhpCoreException("not supported.");
+
+        // TODO read xml input file
 //        final Properties properties = new Properties();
 //        if (phpDocConfigFile.isFile()) {
 //            log.debug("generating phpdoc using config from " + phpDocConfigFile.getAbsolutePath());
@@ -97,24 +98,33 @@ abstract class AbstractPhpdocSupport implements IPhpdocSupport {
 //        } else {
 //            log.debug("config file " + phpDocConfigFile.getAbsolutePath() + " not found. ignoring.");
 //        }
-//        
-//        final Iterator<IPhpdocEntry> iter = request.getEntries().iterator();
-//        final IPhpdocEntry entry = iter.next();
-//        if (entry.getType() == EntryType.FILE) {
-//            log.error("Report generation for files not supported.");
-//            // TODO support it
-//            throw new PhpCoreException("Report generation for files not supported.");
-//        }
-//        if (iter.hasNext()) {
-//            log.error("Report generation for multiple source folders not supported.");
-//            // TODO support it
-//            throw new PhpCoreException("Report generation for multiple folders not supported.");
-//        }
-//        
-//        properties.put("directory", entry.getFile());
-//        properties.put("target", request.getReportFolder());
-//
-//        this.writePropFile(properties, "[Parse Data]", generatedPhpDocConfigFile);
+        
+        final StringBuffer buffer = new StringBuffer();
+        buffer.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
+        buffer.append("<phpdocumentor>\n");
+        buffer.append("<transformer>\n");
+        buffer.append("<target>" + request.getReportFolder() + "</target>\n");
+        buffer.append("</transformer>\n");
+        final Iterator<IPhpdocEntry> iter = request.getEntries().iterator();
+        final IPhpdocEntry entry = iter.next();
+        if (entry.getType() == EntryType.FILE) {
+            log.error("Report generation for files not supported.");
+            // TODO support it
+            throw new PhpCoreException("Report generation for files not supported.");
+        }
+        if (iter.hasNext()) {
+            log.error("Report generation for multiple source folders not supported.");
+            // TODO support it
+            throw new PhpCoreException("Report generation for multiple folders not supported.");
+        }
+        buffer.append("<files>\n");
+        buffer.append("<directory>" + entry.getFile() + "</directory>\n");
+        buffer.append("</files>\n");
+        buffer.append("</phpdocumentor>\n");
+
+        final FileWriter fileWriter = new FileWriter(generatedPhpDocConfigFile);
+        fileWriter.append(buffer.toString());
+        fileWriter.close();
     }
 
     /**

@@ -65,5 +65,61 @@ public class SiteTest extends AbstractTestCase {
         // test report
         verifier.assertFilePresent("target/site/surefire-report.html");
     }
+    
+    /**
+     * tests the goal "site" with a project containing all default reports.
+     *
+     * @throws Exception 
+     */
+    public void testSitePhpdocPear() throws Exception {
+        final Verifier verifier = this.getPhpMavenVerifier("mojos-sites/site-phpdoc-pear");
+        
+        // delete the pom from previous runs
+        verifier.deleteArtifact("org.phpmaven.test", "site-all", "0.0.1", "pom");
+        verifier.deleteArtifact("org.phpmaven.test", "site-all", "0.0.1", "phar");
+        verifier.setAutoclean(true);
+
+        final List<String> goals = new ArrayList<String>();
+        goals.add("compile");
+        goals.add("test-compile");
+        goals.add("site");
+        verifier.executeGoals(goals);
+        verifier.verifyErrorFreeLog();
+        verifier.resetStreams();
+        
+        // phpdocumentor report
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor.html");
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/index.html");
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/packages.html");
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/default/_MyClass.php.html");
+    }
+    
+    /**
+     * tests the goal "site" with a project containing all default reports.
+     *
+     * @throws Exception 
+     */
+    public void testSitePhpdoc2Alpha() throws Exception {
+        final Verifier verifier = this.getPhpMavenVerifier("mojos-sites/site-phpdoc2-alpha");
+        
+        // delete the pom from previous runs
+        verifier.deleteArtifact("org.phpmaven.test", "site-all", "0.0.1", "pom");
+        verifier.deleteArtifact("org.phpmaven.test", "site-all", "0.0.1", "phar");
+        verifier.setAutoclean(true);
+
+        final List<String> goals = new ArrayList<String>();
+        goals.add("compile");
+        goals.add("test-compile");
+        goals.add("site");
+        verifier.executeGoals(goals);
+        verifier.verifyErrorFreeLog();
+        verifier.resetStreams();
+        
+        // phpdocumentor report
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor.html");
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/index.html");
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/packages.html");
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/default/_MyClass.php.html");
+    }
 
 }
