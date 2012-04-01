@@ -106,6 +106,8 @@ public class ProcessResourcesPearMojo extends AbstractPhpMojo
                     || "Structures_Graph".equals(this.pearPackage)
                     || "XML_Util".equals(this.pearPackage))) {
                 // do not try to uninstall the core packages
+                // downgrade pear itself before installing
+                utility.executePearCmd("install --force pear/PEAR-1.8.0");
                 version.install(true);
             } else {
                 version.install();
