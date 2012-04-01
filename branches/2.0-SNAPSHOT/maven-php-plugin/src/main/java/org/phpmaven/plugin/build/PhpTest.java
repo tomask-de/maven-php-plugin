@@ -251,7 +251,9 @@ public final class PhpTest extends AbstractPhpMojo implements IPhpunitConfigurat
                 }
                 final IPhpunitSupport support = config.getPhpunitSupport();
                 support.setIsSingleTestInvocation(this.singleTestInvocation);
-                support.setPhpunitArguments(this.phpUnitArguments);
+                if (this.phpUnitArguments != null) {
+                    support.setPhpunitArguments(this.phpUnitArguments);
+                }
                 support.setXmlResult(this.phpunitXmlResult);
                 support.setResultFolder(this.resultFolder);
                 support.setCoverageResult(this.phpunitCoverageResult);

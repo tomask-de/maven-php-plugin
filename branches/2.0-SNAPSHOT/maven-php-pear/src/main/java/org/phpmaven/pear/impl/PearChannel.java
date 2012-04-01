@@ -421,17 +421,29 @@ public class PearChannel implements IPearChannel {
             
             this.knownPackages = allPackages;
             this.installedPackages = installed;
-        } else if (!doNotReadInstalled) {
-            // re-read installed packages
-            final List<IPackage> installed = new ArrayList<IPackage>();
-            for (final IPackage pkg : installed) {
-                pkg.setInstalledVersion(null);
-            }
-            readInstalled(installed, this.knownPackages);
         }
     }
 
-    private void readInstalled(final List<IPackage> installed, final Map<String, IPackage> allPackages) throws PhpException, PhpCoreException {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void reinitializeInstalledPackages() throws PhpException {
+        final List<IPackage> installed = new ArrayList<IPackage>();
+        for (final IPackage pkg : installed) {
+            pkg.setInstalledVersion(null);
+        }
+        readInstalled(installed, this.knownPackages);
+    }
+
+    /**
+     * Reads the installed packages.
+     * @param installed installed packages.
+     * @param allPackages all packages.
+     * @throws PhpException php exception
+     */
+    private void readInstalled(final List<IPackage> installed, final Map<String, IPackage> allPackages)
+        throws PhpException {
         final String res = this.pearUtility.executePearCmd("list -c " + this.getName());
         final StringTokenizer tokenizer = new StringTokenizer(res, "\n");
         if (tokenizer.nextToken().trim().startsWith("INSTALLED PACKAGES")) {

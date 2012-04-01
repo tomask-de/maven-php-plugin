@@ -147,6 +147,12 @@ public interface IPearChannel {
     void initializePackages(boolean ignoreUnresolvablePackages, boolean doNotReadInstalled) throws PhpException;
     
     /**
+     * Reinitialize the known packages.
+     * @throws PhpException thrown on php errors
+     */
+    void reinitializeInstalledPackages() throws PhpException;
+    
+    /**
      * Returns the known packages.
      * 
      * @return Iterable of the known packages.
