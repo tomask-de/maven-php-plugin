@@ -99,7 +99,7 @@ public class ProcessResourcesPearMojo extends AbstractPhpMojo
             final IPearChannel channel = utility.channelDiscover(this.pearChannelAlias);
             final IPackage pkg = channel.getPackage(this.pearPackage);
             final IPackageVersion version = pkg.getVersion(this.pearPackageVersion);
-            if ("pear.php.net".equals(this.pearChannelAlias) && (
+            if ("pear".equals(this.pearChannelAlias) && (
                     "Archive_Tar".equals(this.pearPackage)
                     || "Console_Getopt".equals(this.pearPackage)
                     || "PEAR".equals(this.pearPackage)
