@@ -72,8 +72,8 @@ abstract class AbstractPhpdocSupport implements IPhpdocSupport {
             throw new PhpCoreException("Report generation for multiple folders not supported.");
         }
         
-        properties.put("directory", entry.getFile());
-        properties.put("target", request.getReportFolder());
+        properties.put("directory", entry.getFile().getAbsolutePath());
+        properties.put("target", request.getReportFolder().getAbsolutePath());
 
         this.writePropFile(properties, "[Parse Data]", generatedPhpDocConfigFile);
     }
@@ -103,7 +103,7 @@ abstract class AbstractPhpdocSupport implements IPhpdocSupport {
         buffer.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
         buffer.append("<phpdocumentor>\n");
         buffer.append("<transformer>\n");
-        buffer.append("<target>" + request.getReportFolder() + "</target>\n");
+        buffer.append("<target>" + request.getReportFolder().getAbsolutePath() + "</target>\n");
         buffer.append("</transformer>\n");
         final Iterator<IPhpdocEntry> iter = request.getEntries().iterator();
         final IPhpdocEntry entry = iter.next();
@@ -118,10 +118,11 @@ abstract class AbstractPhpdocSupport implements IPhpdocSupport {
             throw new PhpCoreException("Report generation for multiple folders not supported.");
         }
         buffer.append("<files>\n");
-        buffer.append("<directory>" + entry.getFile() + "</directory>\n");
+        buffer.append("<directory>" + entry.getFile().getAbsolutePath() + "</directory>\n");
         buffer.append("</files>\n");
         buffer.append("</phpdocumentor>\n");
 
+        generatedPhpDocConfigFile.getParentFile().mkdirs();
         final FileWriter fileWriter = new FileWriter(generatedPhpDocConfigFile);
         fileWriter.append(buffer.toString());
         fileWriter.close();
