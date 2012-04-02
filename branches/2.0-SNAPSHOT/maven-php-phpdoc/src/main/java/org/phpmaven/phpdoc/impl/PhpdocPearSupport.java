@@ -105,11 +105,6 @@ public class PhpdocPearSupport extends AbstractPhpdocSupport implements IPhpdocS
     @Override
     public void generateReport(Log log, IPhpdocRequest request) throws PhpException {
         try {
-            final IPhpExecutable exec = this.factory.lookup(
-                    IPhpExecutableConfiguration.class,
-                    this.executableConfig,
-                    this.session).getPhpExecutable(log);
-            
             final IPearUtility util = this.factory.lookup(
                     IPearConfiguration.class,
                     this.executableConfig,
@@ -146,6 +141,13 @@ public class PhpdocPearSupport extends AbstractPhpdocSupport implements IPhpdocS
             log.debug("Executing PHPDocumentor: " + command);
             // XXX: commandLine.setWorkingDirectory(phpDocFile.getParent());
             String result;
+            final IPhpExecutableConfiguration config = this.factory.lookup(
+                    IPhpExecutableConfiguration.class,
+                    this.executableConfig,
+                    this.session);
+            config.getIncludePath().add(util.getPhpDir().getAbsolutePath());
+            final IPhpExecutable exec = config.getPhpExecutable(log);
+            
             try {
                 result = exec.execute(command, phpDocFile);
             } catch (PhpWarningException ex) {
