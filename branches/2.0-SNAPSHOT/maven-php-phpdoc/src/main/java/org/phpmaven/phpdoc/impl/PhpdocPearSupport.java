@@ -115,6 +115,9 @@ public class PhpdocPearSupport extends AbstractPhpdocSupport implements IPhpdocS
                     this.executableConfig,
                     this.session).getUtility(log);
 
+            if (!util.isInstalled()) {
+                util.installPear(false);
+            }
             IPackage pkg = null;
             if (this.phpdocVersion.startsWith("1.")) {
                 writeIni(log, request, phpDocConfigFile, generatedPhpDocConfigFile);
@@ -124,9 +127,6 @@ public class PhpdocPearSupport extends AbstractPhpdocSupport implements IPhpdocS
                 pkg = util.channelDiscover("pear.phpdoc.org").getPackage("PhpDocumentor");
             }
             
-            if (!util.isInstalled()) {
-                util.installPear(false);
-            }
             final IPackageVersion version = pkg.getVersion(this.phpdocVersion);
             if (pkg.getInstalledVersion() == null) {
                 version.install();
