@@ -35,6 +35,7 @@ import org.phpmaven.exec.IPhpExecutableConfiguration;
 import org.phpmaven.exec.PhpCoreException;
 import org.phpmaven.exec.PhpErrorException;
 import org.phpmaven.exec.PhpException;
+import org.phpmaven.exec.PhpWarningException;
 import org.phpmaven.phpdoc.IPhpdocRequest;
 import org.phpmaven.phpdoc.IPhpdocSupport;
 
@@ -140,7 +141,13 @@ public class PhpdocBatchSupport extends AbstractPhpdocSupport {
             }
             log.debug("Executing PHPDocumentor: " + command);
             // XXX: commandLine.setWorkingDirectory(phpDocFile.getParent());
-            final String result = exec.execute(command, phpDocFile);
+            String result;
+            try {
+                result = exec.execute(command, phpDocFile);
+            } catch (PhpWarningException ex) {
+                result = ex.getAppendedOutput();
+                // silently ignore; only errors are important
+            }
             for (final String line : result.split("\n")) {
                 if (line.startsWith("ERROR:")) {
                     // this is a error of phpdocumentor.
