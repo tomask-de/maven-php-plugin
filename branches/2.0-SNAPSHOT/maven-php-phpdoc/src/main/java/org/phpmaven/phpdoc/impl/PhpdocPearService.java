@@ -32,7 +32,7 @@ import org.phpmaven.phpdoc.IPhpdocSupport;
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
-@Component(role = IPhpdocService.class, instantiationStrategy = "per-lookup")
+@Component(role = IPhpdocService.class, instantiationStrategy = "per-lookup", hint = "PEAR")
 public class PhpdocPearService implements IPhpdocService {
     
     /**

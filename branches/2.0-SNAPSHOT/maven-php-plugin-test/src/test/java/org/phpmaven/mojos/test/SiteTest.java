@@ -47,6 +47,7 @@ public class SiteTest extends AbstractTestCase {
         goals.add("compile");
         goals.add("test-compile");
         goals.add("site");
+        verifier.addCliOption("-X");
         verifier.executeGoals(goals);
         verifier.verifyErrorFreeLog();
         verifier.resetStreams();
@@ -83,6 +84,7 @@ public class SiteTest extends AbstractTestCase {
         goals.add("compile");
         goals.add("test-compile");
         goals.add("site");
+        verifier.addCliOption("-X");
         verifier.executeGoals(goals);
         verifier.verifyErrorFreeLog();
         verifier.resetStreams();
@@ -111,6 +113,7 @@ public class SiteTest extends AbstractTestCase {
         goals.add("compile");
         goals.add("test-compile");
         goals.add("site");
+        verifier.addCliOption("-X");
         verifier.executeGoals(goals);
         verifier.verifyErrorFreeLog();
         verifier.resetStreams();
