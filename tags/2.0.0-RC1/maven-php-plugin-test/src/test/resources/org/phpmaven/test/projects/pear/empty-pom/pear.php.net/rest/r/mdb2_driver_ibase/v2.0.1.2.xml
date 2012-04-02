@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release2
+    http://pear.php.net/dtd/rest.release2.xsd">
+ <p xlink:href="/rest/p/mdb2_driver_ibase">MDB2_Driver_ibase</p>
+ <c>pear.php.net</c>
+ <v>0.1.2</v>
+ <a>0.1.2</a>
+ <mp>4.3.0</mp>
+ <st>beta</st>
+ <l>BSD License</l>
+ <m>quipo</m>
+ <s>ibase MDB2 driver</s>
+ <d>This is the Firebird/Interbase MDB2 driver.
+ 
+</d>
+ <da>2005-10-10 15:16:17</da>
+ <n>Warning: this release features numerous BC breaks!
+
+There have been considerable improvements to the datatype, manager and reverse
+modules. Furthermore preliminary support for auto increment and primary keys
+has been added. Please note that making a field auto increment implies a single
+column primary key on this field.
+
+- added support for auto increment and primary key in schema.
+- alterTable now needs the full definition to work (use getTableFieldDefinition
+ from Reverse module if you do not have a definition at hand) this eliminates the need
+ of the declaration part in the alterTable array.
+- fix PHP4.4 breakage
+- fixed several incorrect raiseError() calls in manager module
+- use !empty() instead of isset() in fetchRow to determine if result cols were bound or result types were set
+- expect keys in type arrays the same way as they are passed for the values in execute() and bindParamArray()
+- add s pattern modifier to preg_replace() call for parameter searches in prepare() (bug #5362)
+- moved all private fetch mode fix methods into _fixResultArrayValues() for performance reasons
+- renamed MDB2_PORTABILITY_LOWERCASE to MDB2_PORTABILITY_FIX_CASE and use 'field_case' option to determine if to upper- or lowercase (CASE_LOWER/CASE_UPPER)
+- use array_key_exists() instead of isset() where possible
+- changed structure of field add/remove/change in alterTable() to match MDB2_Schema
+- createIndex(): index_sorting is not a feature in the supported array, but is supported by interbase
+- return 0 for manipulation queries when disable_query is enabled
+- tweaked field changing in alterTable()
+- getTypeDeclaration() in the datatype module is now a public method
+- fixed alterTable() signature
+- fixed listTableFields()
+- added listTableIndexes()
+- added listTables()
+
+open todo items:
+- code to be able to list primary contraints inside listTableIndexes()/dropIndex()
+- handle autoincremement fields in alterTable() and dropTable()</n>
+ <f>20215</f>
+ <g>http://pear.php.net/get/MDB2_Driver_ibase-0.1.2</g>
+ <x xlink:href="package.0.1.2.xml"/>
+</r>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>DB_Table</name>
+  <summary>Builds on PEAR DB to abstract datatypes and automate table creation, data validation, insert, update, delete, and select; combines these with PEAR HTML_QuickForm to automatically generate input forms that match the table column definitions.</summary>
+  <description>Builds on PEAR DB to abstract datatypes and automate table creation, data validation, insert, update, delete, and select; combines these with PEAR HTML_QuickForm to automatically generate input forms that match the table column definitions.</description>
+  <maintainers>
+    <maintainer>
+      <user>pmjones</user>
+      <name>Paul M. Jones</name>
+      <email>pmjones@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>wiesemann</user>
+      <name>Mark Wiesemann</name>
+      <email>wiesemann@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.2.0</version>
+    <date>2005-08-29</date>
+    <license>LGPL</license>
+    <state>stable</state>
+    <notes>* Re-added request #4610 to add a 'label' key to column
+definitions.  this is in addition to the 'qf_label' key;
+the qf_label key is for form labels, but the label key is
+for column headers on tabular formats.
+
+* Feature request #4941: new &quot;qf_label_append&quot; key for
+columns that will be displayed after (adv)checkbox
+QuickForm elements.
+
+* Bugfix: QuickForm's date &quot;element&quot; is a group, therefore
+we have to use addGroupRule() instead of addRule() for such
+elements; this also fixes a bug with non-standard rules
+when only an error message was given in the rule definition
+(missing $format param).
+
+* Feature request #5029: new &quot;qf_filters&quot; key for columns
+that applies filters to DB_Table generated forms; with the
+new $formFilters parameter in getForm() one can apply
+filters to all form elements
+(thanks to ieure at php dot net)
+
+* Optimized some pieces of code and applied Coding Standards
+
+* Bug #5060: Empty fields were wrongly casted to null it they
+were required. Also making the casting to null for date and
+time values work correctly.
+
+* Added smart handling of non-standard (i.e. Y-m-d) date
+formats, this allows to use two-digit years (y) and short (M)
+or long (F) names of months without having to recast the date
+value yourself.</notes>
+    <deps>
+      <dep type="pkg" rel="has" optional="no">DB</dep>
+      <dep type="pkg" rel="has" optional="no">Date</dep>
+      <dep type="pkg" rel="has" optional="yes">HTML_QuickForm</dep>
+    </deps>
+    <filelist>
+      <file role="php" md5sum="4fcdc44704f297b343436fe12cfd0288" name="DB/Table.php">
+        <replace from="@package_version@" to="version" type="package-info"/>
+      </file>
+      <file role="php" md5sum="bbd519581a9e2b909f89a19251d921df" name="DB/Table/Manager.php"/>
+      <file role="php" md5sum="2cb9da77ed5adcda9bff9d747c4e0e0d" name="DB/Table/QuickForm.php"/>
+      <file role="php" md5sum="d920c8c1972ba9fddddb7b3dec9b28a4" name="DB/Table/Valid.php"/>
+      <file role="doc" md5sum="8a8ef6d347107eecdd1279b66a7ce31a" name="docs/reserved_words/_sources.txt"/>
+      <file role="doc" md5sum="901ec926b86fbe062ca89f88f5c73ded" name="docs/reserved_words/all-words.txt"/>
+      <file role="doc" md5sum="74390d93614543e1c73596ab6fa95002" name="docs/reserved_words/mssql-words.txt"/>
+      <file role="doc" md5sum="9792629daf6196b5c11b197bbc9ff758" name="docs/reserved_words/mysql-words.txt"/>
+      <file role="doc" md5sum="cb0fb75b767bcc0cc9d8af2fe0cf1c4a" name="docs/reserved_words/oci8-words.txt"/>
+      <file role="doc" md5sum="b11b385bf7469ae3b4564866fc12504d" name="docs/reserved_words/pgsql-words.txt"/>
+      <file role="doc" md5sum="5be1d1483d8fc17b62d2cba2be011ec4" name="docs/reserved_words/sql92-words.txt"/>
+      <file role="doc" md5sum="2dbbb83a3a2737c3b76c344101ae3b6f" name="docs/reserved_words/sql99-words.txt"/>
+      <file role="doc" md5sum="dd1bd10c2a281bcad4b2ebf47fdaf233" name="docs/reserved_words/sqlite-words.txt"/>
+      <file role="test" md5sum="2a013c43c110efc37a04c4f811d2f162" name="tests/bogotest.php"/>
+      <file role="test" md5sum="6a21cabe4fed7d9eb28a8f1e4f3e8739" name="tests/setup.ini-dist"/>
+    </filelist>
+  </release>
+</package>

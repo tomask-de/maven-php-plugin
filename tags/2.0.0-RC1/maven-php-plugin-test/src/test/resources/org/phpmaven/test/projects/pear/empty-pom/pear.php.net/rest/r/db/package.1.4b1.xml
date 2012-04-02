@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>DB</name>
+  <summary>Database Abstraction Layer</summary>
+  <description>DB is a database abstraction layer providing:
+* an OO-style query API
+* a DSN (data source name) format for specifying database servers
+* prepare/execute (bind) emulation for databases that don't support it natively
+* a result object for each query response
+* portable error codes
+* sequence emulation
+* sequential and non sequential row fetching as well as bulk fetching
+* ordered array, associative array and object formats supported for the fetched rows
+* row limit support
+* transactions support
+* table information interface
+* DocBook and PHPDoc API documentation
+
+DB layers itself on top of PHP's existing database extensions.  The
+currently supported extensions are: dbase, fbsql, interbase, informix,
+msql, mssql, mysql, oci8, odbc, pgsql and sybase (DB style interfaces
+to LDAP servers and MS ADO (using COM) are also avaible from a separate package).</description>
+  <maintainers>
+    <maintainer>
+      <user>ssb</user>
+      <name>Stig Sæther Bakken</name>
+      <email>stig@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>cox</user>
+      <name>Tomas V.V.Cox</name>
+      <email>cox@idecnet.com</email>
+      <role>developer</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.4b1</version>
+    <date>2003-02-08</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>New Features:
+- params support in limitQuery()
+- sybase: error mapping implemented (floripa)
+- sybase: numRows() errorNative() errorCode() implemented
+
+Bugs fixed:
+- use rawurldecode() instead of urldecode() for
+  DSN usernames and passwords
+- ibase: misc bugfixes
+- ifx: results were not freed
+- mssql: fix DB_FETCHMODE_ASSOC row fetches
+- mysql: prefer mysql_real_escape_string if available
+- pgsql: don't specify host on connect if empty
+- pgsql: quote() did not support booleans
+- pgsql: modifyLimitQuery() generated wrong LIMIT clause</notes>
+    <provides type="function" name="array_change_key_case" />
+    <filelist>
+      <file role="php" baseinstalldir="/" md5sum="c8b75ee300d4ac7ef00d5bc91fd42790" name="DB.php"/>
+      <file role="php" md5sum="a0d1b7f1ac0fbf997c5bf4628b5f086b" name="DB/common.php"/>
+      <file role="php" md5sum="17b985386439bb0d3141a4edf7ff9f81" name="DB/dbase.php"/>
+      <file role="php" md5sum="7c1a01ffdf51a610961985b2ce83f16b" name="DB/fbsql.php"/>
+      <file role="php" md5sum="f3e89d9896f03aa740fafafea42231db" name="DB/ibase.php"/>
+      <file role="php" md5sum="40ef67a57d4b58fa1ae7dfccfcca0bec" name="DB/ifx.php"/>
+      <file role="php" md5sum="c22f6c5cbe111def0b8492cd1454e4fc" name="DB/msql.php"/>
+      <file role="php" md5sum="ab234a88d6df5d3001560c5e80d9a070" name="DB/mssql.php"/>
+      <file role="php" md5sum="04539f77727918bf57c1bd8de13185cb" name="DB/mysql.php"/>
+      <file role="php" md5sum="a15711a8a1a2a8d66d99f13bc30e9df9" name="DB/oci8.php"/>
+      <file role="php" md5sum="0db71a2a2cd4fddcdada5e5dae1e011e" name="DB/odbc.php"/>
+      <file role="php" md5sum="1756466e075ff77d108d2529ff2768ad" name="DB/pgsql.php"/>
+      <file role="php" md5sum="b2d0afe0e25080e5c01c00332f6aa840" name="DB/sybase.php"/>
+      <file role="php" md5sum="9bb83e4655ee93c1d0d9f15e81819fe5" name="DB/storage.php"/>
+      <file role="doc" md5sum="651a644b6f3495fc39279d75b8099372" name="doc/IDEAS"/>
+      <file role="doc" md5sum="d2d47cf987c7cb2577d88cca3e2777f4" name="doc/MAINTAINERS"/>
+      <file role="doc" md5sum="c04864c1b1cc86b9b3d04863655bacb9" name="doc/STATUS"/>
+      <file role="doc" md5sum="34a911b9a1e2269077adcf3edf4bfa59" name="doc/TESTERS"/>
+      <file role="test" md5sum="f21c86cc9c2648f6a52b7ccd90cc8ec3" name="tests/db_error.phpt"/>
+      <file role="test" md5sum="86b28d2201985251794cb20eee03841a" name="tests/db_parsedsn.phpt"/>
+      <file role="test" md5sum="dd4de27d95e872f63e0054a240a88fa1" name="tests/db_factory.phpt"/>
+      <file role="test" md5sum="9de926bf5668e1910a95f999d2cbeee6" name="tests/db_ismanip.phpt"/>
+      <file role="test" md5sum="ddcfe9197a88790b33a3ccda957ec1d1" name="tests/db_error2.phpt"/>
+      <file role="test" md5sum="b56345d3608704ef42cd885a979e82f2" name="tests/oci8/01connect.phpt"/>
+      <file role="test" md5sum="65b92503518a047b56d26fc77a522488" name="tests/oci8/02fetch.phpt"/>
+      <file role="test" md5sum="b354a0930147f13bd17c918cb08e08a6" name="tests/oci8/03simplequery.phpt"/>
+      <file role="test" md5sum="48aaa908d08482a41a094948bb6a65c4" name="tests/oci8/04numcols.phpt"/>
+      <file role="test" md5sum="af61f1e99161b879d41a2a12aa79d41f" name="tests/oci8/05sequences.phpt"/>
+      <file role="test" md5sum="3688670de154cd807fd33d63a6e0d50c" name="tests/oci8/06prepexec.phpt"/>
+      <file role="test" md5sum="60aa3ca06e928121e85065dfe30cad16" name="tests/oci8/07errornative.phpt"/>
+      <file role="test" md5sum="5f4f6f8051972344df6ec296f0ba41e7" name="tests/oci8/08affectedrows.phpt"/>
+      <file role="test" md5sum="5ccaa73b3fccabbbdda04479e42cc30f" name="tests/oci8/09numrows.phpt"/>
+      <file role="test" md5sum="b89aaaf1624a00e89b81070fead9a1ed" name="tests/oci8/10errormap.phpt"/>
+      <file role="test" md5sum="927bc77a9fc826cdc376c685aa9a2f98" name="tests/oci8/13limit.phpt"/>
+      <file role="test" md5sum="3e5b85738339fba3fc7b80d6a99637da" name="tests/odbc/01connect.phpt"/>
+      <file role="test" md5sum="cb549567a528b0e9e18e23d86e9e77d6" name="tests/odbc/02fetch.phpt"/>
+      <file role="test" md5sum="10c938bb9bbb84f9c883e4b53fe834b3" name="tests/odbc/03simplequery.phpt"/>
+      <file role="test" md5sum="0edff94bb81f80cdca5265867e7a0b79" name="tests/odbc/04numcols.phpt"/>
+      <file role="test" md5sum="575073a741cb9b1e189ab29255720f41" name="tests/odbc/06prepexec.phpt"/>
+      <file role="test" md5sum="248e2a07b05faee94745f91d5bca5069" name="tests/odbc/07errornative.phpt"/>
+      <file role="test" md5sum="b730dcba22355f9ddae198440dc952f1" name="tests/odbc/09numrows.phpt"/>
+      <file role="test" md5sum="17a387497df8cd6c81475e24dbd002a6" name="tests/odbc/10errormap.phpt"/>
+      <file role="test" md5sum="59df7fe45248137904273ac321e1b0d8" name="tests/ibase/01connect.phpt"/>
+      <file role="test" md5sum="315647b95665ffce25a5a67c44ab2935" name="tests/ibase/02fetch.phpt"/>
+      <file role="test" md5sum="85bb4e85468e088ae866add3039dc0e3" name="tests/ibase/03simplequery.phpt"/>
+      <file role="test" md5sum="ffb4a94f3a3ccbd3bc5f36da8c89ba29" name="tests/ibase/04numcols.phpt"/>
+      <file role="test" md5sum="e08de573eb5904f5fba560fdff43a1ed" name="tests/ibase/05sequences.phpt"/>
+      <file role="test" md5sum="5182ecb195e44221fe7cc618da5fb653" name="tests/ibase/06prepexec.phpt"/>
+      <file role="test" md5sum="25db1104e4d7faecfe003696cb320b54" name="tests/ibase/10errormap.phpt"/>
+      <file role="test" md5sum="ca7eefedbefbcf1b122c8c930f501e2a" name="tests/mysql/01connect.phpt"/>
+      <file role="test" md5sum="afd16c74c156a093569e5f4b1ec8e42d" name="tests/mysql/02fetch.phpt"/>
+      <file role="test" md5sum="2dc41155852e81ce6b756c851c8c939c" name="tests/mysql/03simplequery.phpt"/>
+      <file role="test" md5sum="dce61d397e8ec1648b711c18f82f24e5" name="tests/mysql/04numcols.phpt"/>
+      <file role="test" md5sum="f3c9a44e208cd4d5ad31e13abd22fbba" name="tests/mysql/05sequences.phpt"/>
+      <file role="test" md5sum="cb19f9190dce0e477a5fc8c4d8dea62b" name="tests/mysql/06prepexec.phpt"/>
+      <file role="test" md5sum="e879ab45f8f963c81ffdc8c493307a1d" name="tests/mysql/07errornative.phpt"/>
+      <file role="test" md5sum="c61c36bdfa3c6bc9346062dbc0ba4ffe" name="tests/mysql/08affectedrows.phpt"/>
+      <file role="test" md5sum="208107a78d4f98a07f6117da58221bbc" name="tests/mysql/09numrows.phpt"/>
+      <file role="test" md5sum="81c68e7eea73947e22edbd57728562c0" name="tests/mysql/10errormap.phpt"/>
+      <file role="test" md5sum="1e7ac1ce854c5bff3ce0d98f24d94cb5" name="tests/mysql/12tableinfo.phpt"/>
+      <file role="test" md5sum="6e97cbcc47ff277bb21c404ebd3b1540" name="tests/mysql/13limit.phpt"/>
+      <file role="test" md5sum="db098d5c54f57468d90f95db78e1ba2f" name="tests/mysql/14fetchmode_object.phpt"/>
+      <file role="test" md5sum="11260a57667daecd63374466f0b4be77" name="tests/pgsql/01connect.phpt"/>
+      <file role="test" md5sum="a55fc3e209c49dab0e0f8c4233226b2b" name="tests/pgsql/02fetch.phpt"/>
+      <file role="test" md5sum="0f7e2e43f5ab030dde0397c4f31f0d10" name="tests/pgsql/03simplequery.phpt"/>
+      <file role="test" md5sum="5a632eef2fc98371a3c29487f8e78983" name="tests/pgsql/04numcols.phpt"/>
+      <file role="test" md5sum="c8c6f8c1a800de24c24e33766371c2e5" name="tests/pgsql/05sequences.phpt"/>
+      <file role="test" md5sum="d8bb03b67fcf59202df54b90d53dffc5" name="tests/pgsql/06prepexec.phpt"/>
+      <file role="test" md5sum="0d0e7ded6ee0ab57242b952d6c444496" name="tests/pgsql/07errornative.phpt"/>
+      <file role="test" md5sum="481c4bf8b2d842ac6092cc4e384a5365" name="tests/pgsql/08affectedrows.phpt"/>
+      <file role="test" md5sum="675596eab8459a7ea105f0f59a9050a8" name="tests/pgsql/09numrows.phpt"/>
+      <file role="test" md5sum="ed626dce540d3e460de4f310c71cbb72" name="tests/pgsql/10errormap.phpt"/>
+      <file role="test" md5sum="d4977be30a1f8bb309429b1fe192f388" name="tests/pgsql/11transact.phpt"/>
+      <file role="test" md5sum="5e796793c0f048117fe0af815fd74990" name="tests/pgsql/13limit.phpt"/>
+      <file role="test" md5sum="9a1b2b3de7db3cd1d60003de626507fc" name="tests/pgsql/14fetchmode_object.phpt"/>
+      <file role="test" md5sum="3e9db7e275c43c15214b3e64f8e9496f" name="tests/driver/01connect.phpt"/>
+      <file role="test" md5sum="a921e61f3de520abca73bae2f9c79c11" name="tests/driver/02fetch.phpt"/>
+      <file role="test" md5sum="56294c3b143da861d63cd00a1b6bff44" name="tests/driver/03simplequery.phpt"/>
+      <file role="test" md5sum="d42b1cf8fa76e96fa19bbabe41dcdc7a" name="tests/driver/04numcols.phpt"/>
+      <file role="test" md5sum="72ff91ae2a3eb94e03ff0f19aafb8200" name="tests/driver/05sequences.phpt"/>
+      <file role="test" md5sum="7af83e2c13a4a1e8d04d2bac3eea0ec0" name="tests/driver/06prepexec.phpt"/>
+      <file role="test" md5sum="c2d83322323a1c2b6182f1c327090a73" name="tests/driver/08affectedrows.phpt"/>
+      <file role="test" md5sum="9f537a1950a7f8136d2bd04236fe13e5" name="tests/driver/09numrows.phpt"/>
+      <file role="test" md5sum="1df3dfc8fdc479ff5f50f10053972e2e" name="tests/driver/10errormap.phpt"/>
+      <file role="test" md5sum="243481a5224e78a4dac1e096c8957c28" name="tests/driver/13limit.phpt"/>
+      <file role="test" md5sum="7887b0d4796fd58879a6281d49afa681" name="tests/driver/14fetchmode_object.phpt"/>
+      <file role="test" md5sum="ea0d932571a6c21a2bec9183983fd7ba" name="tests/driver/15quote.phpt"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>1.3</version>
+      <date>2002-07-04</date>
+      <state>stable</state>
+      <notes>New Features:
+- Added new option &quot;autofree&quot;, which will free the result automatically when there are no more rows.
+Use it with: $db = DB::connect($dsn, array('autofree' =&gt; true));
+- Added new methods: buildManipSQL(), autoPrepare() and autoExecute()
+- Dropped all references to the unused DB_Warning class
+- Added new driver DB_Ado (as a sepparate package), contributed by Alexios Fakos)
+
+Bugs fixed:
+- Fix MS SQL server multiple connections under the same script
+- The MySQL driver no longer needs to specify a database (allowing queries
+with the style database.table)
+- Fix parseDSN() to not confuse an Oracle TSN with the protocol
+- Adapt the tests paths to work with the new &quot;pear run-tests&quot; (do a &quot;pear download DB&quot;, uncompress
+the package and run &quot;pear run-tests tests&quot;).
+- Fix numRows() in Oracle driver, that was failing when using &quot;DISTINCT&quot; in query. (Bug #17989)
+
+</notes>
+    </release>
+    <release>
+      <version>1.2</version>
+      <date>2002-04-24</date>
+      <state>stable</state>
+      <notes>First packaged release.
+</notes>
+    </release>
+  </changelog>
+</package>

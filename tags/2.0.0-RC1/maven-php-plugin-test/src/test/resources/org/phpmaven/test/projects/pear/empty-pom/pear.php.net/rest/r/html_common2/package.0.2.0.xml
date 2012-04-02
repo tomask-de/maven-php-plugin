@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.9">
+ <name>HTML_Common2</name>
+ <summary>Abstract base class for HTML classes (PHP5 port of HTML_Common package).</summary>
+ <description>The HTML_Common2 package provides methods for HTML code display and attributes handling.
+* Methods to set, remove, update html attributes.
+* Handles comments in HTML code.
+* Handles global document options (encoding, linebreak and indentation characters).
+* Handles indentation for nicer HTML code.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>avb</user>
+   <name>Alexey Borzov</name>
+   <email>avb@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>thesaur</user>
+   <name>Klaus Guenther</name>
+   <email>thesaur@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>0.2.0</version>
+  <date>2006-07-03</date>
+  <license>PHP License</license>
+  <state>devel</state>
+  <notes>* $attributes array is now protected rather than private (and thus renamed
+  from $_attributes)
+* parseAttributes() was renamed to prepareAttributes(), string parsing logic
+  was extracted into the new parseAttributes() method
+* Added magic __toString() method as an alias for toHtml(), deprecated
+  display(): it is now possible to print an instance of HTML_Common2 subclass
+  by simply using the &apos;echo $object;&apos;
+* It is now possible to watch some attributes for changes, this can be used to
+  - Make attributes read-only (like &apos;type&apos; attribute of &lt;input /&gt; tag)
+  - Do some custom processing (update the element&apos;s value if its name changes)
+  </notes>
+  <deps>
+   <dep type="php" rel="ge" version="5.0.0"/>
+  </deps>
+  <provides type="class" name="HTML_Common2" />
+  <provides type="function" name="HTML_Common2::setOption" />
+  <provides type="function" name="HTML_Common2::getOption" />
+  <provides type="function" name="HTML_Common2::parseAttributes" />
+  <provides type="function" name="HTML_Common2::prepareAttributes" />
+  <provides type="function" name="HTML_Common2::removeAttributeArray" />
+  <provides type="function" name="HTML_Common2::getAttributesString" />
+  <provides type="function" name="HTML_Common2::setAttribute" />
+  <provides type="function" name="HTML_Common2::getAttribute" />
+  <provides type="function" name="HTML_Common2::setAttributes" />
+  <provides type="function" name="HTML_Common2::getAttributes" />
+  <provides type="function" name="HTML_Common2::mergeAttributes" />
+  <provides type="function" name="HTML_Common2::removeAttribute" />
+  <provides type="function" name="HTML_Common2::setIndentLevel" />
+  <provides type="function" name="HTML_Common2::getIndentLevel" />
+  <provides type="function" name="HTML_Common2::getIndent" />
+  <provides type="function" name="HTML_Common2::setComment" />
+  <provides type="function" name="HTML_Common2::getComment" />
+  <provides type="function" name="HTML_Common2::toHtml" />
+  <provides type="function" name="HTML_Common2::display" />
+  <provides type="function" name="HTML_Common2::onAttributeChange" />
+  <filelist>
+   <file role="php" baseinstalldir="HTML" md5sum="c8eb9d658de6c61a3e24190e6f5193e4" name="Common2.php"/>
+   <file role="test" baseinstalldir="HTML" md5sum="4592d6b0a6aa7018ed0275ebf02daf00" name="tests/HTML_Common2_Test.php"/>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>0.1.0</version>
+    <date>2004-10-27</date>
+    <license>PHP License</license>
+    <state>devel</state>
+    <notes>First release of a new major version.
+    </notes>
+   </release>
+ </changelog>
+</package>

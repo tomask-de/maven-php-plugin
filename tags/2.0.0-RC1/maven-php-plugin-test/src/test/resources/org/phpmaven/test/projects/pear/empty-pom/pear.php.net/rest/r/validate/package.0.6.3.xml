@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.9">
+ <name>Validate</name>
+ <summary>Validation class</summary>
+ <description>Package to validate various datas. It includes :
+ - numbers (min/max, decimal or not)
+ - email (syntax, domain check, rfc822)
+ - string (predifined type alpha upper and/or lowercase, numeric,...)
+ - date (min, max)
+ - uri (RFC2396)
+ - possibility valid multiple data with a single method call (::multiple)
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>cox</user>
+   <name>Tomas V.V.Cox</name>
+   <email>cox@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>pajoye</user>
+   <name>Pierre-Alain Joye</name>
+   <email>pajoye@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>neufeind</user>
+   <name>Stefan Neufeind</name>
+   <email>pear.neufeind@speedpartner.de</email>
+   <role>developer</role>
+  </maintainer>
+  <maintainer>
+   <user>dufuz</user>
+   <name>Helgi Ã?ormar</name>
+   <email>dufuz@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>toggg</user>
+   <name>bertrand Gugger</name>
+   <email>bertrand@toggg.com</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>0.6.3</version>
+  <date>2006-04-20</date>
+  <license>New BSD</license>
+  <state>beta</state>
+  <notes>- email():
+ * #6930, accepts options as an array to confirm to the Validate standard
+   previous boolean $check_domain still accepted for backwards compatibility
+ * #7176, introduces an experimental option &quot;use_rfc822&quot;
+   which switch to a full RFC822 new checker
+ * unit test enhanced and completed
+- class_exists call in mulitple() now passes false to the autoload param
+- uri():
+ * #6181, Accept URI terminating with a /
+ * use !empty() instead of isset()
+ * minus in the top domain as http://example.co-m is invalid
+ * Double slashes are accepted in the path part (requested by bjori)
+   As a consequence, only URIs with full authority can be valid, no relative URI
+ * documentation header completed : usage notes , options and &quot;strict&quot; parameter
+ * unit tests completed and updated , use php.net instead of unavailable example.org
+  </notes>
+  <deps>
+   <dep type="php" rel="ge" version="4.2.0"/>
+   <dep type="pkg" rel="has" optional="yes">Date</dep>
+  </deps>
+  <provides type="class" name="Validate" />
+  <provides type="function" name="Validate::number" />
+  <provides type="function" name="Validate::email" />
+  <provides type="function" name="Validate::string" />
+  <provides type="function" name="Validate::uri" />
+  <provides type="function" name="Validate::date" />
+  <provides type="function" name="Validate::multiple" />
+  <filelist>
+   <file role="doc" md5sum="f8790e48b597dff12a643e08e9be3fab" name="LICENSE"/>
+   <file role="php" md5sum="fbee0e616013eb9aca9a1ca3fa61c52a" name="Validate.php"/>
+   <file role="test" md5sum="b64938d8cc8986cc38289d9d6164e2fc" name="tests/number.phpt"/>
+   <file role="test" md5sum="593f38ce2f272ec6a4bb7675d950749f" name="tests/testdate.phpt"/>
+   <file role="test" md5sum="338ae690f17ee220f6b2015e69de55e6" name="tests/email.phpt"/>
+   <file role="test" md5sum="ee9b364f81d90e4a72027563e707116c" name="tests/multiple.phpt"/>
+   <file role="test" md5sum="f7d10063f82361d99bc246b97c8ff270" name="tests/multicard.phpt"/>
+   <file role="test" md5sum="ee96c3a96ec4032d2c09cdb0aac96df4" name="tests/uri.phpt"/>
+   <file role="doc" md5sum="16476cc19b07247ff048683427d1e4ff" name="docs/sample_multiple.php"/>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>0.6.2</version>
+    <date>2005-11-04</date>
+    <state>beta</state>
+    <notes>- Change licence to the new BSD License
+  (see http://www.opensource.org/licenses/bsd-license.php)
+- The path part in uri cannot contain two slash characters.
+- Refactored email() regexp, hardened hostname check (taken from uri()) (bug #5804)
+- Empty quoted email recipient is not valid, must at least contain a non blank char
+- Use &amp; as delimiter as Â£ is problematic if the script is saved utf8
+- Enhanced uri.phpt and email.phpt tests
+    </notes>
+   </release>
+   <release>
+    <version>0.6.1</version>
+    <date>2005-09-13</date>
+    <state>beta</state>
+    <notes>- Bug #5390 XML Package Error
+- uri was enchanced to fully comply with RFC2396 (Bertrand) (forgotten in last release changelog)
+    </notes>
+   </release>
+   <release>
+    <version>0.6.0</version>
+    <date>2005-09-13</date>
+    <state>beta</state>
+    <notes>- Move to Beta state
+- Enhance again email validation and unit test it
+- modulus methods fix if bcmath is not present
+    </notes>
+   </release>
+   <release>
+    <version>0.5.0</version>
+    <date>2005-05-20</date>
+    <state>alpha</state>
+    <notes>- Bug #2936, typo
+- Bug #2879, Issn wrong validation
+- Better email validation
+- Request #997 validate:date minium and maximum accept Date objects (By Torsten Roehr)
+- Request #4055 Making multiple() cope with new dir structure (By Torsten Roehr)
+  To use with Validate_Finance_CreditCard then do &apos;type&apos; =&gt; &apos;Finance_CreditCard_number&apos;
+  For Validate_US it would be &apos;type&apos; =&gt; &apos;US_ssn&apos;
+  This applies to all packages like that under Validate.
+- unit testing for multiple (By Torsten Roehr)
+- CS fixes
+- Split country and finance classes and credit card functions into their own sub packages of Validate
+- New lead/developer (Helgi)
+- Few more none alpha chars added
+- _check_control_number renamed to _checkControlNumber
+  _get_control_number renamed to _getControlNumber
+  _mult_weights renamed to _multWeights
+- added email test
+- Split these functions over to a new sub package called Validate_ISPN (International Standard Product Numbers)
+ * ISSN
+ * ISBN
+ * ISMN
+ * EAN8
+ * EAN13
+ * EAN14
+ * UCC12
+ * SSCC
+- splited multiple() test in with (skipif not installed) or without card,
+    </notes>
+   </release>
+   <release>
+    <version>0.4.1</version>
+    <date>2004-03-17</date>
+    <state>alpha</state>
+    <notes>- fixed issue when validating IBANs via a static call
+ - added missing test validate_UK.php to package.xml
+    </notes>
+   </release>
+   <release>
+    <version>0.4.0</version>
+    <date>2004-03-16</date>
+    <state>alpha</state>
+    <notes>- pt_BR moved to ptBR required for multiple support(BC break)
+- Add CH validation (Switzerland)
+- added Euro banknotes IDs
+- Improved UK postcodes validation
+- Fixed allowed_scheme options in Validate::uri() (Torsten Roehr)
+- Fixed optional arguments in Validate::number() (Torsten Roehr)
+    </notes>
+   </release>
+   <release>
+    <version>0.3.0</version>
+    <date>2003-12-05</date>
+    <state>alpha</state>
+    <notes>- Added Finance Validations for Financial related datas
+  (S. Neufeind, Piotr Klaban)
+- Add polish validation (Piotr Klaban)
+- Add German validation (Stefan Neufeind)
+- Add EAN-UCC validtatio (see http://www.ean-ucc.org) (Piotr Klaban)
+- Add International Standard Serial Number (ISSN)
+  and Music Number(ISMN) (Piotr Klaban, David Grant)
+- Drop Validate::url() in preferenc of Validate::uri() which is fully
+  RFC2396 compliant
+- Move to PHP 3.0 license
+    </notes>
+   </release>
+   <release>
+    <version>0.2.0</version>
+    <date>2003-06-15</date>
+    <state>alpha</state>
+    <notes>- Add some dutch validations
+    </notes>
+   </release>
+   <release>
+    <version>0.1.1</version>
+    <date>2003-03-12</date>
+    <state>alpha</state>
+    <notes>Validate::date(); argument parsing fixed
+    </notes>
+   </release>
+ </changelog>
+</package>

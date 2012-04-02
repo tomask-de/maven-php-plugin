@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release2
+    http://pear.php.net/dtd/rest.release2.xsd">
+ <p xlink:href="/rest/p/liveuser">LiveUser</p>
+ <c>pear.php.net</c>
+ <v>0.11.0</v>
+ <a>0.11.0</a>
+ <mp>4.3.0</mp>
+ <st>beta</st>
+ <l>LGPL</l>
+ <m>lsmith</m>
+ <s>User authentication and permission management framework</s>
+ <d>Perm_LiveUser is a set of classes for dealing with user authentication
+and permission management. Basically, there are three main elements that
+make up this package:
+* The LiveUser class
+* The Auth containers
+* The Perm containers
+The LiveUser class takes care of the login process and can be configured
+to use a certain permission container and one or more different auth containers.
+That means, you can have your users' data scattered amongst many data containers
+and have the LiveUser class try each defined container until the user is found.
+For example, you can have all website users who can apply for a new account online
+on the webserver's local database. Also, you want to enable all your company's
+employees to login to the site without the need to create new accounts for all of
+them. To achieve that, a second container can be defined to be used by the LiveUser class.
+You can also define a permission container of your choice that will manage the rights for
+each user. Depending on the container, you can implement any kind of permission schemes
+for your application while having one consistent API.
+Using different permission and auth containers, it's easily possible to integrate
+newly written applications with older ones that have their own ways of storing permissions
+and user data. Just make a new container type and you're ready to go!
+Currently available are containers using:
+PEAR::DB, PEAR::MDB, PEAR::MDB2, PEAR::XML_Tree and PEAR::Auth.
+</d>
+ <da>2004-04-28 05:40:02</da>
+ <n>- only disconnect when the disconnect option is set to true (default: null)
+- fixed bug in call in init() in combination with direct passing of handle and password
+- added ability to set the login/logout method to false to disable the feature
+- login/logout method can now be post, get and request (the last one is new)
+- fixed all the examples, should be mostly bug free now, method =&gt; get is now
+  used in logout, example 5 uses the newly added method singleton, all sql files
+  were updated and work now after they broke when last release was made.
+- two_letter_name in liveuser_languages and right_define_name in liveuser_rights
+  were made unique in perm_db.sql
+- change all quote() to quoteSmart() in DB container since quote() is deprecated
+  as of DB 1.6, so new dependancy of DB 1.6 is added.
+- added ability to pass and array as the value of the owner_user_id parameter
+  in checkRightLevel()
+- if you use addUser in the admin perm containers then you have to state the
+  auth container name else you get error msg back
+- SHA1 encryption option added, PHP4.3 is needed if SHA1 encryption is used
+- RC4 encryption added, Crypt_RC4 must be installed to use this
+- added function getUser to all Auth containers in /Admin, this function gets
+  all info requested for given user and returns it in a array.
+- _getPermUserId made public, now is getPermUserId Perm containers in /Admin
+  also added getAuthUserId in the same Perm containers
+- customFields have been added to addUser and editUser (also in Admin class)
+  Note type is optional for DB, thus it's needed for MDB and MDB2,
+  we recommend that you use type even though you use DB, so if you change to MDB[2],
+  it will be no problem for you.
+  usage example for Admin class:
+    $custom = array(
+       array('name' =&gt; 'name', 'value' =&gt; 'asdf', 'type' =&gt; 'text'),
+       array('name' =&gt; 'email', 'value' =&gt; 'fleh@example.com', 'type' =&gt; 'text')
+   );
+   $user_id = $admin-&gt;adduser('johndoe', 'dummypass', true, null, null, null, $custom);
+   using the auth container straight would be:
+   $user_id = $admin-&gt;addUser('johndoe', 'dummypass', true, null, null,
+                                           null, $custom);
+- Admin Class
+   - addUser now works with DB/MDB/MDB2
+   - removeUser now works with DB/MDB/MDB2
+   - updateUser now works with DB/MDB/MDB2
+   - getUser now works with DB/MDB/MDB2
+   - searchUser now works with DB/MDB/MDB2
+  Please test the Admin class for us and report any issue that you encounter if any.
+  Note. it's still experimental.
+- customFields have been added to addGroup, editGroup and getGroups and this is used in
+  the same way as customFields for addUser/editUser
+- checkRight() and checkRightLevel() both return the level of the given right or false
+- checkRightLevel() can now check multiple right id's similar to how checkRight() can
+- Admin Class
+   - tweaked setAdminContainers() method
+   - fixed issues with non numeric keys in $this-&gt;_conf['authContainers'] in
+     side setAdminAuthContainer() and setAdminContainers()
+   - applied several fixes to auth getUsers() to fix the custom field support
+   - expanded filter support in perm getUsers() to also allow group_id filtering
+   - made group_id param option in perm removeUserFromGroup()
+- Removed group_define_name from perm_db.sql and from code since this was apart of the
+  old language system.
+- fixed remember me (bug #570) and unified remember me passing
+- database container can now accept an options array
+- fixed a bug in readGroupRights() which would result in lower level's
+  potentially overwriting higher levels</n>
+ <f>188050</f>
+ <g>http://pear.php.net/get/LiveUser-0.11.0</g>
+ <x xlink:href="package.0.11.0.xml"/>
+</r>

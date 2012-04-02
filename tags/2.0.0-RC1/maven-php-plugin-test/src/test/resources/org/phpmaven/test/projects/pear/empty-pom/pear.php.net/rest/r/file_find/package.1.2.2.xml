@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.5">
+ <name>File_Find</name>
+ <summary>A Class the facilitates the search of filesystems</summary>
+ <description>File_Find, created as a replacement for its Perl counterpart, also named 
+File_Find, is a directory searcher, which handles, globbing, recursive 
+directory searching, as well as a slew of other cool features.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>sterling</user>
+   <name>Sterling Hughes</name>
+   <email>sterling@bumblebury.com</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>tuupola</user>
+   <name>Mika Tuupola</name>
+   <email>tuupola@appelsiini.net</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>techtonik</user>
+   <name>Anatoly Techtonik</name>
+   <email>techtonik@php.net</email>
+   <role>developer</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>1.2.2</version>
+  <date>2006-02-11</date>
+  <license>PHP</license>
+  <state>stable</state>
+  <notes>+ Empty pattern workaround from bug #6173 also in glob method
+
+Various &apos;enhancements&apos; to &apos;shell&apos; method
+http://pear.php.net/manual/en/package.filesystem.file-find.searchmethods.php
+
+* Empty pattern specified in &apos;shell&apos; is equal to &apos;*.*&apos;
+
+- Empty exclude mask of a &apos;shell&apos; pattern is detected correctly now
+
++ Use *. to match files without extension
+
++ use filename.*. to match files with only one &apos;extension&apos; (bug #5503)
+  </notes>
+  <provides type="class" name="File_Find" />
+  <provides type="function" name="File_Find::glob" />
+  <provides type="function" name="File_Find::maptree" />
+  <provides type="function" name="File_Find::mapTreeMultiple" />
+  <provides type="function" name="File_Find::search" />
+  <provides type="function" name="File_Find::isError" />
+  <provides type="function" name="File_Find_match_shell" />
+  <filelist>
+   <file role="php" baseinstalldir="File" md5sum="03b235f5b9070082bb10d63302f1785b" name="Find.php"/>
+   <file role="test" baseinstalldir="File" md5sum="b148c37acce6f17621af5c85460711f9" name="tests/setup.php"/>
+   <file role="test" baseinstalldir="File" md5sum="000175d26d1cb078da87ca1a9751802f" name="tests/01glob.phpt"/>
+   <file role="test" baseinstalldir="File" md5sum="84755f4c61152e27dd078ddb993eb029" name="tests/02maptree.phpt"/>
+   <file role="test" baseinstalldir="File" md5sum="9cf753693945ab053c23e1a37db7f672" name="tests/03maptreemultiple.phpt"/>
+   <file role="test" baseinstalldir="File" md5sum="742d3a88c892a3382aeadeddeac79fd5" name="tests/04search.phpt"/>
+   <file role="test" baseinstalldir="File" md5sum="11981e1a166722dc87a8c032497bb576" name="tests/05search_inside.phpt"/>
+   <file role="test" baseinstalldir="File" md5sum="2f6759f7c0abc2aaaa23866437b7f30f" name="tests/06match_shell.phpt"/>
+   <file role="test" baseinstalldir="File" md5sum="d8c6097975c6f29dcad9c1909e90b5ef" name="tests/bug2773.phpt"/>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>1.2.1</version>
+    <date>2005-10-04</date>
+    <state>stable</state>
+    <notes>* Fixed bug #5892 and other &quot;Only variable references should be returned 
+  by reference&quot; errors.
+
+* Fixed bug #6173. Check for empty strings given as ereg to search().
+
+* silence errors if mapTreeMultiple() encounters an unreadable
+  directory (thanks to Erik Stainsby)
+    </notes>
+   </release>
+   <release>
+    <version>1.2.0</version>
+    <date>2005-10-04</date>
+    <state>stable</state>
+    <notes>+ new &apos;shell&apos; match method
+    </notes>
+   </release>
+   <release>
+    <version>1.1.0</version>
+    <date>2005-09-12</date>
+    <state>stable</state>
+    <notes>* use only native system directory delimiters for consistency
+
+* search() method can now match files, directories or both
+
+* port tests to windows platform
+    </notes>
+   </release>
+   <release>
+    <version>1.0.1</version>
+    <date>2005-08-30</date>
+    <state>stable</state>
+    <notes>* fixed package.xml to avoid installation problems with PHP 5.1.X
+    </notes>
+   </release>
+   <release>
+    <version>1.0.0</version>
+    <date>2005-08-24</date>
+    <state>stable</state>
+    <notes>* maptree() can now be called statically (bug #4994)
+    </notes>
+   </release>
+   <release>
+    <version>0.4.0</version>
+    <date>2005-06-03</date>
+    <state>beta</state>
+    <notes>* Error handling now uses PEAR::raiseError() instead of FileFindException.
+  This might cause BC break if you were checking errors with is_a()
+  instead of PEAR::isError() of File_Find::isError()!
+
+* All output is now consistent having the leading directory separator
+  stripped out from directory names. 
+
+- FileFindException error class was removed
+
+- File_Find_version() method was removed
+    </notes>
+   </release>
+   <release>
+    <version>0.3.1</version>
+    <date>2005-01-13</date>
+    <state>beta</state>
+    <notes>* fixed bug search() where static calls to search() failed
+  if it was called inside instance of another object 
+  (Anatoly Techtonik)
+    </notes>
+   </release>
+   <release>
+    <version>0.3.0</version>
+    <date>2004-12-17</date>
+    <state>beta</state>
+    <notes>* search() can now be called statically (bug #2132)
+
+* search() can now optionally match only against filename only (req #712)
+
+* fixes problems with directories named 0 (bug #2773)
+    </notes>
+   </release>
+   <release>
+    <version>0.2.0</version>
+    <date>2002-11-14</date>
+    <state>stable</state>
+    <notes>* added mapTreeMultiple() function / method
+
+* improved portability for non UNIX platforms
+    </notes>
+   </release>
+   <release>
+    <version>0.1</version>
+    <date>2002-01-26</date>
+    <state>stable</state>
+    <notes>Initial release
+    </notes>
+   </release>
+ </changelog>
+</package>

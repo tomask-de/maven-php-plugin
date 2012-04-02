@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.1">
+ <name>MDB2_Driver_querysim</name>
+ <summary>querysim MDB2 driver</summary>
+ <description>This is the Querysim MDB2 driver.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>lsmith</user>
+   <name>Lukas Kahwe Smith</name>
+   <email>smith@pooteeweet.org</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>0.1.1</version>
+  <date>2005-10-10</date>
+  <license>BSD License</license>
+  <state>alpha</state>
+  <notes>- increased php dependency to 4.3.0 due to the usage of the streams API since beta5
+- fix PHP4.4 breakage
+- use !empty() instead of isset() in fetchRow to determine if result cols were bound or result types were set
+- moved all private fetch mode fix methods into _fixResultArrayValues() for performance reasons
+- renamed MDB2_PORTABILITY_LOWERCASE to MDB2_PORTABILITY_FIX_CASE and use &apos;field_case&apos; option to determine if to upper- or lowercase (CASE_LOWER/CASE_UPPER)
+- use array_key_exists() instead of isset() where possible
+- return 0 for manipulation queries when disable_query is enabled
+  </notes>
+  <deps>
+   <dep type="php" rel="ge" version="4.3.0" optional="no"/>
+   <dep type="pkg" rel="ge" version="1.0b1" optional="no">PEAR</dep>
+   <dep type="pkg" rel="ge" version="2.0.0beta6" optional="no">MDB2</dep>
+  </deps>
+  <provides type="class" name="MDB2_Driver_querysim" extends="MDB2_Driver_Common" />
+  <provides type="function" name="MDB2_Driver_querysim::connect" />
+  <provides type="function" name="MDB2_Driver_querysim::disconnect" />
+  <filelist>
+   <file role="doc" baseinstalldir="/" md5sum="1652896656962eca678305635ed2ad12" name="docs/querysim_readme.txt">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="05e3e6d55eca95d02ed7b508c8c56764" name="MDB2/Driver/querysim.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="18e956b1bd36d6e16aeb311700fb06ff" name="package_querysim.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>0.1.1</version>
+    <date>2005-10-10</date>
+    <license>BSD License</license>
+    <state>alpha</state>
+    <notes>- increased php dependency to 4.3.0 due to the usage of the streams API since beta5
+- fix PHP4.4 breakage
+- use !empty() instead of isset() in fetchRow to determine if result cols were bound or result types were set
+- moved all private fetch mode fix methods into _fixResultArrayValues() for performance reasons
+- renamed MDB2_PORTABILITY_LOWERCASE to MDB2_PORTABILITY_FIX_CASE and use &apos;field_case&apos; option to determine if to upper- or lowercase (CASE_LOWER/CASE_UPPER)
+- use array_key_exists() instead of isset() where possible
+- return 0 for manipulation queries when disable_query is enabled
+    </notes>
+   </release>
+   <release>
+    <version>0.1.0</version>
+    <date>2005-04-29</date>
+    <license>BSD License</license>
+    <state>alpha</state>
+    <notes>first unbundled release from MDB2 core
+
+-
+    </notes>
+   </release>
+ </changelog>
+</package>

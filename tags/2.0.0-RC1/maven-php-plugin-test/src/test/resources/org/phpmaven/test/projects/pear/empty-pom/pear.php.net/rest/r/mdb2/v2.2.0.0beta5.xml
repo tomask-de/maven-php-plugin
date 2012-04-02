@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release2
+    http://pear.php.net/dtd/rest.release2.xsd">
+ <p xlink:href="/rest/p/mdb2">MDB2</p>
+ <c>pear.php.net</c>
+ <v>2.0.0beta5</v>
+ <a>2.0.0beta5</a>
+ <mp>4.3.0</mp>
+ <st>beta</st>
+ <l>BSD License</l>
+ <m>lsmith</m>
+ <s>database abstraction layer</s>
+ <d>PEAR MDB2 is a merge of the PEAR DB and Metabase php database abstraction layers.
+
+Note that the API will be adapted to better fit with the new php5 only PDO
+before the first stable release.
+
+It provides a common API for all support RDBMS. The main difference to most
+other DB abstraction packages is that MDB2 goes much further to ensure
+portability. Among other things MDB2 features:
+* An OO-style query API
+* A DSN (data source name) or array format for specifying database servers
+* Datatype abstraction and on demand datatype conversion
+* Portable error codes
+* Sequential and non sequential row fetching as well as bulk fetching
+* Ability to make buffered and unbuffered queries
+* Ordered array and associative array for the fetched rows
+* Prepare/execute (bind) emulation
+* Sequence emulation
+* Replace emulation
+* Limited Subselect emulation
+* Row limit support
+* Transactions support
+* Large Object support
+* Index/Unique support
+* Module Framework to load advanced functionality on demand
+* Table information interface
+* RDBMS management methods (creating, dropping, altering)
+* RDBMS independent xml based schema definition management
+* Reverse engineering schemas from an existing DB
+* Full integration into the PEAR Framework
+* PHPDoc API documentation
+ 
+</d>
+ <da>2005-06-08 09:23:02</da>
+ <n>Warning: this release features numerous BC breaks to make the MDB2 API be as
+similar as possible as the ext/pdo API! The next release is likely to also break
+BC for the same reason. Check php.net/pdo for information on the pdo API.
+
+- refactored LOB support (BC breaks)
+- moved all drivers into separate packages MDB2_Driver_* (BC break)
+- bindParam() and bindColumn() are now 1-indexed (BC break)
+- removed special handling for day light saving time (bug #4341) (BC break)
+- ensure SQL injection protection in all _quote() methods
+  (was missing in some decimal, float, time, date and timestamp implementations)
+- renamed getRowCount() to rowCount() for PDO compliance (BC break)
+  (doesnt take into account the offset anymore)
+- added new quote() parameter to remove quotes (ugly hack will get cleaned up)
+- renamed execute() to _execute() since common provides some common functionality via execute()
+- fixed some issues regarding limit/offset in prepared statements
+- fixed bug in _assignBindColumns() when using associative fetches
+- support numeric and string keys in types array for prepared queries
+- call trigger error if __call() is unable to find a method in any of the modules
+- work around php5 bugs in the test suite</n>
+ <f>83542</f>
+ <g>http://pear.php.net/get/MDB2-2.0.0beta5</g>
+ <x xlink:href="package.2.0.0beta5.xml"/>
+</r>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>Config</name>
+  <summary>The Config package provides methods for editing configuration datasources</summary>
+  <description>The Config package provides methods for editing configuration datasources.
+It does so in an object oriented manner, defining each and every items found in the config datasource as a Config_Container of various types (comments, sections, directives, blanks, ...).
+Items can then be edited, added, removed, inserted.
+This package is not intended for reading configuration data only, but for editing them. If you only want to read your configuration data, use functions like parse_ini_file() and the like instead, they are much faster.</description>
+  <maintainers>
+    <maintainer>
+      <user>mansion</user>
+      <name>Bertrand Mansion</name>
+      <email>bmansion@mamasam.com</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.0</version>
+    <date>2002-10-05</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>Complete rewrite : API has changed.
+The class now uses a tree structure of container objects.
+As a consequence, backward compatibility is not provided !!!
+Look at the Apache.php and IniCommented.php scripts in 'docs' for usage examples.
+Some containers are still missing : XML and DB.</notes>
+    <filelist>
+      <file role="php" md5sum="5bfb0e3abc3266eda5612a248888b0e5" name="Config.php"/>
+      <file role="php" md5sum="975cdaf62ab9129ffcfb2db05a6f5598" name="Config/Container.php"/>
+      <file role="php" md5sum="e27ad482d225e9bf90104ee6f348fa7e" name="Config/Container/Apache.php"/>
+      <file role="php" md5sum="2b521b04e1bead37f625d5ae0c604c3b" name="Config/Container/GenericConf.php"/>
+      <file role="php" md5sum="ec783049f1874fc637d2f1b510758e91" name="Config/Container/IniCommented.php"/>
+      <file role="php" md5sum="28f91287e9e9eeabb5df4a642e1b43da" name="Config/Container/IniFile.php"/>
+      <file role="php" md5sum="beca71c116b4b6df03a4cf8d9359814f" name="Config/Container/PHPArray.php"/>
+      <file role="doc" md5sum="2a053b0fe6ea7b38151c2110b5f74ee9" name="docs/Apache.php"/>
+      <file role="doc" md5sum="5ede4e9bd485dcad7090c05d12f0acdf" name="docs/IniCommented.php"/>
+      <file role="doc" md5sum="fad6cf5621a2c4ba07d30c6da9cf2ff1" name="docs/TODO"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.3.1</version>
+      <notes>Documentation is in README.Config.
+0.3.1
+-  E_ALL fixes
+		
+</notes>
+    </release>
+    <release>
+      <version>0.3</version>
+      <notes>- some fixes
+- add WDDX-Container for config data in WDDX-files
+- add phpIniFile, does the same like IniFile but based on the PHP build-in function parse_ini_file()
+		
+</notes>
+    </release>
+    <release>
+      <version>0.2.2</version>
+      <notes>- Only the first char of -&gt;feature['cc'] is taken as a comment deliminator
+- quoting supports both methods:
+  [bla]
+  foo = &quot;'bar'&quot;
+  bar = '&quot;foo&quot;'
+- Value parser only parser until first comment-char or the end of the string, therefore spaces surrounded by nonspaces don't have to be quoted.
+		
+</notes>
+    </release>
+    <release>
+      <version>0.2.1</version>
+      <notes>- Bug fixed, when $feature in ParseInput was not set 
+- some e_warnings fixed
+(thanks to Markus Fischer for the reports)		
+		
+</notes>
+    </release>
+  </changelog>
+</package>

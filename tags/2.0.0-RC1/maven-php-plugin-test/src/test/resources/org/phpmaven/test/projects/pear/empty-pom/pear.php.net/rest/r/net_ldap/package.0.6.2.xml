@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Net_LDAP</name>
+  <summary>OO interface for searching and manipulating LDAP-entries</summary>
+  <description>Net Ldap is a clone of Perls Net::LDAP object interface to 
+  ldapservers. It does not contain all of Net::LDAPs features (ldif handling, schemas etc), 
+  but has:
+  * A simple OO-interface to connections, searches and entries.
+  * Support for tls and ldap v3.
+  * Simple modification, deletion and creation of ldapentries.
+  * Support for schema handling.
+
+
+Net-Ldap layers itself on top of PHP's existing ldap extensions.</description>
+  <maintainers>
+    <maintainer>
+      <user>tarjei</user>
+      <name>Tarjei Huse</name>
+      <email>tarjei@nu.no</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>jw</user>
+      <name>Jan Wagner</name>
+      <email>wagner@netsols.de</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.6.2</version>
+    <date>2003-10-17</date>
+    <license>GPL License</license>
+    <state>beta</state>
+    <notes>Major change: utf8encoding now checks that the attribute should be encoded. Correct usage:
+$util = new Net_LDAP_Util($ldap);
+$attrs = $util-&gt;utf8Encode( $attrs );
+I.e utf8encoding has been moved out of the entryobject.
+Thanks to Jan for the code.
+New functions:
+getEntry($dn) gets a single entry based on the dn.
+dnExists($dn) checks if the dn exists.
+
+Also, as usual some bugfixes has been made, amongst them some from Piero Calucci.</notes>
+    <provides type="class" name="Net_LDAP" extends="PEAR" />
+    <provides type="class" name="Net_Ldap_Error" extends="PEAR_Error" />
+    <provides type="function" name="Net_LDAP::connect" />
+    <provides type="function" name="Net_LDAP::bind" />
+    <provides type="function" name="Net_LDAP::start_tls" />
+    <provides type="function" name="Net_LDAP::done" />
+    <provides type="function" name="Net_LDAP::add" />
+    <provides type="function" name="Net_LDAP::delete" />
+    <provides type="function" name="Net_LDAP::modify" />
+    <provides type="function" name="Net_LDAP::search" />
+    <provides type="function" name="Net_LDAP::getLDAPVersion" />
+    <provides type="function" name="Net_LDAP::getVersion" />
+    <provides type="function" name="Net_LDAP::dnExists" />
+    <provides type="function" name="Net_LDAP::getEntry" />
+    <provides type="function" name="Net_LDAP::errorMessage" />
+    <provides type="function" name="Net_LDAP::rootDse" />
+    <provides type="function" name="Net_LDAP::root_dse" />
+    <provides type="function" name="Net_LDAP::schema" />
+    <provides type="function" name="Net_Ldap_Error::LDAP_Error" />
+    <provides type="function" name="utf8Encode" />
+    <provides type="function" name="utf8Decode" />
+    <provides type="class" name="Net_LDAP_Entry" extends="PEAR" />
+    <provides type="function" name="Net_LDAP_Entry::attributes" />
+    <provides type="function" name="Net_LDAP_Entry::add" />
+    <provides type="function" name="Net_LDAP_Entry::dn" />
+    <provides type="function" name="Net_LDAP_Entry::exists" />
+    <provides type="function" name="Net_LDAP_Entry::get_value" />
+    <provides type="function" name="Net_LDAP_Entry::modify" />
+    <provides type="function" name="Net_LDAP_Entry::replace" />
+    <provides type="function" name="Net_LDAP_Entry::delete" />
+    <provides type="function" name="Net_LDAP_Entry::update" />
+    <provides type="class" name="Net_Ldap_Search" extends="PEAR" />
+    <provides type="function" name="Net_Ldap_Search::entries" />
+    <provides type="function" name="Net_Ldap_Search::shift_entry" />
+    <provides type="function" name="Net_Ldap_Search::pop_entry" />
+    <provides type="function" name="Net_Ldap_Search::sorted" />
+    <provides type="function" name="Net_Ldap_Search::as_struct" />
+    <provides type="function" name="Net_Ldap_Search::count" />
+    <provides type="function" name="Net_Ldap_Search::getErrorCode" />
+    <provides type="function" name="Net_Ldap_Search::done" />
+    <provides type="class" name="Net_LDAP_RootDSE" extends="PEAR" />
+    <provides type="function" name="Net_LDAP_RootDSE::getValue" />
+    <provides type="function" name="Net_LDAP_RootDSE::get_value" />
+    <provides type="function" name="Net_LDAP_RootDSE::supportedExtension" />
+    <provides type="function" name="Net_LDAP_RootDSE::supported_extension" />
+    <provides type="function" name="Net_LDAP_RootDSE::supportedVersion" />
+    <provides type="function" name="Net_LDAP_RootDSE::supported_version" />
+    <provides type="function" name="Net_LDAP_RootDSE::supportedControl" />
+    <provides type="function" name="Net_LDAP_RootDSE::supported_control" />
+    <provides type="function" name="Net_LDAP_RootDSE::supportedSASLMechanism" />
+    <provides type="function" name="Net_LDAP_RootDSE::supported_sasl_mechanism" />
+    <provides type="class" name="Net_LDAP_Schema" extends="PEAR" />
+    <provides type="function" name="Net_LDAP_Schema::getAll" />
+    <provides type="function" name="Net_LDAP_Schema::get" />
+    <provides type="function" name="Net_LDAP_Schema::may" />
+    <provides type="function" name="Net_LDAP_Schema::must" />
+    <provides type="function" name="Net_LDAP_Schema::superclass" />
+    <provides type="function" name="Net_LDAP_Schema::parse" />
+    <provides type="class" name="Net_LDAP_Util" extends="PEAR" />
+    <provides type="function" name="Net_LDAP_Util::utf8Encode" />
+    <provides type="function" name="Net_LDAP_Util::utf8Decode" />
+    <filelist>
+      <file role="php" baseinstalldir="Net" md5sum="807e52a44396f6e9ae620bc7a00682a7" name="LDAP.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="1911da4e9cd0764653e40086cbe5b560" name="LDAP/Entry.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="b29f890019fcde0f11a903984a5a142e" name="LDAP/Search.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="99f5273a7cb750b8db18b4a672e7d79c" name="LDAP/RootDSE.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="619a279b86c1a1682b124bf2a9291e4c" name="LDAP/Schema.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="1421df32182136c07beab4f11b358350" name="LDAP/Util.php"/>
+      <file role="test" baseinstalldir="Net" md5sum="30df42e32eac569f312157a9e2b238fd" name="tests/tests.php"/>
+      <file role="doc" baseinstalldir="Net" md5sum="75fce98b7c0779c3a6f789da1847b858" name="doc/README.txt"/>
+      <file role="doc" baseinstalldir="Net" md5sum="989d5dadd8e5c7da21852ebc96f38bbb" name="doc/STATUS"/>
+      <file role="doc" baseinstalldir="Net" md5sum="117924cb1e168c35833135650f8a96a5" name="doc/Schema.txt"/>
+      <file role="doc" baseinstalldir="Net" md5sum="948f5cd58061e5923935deff491942c9" name="doc/RootDSE.txt"/>
+      <file role="doc" baseinstalldir="Net" md5sum="6b832205d48760f08a752160c1b47732" name="doc/Utf8.txt"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.1</version>
+      <date>2003-06-23</date>
+      <state>beta</state>
+      <notes>Initial release
+</notes>
+    </release>
+    <release>
+      <version>0.2</version>
+      <date>2003-08-23</date>
+      <state>beta</state>
+      <notes>Fixed a lot of bugs that jumped in during the pearification process
+</notes>
+    </release>
+    <release>
+      <version>0.3</version>
+      <date>2003-09-21</date>
+      <state>beta</state>
+      <notes>More bug squashing! Much better errorhandling in the -&gt;search() function. Also, all errors that create a Pear_error now includes the errornumber if appropriate (i.e. it was an ldap generated error).
+</notes>
+    </release>
+    <release>
+      <version>0.4</version>
+      <date>2003-10-01</date>
+      <state>beta</state>
+      <notes>Many more bugfixes. Jan Wagner fixed the shift_entry function.
+           Also a new Net_LDAP_Entry::modify function has been added that goes far making a simple way to modify entries.
+           
+</notes>
+    </release>
+    <release>
+      <version>0.5</version>
+      <date>2003-10-11</date>
+      <state>beta</state>
+      <notes>Jan Wagner Contributed a new RootDSE object and a Schema object and some fixes to the Net_LDAP::search() method
+         The new Net_ldap_entry::modify() method seems to work very nice now.
+         
+</notes>
+    </release>
+    <release>
+      <version>0.6</version>
+      <date>2003-10-17</date>
+      <state>beta</state>
+      <notes>New Net_LDAP::ArrayUTF8Decode and Net_LDAP::ArrayUTF8Encode functions. These are used by the Net_LDAP::Entry objects to ensure that things work ok.
+</notes>
+    </release>
+    <release>
+      <version>0.6.1</version>
+      <date>2003-10-01</date>
+      <state>beta</state>
+      <notes>Renamed  the Net_LDAP::ArrayUTF8Decode and Net_LDAP::ArrayUTF8Encode functions to UTFDecode and UTFEncode. These are used by the Net_LDAP::Entry objects to ensure that things work ok.
+
+</notes>
+    </release>
+  </changelog>
+</package>

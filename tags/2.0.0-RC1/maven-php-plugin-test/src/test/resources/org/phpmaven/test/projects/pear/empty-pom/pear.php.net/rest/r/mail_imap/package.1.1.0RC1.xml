@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Mail_IMAP</name>
+  <summary>Provides a c-client backend for webmail.</summary>
+  <description>Mail_IMAP provides a simplified backend for working with the c-client (IMAP) extension. It serves as an OO wrapper for commonly used c-client functions. It provides structure and header parsing as well as body retrieval.
+Mail_IMAP provides a simple inbox example that demonstrates its ability to parse and view simple and multipart email messages.
+Mail_IMAP also provides a connection wizard to determine the correct protocol and port settings for a remote mail server, all you need to provide is a server, a username and a password.
+Mail_IMAP may be used as a webmail backend or as a component in a mailing list manager.
+This package requires the c-client extension.  To download the latest version of the c-client extension goto: http://www.php.net/imap.</description>
+  <maintainers>
+    <maintainer>
+      <user>richy</user>
+      <name>Richard York</name>
+      <email>richy@smilingsouls.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.1.0RC1</version>
+    <date>2004-05-09</date>
+    <license>PHP</license>
+    <state>beta</state>
+    <notes>Bug #1350 multipart/related messages containing attachments not parsed correctly.
+    - Adjusted Mail_IMAP::_scanMultipart, Mail_IMAP::getDefaultPid,
+    Mail_IMAP::_checkIfParsed, added Mail_IMAP::_isMultipartRelated,
+    $defaultPid member variable (this is to cut back on calls to
+    Mail_IMAP::getDefaultPid).
+Added debug functions. Debug functions can be called automatically if
+using a URI abstraction.
+Fallback pids added for Mail_IMAP::getBody, Mail_IMAP::getRawHeaders,
+Mail_IMAP::getHeaders. Mail_IMAP::getBody will fallback on pid = '1'
+or the first message part.  Mail_IMAP::getRawHeaders and
+Mail_IMAP::getHeaders will fallback on pid = '0', or the top-level
+headers.
+$option member variable added, replaces and deprecates various $options
+arguments used in the various methods (All of these will be removed in 2.0.0).
+Mail_IMAP::setOptions method added to set-up some default usages of optional
+arguments.
+Mail_IMAP::getRawHeaders now returns the headers by default and has a new
+$rtn argument that toggles between returning the headers and not returning
+them.
+Mail_IMAP::getHeaders now returns the header array (no toggle here).
+Expanded embedded docs.
+Added $error_reporting argument to the constructor, this is used to
+determine where hacks are being used which is useful for debugging.
+Error text made more consistent.
+Net_URL made an optional dependancy.
+messageCount, removed call to imap_errors.
+Added $this-&gt;mailboxInfo['host'] and Mail_IMAP::getMailboxes() which
+wraps imap_list.
+Fixed leading slash making its way into $this-&gt;mailboxInfo['folder'].
+Mail_IMAP::getQuota now falls back on $this-&gt;mailboxInfo['folder'], if
+a connection URI is used, uses 'INBOX' if no value is passed by argument
+or no value is present for $this-&gt;mailboxInfo['folder'].</notes>
+    <deps>
+      <dep type="ext" rel="has">imap</dep>
+      <dep type="pkg" rel="has" optional="yes">Net_URL</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="Mail" name="IMAP.php"/>
+      <file role="doc" baseinstalldir="Mail" name="examples\IMAP.inbox.php"/>
+      <file role="doc" baseinstalldir="Mail" name="examples\IMAP.message.php"/>
+      <file role="doc" baseinstalldir="Mail" name="examples\IMAP.connection_wizard.php"/>
+      <file role="doc" baseinstalldir="Mail" name="examples\IMAP.connection_wizard_example.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.1.0A</version>
+      <date>2004-02-10</date>
+      <state>alpha</state>
+      <notes>First release.
+</notes>
+    </release>
+  </changelog>
+</package>

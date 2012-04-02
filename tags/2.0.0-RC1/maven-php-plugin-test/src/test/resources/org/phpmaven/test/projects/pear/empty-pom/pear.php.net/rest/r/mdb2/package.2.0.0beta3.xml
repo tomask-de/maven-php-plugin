@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>MDB2</name>
+  <summary>database abstraction layer</summary>
+  <description>PEAR MDB2 is a merge of the PEAR DB and Metabase php database abstraction layers.
+
+Note that the API will be adapted to better fit with the new php5 only PDO
+before the first stable release.
+
+It provides a common API for all support RDBMS. The main difference to most
+other DB abstraction packages is that MDB2 goes much further to ensure
+portability. Among other things MDB2 features:
+* An OO-style query API
+* A DSN (data source name) or array format for specifying database servers
+* Datatype abstraction and on demand datatype conversion
+* Portable error codes
+* Sequential and non sequential row fetching as well as bulk fetching
+* Ability to make buffered and unbuffered queries
+* Ordered array and associative array for the fetched rows
+* Prepare/execute (bind) emulation
+* Sequence emulation
+* Replace emulation
+* Limited Subselect emulation
+* Row limit support
+* Transactions support
+* Large Object support
+* Index/Unique support
+* Module Framework to load advanced functionality on demand
+* Table information interface
+* RDBMS management methods (creating, dropping, altering)
+* RDBMS independent xml based schema definition management
+* Altering of a DB from a changed xml schema
+* Reverse engineering of xml schemas from an existing DB (currently only MySQL)
+* Full integration into the PEAR Framework
+* PHPDoc API documentation
+
+Currently supported RDBMS:
+MySQL (mysql and mysqli extension)
+PostGreSQL
+Oracle
+Frontbase
+Querysim
+Interbase/Firebird
+MSSQL
+SQLite
+Other soon to follow.</description>
+  <maintainers>
+    <maintainer>
+      <user>lsmith</user>
+      <name>Lukas Kahwe Smith</name>
+      <email>smith@backendmedia.com</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>pgc</user>
+      <name>Paul Cooper</name>
+      <email>pgc@ucecom.com</email>
+      <role>contributor</role>
+    </maintainer>
+    <maintainer>
+      <user>fmk</user>
+      <name>Frank M. Kromann</name>
+      <email>frank@kromann.info</email>
+      <role>contributor</role>
+    </maintainer>
+    <maintainer>
+      <user>quipo</user>
+      <name>Lorenzo Alberton</name>
+      <email>l.alberton@quipo.it</email>
+      <role>contributor</role>
+    </maintainer>
+    <maintainer>
+      <user>danielc</user>
+      <name>Daniel Convissor</name>
+      <email>danielc@php.net</email>
+      <role>helper</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>2.0.0beta3</version>
+    <date>2005-03-06</date>
+    <license>BSD License</license>
+    <state>beta</state>
+    <notes>Warning: this release features numerous BC breaks to make the MDB2 API be as
+similar as possible as the ext/pdo API! The next release is likely to also break
+BC for the same reason. Check php.net/pdo for information on the pdo API.
+
+Oracle NULL in LOB fields is broken.
+The fbsql and mssql drivers are likely to be broken as they are largely untested.
+
+MDB2 static class:
+- &quot;xxx&quot; out password on connect error in MDB2::connect()
+- MDB2::isError now also optionally accepts and error code to check for
+- added LOAD DATA (port from DB) and SET to MDB2::isManip()
+
+All drivers:
+- use __construct() (PHP4 BC hacks are provided)
+- allow null values to be set for options
+- ensure we are returning a reference in all relevant places
+
+- allow errorInfo() to be called when no connection has been established yet
+- use MDB2_ERROR_UNSUPPORTED instead of MDB2_ERROR_NOT_CAPABLE in common implementations
+- readded MDB2_Error as the baseclass for all MDB2 error objects
+- updated error mappings from DB
+
+- added MDB2_Driver_Common::getDatabase();
+- reworked dsn default handling
+- added ability to &quot;xxx&quot; out password in getDSN()
+
+- use _close() method in several places where they previously were not used
+- removed redundant code in _close() that dealt with transaction closing already
+  done in disconnect()
+- if the dbsyntax is set in the dsn it will be set in the dbsyntax property
+- only disconnect persistant connections if disconnect() has been explicitly
+  called by the user
+- instead of having a generic implemention of disconnect() we will rename
+  _close() to disconnect() to overwrite the generic implementation
+- added support for 'new_link' dsn option for all supported drivers (mysql, oci8, pgsql)
+
+- transaction API moved over to PDO: removed autoCommit(), added beginTransaction()
+  and refactored commit() (it doesn't start a new transaction automatically anymore)
+- reworked handling of uncommited transaction for persistant connections when
+  a given connection is no longer in use
+
+- added 'disable_query' option to be able to disable the execution of all queries
+ (this might be useful in conjuntion with a custom debug handler to be able to
+ dump all queries into a file instead of executing them)
+- removed affectedRows() method in favor of returning affectedRows() on query if relevant
+- added generic implementation of query() and moved driver specific code into _doQuery()
+- added _modifyQuery() to any driver that did not yet have it yet
+- standaloneQuery() now also supports SELECT querys
+- remove redundant call to commit() since setting autoCommit() already commits in MDB2::replace()
+- refactored standaloneQuery(), query(), _doQuery(), _wrapResult(); the most important change are:
+  result are only wrapped if it is explicitly requested
+  standaloneQuery() now works just as query() does but with its own connection
+- allowing limits of 0 in setLimit()
+
+- explicitly specify colum name in sequence emulation queries
+- added getBeforeId() and getAfterId()
+- added new supported feature 'auto_increment'
+
+- added default implementation for quoteCLOB() and quoteBLOB()
+- reworked quote handling: moved all implementation details into the extension,
+  made all quote methods private except for quote() itself, honor portability
+  MDB2_PORTABILITY_EMPTY_TO_NULL in quote(), removed MDB2_TYPE_* constants
+- reworked get*Declaration handling: moved all implementation details into the extension,
+  made all quote methods private except for quote() itself
+- placed convert methods after the portability conversions to ensure that the
+  proper type is maintained after the conversion methods
+- dont convert fetched null values in the Datatype module
+
+- removed executeParams() and moved executeMultiple() from extended module
+
+- updated tableInfo() code from DB
+
+- made LIMIT handling more robust by taking some code from DB
+
+All drivers result:
+- performance tweak in fetchCol()
+- added MDB2_FETCHMODE_OBJECT
+- added MDB2_Driver_Result_Common::getRowCounter()
+- added rownum handling to fetchRow()
+- removed fetch() and resultIsNull()
+
+All drivers prepared statements
+- moved prepare/execute API towards PDO
+- setParamsArray() can now handle non ordered arrays
+- removed requirement for LOB inserts to pass the parameters as an array
+- placeholders are now numbered starting from 0 (BC break in setParam() !)
+- queries inside the prepared_queries property now start counting at 1 (performance tweak)
+- refactored handling of filename LOB values (prefix with 'file://')
+- removed _executePrepared(), drivers need to overwrite execute() for now on
+- add support for oracle style named parameters and modified test suite accordingly
+
+MySQL driver:
+- improved handling of MDB2_PORTABILITY_LOWERCASE in all the reverse
+  methods inside the mysql driver to work coherently
+- fixed several issues in the listTablefields() method of manager drivers
+
+MSSQL driver:
+- added code in MDB2_Driver_mssql::connect() to better handle date values
+  independant of ini and locale settings inside the server
+- use comma, rather than colon, to delimit port in MDB2_driver_mssql::connect().
+  Bug 2140. (danielc)
+- unified mssql standalone query with sqlite, mysql and others (not tested on
+  mssql yet, but since mssql automatically reuses connections per dsn the old
+  way could gurantee anything different from happening)
+
+PgSQL driver:
+- use track_errors to capture error messages in MDB2_driver_pgsql::connect().
+  Bug 2011. (danielc)
+- add port to connect string when protocol is unix in MDB2_driver_pgsql::connect().
+  Bug 1919. (danielc)
+- accommodate changes made to PostgreSQL so &quot;no such field&quot; errors get properly
+  indicated rather than being mislabeled as &quot;no such table.&quot; (danielc)
+- added &quot;permission denied&quot; to error regex in pgsql driver.
+  Bug 2417. (stewart_linux-org-au)
+
+OCI8 driver:
+- fixed typo in MDB2_Driver_Manager_oci8::listTables() (fix for bug #2434)
+- added emulate_database option (default true) to the Oracle driver that handles
+  if the database_name should be used for connections of the username
+- oci8 driver now uses native bind support for all types in prepare()/execute()
+
+Interbase driver:
+- completely revised ibase driver, now passing all tests under php5
+
+Frontbase driver:
+- fbsql: use correct error codes. Was using MySQL's codes by mistake.
+
+MySQLi driver:
+- added mysqli driver (passes all tests, but doesnt use native prepare yet)
+
+DB wrapper
+- fixed a large number of compatibility issues in the PEAR::DB wrapper
+
+Iterator
+- fixed several bugs and updated the interface to match the final php5 iterator API
+- buffered result sets now implements seekable
+- removed unnecessary returns
+- throw pear error on rewind in unbuffered result set
+- renamed size() to count() to match the upcoming Countable interface
+
+Extended module:
+- modified the signature of the auto*() methods to be compatible with DB (bug #3720)
+- tweaked buildManipSQL() to not use loops (bug #3721)
+
+MDB_Tools_Manager
+- updated raiseError method in the Manager to be compatible with
+  XML_Parser 1.1.x and return useful error message (fix bug #2055)
+- major refactoring of MDB2_Manager resulting in several new methods being available
+- fixed error in MDB2_Manager::_escapeSpecialCharacter() that would lead to
+  incorrect handling of integer values (this needs to be explored in more detail)
+- several typo fixes and minor logic errors (among others a fix for bug #2057)
+- moved xml dumping in MDB2_Tools_Manager into separate Writer class
+- fixed bugs in start value handling in create sequence (bug #3077)</notes>
+    <deps>
+      <dep type="php" rel="ge" version="4.2.0" optional="no"/>
+      <dep type="pkg" rel="ge" version="1.0b1" optional="no">PEAR</dep>
+      <dep type="pkg" rel="has" optional="no">XML_Parser</dep>
+    </deps>
+    <filelist>
+      <file role="doc" baseinstalldir="/" md5sum="a253b37e185622112acfef6c94b79aef" name="docs\CONTRIBUTORS"/>
+      <file role="doc" baseinstalldir="/" md5sum="cc1befe78146094be02f89bbb201b4ab" name="docs\datatypes.html"/>
+      <file role="doc" baseinstalldir="/" md5sum="58cfee79a8e774d8c10e3a773af7fe80" name="docs\Driver_Datatype_skeleton.php"/>
+      <file role="doc" baseinstalldir="/" md5sum="b194e5252ada4e068b40fc9c9364e957" name="docs\Driver_Manager_skeleton.php"/>
+      <file role="doc" baseinstalldir="/" md5sum="5ff94c70cae0816c90ac45e7f3c0032e" name="docs\Driver_Native_skeleton.php"/>
+      <file role="doc" baseinstalldir="/" md5sum="a8e3f88b940affb93e1e31c6ed32b8f1" name="docs\Driver_Reverse_skeleton.php"/>
+      <file role="doc" baseinstalldir="/" md5sum="ec1836a099f671246452426c397522a2" name="docs\Driver_skeleton.php"/>
+      <file role="doc" baseinstalldir="/" md5sum="c1fe9863db1ef4da67e4be7c549b0290" name="docs\MAINTAINERS"/>
+      <file role="doc" baseinstalldir="/" md5sum="175c39961f74f1f57f8517754c020d7a" name="docs\MDB.dtd"/>
+      <file role="doc" baseinstalldir="/" md5sum="716a1121d17b957ca952c6f1e9c4e4b1" name="docs\MDB.xsl"/>
+      <file role="doc" baseinstalldir="/" md5sum="d614bf6554118eee444c248efd2c43ee" name="docs\querysim_readme.txt"/>
+      <file role="doc" baseinstalldir="/" md5sum="2804f898c7cedd55613e89c5d4249694" name="docs\README"/>
+      <file role="doc" baseinstalldir="/" md5sum="bc422988051fb70b3763a09675f2901b" name="docs\STATUS"/>
+      <file role="doc" baseinstalldir="/" md5sum="690f96be982ff89dae76a826818c4ece" name="docs\TODO"/>
+      <file role="doc" baseinstalldir="/" md5sum="fea6536d9408f162c444a9229f9dbffe" name="docs\xml_schema_documentation.html"/>
+      <file role="doc" baseinstalldir="/" md5sum="3be0a9aaac03cc609edd2844d5c2e7a9" name="docs\examples\example.php"/>
+      <file role="doc" baseinstalldir="/" md5sum="74b2bb45de61eccbffed7d75d5268af9" name="docs\examples\metapear_test_db.schema"/>
+      <file role="doc" baseinstalldir="/" md5sum="735ae01f0aa509ba72d31a8add91a7e5" name="docs\examples\peardb_wrapper_example.php"/>
+      <file role="php" baseinstalldir="/" md5sum="45d0294ce10540496158c80d17ac908e" name="MDB2\Date.php"/>
+      <file role="php" baseinstalldir="/" md5sum="1c992057725fe0b8b4507cff42a0876e" name="MDB2\Extended.php"/>
+      <file role="php" baseinstalldir="/" md5sum="a904afeec5b522664703cff7cd65a1df" name="MDB2\Iterator.php"/>
+      <file role="php" baseinstalldir="/" md5sum="fb273b97f351e09c3a966bca9de4764e" name="MDB2\LOB.php"/>
+      <file role="php" baseinstalldir="/" md5sum="4158dfb0c58c2b17b5b58fe53c599bc1" name="MDB2\Driver\fbsql.php"/>
+      <file role="php" baseinstalldir="/" md5sum="23e300b3a2300ff6d88333fd84c23c0e" name="MDB2\Driver\ibase.php"/>
+      <file role="php" baseinstalldir="/" md5sum="e487fea0d49974ce15f3def38897198b" name="MDB2\Driver\mssql.php"/>
+      <file role="php" baseinstalldir="/" md5sum="c13405af54d0cc6693b64afc9b5080f9" name="MDB2\Driver\mysql.php"/>
+      <file role="php" baseinstalldir="/" md5sum="8d74cd98539f7f1a53a730136e9a41b0" name="MDB2\Driver\mysqli.php"/>
+      <file role="php" baseinstalldir="/" md5sum="62ef1902875e226ac75c503290b9e294" name="MDB2\Driver\oci8.php"/>
+      <file role="php" baseinstalldir="/" md5sum="6760b8b3918dccde801a7d267a109441" name="MDB2\Driver\pgsql.php"/>
+      <file role="php" baseinstalldir="/" md5sum="8231c0eee49b8e8146a2ec4bac61e3e9" name="MDB2\Driver\querysim.php"/>
+      <file role="php" baseinstalldir="/" md5sum="fdce1af9bbc3866aad8868a94a469ada" name="MDB2\Driver\sqlite.php"/>
+      <file role="php" baseinstalldir="/" md5sum="9675987b9ff88c10dc8615fc1328ebfb" name="MDB2\Driver\Datatype\Common.php"/>
+      <file role="php" baseinstalldir="/" md5sum="58f67ee46445366df5bd8fa528343374" name="MDB2\Driver\Datatype\fbsql.php"/>
+      <file role="php" baseinstalldir="/" md5sum="095a0bdfa2c3115d3619a453f87ba865" name="MDB2\Driver\Datatype\ibase.php"/>
+      <file role="php" baseinstalldir="/" md5sum="983b812fafb0985c4e67d485ca1e83bd" name="MDB2\Driver\Datatype\mssql.php"/>
+      <file role="php" baseinstalldir="/" md5sum="ad53fc77f71267fc699bed4d1ae7d8e5" name="MDB2\Driver\Datatype\mysql.php"/>
+      <file role="php" baseinstalldir="/" md5sum="1301b509979de3aed85168c0991b21e9" name="MDB2\Driver\Datatype\mysqli.php"/>
+      <file role="php" baseinstalldir="/" md5sum="352d13715f4cca47b7eb0309e167667e" name="MDB2\Driver\Datatype\oci8.php"/>
+      <file role="php" baseinstalldir="/" md5sum="aa035fee32372404334e4e81102374ed" name="MDB2\Driver\Datatype\pgsql.php"/>
+      <file role="php" baseinstalldir="/" md5sum="3559cd8414321dd87763fe64a59af595" name="MDB2\Driver\Datatype\sqlite.php"/>
+      <file role="php" baseinstalldir="/" md5sum="2c94c48bb2eaf9d2a4e456a38d398a6e" name="MDB2\Driver\Manager\Common.php"/>
+      <file role="php" baseinstalldir="/" md5sum="c710b9f259bd31f14d1412b102ab5a4a" name="MDB2\Driver\Manager\fbsql.php"/>
+      <file role="php" baseinstalldir="/" md5sum="bd79e81249b46097917916785212c5b8" name="MDB2\Driver\Manager\ibase.php"/>
+      <file role="php" baseinstalldir="/" md5sum="fc6703c9b8d582ad047bb2d0eefbbeae" name="MDB2\Driver\Manager\mssql.php"/>
+      <file role="php" baseinstalldir="/" md5sum="8b1b0735823a3624ea425f8dfc240968" name="MDB2\Driver\Manager\mysql.php"/>
+      <file role="php" baseinstalldir="/" md5sum="29d33c545b1ac901c7dfecb64845d251" name="MDB2\Driver\Manager\mysqli.php"/>
+      <file role="php" baseinstalldir="/" md5sum="980db08c69b02ae0ac3217c7568552d1" name="MDB2\Driver\Manager\oci8.php"/>
+      <file role="php" baseinstalldir="/" md5sum="d7cac7ddf11407baca0538894a5d446c" name="MDB2\Driver\Manager\pgsql.php"/>
+      <file role="php" baseinstalldir="/" md5sum="522de0edee7df9b8b3cfaa1af2ecf5c2" name="MDB2\Driver\Manager\sqlite.php"/>
+      <file role="php" baseinstalldir="/" md5sum="56ea6703638c5a7c83ebea82cbc6f995" name="MDB2\Driver\Native\fbsql.php"/>
+      <file role="php" baseinstalldir="/" md5sum="213e93b813a1c9fe819283f3d4d63c34" name="MDB2\Driver\Native\ibase.php"/>
+      <file role="php" baseinstalldir="/" md5sum="a8ac9ce7d21be75f947dcd6140d7a1e0" name="MDB2\Driver\Native\mssql.php"/>
+      <file role="php" baseinstalldir="/" md5sum="3019eaf36b2ddeffb493d7e57efb9a16" name="MDB2\Driver\Native\mysql.php"/>
+      <file role="php" baseinstalldir="/" md5sum="5c2fd09831a1e5552fb56047c9b471c1" name="MDB2\Driver\Native\mysqli.php"/>
+      <file role="php" baseinstalldir="/" md5sum="0081a0d842d903b1542941a4a1954616" name="MDB2\Driver\Native\oci8.php"/>
+      <file role="php" baseinstalldir="/" md5sum="07449f71953283f61cbf16057f6bf056" name="MDB2\Driver\Native\pgsql.php"/>
+      <file role="php" baseinstalldir="/" md5sum="4e570a7fffc947a71a8cd67ba1ec8b93" name="MDB2\Driver\Native\sqlite.php"/>
+      <file role="php" baseinstalldir="/" md5sum="bb2880245c0fabc19cb6b1b20d5e0bcf" name="MDB2\Driver\Reverse\Common.php"/>
+      <file role="php" baseinstalldir="/" md5sum="9c38d067d90825c0bb795024a9dc0e3e" name="MDB2\Driver\Reverse\fbsql.php"/>
+      <file role="php" baseinstalldir="/" md5sum="e423e9d18380c51b5026e480f2146815" name="MDB2\Driver\Reverse\ibase.php"/>
+      <file role="php" baseinstalldir="/" md5sum="871d40b5e75b4f6ca42d43ed9e6a9f37" name="MDB2\Driver\Reverse\mssql.php"/>
+      <file role="php" baseinstalldir="/" md5sum="e9dfd9a58860b5be98f9b271f3d60594" name="MDB2\Driver\Reverse\mysql.php"/>
+      <file role="php" baseinstalldir="/" md5sum="84ee70e87071e2fa30bb6e77f4c188f0" name="MDB2\Driver\Reverse\mysqli.php"/>
+      <file role="php" baseinstalldir="/" md5sum="6de9b4e2a2f08067feda2b7b7d7d7067" name="MDB2\Driver\Reverse\oci8.php"/>
+      <file role="php" baseinstalldir="/" md5sum="1e7debedff2bf4ab66284ba0a410c6df" name="MDB2\Driver\Reverse\pgsql.php"/>
+      <file role="php" baseinstalldir="/" md5sum="df41b9eb9180f231e05d70762feb8677" name="MDB2\Driver\Reverse\sqlite.php"/>
+      <file role="php" baseinstalldir="/" md5sum="4d49ccb01c70b9c7b0c841e6174f6216" name="MDB2\Tools\Manager.php"/>
+      <file role="php" baseinstalldir="/" md5sum="fffb3c9daf0626e5251eb4e2a84dc955" name="MDB2\Tools\reverse_engineer_xml_schema.php"/>
+      <file role="php" baseinstalldir="/" md5sum="3afb34ce29d69aa2e8c8ad515a30078f" name="MDB2\Tools\Manager\Parser.php"/>
+      <file role="php" baseinstalldir="/" md5sum="8f5833ffe7516c6148b3448215a05eca" name="MDB2\Tools\Manager\Writer.php"/>
+      <file role="php" baseinstalldir="/" md5sum="a7ecc20e67507056542cf0b610e1515f" name="MDB2\Wrapper\peardb.php"/>
+      <file role="test" baseinstalldir="/" md5sum="e422576d1b0cb3ee0455c2dd64ab51b9" name="tests\clitest.php"/>
+      <file role="test" baseinstalldir="/" md5sum="2a2c534ab4afb0c05ca9d7ca47815bf5" name="tests\Console_TestListener.php"/>
+      <file role="test" baseinstalldir="/" md5sum="533b34483b07659817b51735978a461a" name="tests\driver_test.schema"/>
+      <file role="test" baseinstalldir="/" md5sum="d46a8f267dbd54f0c7ff55e479d33e7e" name="tests\HTML_TestListener.php"/>
+      <file role="test" baseinstalldir="/" md5sum="229d54dc8298b7513515cce639c83f38" name="tests\lob_test.schema"/>
+      <file role="test" baseinstalldir="/" md5sum="a3b2ee4233bfbbd7105e3e62af4e2d6a" name="tests\MDB2_api_testcase.php"/>
+      <file role="test" baseinstalldir="/" md5sum="3b6aac33c846ecf039364f50840622c0" name="tests\MDB2_bugs_testcase.php"/>
+      <file role="test" baseinstalldir="/" md5sum="9e687f2f00d844d0be7f99cba2783d60" name="tests\MDB2_manager_testcase.php"/>
+      <file role="test" baseinstalldir="/" md5sum="c7652c54de50b33a7bdd60d9267f23a8" name="tests\MDB2_native_testcase.php"/>
+      <file role="test" baseinstalldir="/" md5sum="6340b293c70ba7892846bfe684307899" name="tests\MDB2_reverse_testcase.php"/>
+      <file role="test" baseinstalldir="/" md5sum="efff8ec5e4cab5719fbf82612a8dfd9a" name="tests\MDB2_usage_testcase.php"/>
+      <file role="test" baseinstalldir="/" md5sum="59f2441ab897a919b75acc4409597a10" name="tests\README"/>
+      <file role="test" baseinstalldir="/" md5sum="52cb8846edd4bdc49d1c944d89993512" name="tests\test.php"/>
+      <file role="test" baseinstalldir="/" md5sum="aea7a3e5eaba197c7b7ff215d2305d61" name="tests\testchoose.php"/>
+      <file role="test" baseinstalldir="/" md5sum="3c4d2c9d89398c5692d36299d98f9c6e" name="tests\tests.css"/>
+      <file role="test" baseinstalldir="/" md5sum="435a37eb1acdea594dab91c5f11308ed" name="tests\testUtils.php"/>
+      <file role="test" baseinstalldir="/" md5sum="7494ce5eae49f6b03cc374cb61db8f08" name="tests\test_setup.php.dist"/>
+      <file role="test" baseinstalldir="/" md5sum="f243a1982517f94f116f23d21fa9d794" name="tests\templates\results.tpl"/>
+      <file role="php" baseinstalldir="/" md5sum="84624c8e4933d96a570964780a2dabe9" name="MDB2.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>2.0.0beta3</version>
+      <date>2005-03-06</date>
+      <license>BSD License</license>
+      <state>beta</state>
+      <notes>Warning: this release features numerous BC breaks to make the MDB2 API be as
+similar as possible as the ext/pdo API! The next release is likely to also break
+BC for the same reason. Check php.net/pdo for information on the pdo API.
+
+Oracle NULL in LOB fields is broken.
+The fbsql and mssql drivers are likely to be broken as they are largely untested.
+
+MDB2 static class:
+- &quot;xxx&quot; out password on connect error in MDB2::connect()
+- MDB2::isError now also optionally accepts and error code to check for
+- added LOAD DATA (port from DB) and SET to MDB2::isManip()
+
+All drivers:
+- use __construct() (PHP4 BC hacks are provided)
+- allow null values to be set for options
+- ensure we are returning a reference in all relevant places
+
+- allow errorInfo() to be called when no connection has been established yet
+- use MDB2_ERROR_UNSUPPORTED instead of MDB2_ERROR_NOT_CAPABLE in common implementations
+- readded MDB2_Error as the baseclass for all MDB2 error objects
+- updated error mappings from DB
+
+- added MDB2_Driver_Common::getDatabase();
+- reworked dsn default handling
+- added ability to &quot;xxx&quot; out password in getDSN()
+
+- use _close() method in several places where they previously were not used
+- removed redundant code in _close() that dealt with transaction closing already
+  done in disconnect()
+- if the dbsyntax is set in the dsn it will be set in the dbsyntax property
+- only disconnect persistant connections if disconnect() has been explicitly
+  called by the user
+- instead of having a generic implemention of disconnect() we will rename
+  _close() to disconnect() to overwrite the generic implementation
+- added support for 'new_link' dsn option for all supported drivers (mysql, oci8, pgsql)
+
+- transaction API moved over to PDO: removed autoCommit(), added beginTransaction()
+  and refactored commit() (it doesn't start a new transaction automatically anymore)
+- reworked handling of uncommited transaction for persistant connections when
+  a given connection is no longer in use
+
+- added 'disable_query' option to be able to disable the execution of all queries
+ (this might be useful in conjuntion with a custom debug handler to be able to
+ dump all queries into a file instead of executing them)
+- removed affectedRows() method in favor of returning affectedRows() on query if relevant
+- added generic implementation of query() and moved driver specific code into _doQuery()
+- added _modifyQuery() to any driver that did not yet have it yet
+- standaloneQuery() now also supports SELECT querys
+- remove redundant call to commit() since setting autoCommit() already commits in MDB2::replace()
+- refactored standaloneQuery(), query(), _doQuery(), _wrapResult(); the most important change are:
+  result are only wrapped if it is explicitly requested
+  standaloneQuery() now works just as query() does but with its own connection
+- allowing limits of 0 in setLimit()
+
+- explicitly specify colum name in sequence emulation queries
+- added getBeforeId() and getAfterId()
+- added new supported feature 'auto_increment'
+
+- added default implementation for quoteCLOB() and quoteBLOB()
+- reworked quote handling: moved all implementation details into the extension,
+  made all quote methods private except for quote() itself, honor portability
+  MDB2_PORTABILITY_EMPTY_TO_NULL in quote(), removed MDB2_TYPE_* constants
+- reworked get*Declaration handling: moved all implementation details into the extension,
+  made all quote methods private except for quote() itself
+- placed convert methods after the portability conversions to ensure that the
+  proper type is maintained after the conversion methods
+- dont convert fetched null values in the Datatype module
+
+- removed executeParams() and moved executeMultiple() from extended module
+
+- updated tableInfo() code from DB
+
+- made LIMIT handling more robust by taking some code from DB
+
+All drivers result:
+- performance tweak in fetchCol()
+- added MDB2_FETCHMODE_OBJECT
+- added MDB2_Driver_Result_Common::getRowCounter()
+- added rownum handling to fetchRow()
+- removed fetch() and resultIsNull()
+
+All drivers prepared statements
+- moved prepare/execute API towards PDO
+- setParamsArray() can now handle non ordered arrays
+- removed requirement for LOB inserts to pass the parameters as an array
+- placeholders are now numbered starting from 0 (BC break in setParam() !)
+- queries inside the prepared_queries property now start counting at 1 (performance tweak)
+- refactored handling of filename LOB values (prefix with 'file://')
+- removed _executePrepared(), drivers need to overwrite execute() for now on
+- add support for oracle style named parameters and modified test suite accordingly
+
+MySQL driver:
+- improved handling of MDB2_PORTABILITY_LOWERCASE in all the reverse
+  methods inside the mysql driver to work coherently
+- fixed several issues in the listTablefields() method of manager drivers
+
+MSSQL driver:
+- added code in MDB2_Driver_mssql::connect() to better handle date values
+  independant of ini and locale settings inside the server
+- use comma, rather than colon, to delimit port in MDB2_driver_mssql::connect().
+  Bug 2140. (danielc)
+- unified mssql standalone query with sqlite, mysql and others (not tested on
+  mssql yet, but since mssql automatically reuses connections per dsn the old
+  way could gurantee anything different from happening)
+
+PgSQL driver:
+- use track_errors to capture error messages in MDB2_driver_pgsql::connect().
+  Bug 2011. (danielc)
+- add port to connect string when protocol is unix in MDB2_driver_pgsql::connect().
+  Bug 1919. (danielc)
+- accommodate changes made to PostgreSQL so &quot;no such field&quot; errors get properly
+  indicated rather than being mislabeled as &quot;no such table.&quot; (danielc)
+- added &quot;permission denied&quot; to error regex in pgsql driver.
+  Bug 2417. (stewart_linux-org-au)
+
+OCI8 driver:
+- fixed typo in MDB2_Driver_Manager_oci8::listTables() (fix for bug #2434)
+- added emulate_database option (default true) to the Oracle driver that handles
+  if the database_name should be used for connections of the username
+- oci8 driver now uses native bind support for all types in prepare()/execute()
+
+Interbase driver:
+- completely revised ibase driver, now passing all tests under php5
+
+Frontbase driver:
+- fbsql: use correct error codes. Was using MySQL's codes by mistake.
+
+MySQLi driver:
+- added mysqli driver (passes all tests, but doesnt use native prepare yet)
+
+DB wrapper
+- fixed a large number of compatibility issues in the PEAR::DB wrapper
+
+Iterator
+- fixed several bugs and updated the interface to match the final php5 iterator API
+- buffered result sets now implements seekable
+- removed unnecessary returns
+- throw pear error on rewind in unbuffered result set
+- renamed size() to count() to match the upcoming Countable interface
+
+Extended module:
+- modified the signature of the auto*() methods to be compatible with DB (bug #3720)
+- tweaked buildManipSQL() to not use loops (bug #3721)
+
+MDB_Tools_Manager
+- updated raiseError method in the Manager to be compatible with
+  XML_Parser 1.1.x and return useful error message (fix bug #2055)
+- major refactoring of MDB2_Manager resulting in several new methods being available
+- fixed error in MDB2_Manager::_escapeSpecialCharacter() that would lead to
+  incorrect handling of integer values (this needs to be explored in more detail)
+- several typo fixes and minor logic errors (among others a fix for bug #2057)
+- moved xml dumping in MDB2_Tools_Manager into separate Writer class
+- fixed bugs in start value handling in create sequence (bug #3077)
+</notes>
+    </release>
+    <release>
+      <version>2.0.0beta2</version>
+      <date>2004-04-25</date>
+      <license>BSD License</license>
+      <state>beta</state>
+      <notes>The core of MDB2 is now fairly stable API-wise. The modules, especially the
+manager and reverse module, might see some API refinement before the first
+stable release.
+- added listTables() and listTableFields() methods to MDB2_Driver_Manager_mssql
+  and MDB2_Driver_Manager_oci8
+- reversed parameter order of getValue(), type parameter is now optional and
+  will then be autodetected (BC break!)
+- renamed get*Value() to quote*() (BC break!)
+- fixed LOB management in MDB2_Driver_ibase
+- moved getOne, getRow, getCol, getAll back into the exteneded module (most
+  users should be able to move to the queryOne, queryRow, queryCol and queryAll
+  equivalent) (BC break!)
+- added getAssoc to the extended module
+- fixed bug in MDB2_Driver_Datatype_Common::implodeArray()
+- added sequence_col_name option to make the column name inside sequence
+  emulation tables configurable
+- fixed a bug in the MDB2_Driver_oci8 and MDB2_Driver_ibase buffering emulation
+  when using limit queries
+- removed MDB2_PORTABILITY_NULL_TO_EMPTY in favor of MDB2_PORTABILITY_EMPTY_TO_NULL
+  this means that DB and MDB2 work exactly the opposite now, but it seems more
+  efficient to do things the way Oracle does since this is the RDBMS which
+  creates the original issue to begin with (BC break!)
+- fixed a typos in getAll, getAssoc and getCol
+- test suite: moved set_time_limit() call to the setup script to be easier to customize
+- renamed hasMore() to valid() due to changes in the PHP5 iterator API (BC break!)
+- renamed toString() to __toString() in order to take advantage of new PHP5
+  goodness and made it public
+- MDB2_Driver_Datatype_Common::setResultTypes() can now handle missing elements
+  inside type arrays: array(2 =&gt; 'boolean', 4 =&gt; 'timestamp')
+- fixed potential warning due to manipulation query detection in the query*()
+  and the get*() query+fetch methods
+- added tests for fetchAll() and fetchCol()
+- performance tweaks for fetchAll() and fetchCol()
+- fixed MDB2_Driver_Manager_mysql::listTableIndexes()
+- fixed MDB2_Driver_Common::debug()
+- renamed MDB2::isResult() to MDB2::isResultCommon()
+- added base result class MDB2_Result from which all result sets should be
+  inherited and added MDB2::isResult() which checks if a given object extends from it
+- added 'result_wrap_class' option and optional parameter to query() to enable
+  wrapping of result classes into an arbitrary class
+- added $result_class param to all drivers where it was missing from the
+  query() and _executePrepared() methods
+- applied several fixes to the PEAR::DB wrapper
+- fixed a typo in MDB2_Driver_Reverse_pgsql::tableInfo()
+</notes>
+    </release>
+    <release>
+      <version>2.0.0beta1</version>
+      <date>2004-03-12</date>
+      <license>BSD License</license>
+      <state>alpha</state>
+      <notes>- fixed bug in MDB2::singleton
+- fixed minor bugs in prepare/execute
+- added PEAR::DB wrapper (not working yet)
+- fixed several bugs in the ibase driver
+- fixed several PHP5 related issues
+- fixed bug in sequence creation on MySQL
+- fixed issues with nextid() ondemand handling in conjunction with currId()
+- added native currId() implementation for the Oracle driver
+- fixed sqlite driver (passes all but the REPLACE test due to a conformance issue in sqlite itself)
+- removed decimal_factor property to allow changing of decimal_places option
+- using native escape string methods in sqlite and mysql driver
+- fixed minor conformance issues in tableInfo() in the oci8 and mysql driver
+- removed optimize option and added portability option instead (ported from DB)
+- added quoteIdentifier() method (ported from DB)
+- added STATUS document to make the status of the drivers more transparent
+- fixed a few bugs in querysim driver
+- fixed issue in mysql reverse engineering: ensuring the correct case is used when
+  doing assoc fetches based on portability flag setting
+- updated reverse engineering script to the new MDB2 API
+- removed broken implementations of currId() in the mssql and fbsql driver
+- fixed a few instances of MDB_Common to the new class name of MDB_Driver_Common
+</notes>
+    </release>
+    <release>
+      <version>2.0.0alpha1</version>
+      <date>2004-01-05</date>
+      <license>BSD License</license>
+      <state>alpha</state>
+      <notes>This is the first alpha release of MDB2 2.0.
+
+MDB2 2.x breaks backwards compatibility in many ways in order to simplify
+the API for both users and drivers developers.
+
+Please note that currently only the MySQL, the PostGreSQL and the Oracle driver
+have been tested to pass the test suite.
+
+Here follows a short list of the most important changes:
+- all code that is not necessary for basic operation is now separateed
+  into separate modules which can be loaded with the loadModule() method
+- all datatype related methods have been moved to a dataype module with
+  the notable exception of getValue() and the newly introduced getDeclaration()
+- added extended module for highlevel methods
+- all manager method are no longer available in the core class and or
+  now only available in the manager module
+- all reverse engineering methods have been taken from the manager class
+  and are now available through the reverse module
+- a new module has been added to allow the addition of methods with
+  RDBMS specific functionality (like getting the last autoincrement ID)
+- LOB handling has been greatly simplified
+- several methods names have been shortend
+- the fetch.+() methods do not free the result set anymore
+- the Manager and the reverse_engineer_xml_schema have been moved into
+  a Tools directory
+- all parameters are now lowercased with underscores as separators
+- all drivers now support all of the dsn options that PEAR DB supports
+- several methods have been removed because they offered redundant functionality
+- changed prepare API type is now passed to prepare and not to setParam*()
+- results are now wrapped inside objects and all methods which operate
+  on resultsets have been moved into respecitive classes
+- there are two types of result object: buffered (default) and unbuffered
+- totally rewrote buffering and limit emulation
+</notes>
+    </release>
+  </changelog>
+</package>

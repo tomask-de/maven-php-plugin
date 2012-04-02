@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE package SYSTEM "../package.dtd">
+<!-- do not use the "Type" attribute here, that one is only for
+     generated package.xml files -->
+<package>
+    <name>DBA</name>
+    <summary>Berkely-style Database Class</summary>
+    <description>
+        Implements a DBM-style database using either PHP's DBA functions or a simple DBM class written in PHP. Also provides a relational database system with support for selects, joins, sorts, projects, multiple tables, type checking, autoincrements and more.
+    </description>
+
+    <maintainers>
+        <maintainer>
+            <user>busterb</user>
+            <name>Brent Cook</name>
+            <email>busterb@mail.utexas.edu</email>
+            <role>lead</role>
+        </maintainer>
+    </maintainers>
+
+    <release>
+        <license>LGPL</license>
+        <version>0.16</version>
+        <date>2002-07-14</date>
+        <state>beta</state>
+        <notes>
+            <![CDATA[
+            More API changes to come, but so far, they're minimal. I'm getting
+            things cleaned up so that the upcoming SQL frontend will fit nicely.
+            
+            * Schema format has changed; use DBA_* constants rather than
+              strings to organize meta data. See example schemas.
+            * Dropped support for autodecrement; initialize autoincrement by
+              supplying a default value rather than using the keyword 'init'
+            * Fixed-length char type support added, varchar preallocates
+              space in DBA driver if size is supplied
+            * Fixed some problems with inserting on tables when no primary
+              key was specified
+            * Added DBA_Toolbox.php to hold utility functions that are
+              not necessary for working with DBA, just useful.
+            ]]>
+        </notes>
+        <filelist>
+            <dir name="/" baseinstalldir="DB/DBA">
+                <file role="php">DBA.php</file>
+                <file role="php">DBA_Simple.php</file>
+                <file role="php">DBA_Compat.php</file>
+                <file role="php">DBA_Builtin.php</file>
+                <file role="php">DBA_Table.php</file>
+                <file role="php">DBA_Relational.php</file>
+                <file role="php">DBA_Toolbox.php</file>
+                <dir name="tests" role="test">
+                    <file role="test">benchmark_drivers.php</file>
+                    <file role="test">test_simple.php</file>
+                    <file role="test">test_relational.php</file>
+                    <file role="test">test_table.php</file>
+                    <file role="test">empSchema.php</file>
+                    <file role="test">hatSchema.php</file>
+                </dir>
+                <dir name="docs" role="doc">
+                    <file role="doc">README.txt</file>
+                    <file role="doc">Examples.txt</file>
+                </dir>
+            </dir>
+        </filelist>
+    </release>
+</package>

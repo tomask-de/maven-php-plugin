@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>HTML_Template_Sigma</name>
+  <summary>An implementation of Integrated Templates API with template 'compilation' added</summary>
+  <description>HTML_Template_Sigma implements Integrated Templates API designed by Ulf Wendel.
+
+Features:
+* Nested blocks. Nesting is controlled by the engine.
+* Ability to include files from within template: &amp;lt;!-- INCLUDE --&amp;gt;
+* Automatic removal of empty blocks and unknown variables (methods to manually tweak/override this are also available)
+* Methods for runtime addition and replacement of blocks in templates
+* Ability to insert simple function calls into templates: func_uppercase('Hello world!') and to define callback functions for these
+* 'Compiled' templates: the engine has to parse a template file using regular expressions to find all the blocks and variable placeholders. This is a very &quot;expensive&quot; operation and is an overkill to do on every page request: templates seldom change on production websites. Thus this feature: an internal representation of the template structure is saved into a file and this file gets loaded instead of the source one on subsequent requests (unless the source changes)
+* PHPUnit-based tests to define correct behaviour
+* Usage examples for most of the features are available, look in the docs/ directory</description>
+  <maintainers>
+    <maintainer>
+      <user>avb</user>
+      <name>Alexey Borzov</name>
+      <email>avb@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.1.1</version>
+    <date>2004-05-31</date>
+    <license>PHP License</license>
+    <state>stable</state>
+    <notes>Callbacks are not called if the block containing them is empty. Thanks
+to Sergey Vasiliev for the suggestion.</notes>
+    <filelist>
+      <file role="php" baseinstalldir="HTML/Template" name="Sigma.php"/>
+      <file role="test" baseinstalldir="HTML/Template" name="tests/templates/addblock.html"/>
+      <file role="test" baseinstalldir="HTML/Template" name="tests/templates/blockiteration.html"/>
+      <file role="test" baseinstalldir="HTML/Template" name="tests/templates/blocks.html"/>
+      <file role="test" baseinstalldir="HTML/Template" name="tests/templates/callback.html"/>
+      <file role="test" baseinstalldir="HTML/Template" name="tests/templates/globals.html"/>
+      <file role="test" baseinstalldir="HTML/Template" name="tests/templates/__include.html"/>
+      <file role="test" baseinstalldir="HTML/Template" name="tests/templates/include.html"/>
+      <file role="test" baseinstalldir="HTML/Template" name="tests/templates/loadtemplatefile.html"/>
+      <file role="test" baseinstalldir="HTML/Template" name="tests/templates/replaceblock.html"/>
+      <file role="test" baseinstalldir="HTML/Template" name="tests/Console_TestListener.php"/>
+      <file role="test" baseinstalldir="HTML/Template" name="tests/Sigma_api_testcase.php"/>
+      <file role="test" baseinstalldir="HTML/Template" name="tests/Sigma_cache_testcase.php"/>
+      <file role="test" baseinstalldir="HTML/Template" name="tests/Sigma_usage_testcase.php"/>
+      <file role="test" baseinstalldir="HTML/Template" name="tests/test.php"/>
+      <file role="doc" baseinstalldir="HTML/Template" name="docs/example_1.php"/>
+      <file role="doc" baseinstalldir="HTML/Template" name="docs/example_2.php"/>
+      <file role="doc" baseinstalldir="HTML/Template" name="docs/example_3.php"/>
+      <file role="doc" baseinstalldir="HTML/Template" name="docs/example_4.php"/>
+      <file role="doc" baseinstalldir="HTML/Template" name="docs/templates/example_1.html"/>
+      <file role="doc" baseinstalldir="HTML/Template" name="docs/templates/example_2.html"/>
+      <file role="doc" baseinstalldir="HTML/Template" name="docs/templates/example_3.html"/>
+      <file role="doc" baseinstalldir="HTML/Template" name="docs/templates/example_3_add.html"/>
+      <file role="doc" baseinstalldir="HTML/Template" name="docs/templates/example_3_include.html"/>
+      <file role="doc" baseinstalldir="HTML/Template" name="docs/templates/example_3_replace_1.html"/>
+      <file role="doc" baseinstalldir="HTML/Template" name="docs/templates/example_3_replace_2.html"/>
+      <file role="doc" baseinstalldir="HTML/Template" name="docs/templates/example_4.html"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>1.1.0</version>
+      <date>2004-04-14</date>
+      <state>stable</state>
+      <notes>* Fixed #876 (get_class() and get_class_methods() usage with PHP5)
+  Unit tests run on PHP5, all tests pass.
+* Added clearVariables() method (see also #939)
+* Added shorthand syntax for callbacks: {var:callback} instead of 
+  func_callback({var})
+* Added builtin callbacks
+	'h' for htmlspecialchars()
+	'u' for urlencode()
+	'j' to escape the string for usage in Javascript
+
+This release is dedicated to Lukas Smith
+      
+</notes>
+    </release>
+    <release>
+      <version>1.0.2</version>
+      <date>2003-10-02</date>
+      <state>stable</state>
+      <notes>* Removed _callbackExists() method, is_callable() is used instead
+* Check for SIGMA_OK instead of PEAR::isError() where possible
+* Fixed unit tests packaging. Should work OK in PEAR installation
+      
+</notes>
+    </release>
+    <release>
+      <version>1.0.1</version>
+      <date>2003-05-20</date>
+      <state>stable</state>
+      <notes>* Added getBlockList() and getPlaceholderList() methods (thanks to Markus Wolff for the idea).
+* HTML_Template_IT compatibility: get() does not clear the parsed block contents by default.
+* Removed obsolete docs, current ones are in the PEAR manual.
+      
+</notes>
+    </release>
+    <release>
+      <version>1.0</version>
+      <date>2003-04-28</date>
+      <state>stable</state>
+      <notes>This release has Sigma's template functions/callbacks infrastructure significantly enhanced.
+This unfortunately means some backwards compatibility breaks. If you were using callbacks before, please carefully examine the release notes and test you scripts before upgrading to 1.0.
+If you weren't using callbacks due to their shortcomings it is a good time to give them a try, consult docs/example_4.php for some of their possible applications.
+
+Template functions/callbacks changes and incompatibilities:
+
+* Templates are parsed for function calls not only on setTemplate()/loadTemplatefile(), but on addBlock()/addBlockfile() and replaceBlock()/replaceBlockfile() as well.
+* The arguments to template functions can now contain variable placeholders: func_uppercase('Hello, {username}!).
+* Template functions are now compatible with template caching.
+* Method setCallbackFunction() now accepts a callback that is compatible with call_user_func() as its second argument. Its third argument is used to control variable substitution in function arguments.
+* Method performCallback() was removed. Callbacks are now called automatically when the block containing them is parse()'d.
+* Callbacks are now called via call_user_func_array() instead of call_user_func(). This makes it possible to use built-in functions as callbacks, but also means that you have to rewrite your old functions!
+* Usage example is available in docs/example_4.php
+
+Other changes:
+
+* Option 'use_preg' was removed.
+* Stricter error checking when doing addBlockfile() with a prepared template.
+      
+</notes>
+    </release>
+    <release>
+      <version>0.9.2</version>
+      <date>2003-04-21</date>
+      <state>stable</state>
+      <notes>* Added usage examples
+* Added the cache FAQ
+* This is the last 0.9.x release unless some bugs are found. The 1.0 release will 
+  have callbacks significantly redone and will require changes to your scripts if
+  you use callbacks.
+      
+</notes>
+    </release>
+    <release>
+      <version>0.9.1</version>
+      <date>2003-04-18</date>
+      <state>stable</state>
+      <notes>* Fix: if source template does not exist, do not load the 'prepared' one, throw an error instead.
+  Thanks to Maxim Panasiuk for the report.
+      
+</notes>
+    </release>
+    <release>
+      <version>0.9</version>
+      <date>2003-04-04</date>
+      <state>stable</state>
+      <notes>Initial PEAR release
+</notes>
+    </release>
+  </changelog>
+</package>

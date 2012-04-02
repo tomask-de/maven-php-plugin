@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.10" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>DB_Table</name>
+ <channel>pear.php.net</channel>
+ <summary>An object oriented interface to a database, which is a wrapper for PEAR DB or 
+MDB2. It provides methods to help build insert, update, delete, and select 
+SQL commands, to automate construction of join conditions, to create or verify
+database tables, and to automatically build input forms with HTML_Quickform.</summary>
+ <description>The DB_Table package provides an object oriented interface to a database. Each 
+instance of the core DB_Table class contains the schema for a table, defined 
+using abstract data types. The class provides a portable api for building insert, 
+update, delete, and select SQL commands, and can validate data types upon 
+insertion and updating. DB_Table also provides methods to automatically create 
+or verify a database table, and (using PEAR HTML_Quickform) to generate input 
+forms that match the column definitions. Each instance of the DB_Table_Database 
+class contains a model of relationships between tables in a database, in which 
+each table is represented by an instance of DB_Table. DB_Table_Database 
+provides automatic construction of join conditions for inner joins involving 
+any number of tables, optional php validation of foreign key validity, and 
+optional php emulation of actions triggered on delete or update of referenced
+rows, such as cascading deletes.</description>
+ <lead>
+  <name>Paul M. Jones</name>
+  <user>pmjones</user>
+  <email>pmjones@php.net</email>
+  <active>no</active>
+ </lead>
+ <lead>
+  <name>David Morse</name>
+  <user>morse</user>
+  <email>morse@php.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Mark Wiesemann</name>
+  <user>wiesemann</user>
+  <email>wiesemann@php.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2007-02-06</date>
+ <time>00:31:17</time>
+ <version>
+  <release>1.5.0RC1</release>
+  <api>1.5.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>- New DB_Table_Database class added to package. The new class provides a model 
+  of foreign key relationships between tables in a database, and features that 
+  depend on knowledge of these relationships. User documentation for this 
+  class is provided in docs/database/manual.html. 
+- Added auto-increment feature to DB_Table insert() method. The value of a new
+  $auto_inc_col property is the name of an auto-increment column (if any) or 
+  null. 
+- added toXML() method to DB_Table, which emits the table schema in the MDB2 
+  XML DTD, with an extension to describe foreign key references. This method 
+  is called by the toXML() method of DB_Table_Database, which emits an XML 
+  schema string for an entire database.</notes>
+ <contents>
+  <dir name="/">
+   <file md5sum="a28045ccb9708ebd8529b35ace45b579" name="DB/Table/Manager/ibase.php" role="php" />
+   <file md5sum="63a1942c30a5982a4d58d676301637d0" name="DB/Table/Manager/mysql.php" role="php" />
+   <file md5sum="0d45d0f4f0c3142d091f057f1d6ba983" name="DB/Table/Manager/mysqli.php" role="php" />
+   <file md5sum="5c28706ee407e0c268ea023e50ca1f1f" name="DB/Table/Manager/oci8.php" role="php" />
+   <file md5sum="7a2dce0d87842bfef5e423e2d9a46231" name="DB/Table/Manager/pgsql.php" role="php" />
+   <file md5sum="90a9d1bc65f5927a43f9699ad0b8553e" name="DB/Table/Manager/sqlite.php" role="php" />
+   <file md5sum="f1d9fcb84969d86794d0e3b8b644c44c" name="DB/Table/Date.php" role="php" />
+   <file md5sum="770d18f9853efbbbf6be16a1218ed9b1" name="DB/Table/Manager.php" role="php" />
+   <file md5sum="6c84f16ffb71602a3e77da71b41f665f" name="DB/Table/QuickForm.php" role="php" />
+   <file md5sum="d920c8c1972ba9fddddb7b3dec9b28a4" name="DB/Table/Valid.php" role="php" />
+   <file md5sum="345192b8b2f0187d95b5b0eee9952b5a" name="DB/Table/Database.php" role="php" />
+   <file md5sum="6304c74b097a491b47663245f7cad96c" name="DB/Table.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="8ef1899479f7eb4f01c06982bcd71d28" name="docs/database/manual.html" role="doc" />
+   <file md5sum="901ec926b86fbe062ca89f88f5c73ded" name="docs/reserved_words/all-words.txt" role="doc" />
+   <file md5sum="74390d93614543e1c73596ab6fa95002" name="docs/reserved_words/mssql-words.txt" role="doc" />
+   <file md5sum="9792629daf6196b5c11b197bbc9ff758" name="docs/reserved_words/mysql-words.txt" role="doc" />
+   <file md5sum="cb0fb75b767bcc0cc9d8af2fe0cf1c4a" name="docs/reserved_words/oci8-words.txt" role="doc" />
+   <file md5sum="b11b385bf7469ae3b4564866fc12504d" name="docs/reserved_words/pgsql-words.txt" role="doc" />
+   <file md5sum="5be1d1483d8fc17b62d2cba2be011ec4" name="docs/reserved_words/sql92-words.txt" role="doc" />
+   <file md5sum="2dbbb83a3a2737c3b76c344101ae3b6f" name="docs/reserved_words/sql99-words.txt" role="doc" />
+   <file md5sum="dd1bd10c2a281bcad4b2ebf47fdaf233" name="docs/reserved_words/sqlite-words.txt" role="doc" />
+   <file md5sum="8a8ef6d347107eecdd1279b66a7ce31a" name="docs/reserved_words/_sources.txt" role="doc" />
+   <file md5sum="2a013c43c110efc37a04c4f811d2f162" name="tests/bogotest.php" role="test" />
+   <file md5sum="6a21cabe4fed7d9eb28a8f1e4f3e8739" name="tests/setup.ini-dist" role="test" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.0.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+  </required>
+  <optional>
+   <package>
+    <name>HTML_QuickForm</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>DB</name>
+    <channel>pear.php.net</channel>
+    <min>1.7.6</min>
+   </package>
+   <package>
+    <name>MDB2</name>
+    <channel>pear.php.net</channel>
+    <min>2.0.1</min>
+   </package>
+  </optional>
+ </dependencies>
+ <phprelease />
+</package>

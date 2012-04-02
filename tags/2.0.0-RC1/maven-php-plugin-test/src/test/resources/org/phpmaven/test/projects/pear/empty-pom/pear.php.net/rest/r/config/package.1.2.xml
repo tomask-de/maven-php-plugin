@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>Config</name>
+  <summary>Your configurations swiss-army knife.</summary>
+  <description>The Config package provides methods for configuration manipulation.
+* Creates configurations from scratch
+* Parses and outputs different formats (XML, PHP, INI, Apache...).
+* Edits existing configurations
+* Converts configurations to other formats
+* Allows manipulation of sections, comments, directives...
+* Parses configurations into a tree structure</description>
+  <maintainers>
+    <maintainer>
+      <user>mansion</user>
+      <name>Bertrand Mansion</name>
+      <email>bmansion@mamasam.com</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.2</version>
+    <date>2003-03-24</date>
+    <license>PHP License</license>
+    <state>stable</state>
+    <notes>First stable release.
+* Added an XML container (uses XML_Parser),
+* Possibility to convert from one format to another,
+* Fixes in toArray(),
+* Added attributes to containers,
+* New methods for item manipulation.</notes>
+    <deps>
+      <dep type="pkg" rel="has">XML_Parser</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="/" md5sum="a01c17772b50a8b3df06444e5bfaec54" name="Config.php"/>
+      <file role="php" md5sum="efe141496ce48c234438ac48a6460b2f" name="Config/Container.php"/>
+      <file role="php" md5sum="33bd825e7ab7a3445eef81997ad39a66" name="Config/Container/Apache.php"/>
+      <file role="php" md5sum="80f61d611e80ace3b25c0f717ff27afa" name="Config/Container/GenericConf.php"/>
+      <file role="php" md5sum="82909fd664fe2414d188178e694052e2" name="Config/Container/IniCommented.php"/>
+      <file role="php" md5sum="51afd35c5a6ac1a2230f6ba1d4c5c585" name="Config/Container/IniFile.php"/>
+      <file role="php" md5sum="e3f5ce197716893a93aaf704400274c8" name="Config/Container/PHPArray.php"/>
+      <file role="php" md5sum="3aedef5330f15ca489dc30f1aa063cc2" name="Config/Container/XML.php"/>
+      <file role="doc" md5sum="3f258a90dbd6371c52337d83e763bdb8" name="docs/Apache.php"/>
+      <file role="doc" md5sum="d318015f57ae2694d0f3e8cb85813b65" name="docs/IniCommented.php"/>
+      <file role="doc" md5sum="bce55b10d2e5ffef5a4a04aba92851ce" name="docs/IniFromScratch.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>1.1</version>
+      <date>2002-10-08</date>
+      <state>beta</state>
+      <notes>Fix bug in toArray().
+Thanks to Mark Polsen for noticing it.
+    
+</notes>
+    </release>
+    <release>
+      <version>1.0</version>
+      <notes>Complete rewrite : API has changed.
+The class now uses a tree structure of container objects.
+As a consequence, backward compatibility is not provided !!!
+Look at the Apache.php and IniCommented.php scripts in 'docs' for usage examples.
+Some containers are still missing : XML and DB.
+    
+</notes>
+    </release>
+    <release>
+      <version>0.3.1</version>
+      <notes>Documentation is in README.Config.
+0.3.1
+-  E_ALL fixes
+    
+</notes>
+    </release>
+    <release>
+      <version>0.3</version>
+      <notes>- some fixes
+- add WDDX-Container for config data in WDDX-files
+- add phpIniFile, does the same like IniFile but based on the PHP build-in function parse_ini_file()
+    
+</notes>
+    </release>
+    <release>
+      <version>0.2.2</version>
+      <notes>- Only the first char of -&gt;feature['cc'] is taken as a comment deliminator
+- quoting supports both methods:
+  [bla]
+  foo = &quot;'bar'&quot;
+  bar = '&quot;foo&quot;'
+- Value parser only parser until first comment-char or the end of the string, therefore spaces surrounded by nonspaces don't have to be quoted.
+    
+</notes>
+    </release>
+    <release>
+      <version>0.2.1</version>
+      <notes>- Bug fixed, when $feature in ParseInput was not set 
+- some e_warnings fixed
+(thanks to Markus Fischer for the reports)      
+    
+</notes>
+    </release>
+  </changelog>
+</package>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "../package.dtd">
+<!-- do not use the "Type" attribute here, that one is only for
+     generated package.xml files -->
+<package version="1.0">
+  <name>Crypt_Xtea</name>
+  <summary>
+    A class that implements the Tiny Encryption Algorithm (TEA) (New Variant).
+  </summary>
+  <description>
+    A class that implements the Tiny Encryption Algorithm (TEA) (New Variant).
+    This class does not depend on mcrypt.
+	Since the latest fix handles properly dealing with unsigned integers,
+	which where solved by introducing new functions _rshift(), _add(), the
+	speed of the encryption and decryption has radically dropped. Do not use
+	for large amounts of data.
+    Original code from http://vader.brad.ac.uk/tea/source.shtml#new_ansi
+  </description>
+  <license>PHP 2.02</license>
+  <maintainers>
+    <maintainer>
+      <user>jderks</user>
+      <name>Jeroen Derks</name>
+      <email>jeroen@derks.it</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.1.0RC1</version>
+    <state>beta</state>
+    <date>2004-09-08</date>
+    <notes>
+        Updated to fix unsigned/signed integer calculations.
+		NB: Encryption results from the previous version are not
+		compatible with this version, so please check your code.
+    </notes>
+    <filelist>
+	  <dir name="/" baseinstalldir="Crypt">
+        <file role="php">Xtea.php</file>
+      </dir>
+      <file role="doc">README</file>
+      <file role="test">Makefile</file>
+      <file role="test">XteaTest.php</file>
+      <file role="test">tester.php</file>
+    </filelist>
+  </release>
+</package>

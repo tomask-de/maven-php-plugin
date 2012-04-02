@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.5.0RC2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>PHP_Archive</name>
+ <channel>pear.php.net</channel>
+ <summary>Create and Use PHP Archive files</summary>
+ <description>PHP_Archive allows you to create a single .phar file containing an entire application.</description>
+ <lead>
+  <name>Davey Shafik</name>
+  <user>davey</user>
+  <email>davey@php.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Greg Beaver</name>
+  <user>cellog</user>
+  <email>cellog@php.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2007-01-05</date>
+ <time>22:03:58</time>
+ <version>
+  <release>0.9.1</release>
+  <api>0.8.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.php.net/license">PHP License</license>
+ <notes>fix API version so that Phar extension can also open PHP_Archive-generated archives
+
+major 32-bit/64-bit issue in PHP 5.1 where unpack() returns different values
+was causing some phars to fail.  For instance:
+
+$a = pack(&quot;V&quot;, 3068571189);
+var_dump(unpack(&quot;Va&quot;, $a));
+
+reports
+int(3068571189) on 32 bit and
+int(-1226396107) on 64 bit
+
+in PHP 5.1.  This is fixed in PHP 5.2.  This only affects CRCs.  The workaround
+found is to sprintf(&quot;%u&quot;, $crc)</notes>
+ <contents>
+  <dir baseinstalldir="PHP" name="/">
+   <file baseinstalldir="PHP" md5sum="7d4b5207f5be2d733ea7e0ccc62cbc6e" name="Archive/Creator.php" role="php">
+    <tasks:replace from="@API-VER@" to="api-version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="e8c46b37daba0df923c8dc8f62ca35f3" name="Archive/Exception.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="d0066d72f4754d5dcbcf4cae323a69be" name="Archive/Manager.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="d43df3219cec816484f080fd4f99ff11" name="tests/filenotfound/filenotfound.phar" role="test" />
+   <file baseinstalldir="PHP" md5sum="1f90422913afb601229ba72e12be33ef" name="tests/filenotfound/makefilenotfoundphar.php.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="1a3930c26e0aa091492400d3a384cc81" name="tests/longfilename/longphar.phar" role="test" />
+   <file baseinstalldir="PHP" md5sum="1e615f7b371b1e7385a340971c5f42c8" name="tests/longfilename/makelongphar.php.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="fc0a9e97524b6ecf004830a120f22679" name="tests/opendir/makeopendirphar.php.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="915692de161f15631cd11938589bfede" name="tests/opendir/opendir.phar" role="test" />
+   <file baseinstalldir="PHP" md5sum="18aaf3891d467f5ef7f7cb2592bc5a8d" name="tests/planet_php/default_phar.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="61084b432e35e73b7319b382652d42ab" name="tests/require_once/makerequire_oncephar.php.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="0d3772c1adad9f87c5592f04f6699985" name="tests/require_once/require_once.phar" role="test" />
+   <file baseinstalldir="PHP" md5sum="71ff068c88996f4a402b2f45c1845e75" name="tests/eof.phpt" role="test" />
+   <file baseinstalldir="PHP" md5sum="e1ccff1ee67cdd343239f812cd0ce294" name="tests/filenotfound.phpt" role="test" />
+   <file baseinstalldir="PHP" md5sum="a1ce8aebf0279e9731c945b485539770" name="tests/filenotfoundtest.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="b3c3730b7ee5312791d8fc16bfdffb41" name="tests/filenotfound_phar.phpt" role="test" />
+   <file baseinstalldir="PHP" md5sum="b3bff0efc0079eab22f974b567a9d174" name="tests/gopearphar.php.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="a65e392db33ed455923295ae2a84b5eb" name="tests/longfilename.phpt" role="test" />
+   <file baseinstalldir="PHP" md5sum="eca78bc550849af356aaab4627df704c" name="tests/makepearphar.php.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="80e1f8b84de01a74411d8c320b0f04eb" name="tests/new_phar.phar" role="test" />
+   <file baseinstalldir="PHP" md5sum="f7b3508b60135cefeb4f1a2338c5f697" name="tests/normalstat.phpt" role="test" />
+   <file baseinstalldir="PHP" md5sum="40cb63450b410be9bb0b2ce28f17d436" name="tests/normalstat_phar.phpt" role="test" />
+   <file baseinstalldir="PHP" md5sum="1717f2513b527cb5f56fb4af195cc226" name="tests/opendir.phpt" role="test" />
+   <file baseinstalldir="PHP" md5sum="db75c1ed0bd55dcc18f394fdd9484317" name="tests/pearindex.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="7215ee9c7d9dc229d2921a40e899ec5f" name="tests/phar.log" role="test" />
+   <file baseinstalldir="PHP" md5sum="a4be2b5082e436b8600632c3a89aa5d8" name="tests/phpt_test.php.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="4cb2ed9537e77214865591a8660cd78a" name="tests/require_once.phpt" role="test" />
+   <file baseinstalldir="PHP" md5sum="e01afdfe1a44095176c7c758662b7c27" name="tests/require_once_phar.phpt" role="test" />
+   <file baseinstalldir="PHP" md5sum="92241c073e939bf5791faff5212fbbfe" name="tests/savetest.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="63d8eab60a53e8e272454049e4d20c8a" name="tests/seek.phpt" role="test" />
+   <file baseinstalldir="PHP" md5sum="bc979ba8d1a559f5f55798cff99b3db5" name="tests/seek_phar.phpt" role="test" />
+   <file baseinstalldir="PHP" md5sum="9aa4ac02a4189ff92d50cf47b992eba1" name="tests/streamstat.phpt" role="test" />
+   <file baseinstalldir="PHP" md5sum="814219913d7790bf483abc580e3275e9" name="tests/streamstat_phar.phpt" role="test" />
+   <file baseinstalldir="PHP" md5sum="68f3f5138a457118a30e7f82448d1f3b" name="tests/test.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="d0181dd1230cc531379de96b4d8e39f0" name="tests/test1.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="5914439a67fe47d756302cd5b9ab30d0" name="tests/test_path.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="0504ac5122c6ea5ba9cb50bfddc1cd34" name="tests/test_phar.phar" role="test" />
+   <file baseinstalldir="PHP" md5sum="116ca0152e11b9b06f15d3d29b66b181" name="tests/test_phar2.phar" role="test" />
+   <file baseinstalldir="PHP" md5sum="8d410e534625c23941e6e03da0d4864a" name="tests/test_require.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="75a612e75fec0e55bd1a01789ff5b8af" name="tests/test_tar.tar" role="test" />
+   <file baseinstalldir="PHP" md5sum="03ceed4d2c40e0c68d6fea2163c57350" name="Archive.php" role="php">
+    <tasks:replace from="@API-VER@" to="api-version" type="package-info" />
+   </file>
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.1.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.3</min>
+   </pearinstaller>
+   <package>
+    <name>PEAR</name>
+    <channel>pear.php.net</channel>
+    <min>1.4.3</min>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.9.1</release>
+    <api>0.8.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2007-01-05</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>fix API version so that Phar extension can also open PHP_Archive-generated archives
+
+major 32-bit/64-bit issue in PHP 5.1 where unpack() returns different values
+was causing some phars to fail.  For instance:
+
+$a = pack(&quot;V&quot;, 3068571189);
+var_dump(unpack(&quot;Va&quot;, $a));
+
+reports
+int(3068571189) on 32 bit and
+int(-1226396107) on 64 bit
+
+in PHP 5.1.  This is fixed in PHP 5.2.  This only affects CRCs.  The workaround
+found is to sprintf(&quot;%u&quot;, $crc)</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.9.0</release>
+    <api>0.9.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-12-15</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>This release is fully compatible with the phar extension
+
+Minor feature addition:
+* implement Request #7362: Add archive collapsing to greatly reduce phar base size</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.8.0</release>
+    <api>0.8.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-07-18</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>This release is fully compatible with the phar extension
+
+Major BC breaks:
+* the entire structure of an internal phar&apos;s manifest has changed
+* mapPhar now only takes 2 parameters
+
+Small BC breaks:
+* PHP_Archive::processFile() was public static and is now private static
+
+Feature additions:
+* creating .phars that are reliant on the .phar extension is now possible
+* new PHP_Archive_Manager is available for debugging phars
+
+Bug fixes:
+* fix bug #7110: mapPhar security error</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.7.0</release>
+    <api>0.7.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2005-11-30</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>major refactoring - .tar file format is no longer used
+DRAMATIC improvement in efficiency of disk use, memory usage,
+and processing speed.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.6.1</release>
+    <api>0.6.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2005-09-05</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Bugfix release
+ * fix faulty dependency on unreleased Archive_Tar
+ * fix version_compare()&apos;s bungling of versioning ending with -dev</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.6.0</release>
+    <api>0.6.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2005-08-14</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Bugfix release
+ * change error_reporting to E_ALL.  Was stupidly using
+   E_ERROR | E_WARNING | E_PARSE | E_NOTICE
+ * change __HALT_PHP_PARSER__ to __HALT_COMPILER()
+ * rework fread() usage to avoid all potential bugs with chunks
+   larger than 8192
+ * drop support for PHP 4.3.x and 5.0.x.  Streams are impossible to
+   fully support due to bugs in all PHP versions &lt; 5.1.0.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5.0</release>
+    <api>0.5.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2005-05-03</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Full support for multiple .phars! phar://pharname.phar/file
+   and phar://phar2.phar/anotherfile will work now
+ * Fix gz compression
+ * remove Archive_Tar dep for non-creation
+ * remove preg dep for non-creation
+ * bundle PHP_Archive in all created .phars - standalone! Only
+   compressed .phars have a dep on zlib
+ * Add support for filenames &gt; 100 characters in length and unit test
+ * Add full support for stat()/is_file()/is_dir()/is_readable() etc., opendir()/readdir()</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.4.0</release>
+    <api>0.4.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2004-11-29</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Made PHP_Archive_Creator smarter</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.3.0</release>
+    <api>0.3.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2004-07-06</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>Added Stream Seek</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2004-06-14</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>First PEPr Release</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2004-06-13</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>First Package</notes>
+  </release>
+ </changelog>
+</package>

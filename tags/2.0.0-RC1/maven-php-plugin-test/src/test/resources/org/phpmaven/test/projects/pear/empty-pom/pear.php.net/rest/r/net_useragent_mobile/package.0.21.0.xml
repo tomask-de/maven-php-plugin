@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Net_UserAgent_Mobile</name>
+  <summary>HTTP mobile user agent string parser</summary>
+  <description>Net_UserAgent_Mobile parses HTTP_USER_AGENT strings of (mainly Japanese)
+mobile HTTP user agents. It'll be useful in page dispatching by user agents.
+This package was ported from Perl's HTTP::MobileAgent.
+See http://search.cpan.org/search?mode=module&amp;query=HTTP-MobileAgent
+The author of the HTTP::MobileAgent module is Tatsuhiko Miyagawa
+&lt;miyagawa@bulknews.net&gt;</description>
+  <maintainers>
+    <maintainer>
+      <user>kuboa</user>
+      <name>KUBO Atsuhiro</name>
+      <email>kubo@isite.co.jp</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.21.0</version>
+    <date>2005-02-01</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>- Added support for Vodafone 3G mobile phones (3GC).
+- Added support for DoCoMo's SO213iS, D253i, N253i, P253i, D253iWM, P213i, N900iL, N900iG, SH901iC, F901iC.</notes>
+    <provides type="class" name="Net_UserAgent_Mobile" />
+    <provides type="class" name="Net_UserAgent_Mobile_Error" extends="PEAR_Error" />
+    <provides type="function" name="Net_UserAgent_Mobile::factory" />
+    <provides type="function" name="Net_UserAgent_Mobile::singleton" />
+    <provides type="function" name="Net_UserAgent_Mobile::isError" />
+    <provides type="function" name="Net_UserAgent_Mobile::errorMessage" />
+    <provides type="class" name="Net_UserAgent_Mobile_AirHPhone" extends="Net_UserAgent_Mobile_Common" />
+    <provides type="function" name="Net_UserAgent_Mobile_AirHPhone::isAirHPhone" />
+    <provides type="function" name="Net_UserAgent_Mobile_AirHPhone::parse" />
+    <provides type="function" name="Net_UserAgent_Mobile_AirHPhone::makeDisplay" />
+    <provides type="function" name="Net_UserAgent_Mobile_AirHPhone::getVendor" />
+    <provides type="function" name="Net_UserAgent_Mobile_AirHPhone::getModel" />
+    <provides type="function" name="Net_UserAgent_Mobile_AirHPhone::getModelVersion" />
+    <provides type="function" name="Net_UserAgent_Mobile_AirHPhone::getBrowserVersion" />
+    <provides type="function" name="Net_UserAgent_Mobile_AirHPhone::getCacheSize" />
+    <provides type="function" name="Net_UserAgent_Mobile_AirHPhone::getCarrierShortName" />
+    <provides type="function" name="Net_UserAgent_Mobile_AirHPhone::getCarrierLongName" />
+    <provides type="class" name="Net_UserAgent_Mobile_Common" extends="PEAR" />
+    <provides type="function" name="Net_UserAgent_Mobile_Common::isError" />
+    <provides type="function" name="Net_UserAgent_Mobile_Common::raiseError" />
+    <provides type="function" name="Net_UserAgent_Mobile_Common::getUserAgent" />
+    <provides type="function" name="Net_UserAgent_Mobile_Common::getHeader" />
+    <provides type="function" name="Net_UserAgent_Mobile_Common::getName" />
+    <provides type="function" name="Net_UserAgent_Mobile_Common::getDisplay" />
+    <provides type="function" name="Net_UserAgent_Mobile_Common::getVersion" />
+    <provides type="function" name="Net_UserAgent_Mobile_Common::noMatch" />
+    <provides type="function" name="Net_UserAgent_Mobile_Common::parse" />
+    <provides type="function" name="Net_UserAgent_Mobile_Common::makeDisplay" />
+    <provides type="function" name="Net_UserAgent_Mobile_Common::isDoCoMo" />
+    <provides type="function" name="Net_UserAgent_Mobile_Common::isJPhone" />
+    <provides type="function" name="Net_UserAgent_Mobile_Common::isVodafone" />
+    <provides type="function" name="Net_UserAgent_Mobile_Common::isEZweb" />
+    <provides type="function" name="Net_UserAgent_Mobile_Common::isAirHPhone" />
+    <provides type="function" name="Net_UserAgent_Mobile_Common::isNonMobile" />
+    <provides type="function" name="Net_UserAgent_Mobile_Common::isTUKa" />
+    <provides type="function" name="Net_UserAgent_Mobile_Common::isWAP1" />
+    <provides type="function" name="Net_UserAgent_Mobile_Common::isWAP2" />
+    <provides type="function" name="Net_UserAgent_Mobile_Common::getCarrierShortName" />
+    <provides type="function" name="Net_UserAgent_Mobile_Common::getCarrierLongName" />
+    <provides type="class" name="Net_UserAgent_Mobile_Display" />
+    <provides type="function" name="Net_UserAgent_Mobile_Display::calcSize" />
+    <provides type="function" name="Net_UserAgent_Mobile_Display::getSize" />
+    <provides type="function" name="Net_UserAgent_Mobile_Display::getWidth" />
+    <provides type="function" name="Net_UserAgent_Mobile_Display::getHeight" />
+    <provides type="function" name="Net_UserAgent_Mobile_Display::getDepth" />
+    <provides type="function" name="Net_UserAgent_Mobile_Display::isColor" />
+    <provides type="function" name="Net_UserAgent_Mobile_Display::getWidthBytes" />
+    <provides type="function" name="Net_UserAgent_Mobile_Display::getHeightBytes" />
+    <provides type="class" name="Net_UserAgent_Mobile_DoCoMo" extends="Net_UserAgent_Mobile_Common" />
+    <provides type="function" name="Net_UserAgent_Mobile_DoCoMo::isDoCoMo" />
+    <provides type="function" name="Net_UserAgent_Mobile_DoCoMo::parse" />
+    <provides type="function" name="Net_UserAgent_Mobile_DoCoMo::makeDisplay" />
+    <provides type="function" name="Net_UserAgent_Mobile_DoCoMo::getHTMLVersion" />
+    <provides type="function" name="Net_UserAgent_Mobile_DoCoMo::getCacheSize" />
+    <provides type="function" name="Net_UserAgent_Mobile_DoCoMo::getSeries" />
+    <provides type="function" name="Net_UserAgent_Mobile_DoCoMo::getVendor" />
+    <provides type="function" name="Net_UserAgent_Mobile_DoCoMo::getModel" />
+    <provides type="function" name="Net_UserAgent_Mobile_DoCoMo::getStatus" />
+    <provides type="function" name="Net_UserAgent_Mobile_DoCoMo::getBandwidth" />
+    <provides type="function" name="Net_UserAgent_Mobile_DoCoMo::getSerialNumber" />
+    <provides type="function" name="Net_UserAgent_Mobile_DoCoMo::isFOMA" />
+    <provides type="function" name="Net_UserAgent_Mobile_DoCoMo::getComment" />
+    <provides type="function" name="Net_UserAgent_Mobile_DoCoMo::getCardID" />
+    <provides type="function" name="Net_UserAgent_Mobile_DoCoMo::isGPS" />
+    <provides type="function" name="Net_UserAgent_Mobile_DoCoMo::getCarrierShortName" />
+    <provides type="function" name="Net_UserAgent_Mobile_DoCoMo::getCarrierLongName" />
+    <provides type="class" name="Net_UserAgent_Mobile_DoCoMoDisplayMap" />
+    <provides type="function" name="Net_UserAgent_Mobile_DoCoMoDisplayMap::get" />
+    <provides type="class" name="Net_UserAgent_Mobile_EZweb" extends="Net_UserAgent_Mobile_Common" />
+    <provides type="function" name="Net_UserAgent_Mobile_EZweb::isEZweb" />
+    <provides type="function" name="Net_UserAgent_Mobile_EZweb::isTUKa" />
+    <provides type="function" name="Net_UserAgent_Mobile_EZweb::parse" />
+    <provides type="function" name="Net_UserAgent_Mobile_EZweb::makeDisplay" />
+    <provides type="function" name="Net_UserAgent_Mobile_EZweb::getModel" />
+    <provides type="function" name="Net_UserAgent_Mobile_EZweb::getDeviceID" />
+    <provides type="function" name="Net_UserAgent_Mobile_EZweb::getServer" />
+    <provides type="function" name="Net_UserAgent_Mobile_EZweb::getComment" />
+    <provides type="function" name="Net_UserAgent_Mobile_EZweb::isXHTMLCompliant" />
+    <provides type="function" name="Net_UserAgent_Mobile_EZweb::getCarrierShortName" />
+    <provides type="function" name="Net_UserAgent_Mobile_EZweb::getCarrierLongName" />
+    <provides type="class" name="Net_UserAgent_Mobile_Vodafone" extends="Net_UserAgent_Mobile_Common" />
+    <provides type="function" name="Net_UserAgent_Mobile_Vodafone::isJPhone" />
+    <provides type="function" name="Net_UserAgent_Mobile_Vodafone::isVodafone" />
+    <provides type="function" name="Net_UserAgent_Mobile_Vodafone::parse" />
+    <provides type="function" name="Net_UserAgent_Mobile_Vodafone::makeDisplay" />
+    <provides type="function" name="Net_UserAgent_Mobile_Vodafone::getModel" />
+    <provides type="function" name="Net_UserAgent_Mobile_Vodafone::isPacketCompliant" />
+    <provides type="function" name="Net_UserAgent_Mobile_Vodafone::getSerialNumber" />
+    <provides type="function" name="Net_UserAgent_Mobile_Vodafone::getVendor" />
+    <provides type="function" name="Net_UserAgent_Mobile_Vodafone::getVendorVersion" />
+    <provides type="function" name="Net_UserAgent_Mobile_Vodafone::getJavaInfo" />
+    <provides type="function" name="Net_UserAgent_Mobile_Vodafone::getCarrierShortName" />
+    <provides type="function" name="Net_UserAgent_Mobile_Vodafone::getCarrierLongName" />
+    <provides type="function" name="Net_UserAgent_Mobile_Vodafone::isTypeC" />
+    <provides type="function" name="Net_UserAgent_Mobile_Vodafone::isTypeP" />
+    <provides type="function" name="Net_UserAgent_Mobile_Vodafone::isTypeW" />
+    <provides type="function" name="Net_UserAgent_Mobile_Vodafone::isType3GC" />
+    <provides type="class" name="Net_UserAgent_Mobile_NonMobile" extends="Net_UserAgent_Mobile_Common" />
+    <provides type="function" name="Net_UserAgent_Mobile_NonMobile::isNonMobile" />
+    <provides type="function" name="Net_UserAgent_Mobile_NonMobile::parse" />
+    <provides type="function" name="Net_UserAgent_Mobile_NonMobile::getModel" />
+    <provides type="function" name="Net_UserAgent_Mobile_NonMobile::getDeviceID" />
+    <provides type="function" name="Net_UserAgent_Mobile_NonMobile::getCarrierShortName" />
+    <provides type="function" name="Net_UserAgent_Mobile_NonMobile::getCarrierLongName" />
+    <provides type="class" name="Net_UserAgent_Mobile_Request" />
+    <provides type="class" name="Net_UserAgent_Mobile_Request_Env" />
+    <provides type="function" name="Net_UserAgent_Mobile_Request::factory" />
+    <provides type="function" name="Net_UserAgent_Mobile_Request_Env::get" />
+    <filelist>
+      <file role="php" baseinstalldir="Net/UserAgent" md5sum="25336470dd16d554f9909fc6eac24b3d" name="Mobile.php"/>
+      <file role="php" baseinstalldir="Net/UserAgent" md5sum="c6f72db9f533a07c99c582f71941a8f0" name="Mobile/AirHPhone.php"/>
+      <file role="php" baseinstalldir="Net/UserAgent" md5sum="6a8c09ea86da6a4b2ec42bb28c68b91f" name="Mobile/Common.php"/>
+      <file role="php" baseinstalldir="Net/UserAgent" md5sum="e155a4b6cdebca73fe2747a5853d6926" name="Mobile/Display.php"/>
+      <file role="php" baseinstalldir="Net/UserAgent" md5sum="0d6f8edbfe065fde5cda6ea516fdd96a" name="Mobile/DoCoMo.php"/>
+      <file role="php" baseinstalldir="Net/UserAgent" md5sum="6106d30ef70b55c0102176cb705f13a0" name="Mobile/DoCoMoDisplayMap.php"/>
+      <file role="php" baseinstalldir="Net/UserAgent" md5sum="d0187beea2a3ff1b5cd3382153a03218" name="Mobile/EZweb.php"/>
+      <file role="php" baseinstalldir="Net/UserAgent" md5sum="493a88f0be13705ef87c9131859e5a38" name="Mobile/Vodafone.php"/>
+      <file role="php" baseinstalldir="Net/UserAgent" md5sum="0bea0dfb3253df895bb56b25684f4258" name="Mobile/NonMobile.php"/>
+      <file role="php" baseinstalldir="Net/UserAgent" md5sum="d2935388b8b206a95b3e8fe95c135ee8" name="Mobile/Request.php"/>
+      <file role="test" baseinstalldir="Net/UserAgent" md5sum="87cb4e24a5ea38718c97583b4fc120d0" name="tests/00-compile.phpt"/>
+      <file role="test" baseinstalldir="Net/UserAgent" md5sum="e4bd2ae59819eee4f4ceebdcae32f649" name="tests/01-request.phpt"/>
+      <file role="test" baseinstalldir="Net/UserAgent" md5sum="9885bd8cb87f856dbf1fc7e83a28a00e" name="tests/02-docomo.phpt"/>
+      <file role="test" baseinstalldir="Net/UserAgent" md5sum="c5985cbeb84097eae2cdda017e2eb383" name="tests/03-jphone.phpt"/>
+      <file role="test" baseinstalldir="Net/UserAgent" md5sum="7fadfd68a67ac9fd351152444963044d" name="tests/04-ezweb.phpt"/>
+      <file role="test" baseinstalldir="Net/UserAgent" md5sum="74c87585fdfd003baf0972309fea8bdc" name="tests/05-display.phpt"/>
+      <file role="test" baseinstalldir="Net/UserAgent" md5sum="05518067ebfb187da2565a51e7a17210" name="tests/06-nonmobile.phpt"/>
+      <file role="test" baseinstalldir="Net/UserAgent" md5sum="959a5e9cb74f68749ab0556782278b7c" name="tests/07-airhphone.phpt"/>
+      <file role="test" baseinstalldir="Net/UserAgent" md5sum="8db095b7c29b52a15c45c5fd2b8ff267" name="tests/08-display-xmlmap.phpt"/>
+      <file role="test" baseinstalldir="Net/UserAgent" md5sum="db83a82076a0ea9743239ada221e0583" name="tests/DoCoMoMap.xml"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.20.0</version>
+      <date>2004-09-25</date>
+      <state>beta</state>
+      <notes>- Fixed Bug #827 without BC break. This package currently works properly on PHP5.
+- Added getCarrierShortName() and getCarrierLongName() methods.
+- Added isVodafone() method.
+- Added isTUKa() method.
+- Changed the way to get a series of FOMA in DoCoMo.php.
+- Added support for DoCoMo's P651ps, SO213i, N506i, P506iC, SH506iC, SO506iC, F900iT, P900iV, N900iS, D900i, F900iC, F880iES.
+- Changed treatment of the name of the model in EZweb.php. getModel() method currently returns the device ID.
+- Renamed from JPhone.php to Vodafone.php.
+- Added getModel() and getDeviceID() methods in NonMobile.php. These methods always return ''.
+      
+</notes>
+    </release>
+    <release>
+      <version>0.19</version>
+      <date>2004-05-27</date>
+      <state>beta</state>
+      <notes>- Added a external map file support.
+  the XML data which is generated by makexmldocomomap, which is included in
+  Perl's HTTP::MobileAgent, is now available.
+  Please see the API documentation of Net_UserAgent_Mobile_Display class.
+- Added support for DoCoMo's P252iS, D506i, F506i.
+- Added support for EZweb's W21H, A5504T, TK41.
+
+** NOTE **
+In the next release, BC will be broken for PHP5 compatibility reasons. Please
+see bug #827.
+      
+</notes>
+    </release>
+    <release>
+      <version>0.18</version>
+      <date>2004-03-20</date>
+      <state>beta</state>
+      <notes>- Added support for DoCoMo's N900i, P900i, SH900i.
+- Added support for EZweb's A5502K, A5405SA, A1402S.
+- Some fixes related to PHP5 issues.
+      
+</notes>
+    </release>
+    <release>
+      <version>0.17</version>
+      <date>2004-02-08</date>
+      <state>beta</state>
+      <notes>- Added support for DoCoMo's F505iGPS, F900i.
+- Added support for EZweb's A5502K, TS41.
+- EZweb.php: Fixed the model name for KCTD.
+      
+</notes>
+    </release>
+    <release>
+      <version>0.16</version>
+      <date>2003-12-15</date>
+      <state>beta</state>
+      <notes>- Added support for DoCoMo's N505iS, SO505iS, SH505iS.
+- Added support for EZweb's W11K, W11H, A5503SA, A5404S, A5403CA, TS40, TT32
+  in getModel() method.
+      
+</notes>
+    </release>
+    <release>
+      <version>0.15</version>
+      <date>2003-11-17</date>
+      <state>beta</state>
+      <notes>- Added support for DoCoMo's D505iS, P505iS, P252i, N252i.
+- EZweb.php: Added getModel() method using a static table.
+      
+</notes>
+    </release>
+    <release>
+      <version>0.14.1</version>
+      <date>2003-10-12</date>
+      <state>beta</state>
+      <notes>- removed a print statement for debugging in Net_UserAgent_Mobile::singleton().
+      
+</notes>
+    </release>
+    <release>
+      <version>0.14</version>
+      <date>2003-10-12</date>
+      <state>beta</state>
+      <notes>- Added singleton() method.
+- Added support for DoCoMo's D252i, SH252i.
+      
+</notes>
+    </release>
+    <release>
+      <version>0.13</version>
+      <date>2003-09-04</date>
+      <state>beta</state>
+      <notes>- Added support for DoCoMo's SH505i2, F672i.
+      
+</notes>
+    </release>
+    <release>
+      <version>0.12</version>
+      <date>2003-08-11</date>
+      <state>beta</state>
+      <notes>- Changed way to handle static variables from the PEAR::getStaticProperty
+  method to the static statement.
+- AirHPhone.php: Added makeDisplay() method as a temporary measure since the
+  script would die when the method is called.
+- Added display information for DoCoMo's N2102V, P505i.
+      
+</notes>
+    </release>
+    <release>
+      <version>0.11</version>
+      <date>2003-07-20</date>
+      <state>beta</state>
+      <notes>- Added display information for DoCoMo's P2102V, F2102V, F505i.
+      
+</notes>
+    </release>
+    <release>
+      <version>0.10</version>
+      <date>2003-07-07</date>
+      <state>beta</state>
+      <notes>- Added display information for DoCoMo's N2701, SH505i, N505i.
+- Added support for DoCoMo's FOMA 2701.
+- Changed license from PHP license 2.02 to PHP license 3.0.
+      
+</notes>
+    </release>
+    <release>
+      <version>0.9</version>
+      <date>2003-06-05</date>
+      <state>beta</state>
+      <notes>- Added display information about DoCoMo's 'SO505i'.
+- DoCoMo.php: Fixed the logic error which entered at the time of 505i support.
+      
+</notes>
+    </release>
+    <release>
+      <version>0.8</version>
+      <date>2003-05-23</date>
+      <state>beta</state>
+      <notes>- Added isGPS() method in DoCoMo.
+- Added display information about DoCoMo's 'D505i'.
+      
+</notes>
+    </release>
+    <release>
+      <version>0.7</version>
+      <date>2003-05-12</date>
+      <state>beta</state>
+      <notes>- Added support for DoCoMo 505i.
+      
+</notes>
+    </release>
+    <release>
+      <version>0.6</version>
+      <date>2003-04-22</date>
+      <state>beta</state>
+      <notes>- Added support for DoCoMo's 'N251iS', 'F661i'.
+      
+</notes>
+    </release>
+    <release>
+      <version>0.5</version>
+      <date>2003-04-07</date>
+      <state>beta</state>
+      <notes>- Added AirH&quot;PHONE support.
+- Added display information about DoCoMo's 'N211iS', 'P211iS'.
+      
+</notes>
+    </release>
+    <release>
+      <version>0.4</version>
+      <date>2003-03-27</date>
+      <state>beta</state>
+      <notes>- Changed way to get characteristics for new format of user agent which is
+  used by 'FOMA 2051/2102V'.
+- Added display information about DoCoMo's 'P2102V'.
+- Added PEAR error handling.
+- Updated documentation.
+      
+</notes>
+    </release>
+    <release>
+      <version>0.3</version>
+      <date>2003-02-24</date>
+      <state>beta</state>
+      <notes>- Added isNonMobile() method.
+      
+</notes>
+    </release>
+    <release>
+      <version>0.2</version>
+      <date>2003-02-20</date>
+      <state>beta</state>
+      <notes>- Added code which had forgotten by the port.
+      
+</notes>
+    </release>
+    <release>
+      <version>0.1</version>
+      <date>2003-02-19</date>
+      <state>beta</state>
+      <notes>- initial release
+      
+</notes>
+    </release>
+  </changelog>
+</package>

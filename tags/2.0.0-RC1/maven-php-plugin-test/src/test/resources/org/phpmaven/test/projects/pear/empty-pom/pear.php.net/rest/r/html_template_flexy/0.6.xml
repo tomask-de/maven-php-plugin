@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/html_template_flexy">HTML_Template_Flexy</p>
+ <c>pear.php.net</c>
+ <v>0.6</v>
+ <st>beta</st>
+ <l>PHP License</l>
+ <m>alan_k</m>
+ <s>An extremely powerful Tokenizer driven Template engine</s>
+ <d>HTML_Template_Flexy started it's life as a simplification of HTML_Template_Xipe, 
+however in Version 0.2, It became one of the first template engine to use a real Lexer,
+rather than regex'es, making it possible to do things like ASP.net or Cold Fusion tags. 
+However, it still has a very simple set of goals.
+- Very Simple API, easy to learn...
+- Targeted at Object based systems - default behavior is to display object variables
+- Designed to allow the documentation of available variables using PEAR standards, eg. PHPDoc comments around object variables
+- Ability to edit the templates in WYSIWYG HTML editors, without breaking the tags
+- Extremely Fast, for normal variables and looping (or blocks), both for designing and runtime.
+- Full dynamic element support (like ASP.NET), so you can pick elements to replace at runtime
+
+Features:
+- {variable} to echo $object-&gt;variable
+- {method()} to echo $object-&gt;method();
+- {foreach:var,key,value} to PHP foreach loops
+- tag attributes FLEXY:FOREACH, FLEXY:IF for looping and conditional HTML inclusion
+- {if:variable} to PHP If statement
+- {if:method()} to PHP If statement
+- {else:} and {end:} to close or alternate If statements
+- FORM to HTML_Template_Flexy_Element's
+- replacement of INPUT, TEXTAREA and SELECT tags with HTML_Template_Flexy_Element code
+  use FLEXY:IGNORE (inherited) and FLEXY:IGNOREONLY (single) to prevent replacements
+- FLEXY:START/FLEXY:STARTCHILDREN tags to define where output starts/finishes
+- support for urlencoded braces {} in HTML attributes.  
+- documentation in the pear manual
+
+- examples at http://cvs.php.net/cvs.php/pear/HTML_Template_Flexy/examples
+</d>
+ <da>2003-12-19 21:52:38</da>
+ <n>This is a major fix release, along with quite a few new usefull features,
+many thanks to the various bug reporters, and especially from the Damein Turner and 
+The Seagull framework Team
+
+Hopefully, it is now the last beta before a stable release.....
+
+  New features 
+  - &amp;lt;flexy:include src=&quot;xxx.html&quot;/&gt; to include other templates
+  - &amp;lt;flexy:toJavascript flexy:prefix=&quot;js_name_prefix_&quot; jsvar=&quot;php_flexy_var&quot; ....&gt;
+    uses HTML_Javascript_Convert to import PHP variables into Javascript.
+  - new modifier :b (for NL2BR + HTMLSPECIALCHARS)
+  - support for mulitple paths in templateDir
+  - attribute flexy:raw=&quot;{checked}&quot; allows you to to put raw data into a tag.
+  - -- double minus, is valid inside comments (not really valid XHTML though)
+  - global flexyIgnore option, to prevent global conversion to Elements.
+  - better support for elements where name=&quot;someval[]&quot;
+  
+  Fixes
+  - array syntax supported in attributes (eg. urlencoded)
+  - setting values of elements with type works (bug #460)
+  - methods with multiple arguments fixed.
+  - HTML_Template_Flexy_Element::removeAttribute() works
+    (removing attributes is done by setting them to false)
+  - include error on EndTag
+  - closed element (eg. with /&gt; at end, can be used with flexy:if=
+  - radio buttons should auto create id's if none are set.
+  - xdebug recursion level increased (as the compiler recursion is high)
+  - buffered output with $elements fixed.
+  
+   
+Note: See Version 0.5  release notes concerning BC issues with 0.4 series</n>
+ <f>49748</f>
+ <g>http://pear.php.net/get/HTML_Template_Flexy-0.6</g>
+ <x xlink:href="package.0.6.xml"/>
+</r>

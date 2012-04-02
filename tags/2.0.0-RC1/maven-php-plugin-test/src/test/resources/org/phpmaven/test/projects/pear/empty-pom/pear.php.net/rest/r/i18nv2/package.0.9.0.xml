@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>I18Nv2</name>
+  <summary>Internationalization</summary>
+  <description>This package provides basic support to localize your application, 
+like locale based formatting of dates, numbers and currencies.
+
+Beside that it attempts to provide an OS independent way to setlocale() 
+and aims to provide language and country names translated into many languages.
+
+Short descriptions of provided classes:
+=======================================
+ - I18Nv2                    OS independent (Linux/Win32) setlocale(), other utils
+ - I18Nv2_Locale             locale based formatter
+ - I18Nv2_Negotiator         HTTP negiotiation of preferred language and charset
+ - I18Nv2_Country            multilingual list of country names
+ - I18Nv2_Language           multilingual list of language names
+ - I18Nv2_Charset            list of common and not so common charsets and aliases
+ - I18Nv2_AreaCode           list of international area codes (phone)
+
+Decorators for lists like I18Nv2_Country and I18Nv2_Language:
+=============================================================
+ - HtmlEntities         transparently encode displayed names with HTML entities
+ - HtmlSpecialchars     transparently encode special XML chars in displayed names
+ - HtmlSelect           ready to use HTML select element facility
+ - Filter               exclude or include elements of a list
+
+Translations of language and country names are 
+more or less completely available in the following languages:
+=============================================================
+ Amharic, Arabic, Bulgarian, Catalan, Chinese, Croatian, Czech, Danish, Dutch, 
+ English, Esperanto, Estonian, Finnish, French, German, Greek, Hebrew, Hindi, 
+ Hungarian, Indonesian, Irish, Italian, Japanese, Korean, Latvian, Lithuanian, 
+ Malay, Maltese, Marathi, Norwegian, Norwegian Bokmål, Pashto (Pushto), 
+ Persian, Polish, Portuguese, Romanian, Russian, Serbian, Serbo-Croatian, 
+ Slovak, Slovenian, Spanish, Swedish, Tamil, Thai, Tigrinya, Turkish, 
+ Ukrainian, Vietnamese
+
+FINAL NOTE:
+===========
+  Contributions are very welcome!</description>
+  <maintainers>
+    <maintainer>
+      <user>mike</user>
+      <name>Michael Wallner</name>
+      <email>mike@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>quipo</user>
+      <name>Lorenzo Alberton</name>
+      <email>quipo@php.net</email>
+      <role>contributor</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.9.0</version>
+    <date>2004-10-29</date>
+    <license>PHP</license>
+    <state>alpha</state>
+    <notes>* Fixed Bug #2541, warnings for unset properties with old PHP versions
+* I18Nv2::splitLocale() now always returns a 2 element array
+* I18Nv2::autoConv() may now decode request variables ($_GET and $_POST)
+* Fixed locale information for cs
+
++ Added I18Nv2_AreaCode class (CommonList of international area codes)
++ Added I18Nv2_Charset class (common and not so common charsets and aliases)</notes>
+    <deps>
+      <dep type="pkg" rel="has" optional="no">PEAR</dep>
+      <dep type="php" rel="ge" version="4.0.6" optional="no"/>
+      <dep type="ext" rel="has" optional="no">pcre</dep>
+      <dep type="ext" rel="has" optional="no">iconv</dep>
+    </deps>
+    <filelist>
+      <file role="php" md5sum="5436a2de3a68b9083d63a550cfe65c1e" name="I18Nv2.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="91b4e9dd8c0aa732bf43161c534b9007" name="Locale.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="6b7063c2ce5a7ef0b7f5d4e177487ad5" name="CommonList.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="21ed26cafc235c1a96434e921d1ee9fc" name="Country.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="6f78e39857eb670d09410df55d852495" name="Language.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="8a7c1370445f2b371b44506df93619ba" name="AreaCode.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="7fb016f426b71c17a0cc9cf70ef8f93f" name="Charset.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="66347766bf00866464dd7955e199f4b0" name="Negotiator.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="6d78aac6a9cd26972fe87856cfb18293" name="DecoratedList.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="4cd8a774fbb633e4e7293419318e45e1" name="DecoratedList\Filter.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="ce5e6fbadad2ea821d8e1bfe9661eae1" name="DecoratedList\HtmlSelect.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="bb3bc242aac2b52c28f0c39296eb8ccd" name="DecoratedList\HtmlEntities.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="9c0de44d1ad27c2d96fdf00212e2c062" name="DecoratedList\HtmlSpecialchars.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="b1ec5ce53fc1d80d634cf637c815ee3d" name="Country\am.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="84d2ef5a81493b69f68fcffd81e429f7" name="Country\ar.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="ddb0f5d4ffef7a331646d8c32d3db9ba" name="Country\bg.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="7841afab93283f9b3f620e501bd1f731" name="Country\ca.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="7db44e1e058d92edaec4b8d7bc6b5149" name="Country\cs.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="69150a9514479f981d8ce08dd17b0efc" name="Country\da.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="077a5ec50784380492f5863b5f2f7580" name="Country\de.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="594ddd5f2ebb1bad77b5f8397714c20c" name="Country\el.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="a57602f695c5701ea61c6d50c8602827" name="Country\en.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="a93a10f9058709d90c5c3ec714c79e25" name="Country\eo.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="8cf0e10dd0a6472c857523834bc30578" name="Country\es.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="caa431d2d13fef2784930a8fde4ef542" name="Country\et.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="9a970d32c32276e22bf566cad556173b" name="Country\fa.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="0ecc4bad7f30610b7255dd7efc064034" name="Country\fi.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="44060372685e1d3da2f10586a3613966" name="Country\fr.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="25218733a9f365028cf03cbdc31e4ed8" name="Country\ga.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="b4e8bc16c26d999290667cba05615552" name="Country\he.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="881fe754887c86de9ee87f8c5b07658f" name="Country\hi.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="2c49807ff57f9a12bdefce77285c2003" name="Country\hr.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="10c5d4d07c20ee59a2628af3c54ec5bc" name="Country\hu.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="5aab49c13ff46e2a161622e941bcbbbc" name="Country\id.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="b660da8e0560ef4406acbfe60f014bb5" name="Country\it.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="7faf7ad5fa75a6e37bb857cec39141ce" name="Country\ja.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="060830c02f074b232d4dc4315cf3f8ee" name="Country\ko.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="d7f908619176081ffc24a60000385077" name="Country\lt.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="6ebf89ca1ec9c71a8aeb47a90ad4ad73" name="Country\lv.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="7dc6a804bbada8d5db75b9f85a65a04c" name="Country\mr.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="0d38abb51c78c7bedd30a786db20a791" name="Country\ms.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="32796fae8f113e8217c8abf9aa347674" name="Country\mt.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="1ba9155c2846932887d264f4bb672e6f" name="Country\nb.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="40b804e75eaf2438bf846e36d6eac72e" name="Country\nl.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="e80418f0b94ef6391539de139b829177" name="Country\no.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="411f1a2dcff5a3823a5239230dc9065c" name="Country\pl.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="127f6e6fd01c4456a91ca423a1c9dde6" name="Country\ps.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="169621986eaae261734cdd17c70da4c1" name="Country\pt.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="e28a44ff96ae934f5c3b5fa0832fb6b0" name="Country\ro.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="05878f295799ae7fc38e665a12ec5e32" name="Country\ru.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="495ae51439461fc62ffae72563b1904d" name="Country\sh.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="a81c3fffc2b6ff6125194e7fbf7a9f42" name="Country\sk.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="b4bfe5374b63076b7bd4188e599a9ec9" name="Country\sl.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="d4fc46c4dd7921fd6aa36c223a513c3f" name="Country\sr.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="deaaff750c9cde9be32067be1959fff7" name="Country\sv.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="c763199e1629216d0866db6b94bc4fbc" name="Country\ta.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="37f62e78735e4fb9d0ae9b8c71078b66" name="Country\th.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="f041ec2a08680d30d309175dd42fd194" name="Country\ti.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="47baba69144c26a9e3f53ba52ab28173" name="Country\tr.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="9e13097ea2c5a83c6dd797ecd33410cd" name="Country\uk.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="a41b5fa7af596d1eafa867810a5d9d8b" name="Country\vi.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="51a8b52db8ecb44d636eea0c289e3aed" name="Country\zh.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="da799ffc1a7e3178af40723d199f24e4" name="Locale\af.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="0e9c6cc7972a79349fdd31663face896" name="Locale\cs.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="d37c0db279e5cef47636090714414c08" name="Locale\da.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="5334f10ff9fc9281383469fcf3f172f6" name="Locale\de.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="04ad63e69694695c6bbd26d3af47c0af" name="Locale\en.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="b787a1104af26cc829bfe4941e669eda" name="Locale\es.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="e30a90a4d4cc6fc99b66b637bacdbe27" name="Locale\fr.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="4eafe03ca7121cf968b3c29d294d7616" name="Locale\hu.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="7332214ce0bc460bf238dff799e21c15" name="Locale\it.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="500a3b91998d8ec51e912e5e887d22bf" name="Locale\nl.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="4882062455d27290d233c7f60da85073" name="Locale\nb.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="13d7d95b026aa62bd36a4d687bb9fda3" name="Locale\nn.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="d4b7f9971333f04a29030c9a830994d5" name="Locale\no.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="808441fbf5fa4cbb8b8505620015c78a" name="Locale\pl.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="ff3395b82d2da09757e75c34ee96560c" name="Locale\pt.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="ed5f0aa66c4dba9571f60417aa840835" name="Locale\ru.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="70f20092b6005de8683daa54af3fe9d6" name="Locale\sl.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="a5f5c50e5538b3be25ed5d007b78fdf8" name="Locale\Windows.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="e3e2fd3f78befeba01d65e149beb5d10" name="Locale\EUR.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="66536158fc20c77483ac2f566b4b99a7" name="Locale\de_AT.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="7af537944ec0d7d82259756901b5c8ae" name="Locale\de_DE.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="8d1ce4b495c77c080b058b284cafa0d8" name="Locale\el_GR.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="13bdf734c04cb36fb8ba95c8f7c7ce00" name="Locale\en_IE.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="798c97b8453c2ba826200d35cd114955" name="Locale\es_ES.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="e17833a574f5c6467d8ed225afed308d" name="Locale\fi_FI.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="bc7f9ad18ae1a3c60b3a70c9769af2c3" name="Locale\fr_BE.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="899a040fda5fbc3842182cf748edd3c2" name="Locale\fr_FR.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="0cbca7fc7858edd0431c89b7d3eb021b" name="Locale\fr_LU.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="b9ec1fb5155fcf26756fcf479b3d518b" name="Locale\fr_MC.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="fb2c351c11972595a12ff1fc47a1819b" name="Locale\it_IT.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="7a776c26e05c7d8d5ecb49cb880bfc55" name="Locale\nl_BE.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="08a620503d20c661620a3874ceedee4b" name="Locale\nl_NL.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="7975692feea452fb74606950ee82f409" name="Locale\pt_PT.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="3b2b6ef0c120293d78f1bfd51a04c421" name="Locale\sv_FI.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="d99a065d49945751d2a4b5204005689c" name="Language\am.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="32d93a8b7bbbd480e5551a82e8d5af20" name="Language\ar.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="5b3b6ff08fcb711919caf9a21b1d17a3" name="Language\bg.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="255749654565ee738c5463a0219d1be1" name="Language\ca.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="60660f37a91e6cfb3f94d32ea60915cf" name="Language\cs.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="300a52cd4c9834d4e10c888d25bbc9be" name="Language\da.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="46e6341d56e0695cebb6be43b797c053" name="Language\de.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="10d41fcbbb6c5ee3f103410ef3bca307" name="Language\el.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="2966fde435635abd1bf5da573f8b0677" name="Language\en.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="1c09fe873103dd56e51f15a36e4d6e1a" name="Language\eo.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="8bc7ab6975c877b2ea77c5dacdc2a830" name="Language\es.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="a72380f43dc474d570a7bd2a819ab8a7" name="Language\et.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="99711f23e816a9e11977783f8fa70910" name="Language\fa.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="c16261e8746c169be9218c688c506350" name="Language\fi.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="477477c936f1c45ec02de509108148e6" name="Language\fr.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="2e3fe11a0163beccd1e7904ad4c0d288" name="Language\ga.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="4775f88b710043e74a35237034ad83e2" name="Language\he.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="5745ffce5e7e12d8d6748d0a6664280c" name="Language\hi.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="9461267146167eba453164e8a30fad59" name="Language\hr.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="4585542635d25f8b7194740fa0afbdc1" name="Language\hu.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="054af8f5e093c7f72b3848146fd030a5" name="Language\id.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="6982f0d144ffdc04a0f8b093459d19ea" name="Language\it.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="c268373842b2f5c3da1cbffcf1a82141" name="Language\ja.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="879aaad5af8314c5164b0fb53fe87503" name="Language\ko.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="ddd622db569011c40fcb173239458678" name="Language\lt.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="afcc73e1cbee7d7ccf982edc5fd7f58d" name="Language\lv.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="980fbea806e5e403e2a662d84241d7d2" name="Language\mr.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="65a595fdc55f7baa41086a7156ff0804" name="Language\ms.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="97cd27655f36b0993c82ba98d3de702a" name="Language\mt.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="122de080203960405551d9afab861150" name="Language\nb.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="9a1e1a9669962c2e1e5e9c2c53b5aeef" name="Language\nl.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="721c2166c5de6588b2d86dce5f330bb1" name="Language\no.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="6a7388fc5a399d53b811244c16c3a66d" name="Language\pl.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="0fe506adb37b73aff1952ee76cf04b6e" name="Language\ps.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="4c6092b8bce11f7c1f0e1d6896266ba7" name="Language\pt.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="406a0feabd372744e2f8beef288b96b5" name="Language\ro.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="a82ff882d639ea7b499624188a8958ef" name="Language\ru.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="e916eb4a19d3c139a14582665f4bffea" name="Language\sh.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="77587a7b4c5f47aa02632c505d48ad96" name="Language\sk.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="1910febeb995a26b1bbb28212d8961db" name="Language\sl.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="b8c31a42f0ea031d20df2e5b054c1f4d" name="Language\sr.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="d0d5eb65c532f66309fa163153e83493" name="Language\sv.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="1e697b47087f4a98dc284e5677d869d9" name="Language\ta.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="3d56f7c62f30371c808f470d1c5a814e" name="Language\th.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="094b0a07c760abf78e786dabf951e9aa" name="Language\ti.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="ef7e893604e6dc8dfda2fad66dfc86be" name="Language\tr.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="bd96e38d37a544f75fc842de8bf90abf" name="Language\uk.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="2a75ffbf6f93a42af7426a4dcd41fbea" name="Language\vi.php"/>
+      <file role="php" baseinstalldir="I18Nv2" md5sum="86e815b1fa372cdd5584fb46ef62ac81" name="Language\zh.php"/>
+      <file role="test" baseinstalldir="I18Nv2" md5sum="c3081800c0779ecf2342a12fe2e5b75f" install-as="I18Nv2_Locale-PHPUnit_Testcase.php" name="tests/I18Nv2_Locale-PHPUnit_Testcase.php"/>
+      <file role="doc" baseinstalldir="I18Nv2" md5sum="53189703624a4d00daa60c098f819bb5" install-as="examples/retrieving_locale_conventions.php" name="docs/examples/retrieving_locale_conventions.php"/>
+      <file role="doc" baseinstalldir="I18Nv2" md5sum="c89b7221185d78dd04702a8519a911d2" install-as="examples/setting_a_locale.php" name="docs/examples/setting_a_locale.php"/>
+      <file role="doc" baseinstalldir="I18Nv2" md5sum="76e77f67273ae3df675cf46a9ccdd2f0" install-as="examples/transform_output_charset.php" name="docs/examples/transform_output_charset.php"/>
+      <file role="doc" baseinstalldir="I18Nv2" md5sum="3c8ea2d7524f074354b3971619c1c253" install-as="examples/using_I18Nv2_Country.php" name="docs/examples/using_I18Nv2_Country.php"/>
+      <file role="doc" baseinstalldir="I18Nv2" md5sum="61acf09dc7ec3376f88cc00c1c77a5ef" install-as="examples/using_I18Nv2_DecoratedList.php" name="docs/examples/using_I18Nv2_DecoratedList.php"/>
+      <file role="doc" baseinstalldir="I18Nv2" md5sum="378bab8db7d78150417ddae3911bbb1c" install-as="examples/using_I18Nv2_Language.php" name="docs/examples/using_I18Nv2_Language.php"/>
+      <file role="doc" baseinstalldir="I18Nv2" md5sum="d09878c2810352b184fa57b632ceb8ed" install-as="examples/using_I18Nv2_Locale.php" name="docs/examples/using_I18Nv2_Locale.php"/>
+      <file role="doc" baseinstalldir="I18Nv2" md5sum="6fa51a7a593c269315f9f912b628acb9" install-as="examples/using_I18Nv2_Negotiator.php" name="docs/examples/using_I18Nv2_Negotiator.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.4.0</version>
+      <date>2004-04-16</date>
+      <license>PHP</license>
+      <state>alpha</state>
+      <notes>* Reorganized the Win32 locale and &quot;fully qualified locale&quot; maps.
+* Fixed I18Nv2_Locale::loadExtension() to load language extension prior to locale extension.
++ Introduced kind of a fallback mechanism for not recognized locales in I18Nv2::setLocale() (currently only norwegian locales suffer from a reorganization).
++ Started to localize I18Nv2_Country (currently english, german, italian and french are covered)
++ Started to localize I18Nv2_Language (currently english and german are covered)
+   
+</notes>
+    </release>
+    <release>
+      <version>0.5.0</version>
+      <date>2004-04-29</date>
+      <license>PHP</license>
+      <state>alpha</state>
+      <notes># Switched default encoding of I18Nv2_Country and I18Nv2_Language to UTF-8
++ Added new localizations for I18Nv2_Country; currently 50 languages are (partly) covered
++ Added new localizations for I18Nv2_Language; currently 49 languages are (partly) covered
++ Added DecoratedList:
+  o HtmlEntities
+  o HtmlSelect
++ Added czech locale dependent date/time formats, mishal(@)centrum.cz
++ Fixed hebrew locales, sagi(@)php.net 
+   
+</notes>
+    </release>
+    <release>
+      <version>0.6.0</version>
+      <date>2005-05-03</date>
+      <license>PHP</license>
+      <state>alpha</state>
+      <notes>+ Added some examples
+* Silenced putenv() - save_mode restriction, mishal(@)centrum.cz
+* Fixed I18Nv2_Language, which didn't extend I18Nv2_CommonList
+* Fixed a typo in I18Nv2_DecoratedList_HtmlSelect (parse error)
+* Fixed key case handling in I18Nv2_Country and I18Nv2_Language
+   
+</notes>
+    </release>
+    <release>
+      <version>0.7.0</version>
+      <date>2004-06-01</date>
+      <license>PHP</license>
+      <state>alpha</state>
+      <notes>+ Added I18Nv2_DecoratedList_HtmlSpecialchars
++ Added I18Nv2::languageOf($locale)
++ Added I18Nv2::countryOf($locale)
++ Added I18Nv2::splitLocale($locale)
+
+   
+</notes>
+    </release>
+    <release>
+      <version>0.7.1</version>
+      <date>2004-08-18</date>
+      <license>PHP</license>
+      <state>alpha</state>
+      <notes>* Fixed bug #2152
+
+   
+</notes>
+    </release>
+    <release>
+      <version>0.8.0</version>
+      <date>2004-10-04</date>
+      <license>PHP</license>
+      <state>alpha</state>
+      <notes>Bug Fixes:
+* strftime() codes for I18Nv2_Locale::date() and I18Nv2_Locale::time() were mixed up
+* set inconv's input encoding to the same as output encoding in I18Nv2::autoConv()
+* fixed typos in I18Nv2::languageOf() and I18Nv2::countryOf() referring non-existent class
+* prevent encoding the output buffer multiple times if I18Nv2::autoConv() is called more than once
+
+New Features:
++ allow overriding of the currency symbol in I18Nv2_Locale::formatCurrency() (requested by Andreas Schamberger)
++ added a filtering decorator for lists, I18Nv2_DecoratedList_Filter
+
+   
+</notes>
+    </release>
+  </changelog>
+</package>

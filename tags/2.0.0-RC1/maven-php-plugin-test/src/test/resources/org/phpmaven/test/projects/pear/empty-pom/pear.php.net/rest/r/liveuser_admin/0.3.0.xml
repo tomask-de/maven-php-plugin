@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/liveuser_admin">LiveUser_Admin</p>
+ <c>pear.php.net</c>
+ <v>0.3.0</v>
+ <st>beta</st>
+ <l>LGPL</l>
+ <m>lsmith</m>
+ <s>User authentication and permission management framework</s>
+ <d>LiveUser_Admin is meant to be used with the LiveUser package.
+  It is composed of all the classes necessary to administrate
+  data used by LiveUser.
+  
+  You'll be able to add/edit/delete/get things like:
+  * Rights
+  * Users
+  * Groups
+  * Areas
+  * Applications
+  * Subgroups
+  * ImpliedRights
+  
+  And all other entities within LiveUser.
+  
+  At the moment we support the following storage containers:
+  * DB
+  * MDB
+  * MDB2
+  
+  But it takes no time to write up your own storage container,
+  so if you like to use native mysql functions straight, then it's possible
+  to do so in under a hour!
+ 
+</d>
+ <da>2005-06-21 05:40:53</da>
+ <n>- added _call() overloading method for php5 users in LiveUser_Admin class
+- dont require a conf array for all but the first call of singleton()
+- updated LiveUser dependency
+
+storage
+- delete() now uses findTable() to ensure that only defined table with the
+  proper fields are being used
+- findTable() now only prefixes fields if necessary
+- added ability to prefix explicit tables in findTables()
+- no longer use &quot;ids&quot; in insert so we can remove this information from the
+  Globals.php file in the client
+- added support for table name aliasing
+- tweaked NULL value handling in createWhere() (bug #4638)
+
+authentication
+- typo fix (bug #4109)
+- typo fix (bug #4173)
+- moved to admin storage class
+- tweaked disconnect to only disconnect when a new connection was made
+
+permission
+- typo fix: hierachy -&gt; hierarchy (bug #4150)
+- improved the &quot;with&quot; support (fixing bug #3245)
+- tweaked disconnect to only disconnect when a new connection was made
+- fixed bug that would lead to hierarchy mode in getGroups only fetching the
+  first subgroup level (bug #4633)
+
+examples
+- examples were converted to use MDB2_Schema. See the demodata.php script found
+  in the client part (http://cvs.php.net/co.php/pear/LiveUser/docs/examples/demodata.php)
+- removed the test.php script since this code is outdated and serves no purpose any longer
+- updated examples to use the new auth config layout due to using admin storage
+- tweaked error handling on init() call</n>
+ <f>56589</f>
+ <g>http://pear.php.net/get/LiveUser_Admin-0.3.0</g>
+ <x xlink:href="package.0.3.0.xml"/>
+</r>

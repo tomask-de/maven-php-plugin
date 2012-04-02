@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release2
+    http://pear.php.net/dtd/rest.release2.xsd">
+ <p xlink:href="/rest/p/services_geonames">Services_GeoNames</p>
+ <c>pear.php.net</c>
+ <v>0.2.3</v>
+ <a>0.2.3</a>
+ <mp>5.2.0</mp>
+ <st>beta</st>
+ <l>MIT</l>
+ <m>izi</m>
+ <s>A PHP5 interface to the GeoNames public API</s>
+ <d>Services_GeoNames is a PHP5 interface to the various webservices offered by
+the GeoNames project.
+
+The GeoNames database contains over 8,000,000 geographical names corresponding 
+to over 6,500,000 unique features. All features are categorized into one out 
+of nine feature classes and further subcategorized into one out of 645 feature 
+codes. Beyond names of places in various languages, data stored include 
+latitude, longitude, elevation, population, administrative subdivision and 
+postal codes. All coordinates use the WGS84 system (World Geodetic System 1984).
+
+Those data are accessible free of charge through a number of Web services and 
+a daily database export. The Web services include direct and reverse geocoding, 
+finding places through postal codes, finding places next to a given place, and 
+finding Wikipedia articles about neighbouring places.
+
+For more information please visit:
+* http://www.geonames.org
+* http://www.geonames.org/export/ws-overview.html
+* http://en.wikipedia.org/wiki/GeoNames</d>
+ <da>2009-01-23 09:25:25</da>
+ <n>* clone the HTTP_Request2 instance instead of the reusing the same instance,
+* ability to set an array of failover servers,
+* better doc strings and various cosmetic changes.
+
+Important note
+==============
+From http://www.geonames.org/export/ :
+&quot;We have temporarily removed the domain ws.geonames.org from the dns setting to
+protect the server from exessive use by an iphone application. You can access
+the server with the domain ws5.geonames.org&quot;
+
+So until ws.geonames.org is not restored, you'll have to do either:
+&lt;?php
+require_once 'Services/GeoNames.php';
+
+$geo = new Services_GeoNames();
+$geo-&gt;url = 'http://ws5.geonames.org';
+?&gt;
+
+or:
+
+&lt;?php
+require_once 'Services/GeoNames.php';
+
+$geo = new Services_GeoNames();
+$geo-&gt;failoverServers[] = 'http://ws5.geonames.org';
+?&gt;</n>
+ <f>48820</f>
+ <g>http://pear.php.net/get/Services_GeoNames-0.2.3</g>
+ <x xlink:href="package.0.2.3.xml"/>
+</r>

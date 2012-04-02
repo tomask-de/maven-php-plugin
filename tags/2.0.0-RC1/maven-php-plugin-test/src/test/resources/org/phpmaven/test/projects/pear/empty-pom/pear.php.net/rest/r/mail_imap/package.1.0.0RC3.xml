@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Mail_IMAP</name>
+  <summary>Provides a c-client backend for webmail.</summary>
+  <description>Mail_IMAP provides a simplified backend for working with the c-client (IMAP) extension. It serves as an OO wrapper for commonly used c-client functions. It provides structure and header parsing as well as body retrieval.
+Mail_IMAP provides a simple inbox example that demonstrates its ability to parse and view simple and multipart email messages.
+Mail_IMAP also provides a connection wizard to determine the correct protocol and port settings for a remote mail server, all you need to provide is a server, a username and a password.
+Mail_IMAP may be used as a webmail backend or as a component in a mailing list manager.
+This package requires the c-client extension.  To download the latest version of the c-client extension goto: http://www.php.net/imap.</description>
+  <maintainers>
+    <maintainer>
+      <user>richy</user>
+      <name>Richard York</name>
+      <email>richy@smilingsouls.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.0.0RC3</version>
+    <date>2004-04-17</date>
+    <license>PHP</license>
+    <state>beta</state>
+    <notes>This release addresses only bugs:
+1.) Wrong $pidAdd value passed to Mail_IMAP::_scanMultipart
+    - Passed an incorrect value of '2' instead of '1'
+2.) Wrong body selected when there is more than one inline text/plain,
+    text/html part.  Mozilla mail, for instance, has a feature to
+    display all attachments in a message beneath the message in the
+    viewer.  It sends mail along these lines as well adding a generic
+    attribute &quot;flowed&quot; in the parameters of a message.
+    Symptoms: Program picks whichever text/plain part is first, not
+    necessarily the correct one.
+    Solution: Message viewer should combine all multiple text/plain
+    inline parts into a single message.
+    Altered Mail_IMAP::_scanMultipart to select the proper part based
+    on whether a file name exists for the inline text/plain part.
+3.) No fallback for default part id in Mail_IMAP::getDefaultPid a BC
+    breaking patch was introduced to cure this problem,
+    Mail_IMAP::getDefaultPid now always returns a part id, if the
+    application is unable to find a default part id, it will return
+    part id #1.  (used to return FALSE if a default part id couldn't be
+    found) This prevents nasty bugs from suspect messages.
+    Symptoms: message does not contain either a text/plain or text/html
+    part.
+    Solution: Mail_IMAP::getDefaultPid now contains a fallback for the
+    first message part (pid #1) message viewer should look at the MIME
+    type and make adjustments accordingly.
+4.) File names don't show up for inline attachments when a file name
+    exists.  Altered Mail_IMAP::_declareParts to allow file names for
+    inline parts to be indexed when a file name exists.
+5.) No default value for file names when one doesn't exist (now defaults
+    to empty string).
+6.) Added a check of the existence of the subject header in the inbox
+    example file.
+Thanks to Dmitry Arkhipov for providing bug reports and extensive testing.</notes>
+    <deps>
+      <dep type="ext" rel="has">imap</dep>
+      <dep type="pkg" rel="has">Net_URL</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="Mail" name="IMAP.php"/>
+      <file role="doc" baseinstalldir="Mail" name="examples\IMAP.inbox.php"/>
+      <file role="doc" baseinstalldir="Mail" name="examples\IMAP.message.php"/>
+      <file role="doc" baseinstalldir="Mail" name="examples\IMAP.connection_wizard.php"/>
+      <file role="doc" baseinstalldir="Mail" name="examples\IMAP.connection_wizard_example.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.1.0A</version>
+      <date>2004-02-10</date>
+      <state>alpha</state>
+      <notes>First release.
+</notes>
+    </release>
+  </changelog>
+</package>

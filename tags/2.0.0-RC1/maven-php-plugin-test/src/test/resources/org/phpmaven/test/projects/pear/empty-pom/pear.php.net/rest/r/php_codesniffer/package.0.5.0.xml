@@ -1,0 +1,1019 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.11" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>PHP_CodeSniffer</name>
+ <channel>pear.php.net</channel>
+ <summary>PHP_CodeSniffer tokenises PHP code and detects violations of a defined set of coding standards.</summary>
+ <description>PHP_CodeSniffer is a PHP5 script that tokenises and &quot;sniffs&quot; PHP code to detect violations of a defined set of coding standards. It is an essential development tool that ensures that your code remains clean and consistent. It can even help prevent some common semantic errors made by developers.</description>
+ <lead>
+  <name>Greg Sherwood</name>
+  <user>squiz</user>
+  <email>gsherwood@squiz.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Marc McIntyre</name>
+  <user>marchaos</user>
+  <email>mmcintyre@squiz.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2007-04-17</date>
+ <time>13:19:44</time>
+ <version>
+  <release>0.5.0</release>
+  <api>0.5.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://matrix.squiz.net/developer/tools/php_cs/licence">BSD License</license>
+ <notes>- BC BREAK: Coding standards now require a class to be added so PHP_CodeSniffer can get information from them
+  - Please read the end user docs for info about the new class required for all coding standards
+- Coding standards can now include sniffs from other standards, or whole standards, without writing new sniff files
+- PHP_CodeSniffer_File::isReference() now correctly returns for references in function declarations
+- PHP_CodeSniffer_File::isReference() now returns false if you don&apos;t pass it a T_BITWISE_AND token
+- PHP_CodeSniffer_File now stores the absolute path to the file so sniffs can check file locations correctly
+- Fixed undefined index error in AbstractVariableSniff for variables inside an interface function definition
+- Added MemberVarSpacingSniff to Squiz standard to enforce one-line spacing between member vars
+- Add FunctionCommentThrowTagSniff to Squiz standard to check that @throws tags are correct
+- Fixed problems caused by references and type hints in Squiz FunctionDeclarationArgumentSpacingSniff
+- Fixed problems with errors not being thrown for some misaligned @param comments in Squiz FunctionCommentSniff
+- Fixed badly spaced comma error being thrown for &quot;extends&quot; class in Squiz ClassDeclarationSniff
+- Errors no longer thrown for class method names in Generic ForbiddenFunctionsSniff
+- Errors no longer thrown for type hints in front of references in Generic UpperCaseConstantNameSniff
+- Errors no longer thrown for correctly indented buffered lines in Squiz ScopeIndexSniff
+- Errors no longer thrown for user-defined functions named as forbidden functions in Generic ForbiddenFunctionsSniff
+- Errors no longer thrown on __autoload functions in PEAR ValidFunctionNameSniff
+- Errors now thrown for __autoload methods in PEAR ValidFunctionNameSniff
+- Errors now thrown if constructors or destructors have @return tags in Squiz FunctionCommentSniff
+- Errors now thrown if @throws tags dont start with a capital and end with a full stop in Squiz FunctionCommentSniff
+- Errors now thrown for invalid @var tag values in Squiz VariableCommentSniff
+- Errors now thrown for missing doc comment in Squiz VariableCommentSniff
+- Errors now thrown for unspaced operators in FOR loop declarations in Squiz OperatorSpacingSniff
+- Errors now thrown for using ob_get_clean/flush functions to end buffers in Squiz OutputBufferingIndentSniff
+- Errors now thrown for all missing member variable comments in Squiz VariableCommentSniff</notes>
+ <contents>
+  <dir name="/">
+   <file baseinstalldir="" md5sum="927851e6f21bea482ea41113746762a6" name="scripts/phpcs" role="script">
+    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+    <tasks:replace from="@package_state@" to="state" type="package-info" />
+   </file>
+   <file baseinstalldir="" md5sum="f373eafc6a93e717793904bc1d3a2407" name="scripts/phpcs.bat" role="script">
+    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
+    <tasks:replace from="@bin_dir@" to="bin_dir" type="pear-config" />
+    <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="" md5sum="a0d9861724900b35d981d9e4352e3fb5" name="tests/Core/AllTests.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="" md5sum="a306534b35a220ed20bcc8c4945f11e4" name="tests/Core/IsCamelCapsTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="" md5sum="34075f3f42702ac51919f52fd00f9018" name="tests/Standards/AbstractSniffUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="" md5sum="9ea7154eeb31c895168cf14728de00af" name="tests/Standards/AllSniffs.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="" md5sum="5ee90cf2f628b16ea5d0ce0691f2c217" name="tests/AllTests.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="4485b43bdbb2be2b8212d36d8e5b70db" name="CodeSniffer/CommentParser/AbstractDocElement.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="9f774a71bebd3016269553ef1e0a8135" name="CodeSniffer/CommentParser/AbstractParser.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="564509a5f013a7325f9435672d03a916" name="CodeSniffer/CommentParser/ClassCommentParser.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="540cd4d40c9b8a66fdd36c27c52d796f" name="CodeSniffer/CommentParser/CommentElement.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="63f6154ea8ba04b837ceb1f261c4b17c" name="CodeSniffer/CommentParser/DocElement.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="3b2eaf7bfd42566505ab96816d9f2c27" name="CodeSniffer/CommentParser/FunctionCommentParser.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="5168bc0b9128290f0a70878c03c3d016" name="CodeSniffer/CommentParser/MemberCommentParser.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="01c872386599e95b39f51565a3bb5de7" name="CodeSniffer/CommentParser/PairElement.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="56755902ab3783b102c6bc5918db05de" name="CodeSniffer/CommentParser/ParameterElement.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="4e339d9ea8e8ac7b56cdedc0cea7ce52" name="CodeSniffer/CommentParser/ParserException.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="8ddae5fee894aa3036b8955833d4595e" name="CodeSniffer/CommentParser/SingleElement.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="6cd4a10d3cb52e353bb60b11e1f4024f" name="CodeSniffer/Standards/Generic/Sniffs/Files/LineLengthSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="9ca0650edc5def6ee8ab636d2a27b122" name="CodeSniffer/Standards/Generic/Sniffs/Formatting/MultipleStatementAlignmentSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="dccc66370a4adf7446cac01825205f00" name="CodeSniffer/Standards/Generic/Sniffs/Functions/OpeningFunctionBraceBsdAllmanSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="fd5caaa2115f2668fb90139536c94d32" name="CodeSniffer/Standards/Generic/Sniffs/Functions/OpeningFunctionBraceKernighanRitchieSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="902eda1b6caccfa5a1ac4324bd05e450" name="CodeSniffer/Standards/Generic/Sniffs/NamingConventions/UpperCaseConstantNameSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="5637313cb8a1be3131d418a69add4d90" name="CodeSniffer/Standards/Generic/Sniffs/PHP/DisallowShortOpenTagSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="7c249be8b6f0a939597541b097f30a54" name="CodeSniffer/Standards/Generic/Sniffs/PHP/ForbiddenFunctionsSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="44dc3d0d7158110a33b60ed619c63df1" name="CodeSniffer/Standards/Generic/Sniffs/PHP/LowerCaseConstantSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="59a1f1a808991ab8840422e7afc032a5" name="CodeSniffer/Standards/Generic/Sniffs/PHP/UpperCaseConstantSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="a597a9e0056c89247a5d1b5a944679fa" name="CodeSniffer/Standards/Generic/Sniffs/WhiteSpace/ScopeIndentSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="9a32bcb2d03b757c7c39e57bfdcfa47c" name="CodeSniffer/Standards/Generic/Tests/Files/LineLengthUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="1b470a8e7bb6bc4f04ef35122991ab35" name="CodeSniffer/Standards/Generic/Tests/Files/LineLengthUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="033b05c3014f0f591081f0d320672513" name="CodeSniffer/Standards/Generic/Tests/Formatting/MultipleStatementAlignmentUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="34c7bafa615f5929ffe8bf5591690630" name="CodeSniffer/Standards/Generic/Tests/Formatting/MultipleStatementAlignmentUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="4b59358a6a12f564655d021559aab0d5" name="CodeSniffer/Standards/Generic/Tests/Functions/OpeningFunctionBraceBsdAllmanUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="3c279efff5cdd0507e1643a0d3382b2f" name="CodeSniffer/Standards/Generic/Tests/Functions/OpeningFunctionBraceBsdAllmanUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="bcbcb999b1635ec800e1dde54f23095f" name="CodeSniffer/Standards/Generic/Tests/Functions/OpeningFunctionBraceKernighanRitchieUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="e2a31bed607d0327936a84e0295e2677" name="CodeSniffer/Standards/Generic/Tests/Functions/OpeningFunctionBraceKernighanRitchieUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="9de3557e6b6c016c5b9102a77662a459" name="CodeSniffer/Standards/Generic/Tests/NamingConventions/UpperCaseConstantNameUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="5e270e00bf2ced6d67a42656bed5014d" name="CodeSniffer/Standards/Generic/Tests/NamingConventions/UpperCaseConstantNameUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="38ca1a09cfe67397a8673d17cbb52d37" name="CodeSniffer/Standards/Generic/Tests/PHP/DisallowShortOpenTagUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="77f9d209f7120aa997229146a1ba9855" name="CodeSniffer/Standards/Generic/Tests/PHP/DisallowShortOpenTagUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="c43e823440ceed3bb2d109a84863be92" name="CodeSniffer/Standards/Generic/Tests/PHP/ForbiddenFunctionsUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="d1181772aeba221110895397fba2a67c" name="CodeSniffer/Standards/Generic/Tests/PHP/ForbiddenFunctionsUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="c2c3f024d5c6e2c040bf1e719988e2dd" name="CodeSniffer/Standards/Generic/Tests/PHP/LowerCaseConstantUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="42a24c7690329d4d2f0ee7982f7769ea" name="CodeSniffer/Standards/Generic/Tests/PHP/LowerCaseConstantUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="51d1c2f26cb4686fea1ec1cf2f5db30c" name="CodeSniffer/Standards/Generic/Tests/PHP/UpperCaseConstantUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="e1062d59b062924da9cb95c965dde123" name="CodeSniffer/Standards/Generic/Tests/PHP/UpperCaseConstantUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="912ede1ca93c0891925a6190adaa30be" name="CodeSniffer/Standards/Generic/Tests/WhiteSpace/ScopeIndentUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="3af8499b42411495b92f07353b2f43ae" name="CodeSniffer/Standards/Generic/Tests/WhiteSpace/ScopeIndentUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="28227e2765b90eafc52a1e016adc5f6f" name="CodeSniffer/Standards/Generic/GenericCodingStandard.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="64af71bfbd2311c253f6140414c15401" name="CodeSniffer/Standards/PEAR/Sniffs/Commenting/ClassCommentSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="92d5d27b46c33d1982f4e7df82d728be" name="CodeSniffer/Standards/PEAR/Sniffs/Commenting/FileCommentSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="d28a3eeb38c1971168bae4634a26cde2" name="CodeSniffer/Standards/PEAR/Sniffs/Commenting/FunctionCommentSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="83d0b6572d87799ffc5192388afc8346" name="CodeSniffer/Standards/PEAR/Sniffs/Commenting/InlineCommentSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="b1f696b27cf3eb80460b0ae0a914f322" name="CodeSniffer/Standards/PEAR/Sniffs/ControlStructures/ControlSignatureSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="f3b66548d6b117a89b5ff8e4a5274fec" name="CodeSniffer/Standards/PEAR/Sniffs/Files/IncludingFileSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="75f6067fc570611a69673cebc750a361" name="CodeSniffer/Standards/PEAR/Sniffs/Files/LineLengthSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="26734c40eef46f74d6e701d1627c4ec4" name="CodeSniffer/Standards/PEAR/Sniffs/Functions/FunctionCallArgumentSpacingSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="b54d400f2c776505c9cd2d9b9a5953a4" name="CodeSniffer/Standards/PEAR/Sniffs/Functions/FunctionCallSignatureSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="7a4e497d52f69a58f495fc22d2ef089a" name="CodeSniffer/Standards/PEAR/Sniffs/Functions/ValidDefaultValueSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="688151ef16fda06bb2c18b4a0ecc9b03" name="CodeSniffer/Standards/PEAR/Sniffs/NamingConventions/ValidClassNameSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="32a8bb30677fa604c526d1933e763d73" name="CodeSniffer/Standards/PEAR/Sniffs/NamingConventions/ValidFunctionNameSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="df84018c48c2273f889a130be505b035" name="CodeSniffer/Standards/PEAR/Sniffs/WhiteSpace/ScopeClosingBraceSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="4b409cdeca3cd1c1d12e7876047532e3" name="CodeSniffer/Standards/PEAR/Sniffs/WhiteSpace/ScopeIndentSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="a3cb13f42e0ed1e449884fdb1760fcb5" name="CodeSniffer/Standards/PEAR/Tests/Commenting/ClassCommentUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="a74b736a390f3321d3e43eb8e5573b1b" name="CodeSniffer/Standards/PEAR/Tests/Commenting/ClassCommentUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="c9d3c2789e77de1a011ab49180d7cb81" name="CodeSniffer/Standards/PEAR/Tests/Commenting/FileCommentUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="92bbf16429c107edc12d0d75e62d8115" name="CodeSniffer/Standards/PEAR/Tests/Commenting/FileCommentUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="b7d83a733dff2cc40a6e3af0a9d9ce96" name="CodeSniffer/Standards/PEAR/Tests/Commenting/FunctionCommentUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="7c7cf47caeff7fcfa4b792c4198db475" name="CodeSniffer/Standards/PEAR/Tests/Commenting/FunctionCommentUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="94051d09e34fc5abc19b0283fc8df30d" name="CodeSniffer/Standards/PEAR/Tests/Commenting/InlineCommentUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="b492f40dca9e0f769f572e706cf9a86a" name="CodeSniffer/Standards/PEAR/Tests/Commenting/InlineCommentUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="dd7c9b63bc833c69f9eaa389b1fa16eb" name="CodeSniffer/Standards/PEAR/Tests/ControlStructures/ControlSignatureUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="d6d3eceb86e6a4e9aa3113908b92925b" name="CodeSniffer/Standards/PEAR/Tests/ControlStructures/ControlSignatureUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="ab3377fa58c36d3e6b9777a9a178e7f7" name="CodeSniffer/Standards/PEAR/Tests/Files/IncludingFileUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="ef8e42b4e74bf24babfa42674783285f" name="CodeSniffer/Standards/PEAR/Tests/Files/IncludingFileUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="b98afa67e94472fc4f842740623a43c2" name="CodeSniffer/Standards/PEAR/Tests/Functions/FunctionCallArgumentSpacingUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="45fbf7a3a5296c7002283a656e3c3910" name="CodeSniffer/Standards/PEAR/Tests/Functions/FunctionCallArgumentSpacingUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="7371cb0ac8bfc034ad5c20b1fc68e555" name="CodeSniffer/Standards/PEAR/Tests/Functions/FunctionCallSignatureUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="9998992def04d27468c0d5dc732a6839" name="CodeSniffer/Standards/PEAR/Tests/Functions/FunctionCallSignatureUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="f2e66b9da9a480c8f028a1b9a16a2d4b" name="CodeSniffer/Standards/PEAR/Tests/Functions/ValidDefaultValueUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="b3c56cb077945e03ccbee3274533a031" name="CodeSniffer/Standards/PEAR/Tests/Functions/ValidDefaultValueUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="b6686f13755ed6e1aa097d8a07b5d64c" name="CodeSniffer/Standards/PEAR/Tests/NamingConventions/ValidClassNameUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="12f3086d8d770c4025ce2114afc98f7d" name="CodeSniffer/Standards/PEAR/Tests/NamingConventions/ValidClassNameUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="95b66dda95410eeeed460772fcfe66cc" name="CodeSniffer/Standards/PEAR/Tests/NamingConventions/ValidFunctionNameUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="31a92a2214d79414b21835fc9c20f484" name="CodeSniffer/Standards/PEAR/Tests/NamingConventions/ValidFunctionNameUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="5a4df0ed7e959add57ed3df1986bbd5d" name="CodeSniffer/Standards/PEAR/Tests/WhiteSpace/ScopeClosingBraceUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="2d045821e9a3629bd4a442d45a87f2f7" name="CodeSniffer/Standards/PEAR/Tests/WhiteSpace/ScopeClosingBraceUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="c19bca75a4c26555202a36ddc9032c17" name="CodeSniffer/Standards/PEAR/Tests/WhiteSpace/ScopeIndentUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="79fd6d30a3e4487f0cc76b5bd778a748" name="CodeSniffer/Standards/PEAR/Tests/WhiteSpace/ScopeIndentUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="4ee800fb75329cb96ce6022c3f09bd77" name="CodeSniffer/Standards/PEAR/PEARCodingStandard.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="411964355781277cd24920b4e2d52d46" name="CodeSniffer/Standards/Squiz/Sniffs/Arrays/ArrayDeclarationSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="3b0a758d9975650e2825f9fa641538e0" name="CodeSniffer/Standards/Squiz/Sniffs/Classes/ClassDeclarationSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="5405a7b16304d6477b2f17a8aadbd904" name="CodeSniffer/Standards/Squiz/Sniffs/Classes/ClassFileNameSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="307484db8f88ca3e25beb5d0f48148d0" name="CodeSniffer/Standards/Squiz/Sniffs/Classes/SelfMemberReferenceSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="8a5d2b640b436ccaea4bedc36a72d053" name="CodeSniffer/Standards/Squiz/Sniffs/Classes/ValidClassNameSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="8ac467d4f633e7bfca4532e477db603b" name="CodeSniffer/Standards/Squiz/Sniffs/Commenting/BlockCommentSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="2fc54b9865ef480a0987fc9fd44d34db" name="CodeSniffer/Standards/Squiz/Sniffs/Commenting/ClassCommentSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="fae4f6c636611db81183ad6562ce0935" name="CodeSniffer/Standards/Squiz/Sniffs/Commenting/ClosingDeclarationCommentSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="00062d545aa40f245b9d6ff292a632fc" name="CodeSniffer/Standards/Squiz/Sniffs/Commenting/DocCommentAlignmentSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="8c2ef6340eed45195cbba169fceb590b" name="CodeSniffer/Standards/Squiz/Sniffs/Commenting/EmptyCatchCommentSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="6b69fe348fb61670a11463602e188ea6" name="CodeSniffer/Standards/Squiz/Sniffs/Commenting/FileCommentSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="e5c0a5ead69c9405ff2384d5422c23d0" name="CodeSniffer/Standards/Squiz/Sniffs/Commenting/FunctionCommentThrowTagSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="99187d2c21cbedbb721b749228d22de5" name="CodeSniffer/Standards/Squiz/Sniffs/Commenting/FunctionCommentSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="7aa16f2f1c04320cb739cdd719c17fce" name="CodeSniffer/Standards/Squiz/Sniffs/Commenting/InlineCommentSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="3f5d9f4e96fa5148ce7542c8020a3104" name="CodeSniffer/Standards/Squiz/Sniffs/Commenting/LongConditionClosingCommentSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="a2812a9b27fa61b930784f4de88c9deb" name="CodeSniffer/Standards/Squiz/Sniffs/Commenting/PostStatementCommentSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="dbc8321ca9345520745b1a43a51e25b2" name="CodeSniffer/Standards/Squiz/Sniffs/Commenting/VariableCommentSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="a3722cbd31568d4e25afb11ea351e12c" name="CodeSniffer/Standards/Squiz/Sniffs/ControlStructures/ControlSignatureSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="4215b11ddc06a348e57841460ce0c99b" name="CodeSniffer/Standards/Squiz/Sniffs/ControlStructures/ElseIfDeclarationSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="199fc27ae108ef18df566b6d8e48fdac" name="CodeSniffer/Standards/Squiz/Sniffs/ControlStructures/ForEachLoopDeclarationSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="c459dcd1e01dd6ccf832aa8e8492ab4b" name="CodeSniffer/Standards/Squiz/Sniffs/ControlStructures/ForLoopDeclarationSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="f1b9054361ef0f0ee68f8237a70d4c40" name="CodeSniffer/Standards/Squiz/Sniffs/ControlStructures/InlineControlStructureSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="a69ebbff9b2750a8f062f8a4d06b4769" name="CodeSniffer/Standards/Squiz/Sniffs/ControlStructures/InlineIfDeclarationSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="ada4e3eef5e7abc6711a3b6f21d310e1" name="CodeSniffer/Standards/Squiz/Sniffs/ControlStructures/SwitchDeclarationSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="dea0cb5d95ac0677f0d2c3f3aa87ce85" name="CodeSniffer/Standards/Squiz/Sniffs/Files/FileExtensionSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="d3e4cd4b40313caa3f6aa51eb3c71c2d" name="CodeSniffer/Standards/Squiz/Sniffs/Files/LineLengthSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="312537b29112f975afaaec819e4a4f85" name="CodeSniffer/Standards/Squiz/Sniffs/Formatting/MultipleStatementAlignmentSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="a67e87f71023450fe08c5f4fbd10a89f" name="CodeSniffer/Standards/Squiz/Sniffs/Formatting/OperatorBracketSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="f6bd75677e015db0262aef4a3dbd394a" name="CodeSniffer/Standards/Squiz/Sniffs/Formatting/OutputBufferingIndentSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="b7be28a69f5f300414ec6d5f3d2d64d6" name="CodeSniffer/Standards/Squiz/Sniffs/Functions/FunctionDeclarationArgumentSpacingSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="d9005665e2495d2eb57772526dcddc0c" name="CodeSniffer/Standards/Squiz/Sniffs/Functions/FunctionDeclarationSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="c40b6657bb56e41f70bfd44853e58483" name="CodeSniffer/Standards/Squiz/Sniffs/Functions/GlobalFunctionSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="379baf0a1dc8e4495b7591ae296e7f9e" name="CodeSniffer/Standards/Squiz/Sniffs/NamingConventions/ValidFunctionNameSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="63b631766060087a207d523a3975e2d4" name="CodeSniffer/Standards/Squiz/Sniffs/NamingConventions/ValidInterfaceNameSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="ec8beac1db8fbabac9c462d25853cc4b" name="CodeSniffer/Standards/Squiz/Sniffs/NamingConventions/ValidVariableNameSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="b578a44af70cf343c8322ac8254d7820" name="CodeSniffer/Standards/Squiz/Sniffs/Operators/ComparisonOperatorUsageSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="c933adde7bf8446f2f5c8630fcd7a415" name="CodeSniffer/Standards/Squiz/Sniffs/Operators/IncrementDecrementUsageSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="230d7558f1e10e07065d7ba693a69cc0" name="CodeSniffer/Standards/Squiz/Sniffs/Operators/ValidLogicalOperatorsSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="dd50263b50b0adf639e415722d84f08c" name="CodeSniffer/Standards/Squiz/Sniffs/PHP/DisallowObEndFlushSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="58ed6892af517955c568f34bb86c7b19" name="CodeSniffer/Standards/Squiz/Sniffs/PHP/EmbeddedPhpSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="042bc20411d4740b2b7c26ad6a48d4b6" name="CodeSniffer/Standards/Squiz/Sniffs/PHP/ForbiddenFunctionsSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="370acb29f4be4b37b920ed20bdb74bf9" name="CodeSniffer/Standards/Squiz/Sniffs/PHP/GlobalKeywordSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="6718c6665da1a9275e9ae0041da80ab1" name="CodeSniffer/Standards/Squiz/Sniffs/PHP/HeredocSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="0b6a2cfd5567727a878ec3ef04429661" name="CodeSniffer/Standards/Squiz/Sniffs/PHP/InnerFunctionsSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="d72b8ba6f13ee1b78a6cec039aee4289" name="CodeSniffer/Standards/Squiz/Sniffs/Scope/MemberVarScopeSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="020dd3ce75053a250f94e418f142a051" name="CodeSniffer/Standards/Squiz/Sniffs/Scope/MethodScopeSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="9ac5025b8ca5e04fa6c5f28c1ebff402" name="CodeSniffer/Standards/Squiz/Sniffs/Scope/StaticThisUsageSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="6a08778fd4853df79813f7bdf518c66e" name="CodeSniffer/Standards/Squiz/Sniffs/Strings/ConcatenationSpacingSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="807069dfaa69e8318b33ef19c5d06be9" name="CodeSniffer/Standards/Squiz/Sniffs/Strings/DoubleQuoteUsageSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="d7207466ae964aa511ea5e93db65d2ac" name="CodeSniffer/Standards/Squiz/Sniffs/Strings/EchoedStringsSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="005bba5232e19e8b0c8037924c922cfa" name="CodeSniffer/Standards/Squiz/Sniffs/WhiteSpace/ControlStructureSpacingSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="0a38cf432673e13d6ff8fd967ac16077" name="CodeSniffer/Standards/Squiz/Sniffs/WhiteSpace/FunctionClosingBraceSpaceSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="1fedc8ef57febe55bca7eb7b02370b73" name="CodeSniffer/Standards/Squiz/Sniffs/WhiteSpace/FunctionSpacingSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="9f649b17fd38e6172174d3b16131bada" name="CodeSniffer/Standards/Squiz/Sniffs/WhiteSpace/MemberVarSpacingSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="61a86c8054e7a292a10499a9e4e09191" name="CodeSniffer/Standards/Squiz/Sniffs/WhiteSpace/OperatorSpacingSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="445518690bd36b8ffbaedc6a175abe84" name="CodeSniffer/Standards/Squiz/Sniffs/WhiteSpace/ScopeIndentSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="dafcb48daf427f84ec39eefe0d8a34c1" name="CodeSniffer/Standards/Squiz/Sniffs/WhiteSpace/SuperfluousWhitespaceSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="e84f74c1f1ad98f05d59ac83695412f1" name="CodeSniffer/Standards/Squiz/Tests/Arrays/ArrayDeclarationUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="8b0579acbdecd895fb83799957c96fb3" name="CodeSniffer/Standards/Squiz/Tests/Arrays/ArrayDeclarationUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="202d1d4e3038026534a4eddc695ed463" name="CodeSniffer/Standards/Squiz/Tests/Classes/ClassDeclarationUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="65e6924f3b0a123b050418e577499a9d" name="CodeSniffer/Standards/Squiz/Tests/Classes/ClassDeclarationUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="783663337b2ce5aacdd975a54887f58f" name="CodeSniffer/Standards/Squiz/Tests/Classes/ClassFileNameUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="2a99b54b4ec818c9431288af73cb3d9b" name="CodeSniffer/Standards/Squiz/Tests/Classes/ClassFileNameUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="5bea7937eb1e34e7122fde8b3e6449d0" name="CodeSniffer/Standards/Squiz/Tests/Classes/SelfMemberReferenceUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="efd2ac3e018195b469608f072a304f75" name="CodeSniffer/Standards/Squiz/Tests/Classes/SelfMemberReferenceUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="f6643ce80488974d06310e5046dacd3e" name="CodeSniffer/Standards/Squiz/Tests/Classes/ValidClassNameUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="0be4b590ccacb5cbc5b01fc9a0875d51" name="CodeSniffer/Standards/Squiz/Tests/Classes/ValidClassNameUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="24ea747594b041b32fd464ed275f3385" name="CodeSniffer/Standards/Squiz/Tests/Commenting/BlockCommentUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="f37754f03115acf9a388ae58c519135e" name="CodeSniffer/Standards/Squiz/Tests/Commenting/BlockCommentUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="e11cbc6d0399bf452feca66469407429" name="CodeSniffer/Standards/Squiz/Tests/Commenting/ClassCommentUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="a8458a21d77b51b8caf0880f1a2a7f77" name="CodeSniffer/Standards/Squiz/Tests/Commenting/ClassCommentUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="cb08c6fa97c7ff1d7bcaa149689b205a" name="CodeSniffer/Standards/Squiz/Tests/Commenting/ClosingDeclarationCommentUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="a2a6af2faf842e641c0437642d9165a3" name="CodeSniffer/Standards/Squiz/Tests/Commenting/ClosingDeclarationCommentUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="011867d11bb352670e4a7036ebe0645d" name="CodeSniffer/Standards/Squiz/Tests/Commenting/DocCommentAlignmentUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="02f86861f49904188bf2fded8bc211fe" name="CodeSniffer/Standards/Squiz/Tests/Commenting/DocCommentAlignmentUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="bd5ceb4b2be0db33e6a3bcccf5b5410c" name="CodeSniffer/Standards/Squiz/Tests/Commenting/EmptyCatchCommentUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="2cf2fd1f0926a24e96dcf1649d8af37c" name="CodeSniffer/Standards/Squiz/Tests/Commenting/EmptyCatchCommentUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="4ecb2b517a23e907f010405c8e162c26" name="CodeSniffer/Standards/Squiz/Tests/Commenting/FileCommentUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="12970540eb1460908c1929def28b484a" name="CodeSniffer/Standards/Squiz/Tests/Commenting/FileCommentUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="3ce892537d1a1f4d79a7b3e01e33b930" name="CodeSniffer/Standards/Squiz/Tests/Commenting/FunctionCommentThrowTagUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="f72c960716b1c73ee042fcab6be10815" name="CodeSniffer/Standards/Squiz/Tests/Commenting/FunctionCommentThrowTagUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="10432c868ed138c3bcddade7d2f702bf" name="CodeSniffer/Standards/Squiz/Tests/Commenting/FunctionCommentUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="eeec25ebf49d0c3f128d6fb74bb2bc74" name="CodeSniffer/Standards/Squiz/Tests/Commenting/FunctionCommentUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="f3882fb1c5357572508a7736b64e4e3c" name="CodeSniffer/Standards/Squiz/Tests/Commenting/InlineCommentUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="7328182b383d538f656dac34c01b9dca" name="CodeSniffer/Standards/Squiz/Tests/Commenting/InlineCommentUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="886f118995a969ea821bd0655588e7e0" name="CodeSniffer/Standards/Squiz/Tests/Commenting/LongConditionClosingCommentUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="8d6fdf52834ec259059d6bb8794e93a1" name="CodeSniffer/Standards/Squiz/Tests/Commenting/LongConditionClosingCommentUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="ae23169f1db49a33ecabe9f96ea4d362" name="CodeSniffer/Standards/Squiz/Tests/Commenting/PostStatementCommentUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="e3fcdfe5af52898fa87de7c1312afda2" name="CodeSniffer/Standards/Squiz/Tests/Commenting/PostStatementCommentUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="346303f88220b70ccdae7feeaeba0557" name="CodeSniffer/Standards/Squiz/Tests/Commenting/VariableCommentUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="eee7b6e0733b02de728a5faf99b6f49d" name="CodeSniffer/Standards/Squiz/Tests/Commenting/VariableCommentUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="7bc2e681cafdbee7b522bc523353d471" name="CodeSniffer/Standards/Squiz/Tests/ControlStructures/ControlSignatureUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="0cf358aee20510d4258894951fbf52e9" name="CodeSniffer/Standards/Squiz/Tests/ControlStructures/ControlSignatureUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="dad8341e4c777d6342b70f8cd2416d35" name="CodeSniffer/Standards/Squiz/Tests/ControlStructures/ElseIfDeclarationUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="a8d271018d14b998ab8fe67f27854ff4" name="CodeSniffer/Standards/Squiz/Tests/ControlStructures/ElseIfDeclarationUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="a097952425019e0f4ac91d9e9604779b" name="CodeSniffer/Standards/Squiz/Tests/ControlStructures/ForEachLoopDeclarationUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="ca67f9aaca4b8e4c7cd65bdc08630102" name="CodeSniffer/Standards/Squiz/Tests/ControlStructures/ForEachLoopDeclarationUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="46bae165028db02be82297120b3ad258" name="CodeSniffer/Standards/Squiz/Tests/ControlStructures/ForLoopDeclarationUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="4659672430399589cb45874e6daaf282" name="CodeSniffer/Standards/Squiz/Tests/ControlStructures/ForLoopDeclarationUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="d453590a7a9a9e1609b50096b427ae46" name="CodeSniffer/Standards/Squiz/Tests/ControlStructures/InlineControlStructureUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="230b23f31c1868233795f5cd802632f6" name="CodeSniffer/Standards/Squiz/Tests/ControlStructures/InlineControlStructureUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="332f23b64ac59ea93c1d56f0f96848e3" name="CodeSniffer/Standards/Squiz/Tests/ControlStructures/InlineIfDeclarationUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="5c9745dd191e86b82919de82d00e6a0a" name="CodeSniffer/Standards/Squiz/Tests/ControlStructures/InlineIfDeclarationUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="271323ece423bea383f2309508dc311a" name="CodeSniffer/Standards/Squiz/Tests/ControlStructures/SwitchDeclarationUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="806fe6435eba0166df9382bb371da63c" name="CodeSniffer/Standards/Squiz/Tests/ControlStructures/SwitchDeclarationUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="be37337314c486c5dd1b9cc14fab778a" name="CodeSniffer/Standards/Squiz/Tests/Files/FileExtensionUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="30791881170a2a9b31d2ac1b6a6f89dd" name="CodeSniffer/Standards/Squiz/Tests/Files/FileExtensionUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="e0e12b351c4ed17429ea71c994bb4575" name="CodeSniffer/Standards/Squiz/Tests/Formatting/OperatorBracketUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="ae9a70d53b4b0343c2db5e5c2bcd3d82" name="CodeSniffer/Standards/Squiz/Tests/Formatting/OperatorBracketUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="c79a805d2c0069d9c38e4739595cfc1d" name="CodeSniffer/Standards/Squiz/Tests/Formatting/OutputBufferingIndentUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="93e79a1e6dc6dd2d6ed3eb21ebd7aad6" name="CodeSniffer/Standards/Squiz/Tests/Formatting/OutputBufferingIndentUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="19a68391d9ce36d40f07339fc6451130" name="CodeSniffer/Standards/Squiz/Tests/Functions/FunctionDeclarationArgumentSpacingUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="f18f030ed4eb3c9c76f97adf6f28fbf3" name="CodeSniffer/Standards/Squiz/Tests/Functions/FunctionDeclarationArgumentSpacingUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="2023695fcb11b899cd135c6a1044099b" name="CodeSniffer/Standards/Squiz/Tests/Functions/FunctionDeclarationUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="1c3297f7a134fcca4b084b710fb45474" name="CodeSniffer/Standards/Squiz/Tests/Functions/FunctionDeclarationUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="447510e10b1de174cec24b1f1311fbd1" name="CodeSniffer/Standards/Squiz/Tests/Functions/GlobalFunctionUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="6502099cdac17c8f8f5b4bdba2792df8" name="CodeSniffer/Standards/Squiz/Tests/Functions/GlobalFunctionUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="cf8692b240747fb6630d402d504ef66e" name="CodeSniffer/Standards/Squiz/Tests/NamingConventions/ValidFunctionNameUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="e1b7427fb6d942cf5a3659c9e42ff061" name="CodeSniffer/Standards/Squiz/Tests/NamingConventions/ValidFunctionNameUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="adbbd9a69d90eb3cee3f2d9a8236405b" name="CodeSniffer/Standards/Squiz/Tests/NamingConventions/ValidInterfaceNameUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="d850f7b24c2ef81874714ea99923b41d" name="CodeSniffer/Standards/Squiz/Tests/NamingConventions/ValidInterfaceNameUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="8acfa8fb02d7a5576cf811817ab272a6" name="CodeSniffer/Standards/Squiz/Tests/NamingConventions/ValidVariableNameUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="05edad91430387d9df5050b6c5e86379" name="CodeSniffer/Standards/Squiz/Tests/NamingConventions/ValidVariableNameUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="93cdc2f6cb2b4ee4e3438d77e8c19462" name="CodeSniffer/Standards/Squiz/Tests/Operators/ComparisonOperatorUsageUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="1bbeff62ad2f5e7e03b907c84a0d3383" name="CodeSniffer/Standards/Squiz/Tests/Operators/ComparisonOperatorUsageUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="881d0ed31738b1982b068f204d6f2f1f" name="CodeSniffer/Standards/Squiz/Tests/Operators/IncrementDecrementUsageUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="0fda847b5492b2fe8ef3659606bf7c58" name="CodeSniffer/Standards/Squiz/Tests/Operators/IncrementDecrementUsageUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="35261ec0030ebb736a4f87d41abf641c" name="CodeSniffer/Standards/Squiz/Tests/Operators/ValidLogicalOperatorsUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="4983519b416e81cf9d9e0c6625ae4754" name="CodeSniffer/Standards/Squiz/Tests/Operators/ValidLogicalOperatorsUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="ecde99b0e9f36e96422cf8ca77c9726b" name="CodeSniffer/Standards/Squiz/Tests/PHP/DisallowObEndFlushUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="20a4392e8ce35c2b2501082af6a9c836" name="CodeSniffer/Standards/Squiz/Tests/PHP/DisallowObEndFlushUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="8ac2479eed371abe5165b8800c3d6f71" name="CodeSniffer/Standards/Squiz/Tests/PHP/EmbeddedPhpUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="e07dc001ab9520d25864f975b6ed01bd" name="CodeSniffer/Standards/Squiz/Tests/PHP/EmbeddedPhpUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="8874aaecdf9409bc34396777e12dc499" name="CodeSniffer/Standards/Squiz/Tests/PHP/ForbiddenFunctionsUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="c1440601224b700d1d1db997b8c2823e" name="CodeSniffer/Standards/Squiz/Tests/PHP/ForbiddenFunctionsUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="2f7b5881e4dd6c9bb523e12619a06be3" name="CodeSniffer/Standards/Squiz/Tests/PHP/GlobalKeywordUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="6228b43dff57118f48589fd1a1f882d7" name="CodeSniffer/Standards/Squiz/Tests/PHP/GlobalKeywordUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="29e6781d02d9b03aa4f4f4078881c5a9" name="CodeSniffer/Standards/Squiz/Tests/PHP/HeredocUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="fad0403a0c0e58f3a345d3d000b4f72a" name="CodeSniffer/Standards/Squiz/Tests/PHP/HeredocUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="fe81174da50700a2d91f917fed4654bd" name="CodeSniffer/Standards/Squiz/Tests/PHP/InnerFunctionsUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="f083c86706439b46a5e94fbb2fb0ceaa" name="CodeSniffer/Standards/Squiz/Tests/PHP/InnerFunctionsUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="af635c131e826b154ce876b75b3b8e03" name="CodeSniffer/Standards/Squiz/Tests/Scope/MemberVarScopeUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="f4090ec8d683bd5ca88e9a10347b7f22" name="CodeSniffer/Standards/Squiz/Tests/Scope/MemberVarScopeUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="e7780cbd440b0ed280a223841fa9bd6d" name="CodeSniffer/Standards/Squiz/Tests/Scope/MethodScopeUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="3c520d8ae5fdccefb17bac3341e781e0" name="CodeSniffer/Standards/Squiz/Tests/Scope/MethodScopeUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="4508c2bdc97709547c9f744783865e35" name="CodeSniffer/Standards/Squiz/Tests/Scope/StaticThisUsageUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="a0b6c0583b928292450ec312dced23a6" name="CodeSniffer/Standards/Squiz/Tests/Scope/StaticThisUsageUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="49ba08185820aef639a4c8ac9ee51abc" name="CodeSniffer/Standards/Squiz/Tests/Strings/ConcatenationSpacingUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="b05aa83afa8bb23120ee4bc92f9c6d54" name="CodeSniffer/Standards/Squiz/Tests/Strings/ConcatenationSpacingUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="636302a27f9777dec13f0f2b01085a21" name="CodeSniffer/Standards/Squiz/Tests/Strings/DoubleQuoteUsageUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="9b6f11b15446e5cf81bc843ea5a43b4a" name="CodeSniffer/Standards/Squiz/Tests/Strings/DoubleQuoteUsageUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="847c4d1fd2ddbac52201877b327343b6" name="CodeSniffer/Standards/Squiz/Tests/Strings/EchoedStringsUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="624d47b7172b33d5c88abb32c02d81f8" name="CodeSniffer/Standards/Squiz/Tests/Strings/EchoedStringsUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="e5dd31823e750e3196a0cfb670e39922" name="CodeSniffer/Standards/Squiz/Tests/WhiteSpace/ControlStructureSpacingUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="2775ebebb5004326e4cc63b4f6406e0f" name="CodeSniffer/Standards/Squiz/Tests/WhiteSpace/ControlStructureSpacingUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="1707a1c899ee279339d22f98d93e4666" name="CodeSniffer/Standards/Squiz/Tests/WhiteSpace/FunctionClosingBraceSpaceUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="f823213e8d856dff0558c15392a5a07e" name="CodeSniffer/Standards/Squiz/Tests/WhiteSpace/FunctionClosingBraceSpaceUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="97d3c1580a8b2da340df3fc04ff81a43" name="CodeSniffer/Standards/Squiz/Tests/WhiteSpace/FunctionSpacingUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="397b190d715379ea20ea1f95a150bf0f" name="CodeSniffer/Standards/Squiz/Tests/WhiteSpace/FunctionSpacingUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="666af07c27430f21535ca06e6cd5d3f1" name="CodeSniffer/Standards/Squiz/Tests/WhiteSpace/MemberVarSpacingUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="dfc8fbc2b03b76e7ad868fd04231c07f" name="CodeSniffer/Standards/Squiz/Tests/WhiteSpace/MemberVarSpacingUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="4351bd16cf4e670ba2644be61cb95612" name="CodeSniffer/Standards/Squiz/Tests/WhiteSpace/OperatorSpacingUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="15f39e829426bb4847e2cbe32ede58da" name="CodeSniffer/Standards/Squiz/Tests/WhiteSpace/OperatorSpacingUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="49c1386cb2c893dada10662dedbdbb74" name="CodeSniffer/Standards/Squiz/Tests/WhiteSpace/ScopeIndentUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="a6a6291a4ef066e7052d4b9fbd360843" name="CodeSniffer/Standards/Squiz/Tests/WhiteSpace/ScopeIndentUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="e940d998566171cb0cd6efdd0a82ab06" name="CodeSniffer/Standards/Squiz/Tests/WhiteSpace/SuperfluousWhitespaceUnitTest.inc" role="test" />
+   <file baseinstalldir="PHP" md5sum="42d67bfc0e1d9587339ba1bd36f24eb5" name="CodeSniffer/Standards/Squiz/Tests/WhiteSpace/SuperfluousWhitespaceUnitTest.php" role="test">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="6a0301915e6f421f4c84f82fed001fbd" name="CodeSniffer/Standards/Squiz/SquizCodingStandard.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="aec8e6897bd65ab6c37c97e4ac2043b2" name="CodeSniffer/Standards/AbstractPatternSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="4342de771aabec4dfa9c46225d59ee0f" name="CodeSniffer/Standards/AbstractScopeSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="d810c94b85343e771643af8bd656de72" name="CodeSniffer/Standards/AbstractVariableSniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="b3f9a9edff7ff139dc3a7c4e88bfc641" name="CodeSniffer/Standards/CodingStandard.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="ebb16b9e20b728814313df80c9978821" name="CodeSniffer/Standards/IncorrectPatternException.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="ae1efc27873e662577208ef3620d5eaf" name="CodeSniffer/Exception.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="a3e852ffd3973ce16c5bebb15aa9d4a8" name="CodeSniffer/File.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="f7f4473cf288ebe27dbebfd192c7fbc6" name="CodeSniffer/Sniff.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="89d22b7e06a18f8428d71ff19b23a81c" name="CodeSniffer/SniffException.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="5eefa5f8fd42410c84b550048cf21a4a" name="CodeSniffer/Tokens.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PHP" md5sum="208648f51e2fb64fb288ab252f052763" name="CodeSniffer.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.1.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <installconditions>
+   <os>
+    <name>windows</name>
+   </os>
+  </installconditions>
+  <filelist>
+   <install as="phpcs" name="scripts/phpcs" />
+   <install as="phpcs.bat" name="scripts/phpcs.bat" />
+   <install as="AllTests.php" name="tests/AllTests.php" />
+   <install as="CodeSniffer/Core/AllTests.php" name="tests/Core/AllTests.php" />
+   <install as="CodeSniffer/Core/IsCamelCapsTest.php" name="tests/Core/IsCamelCapsTest.php" />
+   <install as="CodeSniffer/Standards/AllSniffs.php" name="tests/Standards/AllSniffs.php" />
+   <install as="CodeSniffer/Standards/AbstractSniffUnitTest.php" name="tests/Standards/AbstractSniffUnitTest.php" />
+  </filelist>
+ </phprelease>
+ <phprelease>
+  <filelist>
+   <install as="phpcs" name="scripts/phpcs" />
+   <install as="AllTests.php" name="tests/AllTests.php" />
+   <install as="CodeSniffer/Core/AllTests.php" name="tests/Core/AllTests.php" />
+   <install as="CodeSniffer/Core/IsCamelCapsTest.php" name="tests/Core/IsCamelCapsTest.php" />
+   <install as="CodeSniffer/Standards/AllSniffs.php" name="tests/Standards/AllSniffs.php" />
+   <install as="CodeSniffer/Standards/AbstractSniffUnitTest.php" name="tests/Standards/AbstractSniffUnitTest.php" />
+   <ignore name="scripts/phpcs.bat" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.5.0</release>
+    <api>0.5.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2007-04-17</date>
+   <license uri="http://matrix.squiz.net/developer/tools/php_cs/licence">BSD License</license>
+   <notes>- BC BREAK: Coding standards now require a class to be added so PHP_CodeSniffer can get information from them
+  - Please read the end user docs for info about the new class required for all coding standards
+- Coding standards can now include sniffs from other standards, or whole standards, without writing new sniff files
+- PHP_CodeSniffer_File::isReference() now correctly returns for references in function declarations
+- PHP_CodeSniffer_File::isReference() now returns false if you don&apos;t pass it a T_BITWISE_AND token
+- PHP_CodeSniffer_File now stores the absolute path to the file so sniffs can check file locations correctly
+- Fixed undefined index error in AbstractVariableSniff for variables inside an interface function definition
+- Added MemberVarSpacingSniff to Squiz standard to enforce one-line spacing between member vars
+- Add FunctionCommentThrowTagSniff to Squiz standard to check that @throws tags are correct
+- Fixed problems caused by references and type hints in Squiz FunctionDeclarationArgumentSpacingSniff
+- Fixed problems with errors not being thrown for some misaligned @param comments in Squiz FunctionCommentSniff
+- Fixed badly spaced comma error being thrown for &quot;extends&quot; class in Squiz ClassDeclarationSniff
+- Errors no longer thrown for class method names in Generic ForbiddenFunctionsSniff
+- Errors no longer thrown for type hints in front of references in Generic UpperCaseConstantNameSniff
+- Errors no longer thrown for correctly indented buffered lines in Squiz ScopeIndexSniff
+- Errors no longer thrown for user-defined functions named as forbidden functions in Generic ForbiddenFunctionsSniff
+- Errors no longer thrown on __autoload functions in PEAR ValidFunctionNameSniff
+- Errors now thrown for __autoload methods in PEAR ValidFunctionNameSniff
+- Errors now thrown if constructors or destructors have @return tags in Squiz FunctionCommentSniff
+- Errors now thrown if @throws tags dont start with a capital and end with a full stop in Squiz FunctionCommentSniff
+- Errors now thrown for invalid @var tag values in Squiz VariableCommentSniff
+- Errors now thrown for missing doc comment in Squiz VariableCommentSniff
+- Errors now thrown for unspaced operators in FOR loop declarations in Squiz OperatorSpacingSniff
+- Errors now thrown for using ob_get_clean/flush functions to end buffers in Squiz OutputBufferingIndentSniff
+- Errors now thrown for all missing member variable comments in Squiz VariableCommentSniff</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.4.0</release>
+    <api>0.4.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2007-02-19</date>
+   <license uri="http://matrix.squiz.net/developer/tools/php_cs/licence">BSD License</license>
+   <notes>- Standard name specified with --standard command line argument is no longer case sensitive
+- Long error and warning messages are now wrapped to 80 characters in the full error report (thanks Endre Czirbesz)
+- Shortened a lot of error and warning messages so they don&apos;t take up so much room
+- Squiz FunctionCommentSniff now checks that param comments start with a captial letter and end with a full stop
+- Squiz FunctionSpacingSniff now reports incorrect lines below function on closing brace, not function keyword
+- Squiz FileCommentSniff now checks that there are no blank lines between the open PHP tag and the comment
+- PHP_CodeSniffer_File::isReference() now returns correctly when checking refs on right side of =&gt;
+- Fixed incorrect error with switch closing brace in Squiz SwitchDeclarationSniff
+- Fixed missing error when multiple statements are not aligned correctly with object operators
+- Fixed incorrect errors for some PHP special variables in Squiz ValidVariableNameSniff
+- Fixed incorrect errors for arrays that only contain other arrays in Squiz ArrayDeclarationSniff
+- Fixed bug #9844 : throw new Exception(\n accidently reported as error but it ain&apos;t</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.3.0</release>
+    <api>0.3.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2007-01-11</date>
+   <license uri="http://matrix.squiz.net/developer/tools/php_cs/licence">BSD License</license>
+   <notes>- Updated package.xml to version 2
+- Specifying coding standard on command line is now optional, even if you have multiple standards installed
+  - PHP_CodeSniffer uses the PEAR coding standard by default if no standard is specified
+- New command line option, --extensions, to specify a comma separated list of file extensions to check
+- Converted all unit tests to PHPUnit 3 format
+- Added new coding standard, Squiz, that can be used as an alternative to PEAR
+  - also contains more examples of sniffs
+  - some may be moved into the Generic coding standard if required
+- Added MultipleStatementAlignmentSniff to Generic standard
+- Added ScopeIndentSniff to Generic standard
+- Added ForbiddenFunctionsSniff to Generic standard
+- Added FileCommentSniff to PEAR standard
+- Added ClassCommentSniff to PEAR standard
+- Added FunctionCommentSniff to PEAR standard
+- Change MultipleStatementSniff to MultipleStatementAlignmentSniff in PEAR standard
+- Replaced Methods directory with Functions directory in Generic and PEAR standards
+  - also renamed some of the sniffs in those directories
+- Updated file, class and method comments for all files
+- Fixed bug #9274 : nested_parenthesis element not set for open and close parenthesis tokens
+- Fixed bug #9411 : too few pattern characters cause incorrect error report</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.1</release>
+    <api>0.2.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-11-09</date>
+   <license uri="http://matrix.squiz.net/developer/tools/php_cs/licence">BSD License</license>
+   <notes>- Fixed bug #9274 : nested_parenthesis element not set for open and close parenthesis tokens</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-10-13</date>
+   <license uri="http://matrix.squiz.net/developer/tools/php_cs/licence">BSD License</license>
+   <notes>- Added a generic standards package that will contain generic sniffs to be used in specific coding standards
+  - thanks to Frederic Poeydomenge for the idea
+- Changed PEAR standard to use generic sniffs where available
+- Added LowerCaseConstantSniff to Generic standard
+- Added UpperCaseConstantSniff to Generic standard
+- Added DisallowShortOpenTagSniff to Generic standard
+- Added LineLengthSniff to Generic standard
+- Added UpperCaseConstantNameSniff to Generic standard
+- Added OpeningMethodBraceBsdAllmanSniff to Generic standard (contrib by Frederic Poeydomenge)
+- Added OpeningMethodBraceKernighanRitchieSniff to Generic standard (contrib by Frederic Poeydomenge)
+- Added framework for core PHP_CodeSniffer unit tests
+- Added unit test for PHP_CodeSniffer:isCamelCaps method
+- ScopeClosingBraceSniff now checks indentation of BREAK statements
+- Added new command line arg (-vv) to show developer debug output
+- Fixed some coding standard errors
+- Fixed bug #8834 : Massive memory consumption
+- Fixed bug #8836 : path case issues in package.xml
+- Fixed bug #8843 : confusion on nested switch()
+- Fixed bug #8841 : comments taken as whitespace
+- Fixed bug #8884 : another problem with nested switch() statements</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.1</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-09-25</date>
+   <license uri="http://matrix.squiz.net/developer/tools/php_cs/licence">BSD License</license>
+   <notes>- Added unit tests for all PEAR sniffs
+- Exception class now extends from PEAR_Exception
+- Fixed summary report so files without errors but with warnings are not shown when warnings are hidden</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-09-19</date>
+   <license uri="http://matrix.squiz.net/developer/tools/php_cs/licence">BSD License</license>
+   <notes>- Reorganised package contents to conform to PEAR standards
+- Changed version numbering to conform to PEAR standards
+- Removed duplicate require_once() of Exception.php from CodeSniffer.php</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.5</release>
+    <api>0.0.5</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-09-18</date>
+   <license uri="http://matrix.squiz.net/developer/tools/php_cs/licence">BSD License</license>
+   <notes>- Fixed .bat file for situation where php.ini cannot be found so include_path is not set</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.4</release>
+    <api>0.0.4</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-08-28</date>
+   <license uri="http://matrix.squiz.net/developer/tools/php_cs/licence">BSD License</license>
+   <notes>- Added .bat file for easier running of PHP_CodeSniffer on Windows
+- Sniff that checks method names now works for PHP4 style code where there is no scope keyword
+- Sniff that checks method names now works for PHP4 style constructors
+- Sniff that checks method names no longer incorrectly reports error with magic methods
+- Sniff that checks method names now reports errors with non-magic methods prefixed with __
+- Sniff that checks for constant names no longer incorrectly reports errors with heredoc strings
+- Sniff that checks for constant names no longer incorrectly reports errors with created objects
+- Sniff that checks indentation no longer incorrectly reports errors with heredoc strings
+- Sniff that checks indentation now correctly reports errors with improperly indented multi-line strings
+- Sniff that checks function declarations now checks for spaces before and after an equals sign for default values
+- Sniff that checks function declarations no longer incorrectly reports errors with multi-line declarations
+- Sniff that checks included code no longer incorrectly reports errors when return value is used conditionally
+- Sniff that checks opening brace of function no longer incorrectly reports errors with multi-line declarations
+- Sniff that checks spacing after commas in function calls no longer reports too many errors for some code
+- Sniff that checks control structure declarations now gives more descriptive error message</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.3</release>
+    <api>0.0.3</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-08-22</date>
+   <license uri="http://matrix.squiz.net/developer/tools/php_cs/licence">BSD License</license>
+   <notes>- Added sniff to check for invalid class and interface names
+- Added sniff to check for invalid function and method names
+- Added sniff to warn if line is greater than 85 characters
+- Added sniff to check that function calls are in the correct format
+- Fixed error where comments were not allowed on the same line as a control structure declaration
+- Added command line arg to print current version (--version)</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.2</release>
+    <api>0.0.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-07-25</date>
+   <license uri="http://matrix.squiz.net/developer/tools/php_cs/licence">BSD License</license>
+   <notes>- Removed the including of checked files to stop errors caused by parsing them
+- Removed the use of reflection so checked files do not have to be included
+- Memory usage has been greatly reduced
+- Much faster tokenising and checking times
+- Reworked the PEAR coding standard sniffs (much faster now)
+- Fix some bugs with the PEAR scope indentation standard
+- Better checking for installed coding standards
+- Can now accept multiple files and dirs on the command line
+- Added an option to list installed coding standards
+- Added an option to print a summary report (number of errors and warnings shown for each file)
+- Added an option to hide warnings from reports
+- Added an option to print verbose output (so you know what is going on)
+- Reordered command line args to put switches first (although order is not enforced)
+- Switches can now be specified together (eg. php -nv) as well as separately (phpcs -n -v)</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-07-19</date>
+   <license uri="http://matrix.squiz.net/developer/tools/php_cs/licence">BSD License</license>
+   <notes>Initial preview release.</notes>
+  </release>
+ </changelog>
+</package>

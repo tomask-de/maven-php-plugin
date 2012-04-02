@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Net_CDDB</name>
+  <summary>Package to access and query CDDB audio-CD servers</summary>
+  <description>The Net_CDDB class is used to access CDDB audio-CD servers via 
+different protocols. The class can get detailed audio-CD data 
+(track names, artist names, album name, etc.) from the CDDB server 
+for a given audio CD.</description>
+  <maintainers>
+    <maintainer>
+      <user>superwormy</user>
+      <name>Keith Palmer Jr.</name>
+      <email>keith@UglySlug.com</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.2.0</version>
+    <date>2005-05-30</date>
+    <license>BSD</license>
+    <state>alpha</state>
+    <notes>* Fixed bug #7526, incorrect formatted disc length (Kristof)
+* Fixed bug #7592, incorrect parsing of multi-line track/artist/disc titles (Kristof, Richard)
+* Added Net_CDDB_Track class and made neccessary changes to Net_CDDB_Disc
+* Net_CDDB_Disc::toString() no longer increments the revision number
+* Changed Net_CDDB class to Net_CDDB_Client (Net_CDDB is an abstract base class now)
+* Added Net_CDDB_Server class (CDDB server *alpha quality code, use at your own risk!*)
+* Fixed package.xml dependency list
+* Added distinction between CDDB categories vs. CDDB genres
+* Added new protocol: Filesystem (query from downloaded copy of the entire FreeDB database)
+* Added a useful Net_CDDB_Utilities class which holds misc. useful static methods
+* Re-written parseRecord() method (better compatibility, cleaner, bug fixes, type checking)</notes>
+    <deps>
+      <dep type="pkg" rel="ge" version="1.0.6" optional="yes">Net_Socket</dep>
+      <dep type="pkg" rel="ge" version="1.3.0" optional="yes">HTTP_Request</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="Net" md5sum="1dc4dd01e43f98e70b4d0c86e6e26a2e" name="CDDB.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="b9c85cfdc18647c1bff3cf341f992757" name="CDDB/Disc.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="393a4ee6e8763d6ddb4d346dacb0674f" name="CDDB/Track.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="1175804eb86a514bbe96c7f077765b7b" name="CDDB/Utilities.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="9d80c012b191d2c224ba6347422abe67" name="CDDB/Protocol.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="7b4a1f832692a85646aba6b3db75a5cd" name="CDDB/Request.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="5caa0a36ba0c2a4d0d47bb23aeb73222" name="CDDB/Client.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="ea221e26e4b25a1d65e667526724cac2" name="CDDB/Server.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="a64a49bcb898bb5359db3a595754d85a" name="CDDB/Reader/test.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="28e78bc5cc5d67b0fc57c55be956ed03" name="CDDB/Reader/cddiscid.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="7629da9b49a52dda0d651e17a39ad31d" name="CDDB/Reader/cdparanoia.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="ed3117fa255c9869cb24df8380847999" name="CDDB/Protocol/Http.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="cda319edfe1832a1a540f9ae28eea71d" name="CDDB/Protocol/Cddbp.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="31174550c732180b4f1aa68b9f15fc6a" name="CDDB/Protocol/Filesystem.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="a994d421f35471d1462d226b1ec57438" name="CDDB/Request/Http.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="11fb32e5d7202c61bef52c00a337b94a" name="docs/examples/CDDB_client_example.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="fc32f1faea3d4b777f42a4a8433880b2" name="docs/examples/CDDB_server_example.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="d338d42a77fefeb4d06e5e77d0ffe663" name="docs/examples/CDDB_misc_example.php"/>
+      <file role="doc" baseinstalldir="Net" md5sum="ce574a342ad04c3205340c641f42052c" name="docs/CDDB_example_output.txt"/>
+      <file role="doc" baseinstalldir="Net" md5sum="de63eb04724d6ca6980c073868616a1d" name="docs/CDDB_fileformat.txt"/>
+      <file role="doc" baseinstalldir="Net" md5sum="aee6aae9d915779162e2f93243faafea" name="docs/CDDB_notes.txt"/>
+      <file role="doc" baseinstalldir="Net" md5sum="c49fcd300c04395794342d80c94d13c7" name="docs/CDDB_protocol.txt"/>
+      <file role="doc" baseinstalldir="Net" md5sum="03e8bf13f4eed0355730e3dd6cc8f233" name="docs/CDDB_record.txt"/>
+      <file role="php" baseinstalldir="Net" md5sum="f09a6478595e001b459b2659759b0fc5" name="tests/CDDBTest.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="c7b7ea60b08b95e5d0229165ed816991" name="tests/CDDBTest_HTTP.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="5f1403c9a80b028d31bcb78c9cd470fb" name="tests/CDDBTest_CDDBP.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="084c7688ac5e1814da39a66c382492e7" name="tests/CDDBTest_Filesystem.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.2.0</version>
+      <date>2005-05-30</date>
+      <license>BSD</license>
+      <state>alpha</state>
+      <notes>* Fixed bug #7526, incorrect formatted disc length (Kristof)
+* Fixed bug #7592, incorrect parsing of multi-line track/artist/disc titles (Kristof, Richard)
+* Added Net_CDDB_Track class and made neccessary changes to Net_CDDB_Disc
+* Net_CDDB_Disc::toString() no longer increments the revision number
+* Changed Net_CDDB class to Net_CDDB_Client (Net_CDDB is an abstract base class now)
+* Added Net_CDDB_Server class (CDDB server *alpha quality code, use at your own risk!*)
+* Fixed package.xml dependency list
+* Added distinction between CDDB categories vs. CDDB genres
+* Added new protocol: Filesystem (query from downloaded copy of the entire FreeDB database)
+* Added a useful Net_CDDB_Utilities class which holds misc. useful static methods
+* Re-written parseRecord() method (better compatibility, cleaner, bug fixes, type checking)
+</notes>
+    </release>
+    <release>
+      <version>0.1.0</version>
+      <date>2006-04-21</date>
+      <license>BSD</license>
+      <state>alpha</state>
+      <notes>* Initial PEAR package release.
+* Fixed some remaining CS issues.
+* Fixed some minor doc-block issues.
+</notes>
+    </release>
+    <release>
+      <version>0.0.4</version>
+      <date>2006-04-04</date>
+      <license>BSD</license>
+      <state>alpha</state>
+      <notes>* Factory pattern moved to main Net_CDDB class instead of seperate class. (Justin Patrin)
+* Net_CDDB::submitDisc() uses PEAR::raiseError(). (Justin Patrin)
+* Added additional unit tests.
+* Net_CDDB_Disc supports construction from an associative array. (Justin Patrin, Ian Eure)
+* Fixed some more code-style issues. (Ian Eure)
+* Fixed the NET_CDDB_READER_USERDEFINED wierdness. (Ian Eure)
+* Protocol/CD Reader drivers now use DSN strings (i.e.: cddbp://user@freedb.org:8880 ) instead of constants. (Ian Eure)
+* Net_CDDB::submitDisc() uses HTTP_Request instead of raw sockets.
+* Net_CDDB_Protocol_Cddbp uses Net_Socket instead of raw sockets. (Justin Patrin)
+* Net_CDDB_Protocol_Http uses HTTP_Request instead of raw sockets. (Justin Patrin)
+* Fixed disconnection issues with CDDBP protocol.
+* PEAR_Error used more often to report detailed error messages.
+</notes>
+    </release>
+    <release>
+      <version>0.0.3</version>
+      <date>2006-03-01</date>
+      <license>BSD</license>
+      <state>alpha</state>
+      <notes>* Fixed the directory structure (more). (Ian Eure)
+* Factory pattern used for protocols and cd readers now. (Ian Eure)
+</notes>
+    </release>
+    <release>
+      <version>0.0.2</version>
+      <date>2006-02-12</date>
+      <license>BSD</license>
+      <state>alpha</state>
+      <notes>* Cleaned up isset($conn_params[]) stuff. (Ian Eure)
+* Fixed the directory structure. (Ian Eure)
+* Constants used for CDDB response codes now. (Ian Eure)
+* Fixed funky method names for some methods. (Ian Eure)
+</notes>
+    </release>
+    <release>
+      <version>0.0.1</version>
+      <date>2006-02-10</date>
+      <license>BSD</license>
+      <state>alpha</state>
+      <notes>* Initial proposal for PEAR package.
+</notes>
+    </release>
+  </changelog>
+</package>

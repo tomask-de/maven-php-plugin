@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.8">
+ <name>SOAP</name>
+ <summary>SOAP Client/Server for PHP</summary>
+ <description>Implementation of SOAP protocol and services
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>chagenbu</user>
+   <name>Chuck Hagenbuch</name>
+   <email>chuck@horde.org</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>yunosh</user>
+   <name>Jan Schneider</name>
+   <email>jan@horde.org</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>shane</user>
+   <name>Shane Caraveo</name>
+   <email>shane@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>abaker</user>
+   <name>Al Baker</name>
+   <email>abaker@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>arnaud</user>
+   <name>Arnaud Limbourg</name>
+   <email>arnaud@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>0.9.4</version>
+  <date>2006-04-12</date>
+  <license>PHP License</license>
+  <state>beta</state>
+  <notes>* Fix response header sent from SOAP server. (mvonarx at tiscali dot ch, Bug 6744).
+  </notes>
+  <deps>
+   <dep type="php" rel="ge" version="4.2"/>
+   <dep type="pkg" rel="has">PEAR</dep>
+   <dep type="pkg" rel="has">HTTP_Request</dep>
+   <dep type="pkg" rel="has" optional="yes">Mail</dep>
+   <dep type="pkg" rel="has" optional="yes">Mail_Mime</dep>
+   <dep type="pkg" rel="has" optional="yes">Net_DIME</dep>
+  </deps>
+  <provides type="class" name="SOAP_Base_Object" extends="PEAR" />
+  <provides type="class" name="SOAP_Base" extends="SOAP_Base_Object" />
+  <provides type="class" name="QName" />
+  <provides type="function" name="QName::fqn" />
+  <provides type="class" name="SOAP_Client_Overload" extends="SOAP_Base" />
+  <provides type="class" name="SOAP_Client" extends="SOAP_Client_Overload" />
+  <provides type="function" name="SOAP_Client::setEncoding" />
+  <provides type="function" name="SOAP_Client::addHeader" />
+  <provides type="function" name="SOAP_Client::call" />
+  <provides type="function" name="SOAP_Client::setOpt" />
+  <provides type="class" name="SOAP_DISCO_Server" extends="SOAP_Base_Object" />
+  <provides type="function" name="SOAP_DISCO_Server::getDISCO" />
+  <provides type="function" name="SOAP_DISCO_Server::getWSDL" />
+  <provides type="function" name="SOAP_DISCO_Server::addSchemaFromMap" />
+  <provides type="function" name="SOAP_DISCO_Server::addMethodsFromMap" />
+  <provides type="class" name="SOAP_Fault" extends="PEAR_Error" />
+  <provides type="function" name="SOAP_Fault::message" />
+  <provides type="function" name="SOAP_Fault::getFault" />
+  <provides type="function" name="SOAP_Fault::getActor" />
+  <provides type="function" name="SOAP_Fault::getDetail" />
+  <provides type="class" name="SOAP_Parser" extends="SOAP_Base" />
+  <provides type="function" name="SOAP_Parser::domulti" />
+  <provides type="function" name="SOAP_Parser::buildResponse" />
+  <provides type="function" name="SOAP_Parser::startElement" />
+  <provides type="function" name="SOAP_Parser::endElement" />
+  <provides type="function" name="SOAP_Parser::characterData" />
+  <provides type="function" name="SOAP_Parser::getResponse" />
+  <provides type="function" name="SOAP_Parser::getHeaders" />
+  <provides type="function" name="SOAP_Parser::decodeEntities" />
+  <provides type="class" name="SOAP_Server" extends="SOAP_Base" />
+  <provides type="function" name="SOAP_Server::service" />
+  <provides type="function" name="SOAP_Server::callMethod" />
+  <provides type="function" name="SOAP_Server::buildResult" />
+  <provides type="function" name="SOAP_Server::parseRequest" />
+  <provides type="function" name="SOAP_Server::verifyMethod" />
+  <provides type="function" name="SOAP_Server::validateMethod" />
+  <provides type="function" name="SOAP_Server::addObjectMap" />
+  <provides type="function" name="SOAP_Server::addToMap" />
+  <provides type="function" name="SOAP_Server::setCallHandler" />
+  <provides type="function" name="SOAP_Server::bind" />
+  <provides type="function" name="SOAP_Server::bindWSDL" />
+  <provides type="function" name="SOAP_Server::addObjectWSDL" />
+  <provides type="class" name="SOAP_Transport" />
+  <provides type="function" name="SOAP_Transport::getTransport" />
+  <provides type="class" name="SOAP_Value" />
+  <provides type="class" name="SOAP_Header" extends="SOAP_Value" />
+  <provides type="class" name="SOAP_Attachment" extends="SOAP_Value" />
+  <provides type="function" name="SOAP_Value::serialize" />
+  <provides type="class" name="SOAP_WSDL" extends="SOAP_Base" />
+  <provides type="class" name="SOAP_WSDL_Cache" extends="SOAP_Base" />
+  <provides type="class" name="SOAP_WSDL_Parser" extends="SOAP_Base" />
+  <provides type="class" name="SOAP_WSDL_ObjectParser" extends="SOAP_Base" />
+  <provides type="function" name="SOAP_WSDL::set_service" />
+  <provides type="function" name="SOAP_WSDL::parse" />
+  <provides type="function" name="SOAP_WSDL::parseURL" />
+  <provides type="function" name="SOAP_WSDL::parseObject" />
+  <provides type="function" name="SOAP_WSDL::getEndpoint" />
+  <provides type="function" name="SOAP_WSDL::getPortName" />
+  <provides type="function" name="SOAP_WSDL::getOperationData" />
+  <provides type="function" name="SOAP_WSDL::matchMethod" />
+  <provides type="function" name="SOAP_WSDL::getDataHandler" />
+  <provides type="function" name="SOAP_WSDL::getSoapAction" />
+  <provides type="function" name="SOAP_WSDL::getNamespace" />
+  <provides type="function" name="SOAP_WSDL::getNamespaceAttributeName" />
+  <provides type="function" name="SOAP_WSDL::addNamespace" />
+  <provides type="function" name="SOAP_WSDL::generateProxyCode" />
+  <provides type="function" name="SOAP_WSDL::generateAllProxies" />
+  <provides type="function" name="SOAP_WSDL::getProxy" />
+  <provides type="function" name="SOAP_WSDL::getComplexTypeNameForElement" />
+  <provides type="function" name="SOAP_WSDL::getComplexTypeChildType" />
+  <provides type="function" name="SOAP_WSDL::getSchemaType" />
+  <provides type="function" name="SOAP_WSDL_Cache::get" />
+  <provides type="function" name="SOAP_WSDL_Parser::parse" />
+  <provides type="function" name="SOAP_WSDL_Parser::startElement" />
+  <provides type="function" name="SOAP_WSDL_Parser::endElement" />
+  <provides type="function" name="SOAP_WSDL_Parser::characterData" />
+  <provides type="function" name="SOAP_WSDL_Parser::mergeUrl" />
+  <provides type="function" name="do_wsdl" />
+  <provides type="class" name="SOAP_Transport_HTTP" extends="SOAP_Base" />
+  <provides type="function" name="SOAP_Transport_HTTP::send" />
+  <provides type="function" name="SOAP_Transport_HTTP::setCredentials" />
+  <provides type="function" name="SOAP_Transport_HTTP::addCookie" />
+  <provides type="class" name="SOAP_Transport_SMTP" extends="SOAP_Base" />
+  <provides type="function" name="SOAP_Transport_SMTP::send" />
+  <provides type="function" name="SOAP_Transport_SMTP::setCredentials" />
+  <provides type="class" name="SOAP_Transport_TCP" extends="SOAP_Base_Object" />
+  <provides type="function" name="SOAP_Transport_TCP::send" />
+  <provides type="class" name="SOAP_Server_Email" extends="SOAP_Server" />
+  <provides type="function" name="SOAP_Server_Email::client" />
+  <provides type="function" name="SOAP_Server_Email::service" />
+  <provides type="class" name="SOAP_Server_Email_Gateway" extends="SOAP_Server_Email" />
+  <provides type="function" name="SOAP_Server_Email_Gateway::service" />
+  <provides type="class" name="SOAP_Server_TCP" extends="SOAP_Server" />
+  <provides type="function" name="SOAP_Server_TCP::run" />
+  <provides type="function" name="SOAP_Server_TCP::service" />
+  <provides type="class" name="SOAP_Type_dateTime" />
+  <provides type="function" name="SOAP_Type_dateTime::toSOAP" />
+  <provides type="function" name="SOAP_Type_dateTime::toString" />
+  <provides type="function" name="SOAP_Type_dateTime::toUTC" />
+  <provides type="function" name="SOAP_Type_dateTime::toUnixtime" />
+  <provides type="function" name="SOAP_Type_dateTime::compare" />
+  <provides type="class" name="SOAP_Type_duration" />
+  <provides type="function" name="SOAP_Type_duration::unix_to_duration" />
+  <provides type="function" name="SOAP_Type_duration::mod" />
+  <provides type="function" name="SOAP_Type_duration::getduration" />
+  <provides type="function" name="SOAP_Type_duration::mkduration" />
+  <provides type="function" name="SOAP_Type_duration::duration_to_unix" />
+  <provides type="function" name="SOAP_Type_duration::is_duration" />
+  <provides type="function" name="SOAP_Type_duration::add" />
+  <provides type="function" name="SOAP_Type_duration::subtract" />
+  <provides type="class" name="SOAP_Type_hexBinary" />
+  <provides type="function" name="SOAP_Type_hexBinary::to_bin" />
+  <provides type="function" name="SOAP_Type_hexBinary::to_hex" />
+  <provides type="function" name="SOAP_Type_hexBinary::is_hexbin" />
+  <filelist>
+   <file role="php" baseinstalldir="SOAP" md5sum="0004796ea9babf522d7a2d04868c176d" name="Base.php"/>
+   <file role="php" baseinstalldir="SOAP" md5sum="23c6bc266d17e35bd3f0c75ffda3c517" name="Client.php"/>
+   <file role="php" baseinstalldir="SOAP" md5sum="c63fc0f061073f78300dd15b4f22641b" name="Disco.php"/>
+   <file role="php" baseinstalldir="SOAP" md5sum="a25d66ef0e27e109de182dc166766b97" name="Fault.php"/>
+   <file role="php" baseinstalldir="SOAP" md5sum="3aab9ffc92b35d73e257cb46ccad98c6" name="Parser.php"/>
+   <file role="php" baseinstalldir="SOAP" md5sum="597fbb9ba7a22338d1a83336cfe47503" name="Server.php"/>
+   <file role="php" baseinstalldir="SOAP" md5sum="10f1fed09f089c9c14324f02ef033300" name="Transport.php"/>
+   <file role="php" baseinstalldir="SOAP" md5sum="6907c4f2ece8d6b6533ea63bc55858cc" name="Value.php"/>
+   <file role="php" baseinstalldir="SOAP" md5sum="c562b08b654ae61a921c8c5e27a74668" name="WSDL.php"/>
+   <file role="doc" baseinstalldir="SOAP" md5sum="9559e379c3becea8aeee54b914423854" name="example/attachment.php"/>
+   <file role="doc" baseinstalldir="SOAP" md5sum="5508138003ce208908a0aba0efd90c58" name="example/client.php"/>
+   <file role="doc" baseinstalldir="SOAP" md5sum="fc8a7de5818fc0c90793fde12ca0ca63" name="example/com_client.php"/>
+   <file role="doc" baseinstalldir="SOAP" md5sum="3032171b1c9c1832af657b9d38942b31" name="example/disco_server.php"/>
+   <file role="doc" baseinstalldir="SOAP" md5sum="a9c530db7dd292c74c4e52d74b703e4e" name="example/email_client.php"/>
+   <file role="doc" baseinstalldir="SOAP" md5sum="9c5f82116808ff9bf712dd1e8b1926ad" name="example/email_gateway.php"/>
+   <file role="doc" baseinstalldir="SOAP" md5sum="bd8bdced809cfce44a6a2b3c2fd0e7ee" name="example/email_pop_gateway.php"/>
+   <file role="doc" baseinstalldir="SOAP" md5sum="feb3535b72a820095e71794784bef51a" name="example/email_pop_server.php"/>
+   <file role="doc" baseinstalldir="SOAP" md5sum="3c3b91a5833b265803efc1f13be8bb25" name="example/email_server.php"/>
+   <file role="doc" baseinstalldir="SOAP" md5sum="d8c4f18b13670c3fb63f8003eff36620" name="example/example_server.php"/>
+   <file role="doc" baseinstalldir="SOAP" md5sum="7371831c4eb736a2aec1ad2621ae439b" name="example/example_types.php"/>
+   <file role="doc" baseinstalldir="SOAP" md5sum="0c5fe107da15351c51d458b4d11704cc" name="example/server.php"/>
+   <file role="doc" baseinstalldir="SOAP" md5sum="f43e9c93d8f3dcc4c8db335add85052c" name="example/server2.php"/>
+   <file role="doc" baseinstalldir="SOAP" md5sum="dad27403ba186d6f28588b690b695d34" name="example/smtp.php"/>
+   <file role="doc" baseinstalldir="SOAP" md5sum="58d8c6715bc962a7cb2f6485a38a6294" name="example/stockquote.php"/>
+   <file role="doc" baseinstalldir="SOAP" md5sum="4cce14f2605fb343c55ca44c2920154f" name="example/tcp_client.php"/>
+   <file role="doc" baseinstalldir="SOAP" md5sum="ccc9acb5b161dd84ccec6d19a5579b59" name="example/tcp_daemon.pl"/>
+   <file role="doc" baseinstalldir="SOAP" md5sum="e5d8dc13139bcb5951aad270b37dd515" name="example/tcp_server.php"/>
+   <file role="doc" baseinstalldir="SOAP" md5sum="131481d33c72f49b9c10e441f3122657" name="example/wsdl_client.php"/>
+   <file role="php" baseinstalldir="SOAP" md5sum="1c525226171b9b99966b4ed3eb7373f8" name="tools/genproxy.php"/>
+   <file role="php" baseinstalldir="SOAP" md5sum="dbca83bbdbfaf4f40ab09e5f8f5a0d6a" name="Transport/HTTP.php"/>
+   <file role="php" baseinstalldir="SOAP" md5sum="1fb3903aca796064d333ecb38c7a2609" name="Transport/SMTP.php"/>
+   <file role="php" baseinstalldir="SOAP" md5sum="7e6017e4ea22666f1b32ade9aa29c422" name="Transport/TCP.php"/>
+   <file role="php" baseinstalldir="SOAP" md5sum="d03ed020b644ca12374877250d511e32" name="Server/Email.php"/>
+   <file role="php" baseinstalldir="SOAP" md5sum="e689750c597357528a5d807744767900" name="Server/Email_Gateway.php"/>
+   <file role="php" baseinstalldir="SOAP" md5sum="b8424ce597eb3eaee849a1ae951a36c0" name="Server/TCP.php"/>
+   <file role="php" baseinstalldir="SOAP" md5sum="2e8c2fa95f3d7dd520cc86e54e74775a" name="Type/dateTime.php"/>
+   <file role="php" baseinstalldir="SOAP" md5sum="57f91357f69e236ada838a2c7de35c70" name="Type/duration.php"/>
+   <file role="php" baseinstalldir="SOAP" md5sum="d2a66a38577ff23377697e69035f9cc5" name="Type/hexBinary.php"/>
+  </filelist>
+ </release>
+</package>

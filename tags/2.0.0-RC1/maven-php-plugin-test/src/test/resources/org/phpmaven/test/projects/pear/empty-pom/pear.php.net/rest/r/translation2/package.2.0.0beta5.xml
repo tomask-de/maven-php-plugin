@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Translation2</name>
+  <summary>Class for multilingual applications management.</summary>
+  <description>This class provides an easy way to retrieve all the strings for a multilingual
+site from a data source (i.e. db).
+The following containers are provided, more will follow:
+- PEAR::DB
+- PEAR::MDB
+- PEAR::MDB2
+- gettext
+- XML
+- PEAR::DB_DataObject (experimental)
+It is designed to reduce the number of queries to the db, caching the results when possible.
+An Admin class is provided to easily manage translations (add/remove a language, add/remove a string).
+Currently, the following decorators are provided:
+- CacheLiteFunction (for file-based caching)
+- CacheMemory (for memory-based caching)
+- DefaultText (to replace empty strings with their keys)
+- Iconv (to switch from/to different encodings)
+- Lang (resort to fallback languages for empty strings)
+- SpecialChars (replace html entities with their hex codes)
+- UTF-8 (to convert UTF-8 strings to ISO-8859-1)</description>
+  <maintainers>
+    <maintainer>
+      <user>quipo</user>
+      <name>Lorenzo Alberton</name>
+      <email>l.alberton@quipo.it</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>ieure</user>
+      <name>Ian Eure</name>
+      <email>ieure@php.net</email>
+      <role>developer</role>
+    </maintainer>
+    <maintainer>
+      <user>mike</user>
+      <name>Michael Wallner</name>
+      <email>mike@php.net</email>
+      <role>developer</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>2.0.0beta5</version>
+    <date>2004-12-24</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>- renamed createNewLang() to addLang()  [BC break!]
+- renamed addLangToAvailList() to addLangToList()
+- added Translation2_Admin::getPageNames()
+- added Translation2_Admin::updateLang()
+- fixed bug #2890: getLang() raised a NOTICE if setLang() was not called before
+- fixed bug #2972: CacheLiteFunction decorator not handling
+  parameter subtitution as expected
+- updated dataobjectsimple container (alank)
+- some internal minor fixes and tweaks</notes>
+    <deps>
+      <dep type="pkg" rel="has" optional="yes">Cache_Lite</dep>
+      <dep type="pkg" rel="has" optional="yes">DB</dep>
+      <dep type="pkg" rel="has" optional="yes">DB_DataObject</dep>
+      <dep type="pkg" rel="has" optional="yes">MDB</dep>
+      <dep type="pkg" rel="has" optional="yes">MDB2</dep>
+      <dep type="ext" rel="has" optional="yes">gettext</dep>
+      <dep type="pkg" rel="has" optional="yes">File_Gettext</dep>
+      <dep type="pkg" rel="ge" version="0.9.1" optional="yes">I18Nv2</dep>
+      <dep type="pkg" rel="ge" version="0.13.0" optional="yes">XML_Serializer</dep>
+    </deps>
+    <filelist>
+      <file role="php" name="Translation2.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Admin.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Container.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Decorator.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Admin\Decorator.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Admin\Container\dataobjectsimple.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Admin\Container\db.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Admin\Container\gettext.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Admin\Container\mdb.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Admin\Container\mdb2.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Admin\Container\xml.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Admin\Decorator\Autoadd.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Container\dataobjectsimple.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Container\db.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Container\gettext.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Container\mdb.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Container\mdb2.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Container\xml.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Decorator\CacheLiteFunction.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Decorator\CacheMemory.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Decorator\DefaultText.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Decorator\Iconv.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Decorator\Lang.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Decorator\SpecialChars.php"/>
+      <file role="php" baseinstalldir="Translation2" name="Decorator\UTF8.php"/>
+      <file role="doc" baseinstalldir="Translation2" name="docs\gettext_readme.txt"/>
+      <file role="doc" baseinstalldir="Translation2" name="docs\examples\gettext_admin.php"/>
+      <file role="doc" baseinstalldir="Translation2" name="docs\examples\gettext_domains.ini"/>
+      <file role="doc" baseinstalldir="Translation2" name="docs\examples\gettext_langs.ini"/>
+      <file role="doc" baseinstalldir="Translation2" name="docs\examples\gettext_prepare.php"/>
+      <file role="doc" baseinstalldir="Translation2" name="docs\examples\gettext_settings.php"/>
+      <file role="doc" baseinstalldir="Translation2" name="docs\examples\settings.php"/>
+      <file role="doc" baseinstalldir="Translation2" name="docs\examples\Translation2_example.php"/>
+      <file role="doc" baseinstalldir="Translation2" name="docs\examples\Translation2_example.sql"/>
+      <file role="doc" baseinstalldir="Translation2" name="docs\examples\Translation2_gettext_example.php"/>
+      <file role="test" baseinstalldir="Translation2" name="tests\admin_containers_tests.php"/>
+      <file role="test" baseinstalldir="Translation2" name="tests\admin_db_test.php"/>
+      <file role="test" baseinstalldir="Translation2" name="tests\admin_gettext_po_test.php"/>
+      <file role="test" baseinstalldir="Translation2" name="tests\admin_mdb2_test.php"/>
+      <file role="test" baseinstalldir="Translation2" name="tests\admin_mdb_test.php"/>
+      <file role="test" baseinstalldir="Translation2" name="tests\admin_xml_test.php"/>
+      <file role="test" baseinstalldir="Translation2" name="tests\all_tests.php"/>
+      <file role="test" baseinstalldir="Translation2" name="tests\containers_tests.php"/>
+      <file role="test" baseinstalldir="Translation2" name="tests\db_test.php"/>
+      <file role="test" baseinstalldir="Translation2" name="tests\dbms.php"/>
+      <file role="test" baseinstalldir="Translation2" name="tests\gettext_domains.ini"/>
+      <file role="test" baseinstalldir="Translation2" name="tests\gettext_langs.ini"/>
+      <file role="test" baseinstalldir="Translation2" name="tests\gettext_mo_test.php"/>
+      <file role="test" baseinstalldir="Translation2" name="tests\gettext_po_test.php"/>
+      <file role="test" baseinstalldir="Translation2" name="tests\gettext_prepare.php"/>
+      <file role="test" baseinstalldir="Translation2" name="tests\i18n.xml"/>
+      <file role="test" baseinstalldir="Translation2" name="tests\mdb2_test.php"/>
+      <file role="test" baseinstalldir="Translation2" name="tests\mdb_test.php"/>
+      <file role="test" baseinstalldir="Translation2" name="tests\readme.txt"/>
+      <file role="test" baseinstalldir="Translation2" name="tests\simple_include.php"/>
+      <file role="test" baseinstalldir="Translation2" name="tests\tests.sql"/>
+      <file role="test" baseinstalldir="Translation2" name="tests\translation2_admin_include.php"/>
+      <file role="test" baseinstalldir="Translation2" name="tests\translation2_include.php"/>
+      <file role="test" baseinstalldir="Translation2" name="tests\xml_test.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>2.0.0beta5</version>
+      <date>2004-12-24</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>- renamed createNewLang() to addLang()  [BC break!]
+- renamed addLangToAvailList() to addLangToList()
+- added Translation2_Admin::getPageNames()
+- added Translation2_Admin::updateLang()
+- fixed bug #2890: getLang() raised a NOTICE if setLang() was not called before
+- fixed bug #2972: CacheLiteFunction decorator not handling
+  parameter subtitution as expected
+- updated dataobjectsimple container (alank)
+- some internal minor fixes and tweaks
+      
+</notes>
+    </release>
+    <release>
+      <version>2.0.0beta4</version>
+      <date>2004-11-20</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>- added a complete TestSuite
+- updated gettext docs
+- fixed typo in error code (TRANSLATION_ERROR_UNKNOWN_LANG =&gt; TRANSLATION2_ERROR_UNKNOWN_LANG)
+- fixed typo in the MDB Admin container [quote() =&gt; getTextValue()]
+- fixed typo in db admin containers ($this-&gt;queries =&gt; $this-&gt;_queries)
+- in the gettext admin container 
+- fixed many bugs in the gettext admin container:
+  * fixed old field [remove &quot;windows&quot;, add &quot;encoding&quot;]
+  * fixed error in remove() [can't pass by reference]
+  * fixed typo in update() [$stingID =&gt; $stringID]
+  * in _add(), create the domains on demand
+  * handle stale cache
+- many fixes/updates to the xml container:
+  * init() accepts an array as parameter (not a string)
+  * added 'save_on_shutdown' option
+    (you can choose to save in real time, now)
+  * return Translation2 errors with numeric codes
+  * added 'encoding' field
+  * added removeLang()
+  * other minor fixes and tweaks
+      
+</notes>
+    </release>
+    <release>
+      <version>2.0.0beta3</version>
+      <date>2004-11-11</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>- Welcome to the new developers, Ian Eure and Michael Wallner
+- The last release contained an old gettext driver (bug #2503) (ieure)
+- Many portability fixes applied to the database containers (thanks to Ian Eure and
+  Xavier Lembo for their suggestions and patches)
+- Minor changes to the table definitions for better portability (lowercase field names,
+  VARCHAR instead of CHAR, bigger field size)
+- setLang() now returns an error if called with an unknown $langID (bug #2498).
+- Added $cleaningFrequency option to the CacheLiteFunction to implement
+  statistic cache cleaning
+- Added Translation2_Admin::cleanCache() method to clean the cache on demand.
+  It is automatically triggered after a change if $options['autoCleanCache'] is TRUE.
+- Big cleanup of the DB and Admin_DB containers. See CVS changelog for details.
+  (ieure)
+- Added update() method to Translation2_Admin. This is a BC break; you used to be able
+  to update strings with add(). This is no longer possible, use update(). (ieure)
+- Re-added a check in add() to see if an update() is needed instead of an insert
+- String ID columns are created as type TEXT to support gettext-style string IDs.
+  (ieure)
+- Reflect the changes made to the DB container into the MDB and MDB2 containers too,
+  plus other minor fixes/optimizations.
+- strings_default_table may use %s to represent the language name. You may now have one
+  table per language without having to explicitly specify them all. (ieure)
+- DefaultText decorator has new getStringID() method, which will return the string which
+  was requested if no stringID exists. This mirrors the gettext() semantics. (ieure)
+- Added Admin_Decorator class, which allows you to create Decorators for
+  Translation2_Admin. (ieure)
+- New 'Autoadd' Admin Decorator, which automatically adds requested strings. (ieure)
+- Removed translate(), added getStringID(). You can mimic the old behaviour in
+  two steps:
+  $stringID = $tr-&gt;getStringID('mystring', 'mypage');
+  $translatedString = $tr-&gt;get($stringID, 'mypage', $otherLangID);
+- Major cleanup of the gettext container and added some examples (mike)
+- removeLang() was missing. Fixed.
+- The gettext container no longer require the gettext extension (thanks to Sergey Korotkov);
+  it is used when loaded, though, since it's faster.
+- Both .mo and .po files are valid data sources for the gettext container (Sergey Korotkov)
+- New Iconv decorator based on the one written by Sergey Korotkov
+- Added a new &quot;encoding&quot; column to the langsAvail table
+- New xml container by Olivier Guilyardi
+      
+</notes>
+    </release>
+    <release>
+      <version>2.0.0beta1</version>
+      <date>2004-05-05</date>
+      <license>PHP License</license>
+      <state>beta</state>
+      <notes>- BC break! Run the example to see what's new
+- refactoring in progress:
+  added a Decorator class and some subclasses to control
+  the output (now you can set a stack of fallback languages,
+  a filter to deal with empty strings, one or more cache layers...)
+- improved gettext support (thanks to Michael Wallner)
+- added gettext admin class
+- fixes in the db admin classes
+- when adding a new string, if it matches one already in the db,
+  the old one is replaced by the new one.
+- added a MDB2 container
+- added a DB_DataObject container (by Alan Knowles)
+      
+</notes>
+    </release>
+    <release>
+      <version>2.0.0alpha2</version>
+      <date>2004-02-05</date>
+      <license>PHP License</license>
+      <state>alpha</state>
+      <notes>- added an experimental GNU gettext driver
+- translate() now accepts a third parameter ($pageID)
+- PHP5 fix
+- renamed old getPage() to getRawPage()
+- new getPage() resorts to fallback lang and replaces parameters when needed
+- added error checking/codes
+      
+</notes>
+    </release>
+    <release>
+      <version>0.0.1</version>
+      <date>2004-01-21</date>
+      <license>PHP License</license>
+      <state>alpha</state>
+      <notes>First alpha release
+      
+</notes>
+    </release>
+  </changelog>
+</package>

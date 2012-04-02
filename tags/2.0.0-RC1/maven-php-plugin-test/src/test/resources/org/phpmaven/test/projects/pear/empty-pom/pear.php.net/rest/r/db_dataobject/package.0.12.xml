@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>DB_DataObject</name>
+  <summary>An SQL Builder, Object Interface to Database Tables</summary>
+  <description>DataObject performs 2 tasks:
+  1. Builds SQL statements based on the objects vars and the builder methods.
+  2. acts as a datastore for a table row.
+  The core class is designed to be extended for each of your tables so that you put the 
+  data logic inside the data classes.
+  included is a Generator to make your configuration files and your base classes.</description>
+  <maintainers>
+    <maintainer>
+      <user>alan_k</user>
+      <name>Alan Knowles</name>
+      <email>alan@akbkhome.com</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.12</version>
+    <date>2003-01-22</date>
+    <license>PHP License</license>
+    <state>stable</state>
+    <notes>- Usual post release bug fix.
+- fixes *.links.ini incorrectly using *.links (Damian Turner)
+- Adds the ability to get PEAR Connection and result objects
+  getDatabaseConnection() and getDatabaseResult() (jason rust)</notes>
+    <filelist>
+      <file role="php" baseinstalldir="DB" md5sum="54421ffd61993be623a6c3113b88b1ae" name="DataObject.php"/>
+      <file role="php" baseinstalldir="DB" md5sum="976bae790ee24a7a8378b9b9b041b97f" name="DataObject/Generator.php"/>
+      <file role="php" baseinstalldir="DB" md5sum="92802927e5cfd951ca06927a48f1d807" name="DataObject/createTables.php"/>
+      <file role="php" baseinstalldir="DB" md5sum="c44f9854ec109f99b88d300231b3a08d" name="DataObject/example.ini"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.12</version>
+      <date>2003-01-22</date>
+      <state>stable</state>
+      <notes>- Usual post release bug fix.
+- fixes *.links.ini incorrectly using *.links (Damian Turner)
+- Adds the ability to get PEAR Connection and result objects
+  getDatabaseConnection() and getDatabaseResult() (jason rust)
+
+</notes>
+    </release>
+    <release>
+      <version>0.11</version>
+      <date>2003-01-21</date>
+      <state>stable</state>
+      <notes>- changed connecition and result caching to use global private variable, rather
+  than getStaticProperty
+- results objects are not stored on insert/update/delete (speed increase 
+  on large inserts can be as much as 10x faster)
+- bug fix - Checks that primary keys are integers (Anthony Juou)
+- typo on No data returned warning
+- unit tests in CVS
+- new configuration option for whether to use insert id's and sequences.
+- Generator no creates boolean bit (mitchell perilstein)
+
+</notes>
+    </release>
+    <release>
+      <version>0.10</version>
+      <date>2002-12-09</date>
+      <state>stable</state>
+      <notes>- bug fix - Generator incorrectly set _database, causing generation of database.ini files to fail
+- change addslashes to PEAR::DB::quote()
+- generator now only replaces DB_DataObjects with extends variable if set, 
+  you can use generator_rewrite_class to set what is a valid replacement.
+
+</notes>
+    </release>
+    <release>
+      <version>0.9</version>
+      <date>2002-12-06</date>
+      <state>stable</state>
+      <notes>- bug fix release - dsn was not set correctly
+</notes>
+    </release>
+    <release>
+      <version>0.8</version>
+      <date>2002-09-21</date>
+      <state>stable</state>
+      <notes>- changed to stable status as it appears to be pretty stable now.
+- update and insert now return FALSE on error conditions (Peter Gebauer)
+  which can be checked using === FALSE, and the error obtained using $object-&gt;_lastError
+- delete will only use primary keys if they are set, otherwise it will use all object 
+  variables to build the condition. (Daniel Ferreira)
+- Added derivedHookFunctions(), and derivedHookVar() to enable extensions to generator to
+  make user defined methods. (Michael Lund Rasmussen)
+- support for INT4, BPCHAR, TIMESTAMPTZ  and postres Primary keys (Xavier)
+- better PEAR CS complience (tabs and TRUE -&gt; true), removed short open tags in generator (Thomas Volkmar Worm)
+- experimental addJoin method (Stijn de Reede)
+- Allow active options array (eg. dynamic changing of database config) (Sergey Lipnevich)
+</notes>
+    </release>
+    <release>
+      <version>0.6</version>
+      <date>2002-09-10</date>
+      <state>beta</state>
+      <notes>- bug fix release on insert (broke due to compatibility fixes)
+</notes>
+    </release>
+    <release>
+      <version>0.5</version>
+      <date>2002-09-07</date>
+      <state>beta</state>
+      <notes>- fixed database.links.ini file loading in wrong location (Jens Fischer)
+- fixed type on extends (Jens Fischer)
+- added __clone() support to pre- php5 classes
+- added multiple linked table support
+</notes>
+    </release>
+    <release>
+      <version>0.4</version>
+      <date>2002-08-21</date>
+      <state>beta</state>
+      <notes>- Bug fix release - createTables used wrong argv
+
+</notes>
+    </release>
+    <release>
+      <version>0.3</version>
+      <date>2002-08-16</date>
+      <state>beta</state>
+      <notes>- Fixed Globals requirement in createTables,
+</notes>
+    </release>
+    <release>
+      <version>0.2</version>
+      <date>2002-07-12</date>
+      <state>beta</state>
+      <notes>Removed list method, First upload as pear package. - Documentation now in PEAR Manual
+</notes>
+    </release>
+    <release>
+      <version>0.1</version>
+      <date>2002-06-25</date>
+      <state>beta</state>
+      <notes>PEARified
+</notes>
+    </release>
+  </changelog>
+</package>

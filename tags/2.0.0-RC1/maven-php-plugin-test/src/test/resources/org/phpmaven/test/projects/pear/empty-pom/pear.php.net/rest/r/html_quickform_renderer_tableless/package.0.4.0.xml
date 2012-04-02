@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.11" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>HTML_QuickForm_Renderer_Tableless</name>
+ <channel>pear.php.net</channel>
+ <summary>Replacement for the default renderer that doesn&apos;t use table tags, and generates
+  fully valid XHTML output.</summary>
+ <description>Replacement for the default renderer of HTML_QuickForm that uses only XHTML and
+  CSS but no table tags, and generates fully valid XHTML output.</description>
+ <lead>
+  <name>Mark Wiesemann</name>
+  <user>wiesemann</user>
+  <email>wiesemann@php.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2006-10-31</date>
+ <time>14:48:15</time>
+ <version>
+  <release>0.4.0</release>
+  <api>0.4.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license>New BSD</license>
+ <notes>- this package is now in beta status, i.e. the API can be considered as stable
+- this package is now licensed under the New BSD license
+- end-user documentation is now available in the manual
+- bugfix: for real groups (e.g. groups of checkboxes) the &quot;id&quot; attribute was
+  set two times (and an invalid &quot;for&quot; attribute was added to the label
+  element)
+- changes in the div tag (in the form template) for the hidden elements:
+  * added a line break (\n) after the opening div tag
+  * added a tab (\t) before the closing div tag
+- changes in the templates: rows (consisting of a label and an element) are not
+  put anymore into a div tag, but in a li element (and all li elements in an ol
+  element); this adds also a more semantical meaning to the generated forms
+  (a full list of changes to the templates is available on
+  http://pear.markwiesemann.eu/template-changes-0.4.0.txt)
+
+  WARNING: you need to adopt the stylesheet changes (see also below) to
+           your stylesheets, because otherwise your forms will not work
+           (in terms of layout) anymore
+
+- example file: added three hidden form elements
+- added &quot;id&quot; attribute also to group elements (and the &quot;for&quot; attribute to the
+  label tag for groups)
+- added &quot;id&quot; attribute also to hidden elemens
+- removed &quot;qf&quot; prefix from CSS class names
+  (exception: &quot;label.qflabel&quot; was renamed into &quot;label.element&quot;)
+- adjusted the layout in the example file and the bundled stylesheet to the
+  layout of the default renderer:
+  * fieldsets now don&apos;t have a border and no top or bottom margin, and the
+    fieldset legends have gotten a grey background (in Firefox not for the whole
+    width of the fieldset)
+  * element labels are now in a bold font
+  * the required note is now horizontally aligned like the form elements, and
+    not as before on the left margin
+  (a comparison of all changes to the stylesheet is available on
+  http://pear.markwiesemann.eu/stylesheet-comparison-0.4.0.txt)</notes>
+ <contents>
+  <dir name="/">
+   <file md5sum="71a1965b807727ebfe4ab96e91910877" name="HTML/QuickForm/Renderer/Tableless.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="d183ff8abbb9091e284e7ad443f8c889" name="docs/examples/contact.php" role="doc" />
+   <file md5sum="55b88bc07a6bba2030ec1efc17387896" name="data/stylesheet.css" role="data" />
+   <file md5sum="ec8993e4f8a016e261da3680a023db51" name="LICENSE" role="doc" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.2</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.9</min>
+   </pearinstaller>
+   <package>
+    <name>HTML_QuickForm</name>
+    <channel>pear.php.net</channel>
+    <min>3.2.6</min>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease />
+</package>

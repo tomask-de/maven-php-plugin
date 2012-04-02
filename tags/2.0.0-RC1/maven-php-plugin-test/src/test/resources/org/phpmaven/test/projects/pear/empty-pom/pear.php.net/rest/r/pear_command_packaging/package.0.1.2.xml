@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>PEAR_Command_Packaging</name>
+ <channel>pear.php.net</channel>
+ <summary>make-rpm-spec command for managing RPM .spec files for PEAR packages</summary>
+ <description>This command is an improved implementation of the standard makerpm command,
+  and contains several enhancements that make it far more flexible. Similar 
+  functions for other external packaging mechanisms may be added at a later date.
+
+  Enhanced features over the original PEAR &quot;makerpm&quot; command include:
+  
+  - Ability to define a release on the command line
+  - Allows more advanced customisation of the generated package name
+  - Allows virtual Provides/Requires that differ in format from the package name
+    format 
+  - tries to intelligently distinguish between PEAR and PECL when generating 
+    packages</description>
+ <lead>
+  <name>Tim Jackson</name>
+  <user>timj</user>
+  <email>timj@php.net</email>
+  <active>yes</active>
+ </lead>
+ <helper>
+  <name>Greg Beaver</name>
+  <user>cellog</user>
+  <email>cellog@php.net</email>
+  <active>yes</active>
+ </helper>
+ <date>2006-06-28</date>
+ <time>15:08:04</time>
+ <version>
+  <release>0.1.2</release>
+  <api>0.1.2</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+ <notes>- Fix critical bug which sometimes inhibited the use of some PEAR internal commands upon installation of PEAR_Command_Packaging</notes>
+ <contents>
+  <dir baseinstalldir="PEAR/Command" name="/">
+   <file baseinstalldir="PEAR/Command" md5sum="31a56fa7f8efa259c6219a463a5ae10e" name="Packaging.xml" role="php" />
+   <file baseinstalldir="PEAR/Command" md5sum="8e914b91b757c86c1fa3326df25f0411" name="Packaging.php" role="php">
+    <tasks:replace from="@DATA-DIR@" to="data_dir" type="pear-config" />
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="PEAR/Command" md5sum="e8b92ce2e2d15865644882f1bbd2bf3e" name="template.spec" role="data" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.2</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.3</min>
+   </pearinstaller>
+   <package>
+    <name>PEAR</name>
+    <channel>pear.php.net</channel>
+    <min>1.4.3</min>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.1.2</release>
+    <api>0.1.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-06-28</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+   <notes>- Fix critical bug which sometimes inhibited the use of some PEAR internal commands upon installation of PEAR_Command_Packaging</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.1</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-05-17</date>
+   <license uri="http://www.php.net/license/3_0.txt">PHP License 3.0</license>
+   <notes>- Add support for generation of external deps (e.g. PHP extensions) (bug #6971)
+- Add %l (lowercased package name) option to RPM pkgname/depname format strings
+- Add support for customising the output specfile filename via the $_rpm_specname_format variable
+- Make it super-easy for downstream distros to customise the various package/dep/specfile naming to suit their conventions: all the options are now grouped together in the source
+- Add release_state macro for use in spec templates if required
+- De-duplicate dependencies (bug #6963)
+- Remove a last remaining case of hardcoded &quot;PEAR::&quot; package naming (when generating deps on PEAR itself)
+- Improve/tidy up docfile handling (bug #7118)
+- Revert PEAR package dependency to 1.4.3 and encode the 1.4.7 dep in the included template.spec instead.
+- Remove some forced &apos;rm&apos;s in template spec file to avoid masking problems
+- Abstract XML directory in default template spec
+- Stop owning / in RPM packages (bug #7129)
+- Wordwrap package description</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-02-28</date>
+   <license uri="http://www.php.net/license/3_0.txt">PHP License</license>
+   <notes>Initial release</notes>
+  </release>
+ </changelog>
+</package>

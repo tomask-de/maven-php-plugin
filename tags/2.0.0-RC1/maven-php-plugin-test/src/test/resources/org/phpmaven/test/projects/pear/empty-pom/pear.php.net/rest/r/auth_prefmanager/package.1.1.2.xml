@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Auth_PrefManager</name>
+  <summary>Preferences management class</summary>
+  <description>Preference Manager is a class to handle user preferences in a web application, looking them up in a table
+using a combination of their userid, and the preference name to get a value, and (optionally) returning
+a default value for the preference if no value could be found for that user.
+
+It is designed to be used alongside the PEAR Auth class, but can be used with anything that allows you
+to obtain the user's id - including your own code.</description>
+  <maintainers>
+    <maintainer>
+      <user>jellybob</user>
+      <name>Jon Wood</name>
+      <email>jon@jellybob.co.uk</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.1.2</version>
+    <date>2004-04-29</date>
+    <license>PHP License</license>
+    <state>stable</state>
+    <notes>* Stopped using the depracted DB_Common::quote method, and changed to DB_Common::quoteSmart.
+* Use DB_Common::quoteIdentifier to make sure that the table and column names are legal.</notes>
+    <deps>
+      <dep type="pkg" rel="ge" version="1.6.0">DB</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="/Auth" name="PrefManager.php"/>
+      <file role="doc" name="docs/PM_Example.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>1.1.1</version>
+      <date>2004-02-17</date>
+      <license>PHP License</license>
+      <state>stable</state>
+      <notes>Fixed a bug in the new serialization code, which was preventing non-default values from being unserialized.
+</notes>
+    </release>
+    <release>
+      <version>1.1.0</version>
+      <date>2004-02-14</date>
+      <license>PHP License</license>
+      <state>stable</state>
+      <notes>Added support for serializing values before they're saved in the database, and then unserializing when retrieved.
+To use it set the &quot;serialize&quot; option to true.
+
+</notes>
+    </release>
+    <release>
+      <version>1.0.3</version>
+      <date>2003-04-24</date>
+      <license>PHP License</license>
+      <state>stable</state>
+      <notes>* I missed a set of quotes in the last release, causing empty preferences to be set to '
+One day I'll manage to get the release thing right ;)
+
+</notes>
+    </release>
+    <release>
+      <version>1.0.1</version>
+      <date>2003-04-20</date>
+      <license>PHP License</license>
+      <state>stable</state>
+      <notes>* Added a getDefaultPref method.
+* Various bug fixes
+
+</notes>
+    </release>
+    <release>
+      <version>1.0</version>
+      <date>2003-04-20</date>
+      <license>PHP License</license>
+      <state>stable</state>
+      <notes>* Added a getDefaultPref method.
+* Various bug fixes
+
+</notes>
+    </release>
+    <release>
+      <version>0.2.31</version>
+      <date>2003-03-24</date>
+      <license>PHP License</license>
+      <state>stable</state>
+    </release>
+    <release>
+      <version>0.2.2</version>
+      <date>2003-02-04</date>
+      <state>devel</state>
+      <notes>New Feature: You can now choose whether to use the cache or not (Auth_PrefManager::useCache(true|false))
+        Bugfix: When retrieving a preference it now checks if the query returns any rows, instead of checking the value.
+</notes>
+    </release>
+    <release>
+      <version>0.2.1</version>
+      <date>2003-01-16</date>
+      <state>devel</state>
+      <notes>Bugfix release: The constructor (and everything else :S) now works.
+</notes>
+    </release>
+    <release>
+      <version>0.2.0</version>
+      <date>2002-12-07</date>
+      <state>devel</state>
+      <notes>- Changed the package and class name to Auth_PrefManager, and the filename to PrefManager.php to comply with PEAR coding standards.
+</notes>
+    </release>
+    <release>
+      <version>0.11</version>
+      <date>2002-12-07</date>
+      <state>devel</state>
+      <notes>First release.
+</notes>
+    </release>
+    <release>
+      <version>0.1</version>
+      <date>2002-12-06</date>
+      <state>devel</state>
+      <notes>Preview release for the PEAR-Dev list.
+</notes>
+    </release>
+  </changelog>
+</package>

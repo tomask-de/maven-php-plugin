@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.0a12">
+ <name>LiveUser_Admin</name>
+ <summary>User authentication and permission management framework</summary>
+ <description>LiveUser_Admin is meant to be used with the LiveUser package.
+  It is composed of all the classes necessary to administrate
+  data used by LiveUser.
+  
+  You'll be able to add/edit/delete/get things like:
+  * Rights
+  * Users
+  * Groups
+  * Areas
+  * Applications
+  * Subgroups
+  * ImpliedRights
+  
+  And all other entities within LiveUser.
+  
+  At the moment we support the following storage containers:
+  * DB
+  * MDB
+  * MDB2
+  
+  But it takes no time to write up your own storage container,
+  so if you like to use native mysql functions straight, then it's possible
+  to do so in under a hour!
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>mw21st</user>
+   <name>Markus Wolff</name>
+   <email>mw21st@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>arnaud</user>
+   <name>Arnaud Limbourg</name>
+   <email>arnaud@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>lsmith</user>
+   <name>Lukas Kahwe Smith</name>
+   <email>smith@backendmedia.com</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>dufuz</user>
+   <name>Helgi ormar</name>
+   <email>dufuz@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>0.3.2</version>
+  <date>2005-08-09</date>
+  <license>LGPL</license>
+  <state>beta</state>
+  <notes>- copy storage config before passing it to the storageFactory() since this
+  method messes with the values which causes the original to be modified due to
+  using pass by reference
+- removed old 'with' handling code that is no longer necessary from getGroups()
+  in the medium container
+  </notes>
+  <deps>
+   <dep type="php" rel="ge" version="4.2.0" optional="no"/>
+   <dep type="pkg" rel="ge" version="1.3.1" optional="no">PEAR</dep>
+   <dep type="pkg" rel="ge" version="0.16.0" optional="no">LiveUser</dep>
+   <dep type="pkg" rel="ge" version="1.7.0" optional="yes">Log</dep>
+   <dep type="pkg" rel="ge" version="1.6.0" optional="yes">DB</dep>
+   <dep type="pkg" rel="ge" version="1.1.4" optional="yes">MDB</dep>
+   <dep type="pkg" rel="ge" version="2.0.0beta4" optional="yes">MDB2</dep>
+   <dep type="pkg" rel="has" optional="yes">XML_Tree</dep>
+   <dep type="pkg" rel="has" optional="yes">Crypt_RC4</dep>
+  </deps>
+  <provides type="class" name="LiveUser_Admin_Auth_Storage_DB" extends="LiveUser_Admin_Storage_DB" />
+  <provides type="function" name="LiveUser_Admin_Auth_Storage_DB::init" />
+  <provides type="class" name="LiveUser_Admin_Auth_Storage_MDB" extends="LiveUser_Admin_Storage_MDB" />
+  <provides type="function" name="LiveUser_Admin_Auth_Storage_MDB::init" />
+  <provides type="class" name="LiveUser_Admin_Auth_Storage_MDB2" extends="LiveUser_Admin_Storage_MDB2" />
+  <provides type="function" name="LiveUser_Admin_Auth_Storage_MDB2::init" />
+  <provides type="class" name="LiveUser_Admin_Auth_Common" />
+  <provides type="function" name="LiveUser_Admin_Auth_Common::init" />
+  <provides type="function" name="LiveUser_Admin_Auth_Common::decryptPW" />
+  <provides type="function" name="LiveUser_Admin_Auth_Common::encryptPW" />
+  <provides type="function" name="LiveUser_Admin_Auth_Common::addUser" />
+  <provides type="function" name="LiveUser_Admin_Auth_Common::updateUser" />
+  <provides type="function" name="LiveUser_Admin_Auth_Common::removeUser" />
+  <provides type="function" name="LiveUser_Admin_Auth_Common::getUsers" />
+  <provides type="function" name="LiveUser_Admin_Auth_Common::disconnect" />
+  <provides type="class" name="LiveUser_Admin_Auth_DB" extends="LiveUser_Admin_Auth_Common" />
+  <provides type="class" name="LiveUser_Admin_Auth_MDB" extends="LiveUser_Admin_Auth_Common" />
+  <provides type="class" name="LiveUser_Admin_Auth_MDB2" extends="LiveUser_Admin_Auth_Common" />
+  <provides type="class" name="LiveUser_Admin_Perm_Storage_DB" extends="LiveUser_Admin_Storage_DB" />
+  <provides type="function" name="LiveUser_Admin_Perm_Storage_DB::init" />
+  <provides type="class" name="LiveUser_Admin_Perm_Storage_MDB" extends="LiveUser_Admin_Storage_MDB" />
+  <provides type="function" name="LiveUser_Admin_Perm_Storage_MDB::init" />
+  <provides type="class" name="LiveUser_Admin_Perm_Storage_MDB2" extends="LiveUser_Admin_Storage_MDB2" />
+  <provides type="function" name="LiveUser_Admin_Perm_Storage_MDB2::init" />
+  <provides type="class" name="LiveUser_Admin_Perm_Complex" extends="LiveUser_Admin_Perm_Medium" />
+  <provides type="function" name="LiveUser_Admin_Perm_Complex::assignSubGroup" />
+  <provides type="function" name="LiveUser_Admin_Perm_Complex::unassignSubGroup" />
+  <provides type="function" name="LiveUser_Admin_Perm_Complex::implyRight" />
+  <provides type="function" name="LiveUser_Admin_Perm_Complex::unimplyRight" />
+  <provides type="function" name="LiveUser_Admin_Perm_Complex::addAreaAdmin" />
+  <provides type="function" name="LiveUser_Admin_Perm_Complex::removeAreaAdmin" />
+  <provides type="function" name="LiveUser_Admin_Perm_Complex::removeArea" />
+  <provides type="function" name="LiveUser_Admin_Perm_Complex::removeRight" />
+  <provides type="function" name="LiveUser_Admin_Perm_Complex::removeUser" />
+  <provides type="function" name="LiveUser_Admin_Perm_Complex::removeGroup" />
+  <provides type="function" name="LiveUser_Admin_Perm_Complex::grantGroupRight" />
+  <provides type="function" name="LiveUser_Admin_Perm_Complex::getParentGroup" />
+  <provides type="function" name="LiveUser_Admin_Perm_Complex::getGroups" />
+  <provides type="function" name="LiveUser_Admin_Perm_Complex::getRights" />
+  <provides type="class" name="LiveUser_Admin_Perm_Medium" extends="LiveUser_Admin_Perm_Simple" />
+  <provides type="function" name="LiveUser_Admin_Perm_Medium::addGroup" />
+  <provides type="function" name="LiveUser_Admin_Perm_Medium::updateGroup" />
+  <provides type="function" name="LiveUser_Admin_Perm_Medium::removeGroup" />
+  <provides type="function" name="LiveUser_Admin_Perm_Medium::grantGroupRight" />
+  <provides type="function" name="LiveUser_Admin_Perm_Medium::updateGroupRight" />
+  <provides type="function" name="LiveUser_Admin_Perm_Medium::revokeGroupRight" />
+  <provides type="function" name="LiveUser_Admin_Perm_Medium::addUserToGroup" />
+  <provides type="function" name="LiveUser_Admin_Perm_Medium::removeUserFromGroup" />
+  <provides type="function" name="LiveUser_Admin_Perm_Medium::removeRight" />
+  <provides type="function" name="LiveUser_Admin_Perm_Medium::removeUser" />
+  <provides type="function" name="LiveUser_Admin_Perm_Medium::getGroups" />
+  <provides type="class" name="LiveUser_Admin_Perm_Simple" />
+  <provides type="function" name="LiveUser_Admin_Perm_Simple::init" />
+  <provides type="function" name="LiveUser_Admin_Perm_Simple::addUser" />
+  <provides type="function" name="LiveUser_Admin_Perm_Simple::updateUser" />
+  <provides type="function" name="LiveUser_Admin_Perm_Simple::removeUser" />
+  <provides type="function" name="LiveUser_Admin_Perm_Simple::addRight" />
+  <provides type="function" name="LiveUser_Admin_Perm_Simple::updateRight" />
+  <provides type="function" name="LiveUser_Admin_Perm_Simple::removeRight" />
+  <provides type="function" name="LiveUser_Admin_Perm_Simple::addArea" />
+  <provides type="function" name="LiveUser_Admin_Perm_Simple::updateArea" />
+  <provides type="function" name="LiveUser_Admin_Perm_Simple::removeArea" />
+  <provides type="function" name="LiveUser_Admin_Perm_Simple::setCurrentApplication" />
+  <provides type="function" name="LiveUser_Admin_Perm_Simple::getCurrentApplication" />
+  <provides type="function" name="LiveUser_Admin_Perm_Simple::addApplication" />
+  <provides type="function" name="LiveUser_Admin_Perm_Simple::updateApplication" />
+  <provides type="function" name="LiveUser_Admin_Perm_Simple::removeApplication" />
+  <provides type="function" name="LiveUser_Admin_Perm_Simple::grantUserRight" />
+  <provides type="function" name="LiveUser_Admin_Perm_Simple::updateUserRight" />
+  <provides type="function" name="LiveUser_Admin_Perm_Simple::revokeUserRight" />
+  <provides type="function" name="LiveUser_Admin_Perm_Simple::addTranslation" />
+  <provides type="function" name="LiveUser_Admin_Perm_Simple::updateTranslation" />
+  <provides type="function" name="LiveUser_Admin_Perm_Simple::removeTranslation" />
+  <provides type="function" name="LiveUser_Admin_Perm_Simple::getUsers" />
+  <provides type="function" name="LiveUser_Admin_Perm_Simple::getRights" />
+  <provides type="function" name="LiveUser_Admin_Perm_Simple::getAreas" />
+  <provides type="function" name="LiveUser_Admin_Perm_Simple::getApplications" />
+  <provides type="function" name="LiveUser_Admin_Perm_Simple::getTranslations" />
+  <provides type="function" name="LiveUser_Admin_Perm_Simple::outputRightsConstants" />
+  <provides type="function" name="LiveUser_Admin_Perm_Simple::disconnect" />
+  <provides type="class" name="LiveUser_Admin_Storage_DB" extends="LiveUser_Admin_Storage_SQL" />
+  <provides type="function" name="LiveUser_Admin_Storage_DB::init" />
+  <provides type="function" name="LiveUser_Admin_Storage_DB::quote" />
+  <provides type="function" name="LiveUser_Admin_Storage_DB::implodeArray" />
+  <provides type="function" name="LiveUser_Admin_Storage_DB::setLimit" />
+  <provides type="function" name="LiveUser_Admin_Storage_DB::query" />
+  <provides type="function" name="LiveUser_Admin_Storage_DB::queryOne" />
+  <provides type="function" name="LiveUser_Admin_Storage_DB::queryRow" />
+  <provides type="function" name="LiveUser_Admin_Storage_DB::queryCol" />
+  <provides type="function" name="LiveUser_Admin_Storage_DB::queryAll" />
+  <provides type="function" name="LiveUser_Admin_Storage_DB::nextId" />
+  <provides type="function" name="LiveUser_Admin_Storage_DB::getBeforeId" />
+  <provides type="function" name="LiveUser_Admin_Storage_DB::getAfterId" />
+  <provides type="class" name="LiveUser_Admin_Storage_MDB" extends="LiveUser_Admin_Storage_SQL" />
+  <provides type="function" name="LiveUser_Admin_Storage_MDB::init" />
+  <provides type="function" name="LiveUser_Admin_Storage_MDB::quote" />
+  <provides type="function" name="LiveUser_Admin_Storage_MDB::implodeArray" />
+  <provides type="function" name="LiveUser_Admin_Storage_MDB::setLimit" />
+  <provides type="function" name="LiveUser_Admin_Storage_MDB::query" />
+  <provides type="function" name="LiveUser_Admin_Storage_MDB::queryOne" />
+  <provides type="function" name="LiveUser_Admin_Storage_MDB::queryRow" />
+  <provides type="function" name="LiveUser_Admin_Storage_MDB::queryCol" />
+  <provides type="function" name="LiveUser_Admin_Storage_MDB::queryAll" />
+  <provides type="function" name="LiveUser_Admin_Storage_MDB::nextId" />
+  <provides type="function" name="LiveUser_Admin_Storage_MDB::getBeforeId" />
+  <provides type="function" name="LiveUser_Admin_Storage_MDB::getAfterId" />
+  <provides type="class" name="LiveUser_Admin_Storage_MDB2" extends="LiveUser_Admin_Storage_SQL" />
+  <provides type="function" name="LiveUser_Admin_Storage_MDB2::init" />
+  <provides type="function" name="LiveUser_Admin_Storage_MDB2::quote" />
+  <provides type="function" name="LiveUser_Admin_Storage_MDB2::implodeArray" />
+  <provides type="function" name="LiveUser_Admin_Storage_MDB2::setLimit" />
+  <provides type="function" name="LiveUser_Admin_Storage_MDB2::query" />
+  <provides type="function" name="LiveUser_Admin_Storage_MDB2::queryOne" />
+  <provides type="function" name="LiveUser_Admin_Storage_MDB2::queryRow" />
+  <provides type="function" name="LiveUser_Admin_Storage_MDB2::queryCol" />
+  <provides type="function" name="LiveUser_Admin_Storage_MDB2::queryAll" />
+  <provides type="function" name="LiveUser_Admin_Storage_MDB2::nextId" />
+  <provides type="function" name="LiveUser_Admin_Storage_MDB2::getBeforeId" />
+  <provides type="function" name="LiveUser_Admin_Storage_MDB2::getAfterId" />
+  <provides type="class" name="LiveUser_Admin_Storage_SQL" extends="LiveUser_Admin_Storage" />
+  <provides type="function" name="LiveUser_Admin_Storage_SQL::insert" />
+  <provides type="function" name="LiveUser_Admin_Storage_SQL::createInsert" />
+  <provides type="function" name="LiveUser_Admin_Storage_SQL::update" />
+  <provides type="function" name="LiveUser_Admin_Storage_SQL::createUpdate" />
+  <provides type="function" name="LiveUser_Admin_Storage_SQL::delete" />
+  <provides type="function" name="LiveUser_Admin_Storage_SQL::selectCount" />
+  <provides type="function" name="LiveUser_Admin_Storage_SQL::select" />
+  <provides type="function" name="LiveUser_Admin_Storage_SQL::createSelect" />
+  <provides type="function" name="LiveUser_Admin_Storage_SQL::createWhere" />
+  <provides type="function" name="LiveUser_Admin_Storage_SQL::findTables" />
+  <provides type="function" name="LiveUser_Admin_Storage_SQL::createJoinFilter" />
+  <provides type="function" name="LiveUser_Admin_Storage_SQL::disconnect" />
+  <provides type="class" name="LiveUser_Admin" />
+  <provides type="function" name="LiveUser_Admin::loadPEARLog" />
+  <provides type="function" name="LiveUser_Admin::addErrorLog" />
+  <provides type="function" name="LiveUser_Admin::factory" />
+  <provides type="function" name="LiveUser_Admin::singleton" />
+  <provides type="function" name="LiveUser_Admin::setConfArray" />
+  <provides type="function" name="LiveUser_Admin::setAdminAuthContainer" />
+  <provides type="function" name="LiveUser_Admin::setAdminPermContainer" />
+  <provides type="function" name="LiveUser_Admin::setAdminContainers" />
+  <provides type="function" name="LiveUser_Admin::addUser" />
+  <provides type="function" name="LiveUser_Admin::updateUser" />
+  <provides type="function" name="LiveUser_Admin::removeUser" />
+  <provides type="function" name="LiveUser_Admin::getUsers" />
+  <provides type="function" name="LiveUser_Admin::getErrors" />
+  <provides type="class" name="LiveUser_Admin_Storage" />
+  <provides type="function" name="LiveUser_Admin_Storage::init" />
+  <provides type="function" name="LiveUser_Admin_Storage::disconnect" />
+  <filelist>
+   <file role="php" baseinstalldir="/LiveUser/Admin" md5sum="12537b800a6de0efd2a487466ed80e0a" name="Auth/Storage/DB.php"/>
+   <file role="php" baseinstalldir="/LiveUser/Admin" md5sum="e7bdb73d0eb1a129d5887becfc6c5a13" name="Auth/Storage/MDB.php"/>
+   <file role="php" baseinstalldir="/LiveUser/Admin" md5sum="956f1fb649ac58444ce018e09e978b30" name="Auth/Storage/MDB2.php"/>
+   <file role="php" baseinstalldir="/LiveUser/Admin" md5sum="bc31ba3424201855a1d7da96de66c744" name="Auth/Common.php"/>
+   <file role="php" baseinstalldir="/LiveUser/Admin" md5sum="74fdf7894dd8c91a1e9dafae2a3752e8" name="Auth/DB.php"/>
+   <file role="php" baseinstalldir="/LiveUser/Admin" md5sum="383a94ca2200ef30ab87f1b1a6aef35e" name="Auth/MDB.php"/>
+   <file role="php" baseinstalldir="/LiveUser/Admin" md5sum="6147ac9e0b1c5408a72540465b098616" name="Auth/MDB2.php"/>
+   <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="2f301656da88633c47477c36380bd060" name="docs/examples/example 1/Application.php"/>
+   <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="11aa4f0cc1cf0fde32bcc17a595dbb82" name="docs/examples/example 1/Area.php"/>
+   <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="d376b5848fc7b35ca4ae3364193d21f5" name="docs/examples/example 1/Area_Admin_Areas.php"/>
+   <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="71dedbfbd9bf77ffef870468ac10d971" name="docs/examples/example 1/config.inc.php"/>
+   <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="d4404296fda0772f25d48ca590e3ec7c" name="docs/examples/example 1/demodata.xml"/>
+   <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="5fe6306f94a1dae8dd58a023d9f4cc05" name="docs/examples/example 1/Group.php"/>
+   <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="f9990da51ae384c6aaace0e80a95c237" name="docs/examples/example 1/GroupRights.php"/>
+   <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="d400b08e713d30854dbfa2ffba26dc36" name="docs/examples/example 1/ImplyRights.php"/>
+   <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="e9a4aa01bcea49261b082df660921b3a" name="docs/examples/example 1/index.php"/>
+   <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="a97325c851eb12d337eaae8a921d4e98" name="docs/examples/example 1/OutputRightsConstants.php"/>
+   <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="bb0bbae65ba158c64ee888342bb2aa87" name="docs/examples/example 1/Rights.php"/>
+   <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="0b1b3d3ecf751f904c7b3f03e6b87307" name="docs/examples/example 1/Subgroups.php"/>
+   <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="fb19374b9c435a28c64f17d2ff28e9a4" name="docs/examples/example 1/Translation.php"/>
+   <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="29f297cc34dfe4c1d96a80e19aa60621" name="docs/examples/example 1/User.php"/>
+   <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="bf0531011c8d71162f99b841d755ab0f" name="docs/examples/example 1/UserGroup.php"/>
+   <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="b8949033012ab41eeea13c70c65aab18" name="docs/examples/example 1/UserRights.php"/>
+   <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="3fe4894b85668a5ee958dffbc404e1cf" name="docs/examples/example3/area51.php"/>
+   <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="8b862d19ad3d090105b113ecbddbd6d8" name="docs/examples/example3/coffeemaker.php"/>
+   <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="fdd6708d359756295cf156d96efc515e" name="docs/examples/example3/conf.php"/>
+   <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="c5b470a1c91bd7cb3f5177184092d9fc" name="docs/examples/example3/demodata.xml"/>
+   <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="7fa6381a8a3231e7a0cb3acf8de5a85a" name="docs/examples/example3/example.php"/>
+   <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="9df118a19c46c9aba51f77e7678f7220" name="docs/examples/example3/index.html"/>
+   <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="fdba00fc8da8d08ce3a2d1b2f7fc5bae" name="docs/examples/example3/loginscreen.php"/>
+   <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="c914ae7436bbd1d385b40eda52360b81" name="docs/examples/example3/main.php"/>
+   <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="6d0a114efb74e64f53ed29ac8c4fc817" name="docs/examples/example3/nav.php"/>
+   <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="9fff2f8f1040226a254e37f788446054" name="docs/examples/example3/testarea.php"/>
+   <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="7490e122a2ec440756d7385fded6b3ee" name="docs/examples/README"/>
+   <file role="php" baseinstalldir="/LiveUser/Admin" md5sum="de53d048e029f76864e636396230a837" name="Perm/Storage/DB.php"/>
+   <file role="php" baseinstalldir="/LiveUser/Admin" md5sum="fb569b8f614a017586100f7cc8d0f9a5" name="Perm/Storage/MDB.php"/>
+   <file role="php" baseinstalldir="/LiveUser/Admin" md5sum="86d0d5fa05c981b51058e5293a70b37c" name="Perm/Storage/MDB2.php"/>
+   <file role="php" baseinstalldir="/LiveUser/Admin" md5sum="b78f7e530b4c57d060bfa3e8485835ec" name="Perm/Complex.php"/>
+   <file role="php" baseinstalldir="/LiveUser/Admin" md5sum="0e300870499984301d3f9732ef1c9193" name="Perm/Medium.php"/>
+   <file role="php" baseinstalldir="/LiveUser/Admin" md5sum="83c1de1ca46df1d1ab6422ae99b6e25c" name="Perm/Simple.php"/>
+   <file role="php" baseinstalldir="/LiveUser/Admin" md5sum="dec28807914aa4c2aaf8489e7a68b331" name="Storage/DB.php"/>
+   <file role="php" baseinstalldir="/LiveUser/Admin" md5sum="b66852401bf98750d70ed8919db92fbb" name="Storage/MDB.php"/>
+   <file role="php" baseinstalldir="/LiveUser/Admin" md5sum="fe9bd27ebcae83fd66e09aef4959600d" name="Storage/MDB2.php"/>
+   <file role="php" baseinstalldir="/LiveUser/Admin" md5sum="16749dabf612c52d76b3635397dcc849" name="Storage/SQL.php"/>
+   <file role="php" baseinstalldir="/LiveUser" md5sum="3e02f8475e32e8698aa19667d5c5c152" name="Admin.php"/>
+   <file role="doc" baseinstalldir="/LiveUser/Admin" md5sum="03fb004783f456bfd292dde36ab5c489" name="lgpl.txt"/>
+   <file role="php" baseinstalldir="/LiveUser/Admin" md5sum="b3be7fb34094c8b1a1ae3d14e3348fad" name="Storage.php"/>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>0.3.2</version>
+    <date>2005-08-09</date>
+    <license>LGPL</license>
+    <state>beta</state>
+    <notes>- copy storage config before passing it to the storageFactory() since this
+  method messes with the values which causes the original to be modified due to
+  using pass by reference
+- removed old 'with' handling code that is no longer necessary from getGroups()
+  in the medium container
+    </notes>
+   </release>
+   <release>
+    <version>0.3.1</version>
+    <date>2005-07-19</date>
+    <license>LGPL</license>
+    <state>beta</state>
+    <notes>- php 4.4 reference assignment fixes
+- dont filter out subgroups from the previous level in
+  _getGroupsWithHierarchy() (bug #4860)
+    </notes>
+   </release>
+   <release>
+    <version>0.3.0</version>
+    <date>2005-06-21</date>
+    <license>LGPL</license>
+    <state>beta</state>
+    <notes>- added _call() overloading method for php5 users in LiveUser_Admin class
+- dont require a conf array for all but the first call of singleton()
+- updated LiveUser dependency
+
+storage
+- delete() now uses findTable() to ensure that only defined table with the
+  proper fields are being used
+- findTable() now only prefixes fields if necessary
+- added ability to prefix explicit tables in findTables()
+- no longer use &quot;ids&quot; in insert so we can remove this information from the
+  Globals.php file in the client
+- added support for table name aliasing
+- tweaked NULL value handling in createWhere() (bug #4638)
+
+authentication
+- typo fix (bug #4109)
+- typo fix (bug #4173)
+- moved to admin storage class
+- tweaked disconnect to only disconnect when a new connection was made
+
+permission
+- typo fix: hierachy -&gt; hierarchy (bug #4150)
+- improved the &quot;with&quot; support (fixing bug #3245)
+- tweaked disconnect to only disconnect when a new connection was made
+- fixed bug that would lead to hierarchy mode in getGroups only fetching the
+  first subgroup level (bug #4633)
+
+examples
+- examples were converted to use MDB2_Schema. See the demodata.php script found
+  in the client part (http://cvs.php.net/co.php/pear/LiveUser/docs/examples/demodata.php)
+- removed the test.php script since this code is outdated and serves no purpose any longer
+- updated examples to use the new auth config layout due to using admin storage
+- tweaked error handling on init() call
+    </notes>
+   </release>
+   <release>
+    <version>0.2.2</version>
+    <date>2005-05-05</date>
+    <license>LGPL</license>
+    <state>beta</state>
+    <notes>- delete() now uses findTable() to ensure that only defined table with the
+  proper fields are being used
+- findTable() now only prefixes fields if necessary
+- typo fix: hierachy -&gt; hierarchy (bug #4150)
+- added ability to prefix explicit tables in findTables()
+- no longer use &quot;ids&quot; in insert so we can remove this information from the
+  Globals.php file in the client
+- examples were converted to use MDB2_Schema. See the demodata.php script found
+  in the client part (http://cvs.php.net/co.php/pear/LiveUser/docs/examples/demodata.php)
+- added _call() overloading method for php5 users in LiveUser_Admin class
+- added support for table name aliasing (fairly untested)
+    </notes>
+   </release>
+   <release>
+    <version>0.2.1</version>
+    <date>2005-03-30</date>
+    <license>LGPL</license>
+    <state>beta</state>
+    <notes>- typo fix in autoinit option (bug #3844)
+- updated LiveUser dependency to 0.15.0
+- fixed type handling in updateUser()
+- update getErrors() with code from the LiveUser class
+- typo fix in outputRightsConstants() (bug #3897)
+- removed calls to make remove filter on delete of relationship tables (bug #3874)
+    </notes>
+   </release>
+   <release>
+    <version>0.2.0</version>
+    <date>2005-03-15</date>
+    <license>LGPL</license>
+    <state>beta</state>
+    <notes>- perm container now also has a default init() method that is called in the factory
+- delete/update now dont require a filter in the id field
+- delete/update now return the number of affected rows
+- use LiveUser::cryptRC4() for rc4 handling
+- added support to be able to query for single values, columns and rows next to
+  fetching multi dimensional arrays ('select' key in params array of get methods)
+- improved error handling in several places to not trigger on empty results
+- sequences are now named after the table they belong to
+- now requiring MDB2-2.0.0beta3
+- if the &quot;force-seq&quot; option is now set to false in the storage config
+  MDB2 will try to use autoincrement if supported by the RDBMS (you will need
+  to add autoincrement to the id fields in the applications, areas, groups,
+  rights, and perm_users tables yourself)
+- example 1 now outputs all queries using an MDB2 debug handler
+- Subgroups now work
+- ImplyRights now work
+- One can now remove groups recursively by passing recursive = true to 
+  removeGroup in Perm Complex container (before it was hardcoded to true,
+  now defaults to false)
+- Tests for SubGroups and ImplyRights up and running
+- getGroup and getRight now work in Perm Complex Container
+- added DB and MDB permission backends
+- Complex container is now fully implemented.
+- addAreaAdmin and removeAreaAdmin where added to the Complex container
+- Admin.php getUser was removed and searchUser was renamed to getUsers and with
+  new params (BC break!)
+- give each example a unique database name
+- moved selectable tables into property so that they can be overwritten
+- fixed autoinit handling in factoray (bug #3133)
+- added missing PEAR error to error stack conversions
+- return false if we previously ensured that the value is false anyways for clarity
+- call setAdminAuthContainer() in updateUser() and removeUser() to ensure that
+  the proper auth container is affected
+- updated the file headers as per the RFC
+- getGroups() in the complex container was refactored and subgroup handling
+  was reworked (BC break!)
+    </notes>
+   </release>
+   <release>
+    <version>0.1.0</version>
+    <date>2004-12-20</date>
+    <license>LGPL</license>
+    <state>beta</state>
+    <notes>- refactored into a separate package from LiveUser
+- severe BC breaks in the permission API in order to unify the API
+- added ErrorStack
+- fixed outputRightsConstants() method
+- refactored storage layer to use an SQL query builder (DB and MDB support is
+  currently missing but will be added in the next minor update)
+- sql query builder should output more portable SQL code
+- sql query builder enables full aliasing of all field names
+- sql query builder only joins the necessary tables so the admin API does not
+  force the usage of any table (especially the translation table)
+- searchUser() now also fetches perm data
+- the complex container is currently not fully implemented
+    </notes>
+   </release>
+   <release>
+    <version>0.14.0</version>
+    <date>2004-12-11</date>
+    <license>LGPL</license>
+    <state>beta</state>
+    <notes>- Refactored nto a separate package.
+    </notes>
+   </release>
+ </changelog>
+</package>

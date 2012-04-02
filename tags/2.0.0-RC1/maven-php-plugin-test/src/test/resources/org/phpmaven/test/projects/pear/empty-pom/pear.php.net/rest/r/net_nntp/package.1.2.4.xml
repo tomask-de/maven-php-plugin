@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.2">
+ <name>Net_NNTP</name>
+ <summary>Implementation of the NNTP protocol</summary>
+ <description>Package for communicating with NNTP/Usenet servers
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>heino</user>
+   <name>Heino H. Gehlsen</name>
+   <email>heino@gehlsen.dk</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>1.2.4</version>
+  <date>2005-10-20</date>
+  <license>W3C</license>
+  <state>alpha</state>
+  <notes>+ Fix: connect() now returns false when posting is prohibited, like cmdModeReader() does
++ New: Response code constants
++ Misc. internal rewrites in protocol implementation:
+- Expected response codes in cmdArticle(), cmdHead() and cmdBody() reduced to correspond actual implementations.
+- First parameter in cmdXOver(), cmdXROver() and cmdListgroup() is now optional
+- New third optional parameter in getNewNews() and cmdNewnews().
+- cmdNext(), cmdLast() and cmdStat() now returns array by default
+  </notes>
+  <deps>
+   <dep type="pkg" rel="ge" version="1.0.6">Net_Socket</dep>
+  </deps>
+  <provides type="class" name="Net_NNTP_Client" extends="Net_NNTP_Protocol_Client" />
+  <provides type="function" name="Net_NNTP_Client::connect" />
+  <provides type="function" name="Net_NNTP_Client::connectAuthenticated" />
+  <provides type="function" name="Net_NNTP_Client::quit" />
+  <provides type="function" name="Net_NNTP_Client::authenticate" />
+  <provides type="class" name="Net_NNTP_Header" />
+  <provides type="function" name="Net_NNTP_Header::reset" />
+  <provides type="function" name="Net_NNTP_Header::create" />
+  <provides type="function" name="Net_NNTP_Header::add" />
+  <provides type="function" name="Net_NNTP_Header::replace" />
+  <provides type="function" name="Net_NNTP_Header::delete" />
+  <provides type="function" name="Net_NNTP_Header::get" />
+  <provides type="function" name="Net_NNTP_Header::getAll" />
+  <provides type="function" name="Net_NNTP_Header::count" />
+  <provides type="function" name="Net_NNTP_Header::tags" />
+  <provides type="function" name="Net_NNTP_Header::clean" />
+  <provides type="function" name="Net_NNTP_Header::setFields" />
+  <provides type="function" name="Net_NNTP_Header::getFields" />
+  <provides type="function" name="Net_NNTP_Header::getFieldsString" />
+  <provides type="function" name="Net_NNTP_Header::getFieldsArray" />
+  <provides type="function" name="Net_NNTP_Header::unfoldString" />
+  <provides type="function" name="Net_NNTP_Header::unfoldArray" />
+  <provides type="function" name="Net_NNTP_Header::foldArray" />
+  <provides type="function" name="Net_NNTP_Header::foldString" />
+  <provides type="class" name="Net_NNTP_Message" />
+  <provides type="function" name="Net_NNTP_Message::reset" />
+  <provides type="function" name="Net_NNTP_Message::create" />
+  <provides type="function" name="Net_NNTP_Message::setMessage" />
+  <provides type="function" name="Net_NNTP_Message::getMessageString" />
+  <provides type="function" name="Net_NNTP_Message::getMessageArray" />
+  <provides type="function" name="Net_NNTP_Message::setHeader" />
+  <provides type="function" name="Net_NNTP_Message::getHeader" />
+  <provides type="function" name="Net_NNTP_Message::setBody" />
+  <provides type="function" name="Net_NNTP_Message::getBody" />
+  <provides type="function" name="Net_NNTP_Message::splitMessage" />
+  <provides type="class" name="Net_NNTP_Protocol_Client" />
+  <provides type="function" name="Net_NNTP_Protocol_Client::connect" />
+  <provides type="function" name="Net_NNTP_Protocol_Client::disconnect" />
+  <provides type="function" name="Net_NNTP_Protocol_Client::cmdQuit" />
+  <provides type="function" name="Net_NNTP_Protocol_Client::cmdAuthinfo" />
+  <provides type="function" name="Net_NNTP_Protocol_Client::cmdAuthinfoSimple" />
+  <provides type="function" name="Net_NNTP_Protocol_Client::cmdAuthinfoGeneric" />
+  <provides type="function" name="Net_NNTP_Protocol_Client::cmdModeReader" />
+  <provides type="function" name="Net_NNTP_Protocol_Client::cmdNext" />
+  <provides type="function" name="Net_NNTP_Protocol_Client::cmdLast" />
+  <provides type="function" name="Net_NNTP_Protocol_Client::cmdStat" />
+  <provides type="function" name="Net_NNTP_Protocol_Client::cmdArticle" />
+  <provides type="function" name="Net_NNTP_Protocol_Client::cmdHead" />
+  <provides type="function" name="Net_NNTP_Protocol_Client::cmdBody" />
+  <provides type="function" name="Net_NNTP_Protocol_Client::cmdPost" />
+  <filelist>
+   <file role="php" baseinstalldir="Net" md5sum="cf600716dc8d3c1151455468bf8d8826" name="NNTP/Client.php"/>
+   <file role="php" baseinstalldir="Net" md5sum="5a65ab1ca2fd3e373eff11dab90adcac" name="NNTP/Header.php"/>
+   <file role="php" baseinstalldir="Net" md5sum="098f7ff67360227460b4223dfaa60fc2" name="NNTP/Message.php"/>
+   <file role="php" baseinstalldir="Net" md5sum="ee180d6086ca8b1418f1ba16c1006b00" name="NNTP/Protocol/Client.php"/>
+   <file role="php" baseinstalldir="Net" md5sum="86b1a16559d1b3c4406eaa5677bbbe7e" name="NNTP/Protocol/Responsecode.php"/>
+   <file role="doc" baseinstalldir="Net" md5sum="c74487fe45fdddb9963f684fe90bb9f3" name="docs/examples/news.php.net/index.php"/>
+   <file role="doc" baseinstalldir="Net" md5sum="25d7fd54fe02fe8d18b70fa1fb3a35f8" name="docs/examples/news.php.net/group.php"/>
+   <file role="doc" baseinstalldir="Net" md5sum="418b6749767b55f625fab91ef496f54f" name="docs/examples/news.php.net/read.php"/>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>1.2.3</version>
+    <date>2005-05-13</date>
+    <state>alpha</state>
+    <notes>- New method in Net_NNTP_Client: getBody().
+- Added parameters to Net_NNTP_Client::getArticle/getHeader() to allow use of external return classes.
+- Added status response code constants in Net_NNTP_Protocol_Clients.
+    </notes>
+   </release>
+   <release>
+    <version>1.2.2</version>
+    <date>2005-03-13</date>
+    <state>alpha</state>
+    <notes>- Bug #3967 fixed (typo in Net_NNTP_Header::decodeString())
+    </notes>
+   </release>
+   <release>
+    <version>1.2.1</version>
+    <date>2005-03-28</date>
+    <state>alpha</state>
+    <notes>- New methods in Net_NNTP_Client: selectArticle(), selectNextArticle() and selectPreviousArticle().
+- New methods in Net_NNTP_Protocol_Client: cmdStat(), cmdNext() and cmdLast().
+    </notes>
+   </release>
+   <release>
+    <version>1.2.0</version>
+    <date>2005-01-14</date>
+    <state>alpha</state>
+    <notes>- Corresponds to v0.11.3 (exact feature match)
+    </notes>
+   </release>
+   <release>
+    <version>1.1.1</version>
+    <date>2005-03-28</date>
+    <license>W3C</license>
+    <state>beta</state>
+    <notes>- Net_NNTP_Client::connectAuthenticated() removed - it should only exist in the MAINT_1_2 branch for now (was not removed by mistake in the v1.1.0 release)
+    </notes>
+   </release>
+   <release>
+    <version>1.1.0</version>
+    <date>2005-01-14</date>
+    <state>beta</state>
+    <notes>- This release is NOT fully backward compatible with v0.11.3, since experimental features (Net_NNTP_Message and Net_NNTP_Header and related methods Net_NNTP_Client::getArticle() and Net_NNTP_Client::getHeader()) have been removed. Users of those features should consider v1.2.x in stead.
+    </notes>
+   </release>
+   <release>
+    <version>1.0.1</version>
+    <date>2005-03-28</date>
+    <license>W3C</license>
+    <state>stable</state>
+    <notes>- Fix lack of $fp property in historical Net_NNTP class (only relevant for backward compatibility with v0.2.5)
+- Fix typo in examples.
+    </notes>
+   </release>
+   <release>
+    <version>1.0.0</version>
+    <date>2005-01-18</date>
+    <state>stable</state>
+    <notes>- This release is NOT backward compatible with v0.11.3, since all non-stable features (classes, methods etc.) have been removed!!!
+- Users of releases between 0.3.x and 0.11.x should consider v1.1.x or v1.2.x in stead. (This release is meant only as a final replacement for v0.2.5 - and of cause as a way to finally get rid of the former protocol implementation).
+- Backward compatible with v0.2.5 (this is ONLY guarantied in v1.0.x releases, and may be removed in the future).
+    </notes>
+   </release>
+   <release>
+    <version>1.0.0RC1</version>
+    <date>2005-01-14</date>
+    <state>beta</state>
+    <notes>- This release is NOT backward compatible with v0.11.3, since all non-stable features (classes, methods etc.) have been removed!!!
+- Users of releases between 0.3.x and 0.11.x should consider v1.1.x or v1.2.x in stead. (This release is meant only as a final replacement for v0.2.5 - and of cause as a way to finally get rid of the former protocol implementation).
+- Backward compatible with v0.2.5 (this is ONLY guarantied in v1.0.x releases, and may be removed in the future).
+    </notes>
+   </release>
+   <release>
+    <version>0.11.3</version>
+    <date>2004-09-06</date>
+    <state>alpha</state>
+    <notes>- Going beta (features not documented in the manual should still be considered experiemental)
+- Added the &apos;distributions&apos; parameter to getNewGroups() and cmdNewGroups()
+    </notes>
+   </release>
+   <release>
+    <version>0.11.2</version>
+    <date>2004-08-22</date>
+    <state>alpha</state>
+    <notes>- Update PhpDoc blocks.
+- Changed xmdXOver(),cmdXROver(),getOverview() and getReferencesOverview() into using only parameter: $range.
+- Fix whitespace in Net_NNTP_Client, Net_NNTP_Protocol_Client and Net_NNTP.
+    </notes>
+   </release>
+   <release>
+    <version>0.11.1</version>
+    <date>2004-07-30</date>
+    <state>devel</state>
+    <notes>- Fix bug in (deprecated) Net_NNTP::command().
+- Rename a few constants due to renamed classes (BC preserved).
+- Update class phpdoc blocks.
+    </notes>
+   </release>
+   <release>
+    <version>0.11.0</version>
+    <date>2004-07-19</date>
+    <state>devel</state>
+    <notes>- New directory structure (classes/files renamed/moved) to allow future server class (dummy files preserves backward compatibility)
+    </notes>
+   </release>
+   <release>
+    <version>0.10.3</version>
+    <date>2004-07-14</date>
+    <state>alpha</state>
+    <notes>- Fixes undefined property warning
+    </notes>
+   </release>
+   <release>
+    <version>0.10.2</version>
+    <date>2004-07-06</date>
+    <state>alpha</state>
+    <notes>- Fixes bug #1803 (trailing space character sent in cmdListNewsgrups())
+- Fixes bug #825 (no more lazy assignement of new values to $this)
+- Examples moved into docs to comply with the standard PEAR directory structure.
+    </notes>
+   </release>
+   <release>
+    <version>0.10.1</version>
+    <date>2003-10-24</date>
+    <state>alpha</state>
+    <notes>Fixes bug #7 (lines longer than 1000 chars no longer stop download)
+    </notes>
+   </release>
+   <release>
+    <version>0.10.0</version>
+    <date>2003-10-12</date>
+    <state>alpha</state>
+    <notes>Merges v0.3.3 and v0.9.4 into one package - The &apos;Net_NNTP&apos; class from v0.9.x is now called &apos;Net_NNTP_Realtime&apos;. (heino)
+    </notes>
+   </release>
+   <release>
+    <version>0.9.3</version>
+    <date>2003-09-13</date>
+    <state>alpha</state>
+    <notes>Constant names pearified. Deprecated/historical methods that didn&apos;t follow PEAR&apos;s coding standard have been removed. Incorrect handling of the XROVER extension corrected in cmdXROver() and removed in getOverview(). (heino)
+    </notes>
+   </release>
+   <release>
+    <version>0.9.2</version>
+    <date>2003-08-16</date>
+    <state>alpha</state>
+    <notes>Fixed syntax typo... (heino)
+    </notes>
+   </release>
+   <release>
+    <version>0.9.1</version>
+    <date>2002-08-15</date>
+    <state>alpha</state>
+    <notes>Bug fixing and improvements in Net_NNTP_Header and Net_NNTP_Message (heino)
+    </notes>
+   </release>
+   <release>
+    <version>0.9.0</version>
+    <date>2002-08-09</date>
+    <state>alpha</state>
+    <notes>Major rewrite, yet still generaly backward compatible - now uses Net_Socket, lets the user choose if the article data are to be returned as strings or arrays or objects, authentication has been separated from the execution of commands, returns pear_error objects of failure, and handles the server&apos;s responses individually. (heino)
+    </notes>
+   </release>
+   <release>
+    <version>0.3.3</version>
+    <date>2003-10-12</date>
+    <state>beta</state>
+    <notes>Fixes bug #85 + a lot of phpdoc updated. (heino)
+    </notes>
+   </release>
+   <release>
+    <version>0.3.2</version>
+    <date>2003-09-20</date>
+    <state>beta</state>
+    <notes>Incorrect handling of the XROVER extension corrected in cmdXROver() and removed in getOverview(). (heino)
+    </notes>
+   </release>
+   <release>
+    <version>0.3.1</version>
+    <date>2003-08-31</date>
+    <state>beta</state>
+    <notes>Uses the new protocol implementation from 0.9.*, but preserves backward compatibility with 0.2, since the experimental header and message classes are not used. Deprecated/historical methods that didn&apos;t follow PEAR&apos;s coding standard have been removed. (heino)
+    </notes>
+   </release>
+   <release>
+    <version>0.2.5</version>
+    <date>2004-07-19</date>
+    <state>stable</state>
+    <notes>- post() rewritten to allow posting using authentication (bug #817)
+- Examples moved into docs to comply with the standard PEAR directory structure.
+    </notes>
+   </release>
+   <release>
+    <version>0.2.4</version>
+    <date>2004-03-10</date>
+    <state>stable</state>
+    <notes>[Not released]
+    </notes>
+   </release>
+   <release>
+    <version>0.2.3</version>
+    <date>2003-09-20</date>
+    <state>stable</state>
+    <notes>Incorrect handling of the XROVER extension in getOverview() removed (heino)
+    </notes>
+   </release>
+   <release>
+    <version>0.2.2</version>
+    <date>2003-08-31</date>
+    <state>stable</state>
+    <notes>Constant names pearified (heino)
+    </notes>
+   </release>
+   <release>
+    <version>0.2.1</version>
+    <date>2003-08-09</date>
+    <state>stable</state>
+    <notes>Fix binary safety (heino)
+    </notes>
+   </release>
+   <release>
+    <version>0.2</version>
+    <date>2003-07-20</date>
+    <state>stable</state>
+    <notes>pearified API (mj)
+    </notes>
+   </release>
+   <release>
+    <version>0.1</version>
+    <date>2002-05-22</date>
+    <state>stable</state>
+    <notes>This is the initial independent release of the NNTP package.
+    </notes>
+   </release>
+ </changelog>
+</package>

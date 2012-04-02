@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.6">
+ <name>Benchmark</name>
+ <summary>Framework to benchmark PHP scripts or function calls.</summary>
+ <description>Framework to benchmark PHP scripts or function calls.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>anant</user>
+   <name>Anant Narayanan</name>
+   <email>anant@kix.in</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>toggg</user>
+   <name>Bertrand Gugger</name>
+   <email>bertrand@toggg.com</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>1.2.6</version>
+  <date>2006-03-02</date>
+  <license>New BSD</license>
+  <state>stable</state>
+  <notes>- Fixed extra table tag for text input
+- Formatted text output properly (bug #6972)
+- Added Anant Narayanan as maintainer
+  </notes>
+  <deps>
+   <dep type="ext" rel="has" optional="yes">bcmath</dep>
+  </deps>
+  <provides type="class" name="Benchmark_Timer" extends="PEAR" />
+  <provides type="function" name="Benchmark_Timer::start" />
+  <provides type="function" name="Benchmark_Timer::stop" />
+  <provides type="function" name="Benchmark_Timer::setMarker" />
+  <provides type="function" name="Benchmark_Timer::timeElapsed" />
+  <provides type="function" name="Benchmark_Timer::getProfiling" />
+  <provides type="function" name="Benchmark_Timer::getOutput" />
+  <provides type="function" name="Benchmark_Timer::display" />
+  <provides type="class" name="Benchmark_Iterate" extends="Benchmark_Timer" />
+  <provides type="function" name="Benchmark_Iterate::run" />
+  <provides type="function" name="Benchmark_Iterate::get" />
+  <provides type="class" name="Benchmark_Profiler" extends="PEAR" />
+  <provides type="function" name="Benchmark_Profiler::getSectionInformations" />
+  <provides type="function" name="Benchmark_Profiler::getAllSectionsInformations" />
+  <provides type="function" name="Benchmark_Profiler::display" />
+  <provides type="function" name="Benchmark_Profiler::start" />
+  <provides type="function" name="Benchmark_Profiler::stop" />
+  <provides type="function" name="Benchmark_Profiler::enterSection" />
+  <provides type="function" name="Benchmark_Profiler::leaveSection" />
+  <filelist>
+   <file role="doc" baseinstalldir="Benchmark" md5sum="f8790e48b597dff12a643e08e9be3fab" name="LICENSE"/>
+   <file role="doc" baseinstalldir="Benchmark" md5sum="5147768db6c22be5849def30275deb2d" name="doc/timer_example.php"/>
+   <file role="php" baseinstalldir="Benchmark" md5sum="4b7caa301fe7bccb5ac6508117b32980" name="Timer.php"/>
+   <file role="php" baseinstalldir="Benchmark" md5sum="8a1f3c7e4a9952737fc785d283001686" name="Iterate.php"/>
+   <file role="php" baseinstalldir="Benchmark" md5sum="2ae053bb5cef6d84982e22acc8f78a9f" name="Profiler.php"/>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>1.2.6</version>
+    <date>2006-03-02</date>
+    <state>stable</state>
+    <notes>- Fixed extra table tag for text input
+- Formatted text output properly (bug #6972)
+    </notes>
+   </release>
+   <release>
+    <version>1.2.4</version>
+    <date>2005-11-05</date>
+    <state>stable</state>
+    <notes>- Change licence to the new BSD License
+  (see http://www.opensource.org/licenses/bsd-license.php)
+    </notes>
+   </release>
+   <release>
+    <version>1.2.3</version>
+    <date>2005-06-11</date>
+    <state>stable</state>
+    <notes>Sebastian Bergman devolves the maintainance to Bertrand Gugger on 04/15/2005
+* bug #3620 CRITICAL: non-ISO-8859-1 characters in package.xml must be entitied
+* Profiler
+ + fix comments and fix bug #3369 Profiler : Manual mode generates automatic output
+ + fix bug #2957 zero devision when calling getAllSectionsInformations
+ + CS/WS fixes
+ + Typo in private var _auto use (thanks sascha Eissler)
+* Timer
+ + Example 2 corrected
+ + Bug #4346 : wrong totals, also potential bug if several sessions (display shift)
+ + The output has been extented to optionnaly display the totals.
+* Iterate
+ + Request #1160  	Feature Addition: Simple Output on Benchmark_Iterate
+ + $GLOBALS[] instead of global $...
+    </notes>
+   </release>
+   <release>
+    <version>1.2.2</version>
+    <date>2005-01-19</date>
+    <state>stable</state>
+    <notes>* Fixed bug #1365: _getOutput() table not XHTML complaint.
+
+* Fixed bug #2727: Output ist not valid XHTML. Patch by Helgi &amp;THORN;ormar &lt;helgi@trance.is&gt;.
+
+* Fixed bug #2295: Timer.php: undefined index &quot;Stop&quot; on line 208.
+    </notes>
+   </release>
+   <release>
+    <version>1.2.1</version>
+    <date>2003-05-20</date>
+    <state>stable</state>
+    <notes>+ Profiler: Added calculation of netto execution time of sections.
+
++ Profiler: Optional output to an array instead of screen. (Contributed by Jean-Marc Fontaine)
+
+* Profiler: Fixed typos.
+    </notes>
+   </release>
+   <release>
+    <version>1.2.0</version>
+    <date>2002-09-25</date>
+    <state>stable</state>
+    <notes>+ Added Profiler class. (Contribution by Matthias Englert)
+    </notes>
+   </release>
+   <release>
+    <version>1.1.0</version>
+    <date>2002-01-26</date>
+    <state>stable</state>
+    <notes>+ Added getOutput() to print the results in human readable format and display() to show it. This functions will automatically detect the environment to select HTML or text output.
+
++ Added a new parameter $auto to constructor. When TRUE is passed, the results will be output automatically at the end of the script execution. (Contribution by Ludovico Magnocavallo)
+    </notes>
+   </release>
+ </changelog>
+</package>

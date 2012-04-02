@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/html_template_flexy">HTML_Template_Flexy</p>
+ <c>pear.php.net</c>
+ <v>0.4</v>
+ <st>beta</st>
+ <l>PHP License</l>
+ <m>alan_k</m>
+ <s>An extremely powerful Tokenizer driven Template engine</s>
+ <d>HTML_Template_Flexy started it's life as a simplification of HTML_Template_Xipe, 
+however in Version 0.2, It became one of the first template engine to use a real Lexer,
+rather than regex'es, making it possible to do things like ASP.net or Cold Fusion tags. 
+However, it still has a very simple set of goals.
+- Very Simple API, easy to learn...
+- Targeted at Object based systems - default behavior is to display object variables
+- Designed to allow the documentation of available variables using PEAR standards, eg. PHPDoc comments around object variables
+- Ability to edit the templates in WYSIWYG HTML editors, without breaking the tags
+- Extremely Fast, for normal variables and looping (or blocks), both for designing and runtime.
+
+Features:
+- {variable} to echo $object-&gt;variable
+- {method()} to echo $object-&gt;method();
+- {foreach:var,key,value} to PHP foreach loops
+- tag attributes FLEXY:FOREACH, FLEXY:IF for looping and conditional HTML inclusion
+- {if:variable} to PHP If statement
+- {if:method()} to PHP If statement
+- {else:} and {end:} to close or alternate If statements
+- FORM to HTML_QuickForms mapping
+- replacement of INPUT, TEXTAREA and SELECT tags with HTML_QuickForm code
+  use FLEXY:IGNORE to prevent replacements
+- FLEXY:START/FLEXY:STARTCHILDREN tags to define where output starts/finishes
+- support for urlencoded braces {} in HTML attributes.  
+- docs temporarily at http://devel.akbkhome.com/peardoc2/package.html.html-template-flexy.html
+</d>
+ <da>2003-04-17 04:14:00</da>
+ <n>Warning BC breaking release: 
+  - It is likely that form code may break with this due to the quickform integration
+  - likely issues: you will probably have to load the template and assign data to it
+    using $template-&gt;setQuickForm($this);
+    which will then expose $template-&gt;quickform as the template Object.
+  
+  
+
+Bug fixes
+  - fixed #literal# chopping bug (Yuri Dyakonov)
+  - fixed XML/XHTML support (no more munging of cases)
+  - fixed Fatal Error messages - with more details
+  - fixed whitespace in doctype tags. (wierd lexer stuff)
+  
+  
+  
+Features
+  - quickforms (3) integration added.
+  - quickforms with multiple forms $flexyobj-&gt;quickforms[0.....]
+  - Initial gettext/multilanguage support
+  - support variable[12] as a valid variable name.
+  - does syntax checking on form element names 
+  - fixed {outputBody()} (no prefix var methods)
+  - added url_rewrite for HREF and SRC tags - see example.ini for more details
+  - added compileAll.php script for bulk compilation on servers that do not have
+    write access to the directories they are serving off.
+  - Added extra Option - nonHTML to not make tokens of HTML tags, and enable postprocessing 
+    of compiled template to replace ?&gt;\n with ?&gt;\n\n (aimed at email templates)
+  - Added extra Option - allowPHP to enable PHP code in template to be left alone. - defaults
+    to off (eg. no PHP allowed) - 
+  - added support for &lt;TAG IF=&quot;somevar.xxxx&quot; and 
+    &lt;TAG  IF=&quot;somevar.method()&quot; maps to if (the test) &lt;TAG .....
+  - handles elements with same name, like radio buttons  - although performing modifications on 
+    them can be tricky..
+    
+  
+While may thanks are owed to the many beta testers, special mention to Xavier 
+for spotting some really annoying little bugs.</n>
+ <f>40203</f>
+ <g>http://pear.php.net/get/HTML_Template_Flexy-0.4</g>
+ <x xlink:href="package.0.4.xml"/>
+</r>

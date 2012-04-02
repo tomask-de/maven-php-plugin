@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Net_POP3</name>
+ <channel>pear.php.net</channel>
+ <summary>Provides a POP3 class to access POP3 server.</summary>
+ <description>Provides a POP3 class to access POP3 server. Support all POP3 commands
+  including UIDL listings, APOP authentication, DIGEST-MD5 and CRAM-MD5
+  using optional Auth_SASL package</description>
+ <lead>
+  <name>Richard Heyes</name>
+  <user>richard</user>
+  <email>richard@php.net</email>
+  <active>no</active>
+ </lead>
+ <lead>
+  <name>Damian Fernandez Sosa</name>
+  <user>damian</user>
+  <email>damlists@cnba.uba.ar</email>
+  <active>no</active>
+ </lead>
+ <lead>
+  <name>George Schlossnagle</name>
+  <user>gschlossnagle</user>
+  <email>george@omniti.com</email>
+  <active>no</active>
+ </lead>
+ <date>2010-10-25</date>
+ <time>23:33:07</time>
+ <version>
+  <release>1.3.8</release>
+  <api>1.3.7</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+ <notes>
+Automatically built QA release
+Bug #17135 Deprecated use of new and reference - doconnor
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <file baseinstalldir="/" md5sum="485df6069799d3a4ea27012e31608789" name="docs/examples/Net_POP3_example.php" role="doc" />
+   <file baseinstalldir="/" md5sum="cf4fb5e34827c4bec7a0030138d81831" name="Net/POP3.php" role="php" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.0.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <package>
+    <name>Net_Socket</name>
+    <channel>pear.php.net</channel>
+    <min>1.0</min>
+   </package>
+  </required>
+  <optional>
+   <package>
+    <name>Auth_SASL</name>
+    <channel>pear.php.net</channel>
+    <min>1.0.2</min>
+   </package>
+  </optional>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>1.1</release>
+    <api>1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2002-02-13</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+Renamed file to POP3.php
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.2</release>
+    <api>1.2</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2002-07-27</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+License change
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3</release>
+    <api>1.3</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2004-03-03</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* Added debug capabilities
+* Added _recvLn() and _send($data) to support debug and better check socket errors
+* Added SASL AUTH capabilities
+* if installed automatically uses Auth_SASL
+* Added LOGIN,PLAIN,DIGEST-MD5 and CRAM-MD5
+* Modified APOP and USER auths
+* Now the class automagically selects the best auth method
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.1</release>
+    <api>1.3.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2004-03-18</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* Solves a bug in the auth code when the AUTH method is set to APOP but the server fall back to user and pass
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.2</release>
+    <api>1.3.2</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2004-06-26</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* Fixes bug #1505
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.3</release>
+    <api>1.3.3</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2004-09-15</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* _sendCmd  now return PEAR_Error on error instead of false making error check easy
+* Fixes bug #2175 login() which uses DIGEST-MD5 always returns true.
+* All the Login methods now uses PEAR_Error instead of &apos;false&apos; finding the error cause is now easy
+* Disabling DIGEST-MD5 until I can make work whit saslv2 (saslv2 and saslv1 responses are different )
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.4</release>
+    <api>1.3.4</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2004-12-05</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* Fixed Bug #2440 thanks to erickoh at jobsfactory dot com
+* Fixed Bug #2453 :Mistake in PEAR Doc for Net_POP3 example. thanks to erickoh at jobsfactory dot com
+* Removed double quotes in _authLogin() fixes Bug #2454 :AUTH LOGIN user and pass need to be enclosed in double quotes?. thanks to erickoh at jobsfactory dot com
+* Fixed Bug #2523 : Unable to login to Qmail servers. thanks to johann dot hoehn at ecommerce dot com
+* Fixed Bug #2646 :APOP attempted when not supported. thanks to osdave at nospam_davepar dot com
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.5</release>
+    <api>1.3.5</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2005-02-02</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* Fixed Bug #3141 $pop3-&gt;getListing() returns empty fields. thanks to  culmat at gmx dot net
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.6</release>
+    <api>1.3.6</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2005-04-05</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+* Fixed Bug #3551 Bug #2663 not fixed yet.
+* Fixed Bug #3410 Error handling in _sendCmd
+* Fixed Bug #1942 wrong parameter-type specification in Net_POP3::login
+* Fixed Bug #239 Missing phpdoc tag.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.7</release>
+    <api>1.3.7</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2009-07-24</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+QA release
+Bug #3140 Error handling in _sendCmd
+Bug #3551 Bug #2663 not fixed yet
+Bug #7644 POP3 Line Concatenation Function will fail and halt the program
+Updated to Package 2.0
+Comment -&gt; docblock. This should fix bug #8171: Add return types and description
+Bug #8420: Copy&amp;Paste issue ;) (wrong error message)
+* Convert to package.xml v2
+* Fail when authentication method is not supported
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.3.8</release>
+    <api>1.3.7</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2010-10-25</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+   <notes>
+Automatically built QA release
+Bug #17135 Deprecated use of new and reference - doconnor
+   </notes>
+  </release>
+ </changelog>
+</package>

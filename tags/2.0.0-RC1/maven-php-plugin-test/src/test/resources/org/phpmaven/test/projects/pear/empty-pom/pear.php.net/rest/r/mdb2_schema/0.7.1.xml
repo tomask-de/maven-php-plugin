@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/mdb2_schema">MDB2_Schema</p>
+ <c>pear.php.net</c>
+ <v>0.7.1</v>
+ <st>beta</st>
+ <l>BSD License</l>
+ <m>ifeghali</m>
+ <s>XML based database schema manager</s>
+ <d>PEAR::MDB2_Schema enables users to maintain RDBMS independant schema
+files in XML that can be used to create, alter and drop database entities
+and insert data into a database. Reverse engineering database schemas from
+existing databases is also supported. The format is compatible with both
+PEAR::MDB and Metabase.</d>
+ <da>2007-02-21 07:53:01</da>
+ <n>- Package converted to version 2
+- compareDefinition() was trying to update non-changing id field (Bug #8820)
+- for a moment &lt;default&gt; should be always parsed as string, no matter the field
+  type. this behavior may change in the future.
+- undefined method MDB2_Schema::quoteIdentifier() (Bug #9172)
+- added support for explicit NULL (&lt;null&gt;&lt;/null&gt;)
+- &lt;value&gt;&lt;/value&gt; is now correctly being parsed as an empty string
+- fixed internal bug in Parser that was introduced in revision 1.46 (Bug #9435)
+- MDB2_Schema_Parser::setData() has been removed
+- MDB2_Schema_Validate::validateDataField() is validating field data again
+  (Bug #9181)
+- updated reserved keywords of ibase
+- updated XML Schema documentation
+- updated XML Schema example
+- added a new test case to isBoolean() (empty string)
+- released the very first approach of the new parser that makes usage of
+  XML_Serializer (alternative parser)
+
+open todo items:
+- Make MDB2_Schema loadable via MDB2_Driver_Common::loadModule() (Bug #8270)
+- Add ability to define variables inside the schema (like a version number)
+- Allow simple if statements that mean that anything enclosed is only executed
+  if it meets certain criterias based on that version number (or some other
+  variable). This would enable people to add DML statements that are only
+  executed when updating from a specific version.
+- Modularize Writer code or remake it
+- Add specific error codes for Validate class
+- Add support for ORDER clauses on UPDATEs (to resolve the duplicate key 
+  problem)
+- Update description.schema.xml
+- Document how to use the API
+- Create unit test for comparedefinitions()
+- Create unit test for initializetable()
+- Create unit test to compare the expected array definition with what is parsed
+- HTML entities aren't being parsed correctly
+- Add optional support for scale in decimal fields
+- Improve validateDataFieldValue() to validate &lt;column&gt;
+- Provide more info on MDB2_Schema_Validate errors (output parsed value and expected value)
+- Views support
+- Foreign keys support
+- Fulltext index support</n>
+ <f>61275</f>
+ <g>http://pear.php.net/get/MDB2_Schema-0.7.1</g>
+ <x xlink:href="package.0.7.1.xml"/>
+</r>

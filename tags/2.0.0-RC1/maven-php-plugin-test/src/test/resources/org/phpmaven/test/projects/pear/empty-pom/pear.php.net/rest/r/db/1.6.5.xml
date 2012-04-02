@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/db">DB</p>
+ <c>pear.php.net</c>
+ <v>1.6.5</v>
+ <st>stable</st>
+ <l>PHP License</l>
+ <m>danielc</m>
+ <s>Database Abstraction Layer</s>
+ <d>DB is a database abstraction layer providing:
+* an OO-style query API
+* portability features that make programs written for one DBMS work with other DBMS's
+* a DSN (data source name) format for specifying database servers
+* prepare/execute (bind) emulation for databases that don't support it natively
+* a result object for each query response
+* portable error codes
+* sequence emulation
+* sequential and non-sequential row fetching as well as bulk fetching
+* formats fetched rows as associative arrays, ordered arrays or objects
+* row limit support
+* transactions support
+* table information interface
+* DocBook and PHPDoc API documentation
+
+DB layers itself on top of PHP's existing database
+extensions.  The currently supported extensions are:
+dbase, fbsql, interbase, informix, msql, mssql, mysql,
+mysqli, oci8, odbc, pgsql, sqlite and sybase.
+
+DB is compatible with both PHP 4 and PHP 5.
+</d>
+ <da>2004-07-13 20:39:37</da>
+ <n>=============
+BUGS FIXED:
+
+* DB.php
+Add rawurldecode() to database portion of DSN.  Bug 1826.
+(danielc)
+
+* common, dbase, fbsql, ibase, oic8, pgsql:
+When using resources as array index, convert to int first.
+http://bugs.php.net/28879  (danielc)
+
+* mysqli:
+Adjust tableInfo() so it can deal with changes made to
+mysqli_fetch_field()'s behavior.  Add the $mysqli_flags
+and $mysqli_types properties as part of this effort.
+(danielc)
+
+mysql &gt;= 4.0 doesn't need WHERE 1=1 hack for DELETE.  (danielc)
+
+* pgsql:
+Adjust getListOf('tables') to accommodate the addition of
+sql_* core tables in PostgreSQL 7.4.2.  Bug 1549.
+(Patch by yiwakiri and jpbarrette)
+
+* sybase:
+Use 'charset' and 'appname' from DSN in sybase connect.
+Bug 1812.  (danielc)
+
+Simplify connect by setting $dsninfo['password'] to false if
+it's empty.  Reworks hack for PEAR bug 631.  (danielc)</n>
+ <f>92741</f>
+ <g>http://pear.php.net/get/DB-1.6.5</g>
+ <x xlink:href="package.1.6.5.xml"/>
+</r>

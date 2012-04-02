@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.5.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Services_Weather</name>
+ <channel>pear.php.net</channel>
+ <summary>This class acts as an interface to various online weather-services.</summary>
+ <description>Services_Weather searches for given locations and retrieves current
+        weather data and, dependent on the used service, also forecasts. Up to
+        now, GlobalWeather from CapeScience, Weather XML from EJSE (US only),
+        a XOAP service from Weather.com and METAR/TAF from NOAA are supported.
+        Further services will get included, if they become available, have a
+        usable API and are properly documented.</description>
+ <lead>
+  <name>Alexander Wirtz</name>
+  <user>eru</user>
+  <email>alex@pc4p.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2007-04-17</date>
+ <time>10:46:57</time>
+ <version>
+  <release>1.4.2</release>
+  <api>1.4.2</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD License</license>
+ <notes>Apparently Globalweather is up again, but it&apos;s not working properly.
+It is not possible to do anything besides getting a country list, no
+station information, no weather data. I will investigate, but if
+this continues to fail I will pull the service.
+- Common.php
+    o Fixed faulty timestamp calculation of sunrise/sunset
+- Ejse.php
+    o Fixed EJSE to make it work again with demand for registration
+- Globalweather.php
+    o Fixed missing error return and note about missing parameter in listCountries
+- Metar.php
+    o Added simple processing of cloudtypes and pressure tendency in remarks
+    o Fixed faulty parse of &apos;FMxxxxZ&apos; notation in forecast
+    o Fixed faulty parsing of wind-group in case of 3-digit gust value
+    o Added analysis of cloude types
+    o Added US version of ice pellets (PL) to conditions
+    o Fixed parsing of forecast FMC when timegroup is missing
+    o Changed parsing of wind related groups to prevent errors from irregular codes
+    o Changed parsing of cloud related groups to accomodate for clouds at station level or below
+    o Changed parsing of forecast FMCs to prevent errors from multiple BECMGs and TEMPOs
+    o Fixed sunrise/set not in GMT</notes>
+ <contents>
+  <dir name="/">
+   <file baseinstalldir="Services" md5sum="befd2113c5f5c4efe9acf9ca9e24cf39" name="examples/ejse-basic.php" role="doc">
+    <tasks:unixeol />
+   </file>
+   <file baseinstalldir="Services" md5sum="9693cf60f2886cd67e946e364d800750" name="examples/globalweather-basic.php" role="doc">
+    <tasks:unixeol />
+   </file>
+   <file baseinstalldir="Services" md5sum="e322c22eaf4e2f06539aef5dc02f8943" name="examples/metar-basic.php" role="doc">
+    <tasks:unixeol />
+   </file>
+   <file baseinstalldir="Services" md5sum="6243f9bcb6fc229f72aef26805e8b19b" name="examples/metar-extensive.php" role="doc">
+    <tasks:unixeol />
+   </file>
+   <file baseinstalldir="Services" md5sum="e5d41eed8f07679c3cb5212ce9155c08" name="examples/weather.com-basic.php" role="doc">
+    <tasks:unixeol />
+   </file>
+   <file baseinstalldir="Services" md5sum="5d852ec1441549267807138596d0f001" name="examples/weather.com-extensive.php" role="doc">
+    <tasks:unixeol />
+   </file>
+   <file baseinstalldir="Services" md5sum="faa7aee758a1469c166e3cdba704136c" name="images/sunrise.gif" role="data" />
+   <file baseinstalldir="Services" md5sum="51e35fa311feec611f3e1ee734f2655f" name="images/sunset.gif" role="data" />
+   <file baseinstalldir="Services" md5sum="07545c78e6c94075e703b6ea74e91845" name="Weather/Common.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+    <tasks:unixeol />
+   </file>
+   <file baseinstalldir="Services" md5sum="1c9410607d61c1c0f2ab900c76333197" name="Weather/Ejse.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+    <tasks:unixeol />
+   </file>
+   <file baseinstalldir="Services" md5sum="7c08f2ee91b6f02a67838bfa76aae2ad" name="Weather/Globalweather.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+    <tasks:unixeol />
+   </file>
+   <file baseinstalldir="Services" md5sum="4cd174561927b47b18d1912eb9a19376" name="Weather/Metar.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+    <tasks:unixeol />
+   </file>
+   <file baseinstalldir="Services" md5sum="a4505c66920e8ad5b6ed43ba8c6978d0" name="Weather/Weatherdotcom.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+    <tasks:unixeol />
+   </file>
+   <file baseinstalldir="Services" md5sum="ff6eb20470da755f7e0c3970c5dcd8bf" name="buildMetarDB.php" role="data">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+    <tasks:unixeol />
+   </file>
+   <file baseinstalldir="Services" md5sum="9ab54be4d49db40940c231858e67b3ae" name="Weather.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+    <tasks:unixeol />
+   </file>
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.0.0</min>
+    <max>6.0.0</max>
+   </php>
+   <pearinstaller>
+    <min>1.4.0</min>
+   </pearinstaller>
+   <package>
+    <name>HTTP_Request</name>
+    <channel>pear.php.net</channel>
+    <min>1.2.0</min>
+   </package>
+   <extension>
+    <name>ctype</name>
+   </extension>
+   <extension>
+    <name>pcre</name>
+   </extension>
+  </required>
+  <optional>
+   <package>
+    <name>Net_FTP</name>
+    <channel>pear.php.net</channel>
+    <min>1.3.1</min>
+   </package>
+   <package>
+    <name>Cache</name>
+    <channel>pear.php.net</channel>
+    <min>1.5.3</min>
+   </package>
+   <package>
+    <name>DB</name>
+    <channel>pear.php.net</channel>
+    <min>1.4.0</min>
+   </package>
+   <package>
+    <name>SOAP</name>
+    <channel>pear.php.net</channel>
+    <min>0.7.5</min>
+   </package>
+   <package>
+    <name>XML_Serializer</name>
+    <channel>pear.php.net</channel>
+    <min>0.8</min>
+   </package>
+  </optional>
+ </dependencies>
+ <phprelease />
+ <changelog />
+</package>

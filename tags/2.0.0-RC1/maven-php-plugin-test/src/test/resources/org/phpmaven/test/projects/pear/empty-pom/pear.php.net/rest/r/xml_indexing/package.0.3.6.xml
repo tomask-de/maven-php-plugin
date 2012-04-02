@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.1">
+ <name>XML_Indexing</name>
+ <summary>XML Indexing support</summary>
+ <description>This package provides support for indexing XML files. It assists you in 
+creating and using such indexes in order to reduce access-time to local 
+XML files.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>olivierg</user>
+   <name>Olivier Guilyardi</name>
+   <email>olivier@samalyse.com</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>0.3.6</version>
+  <date>2005-10-15</date>
+  <license>PHP License</license>
+  <state>alpha</state>
+  <notes>* Added a convenient fetchArray() method to the XML_Indexing_Reader class. 
+  New dependency : XML_Serializer
+  </notes>
+  <deps>
+   <dep type="php" rel="ge" version="4.3"/>
+   <dep type="pkg" rel="ge" version="1.2" optional="no">PEAR</dep>
+   <dep type="pkg" rel="ge" version="1.0.3" optional="no">File</dep>
+   <dep type="pkg" rel="ge" version="1.2.1" optional="no">XML_XPath</dep>
+   <dep type="pkg" rel="ge" version="0.13.0" optional="no">XML_Serializer</dep>
+   <dep type="pkg" rel="ge" version="1.0.1" optional="yes">Console_Table</dep>
+   <dep type="pkg" rel="ge" version="1.2.1" optional="yes">Benchmark</dep>
+  </deps>
+  <provides type="class" name="XML_Indexing_Reader" />
+  <provides type="class" name="XML_Indexing_Builder" />
+  <provides type="class" name="XML_Indexing_Builder_Attribute" extends="XML_Indexing_Builder" />
+  <provides type="class" name="XML_Indexing_Builder_Numeric" extends="XML_Indexing_Builder" />
+  <filelist>
+   <file role="php" baseinstalldir="XML" md5sum="ae6d065a68f1286935db6ef4e903ef12" name="Indexing/Reader.php"/>
+   <file role="php" baseinstalldir="XML" md5sum="381d070bb09cdd0f05c9cbd92bc4771e" name="Indexing/Builder.php"/>
+   <file role="php" baseinstalldir="XML" md5sum="e0d1476afc23fab357f752a9f78e7d14" name="Indexing/Builder/Attribute.php"/>
+   <file role="php" baseinstalldir="XML" md5sum="b1334b5a0b57991686a251fae9c22b47" name="Indexing/Builder/Numeric.php"/>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>0.3.5</version>
+    <date>2005-02-03</date>
+    <state>alpha</state>
+    <notes>* Reader::fetchDomNodes() now returns an array of nodes with both PHP4 and PHP5
+* Added a &quot;profiling&quot; option to enable/disable profiling support
+* Fixed the constructor&apos;s documentation
+* With a unsupported XPath expression, the Reader returned no results :
+  it now supports bypassing the index, by performing a conventional dom xpath
+  query. Works with both PHP4 and PHP5. Adds a dependency on XML_XPath.
+    </notes>
+   </release>
+   <release>
+    <version>0.3.4</version>
+    <date>2005-01-31</date>
+    <state>alpha</state>
+    <notes>Minor fixes :
+* &quot;Call-time pass-by-reference&quot; warning in XML_Indexing_Builder : fixed, thanks
+Bertrand Gugger bertrand [at] toggg [dot] com
+* include_once was used where require_once is more appropriate, in several 
+places : fixed, thanks Bertrand Gugger bertrand [at] toggg [dot] com
+* Added optional dependency on Benchmark &gt;= 1.2.1, required for profiling
+    </notes>
+   </release>
+   <release>
+    <version>0.3.3</version>
+    <date>2004-12-23</date>
+    <state>alpha</state>
+    <notes>* Added DOM fetching method : fetchDomNodes()
+* WARNING: Suppressed the XML_Indexing_Reader::next() method. Fetching data
+  is now performed by either fetchStrings() or fetchDomNodes()
+* Added support for /simple/xpath/expressions (that is : without any
+  [n] or [@attr] specification)
+* Added support for the last() xpath function, as in /path/to/element[last()]
+* Matched regions might come up in a messed up order for certain queries : fixed 
+* Fixed a bug where some junk files where created in the system&apos;s temporary 
+  directory. This fix adds a new package requirement : File ; version &gt;= 1.0.3
+* Added profiling support to the XML_Indexing_Reader class
+    </notes>
+   </release>
+   <release>
+    <version>0.3.2</version>
+    <date>2004-12-19</date>
+    <state>alpha</state>
+    <notes>* Added basic file locking to prevent concurrent processes from writing 
+  simultaneously to the same index file
+* Suppressed some junk debugging output
+    </notes>
+   </release>
+   <release>
+    <version>0.3.1</version>
+    <date>2004-12-10</date>
+    <state>alpha</state>
+    <notes>* First release as an official PEAR package
+* Modified version naming (x.y to x.y.z) in order to comply with the
+  new Version Naming RFC.
+* Minor documentation fixes
+    </notes>
+   </release>
+   <release>
+    <version>0.3</version>
+    <date>2004-10-05</date>
+    <state>alpha</state>
+    <notes>* The workaround for PHP5&apos;s Expat bug used split() with the entire
+  XML file loaded into memory. That caused heavy memory usage :
+  A simple for loop is now used, to avoid duplicating the XML data
+  in memory. This should reduce memory usage, but this workaround
+  still makes index building much heavier on PHP5 than on PHP4.
+* Added a &apos;gz_level&apos; option to allow compressing the index files :
+  Turned off by default.
+* Namespaces now get extracted from the XML file, and are available
+  through both XML_Indexing_Reader::getNamespaces() and 
+  XML_Indexing_Builder::getNamespaces(). The expat parser features
+  a nifty xml_set_start_namespace_decl_handler() function for this
+  purpose _but_ it is buggy. A workaround has been implemented
+  (somehow heavy, see XML_Indexing_Builder::_handleStartElement())
+* Index files were stored by default in &apos;/tmp&apos;, which would certainly
+  fail on Windows : This is now dynamically generated using the
+  system&apos;s default.
+* Updated documentation headers
+* Removed the XML_Indexing_Reader::create() factory method, which was 
+  performing useless error checking : the constructor is now the 
+  prefered way to instantiate a Reader object
+    </notes>
+   </release>
+   <release>
+    <version>0.2</version>
+    <date>2004-10-04</date>
+    <state>alpha</state>
+    <notes>* Fixed a bug where /foo/bar[n] returned the n&apos;th occurence of 
+/foo/bar in the scope of the whole document : it will now return
+the n&apos;th occurences of bar in the scope of foo. Thanks Christian 
+Stocker 
+* Fixing the above bug has a consequence : searching for /foo/bar[n]
+may now return several occurences, instead of a single one in the prior
+implementation : the numeric index format got modified consequently.
+    </notes>
+   </release>
+   <release>
+    <version>0.1</version>
+    <date>2004-09-29</date>
+    <state>alpha</state>
+    <notes>This is the initial release.
+    </notes>
+   </release>
+ </changelog>
+</package>

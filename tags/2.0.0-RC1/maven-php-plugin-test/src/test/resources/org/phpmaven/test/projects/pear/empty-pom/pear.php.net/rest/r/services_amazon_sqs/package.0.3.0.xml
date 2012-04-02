@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Services_Amazon_SQS</name>
+ <channel>pear.php.net</channel>
+ <summary>PHP API and tools for Amazon SQS (Simple Queue Service)</summary>
+ <description>This package provides an object-oriented interface to the Amazon Simple Queue Service (SQS). Included are client libraries and a command-line script for managing queues. You will need a set of web-service keys from Amazon Web Services that have SQS enabled. You can sign up for an account at: https://aws-portal.amazon.com/gp/aws/developer/registration/index.html.
+
+Note: Although this package has no cost, Amazon&apos;s Web services are not free to use. You will be billed by Amazon for your use of SQS.
+
+This package is derived with permission from the simple-aws package available at http://code.google.com/p/simple-aws/ and written by Mike Brittain.
+
+This package requires PHP 5.2.1. On Red Hat flavored distributions, the &quot;php-xml&quot; package must also be installed.
+
+There are two main ways to use this package. Firstly, it provides an API that may be used to manage queues, and to add and remove messages from queues in PHP scripts. The Services_Amazon_SQS_QueueManager and Services_Amazon_SQS_Queue classes provide these methods.
+
+Secondly, a command-line application for managing SQS queues is provided. This is installed by PEAR as &quot;sqs&quot;. Running this command produces the following output:
+
+A command-line interface to Amazon&apos;s Simple Queue Service (SQS).
+
+Usage:
+  /usr/bin/sqs [options]
+  /usr/bin/sqs [options] &lt;command&gt; [options] [args]
+
+Options:
+  -c config, --config=config  Find configuration in &quot;config&quot;.
+
+Commands:
+  create   Creates a new queue with the specified name. The queue may
+           take up to 60 seconds to become available.
+  delete   Deletes an existing queue by the specified URI. The queue
+           may take up to 60 seconds to become unavailable.
+  help     Displays an overview of available options and commands, or
+           detailed help for a specific command.
+  list     Lists available queues. If a prefix is specified, only
+           queues beginning with the specified prefix are listed.
+  send     Sends input from STDIN to the specified queue. The
+           resulting message identifier is displayed on STDOUT.
+  receive  Receives a message from the specified queue. The message
+           body is displayed on STDOUT. If no message is received,
+           nothing is displayed on STDOUT.
+  version  Displays version information and exits.</description>
+ <lead>
+  <name>Mike Gauthier</name>
+  <user>gauthierm</user>
+  <email>mike@silverorange.com</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Mike Brittain</name>
+  <user>mikebrittain</user>
+  <email>mike@mikebrittain.com</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-11-24</date>
+ <time>11:50:09</time>
+ <version>
+  <release>0.3.0</release>
+  <api>0.3.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</license>
+ <notes>
+* Upgrade to the SQS API version 2009-02-01.
+ * Support new SQS features. Request #16085.
+ * Better unit tests.
+ * End user documentation on the PEAR website.
+ * Depend on Console_CommandLine for the CLI utility.
+ * Handle internal errors automatically. Request #16824.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <file baseinstalldir="/" md5sum="8f96a167db17f03f03e644bc6fc95285" name="cfg/sqs-win.ini" role="cfg">
+    <tasks:windowseol />
+   </file>
+   <file baseinstalldir="/" md5sum="a9e2ef1f5fffdf38d4a45116eabffe1e" name="cfg/sqs.ini" role="cfg" />
+   <file baseinstalldir="/" md5sum="9fa7e16ec50734a962e6b061ac385848" name="data/cli.xml" role="data">
+    <tasks:replace from="@package-version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="d79b4f95e014fecaa41d5471f92b5b4a" name="scripts/sqs" role="script">
+    <tasks:replace from="@php-bin@" to="php_bin" type="pear-config" />
+   </file>
+   <file baseinstalldir="/" md5sum="ed725cb6afd7de51201557f5d2947f20" name="scripts/sqs.bat" role="script">
+    <tasks:replace from="@php-bin@" to="php_bin" type="pear-config" />
+    <tasks:replace from="@bin-dir@" to="bin_dir" type="pear-config" />
+    <tasks:replace from="@php-dir@" to="php_dir" type="pear-config" />
+    <tasks:windowseol />
+   </file>
+   <file baseinstalldir="/" md5sum="4d110bcdaaec5cafae524dfcba00801d" name="Services/Amazon/SQS/Account.php" role="php" />
+   <file baseinstalldir="/" md5sum="8f15ab78192daf7fc91ee27e901f6028" name="Services/Amazon/SQS/CLI.php" role="php">
+    <tasks:replace from="@package-name@" to="name" type="package-info" />
+    <tasks:replace from="@data-dir@" to="data_dir" type="pear-config" />
+   </file>
+   <file baseinstalldir="/" md5sum="7f7c99ed089533e45a87eac2fc161113" name="Services/Amazon/SQS/Exceptions.php" role="php" />
+   <file baseinstalldir="/" md5sum="c11d5622487dce1b351c49543fa60a57" name="Services/Amazon/SQS/Queue.php" role="php" />
+   <file baseinstalldir="/" md5sum="cd76293c6700466d28344949fb311981" name="Services/Amazon/SQS/QueueManager.php" role="php" />
+   <file baseinstalldir="/" md5sum="a5e5f9f99c3a14a2271530712a90f8e7" name="Services/Amazon/SQS/Response.php" role="php" />
+   <file baseinstalldir="/" md5sum="47cb6f4059be6ac1e531c464672c90eb" name="Services/Amazon/SQS.php" role="php">
+    <tasks:replace from="@api-version@" to="api-version" type="package-info" />
+    <tasks:replace from="@name@" to="name" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="2d8d6241f0938cecc7cb281192e35137" name="tests/AddPermissionTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="b8fdcb01182cfc25acfd7c61f76b1401" name="tests/AllTests.php" role="test" />
+   <file baseinstalldir="/" md5sum="ea00ec4eea595c1c221812eb65fbc24c" name="tests/ChangeMessageVisibilityTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="98876e50c948917fd2598a3824b94493" name="tests/ConstructTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="64e6dc89124905268dc632d3a6b42a7f" name="tests/CreateQueueTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="f1628eafc6a2306809df85c0aa245347" name="tests/DeleteMessageTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="b09cd666b35017f32a9938779d5668d8" name="tests/DeleteQueueTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="f4b1635dee5d3d06db996f0d44416183" name="tests/ExceptionsTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="34dfb3486a5414b61891a4632de29b1b" name="tests/GetAttributesTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="7b94229718ddc816895a58b3da333c1b" name="tests/ListQueuesTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="155fbacdaf00b19f7dc9a9f719104693" name="tests/ReceiveMessageTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="758f8c5f1dd0072eaf8f1462c7c5818d" name="tests/RemovePermissionTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="ccd61b72bcdae637927f66252f11892e" name="tests/ResponseTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="eb24611a0932e6ffb9e7043a28d44994" name="tests/SendMessageTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="c19f44beedcb284b93182d926c7695c1" name="tests/SetAttributesTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="6666ad816745ddbffc8aceb12659bcaa" name="tests/TestCase.php" role="test" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.1</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+   <package>
+    <name>PEAR</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>Console_CommandLine</name>
+    <channel>pear.php.net</channel>
+    <min>1.1.0</min>
+   </package>
+   <package>
+    <name>Crypt_HMAC2</name>
+    <channel>pear.php.net</channel>
+    <min>0.2.1</min>
+   </package>
+   <package>
+    <name>Net_URL2</name>
+    <channel>pear.php.net</channel>
+    <min>0.2.0</min>
+   </package>
+   <package>
+    <name>HTTP_Request2</name>
+    <channel>pear.php.net</channel>
+    <min>0.1.0</min>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease>
+  <installconditions>
+   <os>
+    <name>windows</name>
+   </os>
+  </installconditions>
+  <filelist>
+   <install as="sqs" name="scripts/sqs" />
+   <install as="sqs.bat" name="scripts/sqs.bat" />
+   <install as="sqs.ini" name="cfg/sqs-win.ini" />
+   <ignore name="cfg/sqs.ini" />
+  </filelist>
+ </phprelease>
+ <phprelease>
+  <filelist>
+   <install as="sqs" name="scripts/sqs" />
+   <install as="sqs.ini" name="cfg/sqs.ini" />
+   <ignore name="scripts/sqs.bat" />
+   <ignore name="cfg/sqs-win.ini" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.3.0</release>
+    <api>0.3.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2009-11-24</date>
+   <license uri="http://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</license>
+   <notes>
+* Upgrade to the SQS API version 2009-02-01.
+ * Support new SQS features. Request #16085.
+ * Better unit tests.
+ * End user documentation on the PEAR website.
+ * Depend on Console_CommandLine for the CLI utility.
+ * Handle internal errors automatically. Request #16824.
+   </notes>
+  </release>
+ </changelog>
+</package>

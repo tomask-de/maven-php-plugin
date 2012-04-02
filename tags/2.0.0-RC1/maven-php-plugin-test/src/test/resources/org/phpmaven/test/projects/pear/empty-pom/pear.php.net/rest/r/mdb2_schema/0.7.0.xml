@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/mdb2_schema">MDB2_Schema</p>
+ <c>pear.php.net</c>
+ <v>0.7.0</v>
+ <st>beta</st>
+ <l>BSD License</l>
+ <m>ifeghali</m>
+ <s>XML based database schema manager</s>
+ <d>PEAR::MDB2_Schema enables users to maintain RDBMS independant schema
+files in XML that can be used to create, alter and drop database entities
+and insert data into a database. Reverse engineering database schemas from
+existing databases is also supported. The format is compatible with both
+PEAR::MDB and Metabase.
+ 
+</d>
+ <da>2006-10-21 17:23:08</da>
+ <n>- Improved INSERT support, added UPDATE and DELETE statements
+- XML syntax redesigned to cover DML addictions
+- Creation of an explicit NULL (&lt;null&gt;&lt;/null&gt;)
+- various fixes to the DTD, including DML addictions
+- XSD schema definition created
+- Tests also output php version
+- New example parse.php lets you check how a XML schema is stored
+- Updated schema.xml to demo the DML support
+- Documentation reformulated, also covering new XML syntax
+- Improved demo script example.php, which now includes more actions and options
+- Writer is returning an error when fopen() fails
+- Writer has now its own error code
+- Variable &quot;seq&quot; became &quot;sequence&quot; and &quot;seq_name&quot; became &quot;sequence_name&quot; in the
+  Parser
+- Moved validation code out of the Parser into a new separate class called
+  Validation
+- Fixed index handling in the Parser
+- Refactored error handling in the Parser
+- Removed variable &quot;init_field&quot;, that wasn't being used, from the Parser
+- Parser simulates only one level of recurssion, which means no more than 
+  function-expression or vice-versa
+- Fixed warning due to not checking with isset() in the Parser
+- Fixed warning due to not checking with isset() in the Schema
+- Typo fix (related to Bug #9024)
+- Fixed createDatabase() that was trying to use a non-existant database that 
+  was about to be created
+- Simplified API for compareTableFieldsDefinitions() and 
+  compareTableIndexesDefinitions()
+- Rewritten some docblocks
+- Added fold markers where missing
+- Removed @static from non static methods
+- Fixed several PEAR CS issues
+- Added code for field/identifier quoting
+- Ensure all identifiers are passed to quoteIdentifier() (Bug #8429)
+
+open todo items:
+- Make MDB2_Schema loadable via MDB2_Driver_Common::loadModule() (Bug #8270)
+- Add ability to define variables inside the schema (like a version number)
+- Allow simple if statements that mean that anything enclosed is only executed
+  if it meets certain criterias based on that version number (or some other
+  variable). This would enable people to add DML statements that are only
+  executed when updating from a specific version.
+- Add support for recursive tag parsing. Currently only expression&lt;-&gt;function
+  is supported but not expression-expression or function-function, although
+  recursion is already supported by the initializeTable() method
+- Parser should be replaced for XML serializer ?
+- Modularize Writer code or remake it
+- Add specific error codes for Validate class
+- Add support for ORDER clauses on UPDATEs (to resolve the duplicate key 
+  problem)
+- Update description.schema.xml
+- Document how to use the API
+- Create unit test for comparedefinitions()
+- Create unit test for initializetable()
+- Create unit test to compare the expected array definition with what is parsed
+- HTML entities aren't being parsed correctly
+- Add optional support for scale in decimal fields
+- Implement &quot;WHERE column IS NULL&quot;
+- Add ability to parse a &quot;contents-only&quot; XML dump</n>
+ <f>59701</f>
+ <g>http://pear.php.net/get/MDB2_Schema-0.7.0</g>
+ <x xlink:href="package.0.7.0.xml"/>
+</r>

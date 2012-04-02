@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.5">
+ <name>MDB2_Driver_querysim</name>
+ <summary>querysim MDB2 driver</summary>
+ <description>This is the Querysim MDB2 driver.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>lsmith</user>
+   <name>Lukas Kahwe Smith</name>
+   <email>smith@pooteeweet.org</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>0.2.0</version>
+  <date>2005-12-21</date>
+  <license>BSD License</license>
+  <state>beta</state>
+  <notes>- use getConnection() to access connection property
+- split off manipulation queries into exec() method from the query() method *BC BREAK*
+- added getServerVersion()
+- basic querysim test files
+- fixed several critical errors
+
+open todo items:
+- this driver is currently unmaintained/untested
+- add ability to reference multiple results set files for different queries
+  </notes>
+  <deps>
+   <dep type="php" rel="ge" version="4.3.0" optional="no"/>
+   <dep type="pkg" rel="ge" version="1.0b1" optional="no">PEAR</dep>
+   <dep type="pkg" rel="ge" version="2.0.0RC1" optional="no">MDB2</dep>
+  </deps>
+  <provides type="class" name="MDB2_Driver_querysim" extends="MDB2_Driver_Common" />
+  <provides type="class" name="MDB2_Result_querysim" extends="MDB2_Result_Common" />
+  <provides type="class" name="MDB2_BufferedResult_querysim" extends="MDB2_Result_querysim" />
+  <provides type="class" name="MDB2_Statement_querysim" extends="MDB2_Statement_Common" />
+  <provides type="function" name="MDB2_Driver_querysim::connect" />
+  <provides type="function" name="MDB2_Driver_querysim::disconnect" />
+  <provides type="function" name="MDB2_Driver_querysim::exec" />
+  <provides type="function" name="MDB2_Driver_querysim::getServerVersion" />
+  <provides type="function" name="MDB2_Result_querysim::fetchRow" />
+  <provides type="function" name="MDB2_Result_querysim::numCols" />
+  <provides type="function" name="MDB2_BufferedResult_querysim::seek" />
+  <provides type="function" name="MDB2_BufferedResult_querysim::valid" />
+  <provides type="function" name="MDB2_BufferedResult_querysim::numRows" />
+  <filelist>
+   <file role="doc" baseinstalldir="/" md5sum="1652896656962eca678305635ed2ad12" name="docs/querysim_readme.txt">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="php" baseinstalldir="/" md5sum="c96822afb8ac0acebd840b69cc029497" name="MDB2/Driver/querysim.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="test" baseinstalldir="/" md5sum="0601f5ff3f3d7f8004f3e5e003d09e89" name="tests/querysim.csv">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+   <file role="test" baseinstalldir="/" md5sum="308ec633ab7c1d5c8f4bdd0635494f5a" name="tests/querysim_test.php">
+    <replace type="package-info" from="@package_version@" to="version"/>
+   </file>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>0.2.0</version>
+    <date>2005-12-21</date>
+    <license>BSD License</license>
+    <state>beta</state>
+    <notes>- use getConnection() to access connection property
+- split off manipulation queries into exec() method from the query() method *BC BREAK*
+- added getServerVersion()
+- basic querysim test files
+- fixed several critical errors
+
+open todo items:
+- this driver is currently unmaintained/untested
+- add ability to reference multiple results set files for different queries
+    </notes>
+   </release>
+   <release>
+    <version>0.1.1</version>
+    <date>2005-10-10</date>
+    <license>BSD License</license>
+    <state>alpha</state>
+    <notes>- increased php dependency to 4.3.0 due to the usage of the streams API since beta5
+- fix PHP4.4 breakage
+- use !empty() instead of isset() in fetchRow to determine if result cols were bound or result types were set
+- moved all private fetch mode fix methods into _fixResultArrayValues() for performance reasons
+- renamed MDB2_PORTABILITY_LOWERCASE to MDB2_PORTABILITY_FIX_CASE and use &apos;field_case&apos; option to determine if to upper- or lowercase (CASE_LOWER/CASE_UPPER)
+- use array_key_exists() instead of isset() where possible
+- return 0 for manipulation queries when disable_query is enabled
+    </notes>
+   </release>
+   <release>
+    <version>0.1.0</version>
+    <date>2005-04-29</date>
+    <license>BSD License</license>
+    <state>alpha</state>
+    <notes>first unbundled release from MDB2 core
+
+-
+    </notes>
+   </release>
+ </changelog>
+</package>

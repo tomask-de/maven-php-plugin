@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Net_Server</name>
+  <summary>Generic server class.</summary>
+  <description>Generic server class based on ext/sockets, used to develop any kind of server.</description>
+  <maintainers>
+    <maintainer>
+      <user>schst</user>
+      <name>Stephan Schmidt</name>
+      <email>schst@php-tools.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.11</version>
+    <date>2004-01-02</date>
+    <license>PHP License</license>
+    <state>alpha</state>
+    <notes>Added auto-detect for clients that use no readEndCharacter
+Restructuring:
+* added driver base class
+* moved code from Net_Server to Net_Server_Driver</notes>
+    <deps>
+      <dep type="php" rel="ge" version="4.2"/>
+    </deps>
+    <provides type="class" name="Net_Server_Driver" extends="PEAR" />
+    <provides type="function" name="Net_Server_Driver::setDebugMode" />
+    <provides type="function" name="Net_Server_Driver::readFromSocket" />
+    <provides type="function" name="Net_Server_Driver::setCallbackObject" />
+    <provides type="function" name="Net_Server_Driver::getLastSocketError" />
+    <provides type="class" name="Net_Server_Handler" />
+    <provides type="function" name="Net_Server_Handler::setServerReference" />
+    <provides type="function" name="Net_Server_Handler::onStart" />
+    <provides type="function" name="Net_Server_Handler::onShutdown" />
+    <provides type="function" name="Net_Server_Handler::onConnect" />
+    <provides type="function" name="Net_Server_Handler::onConnectionRefused" />
+    <provides type="function" name="Net_Server_Handler::onClose" />
+    <provides type="function" name="Net_Server_Handler::onReceiveData" />
+    <provides type="class" name="Net_Server_Fork" extends="Net_Server_Driver" />
+    <provides type="function" name="Net_Server_Fork::setMaxClients" />
+    <provides type="function" name="Net_Server_Fork::start" />
+    <provides type="function" name="Net_Server_Fork::serviceRequest" />
+    <provides type="function" name="Net_Server_Fork::isConnected" />
+    <provides type="function" name="Net_Server_Fork::getClients" />
+    <provides type="function" name="Net_Server_Fork::sendData" />
+    <provides type="function" name="Net_Server_Fork::broadcastData" />
+    <provides type="function" name="Net_Server_Fork::getClientInfo" />
+    <provides type="function" name="Net_Server_Fork::closeConnection" />
+    <provides type="function" name="Net_Server_Fork::shutDown" />
+    <provides type="class" name="Net_Server_Sequential" extends="Net_Server_Driver" />
+    <provides type="function" name="Net_Server_Sequential::setMaxClients" />
+    <provides type="function" name="Net_Server_Sequential::start" />
+    <provides type="function" name="Net_Server_Sequential::acceptConnection" />
+    <provides type="function" name="Net_Server_Sequential::isConnected" />
+    <provides type="function" name="Net_Server_Sequential::getClients" />
+    <provides type="function" name="Net_Server_Sequential::sendData" />
+    <provides type="function" name="Net_Server_Sequential::broadcastData" />
+    <provides type="function" name="Net_Server_Sequential::getClientInfo" />
+    <provides type="function" name="Net_Server_Sequential::closeConnection" />
+    <provides type="function" name="Net_Server_Sequential::shutDown" />
+    <provides type="class" name="Net_Server" />
+    <provides type="function" name="Net_Server::create" />
+    <filelist>
+      <file role="doc" baseinstalldir="Net" md5sum="0dfc9e7645a51eb7cfc7bbe831474c97" name="docs/todo.txt"/>
+      <file role="doc" baseinstalldir="Net" md5sum="8054099f6b3512bc9ff66cb24d090f96" name="examples/talkback.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="18556a2c60c658812a75d6e56dbda158" name="Server/Driver.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="b345e196f5627393d7a139a9388e24ec" name="Server/Handler.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="fc39cb13beb6c2df433a02c3173575e6" name="Server/Driver/Fork.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="cdd5044e5ffec45a612de69a96f06b9b" name="Server/Driver/Sequential.php"/>
+      <file role="php" baseinstalldir="Net" md5sum="21ce4da5410be6ffef7fef654f1d39b3" name="Server.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.9</version>
+      <date>2002-07-21</date>
+      <state>beta</state>
+      <notes>pearified version of patServer v1.0.1
+</notes>
+    </release>
+    <release>
+      <version>0.10</version>
+      <date>2003-10-31</date>
+      <license>PHP</license>
+      <state>alpha</state>
+      <notes>BC breakage release:
+Net_Server is now working with drivers
+and callback handlers inseatd of extending
+a base class
+Driver based on pcntl is now included that
+forks new processes.
+</notes>
+    </release>
+    <release>
+      <version>0.11</version>
+      <date>2004-01-02</date>
+      <license>PHP License</license>
+      <state>alpha</state>
+      <notes>Added auto-detect for clients that use no readEndCharacter
+Restructuring:
+* added driver base class
+* moved code from Net_Server to Net_Server_Driver
+</notes>
+    </release>
+  </changelog>
+</package>

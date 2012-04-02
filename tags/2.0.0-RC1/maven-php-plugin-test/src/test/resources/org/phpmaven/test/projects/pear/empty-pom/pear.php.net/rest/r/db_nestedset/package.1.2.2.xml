@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>DB_NestedSet</name>
+  <summary>API to build and query nested sets</summary>
+  <description>DB_NestedSet let's you create trees with infinite depth
+inside a relational database.
+The package provides a way to
+o create/update/delete nodes
+o query nodes, trees and subtrees
+o copy (clone) nodes, trees and subtrees
+o move nodes, trees and subtrees
+o call event handlers on specific events like
+  on node deletion
+o output the tree with 
+  - PEAR::HTML_TreeMenu
+  - TigraMenu (http://www.softcomplex.com/products/tigra_menu/)
+o It also features caching of SQL queries using PEAR::Cache</description>
+  <maintainers>
+    <maintainer>
+      <user>datenpunk</user>
+      <name>Daniel Khan</name>
+      <email>dk@webcluster.at</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>jrust</user>
+      <name>Jason Rust</name>
+      <email>jrust@rustyparts.com</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.2.2</version>
+    <date>2003-07-15</date>
+    <license>PHP License</license>
+    <state>stable</state>
+    <notes>This release fixes some bugs which occured since 1.2.1
+We will now move towards 2.0 which will include big improvements
+but also some BC breaks.
+FIXES
+ o Fixed a bug which leads to wrong results when copying nodes
+ o Fixed a node ordering bug in createRightNode (Thanks to Stefan Wimmer)
+ o Fixed bug that had crept in so that $aliasFields was not working
+ o Doc and style fixes</notes>
+    <provides type="class" name="DB_NestedSet" />
+    <provides type="class" name="DB_NestedSet_Node" />
+    <provides type="function" name="DB_NestedSet::factory" />
+    <provides type="function" name="DB_NestedSet::getAllNodes" />
+    <provides type="function" name="DB_NestedSet::getRootNodes" />
+    <provides type="function" name="DB_NestedSet::getBranch" />
+    <provides type="function" name="DB_NestedSet::getParents" />
+    <provides type="function" name="DB_NestedSet::getChildren" />
+    <provides type="function" name="DB_NestedSet::getSubBranch" />
+    <provides type="function" name="DB_NestedSet::pickNode" />
+    <provides type="function" name="DB_NestedSet::isParent" />
+    <provides type="function" name="DB_NestedSet::createRootNode" />
+    <provides type="function" name="DB_NestedSet::createSubNode" />
+    <provides type="function" name="DB_NestedSet::createRightNode" />
+    <provides type="function" name="DB_NestedSet::deleteNode" />
+    <provides type="function" name="DB_NestedSet::updateNode" />
+    <provides type="function" name="DB_NestedSet::moveTree" />
+    <provides type="function" name="DB_NestedSet::moveRoot2Root" />
+    <provides type="function" name="DB_NestedSet::addListener" />
+    <provides type="function" name="DB_NestedSet::removeListener" />
+    <provides type="function" name="DB_NestedSet::triggerEvent" />
+    <provides type="function" name="DB_NestedSet::setAttr" />
+    <provides type="function" name="DB_NestedSet::setDbOption" />
+    <provides type="function" name="DB_NestedSet::testLock" />
+    <provides type="function" name="DB_NestedSet_Node::setAttr" />
+    <provides type="class" name="DB_NestedSet_DB" />
+    <provides type="class" name="DB_NestedSet_MDB" />
+    <provides type="class" name="DB_NestedSetEvent" />
+    <provides type="function" name="DB_NestedSetEvent::callEvent" />
+    <provides type="class" name="DB_NestedSet_Output" />
+    <provides type="function" name="DB_NestedSet_Output::factory" />
+    <provides type="function" name="DB_NestedSet_Output::setOptions" />
+    <provides type="function" name="DB_NestedSet_Output::printTree" />
+    <provides type="function" name="DB_NestedSet_Output::printListbox" />
+    <provides type="class" name="DB_NestedSet_TreeMenu" />
+    <provides type="function" name="DB_NestedSet_TreeMenu::printTree" />
+    <provides type="function" name="DB_NestedSet_TreeMenu::printListbox" />
+    <provides type="class" name="DB_NestedSet_TigraMenu" />
+    <provides type="function" name="DB_NestedSet_TigraMenu::printTree" />
+    <filelist>
+      <file role="php" baseinstalldir="DB" md5sum="d195e6c9a4e44e3d5113b1f8b01a13ed" name="NestedSet.php"/>
+      <file role="php" baseinstalldir="DB" md5sum="5eddb9dbf0e8bea6af0411c3c32b5dec" name="NestedSet/DB.php"/>
+      <file role="php" baseinstalldir="DB" md5sum="497b99ca9f6f47be79535444d60be94e" name="NestedSet/MDB.php"/>
+      <file role="php" baseinstalldir="DB" md5sum="88bbda17f6774abb1a9dc2641e9719bf" name="NestedSet/Event.php"/>
+      <file role="php" baseinstalldir="DB" md5sum="9034be0b8857e88871a6faa4f2ad3ee0" name="NestedSet/Output.php"/>
+      <file role="php" baseinstalldir="DB" md5sum="a4f3656a7da37fdd97734a36d6a90576" name="NestedSet/TreeMenu.php"/>
+      <file role="php" baseinstalldir="DB" md5sum="82f8769d471a8b2e9a786fdc18976ce2" name="NestedSet/TigraMenu.php"/>
+      <file role="doc" baseinstalldir="DB" md5sum="4b84273aa853ef23ab5b90c8f089fc15" name="docs/README"/>
+      <file role="doc" baseinstalldir="DB" md5sum="10375fa1941c4d5a65205daf0e904b91" name="docs/mysql.sql"/>
+      <file role="doc" baseinstalldir="DB" md5sum="a6b5ebd7f062347c46a10901aaa5af75" name="docs/TreeMenu_example.php"/>
+      <file role="doc" baseinstalldir="DB" md5sum="815accfb61b4dffa82a1f1850bbc86d9" name="docs/TigraMenu_example.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>1.2.1</version>
+      <date>2003-05-25</date>
+      <state>stable</state>
+      <notes>- NEW FEATURES
+o Now $NeSe-&gt;setAttr() allows a PEAR function cache object to be passed using
+  $NeSe-&gt;setAttr(array('cache'=&gt;$cache_object));
+  if this object is set, the class will use it to cache database queries.
+  It will also flush this cache if the structure changes.
+o All tree query methods now support an additional array named $addSQL.
+  This can be used to pass additional params to a query.
+  Means: You may now use joins to other tables.
+  
+- FIXES
+o createRightNode() returned the node object instead of the new node id, which
+  caused problems whith some internal method calls.
+o TreeMenu and TigraMenu output drivers contained a bug which made them not
+  create the whole tree under certain circumstances
+  Thanks to Alain Petignat for reporting this
+o Some minor E_ALL fixes (The package shouldn't produce notices/warnings with
+  E_ALL set)
+o Added TigraMenu.php to the package which was missing in the last release 
+</notes>
+    </release>
+    <release>
+      <version>1.2pl1</version>
+      <date>2003-05-08</date>
+      <state>stable</state>
+      <notes>- Fixed a bug which leads to the deletion of a node or subtree if a node
+  is moved into _itself_. 
+  Thanks to Christian Reininger for catching this!
+- Now a proper PEAR::Error object is returned in case of recursion instead of
+  returning false.
+</notes>
+    </release>
+    <release>
+      <version>1.2</version>
+      <date>2003-05-05</date>
+      <state>stable</state>
+      <notes>The core package is now stable.
+You should be able to manipulate a nested set without problems.
+The output driver development will always be in progress and there
+may always be drivers in beta state.
+This package introduces an output driver for TigraMenu
+(http://www.softcomplex.com/products/tigra_menu/)
+and examples on using the output drivers.
+ * Fixed bug in triggerEvent() which produced an error on node move (Daniel Khan)
+ * Added isParent() which provides a simple way to query if a given node is parent of another given node. (Daniel Khan)
+ * Added a variable to pickNode() which can be used to get a node by another value than id (Daniel Khan)
+ * TreeMenu: Fixed bug where two sub nodes that both have children were not being processed correctly (Jason Rust)
+ * TreeMenu: Took off example usage since there is now an example page in docs/ (Jason Rust)
+ * TigraMenu: Initial import of TigraMenu output driver
+</notes>
+    </release>
+    <release>
+      <version>1.1-beta</version>
+      <date>2003-04-29</date>
+      <state>beta</state>
+      <notes>- Added a unified API to access other output drivers
+- Added a output driver for HTML_TreeMenu (Jason Rust)
+- Added a variable '$idfield' to pickNode() which can be used to get a node by another value than id (Daniel Khan)
+- Made getChildren() consistent with how the other methods work in terms of the secondarySort property (Jason Rust)
+- Added new attribute: secondarySort. Normally it is the order field, but can be set to another field
+  in the table such as name so that the tree can be displayed alphabetically. (Jason Rust)
+- Improved the error handling so that nasty fatal errors no longer occur if invalid ids are specified (Jason Rust)
+- Now using the NESE_MOVE_* constants instead of AF, BE, and SUB (Jason Rust)
+- Added vim folds (Jason Rust)
+- Several style fixes to be compliant with PEAR style (Jason Rust)
+- Several E_ALL fixes (Jason Rust)
+- Avoid repetitive setting of variables by using sprintf to form the SQL queries in many of the _doget* methods (Jason Rust)
+- db-&gt;quote() is now used to quote strings to be compliant with other databases (Jason Rust)
+- Added new property: sequence_table so that it can be configurable (Jason Rust)
+- Added new method: setDbOption in order to be able to set database options (Jason Rust)
+- Added new method to NestedSet_Node: getData() to obtain the data from the node in an array (Jason Rust)
+- NestedSet_Node no longer extends PEAR since it doesn't need to (Jason Rust)
+- Fixed a bug for when moving a node within its level (Jason Rust)
+- Locking does not produce DB &quot;database not set&quot; errors any longer since the database destructor calls the parent destructor first (Jason Rust)
+- Fixed a bug in _dogetParents() which made it return also return the parent's sibblings (Daniel Khan)
+
+</notes>
+    </release>
+  </changelog>
+</package>

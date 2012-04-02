@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/liveuser">LiveUser</p>
+ <c>pear.php.net</c>
+ <v>0.10.0</v>
+ <st>beta</st>
+ <l>LGPL</l>
+ <m>lsmith</m>
+ <s>User authentication and permission management framework</s>
+ <d>Perm_LiveUser is a set of classes for dealing with user authentication
+and permission management. Basically, there are three main elements that
+make up this package:
+* The LiveUser class
+* The Auth containers
+* The Perm containers
+The LiveUser class takes care of the login process and can be configured
+to use a certain permission container and one or more different auth containers.
+That means, you can have your users' data scattered amongst many data containers
+and have the LiveUser class try each defined container until the user is found.
+For example, you can have all website users who can apply for a new account online
+on the webserver's local database. Also, you want to enable all your company's
+employees to login to the site without the need to create new accounts for all of
+them. To achieve that, a second container can be defined to be used by the LiveUser class.
+You can also define a permission container of your choice that will manage the rights for
+each user. Depending on the container, you can implement any kind of permission schemes
+for your application while having one consistent API.
+Using different permission and auth containers, it's easily possible to integrate
+newly written applications with older ones that have their own ways of storing permissions
+and user data. Just make a new container type and you're ready to go!
+Currently available are containers using:
+PEAR::DB, PEAR::MDB, PEAR::MDB2, PEAR::XML_Tree and PEAR::Auth.
+</d>
+ <da>2004-03-11 14:41:21</da>
+ <n>* General notes
+  + SQL queries are now standards compliant
+    IMPORTANT : DB Schema change !
+    Since 'comment' is reserved in Oracle, the field was renamed
+    'description' in the translations table
+    The file you should use for the permissions setting is
+      perm_db.sql
+  + added MDB2 container
+  + added class to provide a unified interface to the Auth and Perm container
+* Auth admin containers :
+  + fixed countless bugs and added several missing methods
+* Perm admin containers :
+  + restuctured class hirarchy to Common &lt;- Simple &lt;- Medium &lt;- Complex
+  + it was not possible to update a group without resetting 'is_active'
+  + method to update the auth_user_id used in the auth/perm_user_id mapping (updateAuthUserId)
+  + getPermUserId() now also optionally expects an auth container name
+  + all methods (expect for getPermUserId()) now expect a permUserId instead of an authUserId
+  + fixed countless bugs and added several missing methods
+  + perm containers now follow the following inheritance structure (complex extends medium extends simple)
+* Client part changes
+  + totaly reworked session handling
+    - objects are no more serialized only the relevant property values
+    - ressources are not freed automatically anymore (use the new disconnect method)
+    - added 'session_save_handler' option to allow custom session handler
+  + fixed a bunch if bugs and typos
+  + restuctured class hirarchy to Common &lt;- Simple &lt;- Medium &lt;- Complex
+  + totally reworked parts of the perm db containers (especially in the complex container)
+  + rights the user gets through being an areaadmin are now directly added to the rights array
+  + keys (maybe a string now) in the authContainers array are now used to unique identify the auth container
+  + upon sucessful login the status remained to WRONG_LOGIN thus calling
+    the login function if force_login was set to true
+  + fixed bugs in the remember me feature
+  + added sanity checks in unfreeze()
+  + if the force login option is set to true the custom login function is called twice.
+    Add a check to not call the login function in tryLogin if force login is set to true
+  + a basic unified admin class made its way into this version. It is pretty simple
+    but will provide means to have high-level methods like addUser which will
+    add a user to bother containers (auth and admin).
+  + Setting 'passwordEncryptionMode' in the configuration array has no
+    effect for the database auth container
+  + using LIVEUSER_MAX_LEVEL constant for default right level instead of hardcoding level 3
+  + relying on status property alone in isInactive()
+  + ensuring that in all method that write to the status property, the status is never overwritten with incorrect information
+  + added a new status constant for when the user was logged out
+  + removed now unneeded idled and expired property
+  + removed deprecated constants
+  + all constants related to error codes are now prefixed with LIVEUSER_ERROR
+  + removed getHandle() method as it provided no value over getProperty('handle')
+  + change install location for LiveUser/LiveUser.php (now include 'LiveUser.php')
+  + change install location for LiveUser/Admin/Admin.php (now include 'LiveUser/Admin.php')
+  + added the ability to specify a logout method and logout varname
+  + added MDB xml schema files
+  + fixed several minor issues in the sql files
+  + renamed all instances of owner_perm_user_id to owner_user_id
+  + all files from the old sql dir are now installed into data/misc/schema
+  + examples no longer contain liveuser schema related statements; use the
+    generic LiveUser schema files instead</n>
+ <f>172778</f>
+ <g>http://pear.php.net/get/LiveUser-0.10.0</g>
+ <x xlink:href="package.0.10.0.xml"/>
+</r>

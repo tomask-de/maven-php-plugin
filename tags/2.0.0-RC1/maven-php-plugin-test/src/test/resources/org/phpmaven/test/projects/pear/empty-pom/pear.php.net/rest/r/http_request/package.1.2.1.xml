@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>HTTP_Request</name>
+  <summary>Provides an easy way to perform HTTP requests</summary>
+  <description>Supports GET/POST/HEAD/TRACE/PUT/DELETE, Basic authentication, Proxy,
+Proxy Authentication, SSL, file uploads etc.</description>
+  <maintainers>
+    <maintainer>
+      <user>richard</user>
+      <name>Richard Heyes</name>
+      <email>richard@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>avb</user>
+      <name>Alexey Borzov</name>
+      <email>avb@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>1.2.1</version>
+    <date>2004-04-29</date>
+    <license>BSD</license>
+    <state>stable</state>
+    <notes>Additions and changes:
+ * Applied patch from #851 (First parameter of constructor is now optional)
+ * Implemented #526 (It is now possible to set timeout on socket, via
+   parameter readTimeout)
+ * Implemented #1141 (It is now possible to pass options to socket via 
+   parameter socketOptions, Net_Socket 1.0.2 is needed for this functionality)
+ 
+Fixes:
+ * Fixed #842 (Doc comments incorrectly described the possible return values)
+ * Fixed #1152 (Incorrect handling of cookies with '=' in value)
+ * Fixed #1158 (Cookie parameters are not necessarily lowercase)
+ * Fixed #1080 (Cookies should not be urlencoded/urldecoded)</notes>
+    <deps>
+      <dep type="pkg" rel="ge" version="1.0.7">Net_URL</dep>
+      <dep type="pkg" rel="ge" version="1.0.2">Net_Socket</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="HTTP" name="Request.php"/>
+      <file role="php" baseinstalldir="HTTP" name="Request/Listener.php"/>
+      <file role="doc" baseinstalldir="HTTP" name="docs/example.php"/>
+      <file role="doc" baseinstalldir="HTTP" name="docs/download-progress.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>1.2</version>
+      <date>2003-10-27</date>
+      <license>BSD</license>
+      <state>stable</state>
+      <notes>Feature additions:
+ * Support for multipart/form-data POST requests and file uploads (partly based on Christian Stocker's work)
+ * Brackets [] after array variables are optional (on by default, controlled by useBrackets parameter)
+ * HTTP_Request now implements a Subject-Observer design pattern. It is possible to add Listeners
+   to the Request object to e.g. draw a progress bar when downloading a large file. This is partly
+   based on Stefan Walk's work. A usage example for this is available.
+
+Migration to 1.2:
+ * Redirect support is now OFF by default
+ * Redirect support is DEPRECATED
+ * Methods clearCookies(), clearPostData(), reset() are DEPRECATED
+
+Fixes:
+ * Fixed PEAR bug #18 (Lowercased headers, fix by Dave Mertens)
+ * Fixed PEAR bug #131 (Domain without trailing slash)
+ * Fixed PHP bug #25486 (100 Continue handling)
+ * Fixed PEAR bug #150 (Notices being generated)
+ * Fixed problems with HTTP responses without bodies
+      
+</notes>
+    </release>
+    <release>
+      <version>1.1.1</version>
+      <date>2003-01-30</date>
+      <license>BSD</license>
+      <state>stable</state>
+      <notes>Added redirect support. Net_URL 1.0.7 is now required.
+</notes>
+    </release>
+    <release>
+      <version>1.1.0</version>
+      <date>2003-01-20</date>
+      <license>BSD</license>
+      <state>stable</state>
+      <notes>Added SSL support as long as you have PHP 4.3.0+ and the OpenSSL extension. Net_URL 1.0.6 is now required.
+</notes>
+    </release>
+    <release>
+      <version>1.0.2</version>
+      <date>2002-09-16</date>
+      <license>BSD</license>
+      <state>stable</state>
+      <notes>Added cookie support
+</notes>
+    </release>
+    <release>
+      <version>1.0.1</version>
+      <date>2002-07-27</date>
+      <license>BSD</license>
+      <state>stable</state>
+      <notes>License change
+</notes>
+    </release>
+    <release>
+      <version>1.0</version>
+      <date>2002-02-17</date>
+      <state>stable</state>
+      <notes>Initial release of the HTTP_Request package.
+</notes>
+    </release>
+  </changelog>
+</package>

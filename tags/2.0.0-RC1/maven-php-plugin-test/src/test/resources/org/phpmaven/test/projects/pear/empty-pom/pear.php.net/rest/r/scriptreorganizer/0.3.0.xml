@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release
+    http://pear.php.net/dtd/rest.release.xsd">
+ <p xlink:href="/rest/p/scriptreorganizer">ScriptReorganizer</p>
+ <c>pear.php.net</c>
+ <v>0.3.0</v>
+ <st>alpha</st>
+ <l>LGPL</l>
+ <m>sfrausch</m>
+ <s>Library/Tool focusing exclusively on the file size aspect of PHP script optimization.</s>
+ <d>ScriptReorganizer has the ability to reorganize source code in different (incremental) ways:
+- File: one-to-one (Script) or many-to-one
+  (Library) optimization.
+- Source: EOL (Route), comment (Quiet) and
+  whitespace (Pack) optimization.
+
+Plugin functionality is available by means of the Decorator Pattern.
+
+It is highly recommended to follow the best practice detailed out below, when using this package:
+1. Running of all tests before building
+   releases to deploy.
+2. Reorganization of the source code file(s)
+   with ScriptReorganizer.
+3. Running of all tests - not only unit tests!
+4. Final building of the release to deploy.
+
+If the extreme mode of the pack strategy is used for packaging, a non-ScriptReorganized source code tree should be shipped together with the optimized one, to enable third parties to track down undiscoverd bugs.
+
+Same applies for (complex) applications that are pharized, i.e. optimized and packaged with PHP_Archive, as well as for bcompiled scripts.
+
+ANN: Currently only &quot;pure&quot; PHP code can be reorganized. Look into the folder '[root/PEAR]/docs/ScriptReorganizer' for more information in depth.
+ 
+</d>
+ <da>2005-11-06 17:59:59</da>
+ <n>This is the first official PEAR release!
+
++ docs/api.tar.gz
+  PhpDocumentor generated API documentation
++ docs/examples
+  A few (self packaging) examples, see the unit
+  tests for standard ones
++ docs/guide.txt
++ docs/maps
+  Mind Map(s) for project management, see:
+  http://sourceforge.net/projects/freemind
++ docs/uml/sketch.pdf
+  For easy reference, should one not have an
+  UML tool installed
++ ext.dependencies.php
+  External dependencies documentation file
++ ScriptReorganizer_Type_Decorator_Bcompile
+  Implemented new decorator for speed
+  optimization, cons: file size increase
++ Access tag: @visibility package restricted
+  for the implementation of the setContent and
+  getContent methods following to a certain
+  extent the RFC::PackageAccess of Lukas Smith,
+  see: http://pear.php.net/pepr/
+  pepr-proposal-show.php?id=228
+
+* Package.xml
+  - Finalized the summary and description
+    section
+  - Now complies with PEAR's official directory
+    structure docs and tests-wise
+* ScriptReorganizer_Strategy_Route
+  Removed call to function trim - see
+  ScriptReorganizer_Type
+* ScriptReorganizer_Strategy_Pack
+  - Fixed whitespace bug in non-windows files
+  - Removed call to function trim - see
+    ScriptReorganizer_Type
+* ScriptReorganizer_Type
+  - Added processing of the unices' hash-bang
+    directive
+  - Handling of Heredocs now strictly complies
+    with the rules stated in the PHP manual,
+    see:
+    php.net/manual/en/language.types.string.php
+  - Added EOL style autodetection for the
+    primary file being optimized
+  - Streamlined the reformat process, see the
+    changes in ScriptReorganizer_Strategy_Route
+    and ScriptReorganizer_Strategy_Pack
+  - Changed the accessibility of the setContent
+    and getContent methods from public to
+    package restricted, see the access tag
+    addition note above
+* ScriptReorganier_Type_Decorator
+  Changed the accessibility of the setContent
+  and getContent methods from public to package
+  restricted, see the access tag addition note
+  above
+* ScriptReorganizer_Type_Library
+  - Added a best practice comment
+  - simplified the static import identifier's
+    regex
+* ScriptReorganizer_Tye_Script
+  Added a best practice comment
+* all decorators
+  disabled the autoload feature of the
+  class_exits check
+* ScriptReorganizer_Type_Decorator_AddFooter
+  - Added constraint: decoration of a directly
+    sequencing Pharize-Decorator is not allowed
+* ScriptReorganizer_Type_Decorator_AddHeader
+  - Added constraint: decoration of a directly
+    sequencing Pharize-Decorator is not allowed
+* ScriptReorganizer_Type_Decorator_Pharize
+  - Added a best practice comment
+  - Implemented missing package restricted
+    getContent and setContent methods, see the
+    access tag addition note above
+  - Updated constraint (annotation) to reflect
+    the new available decorator Bcompile too
+  - Both methods load and loadFiles now throw a
+    more detailed exception message
+* all classes with calls to the getContent and
+  setContent methods according to the access
+  tag addition note above
+* AllTests.php in Tests and its subfolders
+  removed PHPUnit2_Extensions_TestFileLoader
+  dependency, due to upgrade to PHPUnit2-2.3.0
+
+- Tests/PHPUnit2_Extensions_TestFileLoader
+  due to upgrade to PHPUnit2-2.3.0:
+  PHPUnit2_Framework_TestSuite now incorporates
+  the method addTestFile ... thanks for
+  accepting my contribution Sebastian ;)</n>
+ <f>237035</f>
+ <g>http://pear.php.net/get/ScriptReorganizer-0.3.0</g>
+ <x xlink:href="package.0.3.0.xml"/>
+</r>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Copyright 2010-2012 by PHP-maven.org
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+	http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+	<properties>
+		<title>Maven for PHP zend framework applications - 5 minutes starter guide</title>
+		<author email="christian.wiedemann@key-tec.de">Christian Wiedemann</author>
+		<author email="martin.eisengardt@googlemail.com">Martin Eisengardt</author>
+	</properties>
+	<head>
+		<title>Maven for PHP zend framework applications - 5 minutes starter guide</title>
+		<meta name="keyword" content="apache, maven, php, php-maven, php maven, php zend, php zend framework, zend, zend framework, maven zend, php maven zend, zend development, zend tutorial, maven tutorial" />
+	</head>
+	<body>
+		<section name="PHP web projects - 5 minutes starter guide">
+			<subsection name="Create a project">
+			<p>
+			First, prepare Maven and follow the <a href="${phpmavenRootUrl}/prepare.html">preparation instructions.</a><br></br>
+			Next, type the following Maven goal in your command line and execute it:</p>
+<source> 			
+mvn archetype:generate \
+-DarchetypeGroupId=org.phpmaven \
+-DarchetypeArtifactId=php5-zend-archetype \
+-DarchetypeVersion=${phpmavenTagName} \
+-DgroupId=org.sample \
+-DartifactId=my-app \
+-Dversion=0.0.1-SNAPSHOT
+			</source>
+			<p>After some time maven will ask to confirm the parameters. The result will look like this:</p>
+			<source>
+my-app 
+	|-- pom.xml 
+	`-- src 
+		|-- main 
+		|	|-- php 
+		|	|	|-- application 
+		|	|	|	|-- controllers 
+		|	|	|	|	`-- ErrorController.php
+		|	|	|	|	`-- IndexController.php
+		|	|	|	|-- views
+		|	|	|	|	`-- scripts
+		|	|	|	|		|-- error
+		|	|	|	|		|	`-- error.phtml
+		|	|	|	|		`-- index
+		|	|	|	|			`-- index.phtml
+		|	|	|	`-- Bootstrap.php
+		|	|	`-- public
+		|	|		`-- index.php
+		|	`-- resources
+		|		|-- application
+		|		|	`-- configs
+		|		|		`-- application.ini
+		|		|-- etc
+		|		|	`-- logback.xml
+		|		|	`-- phpunit.xml
+		|		|-- public
+		|		|	`-- .htaccess
+		|		|-- webapp
+		|		|	`-- WEB-INF
+		|		|		`-- web.xml
+		|		`-- .zfproject.xml
+		|`-- test 
+		|	`-- php 
+		|		`-- ControllerTest.php
+		`-- site
+			|-- site.xml
+			`-- apt
+				`-- index.apt
+			</source>
+			
+			<ul>
+			<li><b>src/main/php/lib</b> - contains the project source code; as you see only *.php and *.phtml files of the zend directory layout.</li>
+			<li><b>src/main/php/resources</b> - contains the additional resources; all non-php files from zend directory layout</li>
+			<li><b>src/test/php</b> - contains the test source code</li>
+			<li><b>pom.xml</b> The project&apos;s Project Object Model, or POM, looks like this:</li>
+			</ul>
+		</subsection>
+		<subsection name="The POM">
+		<p>
+<macro name="snippet">
+<param name="id" value="pom"></param>
+<param name="file" value="${phpmavenFsRoot}/src/site/include/pom_zend.xml"></param>
+</macro></p>
+		</subsection>
+		<subsection name="What have I just done?">
+			<p>What have I just done?</p>
+			<p>You have just executed the Maven goal archetype:generate and passed
+			various parameters to that goal. The prefix archetype is
+			the plugin containing the goal.
+			This goal created a default project structure for your PHP project.</p>
+		</subsection>
+		<subsection name="Build the project">
+			<p>Switch to your sample project directory</p> 
+			<source>cd my-app</source>
+			<p>and run:</p>  
+			<source>mvn package</source>
+			<p>The command line will print out various actions, ending with the following:</p>
+			<source>
+ ...
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 6 seconds
+[INFO] Finished at: Thu Jul 20 19:15:06 CDT 2008
+[INFO] Final Memory: 3M/6M
+[INFO] ------------------------------------------------------------------------			
+			</source>
+<p>Maven has created a phar package under the project&apos;s target folder.</p>  		
+		</subsection>
+		<subsection name="What has Maven done?">
+		<p>
+		
+	&quot;Maven for PHP&quot; validates the PHP code with the php.exe, runs PHPUnit tests, and creates an assembly for the web project.</p>
+		</subsection>
+		<subsection name="Let us start in webserver">
+		<p>
+		   Now run <source>mvn jetty:run</source>
+		   Maven will print various information and end with something like
+		   <source>jetty server started</source>
+		   Do not stop it here but start your web browser and navigate to <source>http://localhost:8080/my-app</source>
+		   You will see the zend frameworks welcome page (the index page).
+		</p>
+		<img src="images/tut/5min_zend_success.jpg" alt="zend success" />
+		</subsection>
+		<subsection name="Documentation">
+		<p>
+		Go to the <a href="documentation.html">&quot;Documentation&quot; section.</a>
+		</p> 
+		</subsection>
+		<subsection name="Credits">
+		<p>Special thanks to <a href="http://www.owengriffin.com/posts/2010/04/22/Writing_PHP_applications_with_Maven_and_Jetty.html">Owen Griffin</a>.</p>
+		</subsection>
+		</section>
+	</body>
+</document>

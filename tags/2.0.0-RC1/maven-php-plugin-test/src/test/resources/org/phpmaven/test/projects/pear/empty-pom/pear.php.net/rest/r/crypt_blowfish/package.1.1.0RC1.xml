@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.10">
+ <name>Crypt_Blowfish</name>
+ <summary>Allows for quick two-way blowfish encryption without requiring the MCrypt PHP extension.</summary>
+ <description>This package allows you to perform two-way blowfish encryption on the fly using only PHP. This package does not require the MCrypt PHP extension to work, although it can make use of it if available.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>mfonda</user>
+   <name>Matthew Fonda</name>
+   <email>mfonda@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>jausions</user>
+   <name>Philippe Jausions</name>
+   <email>jausions@php.net</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>1.1.0RC1</version>
+  <date>2006-09-08</date>
+  <license>PHP</license>
+  <state>beta</state>
+  <notes>* Added CBC mode support (Req #7256)
+* Added factory() pattern (now prefered method to create instance)
+* Deprecated Crypt_Blowfish() constructor
+* Reorganized code into subclasses for PHP-only (ECB &amp; CBC modes) and MCrypt implementations
+* Ability to disable the use of the MCrypt extension if needed (Req #7298)
+* Now returns PEAR_Error objects instead of dying (Req #4555)
+* Catch initialization problem in constructor (Bug #7299)
+* Fix for XOR problem with floats on some systems (Bug #6159)
+  </notes>
+  <provides type="class" name="Crypt_Blowfish" />
+  <provides type="function" name="Crypt_Blowfish::factory" />
+  <provides type="function" name="Crypt_Blowfish::getBlockSize" />
+  <provides type="function" name="Crypt_Blowfish::getIVSize" />
+  <provides type="function" name="Crypt_Blowfish::getMaxKeySize" />
+  <provides type="function" name="Crypt_Blowfish::isReady" />
+  <provides type="function" name="Crypt_Blowfish::init" />
+  <provides type="function" name="Crypt_Blowfish::encrypt" />
+  <provides type="function" name="Crypt_Blowfish::decrypt" />
+  <provides type="function" name="Crypt_Blowfish::setKey" />
+  <provides type="class" name="Crypt_Blowfish_DefaultKey" />
+  <provides type="class" name="Crypt_Blowfish_ECB" extends="Crypt_Blowfish_PHP" />
+  <provides type="function" name="Crypt_Blowfish_ECB::encrypt" />
+  <provides type="function" name="Crypt_Blowfish_ECB::decrypt" />
+  <provides type="class" name="Crypt_Blowfish_CBC" extends="Crypt_Blowfish_PHP" />
+  <provides type="function" name="Crypt_Blowfish_CBC::encrypt" />
+  <provides type="function" name="Crypt_Blowfish_CBC::decrypt" />
+  <provides type="class" name="Crypt_Blowfish_MCrypt" extends="Crypt_Blowfish" />
+  <provides type="function" name="Crypt_Blowfish_MCrypt::encrypt" />
+  <provides type="function" name="Crypt_Blowfish_MCrypt::decrypt" />
+  <provides type="function" name="Crypt_Blowfish_MCrypt::setKey" />
+  <provides type="class" name="Crypt_Blowfish_PHP" extends="Crypt_Blowfish" />
+  <provides type="function" name="Crypt_Blowfish_PHP::setKey" />
+  <filelist>
+   <file role="php" baseinstalldir="Crypt" md5sum="71e43c8e6c0a6fcbd90a32dfb7b23cc9" name="Blowfish.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="Crypt" md5sum="00f2d04d7ce095c7012087f226f99c6c" name="Blowfish/DefaultKey.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="Crypt" md5sum="32afb1a41639e524994ad29bbda42885" name="Blowfish/ECB.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="Crypt" md5sum="4e9a408f9bc5805e0263f60a375185fa" name="Blowfish/CBC.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="Crypt" md5sum="21a1411c8b0524e95daf2211cb2fcb80" name="Blowfish/MCrypt.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="php" baseinstalldir="Crypt" md5sum="a3b1b24689e44acea90c0695e1635dbb" name="Blowfish/PHP.php">
+    <replace from="@package_version@" to="version" type="package-info"/>
+   </file>
+   <file role="test" baseinstalldir="Crypt" md5sum="dd069ec1fc36a4884cea7588808a456f" name="tests/blowfish.phpt"/>
+   <file role="test" baseinstalldir="Crypt" md5sum="e889b4ecfb98f743a98faf657185a78b" name="tests/blowfish_cbc.phpt"/>
+   <file role="test" baseinstalldir="Crypt" md5sum="eac9607bbd8242d5041b4b4d70f5150c" name="tests/vectors.txt"/>
+   <file role="test" baseinstalldir="Crypt" md5sum="f8529b480be45a9e7c57dd639a0cd755" name="tests/vectors_cbc.txt"/>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>1.1.0RC1</version>
+    <date>2006-09-08</date>
+    <state>beta</state>
+    <notes>* Added CBC mode support (Req #7256)
+* Added factory() pattern (now prefered method to create instance)
+* Deprecated Crypt_Blowfish() constructor
+* Reorganized code into subclasses for PHP-only (ECB &amp; CBC modes) and MCrypt implementations
+* Ability to disable the use of the MCrypt extension if needed (Req #7298)
+* Now returns PEAR_Error objects instead of dying (Req #4555)
+* Catch initialization problem in constructor (Bug #7299)
+* Fix for XOR problem with floats on some systems (Bug #6159)
+    </notes>
+   </release>
+   <release>
+    <version>1.0.1</version>
+    <date>2005-05-30</date>
+    <state>stable</state>
+    <notes>Uses mcrypt if available
+    </notes>
+   </release>
+   <release>
+    <version>1.0.0</version>
+    <date>2005-04-26</date>
+    <state>stable</state>
+    <notes>Initial stable release
+    </notes>
+   </release>
+   <release>
+    <version>0.8.1</version>
+    <date>2005-03-23</date>
+    <state>beta</state>
+    <notes>Fixed serious bug in release 0.8.0 causing text to not be encrypted properly.
+    </notes>
+   </release>
+   <release>
+    <version>0.8.0</version>
+    <date>2005-03-03</date>
+    <state>beta</state>
+    <notes>* Increased encryption and decryption speed
+* init() method is now private
+* Removed unnesessary defines
+* Deprecated isReady() method
+    </notes>
+   </release>
+   <release>
+    <version>0.7.0</version>
+    <date>2005-02-22</date>
+    <state>beta</state>
+    <notes>This is the initial release.
+    </notes>
+   </release>
+ </changelog>
+</package>

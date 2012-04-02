@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.5.0a1">
+ <name>Text_Wiki_Mediawiki</name>
+ <summary>Mediawiki parser for Text_Wiki</summary>
+ <description>Parses Mediawiki mark-up to tokenize the text for Text_Wiki renderings. You can see a reference for this syntax here: http://meta.wikimedia.org/wiki/Help:Editing#The_wiki_markup
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>ritzmo</user>
+   <name>Moritz Venn</name>
+   <email>moritz.venn@freaque.net</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>toggg</user>
+   <name>betrand Gugger</name>
+   <email>bertrand@toggg.com</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>0.1.0</version>
+  <date>2006-04-10</date>
+  <license>LGPL</license>
+  <state>alpha</state>
+  <notes>Major release of Text_Wiki_Mediawiki : several rules have been added or revamped
+It also takes advantage of the new Text_Wiki-1.1.0 engine.
+
+* Add the Wikilink rule (#6623)
+  Configuration:
+  - &apos;spaceUnderscore&apos; : boolean (true) replace spaces in page name by underscores,
+  - &apos;project&apos; : optional array of prefixes for the local project (array(&apos;demo&apos;, &apos;d&apos;)),
+  - &apos;url&apos; : base url of the project for interlanguage (&apos;http://example.com/en/page=%s&apos;),
+  - &apos;langage&apos; : language of the project, will be replaced case interlanguage (&apos;en&apos;).
+  
+* Unify all links parsing: Image and Interwiki are now done by the Wikilink rule
+ These 2 rules don&apos;t exist anymore as independant classes
+ but are still configurable/switchable as normal rules
+
+* Interwiki&apos;s configuration for urls is now done parser side
+  Configuration:
+  - &apos;sites&apos; : associative array of url patterns indexed by site prefixes,
+  - &apos;interlangage&apos; : array of accepted interlanguages codes.
+
+* Image corrected to be complient with Mediawiki syntax
+  Take align attribute (left, center, or right) as piped after the | in image tag
+  Configuration:
+  - &apos;prefix&apos; : array of accepted image prefixes (array(&apos;Image&apos;, &apos;image&apos;)).
+
+* List rule added , it&apos;s no more using the Text_Wiki default but a complient proper class
+
+* Deflist rule added (definitions list)
+
+* Heading corrected : it does not more require extra spaces and line feed (#6623)
+
+* Emphasis corrected to produce also Strong and not Bold (Strong exists only by rendering)
+
+* Raw : &lt;nowiki&gt; ... &lt;/nowiki&gt; may be multiline
+
+* Overwrite of getTokens() removed, was not needed and even dangerous ...
+  </notes>
+  <deps>
+   <dep type="pkg" rel="ge" version="1.1.0">Text_Wiki</dep>
+  </deps>
+  <provides type="class" name="Text_Wiki_Mediawiki" extends="Text_Wiki" />
+  <provides type="class" name="Text_Wiki_Parse_Deflist" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Deflist::process" />
+  <provides type="class" name="Text_Wiki_Parse_Emphasis" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Emphasis::process" />
+  <provides type="class" name="Text_Wiki_Parse_Heading" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Heading::process" />
+  <provides type="class" name="Text_Wiki_Parse_List" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_List::process" />
+  <provides type="class" name="Text_Wiki_Parse_Raw" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Raw::process" />
+  <provides type="class" name="Text_Wiki_Parse_Table" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Table::process" />
+  <provides type="function" name="Text_Wiki_Parse_Table::processRows" />
+  <provides type="function" name="Text_Wiki_Parse_Table::processCells" />
+  <provides type="class" name="Text_Wiki_Parse_Url" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Url::parse" />
+  <provides type="function" name="Text_Wiki_Parse_Url::process" />
+  <provides type="function" name="Text_Wiki_Parse_Url::processWithoutProtocol" />
+  <provides type="function" name="Text_Wiki_Parse_Url::processInlineEmail" />
+  <provides type="function" name="Text_Wiki_Parse_Url::processFootnote" />
+  <provides type="function" name="Text_Wiki_Parse_Url::processOrdinary" />
+  <provides type="function" name="Text_Wiki_Parse_Url::processDescr" />
+  <provides type="class" name="Text_Wiki_Parse_Wikilink" extends="Text_Wiki_Parse" />
+  <provides type="function" name="Text_Wiki_Parse_Wikilink::process" />
+  <provides type="function" name="Text_Wiki_Parse_Wikilink::image" />
+  <provides type="function" name="Text_Wiki_Parse_Wikilink::interwiki" />
+  <filelist>
+   <file role="php" md5sum="8f3e58cf4d2fbb17f280962af4c4ad66" name="Text/Wiki/Mediawiki.php"/>
+   <file role="php" md5sum="6d6032a2af49d9f30582f43814fa4d29" name="Text/Wiki/Parse/Mediawiki/Deflist.php"/>
+   <file role="php" md5sum="c6ae6e07c8c83e26a3b8d1ee65331fc5" name="Text/Wiki/Parse/Mediawiki/Emphasis.php"/>
+   <file role="php" md5sum="56b1d4b0787c22a77fa20d3c6927cfe2" name="Text/Wiki/Parse/Mediawiki/Heading.php"/>
+   <file role="php" md5sum="e5f2eb459858b1aea0d5c4197ad71dc7" name="Text/Wiki/Parse/Mediawiki/List.php"/>
+   <file role="php" md5sum="71145c6932824cc1a5b84cf0f72c894f" name="Text/Wiki/Parse/Mediawiki/Raw.php"/>
+   <file role="php" md5sum="3854ceac6e085f513bcfc38e9aa5e0c8" name="Text/Wiki/Parse/Mediawiki/Table.php"/>
+   <file role="php" md5sum="913d59cbf90af063fc44e0c54f7b566a" name="Text/Wiki/Parse/Mediawiki/Url.php"/>
+   <file role="php" md5sum="6d3ea1ecc59a54900f928857b7a78c79" name="Text/Wiki/Parse/Mediawiki/Wikilink.php"/>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>0.0.1</version>
+    <date>2006-01-07</date>
+    <license>LGPL</license>
+    <state>alpha</state>
+    <notes>First released version of Text_Wiki_Mediawiki.
+    </notes>
+   </release>
+ </changelog>
+</package>

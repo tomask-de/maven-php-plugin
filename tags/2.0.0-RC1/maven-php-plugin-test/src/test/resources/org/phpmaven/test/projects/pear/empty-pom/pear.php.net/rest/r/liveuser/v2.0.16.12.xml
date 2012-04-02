@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release2
+    http://pear.php.net/dtd/rest.release2.xsd">
+ <p xlink:href="/rest/p/liveuser">LiveUser</p>
+ <c>pear.php.net</c>
+ <v>0.16.12</v>
+ <a>0.16.12</a>
+ <mp>4.3.0</mp>
+ <st>beta</st>
+ <l>LGPL</l>
+ <m>lsmith</m>
+ <s>User authentication and permission management framework</s>
+ <d>LiveUser is a set of classes for dealing with user authentication
+  and permission management. Basically, there are three main elements that
+  make up this package:
+
+  * The LiveUser class
+  * The Auth containers
+  * The Perm containers
+
+  The LiveUser class takes care of the login process and can be configured
+  to use a certain permission container and one or more different auth containers.
+  That means, you can have your users' data scattered amongst many data containers
+  and have the LiveUser class try each defined container until the user is found.
+  For example, you can have all website users who can apply for a new account online
+  on the webserver's local database. Also, you want to enable all your company's
+  employees to login to the site without the need to create new accounts for all of
+  them. To achieve that, a second container can be defined to be used by the LiveUser class.
+
+  You can also define a permission container of your choice that will manage the rights for
+  each user. Depending on the container, you can implement any kind of permission schemes
+  for your application while having one consistent API.
+
+  Using different permission and auth containers, it's easily possible to integrate
+  newly written applications with older ones that have their own ways of storing permissions
+  and user data. Just make a new container type and you're ready to go!
+
+  Currently available are containers using:
+  PEAR::DB, PEAR::MDB, PEAR::MDB2, PECL::PDO, PEAR::XML_Tree, PEAR::Auth, Session.
+ 
+</d>
+ <da>2006-08-22 13:34:20</da>
+ <n>- wrong use of pdo fetch method, when no result could be fetched it returns
+  false with no error. Swith to using fetchAll and check for an empty array
+- we cannot decrypt most of the encryption method used by the hash extension so
+  we default to returning the unmodified string
+- the wrong variable was used to report the type of permission container when an
+  error occured
+- push an error on the stack when the encryption method cannot be found
+- make sequence columns primary key
+- properly disconnect the pdo object
+- make it possible to set the status message mapping
+- register options for create (Bug #7704)
+- use the hash extension if it is present for the password encryption
+- refactored decryptPW() and encryptPW() into static methods in the LiveUser class
+- force null instead of false for PDO fetch() calls that return empty sets
+- fixed logging into example1
+- debug =&gt; false in conf doesn't work (Bug #7564; thx to Matthias)
+- added support for user defined handle fields
+  in DB, MDB, MDB2 and PDO containers you can set a list of fields in your auth
+  container storage config, default is 'handle', example:
+  'handles' =&gt; array('handle', 'auth_user_id', 'email')
+  these fields are now used to find the right user on login (Request #7781)
+- fixed LiveUser::decryptPW(): added missing third parameter 'secret'
+- check if safe_mode is enabled in fileExists() to determine what algo to use (Bug #8296)</n>
+ <f>77726</f>
+ <g>http://pear.php.net/get/LiveUser-0.16.12</g>
+ <x xlink:href="package.0.16.12.xml"/>
+</r>

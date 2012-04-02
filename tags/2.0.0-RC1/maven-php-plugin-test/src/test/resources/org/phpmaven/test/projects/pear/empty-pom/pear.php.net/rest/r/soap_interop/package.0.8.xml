@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>SOAP_Interop</name>
+  <summary>SOAP Interop Test Application</summary>
+  <description>Test harness for SOAP Builders tests.
+Supports Round 2 and Round 3 tests.</description>
+  <maintainers>
+    <maintainer>
+      <user>shane</user>
+      <name>Shane Caraveo</name>
+      <email>shane@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>arnaud</user>
+      <name>Arnaud Limbourg</name>
+      <email>arnaud@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.8</version>
+    <date>2003-08-17</date>
+    <license>PHP License</license>
+    <state>beta</state>
+    <notes>Minor updates bump version to match PEAR::SOAP</notes>
+    <deps>
+      <dep type="pkg" rel="has">SOAP</dep>
+    </deps>
+    <provides type="class" name="Interop_Client" />
+    <provides type="function" name="Interop_Client::fetchEndpoints" />
+    <provides type="function" name="Interop_Client::getEndpoints" />
+    <provides type="function" name="Interop_Client::getResults" />
+    <provides type="function" name="Interop_Client::compareResult" />
+    <provides type="function" name="Interop_Client::doEndpointMethod" />
+    <provides type="function" name="Interop_Client::doTest" />
+    <provides type="function" name="Interop_Client::doGroupTests" />
+    <provides type="function" name="Interop_Client::doTests" />
+    <provides type="function" name="Interop_Client::getMethodList" />
+    <provides type="function" name="Interop_Client::outputTable" />
+    <provides type="function" name="Interop_Client::outputTables" />
+    <provides type="function" name="Interop_Client::showWire" />
+    <provides type="function" name="help" />
+    <provides type="function" name="print_test_names" />
+    <provides type="function" name="print_endpoint_names" />
+    <provides type="class" name="SOAP_Interop_Test" />
+    <provides type="function" name="SOAP_Interop_Test::setResult" />
+    <provides type="function" name="SOAP_Interop_Test::reset" />
+    <provides type="function" name="SOAP_Interop_Test::showTestResult" />
+    <provides type="function" name="number_compare" />
+    <provides type="function" name="boolean_compare" />
+    <provides type="function" name="string_compare" />
+    <provides type="function" name="array_compare" />
+    <provides type="function" name="parseMessage" />
+    <provides type="class" name="clientInfo" />
+    <provides type="class" name="serverInfo" />
+    <provides type="class" name="Service" />
+    <provides type="class" name="subscriberInfo" />
+    <provides type="class" name="ChangeItem" />
+    <provides type="class" name="SOAP_Interop_registrationAndNotificationService_ServicesPort" extends="SOAP_Client" />
+    <provides type="class" name="SOAP_Interop_registrationAndNotificationService_ClientsPort" extends="SOAP_Client" />
+    <provides type="class" name="SOAP_Interop_registrationAndNotificationService_ServersPort" extends="SOAP_Client" />
+    <provides type="class" name="SOAP_Interop_registrationAndNotificationService_SubscriberPort" extends="SOAP_Client" />
+    <provides type="class" name="SOAP_Interop_registrationAndNotificationService_ChangeLogPort" extends="SOAP_Client" />
+    <provides type="class" name="SOAP_Interop_registrationDB" />
+    <provides type="function" name="SOAP_Interop_registrationAndNotificationService_ServicesPort::ServiceList" />
+    <provides type="function" name="SOAP_Interop_registrationAndNotificationService_ServicesPort::Servers" />
+    <provides type="function" name="SOAP_Interop_registrationAndNotificationService_ServicesPort::Clients" />
+    <provides type="function" name="SOAP_Interop_registrationAndNotificationService_ClientsPort::RegisterClient" />
+    <provides type="function" name="SOAP_Interop_registrationAndNotificationService_ClientsPort::UpdateClient" />
+    <provides type="function" name="SOAP_Interop_registrationAndNotificationService_ClientsPort::RemoveClient" />
+    <provides type="function" name="SOAP_Interop_registrationAndNotificationService_ServersPort::RegisterServer" />
+    <provides type="function" name="SOAP_Interop_registrationAndNotificationService_ServersPort::UpdateServer" />
+    <provides type="function" name="SOAP_Interop_registrationAndNotificationService_ServersPort::RemoveServer" />
+    <provides type="function" name="SOAP_Interop_registrationAndNotificationService_SubscriberPort::Subscribe" />
+    <provides type="function" name="SOAP_Interop_registrationAndNotificationService_SubscriberPort::Renew" />
+    <provides type="function" name="SOAP_Interop_registrationAndNotificationService_SubscriberPort::Cancel" />
+    <provides type="function" name="SOAP_Interop_registrationAndNotificationService_ChangeLogPort::RecentChanges" />
+    <provides type="function" name="SOAP_Interop_registrationDB::connectDB" />
+    <provides type="function" name="SOAP_Interop_registrationDB::updateDB" />
+    <provides type="function" name="SOAP_Interop_registrationDB::retreiveServiceList" />
+    <provides type="function" name="SOAP_Interop_registrationDB::retreiveServerList" />
+    <provides type="function" name="SOAP_Interop_registrationDB::retreiveClientList" />
+    <provides type="function" name="SOAP_Interop_registrationDB::updateServiceDb" />
+    <provides type="function" name="SOAP_Interop_registrationDB::updateServerDb" />
+    <provides type="function" name="SOAP_Interop_registrationDB::updateClientsDb" />
+    <provides type="function" name="SOAP_Interop_registrationDB::getServiceList" />
+    <provides type="function" name="SOAP_Interop_registrationDB::getServerList" />
+    <provides type="function" name="SOAP_Interop_registrationDB::getClientList" />
+    <provides type="function" name="SOAP_Interop_registrationDB::findService" />
+    <provides type="function" name="getLocalInteropServer" />
+    <provides type="class" name="SOAP_Interop_Base" />
+    <provides type="function" name="SOAP_Interop_Base::echoString" />
+    <provides type="function" name="SOAP_Interop_Base::echoStringArray" />
+    <provides type="function" name="SOAP_Interop_Base::echoInteger" />
+    <provides type="function" name="SOAP_Interop_Base::echoIntegerArray" />
+    <provides type="function" name="SOAP_Interop_Base::echoFloat" />
+    <provides type="function" name="SOAP_Interop_Base::echoFloatArray" />
+    <provides type="function" name="SOAP_Interop_Base::echoStruct" />
+    <provides type="function" name="SOAP_Interop_Base::echoStructArray" />
+    <provides type="function" name="SOAP_Interop_Base::echoVoid" />
+    <provides type="function" name="SOAP_Interop_Base::echoBase64" />
+    <provides type="function" name="SOAP_Interop_Base::echoDate" />
+    <provides type="function" name="SOAP_Interop_Base::echoHexBinary" />
+    <provides type="function" name="SOAP_Interop_Base::echoDecimal" />
+    <provides type="function" name="SOAP_Interop_Base::echoBoolean" />
+    <provides type="function" name="SOAP_Interop_Base::echoMimeAttachment" />
+    <provides type="function" name="generateFault" />
+    <provides type="function" name="hex2bin" />
+    <provides type="class" name="SOAP_Interop_GroupB" />
+    <provides type="function" name="SOAP_Interop_GroupB::echoStructAsSimpleTypes" />
+    <provides type="function" name="SOAP_Interop_GroupB::echoSimpleTypesAsStruct" />
+    <provides type="function" name="SOAP_Interop_GroupB::echoNestedStruct" />
+    <provides type="function" name="SOAP_Interop_GroupB::echo2DStringArray" />
+    <provides type="function" name="SOAP_Interop_GroupB::echoNestedArray" />
+    <provides type="class" name="SOAP_Interop_GroupC_Headers" />
+    <provides type="function" name="SOAP_Interop_GroupC_Headers::echoMeStringRequest" />
+    <provides type="function" name="SOAP_Interop_GroupC_Headers::echoMeStructRequest" />
+    <provides type="class" name="SOAP_Interop_GroupDCompound1" />
+    <provides type="function" name="SOAP_Interop_GroupDCompound1::echoPerson" />
+    <provides type="function" name="SOAP_Interop_GroupDCompound1::echoDocument" />
+    <provides type="class" name="SOAP_Interop_GroupDCompound2" />
+    <provides type="function" name="SOAP_Interop_GroupDCompound2::echoEmployee" />
+    <provides type="class" name="SOAP_Interop_GroupDDocLit" />
+    <provides type="function" name="SOAP_Interop_GroupDDocLit::echoString" />
+    <provides type="function" name="SOAP_Interop_GroupDDocLit::echoStringArray" />
+    <provides type="function" name="SOAP_Interop_GroupDDocLit::echoStruct" />
+    <provides type="class" name="SOAP_Interop_GroupDDocLitParams" />
+    <provides type="function" name="SOAP_Interop_GroupDDocLitParams::echoString" />
+    <provides type="function" name="SOAP_Interop_GroupDDocLitParams::echoStringArray" />
+    <provides type="function" name="SOAP_Interop_GroupDDocLitParams::echoStruct" />
+    <provides type="function" name="SOAP_Interop_GroupDDocLitParams::echoVoid" />
+    <provides type="class" name="SOAP_Interop_GroupDImport1" />
+    <provides type="function" name="SOAP_Interop_GroupDImport1::echoString" />
+    <provides type="class" name="SOAP_Interop_GroupDImport2" />
+    <provides type="function" name="SOAP_Interop_GroupDImport2::echoStruct" />
+    <provides type="class" name="SOAP_Interop_GroupDImport3" />
+    <provides type="function" name="SOAP_Interop_GroupDImport3::echoStruct" />
+    <provides type="function" name="SOAP_Interop_GroupDImport3::echoStructArray" />
+    <provides type="class" name="SOAP_Interop_GroupDRpcEnc" />
+    <provides type="function" name="SOAP_Interop_GroupDRpcEnc::echoString" />
+    <provides type="function" name="SOAP_Interop_GroupDRpcEnc::echoStringArray" />
+    <provides type="function" name="SOAP_Interop_GroupDRpcEnc::echoStruct" />
+    <provides type="function" name="SOAP_Interop_GroupDRpcEnc::echoVoid" />
+    <provides type="class" name="SOAPStruct" />
+    <provides type="class" name="SOAPStructStruct" />
+    <provides type="class" name="SOAPArrayStruct" />
+    <provides type="class" name="Person" />
+    <provides type="class" name="x_Person" extends="Person" />
+    <provides type="class" name="Employee" />
+    <provides type="class" name="x_Employee" extends="Employee" />
+    <provides type="function" name="make_2d" />
+    <filelist>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="0621b9accc4915c05916baec5d34e6cf" name="config.php.orig"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="c685d0b94273d7974abb0c3874b6a4b5" name="index.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="f3e8b7540446cded62458237ef5a1924" name="interop_client.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="e212adbd8832f06d567c733a3fab5442" name="interop_client_results.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="afaf1ffbdfa016d4a22ac2cfa68432d8" name="interop_client_run.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="f204d613689d378b2d516cc02b100ef6" name="interop_database.sql"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="84225ba3a37c945143bf44cf10b5e986" name="interop_test.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="50c8970b3ec97751347cd2b9b8f19238" name="interop_test_functions.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="443bc17d0cdb6b2344b397ca28075cf8" name="readme.txt"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="062142236e44c8a8951e68dc1fb01058" name="registrationAndNotification.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="811870741416ee4662903bd1be412f43" name="interop_Round2Base.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="f3178527127e642ad1cd7b0a11372bf2" name="interop_Round2GroupB.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="89b4321611239b7c0371c9159016b0e1" name="interop_Round2GroupC.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="902eb73fac71a68cc2cea5511d386727" name="server_Round2Base.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="a36a30264b2b900b64a88b038cbd03fb" name="server_Round2GroupB.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="40585e721d278510d4e4e95be1b04d26" name="server_Round2GroupC.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="af953fc87baa2470e9025c103b33d974" name="server_Round3GroupDCompound1.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="97f869199341c28c297cdeed7dbc01d8" name="server_Round3GroupDCompound2.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="de3c2a82e81421c95e8dbed3ab8f08f0" name="server_Round3GroupDDocLit.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="3fa58f833228341400b65caf02e6aca7" name="server_Round3GroupDDocLitParams.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="160509acd53effcf14a1fc9c86cb0143" name="server_Round3GroupDEmptySA.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="19800f14f5118d0274188c6763b7c9a8" name="server_Round3GroupDImport1.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="2365a1829b7f73cd0bdbfd23708cf3df" name="server_Round3GroupDImport2.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="3f17d89fb67e28c53d1a259ac2b38fd2" name="server_Round3GroupDImport3.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="a866d4c82348cd82d34b965765f28389" name="server_Round3GroupDRpcEnc.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="62b9a531a69c25db4aad8fcefe48dbf5" name="params_classes.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="b4fda58957c0f355991e1bebcb8b28ff" name="params_values.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="89e9d27428032d79c54d754321acfbe2" name="params_Round2Base.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="03996b117202fe697b176d1bbece3f29" name="params_Round2GroupB.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="ae033d7a546d12073bee41eba2bd91ec" name="params_Round2GroupC.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="e37da6d9e1ac31af35092e871143ea38" name="params_Round3GroupD.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="d3869b6d59b6283f14d23d844effecf9" name="wsdl/compound1.wsdl.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="8d726048b98ebd293bcbda65b5267f30" name="wsdl/compound2.wsdl.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="4a5a7b84ae5aa75af97244ee245fd819" name="wsdl/echoheadersvc.wsdl.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="6b01984be1f919c668093f5541e9f277" name="wsdl/emptysa.wsdl.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="8885c54f30b3dde8c42e76f9c55b096d" name="wsdl/import1.wsdl.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="8dcf087f771b693795043bf19fd27c42" name="wsdl/import2.wsdl.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="89e32c28b0c9a516e801b4c89fbefd10" name="wsdl/import3.wsdl.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="9f1b3a0faf1608febda000a088916212" name="wsdl/interop.wsdl.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="57c5afc43e250cbb429853f3b68bced2" name="wsdl/interopB.wsdl.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="ee9f598152d46d22bbdb51987ee7d428" name="wsdl/InteropTestDocLit.wsdl.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="540fd7146f033b6196a117045f5f1a86" name="wsdl/InteropTestDocLitParameters.wsdl.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="910b31f49140a105b4ee6399c51a111d" name="wsdl/InteropTestExtensibility.wsdl.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="5f085d6cc1bfb523be60f3584c1a4e3a" name="wsdl/InteropTestExtensibilityRequired.wsdl.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="abf892ed578953f010ebb2b7ce687f92" name="wsdl/InteropTestheaders.wsdl.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="f87f6db669ee494d04cf16dc5b55c9a8" name="wsdl/InteropTestList.wsdl.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="b1eecfa035777d09d168d129d07e6009" name="wsdl/InteropTestRpcEnc.wsdl.php"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="cd538f1bf8b95dfb5ad3eac16307fe60" name="wsdl/imported/import1B.wsdl"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="bb010e600f41c9ae72e673344bedb2a7" name="wsdl/imported/import2B.wsdl"/>
+      <file role="php" baseinstalldir="SOAP/Interop" md5sum="e23db66a3f456b0882dee2e3c1dfe2aa" name="wsdl/imported/import2B.xsd"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.7.2</version>
+      <date>2003-04-01</date>
+      <notes>Minor fixes over 0.7.1.
+</notes>
+    </release>
+    <release>
+      <version>0.7.1</version>
+      <date>2002-12-01</date>
+      <state>beta</state>
+      <notes>Minor fixes to make interop suite run without modifications.
+</notes>
+    </release>
+    <release>
+      <version>0.7.0</version>
+      <date>2002-10-20</date>
+      <state>beta</state>
+      <notes>Initial release of the SOAP Builders Interop Test Suite for PEAR::SOAP
+</notes>
+    </release>
+  </changelog>
+</package>

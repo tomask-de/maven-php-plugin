@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.8.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+ <name>PHP_UML</name>
+ <channel>pear.php.net</channel>
+ <summary>A reverse-engineering package that scans PHP files and directories, and delivers an UML/XMI representation of the classes and packages found.</summary>
+ <description>PHP_UML is a PHP parser, an XMI generator and a documentation tool.
+Practically, with PHP_UML, you will be able to feed a UML CASE tool, like Rational Rose or Argouml, with a UML representation of existing PHP source code. This way, you get an instant overview of a PHP application, with all the usual functions of a software design tool (such as class diagrams exportation, refactoring of object-oriented applications, or automatic code generation).
+
+PHP_UML:
+- Can generate UML/XMI files in version 1.4, or in version 2.1 (logical, component, and deployment views)
+- Can generate an API documentation in HTML format
+- Can generate PHP code (code skeleton) from a given XMI file
+- Can convert UML/XMI content from version 1.4 to version 2.1
+
+PHP_UML:
+- Parses object-oriented PHP code, in all versions (classes, interfaces, functions, properties...)
+- From version 1.5, PHP_UML can also parse procedural code (functions and constants). See the &quot;htmlnew&quot; exportation format
+- Interprets the PHP namespacing instructions (namespace and use)
+- Parses comment docblocks: class (@package), function (@param, @return), property (@var) and header file comments (@package)
+- Detects types (by parsing the type hints, and by analyzing the default values)</description>
+ <lead>
+  <name>Baptiste Autin</name>
+  <user>Baptiste</user>
+  <email>ohlesbeauxjours@yahoo.fr</email>
+  <active>yes</active>
+ </lead>
+ <date>2010-03-19</date>
+ <time>22:16:59</time>
+ <version>
+  <release>1.5.2</release>
+  <api>1.5.2</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+ <notes>
+* Bug fix release that prevents crashes when parsing incorrect PHP class names
+ </notes>
+ <contents>
+  <dir baseinstalldir="PHP" name="/">
+   <file baseinstalldir="" md5sum="6627fadfefe7fcf9133858efd7bc0abf" name="data/phpuml.xml" role="data">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+    <tasks:windowseol />
+   </file>
+   <file baseinstalldir="PHP" md5sum="3bdb2460c805c605a1b6026d5856195d" name="docs/argouml.png" role="doc" />
+   <file baseinstalldir="PHP" md5sum="0b0d8cfb7327ddfd5a317f559ba3bafc" name="docs/bouml.png" role="doc" />
+   <file baseinstalldir="PHP" md5sum="27c8ae26ed04af824127ee3047dc4e0b" name="docs/LOGICIELS_A_UTILISER_AVEC_PHP_UML" role="doc" />
+   <file baseinstalldir="PHP" md5sum="ff50b01938a12be26487a1616a19e874" name="docs/PHP_UML_simplified_class_diagram.png" role="doc" />
+   <file baseinstalldir="PHP" md5sum="b79680ffca5dfd1c5a1f44e1b136a3c5" name="docs/rational_rose.png" role="doc" />
+   <file baseinstalldir="PHP" md5sum="e7ee82c7bdee2a088fb6aae63ef9eeae" name="docs/README" role="doc" />
+   <file baseinstalldir="PHP" md5sum="40cbd98ab274bb49b4c8d52a74e8b0a3" name="docs/readme.html" role="doc" />
+   <file baseinstalldir="PHP" md5sum="36b5356d79c7b590f166559d05aab9d7" name="docs/SOFTWARES_TO_USE_WITH_PHP_UML" role="doc" />
+   <file baseinstalldir="PHP" md5sum="1e639fb69f545a66baa9ad02b0edf19e" name="examples/example1_rational_rose.png" role="doc" />
+   <file baseinstalldir="PHP" md5sum="cb9d176507da1e5a0f64edabb6b1757f" name="examples/example2_bouml.png" role="doc" />
+   <file baseinstalldir="PHP" md5sum="75fecf3be1eba25d57febdc260c825fb" name="examples/example3_argouml.png" role="doc" />
+   <file baseinstalldir="PHP" md5sum="ec923437852e550c64ba9dcc8667a0f1" name="examples/example4_in_Bouml.png" role="doc" />
+   <file baseinstalldir="PHP" md5sum="48fff5e46e502478dd2bd36f9808f680" name="examples/test1.php.txt" role="doc" />
+   <file baseinstalldir="PHP" md5sum="49a51eb325ccd233b8d91405001a8d48" name="examples/test2.php.txt" role="doc" />
+   <file baseinstalldir="PHP" md5sum="d5d24c91bcc481a5273c3d9962292f29" name="examples/test3.php.txt" role="doc" />
+   <file baseinstalldir="PHP" md5sum="3e8d1ca967378112df8fa612fb991491" name="examples/test4.php.txt" role="doc" />
+   <file baseinstalldir="PHP" md5sum="2bc95b705ccc78e261235b17f2e86985" name="examples/test5_cs.php.txt" role="doc" />
+   <file baseinstalldir="PHP" md5sum="b423dd63d0d14abdea2640afe6755867" name="examples/test_to_run.php" role="doc" />
+   <file baseinstalldir="" md5sum="8c0db24336519f2ef99c5e9bde6df7d0" name="scripts/phpuml" role="script">
+    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
+    <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+    <tasks:unixeol />
+   </file>
+   <file baseinstalldir="" md5sum="49720d64c273e9c4566d117c0b860035" name="scripts/phpuml.bat" role="script">
+    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
+    <tasks:replace from="@bin_dir@" to="bin_dir" type="pear-config" />
+    <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
+    <tasks:windowseol />
+   </file>
+   <file baseinstalldir="PHP" md5sum="dc5d9263724cf0e3ec0893f7a322ff08" name="tests/UmlParserTest.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="5e3e38fb32eb34bdf3651d04479c206a" name="tests/UmlXmiTest.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="64919882544227755501cd4bafff1421" name="tests/suite/bug-090827.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="c46793ae1dfb1019a045d28d8bfc7a09" name="tests/suite/bug-489398.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="b51b1291053b271dabc5fed9202aef49" name="tests/suite/bug-540341.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="ad75cdbd45691d5388c27f4129ad33d3" name="tests/suite/bug-540368.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="b69c64a0d538851509e57abb903013a6" name="tests/suite/bug-541886.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="5a7ca7e5a535372e1c67165db2aedbbd" name="tests/suite/bug-542586.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="bfe4b1ae56eb554b9b6eaf096fcd97d4" name="tests/suite/bug-548331.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="6e2f1b69e59ca6f9d20a7ce208fb7563" name="tests/suite/bug-550489.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="962fb13083d181a2b89863ca80ee5c4b" name="tests/suite/bug-553138.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="9ede1e02ed8cf36578621d8a308f1a17" name="tests/suite/bug-553560.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="7172e3aa5d8b84b706057f72a07590a4" name="tests/suite/bug-553607.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="a16237fcced22d78ab580cd205712c4d" name="tests/suite/bug-555768.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="28570958846098288f3757802b7b26c0" name="tests/suite/bug-556031-01.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="da0ca3719d2506dbaa754a323a94faba" name="tests/suite/bug-556031.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="2feee0bd67e8f059e09c4b89af48e51e" name="tests/suite/bug-556860.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="1395150a2491daee3c1a1c0d2ef764ae" name="tests/suite/bug-556894.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="42d9c0eaa800b57b3035fa7c35dbca76" name="tests/suite/bug-557390.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="7c94d5ea59a4eb1f7c71a2c2129fe445" name="tests/suite/bug-557861.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="c00e1e3700da477f643fcfdfbe117972" name="tests/suite/bug-558051.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="53fd383af12103b5d6d8860f75f75d03" name="tests/suite/bug-559494.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="52169b4aa5d8efd9064f83cd06eccab6" name="tests/suite/bug-561101.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="05d9b37823efddcd90fef77e5901b572" name="tests/suite/bug-562997.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="e707bbba73ba826f32ac2b7a7124f4fa" name="tests/suite/bug-566600.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="1d7e708a3e441e65d14bd9bc88eba6e0" name="tests/suite/bug-567059.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="ddd98384bf78da8e8671f901fd3969d3" name="tests/suite/bug-587733.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="c632ead68c31fd6d237624d1dbaf6cc8" name="tests/suite/bug-772441.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="9f0d2faeae79c78fb7420aac986e7fa6" name="tests/suite/bug-actions.class.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="00473db36b16f7df7bf1fba917a3df25" name="tests/suite/bug-closer-1.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="1a7b34b52a0fae8e342634d190229568" name="tests/suite/bug-closer-2.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="842d7dce14e4d744c69ac99332220a0e" name="tests/suite/bug-curls.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="458ee6cf871a8c3b3b0666c7ed8ff4d2" name="tests/suite/bug-escaping.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="be1895d346339b494da3ba435420b7e7" name="tests/suite/bug-loseprocedural.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="1236342729dbd54fd63d14fc566039c3" name="tests/suite/bug-loseunknowntags.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="48e8e0fd30552fbbd418c874117b0832" name="tests/suite/EMOF_test_sample.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="2ce4ff2e3c8a1fa9be104d78cf0ee955" name="tests/suite/emptyns1.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="e5186f1c9069247e4318c1c22eb35972" name="tests/suite/emptyns2.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="a8276c2f8d1dd56de598dfe6451e55c8" name="tests/suite/emptyns3.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="b53e98be513481cebaef5ece2faaa211" name="tests/suite/emptyns4.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="48eb092634a40711db04bdcf36b4d197" name="tests/suite/emptyns5.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="814f855bc0107a38d6bf2add6c4fd47e" name="tests/suite/emptyns6.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="54f42ad5d0f7a546837fe5737f09fa28" name="tests/suite/PHP_test_sample.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="eb07c1a9fb72e62e0dabcc653d2273dc" name="tests/suite/PHP_UML_test_sample.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="a327a803f4be65eddb80fcd446b50e9e" name="tests/suite/test1.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="d2996d6a0ccabb94316531b63e75cf15" name="tests/suite/test2.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="720f267d0715e1af28b29374b406586b" name="tests/suite/test3.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="3e8d1ca967378112df8fa612fb991491" name="tests/suite/test4.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="2bc95b705ccc78e261235b17f2e86985" name="tests/suite/test5_cs.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="2d8fe53c97e458a4ec6e914b41ca023b" name="tests/suite/test_implements.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="0bba0e557c0fce6d3c0f0eac59ad9689" name="tests/suite/test_internal.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="077a3ca4dd3271c87bb5b6947dcddfaf" name="tests/suite/test_namespace1.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="ab821ad1f9f028853bc1aeb65b04400d" name="tests/suite/test_namespace2.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="fea914593d9fafdf0fe35e692a1bcb71" name="tests/suite/test_namespace3.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="e22193b771c2e96b5abb90ae5845fdc5" name="tests/suite/test_non-strict-mode-features1.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="89b2d13462f47fb99c0d900bc4009c56" name="tests/suite/test_non-strict-mode-features2.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="b8e094b4609b365f38c20fe843abcab8" name="tests/suite/test_only_api.php" role="test" />
+   <file baseinstalldir="PHP" md5sum="e007a55134b1759541e61498e5bba21c" name="tests/suite/data-providers/bug-090827.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="eb7a731ef1e65d7ca282a50d11fb9877" name="tests/suite/data-providers/bug-489398.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="0f510b1cfff5ad7650f3d3385a14485d" name="tests/suite/data-providers/bug-540341.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="2564c7aa35353b9e423b293c69cfa23d" name="tests/suite/data-providers/bug-540368.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="cb691284a012ec81477b88402711aca2" name="tests/suite/data-providers/bug-541886.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="f5955b26d016a5169c9c43c1481bc133" name="tests/suite/data-providers/bug-542586.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="3b7ca36f6ffc65f782b1703dfed98f64" name="tests/suite/data-providers/bug-548331.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="b0f4ad746e8f627f8e9cb128be148f74" name="tests/suite/data-providers/bug-550489.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="676cf9bae01279d602f794865cf681f3" name="tests/suite/data-providers/bug-553138.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="4db6a553b72a9a2eab455b2ce1065675" name="tests/suite/data-providers/bug-553560.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="4f8fd03ef69be8f04fd3b376f006e428" name="tests/suite/data-providers/bug-553607.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="177480ff5867bc24905b3610bf2711ee" name="tests/suite/data-providers/bug-555768.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="f193ddc70a03232b41f1f80f5c4c3ebf" name="tests/suite/data-providers/bug-556031-01.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="83937c83200789e5adaac3e2f1b20bf5" name="tests/suite/data-providers/bug-556031.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="8d1dbf4bd4cc558daf347e0ab05b5938" name="tests/suite/data-providers/bug-556860.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="8ddd9abc5fa6749e7727d469f3507ccc" name="tests/suite/data-providers/bug-556894.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="f49ab67a43751e569da37471ded08760" name="tests/suite/data-providers/bug-557390.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="c1c610fea35a4adff8ef1b53ea30bcd2" name="tests/suite/data-providers/bug-557861.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="67fbd77b9b2d500b0909659f529563b0" name="tests/suite/data-providers/bug-558051.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="22ff20415257b6053ceb2d5e0db32612" name="tests/suite/data-providers/bug-559494.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="b615e8311094f5c830a602d635b551ac" name="tests/suite/data-providers/bug-561101.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="8327726990a7c57d33bcf9dd9fe0cf23" name="tests/suite/data-providers/bug-562997.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="311759fc00bc7e5eb298babd904b1d2f" name="tests/suite/data-providers/bug-566600.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="43fb399767796b84ccd88f216b27e491" name="tests/suite/data-providers/bug-567059.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="8becccdd01abfe1e9ef23136abcaf5ca" name="tests/suite/data-providers/bug-587733.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="352460230834372da6102ac5c3a9775b" name="tests/suite/data-providers/bug-772441.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="8ad4ed0486f71342a78f04d8d732439f" name="tests/suite/data-providers/bug-actions.class.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="486d6dcdecc123350282f6fb4ea5fc5b" name="tests/suite/data-providers/bug-closer-1.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="893e226cc8c721ea53613cab78f108a9" name="tests/suite/data-providers/bug-closer-2.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="45d6aeec5555b64880fab2673d719485" name="tests/suite/data-providers/bug-curls.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="ca67adb3d4ba439989936949f1188f4f" name="tests/suite/data-providers/bug-escaping.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="f5ec1149e362e17245ed4131caa23ac9" name="tests/suite/data-providers/bug-loseprocedural.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="dd6fa7b4c71d9f477ec7f85630c27073" name="tests/suite/data-providers/bug-loseunknowntags.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="1581894bc61284e32b7e94c252425b4c" name="tests/suite/data-providers/EMOF_test_sample.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="df5f41a5719b11706d4a9df6d6f87ea9" name="tests/suite/data-providers/emptyns1.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="376859fbcbf4b96b47a6ad369abc37b2" name="tests/suite/data-providers/emptyns2.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="92c62c7dd528736a6e8a2eb7f9342f3a" name="tests/suite/data-providers/emptyns3.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="c3125bae1e3b041d0cd3b85ed0527436" name="tests/suite/data-providers/emptyns4.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="01960c99b690389e239d6aaf1684a586" name="tests/suite/data-providers/emptyns5.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="2be5ab4a86ec72e83b946f6ac977b745" name="tests/suite/data-providers/emptyns6.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="48b17738e891b450b30644795db4e5ed" name="tests/suite/data-providers/global.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="391ef15388664cb0317005146c911b54" name="tests/suite/data-providers/global1.xmi" role="test" />
+   <file baseinstalldir="PHP" md5sum="d906288b798e242b43d41f68ec7d2230" name="tests/suite/data-providers/global2.xmi" role="test" />
+   <file baseinstalldir="PHP" md5sum="051f1327db6765283a438d244bd88ec7" name="tests/suite/data-providers/PHP_test_sample.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="e4cfa5ec4168a24d772ba017dfd9d0ea" name="tests/suite/data-providers/PHP_UML_test_sample.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="88c0161d8aa1b40ca9775ff6515d8b4f" name="tests/suite/data-providers/test1.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="da7fce912a03f926a3d6615651088b5d" name="tests/suite/data-providers/test2.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="b74de9aea6a3ddb744521b1a6249b08a" name="tests/suite/data-providers/test3.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="ed337d85c64fc3b0ac892870e896ea5f" name="tests/suite/data-providers/test4.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="b703732b415a1f769f9f597f01394108" name="tests/suite/data-providers/test5_cs.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="f8f52235e607f0233494ca339f31b244" name="tests/suite/data-providers/test_implements.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="24be1e903c7f4f7cb962a0c70ddd15de" name="tests/suite/data-providers/test_internal.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="27c90b687a95b1e123194287ff4a83e4" name="tests/suite/data-providers/test_namespace1.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="604af834b5d417eb1d0906c8cd433cc7" name="tests/suite/data-providers/test_namespace2.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="59862d326e7593c62e99709a40ce0529" name="tests/suite/data-providers/test_namespace3.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="fd76b2f351113d458f28cd0d3e4ccbe8" name="tests/suite/data-providers/test_non-strict-mode-features1.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="0b0e8163b469b97aa9f3e9911f19aeed" name="tests/suite/data-providers/test_non-strict-mode-features2.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="87affc3b2d3dd9d08d0c0e6940daf1a7" name="tests/suite/data-providers/test_only_api.php.obj" role="test" />
+   <file baseinstalldir="PHP" md5sum="ee1d0ac8f39f99499b0ea90682c0dbb7" name="UML/Exception.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="6ac6b69323a39c610bc4d001d59c5797" name="UML/FilePatternFilterIterator.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="28bc7645c7491194eef27222e00eda2d" name="UML/FileScanner.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="57f9bc936d5eb3e70fd057b8b3f2938f" name="UML/FileScannerImpl.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="a70d4db08852ef54a2e3257465dd51b5" name="UML/SimpleUID.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="c0079d54be0beefa54693e78b28401e7" name="UML/Warning.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="dc992d2a6171fcc2bff5497db3b80ff7" name="UML/Input/PHP/Parser.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="88a9afad37f1778aef6e03b237e1c92a" name="UML/Metamodel/Artifact.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="ba024b50bc8d58041c5865c60657cbce" name="UML/Metamodel/Class.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="eb6a7668b5dd24e0c0f9a079ecb47271" name="UML/Metamodel/Classifier.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="3767eb2240f0e8a9028a6726b13c9bcf" name="UML/Metamodel/Datatype.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="f888c616e36ccfc05437c2894cc2558a" name="UML/Metamodel/Enumeration.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="597ec8d8401223c2ddeef73bfffde852" name="UML/Metamodel/Interface.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="712d7a3b853f2f24fac3f7c20c620692" name="UML/Metamodel/NamedElement.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="7bb6054a09670cd8c59eb3ff0cf12580" name="UML/Metamodel/Operation.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="e515ad3c459a70c0ce64d8a802995867" name="UML/Metamodel/Package.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="bcceb25be645ace03e4f20396a386981" name="UML/Metamodel/Parameter.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="cd6eb1ea906457f48a2bebb7fdedb030" name="UML/Metamodel/Property.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="b96b9f28fd7a6eafaf8a7d64a8e72623" name="UML/Metamodel/Stereotype.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="8820fa934c3f6c8962e5ffc92f9a3a9e" name="UML/Metamodel/Superstructure.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="02c9b4a35352ae08e11b0c4fa6cf3c34" name="UML/Metamodel/Tag.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="82f29289a06a02e27160d421f6902988" name="UML/Metamodel/Type.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="4a98e2b7a39f7a04dc6d80afee893027" name="UML/Metamodel/TypedElement.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="160a0dd858aa847a7ef278da11708345" name="UML/Output/common.xsl" role="php" />
+   <file baseinstalldir="PHP" md5sum="517f1fa09cadd2539fda02fda2c04c41" name="UML/Output/Exporter.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="89b00195e2e9bab058e464f34482cf49" name="UML/Output/ExporterAPI.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="204b44c97ec8914e0de0d0d178bdd789" name="UML/Output/ExporterXSL.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="2968808d4ebda408fc9fc4619e7491c1" name="UML/Output/xmi1to2.xsl" role="php" />
+   <file baseinstalldir="PHP" md5sum="d129ab7bc5c130f684f49286ae9458ef" name="UML/Output/html/allclasses-frame.xsl" role="php" />
+   <file baseinstalldir="PHP" md5sum="58869f8a93aeb1f07873c07be1fa5590" name="UML/Output/html/classifier.xsl" role="php" />
+   <file baseinstalldir="PHP" md5sum="4bd5bb6b704a2df3f79e3ba904fecb0c" name="UML/Output/html/documentation-common.xsl" role="php" />
+   <file baseinstalldir="PHP" md5sum="8c8eac0b54012f058d27928c82e4a51b" name="UML/Output/html/documentation-generator.xsl" role="php" />
+   <file baseinstalldir="PHP" md5sum="1ce5eaf1278519cc44f4b86948dfd6a1" name="UML/Output/html/index-all.xsl" role="php" />
+   <file baseinstalldir="PHP" md5sum="f561ce9424d844e68bc98c8988d746cf" name="UML/Output/html/index.xsl" role="php" />
+   <file baseinstalldir="PHP" md5sum="66f1b403ae6b4a32f2d27c987bf34d8f" name="UML/Output/html/main.xsl" role="php" />
+   <file baseinstalldir="PHP" md5sum="2bf0f6d649cf0c43c9ce59932b5d6b4b" name="UML/Output/html/overview-frame.xsl" role="php" />
+   <file baseinstalldir="PHP" md5sum="56e16f4d4a768f56111dd4b94f45c879" name="UML/Output/html/overview-summary.xsl" role="php" />
+   <file baseinstalldir="PHP" md5sum="ee23a1592fff34124771b656d2c8444b" name="UML/Output/html/package-frame.xsl" role="php" />
+   <file baseinstalldir="PHP" md5sum="4b7246602457b76a532c18a7e55e6894" name="UML/Output/html/package-summary.xsl" role="php" />
+   <file baseinstalldir="PHP" md5sum="eeab2b60e4bcb1fbe99dcc6d81e61004" name="UML/Output/html/resources/inherit.gif" role="php" />
+   <file baseinstalldir="PHP" md5sum="f1f428ccb5224a310b38a8fa3eb34bfe" name="UML/Output/html/resources/style.css" role="php" />
+   <file baseinstalldir="PHP" md5sum="f0f2e7b9b769237bc2f346556cce32ca" name="UML/Output/HtmlNew/Context.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="6df1ef3076bb56b643bff683a5b6f289" name="UML/Output/HtmlNew/DocClass.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="393842d53e586a79aa94827f1a844ed3" name="UML/Output/HtmlNew/DocClassifier.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="1d9301159ce4ca4a928f77e6b47a57ed" name="UML/Output/HtmlNew/DocDatatype.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="46ab421794435db5d1a66cbab3726016" name="UML/Output/HtmlNew/DocIndex.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="202fca4394d4cbe2c22df152e462f095" name="UML/Output/HtmlNew/DocInterface.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="519cf52b68d490fa0ce006ccc4028154" name="UML/Output/HtmlNew/DocMenu.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="75d84efcab0f6e0b8836d9bd3d9fd102" name="UML/Output/HtmlNew/DocPackage.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="b6bff8c9ee64c3a3c42dc2bbd0794d1b" name="UML/Output/HtmlNew/Documentor.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="bbc8a3e6c1fe2de325667631289f10cb" name="UML/Output/HtmlNew/Exporter.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="e629f98efbf9987d1764f1a44ae36f63" name="UML/Output/HtmlNew/$resources/class-big.png" role="php" />
+   <file baseinstalldir="PHP" md5sum="5c69d2cc60f8d80bbdd39bacb8085864" name="UML/Output/HtmlNew/$resources/class.png" role="php" />
+   <file baseinstalldir="PHP" md5sum="652eb55a36797de6072bcd1ad1114251" name="UML/Output/HtmlNew/$resources/datatype-big.png" role="php" />
+   <file baseinstalldir="PHP" md5sum="c4b6c961c30e226249f316c927de255d" name="UML/Output/HtmlNew/$resources/datatype.png" role="php" />
+   <file baseinstalldir="PHP" md5sum="33df274c8d5700fab877e6746e8066d4" name="UML/Output/HtmlNew/$resources/expand-all.png" role="php" />
+   <file baseinstalldir="PHP" md5sum="31b62dbcb7204453724a9c4c3886e305" name="UML/Output/HtmlNew/$resources/help-big.png" role="php" />
+   <file baseinstalldir="PHP" md5sum="40910b7534892c23e6ee6143f81e90f2" name="UML/Output/HtmlNew/$resources/help.png" role="php" />
+   <file baseinstalldir="PHP" md5sum="05639a0fe110cc46f1db74ce0f987a9f" name="UML/Output/HtmlNew/$resources/index-all-big.png" role="php" />
+   <file baseinstalldir="PHP" md5sum="ab878e8918db61d32795d1fb8c686cea" name="UML/Output/HtmlNew/$resources/index-all.png" role="php" />
+   <file baseinstalldir="PHP" md5sum="9157c3c14034469592ba0437ac0b2757" name="UML/Output/HtmlNew/$resources/inherit.gif" role="php" />
+   <file baseinstalldir="PHP" md5sum="7a4a77885b8c16fb0d2ebb5041c3c0b5" name="UML/Output/HtmlNew/$resources/interface-big.png" role="php" />
+   <file baseinstalldir="PHP" md5sum="1eca510f975731d15a2e6065776af400" name="UML/Output/HtmlNew/$resources/interface.png" role="php" />
+   <file baseinstalldir="PHP" md5sum="20029e605cf1ecea3bb657e1482d10c7" name="UML/Output/HtmlNew/$resources/left.png" role="php" />
+   <file baseinstalldir="PHP" md5sum="16d21b05e7b17c8c87aaad14ef76d546" name="UML/Output/HtmlNew/$resources/method-pri.png" role="php" />
+   <file baseinstalldir="PHP" md5sum="2f79a11f7a15b801d9ad0ca98fff17e4" name="UML/Output/HtmlNew/$resources/method-pro.png" role="php" />
+   <file baseinstalldir="PHP" md5sum="fb367f4c8331379c5a09c6c8fbd05efe" name="UML/Output/HtmlNew/$resources/method-pub.png" role="php" />
+   <file baseinstalldir="PHP" md5sum="45827c6890fd168d8ede9341d7bfc64b" name="UML/Output/HtmlNew/$resources/method.png" role="php" />
+   <file baseinstalldir="PHP" md5sum="d434935c380d46766cffdd38bed3fa6d" name="UML/Output/HtmlNew/$resources/minus.gif" role="php" />
+   <file baseinstalldir="PHP" md5sum="ff88ca3a199ffd8927bdcd11de7383cf" name="UML/Output/HtmlNew/$resources/model-big.png" role="php" />
+   <file baseinstalldir="PHP" md5sum="fe92ae19b0bf67031c872f86797bd4fa" name="UML/Output/HtmlNew/$resources/model.png" role="php" />
+   <file baseinstalldir="PHP" md5sum="f0dc9138c2172600b70b4123f33463f5" name="UML/Output/HtmlNew/$resources/modele.png" role="php" />
+   <file baseinstalldir="PHP" md5sum="c9177849f40d77e7b5162f63286c57f2" name="UML/Output/HtmlNew/$resources/package-big.png" role="php" />
+   <file baseinstalldir="PHP" md5sum="305591909e1297e7e4b34e45d97dc903" name="UML/Output/HtmlNew/$resources/package.png" role="php" />
+   <file baseinstalldir="PHP" md5sum="06ab3633bd67ef5e311547033ec78e2a" name="UML/Output/HtmlNew/$resources/plus.gif" role="php" />
+   <file baseinstalldir="PHP" md5sum="9314d1b7f4c5e5d92062fecf4a21ed1d" name="UML/Output/HtmlNew/$resources/point.png" role="php" />
+   <file baseinstalldir="PHP" md5sum="0f04838cda07eab14b1e8a4514c7391a" name="UML/Output/HtmlNew/$resources/property-pri.png" role="php" />
+   <file baseinstalldir="PHP" md5sum="2d60c51b4613598f32eb4e60440b6e8f" name="UML/Output/HtmlNew/$resources/property-pro.png" role="php" />
+   <file baseinstalldir="PHP" md5sum="9d11cc9481b19f23a54f00c830ecf384" name="UML/Output/HtmlNew/$resources/property-pub.png" role="php" />
+   <file baseinstalldir="PHP" md5sum="28965c5bc340df5cb95f059840c91a0f" name="UML/Output/HtmlNew/$resources/property.png" role="php" />
+   <file baseinstalldir="PHP" md5sum="aa528bcde58f88a62acb83c91e569473" name="UML/Output/HtmlNew/$resources/right.png" role="php" />
+   <file baseinstalldir="PHP" md5sum="07ce6c00d35b1c781cee37cea10cdfbf" name="UML/Output/HtmlNew/$resources/square.png" role="php" />
+   <file baseinstalldir="PHP" md5sum="abed30b6a1e7d351e2f23715e1e8b311" name="UML/Output/HtmlNew/$resources/style.css" role="php" />
+   <file baseinstalldir="PHP" md5sum="2a7691bd87da166d59e50f8cab7c6e47" name="UML/Output/HtmlNew/$resources/top.png" role="php" />
+   <file baseinstalldir="PHP" md5sum="0bc9922e8f0b56689ef05901eae420ec" name="UML/Output/HtmlNew/$resources/treeview.js" role="php" />
+   <file baseinstalldir="PHP" md5sum="c8f446e2f1dac867c259d9e2134b427f" name="UML/Output/HtmlNew/templates/help.htm" role="php" />
+   <file baseinstalldir="PHP" md5sum="548139943b5d38eefb5c9572c3ab1a2c" name="UML/Output/HtmlNew/templates/index-all.htm" role="php" />
+   <file baseinstalldir="PHP" md5sum="5ac9de6471cd44380dbe1ae858147c7f" name="UML/Output/HtmlNew/templates/index.htm" role="php" />
+   <file baseinstalldir="PHP" md5sum="829415e0615cbb29d1964decdea7d73d" name="UML/Output/HtmlNew/templates/main.htm" role="php" />
+   <file baseinstalldir="PHP" md5sum="a634dff718a9ab5343f1255167d02108" name="UML/Output/HtmlNew/templates/menu.htm" role="php" />
+   <file baseinstalldir="PHP" md5sum="717211a0a563c23dc51c22aabf5fa78d" name="UML/Output/php/classifier.xsl" role="php" />
+   <file baseinstalldir="PHP" md5sum="32b22ae0d03cd1438a6861e1a5030ecf" name="UML/Output/php/code-common.xsl" role="php" />
+   <file baseinstalldir="PHP" md5sum="782083ed72948e9e98b5b18bf5d54663" name="UML/Output/php/code-generator.xsl" role="php" />
+   <file baseinstalldir="PHP" md5sum="e8b3b3ee29d64fd3941ecbbbc6276e58" name="UML/Output/php/main.xsl" role="php" />
+   <file baseinstalldir="PHP" md5sum="4b9f81441a75d4760897bec42826f5da" name="UML/Output/Xmi/AbstractBuilder.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="ae1e2a682512171323fbb3045790574b" name="UML/Output/Xmi/Builder.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="17f1e7675f3f09741fc114de240a5de7" name="UML/Output/Xmi/BuilderImpl1.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="0c460a18fd6d91c4880596fb85f53933" name="UML/Output/Xmi/BuilderImpl2.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="fc0b6ccb7ea3199299bcfffe9ccd8982" name="UML/Output/Xmi/Exporter.php" role="php" />
+   <file baseinstalldir="PHP" md5sum="dea30ccbffc938e2c9d19805cd3e31ac" name="UML.php" role="php" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0</min>
+   </pearinstaller>
+   <package>
+    <name>Console_CommandLine</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <extension>
+    <name>SPL</name>
+   </extension>
+   <extension>
+    <name>XSL</name>
+   </extension>
+  </required>
+  <optional />
+ </dependencies>
+ <phprelease>
+  <installconditions>
+   <os>
+    <name>windows</name>
+   </os>
+  </installconditions>
+  <filelist>
+   <install as="phpuml" name="scripts/phpuml" />
+   <install as="phpuml.bat" name="scripts/phpuml.bat" />
+  </filelist>
+ </phprelease>
+ <phprelease>
+  <filelist>
+   <install as="phpuml" name="scripts/phpuml" />
+   <ignore name="scripts/phpuml.bat" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.4.2</release>
+    <api>0.4.2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2008-05-15</date>
+   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+   <notes>
+Initial release
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.4.3</release>
+    <api>0.4.3</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2008-06-13</date>
+   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+   <notes>
+Initial release
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.4.4</release>
+    <api>0.4.4</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2009-01-04</date>
+   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+   <notes>
+Initial release
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5.1</release>
+    <api>0.5.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2009-01-09</date>
+   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+   <notes>
+* Brand new parser, faster and more reliable
+* Console command line
+* Two additional exportation formats available:
+   - HTML API documentation (like Javadoc)
+   - PHP code skeletons
+* Full namespace support (the &quot;namespace&quot; and &quot;use&quot; instructions). Works only from PHP 5.3
+* Namespace comments support
+* acceptedExtension and ignoredDirectories properties deprecated, in favour of setMatchPatterns() and setIgnorePatterns() (accept wildcards)
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5.2</release>
+    <api>0.5.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2009-01-18</date>
+   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+   <notes>
+* Can now convert UML/XMI data written in version 1.4 to version 2.1 (ad hoc conversion). This allows the PHP code generation to work directly on a XMI file in version 1.x
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5.3</release>
+    <api>0.5.3</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2009-06-11</date>
+   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+   <notes>
+* Fixes 2 strict warnings (static call to non-static method, assign by reference)
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2009-07-22</date>
+   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+   <notes>
+* setIgnorePatterns() now accepts pathnames, not only simple filenames
+* API elements (classes, functions, properties) whose docblocks contain @internal are skipped, unless otherwise stated (thanks to Karsten Dambekalns)
+* When the mode &quot;onlyAPI&quot; is on (by default, it is off), only the elements whose docblocks contain @api are included in the final API (thanks to Karsten Dambekalns)
+* Console_CommandLine is now a required dependency
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2009-08-27</date>
+   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+   <notes>
+* bug fixes (curlies inside string constants, setMatchPatterns and setIgnorePatterns)
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.5.0</release>
+    <api>1.5.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2009-12-14</date>
+   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+   <notes>
+* Added a new exportation format (&quot;htmlnew&quot;) for a better browsing experience.
+* PHP_UML can now parse procedural code (functions and constantes). The &quot;htmlnew&quot; format benefits from this new capability, which makes PHP_UML closer to a tool like PHPDocumentor
+* Fixed a bug with quotes
+* Major refactoring of the API. PHP_UML is now structured in 3 main packages: &quot;Input&quot; contains the classes that are used to build an UML model (Parser for ex), &quot;Output&quot; contain the classes that can serialize/export an UML model into something else, and &quot;Metamdodel&quot; contains all the metaclasses that the model is made of.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.5.1</release>
+    <api>1.5.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2010-01-09</date>
+   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+   <notes>
+* Bug fix release about anonymous functions / closures
+* Fixed a bug in package.xml
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.5.2</release>
+    <api>1.5.2</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2010-03-19</date>
+   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+   <notes>
+* Bug fix release that prevents crashes when parsing incorrect PHP class names
+   </notes>
+  </release>
+ </changelog>
+</package>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Copyright 2010-2012 by PHP-maven.org
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+	http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+	<properties>
+		<title>Maven for PHP - Testing phase</title>
+		<author email="mep_eisen@web.de">
+			Martin Eisengardt
+		</author>
+	</properties>
+	
+	<head>
+		<title>Maven for PHP - Testing phase</title>
+		<meta name="keyword" content="apache, maven, php, php-maven, maven tutorial, php maven tutorial, maven test, mvn test, php test, phpunit, maven phpunit, maven php test, php testing, maven testing" />		
+	</head>
+	
+	<body>
+	
+		<p style="text-align:center">[ <a href="tut-lifecycle-developing.html">Previous</a> | <a href="tutorials.html">TOC</a> | <a href="tut-lifecycle-building.html">Next</a> ]</p>
+		
+		<section name="Testing phase">
+		
+			<subsection name="Preamble">
+			<p>After learning how to develop your application you will need some tests. Within this chapter we will focus on
+			PHPUnit tests. However we do not explain unit tests themselves nor do we explain other test frameworks here.
+			There will be a detailed tutorial chapter on testing later on. We won&apos;t discuss special options on PHPUnit here.</p>
+			</subsection>
+		
+			<subsection name="Setup your pom">
+			<p>Following the conventions about creating your pom you should already have a dependency on PHPUnit for
+			testing. If you do not have this dependency simply edit your pom and add the following snippet:</p>
+		
+			<source><![CDATA[
+<project>
+  ...
+  <dependencies>
+    ...
+    <dependency>
+      <groupId>org.phpunit</groupId>
+      <artifactId>phpunit5</artifactId>
+      <version>3.3.9</version>
+      <scope>test</scope>
+    </dependency>
+    ...
+  </dependencies>
+  ...
+</project>
+			]]>
+			</source>
+		
+			<p>Of course you could use other versions of PHPUnit here as long as they are available in the local repository.
+			Note that the php-maven plugin will not be able to detect the PHPUnit by itself. It requires you to set at least
+			something that is similar to PHPUnit and that can be included by the helper scripts php-maven executes for testing.
+			So you are always able to use another patched version as a dependency.
+			</p>
+			</subsection>
+		
+			<subsection name="Writing the unit test">
+			<p>Writing the unit test is easy. Put a file ending with suffix &quot;Test.php&quot; within the folder &quot;src/test/php&quot;.
+			For example the file &quot;FooTest.php&quot;.</p>
+			
+			<source><![CDATA[
+<?php
+/**
+ * The foo test class
+ * 
+ * @author mepeisen
+ */
+class FooTest extends PHPUnit_Framework_TestCase
+{
+	
+	/**
+	 * tests the bar function
+	 */
+	public function testBar()
+	{
+		include "org/sample/app.php";
+		$this->fail('we will fail');
+	}
+	
+}
+			]]></source>
+		
+			<p>During execution of the test cases php-maven will automatically setup the include path. So you can assume that you
+			always can require the php files of corresponding files within the main sources folder. The PHPUnit framework itself
+			will be included too.</p>
+			
+			<p>Every test class will be executed. That may not be your intention but you will find out how to invoke only some unit
+			tests later on in this tutorial. So what happens here? There is one test method that includes a file from the main
+			sources and simply fails. Of course this is not a good test if it always fails. But let us write such an always-failing
+			test because you should become familiar on how php-maven and maven itself are handling testing.</p>
+			</subsection>
+		
+			<subsection name="Executing the test">
+			<p>To execute the test simply execute the following command:</p>
+			
+			<source>mvn test</source>
+			
+			<p>As we expect maven will report a test failure. But as you see the include works and the test itself is executed.</p>
+		
+				<subsection name="How to ignore failing tests">
+				<p>There are multiple ways to ignore failing tests. The simplest way is to simply skip testing. This can be done by either using a
+				command line option or by editing the configuration section in your pom.xml. For historic reason maven and the surefire-plugin
+				(surefire is focused on java) have two options you may use. Php-Maven supports both of them:</p>
+			
+				<source>
+mvn -DskipTests test
+mvn -Dmaven.test.skip test
+				</source>
+			
+				<p>Try it and you see that php-maven will report to skip testing (look at the info messages) and know the build succeeds.</p>
+			
+				<p>Another way is to execute testing but ignore failures. What is the difference? It is simple. Skipping tests will skip
+				everything. That means it will skip even the tests that may succeed. If you already know that one of 500 test cases are failing you
+				may want to execute tests to see if the 499 other tests still succeed. And you may want to create a report of that test result.
+				Maybe it is an alpha version where you want to allow failing tests. There is another command line option to do it this way:</p>
+			
+				<source>mvn -Dmaven.test.failure.ignore test</source>
+			
+				<p>As you see maven will still complain that there were test failures. But the main difference is that the build itself will
+				succeed. That is really important because there is no other way to deploy your version to repositories without succeeding tests.
+				So either skip testing at all or ensure that failures are ignored if you really want to deploy something that has test failures.
+				However this is not recommended since it is good practice to ensure that all your tests succeed.</p>
+			
+				<p>As we said these flags may be inserted into your pom:</p>
+				<source><![CDATA[
+<project>
+  ...
+  <build>
+    <plugins>
+      ...
+      <plugin>
+        <groupId>org.phpmaven</groupId>
+        <artifactId>maven-php-plugin</artifactId>
+        <version>${phpmavenTagName}</version>
+        <extensions>true</extensions>
+        <configuration>
+          <skipTests>true</skipTests>
+          <maven.test.skip>true</maven.test.skip>
+          <maven.test.failure.ignore>true</maven.test.failure.ignore>
+        </configuration>
+      </plugin>
+      ...
+    </plugins>
+  </build>
+  ...
+</project>
+				]]></source>
+				</subsection>
+		
+				<subsection name="Execute single test file">
+				<p>To execute a single test case file you may use the following command:</p>
+				<source>mvn org.phpmaven:maven-php-plugin:phpunit -DtestFile=phpfile.php -DflushPHPOutput=true</source>
+				
+				<p>The flushPHPOutput flag will ensure that you see the whole test result rather than writing it silently to the file.
+				If you do not specify this flag the php output will always be invisible from command line. Note: If you specify only the
+				file name &quot;MyTest.php&quot; and you have multiple files with this suffix within different directories all of them will be
+				executed. So you should ensure that you specify at least the relative from starting from target/test-classes.</p>
+				</subsection>
+			</subsection>
+		
+		</section>
+		
+		<p style="text-align:center">[ <a href="tut-lifecycle-developing.html">Previous</a> | <a href="tutorials.html">TOC</a> | <a href="tut-lifecycle-building.html">Next</a> ]</p>
+		
+</body>
+</document>

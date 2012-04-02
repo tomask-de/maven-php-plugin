@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0" packagerversion="1.4.10">
+ <name>PHP_CodeSniffer</name>
+ <summary>PHP_CodeSniffer tokenises PHP code and detects violations of a defined set of coding standards.</summary>
+ <description>PHP_CodeSniffer is a PHP5 script that tokenises and &quot;sniffs&quot; PHP code to detect violations of a defined set of coding standards. It is an essential development tool that ensures that your code remains clean and consistent. It can even help prevent some common semantic errors made by developers.
+ </description>
+ <maintainers>
+  <maintainer>
+   <user>squiz</user>
+   <name>Greg Sherwood</name>
+   <email>gsherwood@squiz.net</email>
+   <role>lead</role>
+  </maintainer>
+  <maintainer>
+   <user>marchaos</user>
+   <name>Marc McIntyre</name>
+   <email>mmcintyre@squiz.net</email>
+   <role>lead</role>
+  </maintainer>
+  </maintainers>
+ <release>
+  <version>0.2.0</version>
+  <date>2006-10-13</date>
+  <license>BSD License</license>
+  <state>alpha</state>
+  <notes>- Added a generic standards package that will contain generic sniffs to be used in specific coding standards
+  (thanks to Frederic Poeydomenge for the idea)
+- Changed PEAR standard to use generic sniffs where available
+- Added LowerCaseConstantSniff to Generic standard
+- Added UpperCaseConstantSniff to Generic standard
+- Added DisallowShortOpenTagSniff to Generic standard
+- Added LineLengthSniff to Generic standard
+- Added UpperCaseConstantNameSniff to Generic standard
+- Added OpeningMethodBraceBsdAllmanSniff to Generic standard (contrib by Frederic Poeydomenge)
+- Added OpeningMethodBraceKernighanRitchieSniff to Generic standard (contrib by Frederic Poeydomenge)
+- Added framework for core PHP_CodeSniffer unit tests
+- Added unit test for PHP_CodeSniffer:isCamelCaps method
+- ScopeClosingBraceSniff now checks indentation of BREAK statements
+- Added new command line arg (-vv) to show developer debug output
+- Fixed some coding standard errors
+- Fixed bug #8834 : Massive memory consumption
+- Fixed bug #8836 : path case issues in package.xml
+- Fixed bug #8843 : confusion on nested switch()
+- Fixed bug #8841 : comments taken as whitespace
+- Fixed bug #8884 : another problem with nested switch() statements
+  </notes>
+  <deps>
+   <dep type="php" rel="ge" version="5.1.0" optional="no"/>
+  </deps>
+  <provides type="class" name="PHP_CodeSniffer" />
+  <provides type="function" name="PHP_CodeSniffer::process" />
+  <provides type="function" name="PHP_CodeSniffer::printErrorReport" />
+  <provides type="function" name="PHP_CodeSniffer::printErrorReportSummary" />
+  <provides type="function" name="PHP_CodeSniffer::getFiles" />
+  <provides type="function" name="PHP_CodeSniffer::standardiseToken" />
+  <provides type="function" name="PHP_CodeSniffer::resolveTstringToken" />
+  <provides type="function" name="PHP_CodeSniffer::resolveSimpleToken" />
+  <provides type="function" name="PHP_CodeSniffer::isCamelCaps" />
+  <provides type="function" name="PHP_CodeSniffer::getInstalledStandards" />
+  <provides type="function" name="PHP_CodeSniffer::isInstalledStandard" />
+  <provides type="class" name="PHP_CodeSniffer_Exception" extends="PEAR_Exception" />
+  <provides type="class" name="PHP_CodeSniffer_File" />
+  <provides type="function" name="PHP_CodeSniffer_File::addTokenListener" />
+  <provides type="function" name="PHP_CodeSniffer_File::removeTokenListener" />
+  <provides type="function" name="PHP_CodeSniffer_File::getTokens" />
+  <provides type="function" name="PHP_CodeSniffer_File::start" />
+  <provides type="function" name="PHP_CodeSniffer_File::addError" />
+  <provides type="function" name="PHP_CodeSniffer_File::addWarning" />
+  <provides type="function" name="PHP_CodeSniffer_File::getErrorCount" />
+  <provides type="function" name="PHP_CodeSniffer_File::getWarningCount" />
+  <provides type="function" name="PHP_CodeSniffer_File::getErrors" />
+  <provides type="function" name="PHP_CodeSniffer_File::getWarnings" />
+  <provides type="function" name="PHP_CodeSniffer_File::getFilename" />
+  <provides type="function" name="PHP_CodeSniffer_File::getValidScopeOpeners" />
+  <provides type="function" name="PHP_CodeSniffer_File::getDeclarationName" />
+  <provides type="function" name="PHP_CodeSniffer_File::getMethodParameters" />
+  <provides type="function" name="PHP_CodeSniffer_File::getMethodProperties" />
+  <provides type="function" name="PHP_CodeSniffer_File::getMemberProperties" />
+  <provides type="function" name="PHP_CodeSniffer_File::isReference" />
+  <provides type="function" name="PHP_CodeSniffer_File::getTokensAsString" />
+  <provides type="function" name="PHP_CodeSniffer_File::findPrevious" />
+  <provides type="function" name="PHP_CodeSniffer_File::findNext" />
+  <provides type="function" name="PHP_CodeSniffer_File::hasCondition" />
+  <provides type="function" name="PHP_CodeSniffer_Sniff::register" />
+  <provides type="function" name="PHP_CodeSniffer_Sniff::process" />
+  <provides type="class" name="PHP_CodeSniffer_Sniff_Exception" extends="Exception" />
+  <provides type="class" name="PHP_CodeSniffer_Tokens" />
+  <provides type="function" name="PHP_CodeSniffer_Tokens::getHighestWeightedToken" />
+  <provides type="class" name="PHP_CodeSniffer_CommentParser_AbstractDocElement" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_AbstractDocElement::getPreviousElement" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_AbstractDocElement::getNextElement" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_AbstractDocElement::getWhitespaceBefore" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_AbstractDocElement::getWhitespaceAfter" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_AbstractDocElement::getOrder" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_AbstractDocElement::getTag" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_AbstractDocElement::getRawContent" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_AbstractDocElement::getLine" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_AbstractDocElement::getSubElements" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_AbstractDocElement::processSubElement" />
+  <provides type="class" name="PHP_CodeSniffer_CommentParser_AbstractParser" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_AbstractParser::parse" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_AbstractParser::getLine" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_AbstractParser::parseSee" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_AbstractParser::parseComment" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_AbstractParser::parseDeprecated" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_AbstractParser::parseSince" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_AbstractParser::parseLink" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_AbstractParser::getSees" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_AbstractParser::getComment" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_AbstractParser::getLinks" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_AbstractParser::getDeprecated" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_AbstractParser::getSince" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_AbstractParser::parseTag" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_AbstractParser::getAllowedTags" />
+  <provides type="class" name="PHP_CodeSniffer_CommentParser_ClassCommentParser" extends="PHP_CodeSniffer_CommentParser_AbstractParser" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_ClassCommentParser::getAllowedTags" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_ClassCommentParser::parseLicense" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_ClassCommentParser::parseCopyright" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_ClassCommentParser::parseCategory" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_ClassCommentParser::parseAuthor" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_ClassCommentParser::parseVersion" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_ClassCommentParser::parsePackage" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_ClassCommentParser::getAuthors" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_ClassCommentParser::getVersion" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_ClassCommentParser::getLicense" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_ClassCommentParser::getCopyright" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_ClassCommentParser::getCategory" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_ClassCommentParser::getPackage" />
+  <provides type="class" name="PHP_CodeSniffer_CommentParser_CommentElement" extends="PHP_CodeSniffer_CommentParser_SingleElement" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_CommentElement::getHeadlineComment" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_CommentElement::getWhitespaceAfterHeadline" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_CommentElement::getBodyComment" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_CommentElement::isEmpty" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_DocElement::getTag" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_DocElement::getWhitespaceBefore" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_DocElement::getWhitespaceAfter" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_DocElement::getOrder" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_DocElement::getPreviousElement" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_DocElement::getNextElement" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_DocElement::getLine" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_DocElement::getRawContent" />
+  <provides type="class" name="PHP_CodeSniffer_CommentParser_FunctionCommentParser" extends="PHP_CodeSniffer_CommentParser_AbstractParser" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_FunctionCommentParser::parseParam" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_FunctionCommentParser::parseReturn" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_FunctionCommentParser::parseThrows" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_FunctionCommentParser::getParams" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_FunctionCommentParser::getReturn" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_FunctionCommentParser::getThrows" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_FunctionCommentParser::getAllowedTags" />
+  <provides type="class" name="PHP_CodeSniffer_CommentParser_MemberCommentParser" extends="PHP_CodeSniffer_CommentParser_AbstractParser" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_MemberCommentParser::parseVar" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_MemberCommentParser::getVar" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_MemberCommentParser::getAllowedTags" />
+  <provides type="class" name="PHP_CodeSniffer_CommentParser_PairElement" extends="PHP_CodeSniffer_CommentParser_AbstractDocElement" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_PairElement::getSubElements" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_PairElement::processSubElement" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_PairElement::getValue" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_PairElement::getComment" />
+  <provides type="class" name="PHP_CodeSniffer_CommentParser_ParameterElement" extends="PHP_CodeSniffer_CommentParser_AbstractDocElement" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_ParameterElement::getSubElements" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_ParameterElement::processSubElement" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_ParameterElement::getVarName" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_ParameterElement::getType" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_ParameterElement::getComment" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_ParameterElement::getWhiteSpaceBeforeType" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_ParameterElement::getWhiteSpaceBeforeVarName" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_ParameterElement::getWhiteSpaceBeforeComment" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_ParameterElement::getPosition" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_ParameterElement::alignsWith" />
+  <provides type="class" name="PHP_CodeSniffer_CommentParser_ParserException" extends="Exception" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_ParserException::getLineWithinComment" />
+  <provides type="class" name="PHP_CodeSniffer_CommentParser_SingleElement" extends="PHP_CodeSniffer_CommentParser_AbstractDocElement" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_SingleElement::getSubElements" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_SingleElement::processSubElement" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_SingleElement::getContent" />
+  <provides type="function" name="PHP_CodeSniffer_CommentParser_SingleElement::getWhitespaceBeforeContent" />
+  <provides type="class" name="PHP_CodeSniffer_Standards_AbstractPatternSniff" />
+  <provides type="function" name="PHP_CodeSniffer_Standards_AbstractPatternSniff::register" />
+  <provides type="function" name="PHP_CodeSniffer_Standards_AbstractPatternSniff::process" />
+  <provides type="function" name="PHP_CodeSniffer_Standards_AbstractPatternSniff::processPattern" />
+  <provides type="function" name="PHP_CodeSniffer_Standards_AbstractPatternSniff::prepareError" />
+  <provides type="function" name="PHP_CodeSniffer_Standards_AbstractPatternSniff::getPatterns" />
+  <provides type="function" name="PHP_CodeSniffer_Standards_AbstractPatternSniff::registerSupplementary" />
+  <provides type="function" name="PHP_CodeSniffer_Standards_AbstractPatternSniff::processSupplementary" />
+  <provides type="class" name="PHP_CodeSniffer_Standards_AbstractScopeSniff" />
+  <provides type="function" name="PHP_CodeSniffer_Standards_AbstractScopeSniff::register" />
+  <provides type="function" name="PHP_CodeSniffer_Standards_AbstractScopeSniff::process" />
+  <provides type="function" name="PHP_CodeSniffer_Standards_AbstractScopeSniff::processTokenWithinScope" />
+  <provides type="function" name="PHP_CodeSniffer_Standards_AbstractScopeSniff::processTokenOutsideScope" />
+  <provides type="class" name="PHP_CodeSniffer_Standards_AbstractVariableSniff" extends="PHP_CodeSniffer_Standards_AbstractScopeSniff" />
+  <provides type="function" name="PHP_CodeSniffer_Standards_AbstractVariableSniff::processTokenWithinScope" />
+  <provides type="function" name="PHP_CodeSniffer_Standards_AbstractVariableSniff::processTokenOutsideScope" />
+  <provides type="function" name="PHP_CodeSniffer_Standards_AbstractVariableSniff::processMemberVar" />
+  <provides type="function" name="PHP_CodeSniffer_Standards_AbstractVariableSniff::processVariable" />
+  <provides type="function" name="PHP_CodeSniffer_Standards_AbstractVariableSniff::processVariableInString" />
+  <provides type="class" name="PHP_CodeSniffer_Standards_IncorrectPatternException" extends="Exception" />
+  <provides type="class" name="Generic_Sniffs_Files_LineLengthSniff" />
+  <provides type="function" name="Generic_Sniffs_Files_LineLengthSniff::register" />
+  <provides type="function" name="Generic_Sniffs_Files_LineLengthSniff::process" />
+  <provides type="class" name="Generic_Sniffs_Methods_OpeningMethodBraceBsdAllmanSniff" />
+  <provides type="function" name="Generic_Sniffs_Methods_OpeningMethodBraceBsdAllmanSniff::register" />
+  <provides type="function" name="Generic_Sniffs_Methods_OpeningMethodBraceBsdAllmanSniff::process" />
+  <provides type="class" name="Generic_Sniffs_Methods_OpeningMethodBraceKernighanRitchieSniff" />
+  <provides type="function" name="Generic_Sniffs_Methods_OpeningMethodBraceKernighanRitchieSniff::register" />
+  <provides type="function" name="Generic_Sniffs_Methods_OpeningMethodBraceKernighanRitchieSniff::process" />
+  <provides type="class" name="Generic_Sniffs_NamingConventions_UpperCaseConstantNameSniff" />
+  <provides type="function" name="Generic_Sniffs_NamingConventions_UpperCaseConstantNameSniff::register" />
+  <provides type="function" name="Generic_Sniffs_NamingConventions_UpperCaseConstantNameSniff::process" />
+  <provides type="class" name="Generic_Sniffs_PHP_DisallowShortOpenTagSniff" />
+  <provides type="function" name="Generic_Sniffs_PHP_DisallowShortOpenTagSniff::register" />
+  <provides type="function" name="Generic_Sniffs_PHP_DisallowShortOpenTagSniff::process" />
+  <provides type="class" name="Generic_Sniffs_PHP_LowerCaseConstantSniff" />
+  <provides type="function" name="Generic_Sniffs_PHP_LowerCaseConstantSniff::register" />
+  <provides type="function" name="Generic_Sniffs_PHP_LowerCaseConstantSniff::process" />
+  <provides type="class" name="Generic_Sniffs_PHP_UpperCaseConstantSniff" />
+  <provides type="function" name="Generic_Sniffs_PHP_UpperCaseConstantSniff::register" />
+  <provides type="function" name="Generic_Sniffs_PHP_UpperCaseConstantSniff::process" />
+  <provides type="class" name="PEAR_Sniffs_Commenting_InlineCommentSniff" />
+  <provides type="function" name="PEAR_Sniffs_Commenting_InlineCommentSniff::register" />
+  <provides type="function" name="PEAR_Sniffs_Commenting_InlineCommentSniff::process" />
+  <provides type="class" name="PEAR_Sniffs_ControlStructures_ControlSignatureSniff" extends="PHP_CodeSniffer_Standards_AbstractPatternSniff" />
+  <provides type="function" name="PEAR_Sniffs_ControlStructures_ControlSignatureSniff::getPatterns" />
+  <provides type="class" name="PEAR_Sniffs_Files_IncludingFileSniff" />
+  <provides type="function" name="PEAR_Sniffs_Files_IncludingFileSniff::register" />
+  <provides type="function" name="PEAR_Sniffs_Files_IncludingFileSniff::process" />
+  <provides type="class" name="PEAR_Sniffs_Files_LineLengthSniff" extends="Generic_Sniffs_Files_LineLengthSniff" />
+  <provides type="class" name="PEAR_Sniffs_Methods_FunctionCallSignatureSniff" />
+  <provides type="function" name="PEAR_Sniffs_Methods_FunctionCallSignatureSniff::register" />
+  <provides type="function" name="PEAR_Sniffs_Methods_FunctionCallSignatureSniff::process" />
+  <provides type="class" name="PEAR_Sniffs_Methods_MethodCallArgumentSpacingSniff" />
+  <provides type="function" name="PEAR_Sniffs_Methods_MethodCallArgumentSpacingSniff::register" />
+  <provides type="function" name="PEAR_Sniffs_Methods_MethodCallArgumentSpacingSniff::process" />
+  <provides type="class" name="PEAR_Sniffs_Methods_OpeningMethodBraceSniff" extends="Generic_Sniffs_Methods_OpeningMethodBraceBsdAllmanSniff" />
+  <provides type="class" name="PEAR_Sniffs_Methods_ValidDefaultValueSniff" />
+  <provides type="function" name="PEAR_Sniffs_Methods_ValidDefaultValueSniff::register" />
+  <provides type="function" name="PEAR_Sniffs_Methods_ValidDefaultValueSniff::process" />
+  <provides type="class" name="PEAR_Sniffs_NamingConventions_ValidClassNameSniff" />
+  <provides type="function" name="PEAR_Sniffs_NamingConventions_ValidClassNameSniff::register" />
+  <provides type="function" name="PEAR_Sniffs_NamingConventions_ValidClassNameSniff::process" />
+  <provides type="class" name="PEAR_Sniffs_NamingConventions_ValidConstantNameSniff" extends="Generic_Sniffs_NamingConventions_UpperCaseConstantNameSniff" />
+  <provides type="class" name="PEAR_Sniffs_NamingConventions_ValidFunctionNameSniff" extends="PHP_CodeSniffer_Standards_AbstractScopeSniff" />
+  <provides type="function" name="PEAR_Sniffs_NamingConventions_ValidFunctionNameSniff::processTokenWithinScope" />
+  <provides type="function" name="PEAR_Sniffs_NamingConventions_ValidFunctionNameSniff::processTokenOutsideScope" />
+  <provides type="class" name="PEAR_Sniffs_PHP_ConstantSniff" extends="Generic_Sniffs_PHP_LowerCaseConstantSniff" />
+  <provides type="class" name="PEAR_Sniffs_PHP_DisallowShortOpenTagSniff" extends="Generic_Sniffs_PHP_DisallowShortOpenTagSniff" />
+  <provides type="class" name="PEAR_Sniffs_Statements_MultipleStatementSniff" />
+  <provides type="function" name="PEAR_Sniffs_Statements_MultipleStatementSniff::register" />
+  <provides type="function" name="PEAR_Sniffs_Statements_MultipleStatementSniff::process" />
+  <provides type="class" name="PEAR_Sniffs_Whitespace_ScopeClosingBraceSniff" />
+  <provides type="function" name="PEAR_Sniffs_Whitespace_ScopeClosingBraceSniff::register" />
+  <provides type="function" name="PEAR_Sniffs_Whitespace_ScopeClosingBraceSniff::process" />
+  <provides type="class" name="PEAR_Sniffs_Whitespace_ScopeIndentSniff" />
+  <provides type="function" name="PEAR_Sniffs_Whitespace_ScopeIndentSniff::register" />
+  <provides type="function" name="PEAR_Sniffs_Whitespace_ScopeIndentSniff::process" />
+  <filelist>
+   <file role="php" baseinstalldir="PHP" md5sum="0cd9ff007dcd06eb591a4b15c72a59e1" name="CodeSniffer.php"/>
+   <file role="script" baseinstalldir="" md5sum="a2387516a2ce63d205c64e84c7920103" install-as="phpcs" name="scripts/phpcs">
+    <replace type="pear-config" from="@php_bin@" to="php_bin"/>
+    <replace type="package-info" from="@package_version@" to="version"/>
+    <replace type="package-info" from="@package_state@" to="release_state"/>
+   </file>
+   <file role="script" baseinstalldir="" md5sum="2746cc5e4cfa01c8a5c49c599ea2bef3" platform="windows" install-as="phpcs.bat" name="scripts/phpcs.bat">
+    <replace type="pear-config" from="@php_bin@" to="php_bin"/>
+    <replace type="pear-config" from="@bin_dir@" to="bin_dir"/>
+    <replace type="pear-config" from="@php_dir@" to="php_dir"/>
+   </file>
+   <file role="test" baseinstalldir="" md5sum="4d2d2e3a89d14570519268786b78c439" install-as="AllTests.php" name="tests/AllTests.php"/>
+   <file role="test" baseinstalldir="" md5sum="83db100d595be589160c847cee285b5f" install-as="CodeSniffer/Core/AllTests.php" name="tests/Core/AllTests.php"/>
+   <file role="test" baseinstalldir="" md5sum="adf53fc2e544b4e930ac100163d4dee3" install-as="CodeSniffer/Core/IsCamelCapsTest.php" name="tests/Core/IsCamelCapsTest.php"/>
+   <file role="test" baseinstalldir="" md5sum="dd074e299d227ed9628da04f56ff2eb9" install-as="CodeSniffer/Standards/AllSniffs.php" name="tests/Standards/AllSniffs.php"/>
+   <file role="test" baseinstalldir="" md5sum="cdef914e4965de88ebc8fc386326f47a" install-as="CodeSniffer/Standards/AbstractSniffUnitTest.php" name="tests/Standards/AbstractSniffUnitTest.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="17f766a939fbbdc6e78d39db34c21620" name="CodeSniffer/Exception.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="78ff73a1729ffa1dd951b3664d1979a3" name="CodeSniffer/File.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="4a1929d7b623c3ee186931bc58783b31" name="CodeSniffer/Sniff.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="c93655cb274f7e8738fc5ff7ec63d829" name="CodeSniffer/SniffException.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="d935e9648bb5410f57b6801907413cad" name="CodeSniffer/Tokens.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="ac6be8c1ee5af02a5928c030470f5370" name="CodeSniffer/CommentParser/AbstractDocElement.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="66a7cab8b53c5925b70d83fc12e70424" name="CodeSniffer/CommentParser/AbstractParser.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="dc7d3e08fe9a48ee6448506ccabd4e68" name="CodeSniffer/CommentParser/ClassCommentParser.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="7b00e387083198169849afe620d96628" name="CodeSniffer/CommentParser/CommentElement.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="0bf570d1e0df4b3e17d6a805ab9bd50b" name="CodeSniffer/CommentParser/DocElement.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="53172cb0e25f2d7f917058efdae6b39c" name="CodeSniffer/CommentParser/FunctionCommentParser.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="07a42011371a4acae651944f47dc7722" name="CodeSniffer/CommentParser/MemberCommentParser.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="9afe69e790c9ad4352caeaefaa54fe3e" name="CodeSniffer/CommentParser/PairElement.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="dc529ab27d058d91e3b5a2f6b4806c6f" name="CodeSniffer/CommentParser/ParameterElement.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="9d83bf0407d6471aa669f73f8362ae2c" name="CodeSniffer/CommentParser/ParserException.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="08b994aaab49485ddadb93f8635bdb13" name="CodeSniffer/CommentParser/SingleElement.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="6aeb63b664e8750026416745289206d2" name="CodeSniffer/Standards/AbstractPatternSniff.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="e75a1454e488e446ac1bdf230d66dc98" name="CodeSniffer/Standards/AbstractScopeSniff.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="04fa462d9cdc30eeb864d1107827c174" name="CodeSniffer/Standards/AbstractVariableSniff.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="125f222784333c96c83e387d945de1fd" name="CodeSniffer/Standards/IncorrectPatternException.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="bb78a33e549ae32030e41be0505e087f" name="CodeSniffer/Standards/Generic/Sniffs/Files/LineLengthSniff.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="88f1625ff6feeb42daeb56681c9b0fcb" name="CodeSniffer/Standards/Generic/Sniffs/Methods/OpeningMethodBraceBsdAllmanSniff.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="73cc689cd2bc3566aed94f5699ae6b1f" name="CodeSniffer/Standards/Generic/Sniffs/Methods/OpeningMethodBraceKernighanRitchieSniff.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="c9fb0bf9f8d5c661817ab36659419d39" name="CodeSniffer/Standards/Generic/Sniffs/NamingConventions/UpperCaseConstantNameSniff.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="4d4ecfe5eb5af1850661d67ab5fce62d" name="CodeSniffer/Standards/Generic/Sniffs/PHP/DisallowShortOpenTagSniff.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="b7b973d877d455ef513bfc30f8c84543" name="CodeSniffer/Standards/Generic/Sniffs/PHP/LowerCaseConstantSniff.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="7af19cbeb23fb99b0181933f69051e09" name="CodeSniffer/Standards/Generic/Sniffs/PHP/UpperCaseConstantSniff.php"/>
+   <file role="test" baseinstalldir="PHP" md5sum="9a608840c8d2c4c88ff9c5a7880976de" name="CodeSniffer/Standards/Generic/Tests/Files/LineLengthUnitTest.inc"/>
+   <file role="test" baseinstalldir="PHP" md5sum="23b5cf6c47e90d804714c8a08e94df26" name="CodeSniffer/Standards/Generic/Tests/Files/LineLengthUnitTest.php"/>
+   <file role="test" baseinstalldir="PHP" md5sum="2fc13a75396a2ed77025cc20eb47d920" name="CodeSniffer/Standards/Generic/Tests/Methods/OpeningMethodBraceBsdAllmanUnitTest.inc"/>
+   <file role="test" baseinstalldir="PHP" md5sum="f3d31107a735a12a294a65506b73439b" name="CodeSniffer/Standards/Generic/Tests/Methods/OpeningMethodBraceBsdAllmanUnitTest.php"/>
+   <file role="test" baseinstalldir="PHP" md5sum="4675f661d596fd181bb9c09edf4a6e4a" name="CodeSniffer/Standards/Generic/Tests/Methods/OpeningMethodBraceKernighanRitchieUnitTest.inc"/>
+   <file role="test" baseinstalldir="PHP" md5sum="5736528c282d6acedf023114f5d99ef2" name="CodeSniffer/Standards/Generic/Tests/Methods/OpeningMethodBraceKernighanRitchieUnitTest.php"/>
+   <file role="test" baseinstalldir="PHP" md5sum="44ac68b9f619c8b0a354c95bc528c176" name="CodeSniffer/Standards/Generic/Tests/NamingConventions/UpperCaseConstantNameUnitTest.inc"/>
+   <file role="test" baseinstalldir="PHP" md5sum="16b33e1b02087b00cd0f6855d5156c1f" name="CodeSniffer/Standards/Generic/Tests/NamingConventions/UpperCaseConstantNameUnitTest.php"/>
+   <file role="test" baseinstalldir="PHP" md5sum="38ca1a09cfe67397a8673d17cbb52d37" name="CodeSniffer/Standards/Generic/Tests/PHP/DisallowShortOpenTagUnitTest.inc"/>
+   <file role="test" baseinstalldir="PHP" md5sum="0c12db87cd2fcf04a264f8b95821a3e8" name="CodeSniffer/Standards/Generic/Tests/PHP/DisallowShortOpenTagUnitTest.php"/>
+   <file role="test" baseinstalldir="PHP" md5sum="c2c3f024d5c6e2c040bf1e719988e2dd" name="CodeSniffer/Standards/Generic/Tests/PHP/LowerCaseConstantUnitTest.inc"/>
+   <file role="test" baseinstalldir="PHP" md5sum="f4cc27dca52c791963c343619e9e8ce0" name="CodeSniffer/Standards/Generic/Tests/PHP/LowerCaseConstantUnitTest.php"/>
+   <file role="test" baseinstalldir="PHP" md5sum="51d1c2f26cb4686fea1ec1cf2f5db30c" name="CodeSniffer/Standards/Generic/Tests/PHP/UpperCaseConstantUnitTest.inc"/>
+   <file role="test" baseinstalldir="PHP" md5sum="cc348dccd1fb0c881aeb70b76c200232" name="CodeSniffer/Standards/Generic/Tests/PHP/UpperCaseConstantUnitTest.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="6da9a43073312170cf0f4978da70c39e" name="CodeSniffer/Standards/PEAR/Sniffs/Commenting/InlineCommentSniff.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="aa7a9c53e939b43e92b4c94892d2d7a4" name="CodeSniffer/Standards/PEAR/Sniffs/ControlStructures/ControlSignatureSniff.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="6da2e02e5d1d4067986213ef560a4b61" name="CodeSniffer/Standards/PEAR/Sniffs/Files/IncludingFileSniff.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="588ef2a89b5eb963b5c9d4b66a78df3f" name="CodeSniffer/Standards/PEAR/Sniffs/Files/LineLengthSniff.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="79a0219b6226b8912f5f12899b940890" name="CodeSniffer/Standards/PEAR/Sniffs/Methods/FunctionCallSignatureSniff.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="c459047bcc923eed03e0d641adc787d0" name="CodeSniffer/Standards/PEAR/Sniffs/Methods/MethodCallArgumentSpacingSniff.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="f6d1ee223d4a8dfb41df9d49a5108880" name="CodeSniffer/Standards/PEAR/Sniffs/Methods/OpeningMethodBraceSniff.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="5b19d1224ea6d47b15551d3642c73161" name="CodeSniffer/Standards/PEAR/Sniffs/Methods/ValidDefaultValueSniff.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="f9e9392bb533c1041a03409d5804f6e2" name="CodeSniffer/Standards/PEAR/Sniffs/NamingConventions/ValidClassNameSniff.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="6d63d3b3a89165d84be98aef942519a7" name="CodeSniffer/Standards/PEAR/Sniffs/NamingConventions/ValidConstantNameSniff.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="05f973db45532261da322bf21a1dc38b" name="CodeSniffer/Standards/PEAR/Sniffs/NamingConventions/ValidFunctionNameSniff.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="a6d51a571b767dac705e23dfa08d4ef4" name="CodeSniffer/Standards/PEAR/Sniffs/PHP/ConstantSniff.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="37bbffa69e4a5f058dac82ab1c494b66" name="CodeSniffer/Standards/PEAR/Sniffs/PHP/DisallowShortOpenTagSniff.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="a98d1f6c69848388c8a4ec5520a4654b" name="CodeSniffer/Standards/PEAR/Sniffs/Statements/MultipleStatementSniff.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="09e482693d1720efbe5f31f5e575da7b" name="CodeSniffer/Standards/PEAR/Sniffs/WhiteSpace/ScopeClosingBraceSniff.php"/>
+   <file role="php" baseinstalldir="PHP" md5sum="a2b404b959fbab060034010e24610fdf" name="CodeSniffer/Standards/PEAR/Sniffs/WhiteSpace/ScopeIndentSniff.php"/>
+   <file role="test" baseinstalldir="PHP" md5sum="94051d09e34fc5abc19b0283fc8df30d" name="CodeSniffer/Standards/PEAR/Tests/Commenting/InlineCommentUnitTest.inc"/>
+   <file role="test" baseinstalldir="PHP" md5sum="29551e9c84ac07b6a6db38b6d816ffdf" name="CodeSniffer/Standards/PEAR/Tests/Commenting/InlineCommentUnitTest.php"/>
+   <file role="test" baseinstalldir="PHP" md5sum="59513e1fc6fd0cd42ae497fb4f87ff50" name="CodeSniffer/Standards/PEAR/Tests/ControlStructures/ControlSignatureUnitTest.inc"/>
+   <file role="test" baseinstalldir="PHP" md5sum="b703620db3dcd884fa287a6a46110eae" name="CodeSniffer/Standards/PEAR/Tests/ControlStructures/ControlSignatureUnitTest.php"/>
+   <file role="test" baseinstalldir="PHP" md5sum="ab3377fa58c36d3e6b9777a9a178e7f7" name="CodeSniffer/Standards/PEAR/Tests/Files/IncludingFileUnitTest.inc"/>
+   <file role="test" baseinstalldir="PHP" md5sum="432615dea4caffcff8944ba80089778e" name="CodeSniffer/Standards/PEAR/Tests/Files/IncludingFileUnitTest.php"/>
+   <file role="test" baseinstalldir="PHP" md5sum="24c41ce9108a872d145881df157631fc" name="CodeSniffer/Standards/PEAR/Tests/Methods/FunctionCallSignatureUnitTest.inc"/>
+   <file role="test" baseinstalldir="PHP" md5sum="87d1eb730aec8dbefa17da3f3624b0e2" name="CodeSniffer/Standards/PEAR/Tests/Methods/FunctionCallSignatureUnitTest.php"/>
+   <file role="test" baseinstalldir="PHP" md5sum="1c4d9166d88a0e3932d49dd347fa6340" name="CodeSniffer/Standards/PEAR/Tests/Methods/MethodCallArgumentSpacingUnitTest.inc"/>
+   <file role="test" baseinstalldir="PHP" md5sum="a025c4f37f5f1c1492b5831de4b4b8b7" name="CodeSniffer/Standards/PEAR/Tests/Methods/MethodCallArgumentSpacingUnitTest.php"/>
+   <file role="test" baseinstalldir="PHP" md5sum="f2e66b9da9a480c8f028a1b9a16a2d4b" name="CodeSniffer/Standards/PEAR/Tests/Methods/ValidDefaultValueUnitTest.inc"/>
+   <file role="test" baseinstalldir="PHP" md5sum="1181414fbe7f6f830f79c9f061f78ebd" name="CodeSniffer/Standards/PEAR/Tests/Methods/ValidDefaultValueUnitTest.php"/>
+   <file role="test" baseinstalldir="PHP" md5sum="b6686f13755ed6e1aa097d8a07b5d64c" name="CodeSniffer/Standards/PEAR/Tests/NamingConventions/ValidClassNameUnitTest.inc"/>
+   <file role="test" baseinstalldir="PHP" md5sum="9c7242c94025cf841d03cbbf1e9e06ca" name="CodeSniffer/Standards/PEAR/Tests/NamingConventions/ValidClassNameUnitTest.php"/>
+   <file role="test" baseinstalldir="PHP" md5sum="115fe3f564dc356377986182fad6c4d7" name="CodeSniffer/Standards/PEAR/Tests/NamingConventions/ValidFunctionNameUnitTest.inc"/>
+   <file role="test" baseinstalldir="PHP" md5sum="4b3bd2bf9a8212a16ae5f6c06dcfb900" name="CodeSniffer/Standards/PEAR/Tests/NamingConventions/ValidFunctionNameUnitTest.php"/>
+   <file role="test" baseinstalldir="PHP" md5sum="6e17a53cabd2cf3d3b14957997b5437c" name="CodeSniffer/Standards/PEAR/Tests/Statements/MultipleStatementUnitTest.inc"/>
+   <file role="test" baseinstalldir="PHP" md5sum="14eaee9d1a724144fde77001e1659fb5" name="CodeSniffer/Standards/PEAR/Tests/Statements/MultipleStatementUnitTest.php"/>
+   <file role="test" baseinstalldir="PHP" md5sum="5a4df0ed7e959add57ed3df1986bbd5d" name="CodeSniffer/Standards/PEAR/Tests/WhiteSpace/ScopeClosingBraceUnitTest.inc"/>
+   <file role="test" baseinstalldir="PHP" md5sum="2a9918d51e1d4196572dae5146e25f2b" name="CodeSniffer/Standards/PEAR/Tests/WhiteSpace/ScopeClosingBraceUnitTest.php"/>
+   <file role="test" baseinstalldir="PHP" md5sum="c19bca75a4c26555202a36ddc9032c17" name="CodeSniffer/Standards/PEAR/Tests/WhiteSpace/ScopeIndentUnitTest.inc"/>
+   <file role="test" baseinstalldir="PHP" md5sum="244476585d70fc61983198133c5cf8ce" name="CodeSniffer/Standards/PEAR/Tests/WhiteSpace/ScopeIndentUnitTest.php"/>
+  </filelist>
+ </release>
+ <changelog>
+   <release>
+    <version>0.2.0</version>
+    <date>2006-10-13</date>
+    <license>BSD License</license>
+    <state>alpha</state>
+    <notes>- Added a generic standards package that will contain generic sniffs to be used in specific coding standards
+  (thanks to Frederic Poeydomenge for the idea)
+- Changed PEAR standard to use generic sniffs where available
+- Added LowerCaseConstantSniff to Generic standard
+- Added UpperCaseConstantSniff to Generic standard
+- Added DisallowShortOpenTagSniff to Generic standard
+- Added LineLengthSniff to Generic standard
+- Added UpperCaseConstantNameSniff to Generic standard
+- Added OpeningMethodBraceBsdAllmanSniff to Generic standard (contrib by Frederic Poeydomenge)
+- Added OpeningMethodBraceKernighanRitchieSniff to Generic standard (contrib by Frederic Poeydomenge)
+- Added framework for core PHP_CodeSniffer unit tests
+- Added unit test for PHP_CodeSniffer:isCamelCaps method
+- ScopeClosingBraceSniff now checks indentation of BREAK statements
+- Added new command line arg (-vv) to show developer debug output
+- Fixed some coding standard errors
+- Fixed bug #8834 : Massive memory consumption
+- Fixed bug #8836 : path case issues in package.xml
+- Fixed bug #8843 : confusion on nested switch()
+- Fixed bug #8841 : comments taken as whitespace
+- Fixed bug #8884 : another problem with nested switch() statements
+    </notes>
+   </release>
+   <release>
+    <version>0.1.1</version>
+    <date>2006-09-25</date>
+    <license>BSD License</license>
+    <state>alpha</state>
+    <notes>- Added unit tests for all PEAR sniffs
+- Exception class now extends from PEAR_Exception
+- Fixed summary report so files without errors but with warnings are not shown when warnings are hidden
+    </notes>
+   </release>
+   <release>
+    <version>0.1.0</version>
+    <date>2006-09-19</date>
+    <license>BSD License</license>
+    <state>alpha</state>
+    <notes>- Reorganised package contents to conform to PEAR standards
+- Changed version numbering to conform to PEAR standards
+- Removed duplicate require_once() of Exception.php from CodeSniffer.php
+    </notes>
+   </release>
+   <release>
+    <version>0.0.5</version>
+    <date>2006-09-18</date>
+    <license>BSD License</license>
+    <state>alpha</state>
+    <notes>- Fixed .bat file for situation where php.ini cannot be found so include_path is not set
+    </notes>
+   </release>
+   <release>
+    <version>0.0.4</version>
+    <date>2006-08-28</date>
+    <license>BSD License</license>
+    <state>alpha</state>
+    <notes>- Added .bat file for easier running of PHP_CodeSniffer on Windows
+- Sniff that checks method names now works for PHP4 style code where there is no scope keyword
+- Sniff that checks method names now works for PHP4 style constructors
+- Sniff that checks method names no longer incorrectly reports error with magic methods
+- Sniff that checks method names now reports errors with non-magic methods prefixed with __
+- Sniff that checks for constant names no longer incorrectly reports errors with heredoc strings
+- Sniff that checks for constant names no longer incorrectly reports errors with created objects
+- Sniff that checks indentation no longer incorrectly reports errors with heredoc strings
+- Sniff that checks indentation now correctly reports errors with improperly indented multi-line strings
+- Sniff that checks function declarations now checks for spaces before and after an equals sign for default values
+- Sniff that checks function declarations no longer incorrectly reports errors with multi-line declarations
+- Sniff that checks included code no longer incorrectly reports errors when return value is used conditionally
+- Sniff that checks opening brace of function no longer incorrectly reports errors with multi-line declarations
+- Sniff that checks spacing after commas in function calls no longer reports too many errors for some code
+- Sniff that checks control structure declarations now gives more descriptive error message
+    </notes>
+   </release>
+   <release>
+    <version>0.0.3</version>
+    <date>2006-08-22</date>
+    <license>BSD License</license>
+    <state>alpha</state>
+    <notes>- Added sniff to check for invalid class and interface names
+- Added sniff to check for invalid function and method names
+- Added sniff to warn if line is greater than 85 characters
+- Added sniff to check that function calls are in the correct format
+- Fixed error where comments were not allowed on the same line as a control structure declaration
+- Added command line arg to print current version (--version)
+    </notes>
+   </release>
+   <release>
+    <version>0.0.2</version>
+    <date>2006-07-25</date>
+    <license>BSD License</license>
+    <state>alpha</state>
+    <notes>- Removed the including of checked files to stop errors caused by parsing them
+- Removed the use of reflection so checked files do not have to be included
+- Memory usage has been greatly reduced
+- Much faster tokenising and checking times
+- Reworked the PEAR coding standard sniffs (much faster now)
+- Fix some bugs with the PEAR scope indentation standard
+- Better checking for installed coding standards
+- Can now accept multiple files and dirs on the command line
+- Added an option to list installed coding standards
+- Added an option to print a summary report (number of errors and warnings shown for each file)
+- Added an option to hide warnings from reports
+- Added an option to print verbose output (so you know what is going on)
+- Reordered command line args to put switches first (although order is not enforced)
+- Switches can now be specified together (eg. php -nv) as well as separately (phpcs -n -v)
+    </notes>
+   </release>
+   <release>
+    <version>0.0.1</version>
+    <date>2006-07-19</date>
+    <license>BSD License</license>
+    <state>alpha</state>
+    <notes>Initial preview release.
+    </notes>
+   </release>
+ </changelog>
+</package>

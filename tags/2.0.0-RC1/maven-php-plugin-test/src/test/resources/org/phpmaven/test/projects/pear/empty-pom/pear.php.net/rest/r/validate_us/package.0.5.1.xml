@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Validate_US</name>
+  <summary>Validation class for US</summary>
+  <description>Package containes locale validation for US such as:
+ * SSN
+ * Postal Code
+ * Regions (States)
+ * Phone Numbers</description>
+  <maintainers>
+    <maintainer>
+      <user>busterb</user>
+      <name>Brent Cook</name>
+      <email>busterbcook@yahoo.com</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>timmyg</user>
+      <name>Tim Gallagher</name>
+      <email>timg@sunflowerroad.com</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>dufuz</user>
+      <name>Helgi Þormar</name>
+      <email>dufuz@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>davidc</user>
+      <name>David Coallier</name>
+      <email>davidc@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.5.1</version>
+    <date>2005-09-23</date>
+    <license>PHP</license>
+    <state>beta</state>
+    <notes>- Made smaller regexes for phone numbers.
+- Fixed a bug in the phone number validation, now if there's an open
+'(' you need to have a ')' that closes it.
+-  Fix bug 4914: No $this in static method ! Reset last url case of read error.
+
+- Split from Validate into independent package
+- CS fixes
+- region() added in US (that is validation of the states)
+- phoneNumber() added.  hasn't had a release in too long.
+- Fix Bug #4068 Always returns true if area code is required in Validate_US::phoneNumber
+- BC break!
+postalCode unified between countries (name wise), now all postcode validation funcs are named postalCode
+- Added test cases for some of the functions
+- Added a var named $high_groups which will stores result of a query to a webpage that ssnGetHighGroups
+does to get list of all high groups, this will really help keeping the load down if there is a need to validate more then one ssn
+in a row.
+- Fix an unassigned variable warning in SSN checks
+- Lots of updates to how SSN checks work (various contributors)
+Note, I'm releasing this because I just realized that I'm the maintainer and it
+hasn't had a release in too long. We really should stabilize it.</notes>
+    <deps>
+      <dep type="php" rel="ge" version="4.2.0"/>
+    </deps>
+    <filelist>
+      <file role="php" md5sum="d7cddd5efe1cefc7c1e11e0bbbecec05" name="Validate/US.php"/>
+      <file role="test" md5sum="34d96d28bccf3e12177893f2f7db60a4" name="tests/validate_US.phpt"/>
+    </filelist>
+  </release>
+</package>

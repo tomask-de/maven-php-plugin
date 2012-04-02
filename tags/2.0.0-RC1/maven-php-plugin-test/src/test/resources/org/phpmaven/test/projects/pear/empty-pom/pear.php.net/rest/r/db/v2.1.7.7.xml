@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release2
+    http://pear.php.net/dtd/rest.release2.xsd">
+ <p xlink:href="/rest/p/db">DB</p>
+ <c>pear.php.net</c>
+ <v>1.7.7</v>
+ <a>1.7.7</a>
+ <mp>4.3.0</mp>
+ <st>stable</st>
+ <l>PHP License</l>
+ <m>aharvey</m>
+ <s>Database Abstraction Layer</s>
+ <d>DB is a database abstraction layer providing:
+* an OO-style query API
+* portability features that make programs written for one DBMS work with other DBMS's
+* a DSN (data source name) format for specifying database servers
+* prepare/execute (bind) emulation for databases that don't support it natively
+* a result object for each query response
+* portable error codes
+* sequence emulation
+* sequential and non-sequential row fetching as well as bulk fetching
+* formats fetched rows as associative arrays, ordered arrays or objects
+* row limit support
+* transactions support
+* table information interface
+* DocBook and phpDocumentor API documentation
+
+DB layers itself on top of PHP's existing
+database extensions.
+
+Drivers for the following extensions pass
+the complete test suite and provide
+interchangeability when all of DB's
+portability options are enabled:
+
+  fbsql, ibase, informix, msql, mssql,
+  mysql, mysqli, oci8, odbc, pgsql,
+  sqlite and sybase.
+
+There is also a driver for the dbase
+extension, but it can't be used
+interchangeably because dbase doesn't
+support many standard DBMS features.
+
+DB is compatible with both PHP 4 and PHP 5.
+ 
+</d>
+ <da>2007-01-07 19:46:19</da>
+ <n>This release of DB fixes numerous minor bugs and improves compatibility with
+PHP 5.2 for the msql, sqlite and sybase drivers.
+
+DB:
+* added ability to specify port number when using unix sockets in DB::parseDSN()
+  Bug 5982
+
+odbc(access):
+* Tweak quoteSmart() to allows MS Access to wrap dates
+  in #'s.  Bug 4813.
+
+dbase:
+* Added DB_dbase::freeResult().  Bug 6967.
+
+ifx:
+* Added support for error codes as at Informix 10.
+
+msql:
+* Fix error mapping in PHP 5.2.  Bug 9599.
+
+mssql:
+* Use mssql_fetch_assoc() instead of mssql_fetch_array().
+  Should resolve FreeTDS and/or Sybase issues discussed
+  in bug 1525, et al.
+* Fix issues with delimited identifiers in mssql tableInfo().
+  Bug 8336.
+* Added support for some of the key error codes introduced in SQL Server 2005.
+
+mysql:
+* fixed handling of fully qualified table names in tableInfo().  Bug 4272.
+* Added support for new error codes in MySQL 5.
+
+mysqli:
+* worked around an issue in 'len' handling of tableInfo(). There is a bug in
+  ext/mysqli or the mysqli docs.  Bug 5680.
+* Added support for new error codes in MySQL 5.
+
+oci8:
+* Allowed old-style functions to use the database DSN field if hostspec isn't
+  provided. Thanks to David Palm for the fix.  Bug 7501.
+
+pgsql:
+* When inserting to non-existant column, produce
+  proper error, &quot;no such field&quot;, instead of
+  &quot;no such table&quot;.  Bug 4365.
+
+* If connection is lost, raise DB_ERROR_CONNECT_FAILED
+  instead of the generic DB_ERROR.  Bug 4446.
+
+* Allow FETCH queries to return results.  Bug 4112.
+
+sqlite:
+* Fix bug sqlite:///:memory: trys to open file.  Bug 6599.
+* Fix error mapping in PHP 5.2.  Bug 9599.
+
+sybase:
+* Allow connecting without specifying db name.  Bug 4588.
+* Fix error mapping in PHP 5.2.  Bug 9599.
+
+storage:
+* Eliminate &quot;Undefined index $vars&quot; notice in store().  Bug 4766.</n>
+ <f>128353</f>
+ <g>http://pear.php.net/get/DB-1.7.7</g>
+ <x xlink:href="package.1.7.7.xml"/>
+</r>

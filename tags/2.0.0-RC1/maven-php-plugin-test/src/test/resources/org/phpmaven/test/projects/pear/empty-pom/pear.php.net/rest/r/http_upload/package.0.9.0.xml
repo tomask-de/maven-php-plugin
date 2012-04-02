@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>HTTP_Upload</name>
+  <summary>Easy and secure managment of files submitted via HTML Forms</summary>
+  <description>This class provides an advanced file uploader system for file uploads made
+from html forms. Features:
+ * Can handle from one file to multiple files.
+ * Safe file copying from tmp dir.
+ * Easy detecting mechanism of valid upload, missing upload or error.
+ * Gives extensive information about the uploaded file.
+ * Rename uploaded files in different ways: as it is, safe or unique
+ * Validate allowed file extensions
+ * Multiple languages error messages support (es, en, de, fr, it, nl, pt_BR)</description>
+  <maintainers>
+    <maintainer>
+      <user>cox</user>
+      <name>Tomas V.V.Cox</name>
+      <email>cox@idecnet.com</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>wenz</user>
+      <name>Christian Wenz</name>
+      <email>wenz@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>antonio</user>
+      <name>Antônio Carlos Venâncio Júnior</name>
+      <email>antonio@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.9.0</version>
+    <date>2004-08-10</date>
+    <license>LGPL</license>
+    <state>stable</state>
+    <notes>**The first release in (exactly!) two years!**
+
+- (antonio) Added support for both PHP &gt;= 4.2 and PHP 4.0-4.1
+- (antonio) Fixed a lot of bugs
+- (antonio, wenz) Fixed some localization strings
+- (wenz) if only empty files are uploaded, an error message 
+  is triggered 
+- (wenz) added setChmod() method to change CHMOD of uploaded files (patch by Markus Tacker) 
+- (cox, antonio, wenz) many minor fixes
+- (cox) Error detection was enhanced, so you no longer need to
+  check for PEAR::isError() in $upload-&gt;getFiles() or call
+  $upload-&gt;isMissing(). Instead you'll
+  get the error when do a check for $file-&gt;isError().
+
+  Example:
+
+   $upload = new HTTP_Upload('en');
+   $file = $upload-&gt;getFiles('i_dont_exist_in_form_definition');
+   if ($file-&gt;isError()) {
+      die($file-&gt;getMessage());
+   }
+
+TODO:
+
+- Move error class to a new file
+- As PEAR in general requires now PHP 4.2, maybe drop BC compat in future</notes>
+    <filelist>
+      <file role="php" baseinstalldir="HTTP" md5sum="16973767c4fcf217e0e2e36d4e2e164f" name="Upload.php"/>
+      <file role="doc" baseinstalldir="HTTP" md5sum="2cb222ea90d1dbb425f170e11b9b6ca8" name="docs\upload_example.php"/>
+    </filelist>
+  </release>
+</package>

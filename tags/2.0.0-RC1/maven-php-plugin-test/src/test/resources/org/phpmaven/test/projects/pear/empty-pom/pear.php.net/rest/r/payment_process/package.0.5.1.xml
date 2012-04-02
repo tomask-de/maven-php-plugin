@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
+<package version="1.0">
+  <name>Payment_Process</name>
+  <summary>Unified payment processor</summary>
+  <description>Payment_Process is a gateway-independent framework for processing credit cards, and eventually e-checks and other forms of payments as well.</description>
+  <maintainers>
+    <maintainer>
+      <user>ieure</user>
+      <name>Ian Eure</name>
+      <email>ieure@php.net</email>
+      <role>lead</role>
+    </maintainer>
+    <maintainer>
+      <user>jstump</user>
+      <name>Joe Stump</name>
+      <email>jstump@php.net</email>
+      <role>lead</role>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.5.1</version>
+    <date>2004-03-23</date>
+    <license>PHP License, v3.0</license>
+    <state>beta</state>
+    <notes>* Add missing $_statusCodeMap to DPILink's Result class, otherwise validate() always thinks the transaction was declined.
+* Change minimum charge to $0.99.
+* Change version to 0.5.1.</notes>
+    <deps>
+      <dep type="pkg" rel="ge" version="0.2">Net_Curl</dep>
+      <dep type="pkg" rel="ge" version="0.2.0">Validate</dep>
+    </deps>
+    <filelist>
+      <file role="php" baseinstalldir="Payment" md5sum="c0e8cf00f9dbbcb2ee98605e00f1cf2c" name="Process.php"/>
+      <file role="php" baseinstalldir="Payment" md5sum="5da5fb8b7a99ff08d3795da0863de140" name="Process/Common.php"/>
+      <file role="php" baseinstalldir="Payment" md5sum="35d882aa7a8ad902a4a20fa2c3acc4c9" name="Process/AuthorizeNet.php"/>
+      <file role="php" baseinstalldir="Payment" md5sum="b8b73be1bf1a6288b59ce0128aaec040" name="Process/Dpilink.php"/>
+      <file role="php" baseinstalldir="Payment" md5sum="914856c5e79c6640b81ace530a2ddd82" name="Process/Dummy.php"/>
+      <file role="php" baseinstalldir="Payment" md5sum="1e1781e375862e3d0d838abe9e392e33" name="Process/Offline.php"/>
+      <file role="php" baseinstalldir="Payment" md5sum="0b411bf3dc13da8055531bac1b2dd6e7" name="Process/Type.php"/>
+      <file role="php" baseinstalldir="Payment" md5sum="8bd0dbdfe0e97901d3d5f955ae26b22b" name="Process/Type/CreditCard.php"/>
+      <file role="php" baseinstalldir="Payment" md5sum="ea5e2a8f5ecf6f3c626d1a4f8e0b1be5" name="Process/Type/eCheck.php"/>
+      <file role="php" baseinstalldir="docs/Payment_Process" md5sum="e031fe1414203467bfc82f85f0df0c46" name="examples/Payment_Process-example.php"/>
+    </filelist>
+  </release>
+  <changelog>
+    <release>
+      <version>0.5</version>
+      <date>2004-03-22</date>
+      <state>beta</state>
+      <notes>* Information about the payment source is now contained in a Payment_Process_Type-derived class.
+* Authorize.net Processor added, by Joe Stump.
+* DPILink &amp; Dummy Processors updated to use new semantics.
+* A Common class was added, which contains utility functionality common to all Processors.
+</notes>
+    </release>
+    <release>
+      <version>0.2</version>
+      <date>2004-01-26</date>
+      <state>beta</state>
+      <notes>Initial PEAR package release.
+* New semantics for Payment_Process_Result class allows for processor-specific subclasses. Dummy &amp; Dpilink processors updated to new semantics.
+* Dpilink processor has been tested with TransFirst's system, and appears to be working.
+* Added example script.
+</notes>
+    </release>
+  </changelog>
+</package>

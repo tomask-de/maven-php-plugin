@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>HTML_QuickForm_Renderer_Tableless</name>
+ <channel>pear.php.net</channel>
+ <summary>A replacement for the default renderer that uses only XHTML and CSS but no table tags</summary>
+ <description>A replacement for the default renderer of HTML_QuickForm that uses only XHTML and CSS but no table tags.
+ 
+Usage: Just copy (and modify if you want) the stylesheet and do something like this:
+
+require_once &apos;HTML/QuickForm.php&apos;;
+require_once &apos;HTML/QuickForm/Renderer/Tableless.php&apos;;
+
+$form =&amp; new HTML_QuickForm();
+$renderer =&amp; new HTML_QuickForm_Renderer_Tableless();
+
+// usual code, e.g. new form fields, rules, ...
+
+$form-&gt;accept($renderer);
+echo $renderer-&gt;toHtml();</description>
+ <lead>
+  <name>Mark Wiesemann</name>
+  <user>wiesemann</user>
+  <email>wiesemann@php.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2006-07-18</date>
+ <time>16:25:45</time>
+ <version>
+  <release>0.3.1</release>
+  <api>0.3.1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.php.net/license/3_01.txt">PHP License 3.01</license>
+ <notes>- Bug #8222: several fixes to get valid XHTML code:
+  * a fieldset tag is now only closed if a fieldset tag is open
+  * the (internal) open fieldset status variable is now resetted for a second
+    (third, ...) form on the same page
+  * QuickForm&apos;s internal hidden fields are not put into an invisible div
+    (=&gt; the form template has changed)
+  * every other element is now put into a fieldset; elements that were outside
+    a fieldset in the last releases are now in a &quot;hidden&quot; fieldset (using a new
+    template that can be changed via setOpenHiddenFieldsetTemplate(), and using
+    a new CSS style &apos;form fieldset.hidden&apos; in data/stylesheet.css)
+  (thanks to Daniel Maglione, danielmaglione at gmail dot com)
+- Request #8236: the template for the opening fieldset tag now includes a variable
+  for an id which is filled with the name of the header element (if given)
+  (thanks to v8kf6x11fb5v06l at jetable dot org)</notes>
+ <contents>
+  <dir name="/">
+   <file md5sum="533c0a696179b3182cc41d1dc9b81ed0" name="HTML/QuickForm/Renderer/Tableless.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file md5sum="80c0647c7e98e64b42ae963af72c38a2" name="docs/examples/contact.php" role="doc" />
+   <file md5sum="4551841282e8af233110dd17104faa06" name="data/stylesheet.css" role="data" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.2</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.9</min>
+   </pearinstaller>
+   <package>
+    <name>HTML_QuickForm</name>
+    <channel>pear.php.net</channel>
+    <min>3.2.6</min>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease />
+</package>

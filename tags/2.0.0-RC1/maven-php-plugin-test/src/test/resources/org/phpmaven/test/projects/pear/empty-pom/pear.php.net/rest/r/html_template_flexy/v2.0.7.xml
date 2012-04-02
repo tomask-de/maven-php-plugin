@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<r xmlns="http://pear.php.net/dtd/rest.release2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xsi:schemaLocation="http://pear.php.net/dtd/rest.release2
+    http://pear.php.net/dtd/rest.release2.xsd">
+ <p xlink:href="/rest/p/html_template_flexy">HTML_Template_Flexy</p>
+ <c>pear.php.net</c>
+ <v>0.7</v>
+ <a>0.7</a>
+ <mp>4.3.0</mp>
+ <st>beta</st>
+ <l>PHP License</l>
+ <m>alan_k</m>
+ <s>An extremely powerful Tokenizer driven Template engine</s>
+ <d>HTML_Template_Flexy started it's life as a simplification of HTML_Template_Xipe, 
+however in Version 0.2, It became one of the first template engine to use a real Lexer,
+rather than regex'es, making it possible to do things like ASP.net or Cold Fusion tags. 
+However, it still has a very simple set of goals.
+- Very Simple API, 
+   o easy to learn...
+   o prevents to much logic going in templates
+- Easy to write document'able code
+   o By using object vars for a template rather than 'assign', you 
+     can use phpdoc comments to list what variable you use.
+- Editable in WYSIWYG editors
+   o you can create full featured templates, that doesnt get broken every time you edit with 
+     Dreamweaver(tm) or Mozzila editor
+   o Uses namespaced attributes to add looping/conditionals  
+- Extremely Fast, 
+   o runtime is at least 4 time smaller than most other template engines (eg. Smarty)
+   o uses compiled templates, as a result it is many times faster on blocks and loops than 
+     than Regex templates (eg. IT/phplib)
+- Full dynamic element support (like ASP.NET), so you can pick elements to replace at runtime
+
+Features:
+- {variable} to echo $object-&gt;variable
+- {method()} to echo $object-&gt;method();
+- {foreach:var,key,value} to PHP foreach loops
+- tag attributes FLEXY:FOREACH, FLEXY:IF for looping and conditional HTML inclusion
+- {if:variable} to PHP If statement
+- {if:method()} to PHP If statement
+- {else:} and {end:} to close or alternate If statements
+- FORM to HTML_Template_Flexy_Element's
+- replacement of INPUT, TEXTAREA and SELECT tags with HTML_Template_Flexy_Element code
+  use FLEXY:IGNORE (inherited) and FLEXY:IGNOREONLY (single) to prevent replacements
+- FLEXY:START/FLEXY:STARTCHILDREN tags to define where template starts/finishes
+- support for urlencoded braces {} in HTML attributes.  
+- documentation in the pear manual
+
+- examples at http://cvs.php.net/cvs.php/pear/HTML_Template_Flexy/examples
+</d>
+ <da>2004-04-03 07:07:35</da>
+ <n>Last Beta release - (eg. it's a RC Release - next one will be stable!!! hopefully)
+
+
+
+Minor Bugfix 
+  - fixed bug #643 (compile incorrectly tests for string on windows.)
+  - fixed bug #615 constructor can not return errors 
+   * check for compileDir isDir is in the compile() anyway..
+  - fix bug 1120: remove necessity to use flexy:ignoreonly, 
+    * if a input tag has {variable} the engine assumes you dont want use a flexy_element.
+  - fix bug #809 - extra minuses in comments
+    (too may ---&gt; caused problems )  
+  - fix bug #874 (literals with commas in flexy:if)
+    flexy:if=(#aaa,bbb#) correctly seen as a single attribute
+  - fix bug 739 - syntax checking on foreach
+    flexy:foreach=&quot;singlevalue&quot; now flagged as error.
+  - /flexy:include and toJavascript closers now correctly ignored.
+  - fix #856 - fix get_class usage.
+  - Fix bug when too many closing tags could zero the stack and delete parts of the template.
+ 
+ 
+ 
+New Features
+  - config option templateDirOrder=reverse, allows you to prefer the first found template,
+    rather than the last found template (when using theme type configurations)
+  - Engine uses File_Gettext if gettext is not found. (or textdomain is set.)
+  - Provisional SmartyConverter compiler, 
+    * provides a basic Coversion of Smarty to Flexy templates
+  - Provisional SmartyAPI emulator added.
+    * allows drop in replacement of flexy with simple code that uses Smarty.
+  - strict option 
+    so variable can emit errors if they are not defined.
+  - multiSource option 
+    for enabling themes type systems, where you can override the default template folder
+    with your own custom designs.
+  
+   
+Behaviour changed
+  - templateDir can be an array, or string seperated by the system path seperatory
+  (; on windows,: on unix)
+  - If a file exists in multiple paths, then The LAST FOUND template will be used.
+  (previously this emited an error)
+  - If you use multiple paths in the template_dir, then the path will be modified to
+  write to {compileDir}/{basename(actualTemplateDir)}_{md5(actualTemplateDir)}/...template..</n>
+ <f>56575</f>
+ <g>http://pear.php.net/get/HTML_Template_Flexy-0.7</g>
+ <x xlink:href="package.0.7.xml"/>
+</r>
