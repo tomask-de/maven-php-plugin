@@ -26,6 +26,7 @@ import java.util.StringTokenizer;
 
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.logging.Log;
+import org.apache.maven.settings.Proxy;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
@@ -51,6 +52,149 @@ import org.phpmaven.pear.IPearUtility;
 @Component(role = IPearUtility.class, hint = "PHP_EXE", instantiationStrategy = "per-lookup")
 public class PearUtility implements IPearUtility {
 
+    private static final class LogWrapper implements Log {
+        /**
+         * underlying log.
+         */
+        private Log theLog;
+        /**
+         * true if the log is inactive (used to set the proxies).
+         */
+        private boolean silent;
+        
+        /**
+         * Sets the log.
+         * @param log log
+         */
+        public void setLog(Log log) {
+            this.theLog = log;
+        }
+        
+        /**
+         * Sets the silent flag.
+         * @param s silent
+         */
+        public void setSilent(boolean s) {
+            this.silent = s;
+        }
+        
+        @Override
+        public void debug(CharSequence arg0) {
+            if (!this.silent) {
+                this.theLog.debug(arg0);
+            }
+        }
+        
+        @Override
+        public void debug(Throwable arg0) {
+            if (!this.silent) {
+                this.theLog.debug(arg0);
+            }
+        }
+        
+        @Override
+        public void debug(CharSequence arg0, Throwable arg1) {
+            if (!this.silent) {
+                this.theLog.debug(arg0, arg1);
+            }
+        }
+        
+        @Override
+        public void error(CharSequence arg0) {
+            if (!this.silent) {
+                this.theLog.error(arg0);
+            }
+        }
+        
+        @Override
+        public void error(Throwable arg0) {
+            if (!this.silent) {
+                this.theLog.error(arg0);
+            }
+        }
+        
+        @Override
+        public void error(CharSequence arg0, Throwable arg1) {
+            if (!this.silent) {
+                this.theLog.error(arg0, arg1);
+            }
+        }
+        
+        @Override
+        public void info(CharSequence arg0) {
+            if (!this.silent) {
+                this.theLog.info(arg0);
+            }
+        }
+        
+        @Override
+        public void info(Throwable arg0) {
+            if (!this.silent) {
+                this.theLog.info(arg0);
+            }
+        }
+        
+        @Override
+        public void info(CharSequence arg0, Throwable arg1) {
+            if (!this.silent) {
+                this.theLog.info(arg0, arg1);
+            }
+        }
+        
+        @Override
+        public boolean isDebugEnabled() {
+            if (!this.silent) {
+                return this.theLog.isDebugEnabled();
+            }
+            return false;
+        }
+        
+        @Override
+        public boolean isErrorEnabled() {
+            if (!this.silent) {
+                return this.theLog.isErrorEnabled();
+            }
+            return false;
+        }
+        
+        @Override
+        public boolean isInfoEnabled() {
+            if (!this.silent) {
+                return this.theLog.isInfoEnabled();
+            }
+            return false;
+        }
+        
+        @Override
+        public boolean isWarnEnabled() {
+            if (!this.silent) {
+                return this.theLog.isWarnEnabled();
+            }
+            return false;
+        }
+        
+        @Override
+        public void warn(CharSequence arg0) {
+            if (!this.silent) {
+                this.theLog.warn(arg0);
+            }
+        }
+        
+        @Override
+        public void warn(Throwable arg0) {
+            if (!this.silent) {
+                this.theLog.warn(arg0);
+            }
+        }
+        
+        @Override
+        public void warn(CharSequence arg0, Throwable arg1) {
+            if (!this.silent) {
+                this.theLog.warn(arg0, arg1);
+            }
+        }
+    }
+
     /**
      * The installation directory.
      */
@@ -73,7 +217,7 @@ public class PearUtility implements IPearUtility {
     /**
      * The logger.
      */
-    private Log log;
+    private LogWrapper log = new LogWrapper();
     
     /**
      * The component factory.
@@ -104,6 +248,51 @@ public class PearUtility implements IPearUtility {
     private File testDir;
 
     private File downloadDir;
+    
+    /**
+     * true if the proxy was initialized.
+     */
+    private boolean initializedProxy;
+    
+    /**
+     * initializes the proxy for pear.
+     * @throws PhpException  
+     */
+    private void initializeProxy() throws PhpException {
+        if (!this.initializedProxy) {
+            this.initializedProxy = true;
+            final List<Proxy> proxies = this.session.getRequest().getProxies();
+            for (final Proxy proxy : proxies) {
+                if (proxy.isActive()) {
+                    String proxyString = "";
+                    if (proxy.getProtocol() != null && proxy.getProtocol().length() > 0) {
+                        proxyString += proxy.getProtocol();
+                        proxyString += "://";
+                    }
+                    if (proxy.getUsername() != null && proxy.getUsername().length() > 0) {
+                        proxyString += proxy.getUsername();
+                        if (proxy.getPassword() != null && proxy.getPassword().length() > 0) {
+                            proxyString += ":";
+                            proxyString += proxy.getPassword();
+                        }
+                        proxyString += "@";
+                    }
+                    proxyString += proxy.getHost();
+                    proxyString += ":";
+                    proxyString += proxy.getPort();
+                    this.log.setSilent(true);
+                    try {
+                        this.executePearCmd("config-set http-proxy " + proxyString);
+                    } finally {
+                        this.log.setSilent(false);
+                    }
+                    return;
+                }
+            }
+            // no active proxy configured
+            this.executePearCmd("config-set http-proxy \"\"");
+        }
+    }
 
     /**
      * {@inheritDoc}
@@ -171,6 +360,7 @@ public class PearUtility implements IPearUtility {
         }
         
         if (autoUpdatePear) {
+            this.initializeProxy();
             this.executePearCmd("upgrade-all");
         }
     }
@@ -266,6 +456,7 @@ public class PearUtility implements IPearUtility {
      */
     @Override
     public String executePearCmd(String arguments) throws PhpException {
+        this.initializeProxy();
         final IPhpExecutable ex = this.getExec();
         final File pearCmd = new File(this.getPhpDir(), "pearcmd.php");
         return ex.execute("\"" + pearCmd.getAbsolutePath() + "\" " + arguments, pearCmd);
@@ -386,7 +577,7 @@ public class PearUtility implements IPearUtility {
             throw new IllegalStateException("Must not be called twice!");
         }
         this.installDir = dir;
-        this.log = logger;
+        this.log.setLog(logger);
     }
 
     /**
