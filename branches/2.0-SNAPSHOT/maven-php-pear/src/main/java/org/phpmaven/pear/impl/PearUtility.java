@@ -282,7 +282,7 @@ public class PearUtility implements IPearUtility {
                     proxyString += proxy.getPort();
                     this.log.setSilent(true);
                     try {
-                        this.executePearCmd("config-set http-proxy " + proxyString);
+                        this.executePearCmd("config-set http_proxy " + proxyString);
                     } finally {
                         this.log.setSilent(false);
                     }
@@ -290,7 +290,7 @@ public class PearUtility implements IPearUtility {
                 }
             }
             // no active proxy configured
-            this.executePearCmd("config-set http-proxy \"\"");
+            this.executePearCmd("config-set http_proxy \" \"");
         }
     }
 
