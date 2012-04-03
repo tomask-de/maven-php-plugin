@@ -119,7 +119,7 @@ public class PhpdocPearSupport extends AbstractPhpdocSupport implements IPhpdocS
                 pkg = util.channelDiscover("pear.php.net").getPackage("PhpDocumentor");
             } else {
                 writeXml(log, request, phpDocConfigFile, generatedPhpDocConfigFile);
-                pkg = util.channelDiscover("pear.phpdoc.org").getPackage("PhpDocumentor");
+                pkg = util.channelDiscover("pear.phpdoc.org").getPackage("phpDocumentor");
             }
             
             final IPackageVersion version = pkg.getVersion(this.phpdocVersion);
