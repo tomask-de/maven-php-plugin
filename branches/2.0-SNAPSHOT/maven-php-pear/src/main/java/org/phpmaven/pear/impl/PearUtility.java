@@ -40,6 +40,7 @@ import org.phpmaven.exec.IPhpExecutable;
 import org.phpmaven.exec.IPhpExecutableConfiguration;
 import org.phpmaven.exec.PhpCoreException;
 import org.phpmaven.exec.PhpException;
+import org.phpmaven.exec.PhpWarningException;
 import org.phpmaven.pear.IPearChannel;
 import org.phpmaven.pear.IPearUtility;
 
@@ -459,7 +460,12 @@ public class PearUtility implements IPearUtility {
         this.initializeProxy();
         final IPhpExecutable ex = this.getExec();
         final File pearCmd = new File(this.getPhpDir(), "pearcmd.php");
-        return ex.execute("\"" + pearCmd.getAbsolutePath() + "\" " + arguments, pearCmd);
+        try {
+            return ex.execute("\"" + pearCmd.getAbsolutePath() + "\" " + arguments, pearCmd);
+        } catch (PhpWarningException e) {
+            // ignore it
+            return e.getAppendedOutput();
+        }
     }
     
     /**
