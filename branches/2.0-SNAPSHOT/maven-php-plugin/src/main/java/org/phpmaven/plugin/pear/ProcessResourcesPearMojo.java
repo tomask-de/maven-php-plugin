@@ -160,7 +160,7 @@ public class ProcessResourcesPearMojo extends AbstractPhpMojo
             
             if (!copied) {
                 // this would cause the build to fail (empty package). let us create a readme.
-                final File file = new File(phpDir, "__README.EMPTY.PACKAGE.TXT");
+                final File file = new File(this.getProject().getBuild().getOutputDirectory(), "__README.EMPTY.PACKAGE.TXT");
                 try {
                     new FileWriter(file).append("this is an empty pear package or import failed.").close();
                 } catch (IOException e) {
