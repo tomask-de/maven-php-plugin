@@ -597,7 +597,8 @@ public class PackageVersion implements IPackageVersion {
         final String fname = dom.getAttribute("name");
         final String dir = dom.getAttribute("baseinstalldir");
         final String basedir = dir == null ? (baseInstallDir == null ? "" : baseInstallDir + "/") : dir + "/";
-        final String path = namePrefix + basedir + fname;
+        final String installAs = dom.getAttribute("install-as");
+        final String path = namePrefix + basedir + (installAs == null ? fname : installAs);
         if (role == null) {
             throw new PhpCoreException("Unknown file role: " + fname);
         }
