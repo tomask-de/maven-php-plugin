@@ -489,6 +489,7 @@ public class PearUtility implements IPearUtility {
                 final String token = tokenizer.nextToken();
                 if (token.startsWith(" ")) continue;
                 if (token.startsWith("__uri")) continue;
+                if (token.startsWith("CHANNEL")) continue;
                 // if (token.startsWith("doc.")) continue;
                 final PearChannel channel = new PearChannel();
                 channel.initialize(this, new StringTokenizer(token, " ").nextToken());
