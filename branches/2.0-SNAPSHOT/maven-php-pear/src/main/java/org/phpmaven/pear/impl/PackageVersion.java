@@ -600,9 +600,16 @@ public class PackageVersion implements IPackageVersion {
         final String dir = dom.getAttribute("baseinstalldir");
         final String basedir = dir == null ? (baseInstallDir == null ? "" : baseInstallDir + "/") : dir + "/";
         final String installAs = dom.getAttribute("install-as");
-        final String path = namePrefix + basedir + (installAs == null ? fname : installAs);
         if (role == null) {
             throw new PhpCoreException("Unknown file role: " + fname);
+        }
+        String path = null;
+        if (FILE_ROLE_PHP.equals(role)) {
+            path = namePrefix + basedir + (installAs == null ? fname : installAs);
+        } else {
+            // seems that data/doc files are installed in a folder built by package name and fname.
+            // TODO Is this somewhere documented? www files the same procedure?
+            path = this.getPackageName() + "/" + (installAs == null ? fname : installAs);
         }
         List<String> filesList = files.get(role);
         if (filesList == null) {
