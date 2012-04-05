@@ -68,6 +68,31 @@ public class ProcessResourcesPearMojo extends AbstractPhpMojo
     private String pearPackageVersion;
     
     /**
+     * @parameter expression="${project.basedir}/target/pear-data"
+     */
+    private File targetDataDir;
+    
+    /**
+     * @parameter expression="${project.basedir}/target/pear-doc"
+     */
+    private File targetDocDir;
+    
+    /**
+     * @parameter expression="${project.basedir}/target/pear-www"
+     */
+    private File targetWwwDir;
+    
+    /**
+     * @parameter expression="${project.basedir}/target/${artifactId}-${version}-package.xml"
+     */
+    private File packageXmlFile;
+    
+    /**
+     * @parameter expression="${project.basedir}/target/${artifactId}-${version}-pear.tgz"
+     */
+    private File tgzFile;
+    
+    /**
      * @inheritDoc
      */
     public void execute() throws MojoExecutionException
@@ -138,18 +163,81 @@ public class ProcessResourcesPearMojo extends AbstractPhpMojo
      */
     private void fetchPackage(IPackageVersion version) throws MojoExecutionException {
         this.getLog().info("copying content");
+        this.fetchPackage(version, new File(this.getProject().getBuild().getOutputDirectory()), IPackageVersion.FILE_ROLE_PHP);
+        this.fetchPackage(version, this.targetDataDir, IPackageVersion.FILE_ROLE_DATA);
+        this.fetchPackage(version, this.targetDocDir, IPackageVersion.FILE_ROLE_DOC);
+        this.fetchPackage(version, this.targetWwwDir, IPackageVersion.FILE_ROLE_WWW);
+        
+        this.fetchTgz(version, new File(this.getProject().getBuild().getOutputDirectory(),
+                this.getProject().getBuild().getFinalName() + ".tgz"));
+        
+        this.fetchPackageXml(version, new File(this.getProject().getBuild().getOutputDirectory(),
+                this.getProject().getBuild().getFinalName() + ".Package.xml"));
+    }
+
+    /**
+     * Fetch tgz
+     * @param version
+     * @param file
+     * @throws MojoExecutionException 
+     */
+    private void fetchTgz(IPackageVersion version, File file) throws MojoExecutionException {
+        this.getLog().info("copying original pear tgz");
+        
+        try {
+            version.writeTgz(file);
+        } catch (PhpException e) {
+            throw new MojoExecutionException("Problems reading tar gz.", e);
+        }
+    }
+
+    /**
+     * Fetch package xml
+     * @param version
+     * @param file
+     * @throws MojoExecutionException 
+     */
+    private void fetchPackageXml(IPackageVersion version, File file) throws MojoExecutionException {
+        this.getLog().info("copying original package xml");
+        
+        try {
+            version.writePackageXml(file);
+        } catch (PhpException e) {
+            throw new MojoExecutionException("Problems reading package xml.", e);
+        }
+    }
+
+    /**
+     * @param version
+     * @param outputDir 
+     * @param role 
+     * @throws MojoExecutionException 
+     */
+    private void fetchPackage(IPackageVersion version, File outputDir, String role) throws MojoExecutionException {
+        this.getLog().info("copying content for role " + role);
         
         try {
             final IPackage pkg = version.getPackage();
             final IPearChannel channel = pkg.getChannel();
             final IPearUtility utility = channel.getPearUtility();
-            final File phpDir = utility.getPhpDir();
+            File srcDir = null;
+            if (IPackageVersion.FILE_ROLE_PHP.equals(role)) {
+                srcDir = utility.getPhpDir();
+            } else if (IPackageVersion.FILE_ROLE_DATA.equals(role)) {
+                srcDir = utility.getDataDir();
+            } else if (IPackageVersion.FILE_ROLE_DOC.equals(role)) {
+                srcDir = utility.getDocDir();
+            } else if (IPackageVersion.FILE_ROLE_WWW.equals(role)) {
+                srcDir = utility.getWwwDir();
+            } else {
+                throw new MojoExecutionException("Unknown role " + role);
+            }
             boolean copied = false;
-            for (final String relativeName : version.getPhpFiles()) {
+            for (final String relativeName : version.getFiles(role)) {
                 try {
                     // some packages use backslashes. they do not work on linux
-                    final File file = new File(phpDir, relativeName.replace("\\", "/"));
-                    final File destination = new File(this.getProject().getBuild().getOutputDirectory(), relativeName.replace("\\", "/"));
+                    final File file = new File(srcDir, relativeName.replace("\\", "/"));
+                    final File destination = new File(outputDir, relativeName.replace("\\", "/"));
                     getLog().debug("copying " + file.getAbsolutePath() + " to " + destination.getAbsolutePath());
                     FileUtils.copyFile(file, destination);
                     copied = true;
@@ -158,7 +246,7 @@ public class ProcessResourcesPearMojo extends AbstractPhpMojo
                 }
             }
             
-            if (!copied) {
+            if (!copied && role.equals(IPackageVersion.FILE_ROLE_PHP)) {
                 // this would cause the build to fail (empty package). let us create a readme.
                 final File file = new File(this.getProject().getBuild().getOutputDirectory(), "__README.EMPTY.PACKAGE.TXT");
                 try {
@@ -168,8 +256,8 @@ public class ProcessResourcesPearMojo extends AbstractPhpMojo
                 }
             }
         } catch (PhpException e) {
-            throw new MojoExecutionException("Problems reading php package.", e);
+            throw new MojoExecutionException("Problems reading package.", e);
         }
-	}
+    }
     
 }

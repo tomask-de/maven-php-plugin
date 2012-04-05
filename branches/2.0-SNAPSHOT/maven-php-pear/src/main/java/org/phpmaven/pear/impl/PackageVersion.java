@@ -17,6 +17,8 @@
 package org.phpmaven.pear.impl;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -463,9 +465,9 @@ public class PackageVersion implements IPackageVersion {
                 
                 processPackageXml(required, optional, maintain, files, dom);
             } catch (IOException ex) {
-                throw new PhpCoreException("Problems reading version.xml", ex);
+                throw new PhpCoreException("Problems reading package.xml", ex);
             } catch (XmlPullParserException ex) {
-                throw new PhpCoreException("Problems reading version.xml", ex);
+                throw new PhpCoreException("Problems reading package.xml", ex);
             }
             this.requiredDeps = required;
             this.optionalDeps = optional;
@@ -958,12 +960,20 @@ public class PackageVersion implements IPackageVersion {
     /**
      * {@inheritDoc}
      */
-    @SuppressWarnings("unchecked")
     @Override
     public Iterable<String> getPhpFiles() throws PhpException {
+        return this.getFiles(FILE_ROLE_PHP);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public Iterable<String> getFiles(String role) throws PhpException {
         this.initializeExtendedData();
-        if (this.fileContents.containsKey("php")) {
-            return this.fileContents.get("php");
+        if (this.fileContents.containsKey(role)) {
+            return this.fileContents.get(role);
         }
         return Collections.EMPTY_LIST;
     }
@@ -984,6 +994,41 @@ public class PackageVersion implements IPackageVersion {
         } catch (PhpException ex) {
             // should never happen
             throw new IllegalStateException(ex);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void writePackageXml(File toFile) throws PhpException {
+        this.initializeExtendedData();
+        try {
+            final String channelXml = Helper.getTextFileContents(this.packageXml);
+            toFile.getParentFile().mkdirs();
+            final FileWriter writer = new FileWriter(toFile);
+            writer.write(channelXml);
+            writer.close();
+        } catch (IOException ex) {
+            throw new PhpCoreException("Problems reading package.xml", ex);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void writeTgz(File toFile) throws PhpException {
+        this.initializeExtendedData();
+
+        try {
+            final String channelXml = Helper.getTextFileContents(this.fileUrl + ".tgz");
+            toFile.getParentFile().mkdirs();
+            final FileWriter writer = new FileWriter(toFile);
+            writer.write(channelXml);
+            writer.close();
+        } catch (IOException ex) {
+            throw new PhpCoreException("Problems reading package.xml", ex);
         }
     }
 
