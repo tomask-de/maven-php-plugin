@@ -98,8 +98,8 @@ public final class PearPhar extends AbstractPhpMojo {
         createDocPhar();
         createWwwPhar();
         
-        this.projectHelper.attachArtifact(this.getProject(), this.tgzFile, "pear-tgz");
-        this.projectHelper.attachArtifact(this.getProject(), this.packageXmlFile, "pear-package-xml");
+        this.projectHelper.attachArtifact(this.getProject(), "tgz", "pear-tgz", this.tgzFile);
+        this.projectHelper.attachArtifact(this.getProject(), "xml", "pear-pkgxml", this.packageXmlFile);
     }
 
     private void createDataPhar() throws MojoExecutionException {
