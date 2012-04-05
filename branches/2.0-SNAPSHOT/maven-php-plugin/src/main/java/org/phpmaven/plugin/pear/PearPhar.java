@@ -61,27 +61,27 @@ public final class PearPhar extends AbstractPhpMojo {
     private File targetWwwDir;
     
     /**
-     * @parameter expression="${project.basedir}/target/${artifactId}-${version}-package.xml"
+     * @parameter expression="${project.basedir}/target/${project.artifactId}-${project.version}-package.xml"
      */
     private File packageXmlFile;
     
     /**
-     * @parameter expression="${project.basedir}/target/${artifactId}-${version}-pear.tgz"
+     * @parameter expression="${project.basedir}/target/${project.artifactId}-${project.version}-pear.tgz"
      */
     private File tgzFile;
     
     /**
-     * @parameter expression="${project.basedir}/target/${artifactId}-${version}-data.phar"
+     * @parameter expression="${project.basedir}/target/${project.artifactId}-${project.version}-data.phar"
      */
     private File pharDataFile;
     
     /**
-     * @parameter expression="${project.basedir}/target/${artifactId}-${version}-www.phar"
+     * @parameter expression="${project.basedir}/target/${project.artifactId}-${project.version}-www.phar"
      */
     private File pharWwwFile;
     
     /**
-     * @parameter expression="${project.basedir}/target/${artifactId}-${version}-doc.phar"
+     * @parameter expression="${project.basedir}/target/${project.artifactId}-${project.version}-doc.phar"
      */
     private File pharDocFile;
     
@@ -120,6 +120,12 @@ public final class PearPhar extends AbstractPhpMojo {
                 return;
             }
             
+            // skip empty
+            if (!this.targetDataDir.exists()) {
+                getLog().warn("no data files found. skipping.");
+                return;
+            }
+
             // create the packager
             final IPharPackagerConfiguration packagerConfig = this.factory.lookup(
                     IPharPackagerConfiguration.class,
@@ -172,6 +178,12 @@ public final class PearPhar extends AbstractPhpMojo {
             if (targetFile.exists()) {
                 getLog().warn("phar already exists. skipping. Use clean first to re-create the phar.");
                 this.projectHelper.attachArtifact(this.getProject(), targetFile, "pear-doc");
+                return;
+            }
+            
+            // skip empty
+            if (!this.targetDocDir.exists()) {
+                getLog().warn("no doc files found. skipping.");
                 return;
             }
             
@@ -230,6 +242,12 @@ public final class PearPhar extends AbstractPhpMojo {
                 return;
             }
             
+            // skip empty
+            if (!this.targetWwwDir.exists()) {
+                getLog().warn("no www files found. skipping.");
+                return;
+            }
+
             // create the packager
             final IPharPackagerConfiguration packagerConfig = this.factory.lookup(
                     IPharPackagerConfiguration.class,

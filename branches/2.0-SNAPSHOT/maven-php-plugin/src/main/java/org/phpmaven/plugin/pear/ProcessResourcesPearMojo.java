@@ -83,12 +83,12 @@ public class ProcessResourcesPearMojo extends AbstractPhpMojo
     private File targetWwwDir;
     
     /**
-     * @parameter expression="${project.basedir}/target/${artifactId}-${version}-package.xml"
+     * @parameter expression="${project.basedir}/target/${project.artifactId}-${project.version}-package.xml"
      */
     private File packageXmlFile;
     
     /**
-     * @parameter expression="${project.basedir}/target/${artifactId}-${version}-pear.tgz"
+     * @parameter expression="${project.basedir}/target/${project.artifactId}-${project.version}-pear.tgz"
      */
     private File tgzFile;
     
@@ -168,11 +168,9 @@ public class ProcessResourcesPearMojo extends AbstractPhpMojo
         this.fetchPackage(version, this.targetDocDir, IPackageVersion.FILE_ROLE_DOC);
         this.fetchPackage(version, this.targetWwwDir, IPackageVersion.FILE_ROLE_WWW);
         
-        this.fetchTgz(version, new File(this.getProject().getBuild().getOutputDirectory(),
-                this.getProject().getBuild().getFinalName() + ".tgz"));
+        this.fetchTgz(version, this.tgzFile);
         
-        this.fetchPackageXml(version, new File(this.getProject().getBuild().getOutputDirectory(),
-                this.getProject().getBuild().getFinalName() + ".Package.xml"));
+        this.fetchPackageXml(version, this.packageXmlFile);
     }
 
     /**
@@ -182,7 +180,7 @@ public class ProcessResourcesPearMojo extends AbstractPhpMojo
      * @throws MojoExecutionException 
      */
     private void fetchTgz(IPackageVersion version, File file) throws MojoExecutionException {
-        this.getLog().info("copying original pear tgz");
+        this.getLog().info("copying original pear tgz to " + file.getAbsolutePath());
         
         try {
             version.writeTgz(file);
@@ -198,7 +196,7 @@ public class ProcessResourcesPearMojo extends AbstractPhpMojo
      * @throws MojoExecutionException 
      */
     private void fetchPackageXml(IPackageVersion version, File file) throws MojoExecutionException {
-        this.getLog().info("copying original package xml");
+        this.getLog().info("copying original package xml to " + file.getAbsolutePath());
         
         try {
             version.writePackageXml(file);
