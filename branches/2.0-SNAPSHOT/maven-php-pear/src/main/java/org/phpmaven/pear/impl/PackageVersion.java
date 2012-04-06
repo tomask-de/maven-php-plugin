@@ -18,6 +18,7 @@ package org.phpmaven.pear.impl;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -1029,13 +1030,13 @@ public class PackageVersion implements IPackageVersion {
         this.initializeExtendedData();
 
         try {
-            final String channelXml = Helper.getTextFileContents(this.fileUrl + ".tgz");
+            final byte[] tgz = Helper.getBinaryFileContents(this.fileUrl + ".tgz");
             toFile.getParentFile().mkdirs();
-            final FileWriter writer = new FileWriter(toFile);
-            writer.write(channelXml);
+            final FileOutputStream writer = new FileOutputStream(toFile);
+            writer.write(tgz);
             writer.close();
         } catch (IOException ex) {
-            throw new PhpCoreException("Problems reading package.xml", ex);
+            throw new PhpCoreException("Problems reading tgz", ex);
         }
     }
 
