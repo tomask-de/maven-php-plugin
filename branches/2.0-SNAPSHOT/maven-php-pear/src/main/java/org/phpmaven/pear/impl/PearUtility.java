@@ -19,13 +19,29 @@ package org.phpmaven.pear.impl;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.resolver.ArtifactResolutionRequest;
+import org.apache.maven.artifact.resolver.ArtifactResolutionResult;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.logging.Log;
+import org.apache.maven.project.DefaultDependencyResolutionRequest;
+import org.apache.maven.project.DefaultProjectBuildingRequest;
+import org.apache.maven.project.DependencyResolutionException;
+import org.apache.maven.project.DependencyResolutionRequest;
+import org.apache.maven.project.DependencyResolutionResult;
+import org.apache.maven.project.MavenProject;
+import org.apache.maven.project.ProjectBuilder;
+import org.apache.maven.project.ProjectBuildingException;
+import org.apache.maven.project.ProjectBuildingRequest;
+import org.apache.maven.project.ProjectBuildingResult;
+import org.apache.maven.project.ProjectDependenciesResolver;
+import org.apache.maven.repository.RepositorySystem;
 import org.apache.maven.settings.Proxy;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
@@ -43,6 +59,8 @@ import org.phpmaven.exec.PhpException;
 import org.phpmaven.exec.PhpWarningException;
 import org.phpmaven.pear.IPearChannel;
 import org.phpmaven.pear.IPearUtility;
+import org.sonatype.aether.util.version.GenericVersionScheme;
+import org.sonatype.aether.version.InvalidVersionSpecificationException;
 
 /**
  * Implementation of a pear utility via PHP.EXE and http-client.
@@ -195,6 +213,9 @@ public class PearUtility implements IPearUtility {
             }
         }
     }
+    
+    /** the generic version scheme. */
+    private static final GenericVersionScheme SCHEME = new GenericVersionScheme();
 
     /**
      * The installation directory.
@@ -254,6 +275,24 @@ public class PearUtility implements IPearUtility {
      * true if the proxy was initialized.
      */
     private boolean initializedProxy;
+    
+    /**
+     * the repository system.
+     */
+    @Requirement
+    private RepositorySystem reposSystem;
+    
+    /**
+     * The project builder.
+     */
+    @Requirement
+    private ProjectBuilder projectBuilder;
+    
+    /**
+     * The dependencies resolver
+     */
+    @Requirement
+    private ProjectDependenciesResolver dependencyResolver;
     
     /**
      * initializes the proxy for pear.
@@ -689,6 +728,102 @@ public class PearUtility implements IPearUtility {
         return this.testDir;
     }
     
-    
+    /**
+     * Resolves the artifact.
+     * @param groupId group id
+     * @param artifactId artifact id
+     * @param version version
+     * @param type type
+     * @param classifier classifier
+     * @return the resolved artifact
+     * @throws PhpException thrown on resolve errors
+     */
+    private Artifact resolveArtifact(String groupId, String artifactId, String version, String type, String classifier)
+        throws PhpException {
+        final Artifact artifact = this.reposSystem.createArtifactWithClassifier(groupId, artifactId, version, type, classifier);
+        final ArtifactResolutionRequest request = new ArtifactResolutionRequest();
+        request.setArtifact(artifact);
+        request.setLocalRepository(this.session.getLocalRepository());
+        request.setOffline(this.session.isOffline());
+        request.setRemoteRepositories(this.session.getRequest().getRemoteRepositories());
+        final ArtifactResolutionResult result = this.reposSystem.resolve(request);
+        if (!result.isSuccess()) {
+            throw new PhpCoreException("dependency resolution failed for " +
+                groupId + ":" + artifactId + ":" + version);
+        }
+        
+        final Artifact resultArtifact = result.getArtifacts().iterator().next();
+        return resultArtifact;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void installFromMavenRepository(String groupId, String artifactId, String version) throws PhpException {
+        final Artifact artifact = this.resolveArtifact(groupId, artifactId, version, "pom", null);
+        final File pomFile = artifact.getFile();
+        final ProjectBuildingRequest pbr = new DefaultProjectBuildingRequest(this.session.getProjectBuildingRequest());
+        try {
+            pbr.setProcessPlugins(false);
+            final ProjectBuildingResult pbres = this.projectBuilder.build(pomFile, pbr);
+            final MavenProject project = pbres.getProject();
+            final DependencyResolutionRequest drr = new DefaultDependencyResolutionRequest(
+                project, session.getRepositorySession());
+            final DependencyResolutionResult drres = this.dependencyResolver.resolve(drr);
+            // dependencies may be duplicate. ensure we have only one version (the newest).
+            final Map<String, org.sonatype.aether.graph.Dependency> deps =
+                new HashMap<String, org.sonatype.aether.graph.Dependency>();
+            for (final org.sonatype.aether.graph.Dependency dep : drres.getDependencies()) {
+                final String key = dep.getArtifact().getGroupId() + ":" + dep.getArtifact().getArtifactId();
+                if (!deps.containsKey(key)) {
+                    deps.put(key, dep);
+                } else {
+                    final org.sonatype.aether.graph.Dependency dep2 = deps.get(key);
+                    final org.sonatype.aether.version.Version ver =
+                        SCHEME.parseVersion(dep.getArtifact().getVersion());
+                    final org.sonatype.aether.version.Version ver2 =
+                        SCHEME.parseVersion(dep2.getArtifact().getVersion());
+                    if (ver2.compareTo(ver) < 0) {
+                        deps.put(key, dep);
+                    }
+                }
+            }
+            final List<File> filesToInstall = new ArrayList<File>();
+            
+            this.resolveTgz(groupId, artifactId, version, filesToInstall);
+            for (final org.sonatype.aether.graph.Dependency dep : deps.values()) {
+                this.resolveTgz(
+                    dep.getArtifact().getGroupId(),
+                    dep.getArtifact().getArtifactId(),
+                    dep.getArtifact().getVersion(),
+                    filesToInstall);
+            }
+            
+            for (final File file : filesToInstall) {
+                this.executePearCmd("install \"" + file.getAbsolutePath() + "\"");
+            }
+        } catch (InvalidVersionSpecificationException ex) {
+            throw new PhpCoreException(ex);
+        } catch (ProjectBuildingException ex) {
+            throw new PhpCoreException(ex);
+        } catch (DependencyResolutionException ex) {
+            throw new PhpCoreException(ex);
+        }
+    }
+
+    /**
+     * Resolves the tgz and adds it to the files for installation.
+     * @param groupId group id
+     * @param artifactId artifact id
+     * @param version version
+     * @param filesToInstall files to be installed
+     * @throws PhpException thrown on resolve errors.
+     */
+    private void resolveTgz(String groupId, String artifactId, String version, List<File> filesToInstall)
+        throws PhpException {
+        final Artifact artifact = this.resolveArtifact(groupId, artifactId, version, "tgz", "pear-tgz");
+        filesToInstall.add(artifact.getFile());
+    }
 
 }

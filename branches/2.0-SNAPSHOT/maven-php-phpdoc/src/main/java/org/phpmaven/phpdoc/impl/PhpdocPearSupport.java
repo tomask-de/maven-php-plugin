@@ -36,8 +36,6 @@ import org.phpmaven.exec.PhpCoreException;
 import org.phpmaven.exec.PhpErrorException;
 import org.phpmaven.exec.PhpException;
 import org.phpmaven.exec.PhpWarningException;
-import org.phpmaven.pear.IPackage;
-import org.phpmaven.pear.IPackageVersion;
 import org.phpmaven.pear.IPearConfiguration;
 import org.phpmaven.pear.IPearUtility;
 import org.phpmaven.phpdoc.IPhpdocRequest;
@@ -113,6 +111,16 @@ public class PhpdocPearSupport extends AbstractPhpdocSupport implements IPhpdocS
             if (!util.isInstalled()) {
                 util.installPear(false);
             }
+
+            if (this.phpdocVersion.startsWith("1.")) {
+                writeIni(log, request, phpDocConfigFile, generatedPhpDocConfigFile);
+                util.installFromMavenRepository("net.php", "PhpDocumentor", this.phpdocVersion);
+            } else {
+                writeXml(log, request, phpDocConfigFile, generatedPhpDocConfigFile);
+                util.installFromMavenRepository("org.phpdoc", "phpDocumentor", this.phpdocVersion);
+            }
+            
+            /*
             IPackage pkg = null;
             if (this.phpdocVersion.startsWith("1.")) {
                 writeIni(log, request, phpDocConfigFile, generatedPhpDocConfigFile);
@@ -128,7 +136,7 @@ public class PhpdocPearSupport extends AbstractPhpdocSupport implements IPhpdocS
             } else if (!pkg.getInstalledVersion().getVersion().getPearVersion().equals(
                     version.getVersion().getPearVersion())) {
                 version.install();
-            }
+            }*/
             
             final File phpDocFile = new File(util.getBinDir(), "phpdoc");
             if (phpDocFile == null || !phpDocFile.isFile()) {

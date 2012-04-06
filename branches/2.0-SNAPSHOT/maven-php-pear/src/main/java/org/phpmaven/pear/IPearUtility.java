@@ -215,5 +215,15 @@ public interface IPearUtility {
      * @throws PhpException thrown on problems while reading the conf.
      */
     File getTestDir() throws PhpException;
+    
+    /**
+     * Installs given artifact from repository.
+     * @param groupId maven group id.
+     * @param artifactId maven artifact id.
+     * @param version maven version.
+     * @throws PhpException the php exception is thrown on installation errors.
+     */
+    void installFromMavenRepository(final String groupId, final String artifactId, final String version)
+        throws PhpException;
 
 }
