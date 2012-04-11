@@ -163,6 +163,8 @@ public class PackageVersion implements IPackageVersion {
      */
     private String providesExtension;
 
+    private PearPkgVersion packagerVersion;
+
     /**
      * {@inheritDoc}
      */
@@ -482,6 +484,11 @@ public class PackageVersion implements IPackageVersion {
             final List<IMaintainer> maintain, final Map<String, List<String>> files, 
             final Xpp3Dom dom)
         throws PhpException {
+        if (dom.getAttribute("version") != null && dom.getAttribute("version").startsWith("2.")) {
+            this.packagerVersion = PearPkgVersion.PKG_V2;
+        } else {
+            this.packagerVersion = PearPkgVersion.PKG_V1;
+        }
         for (final Xpp3Dom child : dom.getChildren()) {
             if ("name".equals(child.getName())) {
                 // skip
@@ -608,8 +615,18 @@ public class PackageVersion implements IPackageVersion {
         if (FILE_ROLE_PHP.equals(role)) {
             path = namePrefix + basedir + (installAs == null ? fname : installAs);
         } else {
-            // seems that data/doc files are installed in a folder built by package name and fname.
-            // TODO Is this somewhere documented? www files the same procedure?
+            // data/doc files are installed in a folder built by package name and fname.
+            // for v2 installers they only use the base name.
+            switch (this.packagerVersion) {
+                case PKG_V1:
+                    path = this.getPackageName() + "/" + (installAs == null ? fname : installAs);
+                    break;
+                case PKG_V2:
+                    path = this.getPackageName() + "/" + new File(fname).getName();
+                    break;
+                default:
+                    throw new IllegalStateException("Unknown pear packager version");
+            }
             path = this.getPackageName() + "/" + (installAs == null ? fname : installAs);
         }
         List<String> filesList = files.get(role);
@@ -1038,6 +1055,12 @@ public class PackageVersion implements IPackageVersion {
         } catch (IOException ex) {
             throw new PhpCoreException("Problems reading tgz", ex);
         }
+    }
+
+    @Override
+    public PearPkgVersion getPackagerVersion() throws PhpException {
+        this.initializeExtendedData();
+        return this.packagerVersion;
     }
 
 }

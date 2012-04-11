@@ -49,6 +49,23 @@ public interface IPackageVersion {
     String FILE_ROLE_DATA = "data";
     
     /**
+     * Pear packager version.
+     */
+    enum PearPkgVersion {
+        /** version 1 pear package. */
+        PKG_V1,
+        /** version 2 pear package. */
+        PKG_V2
+    }
+    
+    /**
+     * Returns the packager version.
+     * @return packager version.
+     * @throws PhpException thrown on errors.
+     */
+    PearPkgVersion getPackagerVersion() throws PhpException;
+    
+    /**
      * Returns the package name.
      * @return package name.
      */
