@@ -358,6 +358,26 @@ public class BaseTest extends AbstractTestCase {
         assertEquals("1.5.0a1", version.getVersion().getPearVersion());
         assertEquals("1.5.0-alpha-1", version.getVersion().getMavenVersion());
     }
+    
+    /**
+     * Tests the versions.
+     * 
+     * @throws Exception 
+     */
+    public void testFileLayoutV2() throws Exception {
+        final IPearChannel channel = getChannel(false);
+        
+        channel.initializePackages(true, true);
+        
+        IPackage pkg;
+        IPackageVersion version;
+        
+        pkg = channel.getPackage("HTML_QuickForm2");
+        version = pkg.getVersion("0.3.0");
+        final Iterator<String> dataFiles = version.getFiles(IPackageVersion.FILE_ROLE_DATA).iterator();
+        assertEquals("HTML_QuickForm2/quickform.css", dataFiles.next());
+        assertFalse(dataFiles.hasNext());
+    }
      
     /**
      * Pear channel.

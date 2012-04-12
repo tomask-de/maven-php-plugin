@@ -627,7 +627,6 @@ public class PackageVersion implements IPackageVersion {
                 default:
                     throw new IllegalStateException("Unknown pear packager version");
             }
-            path = this.getPackageName() + "/" + (installAs == null ? fname : installAs);
         }
         List<String> filesList = files.get(role);
         if (filesList == null) {
