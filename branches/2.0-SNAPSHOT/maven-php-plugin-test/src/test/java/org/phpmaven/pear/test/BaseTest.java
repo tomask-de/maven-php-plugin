@@ -278,12 +278,12 @@ public class BaseTest extends AbstractTestCase {
         channel.initializePackages(true, true);
         // the getters may throw exceptions if a package cannot be read
         for (final IPackage pkg : channel.getKnownPackages()) {
-            System.out.println("test pkg " + pkg.getPackageName());
+            // System.out.println("test pkg " + pkg.getPackageName());
             for (final IPackageVersion version : pkg.getKnownVersions()) {
                 // this forces the read of the package
-                System.out.println("test version " + 
+                /*System.out.println("test version " + 
                     pkg.getPackageName() + "/" + 
-                    version.getVersion().getPearVersion());
+                    version.getVersion().getPearVersion());*/
                 try {
                     version.getReleasingDeveloper();
                     version.getMaintainers();
@@ -292,9 +292,10 @@ public class BaseTest extends AbstractTestCase {
                     // are referred in the pear channel but do not exist. mostly early versions.
                     // all non-FileNotFoundException will be rethrown to let the test case fail
                     if (!(ex.getCause() instanceof FileNotFoundException)) {
-                        throw ex;
+                        fail("failed analysing package " + pkg.getPackageName() + "/" + 
+                                version.getVersion().getPearVersion() + " -> cause: " + ex.getClass().getName() + "/" + ex.toString());
                     }
-                    System.out.println("Package.xml not found... ignoring failure...");
+                    // System.out.println("Package.xml not found... ignoring failure...");
                 }
             }
         }
@@ -377,6 +378,30 @@ public class BaseTest extends AbstractTestCase {
         final Iterator<String> dataFiles = version.getFiles(IPackageVersion.FILE_ROLE_DATA).iterator();
         assertEquals("HTML_QuickForm2/quickform.css", dataFiles.next());
         assertFalse(dataFiles.hasNext());
+    }
+    
+    /**
+     * Tests the versions.
+     * 
+     * @throws Exception 
+     */
+    public void testFileLayoutV2WithPhpreleaseFilelist() throws Exception {
+        final IPearChannel channel = getChannel(false);
+        
+        channel.initializePackages(true, true);
+        
+        IPackage pkg;
+        IPackageVersion version;
+        
+        pkg = channel.getPackage("HTML_QuickForm2");
+        version = pkg.getVersion("0.4.0");
+        final Iterator<String> dataFiles = version.getFiles(IPackageVersion.FILE_ROLE_DATA).iterator();
+        assertEquals("HTML_QuickForm2/quickform.css", dataFiles.next());
+        assertFalse(dataFiles.hasNext());
+        final Iterator<String> docFiles = version.getFiles(IPackageVersion.FILE_ROLE_DOC).iterator();
+        while (docFiles.hasNext()) {
+            assertTrue(docFiles.next().startsWith("HTML_QuickForm2/examples/"));
+        }
     }
      
     /**

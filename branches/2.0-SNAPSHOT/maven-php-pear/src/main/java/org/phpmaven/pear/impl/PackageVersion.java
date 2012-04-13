@@ -155,7 +155,7 @@ public class PackageVersion implements IPackageVersion {
     /**
      * The file contents.
      */
-    private Map<String, List<String>> fileContents;
+    private Map<String, Map<String, InstallableFile>> fileContents;
     
     /**
      * The name of the extension if this is a php extension.
@@ -163,7 +163,24 @@ public class PackageVersion implements IPackageVersion {
      */
     private String providesExtension;
 
+    /**
+     * The packager version (pear version 1 or pear version 2).
+     */
     private PearPkgVersion packagerVersion;
+    
+    /**
+     * Installable file name.
+     */
+    private static final class InstallableFile {
+        /** name of the file. */
+        private String name;
+        /** install as. */
+        private String installAs;
+        /** true to ignore the file. */
+        private boolean ignore;
+        /** the file role. */
+        private String role;
+    }
 
     /**
      * {@inheritDoc}
@@ -459,7 +476,7 @@ public class PackageVersion implements IPackageVersion {
             final List<IDependency> required = new ArrayList<IDependency>();
             final List<IDependency> optional = new ArrayList<IDependency>();
             final List<IMaintainer> maintain = new ArrayList<IMaintainer>();
-            final Map<String, List<String>> files = new HashMap<String, List<String>>();
+            final Map<String, Map<String, InstallableFile>> files = new HashMap<String, Map<String, InstallableFile>>();
             try {
                 final String channelXml = Helper.getTextFileContents(this.packageXml);
                 // TODO http://pear.php.net/manual/en/guide.developers.package2.intro.php
@@ -481,7 +498,7 @@ public class PackageVersion implements IPackageVersion {
 
     private void processPackageXml(
             final List<IDependency> required, final List<IDependency> optional, 
-            final List<IMaintainer> maintain, final Map<String, List<String>> files, 
+            final List<IMaintainer> maintain, final Map<String, Map<String, InstallableFile>> files, 
             final Xpp3Dom dom)
         throws PhpException {
         if (dom.getAttribute("version") != null && dom.getAttribute("version").startsWith("2.")) {
@@ -539,7 +556,7 @@ public class PackageVersion implements IPackageVersion {
             } else if ("usesrole".equals(child.getName())) {
                 // TODO
             } else if ("phprelease".equals(child.getName())) {
-                // TODO
+                parsePhpRelease(files, child);
             } else if ("changelog".equals(child.getName())) {
                 // TODO
             } else if ("extsrcrelease".equals(child.getName())) {
@@ -554,10 +571,45 @@ public class PackageVersion implements IPackageVersion {
         }
     }
 
+    private void parsePhpRelease(final Map<String, Map<String, InstallableFile>> files, final Xpp3Dom child)
+        throws PhpCoreException {
+        for (final Xpp3Dom prchild : child.getChildren()) {
+            if ("installconditions".equals(prchild.getName())) {
+                // TODO
+            } else if ("filelist".equals(prchild.getName())) {
+                for (final Xpp3Dom flchild : prchild.getChildren()) {
+                    final String n = flchild.getAttribute("name");
+                    InstallableFile file = null;
+                    for (final Map<String, InstallableFile> map : files.values()) {
+                        if (map.containsKey(n)) {
+                            file = map.get(n);
+                            break;
+                        }
+                    }
+                    if (file == null) {
+                        throw new PhpCoreException("Cannot find installable file: " + n);
+                    }
+                    if ("ignore".equals(flchild.getName())) {
+                        file.ignore = true;
+                    } else if ("install".equals(flchild.getName())) {
+                        file.installAs = flchild.getAttribute("as");
+                        if (file.role.equals(FILE_ROLE_DATA) || file.role.equals(FILE_ROLE_DOC)) {
+                            file.installAs = this.getPackageName() + "/" + file.installAs;
+                        }
+                    } else {
+                        throw new PhpCoreException("Unknown name in package.xml: " + flchild.getName());
+                    }
+                }
+            } else {
+                throw new PhpCoreException("Unknown name in package.xml: " + prchild.getName());
+            }
+        }
+    }
+
     private void fetchRelease(
             final List<IDependency> required,
             final List<IDependency> optional,
-            final Map<String, List<String>> files,
+            final Map<String, Map<String, InstallableFile>> files,
             final Xpp3Dom child)
         throws PhpCoreException {
         for (final Xpp3Dom rchild : child.getChildren()) {
@@ -596,7 +648,7 @@ public class PackageVersion implements IPackageVersion {
      * @param namePrefix
      */
     private void fetchFile(
-            Map<String, List<String>> files, Xpp3Dom dom, String baseInstallDir,
+            Map<String, Map<String, InstallableFile>> files, Xpp3Dom dom, String baseInstallDir,
             String defaultRole, String namePrefix)
         throws PhpCoreException {
         // TODO parse children:
@@ -628,12 +680,16 @@ public class PackageVersion implements IPackageVersion {
                     throw new IllegalStateException("Unknown pear packager version");
             }
         }
-        List<String> filesList = files.get(role);
+        Map<String, InstallableFile> filesList = files.get(role);
         if (filesList == null) {
-            filesList = new ArrayList<String>();
+            filesList = new HashMap<String, InstallableFile>();
             files.put(role, filesList);
         }
-        filesList.add(path);
+        final InstallableFile ifile = new InstallableFile();
+        ifile.name = fname;
+        ifile.role = role;
+        ifile.installAs = path;
+        filesList.put(fname, ifile);
     }
 
     /**
@@ -645,7 +701,7 @@ public class PackageVersion implements IPackageVersion {
      * @param namePrefix
      */
     private void fetchDir(
-            Map<String, List<String>> files, Xpp3Dom dom, String baseInstallDir,
+            Map<String, Map<String, InstallableFile>> files, Xpp3Dom dom, String baseInstallDir,
             String defaultRole, String namePrefix)
         throws PhpCoreException {
         final String role = dom.getAttribute("role") == null ? defaultRole : dom.getAttribute("role");
@@ -715,7 +771,7 @@ public class PackageVersion implements IPackageVersion {
      * @param child child dom node
      * @throws PhpCoreException 
      */
-    private void processContents(Map<String, List<String>> files, Xpp3Dom child) throws PhpCoreException {
+    private void processContents(Map<String, Map<String, InstallableFile>> files, Xpp3Dom child) throws PhpCoreException {
         for (final Xpp3Dom fchild : child.getChildren()) {
             if ("file".equals(fchild.getName())) {
                 this.fetchFile(files, fchild, null, null, "");
@@ -997,7 +1053,18 @@ public class PackageVersion implements IPackageVersion {
     public Iterable<String> getFiles(String role) throws PhpException {
         this.initializeExtendedData();
         if (this.fileContents.containsKey(role)) {
-            return this.fileContents.get(role);
+            final List<String> files = new ArrayList<String>();
+            for (final InstallableFile file : this.fileContents.get(role).values()) {
+                if (file.ignore) {
+                    continue;
+                }
+                if (file.installAs == null) {
+                    files.add(file.name);
+                } else {
+                    files.add(file.installAs);
+                }
+            }
+            return files;
         }
         return Collections.EMPTY_LIST;
     }
