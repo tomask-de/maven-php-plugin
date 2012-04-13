@@ -664,7 +664,7 @@ public class PackageVersion implements IPackageVersion {
             throw new PhpCoreException("Unknown file role: " + fname);
         }
         String path = null;
-        if (FILE_ROLE_PHP.equals(role)) {
+        if (FILE_ROLE_PHP.equals(role) || FILE_ROLE_WWW.equals(role)) {
             path = namePrefix + basedir + (installAs == null ? fname : installAs);
         } else {
             // data/doc files are installed in a folder built by package name and fname.

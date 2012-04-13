@@ -403,6 +403,27 @@ public class BaseTest extends AbstractTestCase {
             assertTrue(docFiles.next().startsWith("HTML_QuickForm2/examples/"));
         }
     }
+    
+    /**
+     * Tests the versions.
+     * 
+     * @throws Exception 
+     */
+    public void testFileLayoutV2WithWwwFiles() throws Exception {
+        final IPearChannel channel = getChannel(false);
+        
+        channel.initializePackages(true, true);
+        
+        IPackage pkg;
+        IPackageVersion version;
+        
+        pkg = channel.getPackage("pearweb_channelxml");
+        version = pkg.getVersion("1.13.0");
+        final Iterator<String> dataFiles = version.getFiles(IPackageVersion.FILE_ROLE_WWW).iterator();
+        while (dataFiles.hasNext()) {
+            assertTrue(dataFiles.next().startsWith("public_html/"));
+        }
+    }
      
     /**
      * Pear channel.
