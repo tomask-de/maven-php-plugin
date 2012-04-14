@@ -412,6 +412,15 @@ public class BaseTest extends AbstractTestCase {
             final String file = phpFiles.next();
             assertTrue(file.startsWith("Genealogy/Gedcom/") || "Genealogy/Gedcom.php".equals(file));
         }
+        
+        pkg = channel.getPackage("Crypt_Xtea");
+        version = pkg.getVersion("1.1.0RC1");
+        phpFiles = version.getFiles(IPackageVersion.FILE_ROLE_PHP).iterator();
+        assertEquals("Crypt/Xtea.php", phpFiles.next());
+        assertFalse(phpFiles.hasNext());
+        docFiles = version.getFiles(IPackageVersion.FILE_ROLE_DOC).iterator();
+        assertEquals("Crypt_Xtea/README", docFiles.next());
+        assertFalse(docFiles.hasNext());
     }
      
     /**

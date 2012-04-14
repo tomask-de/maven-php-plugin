@@ -665,7 +665,10 @@ public class PackageVersion implements IPackageVersion {
         //    <tasks:replace from="@package_version@" to="version" type="package-info" />
         // </file>
         final String role = dom.getAttribute("role") == null ? defaultRole : dom.getAttribute("role");
-        final String fname = dom.getAttribute("name");
+        String fname = dom.getAttribute("name");
+        if (fname == null && dom.getValue() != null && this.packagerVersion == PearPkgVersion.PKG_V1) {
+            fname = dom.getValue();
+        }
         final String dir = dom.getAttribute("baseinstalldir");
         final String basedir = dir == null ? (baseInstallDir == null ? "" : baseInstallDir + "/") : dir + "/";
         final String installAs = dom.getAttribute("install-as");
