@@ -668,17 +668,18 @@ public class PackageVersion implements IPackageVersion {
             path = namePrefix + basedir + (installAs == null ? fname : installAs);
         } else {
             // data/doc files are installed in a folder built by package name and fname.
-            // for v2 installers they only use the base name.
-            switch (this.packagerVersion) {
-                case PKG_V1:
-                    path = this.getPackageName() + "/" + (installAs == null ? fname : installAs);
-                    break;
-                case PKG_V2:
-                    path = this.getPackageName() + "/" + new File(fname).getName();
-                    break;
-                default:
-                    throw new IllegalStateException("Unknown pear packager version");
-            }
+            path = this.getPackageName() + "/" + (installAs == null ? fname : installAs);
+//            // for v2 installers they only use the base name.
+//            switch (this.packagerVersion) {
+//                case PKG_V1:
+//                    path = this.getPackageName() + "/" + (installAs == null ? fname : installAs);
+//                    break;
+//                case PKG_V2:
+//                    path = this.getPackageName() + "/" + (installAs == null ? fname : installAs);
+//                    break;
+//                default:
+//                    throw new IllegalStateException("Unknown pear packager version");
+//            }
         }
         path = path.replace("\\", "/");
         while (path.startsWith("/")) {

@@ -376,8 +376,14 @@ public class BaseTest extends AbstractTestCase {
         pkg = channel.getPackage("HTML_QuickForm2");
         version = pkg.getVersion("0.3.0");
         final Iterator<String> dataFiles = version.getFiles(IPackageVersion.FILE_ROLE_DATA).iterator();
-        assertEquals("HTML_QuickForm2/quickform.css", dataFiles.next());
+        assertEquals("HTML_QuickForm2/data/quickform.css", dataFiles.next());
         assertFalse(dataFiles.hasNext());
+
+        pkg = channel.getPackage("Net_DNSBL");
+        version = pkg.getVersion("1.3.6");
+        final Iterator<String> docFiles = version.getFiles(IPackageVersion.FILE_ROLE_DOC).iterator();
+        assertEquals("Net_DNSBL/examples/check_dnsbl", docFiles.next());
+        assertFalse(docFiles.hasNext());
     }
     
     /**
