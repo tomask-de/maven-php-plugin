@@ -680,6 +680,13 @@ public class PackageVersion implements IPackageVersion {
                     throw new IllegalStateException("Unknown pear packager version");
             }
         }
+        path = path.replace("\\", "/");
+        while (path.startsWith("/")) {
+            path = path.substring(1);
+        }
+        while (path.contains("//")) {
+            path = path.replace("//", "/");
+        }
         Map<String, InstallableFile> filesList = files.get(role);
         if (filesList == null) {
             filesList = new HashMap<String, InstallableFile>();
