@@ -421,6 +421,15 @@ public class BaseTest extends AbstractTestCase {
         docFiles = version.getFiles(IPackageVersion.FILE_ROLE_DOC).iterator();
         assertEquals("Crypt_Xtea/README", docFiles.next());
         assertFalse(docFiles.hasNext());
+        
+        pkg = channel.getPackage("Structures_BibTex");
+        version = pkg.getVersion("0.1.0");
+        phpFiles = version.getFiles(IPackageVersion.FILE_ROLE_PHP).iterator();
+        assertEquals("Structures/BibTex.php", phpFiles.next());
+        assertFalse(phpFiles.hasNext());
+        docFiles = version.getFiles(IPackageVersion.FILE_ROLE_DOC).iterator();
+        assertEquals("Structures_BibTex/examples/Structures_BibTex_example.php", docFiles.next());
+        assertFalse(docFiles.hasNext());
     }
      
     /**

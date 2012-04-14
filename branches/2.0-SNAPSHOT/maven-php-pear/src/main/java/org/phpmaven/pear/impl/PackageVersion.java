@@ -680,7 +680,7 @@ public class PackageVersion implements IPackageVersion {
             path = namePrefix + basedir + (installAs == null ? fname : installAs);
         } else {
             // data/doc files are installed in a folder built by package name and fname.
-            path = this.getPackageName() + "/" + (installAs == null ? fname : installAs);
+            path = this.getPackageName() + "/" + namePrefix + "/" + (installAs == null ? fname : installAs);
 //            // for v2 installers they only use the base name.
 //            switch (this.packagerVersion) {
 //                case PKG_V1:
