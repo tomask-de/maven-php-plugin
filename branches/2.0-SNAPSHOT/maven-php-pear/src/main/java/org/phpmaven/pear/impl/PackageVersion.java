@@ -180,6 +180,7 @@ public class PackageVersion implements IPackageVersion {
         private boolean ignore;
         /** the file role. */
         private String role;
+        public String baseInstallDir;
     }
 
     /**
@@ -592,9 +593,17 @@ public class PackageVersion implements IPackageVersion {
                     if ("ignore".equals(flchild.getName())) {
                         file.ignore = true;
                     } else if ("install".equals(flchild.getName())) {
-                        file.installAs = flchild.getAttribute("as");
                         if (file.role.equals(FILE_ROLE_DATA) || file.role.equals(FILE_ROLE_DOC)) {
-                            file.installAs = this.getPackageName() + "/" + file.installAs;
+                            file.installAs = this.getPackageName() + "/" + flchild.getAttribute("as");
+                        } else {
+                            file.installAs = file.baseInstallDir + "/" + flchild.getAttribute("as");
+                        }
+                        file.installAs = file.installAs.replace("\\", "/");
+                        while (file.installAs.startsWith("/")) {
+                            file.installAs = file.installAs.substring(1);
+                        }
+                        while (file.installAs.contains("//")) {
+                            file.installAs = file.installAs.replace("//", "/");
                         }
                     } else {
                         throw new PhpCoreException("Unknown name in package.xml: " + flchild.getName());
@@ -697,6 +706,7 @@ public class PackageVersion implements IPackageVersion {
         ifile.name = fname;
         ifile.role = role;
         ifile.installAs = path;
+        ifile.baseInstallDir = namePrefix + basedir;
         filesList.put(fname, ifile);
     }
 

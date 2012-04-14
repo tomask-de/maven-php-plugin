@@ -372,62 +372,45 @@ public class BaseTest extends AbstractTestCase {
         
         IPackage pkg;
         IPackageVersion version;
+        Iterator<String> dataFiles;
+        Iterator<String> docFiles;
+        Iterator<String> phpFiles;
         
         pkg = channel.getPackage("HTML_QuickForm2");
         version = pkg.getVersion("0.3.0");
-        final Iterator<String> dataFiles = version.getFiles(IPackageVersion.FILE_ROLE_DATA).iterator();
+        dataFiles = version.getFiles(IPackageVersion.FILE_ROLE_DATA).iterator();
         assertEquals("HTML_QuickForm2/data/quickform.css", dataFiles.next());
         assertFalse(dataFiles.hasNext());
 
         pkg = channel.getPackage("Net_DNSBL");
         version = pkg.getVersion("1.3.6");
-        final Iterator<String> docFiles = version.getFiles(IPackageVersion.FILE_ROLE_DOC).iterator();
+        docFiles = version.getFiles(IPackageVersion.FILE_ROLE_DOC).iterator();
         assertEquals("Net_DNSBL/examples/check_dnsbl", docFiles.next());
         assertFalse(docFiles.hasNext());
-    }
-    
-    /**
-     * Tests the versions.
-     * 
-     * @throws Exception 
-     */
-    public void testFileLayoutV2WithPhpreleaseFilelist() throws Exception {
-        final IPearChannel channel = getChannel(false);
-        
-        channel.initializePackages(true, true);
-        
-        IPackage pkg;
-        IPackageVersion version;
-        
+
         pkg = channel.getPackage("HTML_QuickForm2");
         version = pkg.getVersion("0.4.0");
-        final Iterator<String> dataFiles = version.getFiles(IPackageVersion.FILE_ROLE_DATA).iterator();
+        dataFiles = version.getFiles(IPackageVersion.FILE_ROLE_DATA).iterator();
         assertEquals("HTML_QuickForm2/quickform.css", dataFiles.next());
         assertFalse(dataFiles.hasNext());
-        final Iterator<String> docFiles = version.getFiles(IPackageVersion.FILE_ROLE_DOC).iterator();
+        docFiles = version.getFiles(IPackageVersion.FILE_ROLE_DOC).iterator();
         while (docFiles.hasNext()) {
             assertTrue(docFiles.next().startsWith("HTML_QuickForm2/examples/"));
         }
-    }
-    
-    /**
-     * Tests the versions.
-     * 
-     * @throws Exception 
-     */
-    public void testFileLayoutV2WithWwwFiles() throws Exception {
-        final IPearChannel channel = getChannel(false);
-        
-        channel.initializePackages(true, true);
-        
-        IPackage pkg;
-        IPackageVersion version;
         
         pkg = channel.getPackage("pearweb_channelxml");
         version = pkg.getVersion("1.13.0");
-        final Iterator<String> dataFiles = version.getFiles(IPackageVersion.FILE_ROLE_WWW).iterator();
+        dataFiles = version.getFiles(IPackageVersion.FILE_ROLE_WWW).iterator();
         while (dataFiles.hasNext()) {
             assertTrue(dataFiles.next().startsWith("public_html/"));
+        }
+        
+        pkg = channel.getPackage("Genealogy_Gedcom");
+        version = pkg.getVersion("1.0.1");
+        phpFiles = version.getFiles(IPackageVersion.FILE_ROLE_PHP).iterator();
+        while (phpFiles.hasNext()) {
+            final String file = phpFiles.next();
+            assertTrue(file.startsWith("Genealogy/Gedcom/") || "Genealogy/Gedcom.php".equals(file));
         }
     }
      
