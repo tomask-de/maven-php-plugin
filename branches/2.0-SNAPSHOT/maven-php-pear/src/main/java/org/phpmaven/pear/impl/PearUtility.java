@@ -384,6 +384,8 @@ public class PearUtility implements IPearUtility {
                 "  if (get_current_user() != 'root') {\n" +
                 "    $a->pear_conf = $a->safeGetenv('HOME') . '/.pearrc';\n" +
                 "  }\n" +
+                "  $a->temp_dir='$prefix/tmp';\n" +
+                "  $a->download_dir='$prefix/tmp';\n" +
                 "}\n" +
                 "if (PEAR::isError($err = $a->locatePackagesToInstall())) {\n" +
                 "  die();\n" +
