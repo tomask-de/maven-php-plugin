@@ -430,6 +430,14 @@ public class BaseTest extends AbstractTestCase {
         docFiles = version.getFiles(IPackageVersion.FILE_ROLE_DOC).iterator();
         assertEquals("Structures_BibTex/examples/Structures_BibTex_example.php", docFiles.next());
         assertFalse(docFiles.hasNext());
+        
+        pkg = channel.getPackage("PHP_CodeSniffer");
+        version = pkg.getVersion("0.0.5");
+        phpFiles = version.getFiles(IPackageVersion.FILE_ROLE_PHP).iterator();
+        while (phpFiles.hasNext()) {
+            final String file = phpFiles.next();
+            assertTrue(file.startsWith("PHP/CodeSniffer/") || "PHP/CodeSniffer.php".equals(file));
+        }
     }
      
     /**

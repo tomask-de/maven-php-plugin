@@ -677,7 +677,7 @@ public class PackageVersion implements IPackageVersion {
         }
         String path = null;
         if (FILE_ROLE_PHP.equals(role) || FILE_ROLE_WWW.equals(role)) {
-            path = namePrefix + basedir + (installAs == null ? fname : installAs);
+            path = basedir + namePrefix + (installAs == null ? fname : installAs);
         } else {
             // data/doc files are installed in a folder built by package name and fname.
             path = this.getPackageName() + "/" + namePrefix + "/" + (installAs == null ? fname : installAs);
@@ -709,7 +709,7 @@ public class PackageVersion implements IPackageVersion {
         ifile.name = fname;
         ifile.role = role;
         ifile.installAs = path;
-        ifile.baseInstallDir = namePrefix + basedir;
+        ifile.baseInstallDir = basedir + namePrefix;
         filesList.put(fname, ifile);
     }
 
