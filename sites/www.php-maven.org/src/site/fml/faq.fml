@@ -27,29 +27,22 @@
 			"Maven for PHP" is configured like every other maven plugin. 
 			Here are a sample configuration:
 <source>
-<project>
+&lt;project>
 ......
-			<plugin>
-				<groupId>org.phpmaven</groupId>
-				<artifactId>maven-php-plugin</artifactId>
-				<extensions>true</extensions>
-				<configuration>
-				    <phpExe>
-					    $pathTOYourPHPFolder/php.exe
-				    </phpExe>
-				    <ignoreValidate>false</ignoreValidate>
-				    <excludeFromValidation>
-				        <file>controller.php</file>
-				        <file>tree.php</file>
-				    </excludeFromValidation>
-				     
-			    </configuration>
-			</plugin>
+			&lt;plugin>
+				&lt;groupId>org.phpmaven&lt;/groupId>
+				&lt;artifactId>maven-php-plugin&lt;/artifactId>
+				&lt;extensions>true&lt;/extensions>
+				&lt;configuration>
+				    &lt;phpExe>$pathTOYourPHPFolder/php.exe&lt;/phpExe>
+			    &lt;/configuration>
+			&lt;/plugin>
 ......			
-</project>
+&lt;/project>
 
 			</source>
-			You can find a full list of all possible parameters under <a href="http://www.php-maven.org/plugin-info.html">Plugin Goals</a><!--TODO fix url -->
+			You can find a full list of all possible parameters under <a href="branches/${phpmavenLatestSnapshot}/maven-php-plugin/plugin-info.html">Plugin Goals</a>.
+			Details about the configuration can be found in the <a href="branches/${phpmavenLatestSnapshot}/tutorials.html#configuration">configuration section</a> of the tutorials.
 			</answer>
 		</faq>
 <faq id="faq4">
@@ -57,35 +50,31 @@
 				Where can i find the source code?
 			</question>
 			<answer>
-			Look <a href="source.html">here</a> <!--TODO fix url -->
+			Look <a href="source-repository.html">here</a>
 			</answer>
 		</faq>
 	
 <faq id="faq5">
 <question>
-				PHP validated fails because PHP is looking for files which are central included.   
+				I need an autoloader to be prepended for php executions.   
 			</question>
 			<answer>
-			You can include files central with the -d argument. You must exclude that file from the validation.
+			You can include files central with the -d argument.
 			<source>
-<project>
+&lt;project>
 ......
-			<plugin>
-				<groupId>org.phpmaven</groupId>
-				<artifactId>maven-php-plugin</artifactId>
-				<extensions>true</extensions>
-				<configuration>
-					<compileArgs>
-						-d auto_prepend_file=core.php
-					</compileArgs>
-				    <excludeFromValidation>
-				        <file>core.php</file>
-				    </excludeFromValidation>
-				     
-			    </configuration>
-			</plugin>
+			&lt;plugin>
+				&lt;groupId>org.phpmaven&lt;/groupId>
+				&lt;artifactId>maven-php-project&lt;/artifactId>
+				&lt;extensions>true&lt;/extensions>
+				&lt;configuration>
+					&lt;executableConfig>
+					    &lt;additionalPhpParameters>-d auto_prepend_file=autoloading.php&lt;/additionalPhpParameters>
+					&lt;/executableConfig>
+			    &lt;/configuration>
+			&lt;/plugin>
 ......			
-</project>
+&lt;/project>
 
 			</source> 
 </answer>
