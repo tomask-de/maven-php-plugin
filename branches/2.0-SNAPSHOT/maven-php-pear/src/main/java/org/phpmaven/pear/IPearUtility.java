@@ -225,5 +225,23 @@ public interface IPearUtility {
      */
     void installFromMavenRepository(final String groupId, final String artifactId, final String version)
         throws PhpException;
+    
+    /**
+     * Returns true if given Package is a core package; core packages are automatically
+     * installed while pear itself is installed. 
+     * @param groupId group id
+     * @param artifactId artifact id
+     * @return true if this is a core package.
+     */
+    boolean isMavenCorePackage(final String groupId, final String artifactId);
+    
+    /**
+     * Returns true if given Package is a core package; core packages are automatically
+     * installed while pear itself is installed. 
+     * @param channel pear channel
+     * @param pkg pear package name
+     * @return true if this is a core package.
+     */
+    boolean isPearCorePackage(final String channel, final String pkg);
 
 }

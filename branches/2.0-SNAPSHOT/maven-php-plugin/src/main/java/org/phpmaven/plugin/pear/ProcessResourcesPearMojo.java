@@ -124,12 +124,7 @@ public class ProcessResourcesPearMojo extends AbstractPhpMojo
             final IPearChannel channel = utility.channelDiscover(this.pearChannelAlias);
             final IPackage pkg = channel.getPackage(this.pearPackage);
             final IPackageVersion version = pkg.getVersion(this.pearPackageVersion);
-            if ("pear".equals(this.pearChannelAlias) && (
-                    "Archive_Tar".equals(this.pearPackage)
-                    || "Console_Getopt".equals(this.pearPackage)
-                    || "PEAR".equals(this.pearPackage)
-                    || "Structures_Graph".equals(this.pearPackage)
-                    || "XML_Util".equals(this.pearPackage))) {
+            if (utility.isPearCorePackage(this.pearChannelAlias, this.pearPackage)) {
                 // do not try to uninstall the core packages
                 // downgrade pear itself before installing
                 utility.executePearCmd("install --force pear/PEAR-1.8.0");

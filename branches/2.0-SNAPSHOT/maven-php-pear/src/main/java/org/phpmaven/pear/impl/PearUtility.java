@@ -824,8 +824,36 @@ public class PearUtility implements IPearUtility {
      */
     private void resolveTgz(String groupId, String artifactId, String version, List<File> filesToInstall)
         throws PhpException {
-        final Artifact artifact = this.resolveArtifact(groupId, artifactId, version, "tgz", "pear-tgz");
-        filesToInstall.add(artifact.getFile());
+        if (!this.isMavenCorePackage(groupId, artifactId)) {
+            final Artifact artifact = this.resolveArtifact(groupId, artifactId, version, "tgz", "pear-tgz");
+            filesToInstall.add(artifact.getFile());
+        }
+    }
+
+    @Override
+    public boolean isMavenCorePackage(String groupId, String artifactId) {
+        if (("net.php".equals(groupId)) && (
+                "Archive_Tar".equals(artifactId)
+                || "Console_Getopt".equals(artifactId)
+                || "PEAR".equals(artifactId)
+                || "Structures_Graph".equals(artifactId)
+                || "XML_Util".equals(artifactId))) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isPearCorePackage(String channel, String pkg) {
+        if (("pear".equals(channel) || "pear.php.net".equals(channel)) && (
+                "Archive_Tar".equals(pkg)
+                || "Console_Getopt".equals(pkg)
+                || "PEAR".equals(pkg)
+                || "Structures_Graph".equals(pkg)
+                || "XML_Util".equals(pkg))) {
+            return true;
+        }
+        return false;
     }
 
 }
