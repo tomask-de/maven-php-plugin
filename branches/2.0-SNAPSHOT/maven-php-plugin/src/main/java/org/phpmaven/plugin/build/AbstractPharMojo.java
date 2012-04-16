@@ -25,6 +25,9 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.phpmaven.phar.IPharPackager;
 import org.phpmaven.phar.IPharPackagerConfiguration;
 import org.phpmaven.phar.IPharPackagingRequest;
+import org.phpmaven.phar.PharDirectory;
+import org.phpmaven.phar.PharEntry;
+import org.phpmaven.phar.PharEntry.EntryType;
 
 
 /**
@@ -71,6 +74,12 @@ public abstract class AbstractPharMojo extends AbstractPhpMojo {
      * @optional
      */
     protected Xpp3Dom pharPackagerConfig;
+    
+    /**
+     * @parameter expression="${largePharFix}" default-value="true"
+     * @optional
+     */
+    protected Boolean largeFileFix;
     
     /**
      * The phar content entry used by configuration.
@@ -205,6 +214,10 @@ public abstract class AbstractPharMojo extends AbstractPhpMojo {
             }
             request.setTargetDirectory(this.getTargetDirectory());
             
+            if (this.largeFileFix) {
+                largeFileFix(request);
+            }
+            
             // package
             packager.packagePhar(request, getLog());
             
@@ -219,6 +232,22 @@ public abstract class AbstractPharMojo extends AbstractPhpMojo {
             throw new MojoExecutionException("failed creating the phar.", ex);
         } catch (IOException ex) {
             throw new MojoExecutionException("failed creating the phar.", ex);
+        }
+    }
+
+    private void largeFileFix(final IPharPackagingRequest request) {
+        // large file fix
+        int fileCount = 0;
+        for (final PharEntry entry : request.getEntries()) {
+            if (entry.getType() == EntryType.FILE) {
+                fileCount++;
+            } else {
+                fileCount = FileHelper.countFiles(((PharDirectory) entry).getPathToPack());
+            }
+        }
+        if (fileCount > 999) {
+            getLog().debug("Phar file count exceeds LIMIT. Applying large file fix.");
+            request.setLargePhar(true);
         }
     }
 

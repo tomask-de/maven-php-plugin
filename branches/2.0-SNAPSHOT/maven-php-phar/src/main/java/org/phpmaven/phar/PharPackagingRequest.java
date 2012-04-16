@@ -112,6 +112,12 @@ public class PharPackagingRequest implements IPharPackagingRequest {
      */
     @Configuration(name = "compressed", value = "true")
     private boolean isCompressed;
+    
+    /**
+     * Flag for forcing large files.
+     */
+    @Configuration(name = "largeFile", value = "true")
+    private boolean largeFile;
 
     /**
      * {@inheritDoc}
@@ -270,6 +276,22 @@ public class PharPackagingRequest implements IPharPackagingRequest {
     @Override
     public boolean isCompressed() {
         return this.isCompressed;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isLargePhar() {
+        return this.largeFile;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setLargePhar(boolean flg) {
+        this.largeFile = flg;
     }
 
 }

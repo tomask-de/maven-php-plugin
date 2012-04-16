@@ -95,6 +95,18 @@ import org.phpmaven.core.IComponentFactory;
  *       for details.
  *   </td>
  * </tr>
+ * <tr>
+ *   <td>largeFile</td>
+ *   <td>-</td>
+ *   <td>-</td>
+ *   <td>-</td>
+ *   <td>Flag to control building of large phar files (more than 1000 or 2000 files). if you get into trouble building
+ *   the phars that ends with 'BadMethodCallException' on compression set this flag to true. Defaults to false. Note:
+ *   Setting this flag to true will overwrite the templates. if you need to use alternative templates and run into
+ *   problems you should set 'compressed' to false and use an alternative file template that compresses the single
+ *   php files.
+ *   </td>
+ * </tr>
  * </table>
  * 
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
@@ -212,6 +224,17 @@ public interface IPharPackagingRequest {
      */
     void setPackagePhpFileTemplate(String packagePhpFileTemplate);
     
+    /**
+     * Returns true if this is a large phar file; will force to use another kind of compression because of php bugs.
+     * @return true to build a large file.
+     */
+    boolean isLargePhar();
+    
+    /**
+     * Sets the parge file flag.
+     * @param largeFile true to build a large phar.
+     */
+    void setLargePhar(boolean largeFile);
 
     /**
      * Returns the php file stub.

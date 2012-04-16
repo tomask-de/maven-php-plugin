@@ -67,6 +67,54 @@ public class BaseTest extends AbstractTestCase {
     }
 
     /**
+     * Tests the compression of large phars (large file flag only).
+     *
+     * @throws Exception thrown on errors
+     */
+    public void testLargePhar() throws Exception {
+        // look up the component factory
+        final IComponentFactory factory = lookup(IComponentFactory.class);
+        // create the execution config
+        final MavenSession session = this.createSimpleSession("phar/large-phar");
+        final File pharFile = new File(session.getCurrentProject().getBasedir(), "phar1.phar");
+        delete(pharFile);
+        final IPharPackagerConfiguration pharConfig = factory.lookup(
+                IPharPackagerConfiguration.class,
+                IComponentFactory.EMPTY_CONFIG,
+                session);
+        final IPharPackager exec = pharConfig.getPharPackager();
+        final IPharPackagingRequest request = factory.lookup(
+                IPharPackagingRequest.class,
+                IComponentFactory.EMPTY_CONFIG,
+                session);
+        
+        // prepare the request
+        request.setStub("die('HELLO STUB!');");
+        request.addFile("/some/file.php", new File(session.getCurrentProject().getBasedir(), "testphar.php"));
+        request.addDirectory("/", new File(session.getCurrentProject().getBasedir(), "phar1"));
+        assertEquals(
+                new File(session.getCurrentProject().getBasedir(), "target").getAbsolutePath(),
+                request.getTargetDirectory().getAbsolutePath());
+        request.setTargetDirectory(session.getCurrentProject().getBasedir());
+        request.setFilename(pharFile.getName());
+        
+        // package
+        final DefaultLog logger = new DefaultLog(new ConsoleLogger());
+        exec.packagePhar(request, logger);
+        assertTrue(pharFile.exists());
+        
+        final IPhpExecutableConfiguration phpConfig = factory.lookup(
+                IPhpExecutableConfiguration.class,
+                IComponentFactory.EMPTY_CONFIG,
+                session);
+        phpConfig.setAdditionalPhpParameters("-d suhosin.executor.include.whitelist=\"phar\"");
+        // check the phar
+        final IPhpExecutable phpExec = phpConfig.getPhpExecutable(logger);
+        assertEquals("INSIDE FILE.PHP\n", phpExec.execute(new File(
+                session.getCurrentProject().getBasedir(), "testphar.php")));
+    }
+
+    /**
      * Tests if the execution configuration can be created
      * with an unknown executable set.
      *

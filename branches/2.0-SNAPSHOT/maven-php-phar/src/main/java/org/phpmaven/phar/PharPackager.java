@@ -89,13 +89,22 @@ public class PharPackager implements IPharPackager {
 
         final String targetMasked = request.getTargetDirectory().getAbsolutePath().replace("\\", "\\\\");
         final String stubToUse = request.getStub().replace("\\", "\\\\").replace("'", "\\'");
+        
+        String compression = "";
+        if (request.isCompressed()) {
+            if (request.isLargePhar()) {
+                compression = "foreach ($phar as $file) { $file->compress(Phar::GZ); }\n";
+            } else {
+                compression = "$phar->compressFiles(Phar::GZ);\n";
+            }
+        }
 
         final String snippet = request.getPackagePhpTemplate().
                 replace("$:{pharfilepath}", targetMasked).
                 replace("$:{pharfilename}", request.getFilename()).
                 replace("$:{pharcontents}", contents.toString()).
                 // TODO: May we need to set a compression template????
-                replace("$:{pharcompression}", request.isCompressed() ? "$phar->compressFiles(Phar::GZ);\n" : "").
+                replace("$:{pharcompression}", compression).
                 replace("$:{pharstub}", "<?php " + stubToUse + " __HALT_COMPILER(); ?>");
 
         // XXX: respect build directory (set working path)

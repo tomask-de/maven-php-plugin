@@ -25,7 +25,11 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.phpmaven.phar.IPharPackager;
 import org.phpmaven.phar.IPharPackagerConfiguration;
 import org.phpmaven.phar.IPharPackagingRequest;
+import org.phpmaven.phar.PharDirectory;
+import org.phpmaven.phar.PharEntry;
+import org.phpmaven.phar.PharEntry.EntryType;
 import org.phpmaven.plugin.build.AbstractPhpMojo;
+import org.phpmaven.plugin.build.FileHelper;
 
 /**
  * pack a phar file using the contents of the library.
@@ -145,6 +149,8 @@ public final class PearPhar extends AbstractPhpMojo {
             request.setTargetDirectory(targetFile.getParentFile());
             request.addDirectory(this.targetDataDir.getAbsolutePath(), this.targetDataDir);
             
+            largeFileFix(request);
+            
             // package
             packager.packagePhar(request, getLog());
             
@@ -160,6 +166,21 @@ public final class PearPhar extends AbstractPhpMojo {
             throw new MojoExecutionException("failed creating the phar packager.", ex);
         } catch (org.phpmaven.exec.PhpException ex) {
             throw new MojoExecutionException("failed creating the phar.", ex);
+        }
+    }
+
+    private void largeFileFix(final IPharPackagingRequest request) {
+        // large file fix
+        int fileCount = 0;
+        for (final PharEntry entry : request.getEntries()) {
+            if (entry.getType() == EntryType.FILE) {
+                fileCount++;
+            } else {
+                fileCount = FileHelper.countFiles(((PharDirectory) entry).getPathToPack());
+            }
+        }
+        if (fileCount > 999) {
+            request.setLargePhar(true);
         }
     }
 
@@ -205,6 +226,8 @@ public final class PearPhar extends AbstractPhpMojo {
             request.setFilename(targetFile.getName());
             request.setTargetDirectory(targetFile.getParentFile());
             request.addDirectory(this.targetDocDir.getAbsolutePath(), this.targetDocDir);
+            
+            largeFileFix(request);
             
             // package
             packager.packagePhar(request, getLog());
@@ -266,6 +289,8 @@ public final class PearPhar extends AbstractPhpMojo {
             request.setFilename(targetFile.getName());
             request.setTargetDirectory(targetFile.getParentFile());
             request.addDirectory(this.targetWwwDir.getAbsolutePath(), this.targetWwwDir);
+            
+            largeFileFix(request);
             
             // package
             packager.packagePhar(request, getLog());
