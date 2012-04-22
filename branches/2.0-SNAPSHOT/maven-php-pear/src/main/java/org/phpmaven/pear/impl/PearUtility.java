@@ -19,6 +19,7 @@ package org.phpmaven.pear.impl;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -801,9 +802,26 @@ public class PearUtility implements IPearUtility {
                 }
             }
             final List<File> filesToInstall = new ArrayList<File>();
+            // first the dependencies
+            this.log.debug(
+                    "resolving tgz and project for " +
+                    groupId + ":" +
+                    artifactId + ":" + 
+                    version);
             this.resolveTgz(groupId, artifactId, version, filesToInstall);
             this.resolveChannels(project);
             for (final org.sonatype.aether.graph.Dependency dep : deps.values()) {
+                this.log.debug(
+                        "resolving tgz and project for " +
+                        dep.getArtifact().getGroupId() + ":" +
+                        dep.getArtifact().getArtifactId() + ":" + 
+                        dep.getArtifact().getVersion());
+                if (this.isMavenCorePackage(
+                    dep.getArtifact().getGroupId(),
+                    dep.getArtifact().getArtifactId())) {
+                    // ignore core packages
+                    continue;
+                }
                 this.resolveTgz(
                     dep.getArtifact().getGroupId(),
                     dep.getArtifact().getArtifactId(),
@@ -820,6 +838,7 @@ public class PearUtility implements IPearUtility {
                 this.resolveChannels(depProject);
             }
             
+            Collections.reverse(filesToInstall);
             for (final File file : filesToInstall) {
                 this.executePearCmd("install \"" + file.getAbsolutePath() + "\"");
             }
