@@ -117,6 +117,9 @@ public class PhpdocPearSupport extends AbstractPhpdocSupport implements IPhpdocS
                 util.installFromMavenRepository("net.php", "PhpDocumentor", this.phpdocVersion);
             } else {
                 writeXml(log, request, phpDocConfigFile, generatedPhpDocConfigFile);
+                // there is a very strange dependency mismatching in phpdoc.
+                // an unknown version 0.17.0 is used as dependency for various things.
+                util.installFromMavenRepository("org.phpdoc", "phpDocumentor", "0.17.0");
                 util.installFromMavenRepository("org.phpdoc", "phpDocumentor", this.phpdocVersion);
             }
             

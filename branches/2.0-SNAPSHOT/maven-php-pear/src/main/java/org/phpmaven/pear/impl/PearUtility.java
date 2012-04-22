@@ -778,7 +778,7 @@ public class PearUtility implements IPearUtility {
         final ProjectBuildingRequest pbr = new DefaultProjectBuildingRequest(this.session.getProjectBuildingRequest());
         try {
             pbr.setProcessPlugins(false);
-            ProjectBuildingResult pbres = this.projectBuilder.build(pomFile, pbr);
+            final ProjectBuildingResult pbres = this.projectBuilder.build(pomFile, pbr);
             final MavenProject project = pbres.getProject();
             final DependencyResolutionRequest drr = new DefaultDependencyResolutionRequest(
                 project, session.getRepositorySession());
@@ -833,8 +833,8 @@ public class PearUtility implements IPearUtility {
                     dep.getArtifact().getVersion(),
                     "pom", null);
                 final File depPomFile = depPomArtifact.getFile();
-                pbres = this.projectBuilder.build(depPomFile, pbr);
-                final MavenProject depProject = pbres.getProject();
+                final ProjectBuildingResult depPbres = this.projectBuilder.build(depPomFile, pbr);
+                final MavenProject depProject = depPbres.getProject();
                 this.resolveChannels(depProject);
             }
             
