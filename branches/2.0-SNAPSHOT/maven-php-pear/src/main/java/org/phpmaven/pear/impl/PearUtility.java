@@ -19,7 +19,6 @@ package org.phpmaven.pear.impl;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -33,6 +32,8 @@ import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.artifact.resolver.ArtifactResolutionRequest;
 import org.apache.maven.artifact.resolver.ArtifactResolutionResult;
 import org.apache.maven.execution.MavenSession;
+import org.apache.maven.model.Build;
+import org.apache.maven.model.Plugin;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.DefaultDependencyResolutionRequest;
 import org.apache.maven.project.DefaultProjectBuildingRequest;
@@ -776,7 +777,7 @@ public class PearUtility implements IPearUtility {
         final ProjectBuildingRequest pbr = new DefaultProjectBuildingRequest(this.session.getProjectBuildingRequest());
         try {
             pbr.setProcessPlugins(false);
-            final ProjectBuildingResult pbres = this.projectBuilder.build(pomFile, pbr);
+            ProjectBuildingResult pbres = this.projectBuilder.build(pomFile, pbr);
             final MavenProject project = pbres.getProject();
             final DependencyResolutionRequest drr = new DefaultDependencyResolutionRequest(
                 project, session.getRepositorySession());
@@ -800,14 +801,23 @@ public class PearUtility implements IPearUtility {
                 }
             }
             final List<File> filesToInstall = new ArrayList<File>();
-            
             this.resolveTgz(groupId, artifactId, version, filesToInstall);
+            this.resolveChannels(project);
             for (final org.sonatype.aether.graph.Dependency dep : deps.values()) {
                 this.resolveTgz(
                     dep.getArtifact().getGroupId(),
                     dep.getArtifact().getArtifactId(),
                     dep.getArtifact().getVersion(),
                     filesToInstall);
+                final Artifact depPomArtifact = this.resolveArtifact(
+                    dep.getArtifact().getGroupId(),
+                    dep.getArtifact().getArtifactId(),
+                    dep.getArtifact().getVersion(),
+                    "pom", null);
+                final File depPomFile = depPomArtifact.getFile();
+                pbres = this.projectBuilder.build(depPomFile, pbr);
+                final MavenProject depProject = pbres.getProject();
+                this.resolveChannels(depProject);
             }
             
             for (final File file : filesToInstall) {
@@ -819,6 +829,29 @@ public class PearUtility implements IPearUtility {
             throw new PhpCoreException(ex);
         } catch (DependencyResolutionException ex) {
             throw new PhpCoreException(ex);
+        }
+    }
+
+    /**
+     * resolving the pear channels from given project.
+     * @param project the project
+     * @throws PhpException thrown on discover errors
+     */
+    private void resolveChannels(MavenProject project) throws PhpException {
+        final Build build = project.getBuild();
+        if (build != null) {
+            for (final Plugin plugin : build.getPlugins()) {
+                if ("org.phpmaven".equals(plugin.getGroupId()) &&
+                        "maven-php-plugin".equals(plugin.getArtifactId())) {
+                    final Xpp3Dom dom = (Xpp3Dom) plugin.getConfiguration();
+                    final Xpp3Dom pearChannelsDom = dom.getChild("pearChannels");
+                    if (pearChannelsDom != null) {
+                        for (final Xpp3Dom child : pearChannelsDom.getChildren()) {
+                            this.channelDiscover(child.getValue());
+                        }
+                    }
+                }
+            }
         }
     }
 
