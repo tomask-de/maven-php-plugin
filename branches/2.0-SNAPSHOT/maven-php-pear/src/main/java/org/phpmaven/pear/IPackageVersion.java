@@ -252,8 +252,9 @@ public interface IPackageVersion {
      * if this method is called twice.
      * @param pearUtility the pear utility to be used.
      * @param pearChannel the pear channel to be used.
+     * @param pearPackage the pear Package to be used.
      */
-    void initialize(IPearUtility pearUtility, IPearChannel pearChannel);
+    void initialize(IPearUtility pearUtility, IPearChannel pearChannel, IPackage pearPackage);
     
     /**
      * Returns the maintainers.

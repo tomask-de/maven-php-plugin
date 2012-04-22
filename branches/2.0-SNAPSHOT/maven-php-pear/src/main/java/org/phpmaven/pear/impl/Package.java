@@ -242,7 +242,7 @@ public class Package implements IPackage {
                 for (final Xpp3Dom child : dom.getChildren("r")) {
                     final String vName = child.getChild("v").getValue();
                     final IPackageVersion pkgVersion = new PackageVersion();
-                    pkgVersion.initialize(this.pearUtility, this.pearChannel);
+                    pkgVersion.initialize(this.pearUtility, this.pearChannel, this);
                     final IVersion version = new Version();
                     pkgVersion.setVersion(version);
                     pkgVersion.setPackageName(this.getPackageName());

@@ -167,6 +167,8 @@ public class PackageVersion implements IPackageVersion {
      * The packager version (pear version 1 or pear version 2).
      */
     private PearPkgVersion packagerVersion;
+
+    private IPackage pearPackage;
     
     /**
      * Installable file name.
@@ -1019,12 +1021,13 @@ public class PackageVersion implements IPackageVersion {
      * {@inheritDoc}
      */
     @Override
-    public void initialize(IPearUtility util, IPearChannel channel) {
+    public void initialize(IPearUtility util, IPearChannel channel, IPackage pkg) {
         if (this.pearUtility != null) {
             throw new IllegalStateException("Must not be called twice.");
         }
         this.pearUtility = util;
         this.pearChannel = channel;
+        this.pearPackage = pkg;
     }
 
     /**
@@ -1101,12 +1104,7 @@ public class PackageVersion implements IPackageVersion {
 
     @Override
     public IPackage getPackage() {
-        try {
-            return this.pearChannel.getPackage(this.name);
-        } catch (PhpException ex) {
-            // should never happen
-            throw new IllegalStateException(ex);
-        }
+        return this.pearPackage;
     }
 
     /**
