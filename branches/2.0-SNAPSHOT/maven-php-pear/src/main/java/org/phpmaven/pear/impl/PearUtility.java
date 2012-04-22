@@ -19,13 +19,17 @@ package org.phpmaven.pear.impl;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.artifact.resolver.ArtifactResolutionRequest;
 import org.apache.maven.artifact.resolver.ArtifactResolutionResult;
 import org.apache.maven.execution.MavenSession;
@@ -742,12 +746,16 @@ public class PearUtility implements IPearUtility {
      */
     private Artifact resolveArtifact(String groupId, String artifactId, String version, String type, String classifier)
         throws PhpException {
-        final Artifact artifact = this.reposSystem.createArtifactWithClassifier(groupId, artifactId, version, type, classifier);
+        final Artifact artifact = this.reposSystem.createArtifactWithClassifier(
+                groupId, artifactId, version, type, classifier);
         final ArtifactResolutionRequest request = new ArtifactResolutionRequest();
         request.setArtifact(artifact);
         request.setLocalRepository(this.session.getLocalRepository());
         request.setOffline(this.session.isOffline());
-        request.setRemoteRepositories(this.session.getRequest().getRemoteRepositories());
+        final Set<ArtifactRepository> setRepos = new HashSet<ArtifactRepository>(
+                this.session.getRequest().getRemoteRepositories());
+        setRepos.addAll(this.session.getCurrentProject().getRemoteArtifactRepositories());
+        request.setRemoteRepositories(new ArrayList<ArtifactRepository>(setRepos));
         final ArtifactResolutionResult result = this.reposSystem.resolve(request);
         if (!result.isSuccess()) {
             throw new PhpCoreException("dependency resolution failed for " +
