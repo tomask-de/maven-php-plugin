@@ -123,9 +123,10 @@ public class PhpdocPearSupport extends AbstractPhpdocSupport implements IPhpdocS
                 
                 //if (>=2.0.0-alpha-2.....) util.installFromMavenRepository("org.phpdoc", "phpDocumentor", "0.17.0");
                 // another option would be to install alpha 1 and after that install alpha 2
-                if (!"2.0.0-alpha-1".equals(this.phpdocVersion)) {
+                /*if (!"2.0.0-alpha-1".equals(this.phpdocVersion)) {
                     util.installFromMavenRepository("org.phpdoc", "phpDocumentor", "2.0.0-alpha-1");
-                }
+                }*/
+                util.installFromMavenRepository("org.phpdoc", "phpDocumentor", "0.17.0");
                 
                 util.installFromMavenRepository("org.phpdoc", "phpDocumentor", this.phpdocVersion);
             }
