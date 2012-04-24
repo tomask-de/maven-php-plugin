@@ -119,7 +119,14 @@ public class PhpdocPearSupport extends AbstractPhpdocSupport implements IPhpdocS
                 writeXml(log, request, phpDocConfigFile, generatedPhpDocConfigFile);
                 // there is a very strange dependency mismatching in phpdoc.
                 // an unknown version 0.17.0 is used as dependency for various things.
-                util.installFromMavenRepository("org.phpdoc", "phpDocumentor", "0.17.0");
+                // however it does not really work; maybe we need an empty dummy package.
+                
+                //if (>=2.0.0-alpha-2.....) util.installFromMavenRepository("org.phpdoc", "phpDocumentor", "0.17.0");
+                // another option would be to install alpha 1 and after that install alpha 2
+                if (!"2.0.0-alpha-1".equals(this.phpdocVersion)) {
+                    util.installFromMavenRepository("org.phpdoc", "phpDocumentor", "2.0.0-alpha-1");
+                }
+                
                 util.installFromMavenRepository("org.phpdoc", "phpDocumentor", this.phpdocVersion);
             }
             
