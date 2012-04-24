@@ -121,8 +121,8 @@ public class SiteTest extends AbstractTestCase {
         // phpdocumentor report
         verifier.assertFilePresent("target/site/apidocs/phpdocumentor.html");
         verifier.assertFilePresent("target/site/apidocs/phpdocumentor/index.html");
-        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/packages.html");
-        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/default/_MyClass.php.html");
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/graph_class.html");
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/packages/Default.html");
     }
     
     /**
@@ -150,8 +150,9 @@ public class SiteTest extends AbstractTestCase {
         // phpdocumentor report
         verifier.assertFilePresent("target/site/apidocs/phpdocumentor.html");
         verifier.assertFilePresent("target/site/apidocs/phpdocumentor/index.html");
-        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/packages.html");
-        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/default/_MyClass.php.html");
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/graph_class.html");
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/packages/Default.html");
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/classes/MyMavenTestClass.html");
     }
 
 }
