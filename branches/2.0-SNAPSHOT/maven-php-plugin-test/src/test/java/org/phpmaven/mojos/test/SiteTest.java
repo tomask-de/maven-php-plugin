@@ -122,7 +122,7 @@ public class SiteTest extends AbstractTestCase {
         verifier.assertFilePresent("target/site/apidocs/phpdocumentor.html");
         verifier.assertFilePresent("target/site/apidocs/phpdocumentor/index.html");
         verifier.assertFilePresent("target/site/apidocs/phpdocumentor/graph_class.html");
-        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/packages/Default.html");
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/packages/db_Default.html");
     }
     
     /**
