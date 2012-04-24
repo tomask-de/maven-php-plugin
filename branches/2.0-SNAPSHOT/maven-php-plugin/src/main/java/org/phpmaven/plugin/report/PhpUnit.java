@@ -15,9 +15,11 @@
 package org.phpmaven.plugin.report;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
+import java.util.ResourceBundle;
 
-import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.reporting.MavenReportException;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.phpunit.IPhpunitConfiguration;
@@ -28,27 +30,14 @@ import org.phpmaven.plugin.php.IPhpunitConfigurationMojo;
 import org.phpmaven.plugin.php.PhpUnitTestfileWalker;
 
 /**
- * A maven 2.0 plugin for generating phpunit code coverage reports. This plugin is
+ * A maven 2.0 plugin for generating phpunit reports. This plugin is
  * used in the <code>site</code> phase.
  *
- * @goal phpunit-coverage
+ * @goal phpunit
  * @phase site
  * @author Martin Eisengardt
  */
-public class PhpUnitCoverage extends AbstractApiDocReport implements IPhpunitConfigurationMojo {
-    
-    /**
-     * Text do ignore test failures.
-     */
-    public static final String IGNORING_TEST_FAILURES_TEXT = "Ignoring test failures.";
-
-    /**
-     * The output directory of doxygen generated documentation.
-     *
-     * @parameter expression="${project.build.directory}/site/phpunit"
-     * @required
-     */
-    private File outputCoverageDirectory;
+public class PhpUnit extends AbstractApiDocReport implements IPhpunitConfigurationMojo {
 
     /**
      * The generated test suite.
@@ -99,21 +88,6 @@ public class PhpUnitCoverage extends AbstractApiDocReport implements IPhpunitCon
     private boolean skip;
     
     /**
-     * Set this to "true" to ignore a failure during testing. Its use is NOT RECOMMENDED, but quite convenient on
-     * occasion.
-     * 
-     * @parameter default-value="false" expression="${maven.test.failure.ignore}"
-     */
-    private boolean testFailureIgnore;
-    
-    /**
-     * Set this to "true" to cause a failure if there are no tests to run. Defaults to "false".
-     * 
-     * @parameter default-value="false" expression="${failIfNoTests}"
-     */
-    private boolean failIfNoTests;
-    
-    /**
      * Additional command line arguments for phpunit. Can be used to parse options (for example
      * the --bootstrap file) but should never be used to set the test file or the xml output script.
      * 
@@ -155,7 +129,7 @@ public class PhpUnitCoverage extends AbstractApiDocReport implements IPhpunitCon
      */
     @Override
     public boolean isFailIfNoTests() {
-        return this.failIfNoTests;
+        return false;
     }
     
     // end of methods for IPhpunitConfigurationMojo
@@ -163,9 +137,9 @@ public class PhpUnitCoverage extends AbstractApiDocReport implements IPhpunitCon
     private void writeReport() {
         if (getSink() != null)  {
             getSink().rawText(
-                "<a href=\"phpunit/index.html\" target=\"_blank\">" +
+                "<a href=\"phpunit/report.html\" target=\"_blank\">" +
                     "Show documention<br>" +
-                    "<iframe src=\"phpunit/index.html\"" +
+                    "<iframe src=\"phpunit/report.html\"" +
                     "frameborder=0 style=\"border=0px;width:100%;height:400px\">");
         }
     }
@@ -176,7 +150,7 @@ public class PhpUnitCoverage extends AbstractApiDocReport implements IPhpunitCon
             
             getLog().info(
                     "\n-------------------------------------------------------\n" +
-                    "T E S T S - R E P O R T I N G   C O D E C O V E R A G E\n" +
+                    "T E S T S - R E P O R T I N G\n" +
                     "-------------------------------------------------------\n");
             
             // test files
@@ -200,25 +174,24 @@ public class PhpUnitCoverage extends AbstractApiDocReport implements IPhpunitCon
                 final IPhpunitSupport support = config.getPhpunitSupport();
                 support.setIsSingleTestInvocation(true);
                 support.setPhpunitArguments(this.phpUnitArguments);
-                support.setXmlResult(new File(this.resultFolder, "coverage.phpunit.xml"));
+                support.setXmlResult(new File(this.resultFolder, "phpunit.xml"));
                 support.setResultFolder(this.resultFolder);
-                support.setCoverageResult(this.outputCoverageDirectory);
                 // TODO generatedPhpUnitTestsuiteFile
                 
                 getLog().info("Starting tests.");
                 
                 final IPhpunitTestResult result = support.executeTests(request, getLog());
                 
+                final List<File> reportsDirectoryList = new ArrayList<File>();
+                reportsDirectoryList.add(this.resultFolder);
+                // TODO source xref linking
+                final String sourceFolder = null;
+                final boolean showSuccess = true;
+                final SurefireReportGenerator report = new SurefireReportGenerator(
+                        reportsDirectoryList, locale, showSuccess, sourceFolder);
+                report.doGenerateReport(getBundle(locale), getSink());
+                                
                 getLog().info("\n\nResults :\n\n" + result.toString());
-
-                if (!result.isSuccess()) {
-                    if (this.testFailureIgnore) {
-                        getLog().info(IGNORING_TEST_FAILURES_TEXT);
-                    } else {
-                        throw new MojoExecutionException("Test failures");
-                    }
-                }
-                
             }
             writeReport();
         /*CHECKSTYLE:OFF*/
@@ -229,6 +202,15 @@ public class PhpUnitCoverage extends AbstractApiDocReport implements IPhpunitCon
     }
 
     /**
+     * Returns the locale resource bundle.
+     * @param locale locale
+     * @return bundle
+     */
+    private ResourceBundle getBundle(Locale locale) {
+        return ResourceBundle.getBundle("surefire-report", locale, SurefireReportGenerator.class.getClassLoader());
+    }
+
+    /**
      * The name to use localized by a locale.
      *
      * @param locale the locale to localize
@@ -236,7 +218,7 @@ public class PhpUnitCoverage extends AbstractApiDocReport implements IPhpunitCon
      */
     @Override
     public String getName(Locale locale) {
-        return "PHPUnit-Coverage";
+        return "PHPUnit";
     }
 
     /**
@@ -247,12 +229,12 @@ public class PhpUnitCoverage extends AbstractApiDocReport implements IPhpunitCon
      */
     @Override
     public String getDescription(Locale locale) {
-        return "PHPUnit code coverage";
+        return "PHPUnit test report";
     }
 
     @Override
     public String getOutputName() {
-        return "phpunit/coverage";
+        return "phpunit/report";
     }
     @Override
     protected String getFolderName() {
