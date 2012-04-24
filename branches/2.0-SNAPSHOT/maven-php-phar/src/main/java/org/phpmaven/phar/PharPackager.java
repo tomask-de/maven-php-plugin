@@ -23,10 +23,12 @@ import java.util.List;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.logging.Log;
 import org.codehaus.plexus.component.annotations.Component;
+import org.codehaus.plexus.component.annotations.Configuration;
 import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
+import org.phpmaven.core.BuildPluginConfiguration;
 import org.phpmaven.core.ConfigurationParameter;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.exec.IPhpExecutable;
@@ -41,6 +43,8 @@ import org.phpmaven.phar.PharEntry.EntryType;
  * @since 2.0.0
  */
 @Component(role = IPharPackager.class, instantiationStrategy = "per-lookup")
+@BuildPluginConfiguration(groupId = "org.phpmaven", artifactId = "php-maven-phar", filter = {
+        "packager", "pharConfig" })
 public class PharPackager implements IPharPackager {
 
     /**
@@ -54,6 +58,12 @@ public class PharPackager implements IPharPackager {
      */
     @ConfigurationParameter(name = "session", expression = "${session}")
     private MavenSession session;
+    
+    /**
+     * The executable config.
+     */
+    @Configuration(name = "executableConfig", value = "")
+    private Xpp3Dom executableConfig;
     
     /**
      * {@inheritDoc}
@@ -113,17 +123,17 @@ public class PharPackager implements IPharPackager {
 
     private IPhpExecutableConfiguration getExecConfig()
         throws ComponentLookupException, PlexusConfigurationException {
-        Xpp3Dom executableConfig = this.factory.getBuildConfig(
+        /*Xpp3Dom executableConfig = this.factory.getBuildConfig(
                 this.session.getCurrentProject(),
                 "org.phpmaven",
                 "maven-php-phar");
         if (executableConfig != null) {
             executableConfig = executableConfig.getChild("executableConfig");
-        }
+        }*/
         
         final IPhpExecutableConfiguration execConfig = this.factory.lookup(
                 IPhpExecutableConfiguration.class,
-                executableConfig,
+                this.executableConfig,
                 this.session);
         // unset additional params for unphar
         execConfig.setAdditionalPhpParameters("");
@@ -207,7 +217,7 @@ public class PharPackager implements IPharPackager {
         final IPhpExecutable executable = execConfig.getPhpExecutable(log);
             
         final String pharFileName = pharPackage.getAbsolutePath().replace("\\", "\\\\");
-        final String files = executable.executeCode("",
+        final String files = executable.executeCode("-d suhosin.executor.include.whitelist=\"phar\"",
             "$iter = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(" +
             "'phar://" + pharFileName + "'));\n" +
             "foreach ($iter as $file) {\n" +
