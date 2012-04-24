@@ -840,7 +840,7 @@ public class PearUtility implements IPearUtility {
             
             Collections.reverse(filesToInstall);
             for (final File file : filesToInstall) {
-                this.executePearCmd("install \"" + file.getAbsolutePath() + "\"");
+                this.executePearCmd("install --force --nodeps \"" + file.getAbsolutePath() + "\"");
             }
         } catch (InvalidVersionSpecificationException ex) {
             throw new PhpCoreException(ex);
