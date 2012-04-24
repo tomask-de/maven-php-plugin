@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Copyright 2010-2012 by PHP-maven.org
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+	http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+	<properties>
+		<title>Development</title>
+		<author email="mep_eisen@web.de">Martin Eisengardt</author>
+	</properties>
+	
+	<body>
+
+	<section name="Development overview">
+	<p>
+	  First steps (we assume that you have a proper maven and php-maven setup including the settings to php-mavens repository):
+	</p>
+	<ul>
+	  <li>At first you should setup eclipse.
+	    <ul>
+	    <li>Install at least 1.6 jdk: <a href="http://java.sun.com/">http://www.oracle.com/technetwork/java/javase/downloads/index.html</a></li>
+	    <li>Download eclipse ide for java developers: <a href="http://www.eclipse.org/downloads/">eclipye download url</a>.</li>
+	    <li>After first starting eclipse set the proper jdk at window->preferences->java->installed JRE (eclipse may only see the jre and not the jdk</li>
+	    <li>Install checkstyle plugin: <a href="http://eclipse-cs.sourceforge.net/downloads.html">Install manual</a></li>
+	    </ul>
+	  </li>
+	  <li>Clone git
+	    <ul>
+	    <li>1st Variant: clone the whole git: <a href="https://github.com/php-maven/maven-php-plugin">github link</a>. Import the root folder project into
+	        the eclipse worksace (right click in git perspective and "import projects").</li>
+	    <li>2nd Variant: clone a single branch or a single tag. To let the build work correct you must create a small directory structure similar to the
+	        git repository. Create the folders "/dev" and "/tags", as well as "/branches". Clone the tag or branch you need inside them. The dev folder is
+	        git-ignored and is used to store some runtime data during build and test. You may use it to store your own launch configurations.</li>
+	    </ul>
+	  </li>
+	  <li>Setup checkstyle
+	    <ul>
+	    <li>If you did not checkout the whole git tree you should manually download the checkstyle rules from
+	        <a href="https://github.com/php-maven/maven-php-plugin/blob/master/var/checkstyle/src/main/resources/phpmaven/checkstyle.xml">GIThub</a>.
+	        Setup checkstyle at window->preferences->checkstyle->global check configurations. Create a profile called "PHP Maven" and select the checkstyle
+	        xml.</li>
+	    </ul>
+	  </li>
+	  <li>Checkout projects
+	    <ul>
+	    <li>Right click on the root and click import->Maven->"Existing maven projects". At the following dialog expand the "advanced" section and select
+	        the name template "[artifactId]-[version]". This will allow you to use several branches and tags at once.</li>
+	    </ul>
+	  </li>
+	</ul>
+	</section>
+	
+	<section name="The modules">
+	<p><b>archetypes</b> represents the archetypes phpmaven provides. In this project there is a overview: archetypes/src/site/xdoc/index.xml
+	   where all the archetypes are explained. It is a good place to put third party archetypes there.</p>
+	<p><b>maven-php-core</b> holds the component factory. It will be explained later on.</p>
+	<p><b>maven-php-exec</b> support php cli executions.</p>
+	<p><b>maven-php-jettycgi</b> is a small CGI servlet for jetty. It can be used for web projects.</p>
+	<p><b>maven-php-pear</b> provides pear instrumentation and pear channel analysis.</p>
+	<p><b>maven-php-phar</b> is able to extract, read and create phar archives.</p>
+	<p><b>maven-php-phpdoc</b> creates phpdoc reports.</p>
+	<p><b>maven-php-phpunit</b> performs unit testing and code coverage analysis.</p>
+	<p><b>maven-php-plugin</b> contains all the mojos for the build lifecycle.</p>
+	<p><b>maven-php-plugin-test</b> contains all unit test code for every other plugin, maybe the mojos or the utility modules.</p>
+	<p><b>maven-php-project</b> is similar to maven-php-exec but adds the include paths (/target/classes etc.) to the php executable.</p>
+	<p><b>maven-php-validate-lint</b> performs lint checks on php files.</p>
+	<p><b>php-parent-pom</b> is the recommended parent pom we are providing.</p>
+	<p><b>src/site</b> contains the default web site for documentation of the branch or tag.</p> 
+	</section>
+	
+	<section name="The configuration factory">
+	<p>The module maven-php-core supports a configuration factory. You may use it in mojos by declaring the proper private variable:</p>
+	<source>
+/**
+ * The configuration factory.
+ * @component
+ */
+private IComponentFactory factory;
+
+/**
+ * The maven session.
+ * @parameter expression="${session}"
+ */
+private MavenSession session;
+	</source>
+	<p>You can receive new components by invoking the lookup method:</p>
+	<source>
+final IMyComponent component = this.factory.lookup(IMyComponent.class, IComponentFactory.EMPTY_CONFIG, this.session);
+	</source>
+	<p>You can pass any Xpp3Dom object as configuration to this method. It results in the correct component. It is using the plexus container.
+	   For details read the <a href="http://plexus.codehaus.org/writing-components-trail/index.html">plexus component manual</a>.</p>
+	<p>Why do we not use the container directly? The maven-php-core component factory adds some useful extensions on the plexus container.
+	   At first you can customize the received component via Xpp3Dom configuration. That is important. For example you wish to add a
+	   configuration element to your mojo that customizes the component. The second extension is the automatic pom-like configuration.
+	   The plexus container itself does not know anything about poms and pom configurations but we want to rely on them.</p>
+	</section>
+	
+	<section name="Using a pom expression configuration.">
+	<p>You can add a configuration for every variable based on expressions. The following example shows a configuration option setting
+	a sub path of the project base dir:</p>
+	<source>
+ /**
+  * Some path.
+  */
+@ConfigurationParameter(name = "somePath", expression = "${project.basedir}/target/some-path")
+private File somePath;
+	</source>
+	</section>
+	
+	<section name="Using a build configuration.">
+	<p>You can automatically pass any build configuration to the component by adding the @BuildPluginConfiguration annotation to the any
+	   class or interface. This allows you to automatically read the build configuration of the current pom (the pom returned by
+	   parameter session.getCurrentProject while invoking lookup):</p>
+	<source>
+@BuildPluginConfiguration(groupId = "org.phpmaven", artifactId = "maven-php-anyplugin")
+	</source>
+	<p>We are using the following order for overwriting configuration; the top most entry is applied first; the last entry is overwriting the previous entries:</p>
+	<ul>
+	<li>@Configuration annotations of the plexus component.</li>
+	<li>@ConfigurationParameter annotation.</li>
+	<li>@BuildPluginConfiguration of the implementing class and the base classes/interfaces (no guaranteed ordering).</li>
+	<li>Configuration given to the invoke method; the first array entry is passed first.</li>
+	</ul>
+	</section>
+	
+	<section name="Example: Executing php.">
+	<p>First we will receive a php configuration.</p>
+	<source>
+final IPhpExecutableConfiguration execConfig = this.factory.lookup(IPhpExecutableConfiguration.class, IComponentFactory.EMPTY_CONFIG, this.session);
+    </source>
+    <p>This is not that difficult. You can customize it, for example add an include path:</p>
+    <source>
+execConfig.getIncludePath().add("target/my-gen-path");
+    </source>
+    <p>Now you are able to receive the php executable:</p>
+    <source>
+final IPhpExecutable exec = execConfig.getPhpExecutable(getLog());
+    </source>
+    <p>Notice that this will silently copy the configuration. If you now change the execConfig it won't influence the php executable you already created.
+    Let us now invoke a script:</p>
+    <source>
+final String output = exec.executeCode("", "phpinof();");
+    </source>
+    <p>Notice that we will now receive a "PhpException" because php will complain and fail with this script. The method "phpinfo" was not correctly spelled.
+       That's it. Most of the other plugins are done in a similar way. There is always an interface you should lookup with the component factory. This
+       interface leads to the functionality of the module. For example the IPhpunitConfiguration interface.</p>
+	</section>
+	
+	<section name="Some words on test cases">
+	<p>The testcases are currently contained in the artifact <i>maven-php-plugin-test</i>. This may change in future versions. All testcases are using
+	the baseclass <i>org.phpmaven.test.AbstractTestCase</i> because it helps us with testing especially on developer machines. You can find methods
+	to create a maven verifier or a maven session. These objects are already prepared to execute php-maven tests. This means they are running against local
+	installations of the php-maven. As we assume that all tests are running against the current development branch the first thing they do is install
+	various plugins into a local repository. If this is too slow you can activate the java define "phpmaven.hudsonintegration" (set it to 1). Activating
+	this define causes the AbstractTestCase to not compile and install the artifacts. Instead they will be used from your local repository. You may already
+	guess that this flag is used by the hudson CI server to increase testing performance.</p>
+	
+	<p></p>
+	</section>
+	
+</body>
+</document>

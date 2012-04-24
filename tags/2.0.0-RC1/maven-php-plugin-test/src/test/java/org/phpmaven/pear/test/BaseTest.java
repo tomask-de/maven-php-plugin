@@ -31,6 +31,7 @@ import org.phpmaven.pear.IPackageVersion;
 import org.phpmaven.pear.IPearChannel;
 import org.phpmaven.pear.IPearConfiguration;
 import org.phpmaven.pear.IPearUtility;
+import org.phpmaven.plugin.build.FileHelper;
 import org.phpmaven.test.AbstractTestCase;
 
 /**
@@ -385,6 +386,11 @@ public class BaseTest extends AbstractTestCase {
     private MavenSession getSession() throws Exception {
         // create the execution config
         final MavenSession session = this.createSimpleSession("pear/empty-pom");
+        final File pearZip = new File(
+                session.getCurrentProject().getBasedir(), 
+                "pear.php.net.zip");
+        final DefaultLog logger = new DefaultLog(new ConsoleLogger());
+        FileHelper.unzip(logger, pearZip, session.getCurrentProject().getBasedir());
         return session;
     }
     
