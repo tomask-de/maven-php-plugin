@@ -207,7 +207,7 @@ public class PhpUnit extends AbstractApiDocReport implements IPhpunitConfigurati
      * @return bundle
      */
     private ResourceBundle getBundle(Locale locale) {
-        return ResourceBundle.getBundle("surefire-report", locale, SurefireReportGenerator.class.getClassLoader());
+        return ResourceBundle.getBundle("phpunit-report", locale, this.getClass().getClassLoader());
     }
 
     /**
