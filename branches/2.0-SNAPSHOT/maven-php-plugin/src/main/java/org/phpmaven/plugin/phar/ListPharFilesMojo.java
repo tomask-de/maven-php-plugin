@@ -17,6 +17,7 @@
 package org.phpmaven.plugin.phar;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
@@ -24,6 +25,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 import org.codehaus.plexus.configuration.PlexusConfigurationException;
+import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.exec.PhpException;
 import org.phpmaven.phar.IPharPackagerConfiguration;
@@ -68,8 +70,19 @@ public class ListPharFilesMojo extends AbstractMojo {
             throw new MojoExecutionException("phar file " + this.phar + " is a directory");
         }
         try {
+            final File tmpSnippet = File.createTempFile("snippet", ".php");
+            tmpSnippet.deleteOnExit();
+            
+            final Xpp3Dom configNode = new Xpp3Dom("configuration");
+            final Xpp3Dom execConfigNode = new Xpp3Dom("executableConfig");
+            final Xpp3Dom fileNode = new Xpp3Dom("temporaryScriptFile");
+            fileNode.setValue(tmpSnippet.getAbsolutePath());
+            execConfigNode.addChild(fileNode);
+            configNode.addChild(execConfigNode);
+            
             final IPharPackagerConfiguration config = this.factory.lookup(
-                IPharPackagerConfiguration.class, IComponentFactory.EMPTY_CONFIG, this.session);
+                IPharPackagerConfiguration.class, configNode, this.session);
+            
             final Iterable<String> contents = config.getPharPackager().listFiles(this.phar, this.getLog());
             getLog().info("contents of phar file " + this.phar);
             for (final String f : contents) {
@@ -80,6 +93,8 @@ public class ListPharFilesMojo extends AbstractMojo {
         } catch (PlexusConfigurationException ex) {
             throw new MojoExecutionException("failed executing list-phar-files", ex);
         } catch (PhpException ex) {
+            throw new MojoExecutionException("failed executing list-phar-files", ex);
+        } catch (IOException ex) {
             throw new MojoExecutionException("failed executing list-phar-files", ex);
         }
     }
