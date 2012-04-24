@@ -64,7 +64,7 @@ public class SiteTest extends AbstractTestCase {
         verifier.assertFilePresent("target/site/phpunit/phpunit/MyClass.php.html");
         
         // test report
-        verifier.assertFilePresent("target/site/surefire-report.html");
+        verifier.assertFilePresent("target/site/phpunit/report.html");
     }
     
     /**
