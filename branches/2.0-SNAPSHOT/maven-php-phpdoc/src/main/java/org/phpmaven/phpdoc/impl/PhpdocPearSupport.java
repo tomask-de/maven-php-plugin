@@ -111,6 +111,8 @@ public class PhpdocPearSupport extends AbstractPhpdocSupport implements IPhpdocS
             if (!util.isInstalled()) {
                 util.installPear(false);
             }
+            // do not try to read remote channels; so that we will work in offline mode etc.
+            util.initChannels(false);
 
             if (this.phpdocVersion.startsWith("1.")) {
                 writeIni(log, request, phpDocConfigFile, generatedPhpDocConfigFile);

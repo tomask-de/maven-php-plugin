@@ -207,6 +207,26 @@ public class PearChannel implements IPearChannel {
     }
 
     /**
+     * Initializes the channel.
+     * @param ut utility
+     * @param n channel name
+     * @param a alias
+     * @param s summary
+     * @throws PhpException thrown on initialization errors.
+     */
+    public void initialize(PearUtility ut, String n, String a, String s) throws PhpException {
+        if (this.pearUtility != null) {
+            throw new IllegalStateException("Must not be called twice.");
+        }
+        this.pearUtility = ut;
+        this.uri = n;
+        this.setName(n);
+        this.alias = a;
+        this.summary = s;
+        this.initializePackages(true, true);
+    }
+
+    /**
      * {@inheritDoc} 
      */
     @Override
