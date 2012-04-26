@@ -601,15 +601,18 @@ public class PearUtility implements IPearUtility {
             fw.write(
                 "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
                 "<channel " +
+                "version=\"1.0\" " +
                 "xsi:schemaLocation=\"http://pear.php.net/channel-1.0 http://pear.php.net/dtd/channel-1.0.xsd\" " +
-                "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"http://pear.php.net/channel-1.0\" " +
-                "version=\"1.0\">" +
-                "<name>" + channelName + "</name>" +
-                "<suggestedalias>" + (alias == null ? channelName : alias) + "</suggestedalias>" +
-                "<summary>" + summary + "</summary>" +
-                "<servers><primary><rest>" +
-                "<baseurl type=\"REST1.0\">rest/</baseurl>" +
-                "</rest></mirror></servers></channel>");
+                "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" " +
+                "xmlns=\"http://pear.php.net/channel-1.0\" " +
+                ">\n" +
+                "<name>" + channelName + "</name>\n" +
+                "<suggestedalias>" + (alias == null ? channelName : alias) + "</suggestedalias>\n" +
+                "<summary>" + summary + "</summary>\n" +
+                "<servers><primary><rest>\n" +
+                "<baseurl type=\"REST1.0\">rest/</baseurl>\n" +
+                "</rest></primary></servers>\n" +
+                "</channel>\n");
             fw.close();
             final String output = this.executePearCmd("channel-add \"" + tmpChannelXml.getAbsolutePath() + "\"");
             final PearChannel result = new PearChannel();
