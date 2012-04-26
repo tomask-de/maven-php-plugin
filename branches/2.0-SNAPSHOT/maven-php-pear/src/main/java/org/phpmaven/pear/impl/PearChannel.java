@@ -223,7 +223,8 @@ public class PearChannel implements IPearChannel {
         this.setName(n);
         this.alias = a;
         this.summary = s;
-        this.initializePackages(true, true);
+        this.installedPackages = new ArrayList<IPackage>();
+        this.knownPackages = new HashMap<String, IPackage>();
     }
 
     /**
