@@ -60,6 +60,32 @@ public class LookupHintTest extends AbstractTestCase {
     }
 
     /**
+     * Tests if the component lookup initializes the defaults.
+     *
+     * @throws Exception thrown on errors
+     * @since 2.0.1
+     */
+    public void testComponentLookupDefaultsArray() throws Exception {
+        // look up the component factory
+        final IComponentFactory factory = lookup(IComponentFactory.class);
+        // create the session
+        final MavenSession session = createSimpleSession("core/empty-pom");
+        // lookup the sample
+        final ISomeComponentHint component = factory.lookup(
+                ISomeComponentHint.class,
+                "hint1",
+                (Xpp3Dom[]) null,
+                session);
+        assertNotNull(component);
+        // test defaults
+        assertEquals(
+                new File(session.getCurrentProject().getBasedir().getAbsolutePath(), "fooBar-1").getAbsolutePath(),
+                component.getFooBar().getAbsolutePath());
+        assertEquals("default-foo-1", component.getFoo());
+        assertEquals("default-bar-1", component.getBar());
+    }
+
+    /**
      * Tests if the component lookup reads the project build config.
      *
      * @throws Exception thrown on errors
@@ -85,6 +111,32 @@ public class LookupHintTest extends AbstractTestCase {
     }
 
     /**
+     * Tests if the component lookup reads the project build config.
+     *
+     * @throws Exception thrown on errors
+     * @since 2.0.1
+     */
+    public void testComponentReadsProjectConfigArray() throws Exception {
+        // look up the component factory
+        final IComponentFactory factory = lookup(IComponentFactory.class);
+        // create the session
+        final MavenSession session = createSimpleSession("core/pom-with-buildconfig");
+        // lookup the sample
+        final ISomeComponentHint component = factory.lookup(
+                ISomeComponentHint.class,
+                "hint1",
+                (Xpp3Dom[]) null,
+                session);
+        assertNotNull(component);
+        // test defaults
+        assertEquals(
+                new File(session.getCurrentProject().getBasedir().getAbsolutePath(), "SomeFooBar").getAbsolutePath(),
+                component.getFooBar().getAbsolutePath());
+        assertEquals("SpecialFoo", component.getFoo());
+        assertEquals("default-bar-1", component.getBar());
+    }
+
+    /**
      * Tests if the component lookup reads the project build config from parent poms.
      *
      * @throws Exception thrown on errors
@@ -99,6 +151,32 @@ public class LookupHintTest extends AbstractTestCase {
                 ISomeComponentHint.class,
                 "hint1",
                 (Xpp3Dom) null,
+                session);
+        assertNotNull(component);
+        // test defaults
+        assertEquals(
+                new File(session.getCurrentProject().getBasedir().getAbsolutePath(), "SomeFooBar").getAbsolutePath(),
+                component.getFooBar().getAbsolutePath());
+        assertEquals("SpecialFoo", component.getFoo());
+        assertEquals("default-bar-1", component.getBar());
+    }
+
+    /**
+     * Tests if the component lookup reads the project build config from parent poms.
+     *
+     * @throws Exception thrown on errors
+     * @since 2.0.1
+     */
+    public void testComponentReadsParentProjectConfigArray() throws Exception {
+        // look up the component factory
+        final IComponentFactory factory = lookup(IComponentFactory.class);
+        // create the session
+        final MavenSession session = createSimpleSession("core/pom-with-buildconfig-child");
+        // lookup the sample
+        final ISomeComponentHint component = factory.lookup(
+                ISomeComponentHint.class,
+                "hint1",
+                (Xpp3Dom[]) null,
                 session);
         assertNotNull(component);
         // test defaults
@@ -136,6 +214,33 @@ public class LookupHintTest extends AbstractTestCase {
     }
 
     /**
+     * Tests if the component lookup reads the project build config from parent poms
+     * and overwrites a single value.
+     *
+     * @throws Exception thrown on errors
+     * @since 2.0.1
+     */
+    public void testComponentReadsParentProjectConfigOverwriteArray() throws Exception {
+        // look up the component factory
+        final IComponentFactory factory = lookup(IComponentFactory.class);
+        // create the session
+        final MavenSession session = createSimpleSession("core/pom-with-buildconfig-childoverwrite");
+        // lookup the sample
+        final ISomeComponentHint component = factory.lookup(
+                ISomeComponentHint.class,
+                "hint1",
+                (Xpp3Dom[]) null,
+                session);
+        assertNotNull(component);
+        // test defaults
+        assertEquals(
+                new File(session.getCurrentProject().getBasedir().getAbsolutePath(), "SomeFooBar").getAbsolutePath(),
+                component.getFooBar().getAbsolutePath());
+        assertEquals("OtherFoo", component.getFoo());
+        assertEquals("default-bar-1", component.getBar());
+    }
+
+    /**
      * Tests if the component lookup initializes the defaults.
      *
      * @throws Exception thrown on errors
@@ -150,6 +255,32 @@ public class LookupHintTest extends AbstractTestCase {
                 ISomeComponentHint.class,
                 "hint2",
                 (Xpp3Dom) null,
+                session);
+        assertNotNull(component);
+        // test defaults
+        assertEquals(
+                new File(session.getCurrentProject().getBasedir().getAbsolutePath(), "fooBar-2").getAbsolutePath(),
+                component.getFooBar().getAbsolutePath());
+        assertEquals("default-foo-2", component.getFoo());
+        assertEquals("default-bar-2", component.getBar());
+    }
+
+    /**
+     * Tests if the component lookup initializes the defaults.
+     *
+     * @throws Exception thrown on errors
+     * @since 2.0.1
+     */
+    public void testComponentLookupDefaults2Array() throws Exception {
+        // look up the component factory
+        final IComponentFactory factory = lookup(IComponentFactory.class);
+        // create the session
+        final MavenSession session = createSimpleSession("core/empty-pom");
+        // lookup the sample
+        final ISomeComponentHint component = factory.lookup(
+                ISomeComponentHint.class,
+                "hint2",
+                (Xpp3Dom[]) null,
                 session);
         assertNotNull(component);
         // test defaults
@@ -186,6 +317,32 @@ public class LookupHintTest extends AbstractTestCase {
     }
 
     /**
+     * Tests if the component lookup reads the project build config.
+     *
+     * @throws Exception thrown on errors
+     * @since 2.0.1
+     */
+    public void testComponentReadsProjectConfig2Array() throws Exception {
+        // look up the component factory
+        final IComponentFactory factory = lookup(IComponentFactory.class);
+        // create the session
+        final MavenSession session = createSimpleSession("core/pom-with-buildconfig");
+        // lookup the sample
+        final ISomeComponentHint component = factory.lookup(
+                ISomeComponentHint.class,
+                "hint2",
+                (Xpp3Dom[]) null,
+                session);
+        assertNotNull(component);
+        // test defaults
+        assertEquals(
+                new File(session.getCurrentProject().getBasedir().getAbsolutePath(), "SomeFooBar").getAbsolutePath(),
+                component.getFooBar().getAbsolutePath());
+        assertEquals("SpecialFoo", component.getFoo());
+        assertEquals("default-bar-2", component.getBar());
+    }
+
+    /**
      * Tests if the component lookup reads the project build config from parent poms.
      *
      * @throws Exception thrown on errors
@@ -200,6 +357,32 @@ public class LookupHintTest extends AbstractTestCase {
                 ISomeComponentHint.class,
                 "hint2",
                 (Xpp3Dom) null,
+                session);
+        assertNotNull(component);
+        // test defaults
+        assertEquals(
+                new File(session.getCurrentProject().getBasedir().getAbsolutePath(), "SomeFooBar").getAbsolutePath(),
+                component.getFooBar().getAbsolutePath());
+        assertEquals("SpecialFoo", component.getFoo());
+        assertEquals("default-bar-2", component.getBar());
+    }
+
+    /**
+     * Tests if the component lookup reads the project build config from parent poms.
+     *
+     * @throws Exception thrown on errors
+     * @since 2.0.1
+     */
+    public void testComponentReadsParentProjectConfig2Array() throws Exception {
+        // look up the component factory
+        final IComponentFactory factory = lookup(IComponentFactory.class);
+        // create the session
+        final MavenSession session = createSimpleSession("core/pom-with-buildconfig-child");
+        // lookup the sample
+        final ISomeComponentHint component = factory.lookup(
+                ISomeComponentHint.class,
+                "hint2",
+                (Xpp3Dom[]) null,
                 session);
         assertNotNull(component);
         // test defaults
@@ -235,6 +418,33 @@ public class LookupHintTest extends AbstractTestCase {
         assertEquals("OtherFoo", component.getFoo());
         assertEquals("default-bar-2", component.getBar());
     }
+
+    /**
+     * Tests if the component lookup reads the project build config from parent poms
+     * and overwrites a single value.
+     *
+     * @throws Exception thrown on errors
+     * @since 2.0.1
+     */
+    public void testComponentReadsParentProjectConfigOverwrite2Array() throws Exception {
+        // look up the component factory
+        final IComponentFactory factory = lookup(IComponentFactory.class);
+        // create the session
+        final MavenSession session = createSimpleSession("core/pom-with-buildconfig-childoverwrite");
+        // lookup the sample
+        final ISomeComponentHint component = factory.lookup(
+                ISomeComponentHint.class,
+                "hint2",
+                (Xpp3Dom[]) null,
+                session);
+        assertNotNull(component);
+        // test defaults
+        assertEquals(
+                new File(session.getCurrentProject().getBasedir().getAbsolutePath(), "SomeFooBar").getAbsolutePath(),
+                component.getFooBar().getAbsolutePath());
+        assertEquals("OtherFoo", component.getFoo());
+        assertEquals("default-bar-2", component.getBar());
+    }
     
     /**
      * Tests if the component fails without role hint (no default).
@@ -251,6 +461,32 @@ public class LookupHintTest extends AbstractTestCase {
             factory.lookup(
                     ISomeComponentHint.class,
                     (Xpp3Dom) null,
+                    session);
+            fail("Exception expected");
+        // CHECKSTYLE:OFF
+        // checkstyle does not like empty catches
+        } catch (Exception ex) {
+            // ignore; we expect this exception
+        }
+        // CHECKSTYLE:ON
+    }
+    
+    /**
+     * Tests if the component fails without role hint (no default).
+     * 
+     * @throws Exception thrown on errors
+     * @since 2.0.1
+     */
+    public void testComponentFailesArray() throws Exception {
+        // look up the component factory
+        final IComponentFactory factory = lookup(IComponentFactory.class);
+        // create the session
+        final MavenSession session = createSimpleSession("core/pom-with-buildconfig-childoverwrite");
+        // lookup the sample
+        try {
+            factory.lookup(
+                    ISomeComponentHint.class,
+                    (Xpp3Dom[]) null,
                     session);
             fail("Exception expected");
         // CHECKSTYLE:OFF
