@@ -389,7 +389,7 @@ public class PearUtility implements IPearUtility {
                 "  $a->pear_conf = '$prefix\\\\pear.ini';\n" +
                 "} else {\n" +
                 "  $a->localInstall = true;\n" +
-                "  $a->pear_conf = '$prefix/pear.ini';\n" +
+                "  $a->pear_conf = '$prefix\\\\pear.ini';\n" +
                 "  $a->temp_dir='$prefix/tmp';\n" +
                 "  $a->download_dir='$prefix/tmp';\n" +
                 "}\n" +
