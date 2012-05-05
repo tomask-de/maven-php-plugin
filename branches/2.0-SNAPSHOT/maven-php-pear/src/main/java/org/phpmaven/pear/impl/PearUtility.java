@@ -17,7 +17,6 @@
 package org.phpmaven.pear.impl;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -389,9 +388,8 @@ public class PearUtility implements IPearUtility {
                 "  $a->localInstall = true;\n" +
                 "  $a->pear_conf = '$prefix\\\\pear.ini';\n" +
                 "} else {\n" +
-                "  if (get_current_user() != 'root') {\n" +
-                "    $a->pear_conf = $a->safeGetenv('HOME') . '/.pearrc';\n" +
-                "  }\n" +
+                "  $a->localInstall = true;\n" +
+                "  $a->pear_conf = '$prefix\\\\pear.ini';\n" +
                 "  $a->temp_dir='$prefix/tmp';\n" +
                 "  $a->download_dir='$prefix/tmp';\n" +
                 "}\n" +
