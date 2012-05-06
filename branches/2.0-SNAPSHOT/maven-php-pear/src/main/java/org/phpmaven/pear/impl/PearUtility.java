@@ -296,7 +296,7 @@ public class PearUtility implements IPearUtility {
     private ProjectBuilder projectBuilder;
     
     /**
-     * The dependencies resolver
+     * The dependencies resolver.
      */
     @Requirement
     private ProjectDependenciesResolver dependencyResolver;
@@ -508,7 +508,11 @@ public class PearUtility implements IPearUtility {
         final IPhpExecutable ex = this.getExec();
         final File pearCmd = new File(this.getPhpDir(), "pearcmd.php");
         try {
-            return ex.execute("\"" + pearCmd.getAbsolutePath() + "\" " + arguments, pearCmd);
+            return ex.execute(
+                "\"" + pearCmd.getAbsolutePath() + "\" " +
+                "-c \"" + new File(this.getInstallDir().getAbsolutePath(), "pear.ini").getAbsolutePath() + "\" " +
+                "-C \"" + new File(this.getInstallDir().getAbsolutePath(), "pear.conf").getAbsolutePath() + "\" " +
+                " " + arguments, pearCmd);
         } catch (PhpWarningException e) {
             // ignore it
             return e.getAppendedOutput();
