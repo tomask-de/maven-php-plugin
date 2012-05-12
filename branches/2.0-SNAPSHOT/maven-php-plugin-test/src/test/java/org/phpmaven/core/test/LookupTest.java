@@ -19,6 +19,7 @@ package org.phpmaven.core.test;
 import java.io.File;
 
 import org.apache.maven.execution.MavenSession;
+import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.core.test.comp.ISomeComponent;
@@ -33,6 +34,28 @@ import org.phpmaven.test.AbstractTestCase;
  * @since 2.0.0
  */
 public class LookupTest extends AbstractTestCase {
+
+    /**
+     * Tests if the component lookup failes with unknown classes.
+     *
+     * @throws Exception thrown on errors
+     */
+    public void testComponentLookupFailed() throws Exception {
+        // look up the component factory
+        final IComponentFactory factory = lookup(IComponentFactory.class);
+        // create the session
+        final MavenSession session = createSimpleSession("core/empty-pom");
+        // lookup the sample
+        try {
+            factory.lookup(LookupTest.class, (Xpp3Dom) null, session);
+            fail("Expected exception not thrown");
+        // CHECKSTYLE:OFF
+        // checkstyle does not like empty catches
+        } catch (ComponentLookupException ex) {
+            // ignore; we expect this exception
+        }
+        // CHECKSTYLE:ON
+    }
 
     /**
      * Tests if the component lookup initializes the defaults.

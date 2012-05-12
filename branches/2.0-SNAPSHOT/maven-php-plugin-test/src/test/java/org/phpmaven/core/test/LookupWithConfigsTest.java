@@ -19,6 +19,7 @@ package org.phpmaven.core.test;
 import java.io.File;
 
 import org.apache.maven.execution.MavenSession;
+import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.core.test.comp.ISomeComponent;
@@ -78,8 +79,8 @@ public class LookupWithConfigsTest extends AbstractTestCase {
         dom.addChild(bar);
         final Xpp3Dom dom2 = new Xpp3Dom("configuration");
         final Xpp3Dom bar2 = new Xpp3Dom("bar");
-        bar.setValue("MyBarValue2");
-        dom.addChild(bar2);
+        bar2.setValue("MyBarValue2");
+        dom2.addChild(bar2);
         final ISomeComponent component = factory.lookup(
                 ISomeComponent.class, new Xpp3Dom[]{dom, dom2}, session);
         assertNotNull(component);
@@ -89,6 +90,68 @@ public class LookupWithConfigsTest extends AbstractTestCase {
                 component.getFooBar().getAbsolutePath());
         assertEquals("OtherFoo", component.getFoo());
         assertEquals("MyBarValue2", component.getBar());
+    }
+    
+    /**
+     * Tests if the component fails with invalid configs.
+     * 
+     * @throws Exception thrown on errors
+     */
+    public void testComponentFailes() throws Exception {
+        // look up the component factory
+        final IComponentFactory factory = lookup(IComponentFactory.class);
+        // create the session
+        final MavenSession session = createSimpleSession("core/pom-with-buildconfig-childoverwrite");
+        // lookup the sample
+        final Xpp3Dom dom = new Xpp3Dom("configuration");
+        final Xpp3Dom bar = new Xpp3Dom("bar");
+        bar.setValue("MyBarValue");
+        dom.addChild(bar);
+        final Xpp3Dom dom2 = new Xpp3Dom("configuration");
+        final Xpp3Dom bar2 = new Xpp3Dom("bar234");
+        bar2.setValue("MyBarValue2");
+        dom2.addChild(bar2);
+        // lookup the sample
+        try {
+            factory.lookup(
+                    ISomeComponent.class, new Xpp3Dom[]{dom, dom2}, session);
+            fail("Exception expected");
+        // CHECKSTYLE:OFF
+        // checkstyle does not like empty catches
+        } catch (PlexusConfigurationException ex) {
+            // ignore; we expect this exception
+        }
+        // CHECKSTYLE:ON
+    }
+    
+    /**
+     * Tests if the component fails with invalid configs.
+     * 
+     * @throws Exception thrown on errors
+     */
+    public void testComponentFailes2() throws Exception {
+        // look up the component factory
+        final IComponentFactory factory = lookup(IComponentFactory.class);
+        // create the session
+        final MavenSession session = createSimpleSession("core/pom-with-buildconfig-childoverwrite");
+        // lookup the sample
+        final Xpp3Dom dom = new Xpp3Dom("configuration");
+        final Xpp3Dom bar = new Xpp3Dom("bar");
+        dom.addChild(bar);
+        final Xpp3Dom bar2 = new Xpp3Dom("bar");
+        bar2.setValue("MyBarValue2");
+        bar.addChild(bar2);
+        // lookup the sample
+        try {
+            factory.lookup(
+                    ISomeComponent.class, new Xpp3Dom[]{dom}, session);
+            fail("Exception expected");
+        // CHECKSTYLE:OFF
+        // checkstyle does not like empty catches
+        } catch (PlexusConfigurationException ex) {
+            // ignore; we expect this exception
+        }
+        // CHECKSTYLE:ON
     }
 
 }
