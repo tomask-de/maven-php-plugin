@@ -69,7 +69,8 @@ public class LintQueue {
             try {
                 this.mutex.wait(timeout);
             } catch (InterruptedException ex) {
-                // ignore
+                // ignore; maybe we received the signal because of method terminate.
+                // the terminate fires notifyAll.
             }
         }
     }
@@ -83,7 +84,7 @@ public class LintQueue {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException ex) {
-                // ignore
+                // ignore; should never happen
             }
         }
         this.terminated = true;

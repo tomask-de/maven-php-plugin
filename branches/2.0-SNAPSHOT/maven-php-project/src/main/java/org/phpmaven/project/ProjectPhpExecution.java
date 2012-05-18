@@ -19,9 +19,14 @@ package org.phpmaven.project;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import org.apache.maven.artifact.Artifact;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.project.ProjectBuilder;
+import org.apache.maven.project.ProjectBuildingException;
+import org.apache.maven.project.ProjectBuildingRequest;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.component.configurator.expression.ExpressionEvaluationException;
@@ -52,6 +57,12 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
      */
     @ConfigurationParameter(name = "session", expression = "${session}")
     private MavenSession session;
+    
+    /**
+     * The maven project builder.
+     */
+    @Requirement
+    private ProjectBuilder mavenProjectBuilder;
 
     /**
      * {@inheritDoc}
@@ -242,6 +253,59 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
         execConfig.getIncludePath().add(depsDir.getAbsolutePath());
         // TODO: Bad hack for broken pear libraries.
         execConfig.getIncludePath().add(new File(depsDir, "pear").getAbsolutePath());
+        
+        // add the project dependencies of multi-project-poms
+        addProjectDependencies(execConfig, project, Artifact.SCOPE_COMPILE);
+    }
+
+    /**
+     * Adds project dependencies (/target/classes) for given scope (needed for IDE/multi-pom).
+     * @param execConfig executable config.
+     * @param project project.
+     * @param targetScope target scope.
+     * @throws ExpressionEvaluationException thrown on errors.
+     * @since 2.0.1
+     */
+    private void addProjectDependencies(
+        IPhpExecutableConfiguration execConfig, MavenProject project, final String targetScope)
+        throws ExpressionEvaluationException {
+        final Set<Artifact> deps = project.getArtifacts();
+        for (final Artifact dep : deps) {
+            if (!targetScope.equals(dep.getScope())) {
+                continue;
+            }
+            try {
+                final MavenProject depProject = this.getProjectFromArtifact(project, dep);
+                if (depProject.getFile() != null) {
+                    // Reference to a local project; should only happen in IDEs or multi-project poms
+                    final MavenSession depSession = session.clone();
+                    depSession.setCurrentProject(depProject);
+                    final String depTargetDir = this.componentFactory.filterString(
+                            depSession,
+                            "${project.basedir}/target/classes",
+                            File.class).getAbsolutePath();
+                    execConfig.getIncludePath().add(depTargetDir);
+                }
+            } catch (ProjectBuildingException ex) {
+                throw new ExpressionEvaluationException("Problems creating maven project from dependency", ex);
+            }
+        }
+    }
+    
+    /**
+     * Returns the maven project from given artifact.
+     * @param project the maven project
+     * @param a artifact
+     * @return maven project
+     * @throws ProjectBuildingException thrown if there are problems creating the project
+     * @since 2.0.1
+     */
+    protected MavenProject getProjectFromArtifact(final MavenProject project, final Artifact a)
+        throws ProjectBuildingException {
+        final ProjectBuildingRequest request = session.getProjectBuildingRequest();
+        request.setLocalRepository(session.getLocalRepository());
+        request.setRemoteRepositories(project.getRemoteArtifactRepositories());
+        return this.mavenProjectBuilder.build(a, request).getProject();
     }
     
     /**
@@ -282,6 +346,9 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
         execConfig.getIncludePath().add(depsDir.getAbsolutePath());
         // TODO: Bad hack for broken pear libraries.
         execConfig.getIncludePath().add(new File(depsDir, "pear").getAbsolutePath());
+        
+        // add the project dependencies of multi-project-poms
+        addProjectDependencies(execConfig, project, Artifact.SCOPE_TEST);
     }
 
     /**
