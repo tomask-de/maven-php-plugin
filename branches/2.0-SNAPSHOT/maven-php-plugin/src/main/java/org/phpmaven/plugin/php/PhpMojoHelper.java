@@ -355,9 +355,9 @@ public class PhpMojoHelper implements IPhpExecution {
             this.log.info(dep.getFile().getAbsolutePath());
             try {
                 if (this.getProjectFromArtifact(dep).getFile() != null) {
-                    // Reference to a local project; should only happen in IDEs
+                    // Reference to a local project; should only happen in IDEs or multi-project-poms
                     this.log.debug("Dependency resolved to a local project. skipping.");
-                    // XXX: Should we support this or is this only relevant within IDEs (f.e. eclipse)?
+                    // the maven-php-project plugin will fix it by adding the include paths
                     continue;
                 }
             } catch (ProjectBuildingException ex) {
