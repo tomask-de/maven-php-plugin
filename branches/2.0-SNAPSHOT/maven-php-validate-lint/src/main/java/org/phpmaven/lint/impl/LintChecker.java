@@ -80,13 +80,12 @@ public class LintChecker implements ILintChecker {
      * @return failures
      */
     private Iterable<LintExecution> waitAndReturnFailures() {
-        this.queue.terminate(); // TODO is this needed any more?
+        this.queue.terminate();
         for (final LintThread thread : walkers) {
             try {
                 thread.join();
-            }
-            catch (InterruptedException ex) {
-                // ignore
+            } catch (InterruptedException ex) {
+                // ignore; should never happen
             }
         }
         return this.queue.getFailures();
