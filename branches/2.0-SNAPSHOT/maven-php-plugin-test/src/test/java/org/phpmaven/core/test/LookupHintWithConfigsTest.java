@@ -22,7 +22,6 @@ import org.apache.maven.execution.MavenSession;
 import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.phpmaven.core.IComponentFactory;
-import org.phpmaven.core.test.comp.ISomeComponent;
 import org.phpmaven.core.test.comp.ISomeComponentHint;
 import org.phpmaven.test.AbstractTestCase;
 
