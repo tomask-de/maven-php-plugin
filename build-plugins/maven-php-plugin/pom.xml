@@ -8,6 +8,107 @@
 
     <!-- The Basics -->
     <artifactId>maven-php-plugin</artifactId>
+    <packaging>maven-plugin</packaging>
+
+    <dependencies>
+        <!-- Maven -->
+        <dependency>
+            <groupId>org.apache.maven.reporting</groupId>
+            <artifactId>maven-reporting-api</artifactId>
+            <version>3.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.maven.doxia</groupId>
+                    <artifactId>doxia-sink-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-plugin-api</artifactId>
+            <version>3.0.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-core</artifactId>
+            <version>3.0.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.maven.doxia</groupId>
+            <artifactId>doxia-sink-api</artifactId>
+            <version>1.3</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.maven.doxia</groupId>
+                    <artifactId>doxia-logging-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.maven.wagon</groupId>
+            <artifactId>wagon-provider-api</artifactId>
+            <version>2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.reporting</groupId>
+            <artifactId>maven-reporting-impl</artifactId>
+            <version>2.2</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.codehaus.plexus</groupId>
+                    <artifactId>plexus-container-default</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.maven</groupId>
+                    <artifactId>maven-project</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- PHP Maven -->
+        <dependency>
+            <groupId>org.phpmaven</groupId>
+            <artifactId>maven-php-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.phpmaven</groupId>
+            <artifactId>maven-php-exec</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.phpmaven</groupId>
+            <artifactId>maven-php-pear</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.phpmaven</groupId>
+            <artifactId>maven-php-phar</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.phpmaven</groupId>
+            <artifactId>maven-php-helper</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.phpmaven</groupId>
+            <artifactId>maven-php-phpunit</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.phpmaven</groupId>
+            <artifactId>maven-php-phpdoc</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.phpmaven</groupId>
+            <artifactId>maven-php-validate-lint</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 
     <parent>
         <groupId>org.phpmaven</groupId>
@@ -18,5 +119,9 @@
 
     <!-- More Project Information -->
     <name>PHP Maven - Maven PHP Plugin</name>
+    <description>
+        A Maven plugin for dependency management and quality assurance in PHP projects.
+        Uses the default Maven lifecycle to provide multiple PHP features.
+    </description>
 
 </project>

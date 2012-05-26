@@ -12,7 +12,15 @@
 
     <modules>
         <module>maven-php-core</module>
-        <!-- <module>maven-php-plugin</module> -->
+        <module>maven-php-exec</module>
+        <module>maven-php-helper</module>
+        <module>maven-php-pear</module>
+        <module>maven-php-phar</module>
+        <module>maven-php-phpunit</module>
+        <module>maven-php-doc</module>
+        <module>maven-php-validate-lint</module>
+        <module>maven-php-plugin</module>
+        <module>maven-php-archetypes</module>
     </modules>
 
     <parent>
@@ -21,6 +29,45 @@
         <version>2.0.1-reorg-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
+
+    <!-- Build Settings -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.1.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.8.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-remote-resources-plugin</artifactId>
+                <version>1.3</version>
+            </plugin>
+            <plugin>
+                <groupId>org.phpmaven.sites</groupId>
+                <artifactId>sitemap-plugin</artifactId>
+                <version>1</version> <!-- TODO fix this to real version -->
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.plexus</groupId>
+                <artifactId>plexus-component-metadata</artifactId>
+                <version>1.5.5</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate-metadata</goal>
+                            <goal>generate-test-metadata</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
     <!-- More Project Information -->
     <name>PHP Maven - Build Plugins</name>
