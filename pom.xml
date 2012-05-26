@@ -1,57 +1,53 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.phpmaven.build</groupId>
-        <artifactId>common-parent</artifactId>
-        <version>1</version>
-        <relativePath>build/common-parent/pom.xml</relativePath>
-    </parent>
-
-    <artifactId>aggregator</artifactId>
+    <!-- The Basics -->
+    <groupId>org.phpmaven</groupId>
+    <artifactId>project</artifactId>
+    <version>2.0.1-reorg-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>Maven PHP Build aggregator</name>
-
-    <description>
-        A Maven plugin for dependency management and quality assurance in PHP projects. Uses
-        the default Maven lifecycle to provide multiple php features.
-    </description>
-    
     <modules>
-    	<!-- Not part of the build cycle -->
-    	<!-- REASON: maven-site does currently not allow skins in aggregators -->
-        <!-- <module>var</module> -->
-        <!-- <module>build</module> -->
-        
-        <!-- normal build cycle -->
+        <module>build-plugins</module>
+        <module>ide-plugins</module>
+        <module>package</module>
     </modules>
-    
-    <profiles>
-    	<profile>
-    		<id>maven-php-include-sites</id>
-    		<modules>
-    			<module>sites</module>
-    		</modules>
-    		<activation><activeByDefault>true</activeByDefault></activation>
-    	</profile>
-    	<profile>
-    		<id>maven-php-include-branches</id>
-    		<modules>
-    			<module>branches</module>
-    		</modules>
-    		<activation><activeByDefault>true</activeByDefault></activation>
-    	</profile>
-    </profiles>
-    
-    <url>${phpmavenRootUrl}/var/sites/</url>
-    
-    <distributionManagement>
-        <site>
-            <id>upload-${phpmavenSitesId}</id>
-            <name>${phpmavenSitesName}</name>
-            <url>${phpmavenSitesUploadUrl}/var/sites/</url>
-        </site>
-    </distributionManagement>
+
+    <!-- Build Settings -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.2.1</version>
+                <configuration>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!-- More Project Information -->
+    <name>PHP Maven - Project</name>
+    <description>
+        A Maven plugin for dependency management and quality assurance in PHP projects.
+        Uses the default Maven lifecycle to provide multiple PHP features.
+    </description>
+
+    <!-- Environment Settings -->
+    <issueManagement>
+        <system>Trac</system>
+        <url>http://trac.php-maven.org/</url>
+    </issueManagement>
+
+    <scm>
+        <connection>scm:git:git://github.com:tomask-de/maven-php-plugin.git</connection>
+        <developerConnection>scm:git:git@github.com:tomask-de/maven-php-plugin.git</developerConnection>
+    </scm>
 
 </project>
