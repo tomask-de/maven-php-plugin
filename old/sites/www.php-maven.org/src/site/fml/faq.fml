@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<faqs title="FAQ">
+	<part id="about">
+
+<faq id="faq1">
+<question>
+				Is there a way to show the PHP file output?
+			</question>
+			<answer>
+			Yes, use the -DflushPHPOutput=true parameter in your commandline.
+			</answer>
+		</faq>
+<faq id="faq2">
+<question>
+				Is there a way to run one unit test?
+			</question>
+			<answer>
+			Yes, use the -DtestFile=file.php parameter in your commandline. 
+			</answer>
+		</faq>
+		
+		<faq id="faq3">
+			<question>
+				How to configure the "Maven for PHP" plugin?
+			</question>
+			<answer>
+			"Maven for PHP" is configured like every other maven plugin. 
+			Here are a sample configuration:
+<source>
+&lt;project>
+......
+			&lt;plugin>
+				&lt;groupId>org.phpmaven&lt;/groupId>
+				&lt;artifactId>maven-php-plugin&lt;/artifactId>
+				&lt;extensions>true&lt;/extensions>
+				&lt;configuration>
+				    &lt;phpExe>$pathTOYourPHPFolder/php.exe&lt;/phpExe>
+			    &lt;/configuration>
+			&lt;/plugin>
+......			
+&lt;/project>
+
+			</source>
+			You can find a full list of all possible parameters under <a href="branches/${phpmavenLatestSnapshot}/maven-php-plugin/plugin-info.html">Plugin Goals</a>.
+			Details about the configuration can be found in the <a href="branches/${phpmavenLatestSnapshot}/tutorials.html#configuration">configuration section</a> of the tutorials.
+			</answer>
+		</faq>
+<faq id="faq4">
+<question>
+				Where can i find the source code?
+			</question>
+			<answer>
+			Look <a href="source-repository.html">here</a>
+			</answer>
+		</faq>
+	
+<faq id="faq5">
+<question>
+				I need an autoloader to be prepended for php executions.   
+			</question>
+			<answer>
+			You can include files central with the -d argument.
+			<source>
+&lt;project>
+......
+			&lt;plugin>
+				&lt;groupId>org.phpmaven&lt;/groupId>
+				&lt;artifactId>maven-php-project&lt;/artifactId>
+				&lt;extensions>true&lt;/extensions>
+				&lt;configuration>
+					&lt;executableConfig>
+					    &lt;additionalPhpParameters>-d auto_prepend_file=autoloading.php&lt;/additionalPhpParameters>
+					&lt;/executableConfig>
+			    &lt;/configuration>
+			&lt;/plugin>
+......			
+&lt;/project>
+
+			</source> 
+</answer>
+			
+		
+		
+		</faq>
+
+	</part>
+</faqs>
+

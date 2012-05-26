@@ -1,0 +1,56 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.phpmaven.build</groupId>
+        <artifactId>site-parent</artifactId>
+        <version>1</version>
+        <relativePath>../var/site-parent/pom.xml</relativePath>
+    </parent>
+
+    <groupId>org.phpmaven.sites</groupId>
+    <artifactId>branches-aggregator</artifactId>
+    <packaging>pom</packaging>
+
+    <name>Maven PHP Branches aggregator</name>
+
+    <description>
+        A Maven plugin for dependency management and quality assurance in PHP projects. Uses
+        the default Maven lifecycle to provide multiple php features.
+    </description>
+    
+    <url>${phpmavenRootUrl}/branches/</url>
+    
+    <distributionManagement>
+        <site>
+            <id>upload-${phpmavenSitesId}</id>
+            <name>${phpmavenSitesName}</name>
+            <url>${phpmavenSitesUploadUrl}/branches/</url>
+        </site>
+    </distributionManagement>
+    
+    <modules>
+        <module>2.0-SNAPSHOT</module>
+    </modules>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.phpmaven.sites</groupId>
+                <artifactId>sitemap-plugin</artifactId>
+                <version>1</version>
+                <configuration>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>site</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
