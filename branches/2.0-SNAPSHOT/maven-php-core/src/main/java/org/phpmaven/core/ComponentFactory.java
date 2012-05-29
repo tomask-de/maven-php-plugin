@@ -16,8 +16,6 @@
 
 package org.phpmaven.core;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.HashSet;
@@ -166,7 +164,7 @@ public class ComponentFactory implements IComponentFactory {
      */
     private <T> void configure(Class<T> clazz, Xpp3Dom[] configuration,
             MavenProject mavenProject, final T result, final ClassRealm realm, MavenSession session)
-        throws PlexusConfigurationException {
+        throws ComponentLookupException, PlexusConfigurationException {
         final MojoExecution execution = new MojoExecution(null);
         final ExpressionEvaluator expressionEvaluator = new PluginParameterExpressionEvaluator(session, execution);
         
@@ -230,7 +228,7 @@ public class ComponentFactory implements IComponentFactory {
     private void configureFromAnnotation(Class<?> clazz,
             MavenProject mavenProject, final Object result, final ClassRealm realm,
             final ExpressionEvaluator expressionEvaluator)
-        throws PlexusConfigurationException {
+        throws ComponentLookupException, PlexusConfigurationException {
         final BuildPluginConfiguration pConfiguration = clazz.getAnnotation(BuildPluginConfiguration.class);
         if (pConfiguration != null) {
             
@@ -280,7 +278,7 @@ public class ComponentFactory implements IComponentFactory {
      */
     private void populatePluginFields(Object component, PlexusConfiguration configuration,
         ExpressionEvaluator expressionEvaluator, ClassRealm realm)
-        throws PlexusConfigurationException {
+        throws ComponentLookupException, PlexusConfigurationException {
         ComponentConfigurator configurator = null;
         
         try {
@@ -300,24 +298,6 @@ public class ComponentFactory implements IComponentFactory {
             message += ": " + e.getMessage();
             
             throw new PlexusConfigurationException(message, e);
-        } catch (ComponentLookupException e) {
-            throw new PlexusConfigurationException(
-                         "Unable to retrieve component configurator basic "
-                             + " for configuration of component " + component.getClass().getName(), e);
-        } catch (NoClassDefFoundError e) {
-            final ByteArrayOutputStream os = new ByteArrayOutputStream(1024);
-            final PrintStream ps = new PrintStream(os);
-            ps.println("A required class was missing during configuration of component "
-                    + component.getClass().getName() + ": " + e.getMessage());
-
-            throw new PlexusConfigurationException(os.toString(), e);
-        } catch (LinkageError e) {
-            final ByteArrayOutputStream os = new ByteArrayOutputStream(1024);
-            final PrintStream ps = new PrintStream(os);
-            ps.println("An API incompatibility was encountered during configuration of component "
-                    + component.getClass().getName() + ": " + e.getClass().getName() + ": " + e.getMessage());
-
-            throw new PlexusConfigurationException(os.toString(), e);
         } finally {
             if (configurator != null) {
                 try {

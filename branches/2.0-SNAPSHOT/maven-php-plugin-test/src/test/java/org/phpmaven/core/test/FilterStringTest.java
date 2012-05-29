@@ -19,6 +19,7 @@ package org.phpmaven.core.test;
 import java.io.File;
 
 import org.apache.maven.execution.MavenSession;
+import org.codehaus.plexus.component.configurator.expression.ExpressionEvaluationException;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.test.AbstractTestCase;
 
@@ -50,6 +51,49 @@ public class FilterStringTest extends AbstractTestCase {
         assertEquals(
                 new File(session.getCurrentProject().getBasedir().getAbsolutePath(), "SomeFooBar").getAbsolutePath(),
                 file.getAbsolutePath());
+    }
+    
+    /**
+     * Tests if the filterString method is handling null.
+     *
+     * @throws Exception thrown on errors
+     */
+    public void testNull() throws Exception {
+        // look up
+        final IComponentFactory factory = lookup(IComponentFactory.class);
+        
+        // create the session
+        final MavenSession session = createSimpleSession("core/pom-with-buildconfig-childoverwrite");
+        final File file = factory.filterString(
+                session,
+                "${fooBarBaz}",
+                File.class);
+        assertNull(file);
+    }
+    
+    /**
+     * Tests if the filterString method is handling failures.
+     *
+     * @throws Exception thrown on errors
+     */
+    public void testFailure() throws Exception {
+        // look up
+        final IComponentFactory factory = lookup(IComponentFactory.class);
+        
+        // create the session
+        final MavenSession session = createSimpleSession("core/pom-with-buildconfig-childoverwrite");
+        try {
+            factory.filterString(
+                    session,
+                    "${project.basedir}/SomeFooBar",
+                    File[].class);
+            fail("Expected exception not thrown");
+        // CHECKSTYLE:OFF
+        // checkstyle does not like empty catches
+        } catch (ExpressionEvaluationException ex) {
+            // this exception is expected
+        }
+        // CHECKSTYLE:ON
     }
 
 }
