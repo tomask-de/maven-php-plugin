@@ -43,7 +43,7 @@ public class BaseTest extends AbstractTestCase {
      * @throws Exception thrown on errors
      */
     public void testCFCreation() throws Exception {
-        final MavenSession session = this.createSimpleSession("lint/empty-pom");
+        final MavenSession session = this.createSimpleSession("lint/org.phpmaven.test.projects.core.empty-pom");
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         assertNotNull(factory);
@@ -57,7 +57,7 @@ public class BaseTest extends AbstractTestCase {
      * @throws Exception thrown on errors
      */
     public void testValidationOk() throws Exception {
-        final MavenSession session = this.createSimpleSession("lint/empty-pom");
+        final MavenSession session = this.createSimpleSession("lint/org.phpmaven.test.projects.core.empty-pom");
         final IComponentFactory factory = lookup(IComponentFactory.class);
         final ILintChecker checker = factory.lookup(ILintChecker.class, IComponentFactory.EMPTY_CONFIG, session);
         
@@ -73,7 +73,7 @@ public class BaseTest extends AbstractTestCase {
      * @throws Exception thrown on errors
      */
     public void testValidationFailed() throws Exception {
-        final MavenSession session = this.createSimpleSession("lint/empty-pom");
+        final MavenSession session = this.createSimpleSession("lint/org.phpmaven.test.projects.core.empty-pom");
         final IComponentFactory factory = lookup(IComponentFactory.class);
         final ILintChecker checker = factory.lookup(ILintChecker.class, IComponentFactory.EMPTY_CONFIG, session);
         
@@ -95,7 +95,7 @@ public class BaseTest extends AbstractTestCase {
      * @throws Exception thrown on errors
      */
     public void testMultiFailure() throws Exception {
-        final MavenSession session = this.createSimpleSession("lint/empty-pom");
+        final MavenSession session = this.createSimpleSession("lint/org.phpmaven.test.projects.core.empty-pom");
         final IComponentFactory factory = lookup(IComponentFactory.class);
         final ILintChecker checker = factory.lookup(ILintChecker.class, IComponentFactory.EMPTY_CONFIG, session);
         

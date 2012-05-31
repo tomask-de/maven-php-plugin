@@ -466,7 +466,7 @@ public class BaseTest extends AbstractTestCase {
      */
     private MavenSession getSession() throws Exception {
         // create the execution config
-        final MavenSession session = this.createSimpleSession("pear/empty-pom");
+        final MavenSession session = this.createSimpleSession("pear/org.phpmaven.test.projects.core.empty-pom");
         final File pearZip = new File(
                 session.getCurrentProject().getBasedir(), 
                 "pear.php.net.zip");

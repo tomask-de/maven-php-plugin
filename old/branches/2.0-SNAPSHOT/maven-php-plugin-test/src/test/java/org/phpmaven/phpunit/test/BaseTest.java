@@ -39,7 +39,7 @@ public class BaseTest extends AbstractTestCase {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the execution config
-        final MavenSession session = this.createSimpleSession("phpunit/empty-pom");
+        final MavenSession session = this.createSimpleSession("phpunit/org.phpmaven.test.projects.core.empty-pom");
         final IPhpunitConfiguration config = factory.lookup(
                 IPhpunitConfiguration.class,
                 IComponentFactory.EMPTY_CONFIG,

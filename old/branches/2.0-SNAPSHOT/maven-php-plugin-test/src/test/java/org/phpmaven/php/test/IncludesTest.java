@@ -45,7 +45,7 @@ public class IncludesTest extends AbstractTestCase {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the execution config
-        final MavenSession session = this.createSimpleSession("php/empty-pom");
+        final MavenSession session = this.createSimpleSession("php/org.phpmaven.test.projects.core.empty-pom");
         final IPhpExecutableConfiguration execConfig = factory.lookup(
                 IPhpExecutableConfiguration.class,
                 IComponentFactory.EMPTY_CONFIG,
@@ -69,7 +69,7 @@ public class IncludesTest extends AbstractTestCase {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the execution config
-        final MavenSession session = this.createSimpleSession("php/empty-pom");
+        final MavenSession session = this.createSimpleSession("php/org.phpmaven.test.projects.core.empty-pom");
         final IPhpExecutableConfiguration execConfig = factory.lookup(
                 IPhpExecutableConfiguration.class,
                 IComponentFactory.EMPTY_CONFIG,
@@ -102,7 +102,7 @@ public class IncludesTest extends AbstractTestCase {
 //        // look up the component factory
 //        final IComponentFactory factory = lookup(IComponentFactory.class);
 //        // create the execution config
-//        final MavenSession session = this.createSession("empty-pom");
+//        final MavenSession session = this.createSession("org.phpmaven.test.projects.core.empty-pom");
 //        final IPhpExecutableConfiguration execConfig = factory.lookup(
 //                IPhpExecutableConfiguration.class,
 //                IComponentFactory.EMPTY_CONFIG,

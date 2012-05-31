@@ -41,7 +41,7 @@ public class LookupWithoutConfigTest extends AbstractTestCase {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the session
-        final MavenSession session = createSimpleSession("core/pom-with-buildconfig");
+        final MavenSession session = createSimpleSession("core/org.phpmaven.test.projects.core.pom-with-buildconfig");
         // lookup the sample
         final ISomeComponentHint component = factory.lookup(
                 ISomeComponentHint.class,
@@ -64,7 +64,7 @@ public class LookupWithoutConfigTest extends AbstractTestCase {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the session
-        final MavenSession session = createSimpleSession("core/pom-with-buildconfig");
+        final MavenSession session = createSimpleSession("core/org.phpmaven.test.projects.core.pom-with-buildconfig");
         // lookup the sample
         final ISomeComponentHint component = factory.lookup(
                 ISomeComponentHint.class,
