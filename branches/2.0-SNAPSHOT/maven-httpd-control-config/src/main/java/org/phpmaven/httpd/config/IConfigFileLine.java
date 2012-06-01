@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.httpd.config;
+package org.phpmaven.httpd.config;
 
 /**
  * A line in config file (single for directives or multiple for sections).
@@ -21,12 +21,8 @@ package org.apache.httpd.config;
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.1
  */
-interface IConfigFileLineSection extends IConfigFileLine {
+interface IConfigFileLine {
     
-    /**
-     * returns the sections name.
-     * @return section name.
-     */
-    public String getSectionName();
+    // TODO
     
 }
