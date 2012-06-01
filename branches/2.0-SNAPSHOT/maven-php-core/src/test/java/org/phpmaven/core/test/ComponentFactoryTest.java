@@ -73,7 +73,7 @@ public class ComponentFactoryTest extends AbstractTestCase {
         
         // invoke configuration
         // create the session
-        final MavenSession session = createSimpleSession("core/empty-pom");
+        final MavenSession session = createSimpleEmptySession();
         // lookup the sample
         try {
             factory.lookup(ISomeComponent.class, (Xpp3Dom) null, session);
@@ -125,7 +125,7 @@ public class ComponentFactoryTest extends AbstractTestCase {
         
         // invoke configuration
         // create the session
-        final MavenSession session = createSimpleSession("core/empty-pom");
+        final MavenSession session = createSimpleEmptySession();
         // lookup the sample
         final ISomeComponent comp = factory.lookup(ISomeComponent.class, (Xpp3Dom) null, session);
         assertNotNull(comp);

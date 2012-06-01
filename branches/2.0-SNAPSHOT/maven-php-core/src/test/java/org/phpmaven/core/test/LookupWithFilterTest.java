@@ -118,7 +118,7 @@ public class LookupWithFilterTest extends AbstractTestCase {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the session
-        final MavenSession session = createSimpleSession("core/empty-pom");
+        final MavenSession session = createSimpleEmptySession();
         // lookup the sample
         final ISomeComponentHint component = factory.lookup(
                 ISomeComponentHint.class,
@@ -168,7 +168,7 @@ public class LookupWithFilterTest extends AbstractTestCase {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the session
-        final MavenSession session = createSimpleSession("core/empty-pom");
+        final MavenSession session = createSimpleEmptySession();
         // lookup the sample
         final ISomeComponentHint component = factory.lookup(
                 ISomeComponentHint.class,

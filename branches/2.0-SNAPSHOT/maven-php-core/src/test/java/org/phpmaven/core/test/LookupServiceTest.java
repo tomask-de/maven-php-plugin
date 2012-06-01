@@ -38,7 +38,7 @@ public class LookupServiceTest extends AbstractTestCase {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the session
-        final MavenSession session = createSimpleSession("core/empty-pom");
+        final MavenSession session = createSimpleEmptySession();
         // lookup the sample
         final ISomeService[] services = factory.getServiceImplementations(ISomeService.class, session);
         assertNotNull(services);
