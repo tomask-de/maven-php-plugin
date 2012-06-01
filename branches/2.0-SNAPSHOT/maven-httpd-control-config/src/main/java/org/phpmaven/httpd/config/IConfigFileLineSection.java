@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.httpd.config;
+package org.phpmaven.httpd.config;
 
 /**
  * A line in config file (single for directives or multiple for sections).
@@ -21,38 +21,12 @@ package org.apache.httpd.config;
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.1
  */
-interface IConfigFileLineDirective extends IConfigFileLine {
+interface IConfigFileLineSection extends IConfigFileLine {
     
     /**
-     * Returns the directive name.
-     * @return directive name.
+     * returns the sections name.
+     * @return section name.
      */
-    String getDirectiveName();
-
-    /**
-     * Sets the value.
-     * @param value value for single valued directives
-     */
-    void setValue(String value);
-
-    /**
-     * Returns the value.
-     * @return value.
-     */
-    String getValue();
-
-    /**
-     * Returns the value at given index.
-     * @param index index.
-     * @return value at given index.
-     */
-    String getValue(int index);
-
-    /**
-     * Sets the value at given index.
-     * @param index index.
-     * @param value value.
-     */
-    void setValue(int index, String value);
+    public String getSectionName();
     
 }

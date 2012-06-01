@@ -13,27 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.httpd.config;
-
-import org.codehaus.plexus.component.annotations.Component;
-import org.codehaus.plexus.util.cli.CommandLineException;
-import org.phpmaven.core.BuildPluginConfiguration;
-import org.phpmaven.httpd.control.IApacheConfig;
-import org.phpmaven.httpd.control.IApacheService.APACHE_VERSION;
+package org.phpmaven.httpd.config;
 
 /**
- * Abstract config tool for apache versions 2.0 - 2.4.
+ * A line in config file (single for directives or multiple for sections.
  * 
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.1
  */
-@Component(role = IApacheConfig.class, instantiationStrategy = "per-lookup", hint = "V2.4")
-@BuildPluginConfiguration(groupId = "org.phpmaven", artifactId = "maven-httpd-control-api")
-public class ConfigTool24 extends AbstractConfigTool {
-
+class ConfigFileLine implements IConfigFileLine {
+    
+    /**
+     * The text content of the line.
+     */
+    private String text;
+    
+    /**
+     * Constructor.
+     * @param text
+     */
+    public ConfigFileLine(String text) {
+        this.text = text;
+    }
+    
     @Override
-    public APACHE_VERSION getVersion() throws CommandLineException {
-        return APACHE_VERSION.VERSION_2_4;
+    public String toString() {
+        return this.text + "\n";
     }
     
 }

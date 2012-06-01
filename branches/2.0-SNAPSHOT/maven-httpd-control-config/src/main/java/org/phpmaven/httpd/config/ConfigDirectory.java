@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.apache.httpd.config;
+package org.phpmaven.httpd.config;
 
 import org.phpmaven.httpd.control.IApacheConfigDirectory;
 
