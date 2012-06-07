@@ -28,6 +28,7 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.easymock.EasyMock;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.core.test.comp.ISomeComponent;
+import org.phpmaven.core.test.comp.ISomeComponentHint;
 import org.phpmaven.test.AbstractTestCase;
 
 /**
@@ -37,6 +38,90 @@ import org.phpmaven.test.AbstractTestCase;
  * @since 2.0.1
  */
 public class ComponentFactoryTest extends AbstractTestCase {
+
+    /**
+     * Tests the lookup with null values.
+     *
+     * @throws Exception thrown on errors
+     */
+    public void testLookupNull() throws Exception {
+        // look up the component factory
+        final IComponentFactory factory = lookup(IComponentFactory.class);
+        
+        // set a dummy container
+        final Field field = factory.getClass().getDeclaredField("plexusContainer");
+        field.setAccessible(true);
+        final PlexusContainer origContainer = (PlexusContainer) field.get(factory);
+        
+        // mocking
+        final PlexusContainer container = EasyMock.createMock(PlexusContainer.class);
+        field.set(factory, container);
+        
+        // tunnel
+        EasyMock.expect(container.lookup(ISomeComponent.class)).andDelegateTo(origContainer);
+        EasyMock.expect(container.getComponentDescriptor(ISomeComponent.class.getName(), "default")).andReturn(
+                null);
+        EasyMock.expect(container.getContainerRealm()).andDelegateTo(origContainer);
+        // mocked behaviour
+        EasyMock.expect(container.lookup(ComponentConfigurator.class, "php-maven")).
+            andDelegateTo(origContainer).anyTimes();
+        container.release(EasyMock.anyObject());
+        EasyMock.expectLastCall().andDelegateTo(origContainer).anyTimes();
+        
+        // start test
+        EasyMock.replay(container);
+        
+        // invoke configuration
+        // create the session
+        final MavenSession session = createSimpleEmptySession();
+        // lookup the sample
+        assertNotNull(factory.lookup(ISomeComponent.class, (Xpp3Dom[]) null, session));
+        
+        EasyMock.verify(container);
+    }
+
+    /**
+     * Tests the lookup with null values.
+     *
+     * @throws Exception thrown on errors
+     */
+    public void testLookupHintNull() throws Exception {
+        // look up the component factory
+        final IComponentFactory factory = lookup(IComponentFactory.class);
+        
+        // set a dummy container
+        final Field field = factory.getClass().getDeclaredField("plexusContainer");
+        field.setAccessible(true);
+        final PlexusContainer origContainer = (PlexusContainer) field.get(factory);
+        
+        // mocking
+        final PlexusContainer container = EasyMock.createMock(PlexusContainer.class);
+        field.set(factory, container);
+        
+        // tunnel
+        EasyMock.expect(container.lookup(ISomeComponentHint.class, "hint1")).andReturn(
+                origContainer.lookup(ISomeComponentHint.class, "hint1"));
+        EasyMock.expect(container.getComponentDescriptor(ISomeComponentHint.class.getName(), "hint1")).andReturn(
+                null);
+        EasyMock.expect(container.getContainerRealm()).andReturn(
+                origContainer.getContainerRealm());
+        // mocked behaviour
+        EasyMock.expect(container.lookup(ComponentConfigurator.class, "php-maven")).andReturn(
+                origContainer.lookup(ComponentConfigurator.class, "php-maven")).anyTimes();
+        container.release(EasyMock.anyObject());
+        EasyMock.expectLastCall().andDelegateTo(origContainer).anyTimes();
+        
+        // start test
+        EasyMock.replay(container);
+        
+        // invoke configuration
+        // create the session
+        final MavenSession session = createSimpleEmptySession();
+        // lookup the sample
+        assertNotNull(factory.lookup(ISomeComponentHint.class, "hint1", (Xpp3Dom[]) null, session));
+        
+        EasyMock.verify(container);
+    }
 
     /**
      * Tests if the component factory is handling non-found configurators.
