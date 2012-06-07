@@ -43,7 +43,7 @@ public class DefineTest extends AbstractTestCase {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the execution config
-        final MavenSession session = this.createSimpleEmptySession();
+        final MavenSession session = this.createSimpleSession("exec/empty-pom");
         final IPhpExecutableConfiguration execConfig = factory.lookup(
                 IPhpExecutableConfiguration.class,
                 IComponentFactory.EMPTY_CONFIG,
