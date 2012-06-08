@@ -384,7 +384,7 @@ public abstract class AbstractPhpunitExeSupport extends AbstractPhpunitSupport {
             command += "--coverage-html \"" + this.getCoverageResult().getAbsolutePath() + "\" ";
         }
         if (this.getCoverageResultXml() != null) {
-            command += "--coverage-xml \"" + this.getCoverageResult().getAbsolutePath() + "\" ";
+            command += "--coverage-xml \"" + this.getCoverageResultXml().getAbsolutePath() + "\" ";
         }
         if (this.getPhpunitArguments() != null && this.getPhpunitArguments().length() > 0) {
             command += this.getPhpunitArguments() + " ";
