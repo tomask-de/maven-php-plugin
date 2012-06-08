@@ -116,7 +116,7 @@ public class ExecutionUtilsTest extends AbstractTestCase {
      */
     public void testExecuteLsWithInvalidParam() throws Exception {
         final String os2 = System.getProperty("os.name");
-        String command = "ls -foo";
+        String command = "ls --foo";
         if (os2 != null && os2.toLowerCase().indexOf("windows") != -1) {
             command = "dir /foo";
         }
@@ -138,7 +138,7 @@ public class ExecutionUtilsTest extends AbstractTestCase {
      */
     public void testExecuteLsWithInvalidParamAndLogger() throws Exception {
         final String os2 = System.getProperty("os.name");
-        String command = "ls -foo";
+        String command = "ls --foo";
         if (os2 != null && os2.toLowerCase().indexOf("windows") != -1) {
             command = "dir /foo";
         }
