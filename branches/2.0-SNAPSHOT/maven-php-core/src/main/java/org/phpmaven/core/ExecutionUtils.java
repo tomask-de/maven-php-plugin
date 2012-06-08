@@ -31,6 +31,9 @@ import org.codehaus.plexus.util.cli.StreamConsumer;
  */
 public final class ExecutionUtils {
     
+    /** windows suffixes. */
+    private static final String[] WIN_SUFFIXES = new String[]{"exe", "cmd", "com", "bat"};
+    
     /**
      * Hidden constructor.
      */
@@ -127,9 +130,15 @@ public final class ExecutionUtils {
             return exec.getAbsolutePath();
         }
         
-        // TODO exe bat com commands
-        
         for (int i = 0; i < paths.length; i++) {
+            if (isWindows()) {
+                for (final String suffix : WIN_SUFFIXES) {
+                    final File file2 = new File(paths[i], executable + "." + suffix);
+                    if (file2.isFile()) {
+                        return file2.getAbsolutePath();
+                    }
+                }
+            }
             final File file = new File(paths[i], executable);
             if (file.isFile()) {
                 return file.getAbsolutePath();
@@ -137,6 +146,19 @@ public final class ExecutionUtils {
         }
         
         return null;
+    }
+    
+    /**
+     * Returns true if the operating system is windows.
+     * @return true if this is windows.
+     * @since 2.0.1
+     */
+    public static boolean isWindows() {
+        final String os2 = System.getProperty("os.name");
+        if (os2 != null && os2.toLowerCase().indexOf("windows") != -1) {
+            return true;
+        }
+        return false;
     }
 
 }
