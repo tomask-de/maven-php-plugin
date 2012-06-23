@@ -18,11 +18,20 @@ package org.phpmaven.pear.test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.monitor.logging.DefaultLog;
+import org.apache.maven.plugin.logging.Log;
 import org.codehaus.plexus.logging.console.ConsoleLogger;
+import org.codehaus.plexus.util.IOUtil;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.exec.PhpException;
 import org.phpmaven.pear.IMaintainer;
@@ -31,8 +40,9 @@ import org.phpmaven.pear.IPackageVersion;
 import org.phpmaven.pear.IPearChannel;
 import org.phpmaven.pear.IPearConfiguration;
 import org.phpmaven.pear.IPearUtility;
-import org.phpmaven.plugin.build.FileHelper;
 import org.phpmaven.test.AbstractTestCase;
+
+import com.google.common.base.Preconditions;
 
 /**
  * test cases for the pear support.
@@ -460,6 +470,27 @@ public class BaseTest extends AbstractTestCase {
     }
     
     /**
+     * Unpacks a zip file.
+     *
+     * @param log Logging
+     * @param zipFile the zip file
+     * @param destDir the destination directory
+     * @throws IOException if something goes wrong
+     */
+    private void unzip(Log log, File zipFile, File destDir) throws IOException {
+        Preconditions.checkNotNull(zipFile, "ZipFile");
+
+        final ZipFile zip = new ZipFile(zipFile);
+        log.debug("unzip " + zipFile.getAbsolutePath());
+
+        final Enumeration<? extends ZipEntry> items = zip.entries();
+        while (items.hasMoreElements()) {
+            final ZipEntry entry = items.nextElement();
+            unpackZipEntry(entry, zip.getInputStream(entry), destDir);
+        }
+    }
+    
+    /**
      * Gets the maven session.
      * @return gets the maven session.
      * @throws Exception thrown on pear errors.
@@ -471,8 +502,50 @@ public class BaseTest extends AbstractTestCase {
                 session.getCurrentProject().getBasedir(), 
                 "pear.php.net.zip");
         final DefaultLog logger = new DefaultLog(new ConsoleLogger());
-        FileHelper.unzip(logger, pearZip, session.getCurrentProject().getBasedir());
+        unzip(logger, pearZip, session.getCurrentProject().getBasedir());
         return session;
+    }
+
+    /**
+     * Unpacks a single zip entry.
+     *
+     * @param zipEntry the zip entry
+     * @param zipEntryInputStream the source stream of the entry
+     * @param destDir the destination directory
+     * @throws IOException if something goes wrong
+     */
+    private void unpackZipEntry(ZipEntry zipEntry, InputStream zipEntryInputStream, File destDir)
+        throws IOException {
+
+        Preconditions.checkNotNull(zipEntry, "ZipEntry");
+        Preconditions.checkNotNull(zipEntryInputStream, "ZipEntryInputStream");
+        Preconditions.checkNotNull(destDir, "Destination Directory");
+        Preconditions.checkArgument(!destDir.exists() || destDir.isDirectory(), "Destination Directory");
+
+        // final name
+        final File destFile = new File(destDir, zipEntry.getName());
+
+        // already there
+        if (destFile.exists()) {
+            return;
+        }
+
+        // just a directory to create
+        if (zipEntry.isDirectory()) {
+            destFile.mkdirs();
+            return;
+        } else {
+            // ensure parent dir exists
+            destFile.getParentFile().mkdirs();
+        }
+
+        OutputStream out = null;
+        try {
+            out = new FileOutputStream(destFile);
+            IOUtil.copy(zipEntryInputStream, out);
+        } finally {
+            if (out != null) out.close();
+        }
     }
     
     /**
