@@ -17,33 +17,30 @@
 package org.phpmaven.php.test;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.monitor.logging.DefaultLog;
 import org.codehaus.plexus.logging.console.ConsoleLogger;
+import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.exec.IPhpExecutable;
 import org.phpmaven.exec.IPhpExecutableConfiguration;
-import org.phpmaven.exec.PhpErrorException;
-import org.phpmaven.exec.PhpWarningException;
 import org.phpmaven.test.AbstractTestCase;
 
 /**
- * test cases for PHP support.
+ * test cases for various executions.
  * 
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
-public class IncludesTest extends AbstractTestCase {
+public class ExecTest extends AbstractTestCase {
 
     /**
      * Tests if the execution configuration can be created.
      *
      * @throws Exception thrown on errors
      */
-    public void testExisting() throws Exception {
+    public void testArgsWithConsumer() throws Exception {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the execution config
@@ -53,13 +50,18 @@ public class IncludesTest extends AbstractTestCase {
                 IComponentFactory.EMPTY_CONFIG,
                 session);
 
-        final File includeTestPhp = new File(session.getCurrentProject().getBasedir(), "includes-test.php");
-        execConfig.getIncludePath().add(
-                new File(session.getCurrentProject().getBasedir(), "includes").getAbsolutePath());
+        final File envTestPhp = new File(session.getCurrentProject().getBasedir(), "args-test.php");
 
         // assert that the environment variable is mapped correctly
         final IPhpExecutable exec = execConfig.getPhpExecutable(new DefaultLog(new ConsoleLogger()));
-        assertEquals("SUCCESS_EXISTING\n", exec.execute(includeTestPhp));
+        assertEquals(0, exec.execute("\"" + envTestPhp.getAbsolutePath() + "\" JUNIT_ARG_TEST", envTestPhp,
+                new StreamConsumer() {
+
+                    @Override
+                    public void consumeLine(String line) {
+                        // does nothing
+                    }
+                }));
     }
 
     /**
@@ -67,7 +69,7 @@ public class IncludesTest extends AbstractTestCase {
      *
      * @throws Exception thrown on errors
      */
-    public void testExistingPut() throws Exception {
+    public void testCode() throws Exception {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the execution config
@@ -77,15 +79,10 @@ public class IncludesTest extends AbstractTestCase {
                 IComponentFactory.EMPTY_CONFIG,
                 session);
 
-        final File includeTestPhp = new File(session.getCurrentProject().getBasedir(), "includes-test.php");
-        final List<String> includes = new ArrayList<String>();
-        includes.add(
-                new File(session.getCurrentProject().getBasedir(), "includes").getAbsolutePath());
-        execConfig.setIncludePath(includes);
-
         // assert that the environment variable is mapped correctly
         final IPhpExecutable exec = execConfig.getPhpExecutable(new DefaultLog(new ConsoleLogger()));
-        assertEquals("SUCCESS_EXISTING\n", exec.execute(includeTestPhp));
+        final String output = exec.executeCode("", "echo 'FOO';");
+        assertEquals("FOO\n", output);
     }
 
     /**
@@ -93,7 +90,7 @@ public class IncludesTest extends AbstractTestCase {
      *
      * @throws Exception thrown on errors
      */
-    public void testFailing() throws Exception {
+    public void testCodeArgs() throws Exception {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the execution config
@@ -103,47 +100,45 @@ public class IncludesTest extends AbstractTestCase {
                 IComponentFactory.EMPTY_CONFIG,
                 session);
 
-        final File includeTestPhp = new File(session.getCurrentProject().getBasedir(), "includes-test.php");
+        // assert that the environment variable is mapped correctly
+        final IPhpExecutable exec = execConfig.getPhpExecutable(new DefaultLog(new ConsoleLogger()));
+        final String output = exec.executeCode("", "echo $argv[1];", "JUNIT_ARG_TEST");
+        assertEquals("JUNIT_ARG_TEST\n", output);
+    }
+
+    /**
+     * Tests if the execution configuration can be created.
+     *
+     * @throws Exception thrown on errors
+     */
+    public void testArgsWithConsumer2() throws Exception {
+        // look up the component factory
+        final IComponentFactory factory = lookup(IComponentFactory.class);
+        // create the execution config
+        final MavenSession session = this.createSimpleSession("exec/empty-pom");
+        final IPhpExecutableConfiguration execConfig = factory.lookup(
+                IPhpExecutableConfiguration.class,
+                IComponentFactory.EMPTY_CONFIG,
+                session);
+
+        final File envTestPhp = new File(session.getCurrentProject().getBasedir(), "args-test.php");
 
         // assert that the environment variable is mapped correctly
         final IPhpExecutable exec = execConfig.getPhpExecutable(new DefaultLog(new ConsoleLogger()));
-        try {
-            // we will either expect a php warning or a php error.
-            // depends on php.ini and php version.
-            exec.execute(includeTestPhp);
-            fail("Exception expected");
-        } catch (PhpWarningException ex) {
-            // ignore; we expect this exception
-            assertTrue(ex.getMessage().contains("Warning: require_once(existing.php)"));
-        } catch (PhpErrorException ex) {
-            // ignore; we expect this exception
-            assertTrue(ex.getMessage().contains("Fatal error: require_once()"));
-        }
+        assertEquals(0, exec.execute("\"" + envTestPhp.getAbsolutePath() + "\" JUNIT_ARG_TEST",
+                new StreamConsumer() {
+
+                    @Override
+                    public void consumeLine(String line) {
+                        // does nothing
+                    }
+                },
+                new StreamConsumer() {
+                    @Override
+                    public void consumeLine(String line) {
+                        // does nothing
+                    }
+                }));
     }
-//
-//    /**
-//     * Tests if the execution configuration can be created.
-//     *
-//     * @throws Exception thrown on errors
-//     */
-//    public void testFailingIgnored() throws Exception {
-//        // look up the component factory
-//        final IComponentFactory factory = lookup(IComponentFactory.class);
-//        // create the execution config
-//        final MavenSession session = this.createSession("empty-pom");
-//        final IPhpExecutableConfiguration execConfig = factory.lookup(
-//                IPhpExecutableConfiguration.class,
-//                IComponentFactory.EMPTY_CONFIG,
-//                session);
-//
-//        final File includeTestPhp = new File(session.getCurrentProject().getBasedir(), "includes-test.php");
-//        execConfig.setIgnoreIncludeErrors(true);
-//
-//        // assert that the environment variable is mapped correctly
-//        final IPhpExecutable exec = execConfig.getPhpExecutable(new DefaultLog(new ConsoleLogger()));
-//        // TODO exec.execute(includeTestPhp);
-//        // TODO currently does not work because the php.exe returns non-zero error code at cli.
-//        // there should be no exception thrown.
-//    }
     
 }

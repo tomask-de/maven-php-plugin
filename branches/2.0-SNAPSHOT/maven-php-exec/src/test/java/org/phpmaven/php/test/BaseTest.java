@@ -57,6 +57,65 @@ public class BaseTest extends AbstractTestCase {
     }
 
     /**
+     * Tests if the execution configuration can be created.
+     *
+     * @throws Exception thrown on errors
+     */
+    public void testConfigureFailes() throws Exception {
+        // look up the component factory
+        final IComponentFactory factory = lookup(IComponentFactory.class);
+        // create the execution config
+        final MavenSession session = this.createSimpleEmptySession();
+        final IPhpExecutableConfiguration execConfig = factory.lookup(
+                IPhpExecutableConfiguration.class,
+                IComponentFactory.EMPTY_CONFIG,
+                session);
+        // assert that it is not null
+        assertNotNull(execConfig);
+        // assert that we are able to create the executable
+        final IPhpExecutable exec = execConfig.getPhpExecutable(new DefaultLog(new ConsoleLogger()));
+        try {
+            exec.configure(null, null);
+            fail("Exception expected");
+        // CHECKSTYLE:OFF
+        // checkstyle does not like empty catches
+        } catch (IllegalStateException ex) {
+            // ignore; we expect this exception
+        }
+        // CHECKSTYLE:ON
+    }
+
+    /**
+     * Tests if the execution configuration can be created.
+     *
+     * @throws Exception thrown on errors
+     */
+    public void testConfigureFailesNotCached() throws Exception {
+        // look up the component factory
+        final IComponentFactory factory = lookup(IComponentFactory.class);
+        // create the execution config
+        final MavenSession session = this.createSimpleEmptySession();
+        final IPhpExecutableConfiguration execConfig = factory.lookup(
+                IPhpExecutableConfiguration.class,
+                IComponentFactory.EMPTY_CONFIG,
+                session);
+        // assert that it is not null
+        assertNotNull(execConfig);
+        // assert that we are able to create the executable
+        execConfig.setUseCache(false);
+        final IPhpExecutable exec = execConfig.getPhpExecutable(new DefaultLog(new ConsoleLogger()));
+        try {
+            exec.configure(null, null);
+            fail("Exception expected");
+        // CHECKSTYLE:OFF
+        // checkstyle does not like empty catches
+        } catch (IllegalStateException ex) {
+            // ignore; we expect this exception
+        }
+        // CHECKSTYLE:ON
+    }
+
+    /**
      * Tests if the execution configuration can be created
      * with an unknown executable set.
      *
@@ -113,8 +172,25 @@ public class BaseTest extends AbstractTestCase {
         }
         // CHECKSTYLE:ON
     }
+
+    /**
+     * Tests if isUseCache is active per default.
+     * @throws Exception
+     */
+    public void testIsUseCacheActive() throws Exception {
+        // look up the component factory
+        final IComponentFactory factory = lookup(IComponentFactory.class);
+        // create the execution config
+        final MavenSession session = this.createSimpleEmptySession();
+        final IPhpExecutableConfiguration execConfig = factory.lookup(
+                IPhpExecutableConfiguration.class,
+                IComponentFactory.EMPTY_CONFIG,
+                session);
+        assertTrue(execConfig.isUseCache());
+        execConfig.setUseCache(false);
+        assertFalse(execConfig.isUseCache());
+    }
     
-    // TODO: test isUseCache true/false
     // TODO: test additionalPhpParameters
     // TODO: test flushPHPOutput
     // TODO: test temporaryScriptFile
