@@ -16,6 +16,8 @@
 
 package org.phpmaven.pear.test;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -541,8 +543,8 @@ public class BaseTest extends AbstractTestCase {
 
         OutputStream out = null;
         try {
-            out = new FileOutputStream(destFile);
-            IOUtil.copy(zipEntryInputStream, out);
+            out = new BufferedOutputStream(new FileOutputStream(destFile));
+            IOUtil.copy(new BufferedInputStream(zipEntryInputStream), out);
         } finally {
             if (out != null) out.close();
         }
