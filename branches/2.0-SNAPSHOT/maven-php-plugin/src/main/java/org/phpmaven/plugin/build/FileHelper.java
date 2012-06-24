@@ -14,6 +14,8 @@
 
 package org.phpmaven.plugin.build;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -296,8 +298,8 @@ public final class FileHelper {
 
         OutputStream out = null;
         try {
-            out = new FileOutputStream(destFile);
-            IOUtil.copy(zipEntryInputStream, out);
+            out = new BufferedOutputStream(new FileOutputStream(destFile));
+            IOUtil.copy(new BufferedInputStream(zipEntryInputStream), out);
         } finally {
             if (out != null) out.close();
         }
