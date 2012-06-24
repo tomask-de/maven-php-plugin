@@ -18,7 +18,6 @@ package org.phpmaven.test;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Map;
 import java.util.Properties;
 
@@ -106,11 +105,18 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         final MavenExecutionRequest request = new DefaultMavenExecutionRequest();
         final MavenExecutionResult result = null;
         final MavenSession session = new MavenSession(getContainer(), systemSession, request, result);
-        final File projectFile = new File(testDir, "pom.xml");
-        final ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest();
-        final MavenProject project = lookup(ProjectBuilder.class).build(projectFile, buildingRequest).getProject();
+        final MavenProject project = buildProject(testDir);
         session.setCurrentProject(project);
         return session;
+    }
+
+    private MavenProject buildProject(final File projectDir) throws Exception {
+        final File projectFile = new File(projectDir, "pom.xml");
+        final ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest();
+        buildingRequest.setProcessPlugins(false);
+        buildingRequest.setResolveDependencies(false);
+        final MavenProject project = lookup(ProjectBuilder.class).build(projectFile, buildingRequest).getProject();
+        return project;
     }
     
     /**
@@ -208,45 +214,17 @@ public abstract class AbstractTestCase extends PlexusTestCase {
      * Prepares a local repository and installs the php-maven projects.
      * @param strTestDir The local test directory for the project to be tested
      * @return the file path to the local test installation
-     * @throws IOException
-     * @throws VerificationException
+     * @throws Exception
      */
     private File preparePhpMavenLocalRepos(final String strTestDir)
-        throws IOException, VerificationException {
+        throws Exception {
         final File testDir = prepareResources(strTestDir);
         
         // skip installing of projects for hudson build
         if (!this.isHudsonBuild()) {
-            final String[] pomsToInstall = new String[]{
-                    // the common parent
-                    "../../../build/common-parent",
-                    // generics
-                    "../../../var/generic-parent-tags",
-                    "../../../var/generic-parent-branches",
-                    "../generic-parent",
-                    // java-generics
-                    "../../../var/java-parent",
-                    "../../../var/java-parent-branches",
-                    "../../../var/java-parent-tags",
-                    "../../../var/java-resources",
-                    "../java-parent",
-                    // java-projects
-                    "../maven-php-core",
-                    "../maven-php-exec",
-                    "../maven-php-project",
-                    "../maven-php-phar",
-                    "../maven-php-pear",
-                    "../maven-php-phpunit",
-                    "../maven-php-phpdoc",
-                    "../maven-php-validate-lint",
-                    "../maven-php-plugin",
-                    // php-parents
-                    "../php-parent-pom"
-                };
-                
-            for (final String pom : pomsToInstall) {
-                this.installToRepos(getLocalReposDir().getAbsolutePath(), pom);
-            }
+            final String localRepos = getLocalReposDir().getAbsolutePath();
+            final String rootPath = new File(".").getAbsolutePath();
+            this.installDirToRepos(localRepos, rootPath);
         }
         return testDir;
     }
@@ -292,11 +270,10 @@ public abstract class AbstractTestCase extends PlexusTestCase {
      * Prepares a verifier and installs php maven to a local repository.
      * @param strTestDir strTestDir The local test directory for the project to be tested
      * @return The verifier to be used for testing
-     * @throws VerificationException 
-     * @throws IOException 
+     * @throws Exception 
      */
     protected Verifier getPhpMavenVerifier(final String strTestDir)
-        throws IOException, VerificationException {
+        throws Exception {
         final File testDir = this.preparePhpMavenLocalRepos(strTestDir);
         final File localReposFile = this.getLocalReposDir();
         final Verifier verifier = new Verifier(testDir.getAbsolutePath(), true);
@@ -340,94 +317,35 @@ public abstract class AbstractTestCase extends PlexusTestCase {
     }
     
     /**
-     * see http://mrpmorris.blogspot.com/2007/05/convert-absolute-path-to-relative-path.html for
-     * details.
-     * @param absolutePath
-     * @param relativeTo
-     * @return
-     */
-    private String relativePath(String absolutePath, String relativeTo) {
-        final String[] absoluteDirectories = absolutePath.split("[\\\\\\/]");
-        final String[] relativeDirectories = relativeTo.split("[\\\\\\/]");
-        
-        // Get the shortest of the two paths
-        final int length = absoluteDirectories.length < relativeDirectories.length ?
-                absoluteDirectories.length : relativeDirectories.length;
-        // Use to determine where in the loop we exited
-        int lastCommonRoot = -1;
-        int index;
-        // Find common root 
-        for (index = 0; index < length; index++) {
-            if (absoluteDirectories[index].equals(relativeDirectories[index])) {
-                lastCommonRoot = index;
-            } else {
-                break; 
-            }
-        }
-        
-        // If we didn't find a common prefix then throw
-        if (lastCommonRoot == -1) {
-            throw new IllegalArgumentException("Paths do not have a common base");
-        }
-        
-        // Build up the relative path
-        final StringBuilder relativePath = new StringBuilder();
-        // Add on the ..
-        for (index = lastCommonRoot + 1; index < absoluteDirectories.length; index++) {
-            if (absoluteDirectories[index].length() > 0) {
-                relativePath.append("..\\");
-            }
-        }
-        
-        // Add on the folders
-        for (index = lastCommonRoot + 1; index < relativeDirectories.length - 1; index++) {
-            relativePath.append(relativeDirectories[index] + "\\");
-        }
-        
-        relativePath.append(relativeDirectories[relativeDirectories.length - 1]);
-        return relativePath.toString();
-    }
-    
-    /**
      * Installs the project identified by given pom to the local repository.
      * @param reposPath the repository path
-     * @param pom path to local pom that will be installed; a relative path from current project root
-     * @throws VerificationException thrown if the given pom cannot be installed
-     * @throws IOException 
+     * @param root path to local pom that will be installed; an absolute path
+     * @throws Exception thrown if the given pom cannot be installed
      */
-    protected void installToRepos(final String reposPath, String pom)
-        throws VerificationException, IOException {
+    protected void installDirToRepos(final String reposPath, String root)
+        throws Exception {
         
         // do not install in hudson builds
         if (this.isHudsonBuild()) {
             return;
         }
         
-        File root;
-        try {
-            root = new File(
-                    this.getClass().getResource("/META-INF/plexus/components.xml").toURI()).
-                    getParentFile().getParentFile().getParentFile().getParentFile().getParentFile();
-        } catch (URISyntaxException e) {
-            throw new VerificationException(e);
+        final File phpmavenDir = new File(reposPath + "/org/phpmaven");
+        if (phpmavenDir.exists()) {
+            FileUtils.deleteDirectory(phpmavenDir);
         }
         
-        final File pomFile = new File(root, pom);
-        // final File logFile = new File(root, "../../../dev/log.txt");
-        // final String relLogPath = this.relativePath(pomFile.getCanonicalPath(), logFile.getCanonicalPath()); 
-        
-        final Verifier verifier = new Verifier(pomFile.getAbsolutePath(), true);
+        final Verifier verifier = new Verifier(root, true);
         verifier.setLocalRepo(reposPath);
         verifier.setAutoclean(false);
-        verifier.setForkJvm(true);
-        final File target = new File(pomFile, "target");
+        verifier.setForkJvm(false);
+        final File target = new File(root, "target");
         if (!target.exists()) {
             target.mkdir();
         }
         verifier.setLogFileName("target/log.txt");
-        verifier.addCliOption("-P");
-        verifier.addCliOption("php-maven-testing-profile");
-        verifier.executeGoal("install");
+        verifier.addCliOption("-N");
+        verifier.executeGoal("invoker:install");
         // verifier.verifyErrorFreeLog();
         verifier.resetStreams();
     }
