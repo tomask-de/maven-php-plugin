@@ -24,7 +24,7 @@ package org.phpmaven.dependency;
  * 
  * <pre>
  * &nbsp;&nbsp;&lt;actions><br />
- * &nbsp;&nbsp;&nbsp;&nbsp;&lt;action>&lt;ignore/>&lt;/action><br />
+ * &nbsp;&nbsp;&nbsp;&nbsp;&lt;ignore/><br />
  * &nbsp;&nbsp;&lt;/actions><br />
  * </pre>
  * 

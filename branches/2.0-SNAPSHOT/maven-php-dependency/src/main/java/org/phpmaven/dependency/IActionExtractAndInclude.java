@@ -26,11 +26,11 @@ package org.phpmaven.dependency;
  * 
  * <pre>
  * &nbsp;&nbsp;&lt;actions><br />
- * &nbsp;&nbsp;&nbsp;&nbsp;&lt;action>&lt;extract><br />
+ * &nbsp;&nbsp;&nbsp;&nbsp;&lt;extract><br />
  * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;pharPath>/my/local/path/inside/phar&lt;/pharPath><br />
  * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;targetPath>${project.build.directory}/anotherPath&lt;/targetPath><br />
  * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;includePath>/special&lt;/includePath><br />
- * &nbsp;&nbsp;&nbsp;&nbsp;&lt;/extract>&lt;/action><br />
+ * &nbsp;&nbsp;&nbsp;&nbsp;&lt;/extract><br />
  * &nbsp;&nbsp;&lt;/actions><br />
  * </pre>
  * 

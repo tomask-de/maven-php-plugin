@@ -18,12 +18,17 @@ package org.phpmaven.test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepositoryPolicy;
 import org.apache.maven.artifact.repository.MavenArtifactRepository;
 import org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout;
+import org.apache.maven.artifact.resolver.filter.CumulativeScopeArtifactFilter;
 import org.apache.maven.cli.MavenCli;
 import org.apache.maven.execution.DefaultMavenExecutionRequest;
 import org.apache.maven.execution.MavenExecutionRequest;
@@ -34,6 +39,8 @@ import org.apache.maven.it.VerificationException;
 import org.apache.maven.it.Verifier;
 import org.apache.maven.it.util.FileUtils;
 import org.apache.maven.it.util.ResourceExtractor;
+import org.apache.maven.lifecycle.internal.LifecycleDependencyResolver;
+import org.apache.maven.model.Dependency;
 import org.apache.maven.project.DefaultProjectBuildingRequest;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuilder;
@@ -54,6 +61,9 @@ import org.sonatype.aether.util.DefaultRepositorySystemSession;
  * @since 2.0.0
  */
 public abstract class AbstractTestCase extends PlexusTestCase {
+    
+    /** list of already installed project versions */
+    private static List<String> installedProjects = new ArrayList<String>();
     
     /**
      * Returns true for hudson builds. That causes the test case to assume that we have a proper local repository
@@ -138,6 +148,18 @@ public abstract class AbstractTestCase extends PlexusTestCase {
      */
     protected MavenSession createSessionForPhpMaven(final String strTestDir)
         throws Exception {
+        return createSessionForPhpMaven(strTestDir, false);
+    }
+    
+    /**
+     * Creates a maven session with given test directory (name relative to this class package).
+     * 
+     * @param strTestDir the relative folder containing the pom.xml to be used
+     * @return the maven session
+     * @throws Exception thrown on errors
+     */
+    protected MavenSession createSessionForPhpMaven(final String strTestDir, boolean resolveDependencies)
+        throws Exception {
         final File testDir = preparePhpMavenLocalRepos(strTestDir);
         
         final File localReposFile = this.getLocalReposDir();
@@ -188,7 +210,6 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         request.getSystemProperties().put("java.version", System.getProperty("java.version"));
         repositorySession.setLocalRepositoryManager(localRepositoryManager);
         final MavenExecutionResult result = null;
-        final MavenSession session = new MavenSession(getContainer(), repositorySession, request, result);
         final File projectFile = new File(testDir, "pom.xml");
         final ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest();
         buildingRequest.setLocalRepository(request.getLocalRepository());
@@ -202,9 +223,11 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         buildingRequest.setProfiles(request.getProfiles());
         buildingRequest.setActiveProfileIds(request.getActiveProfiles());
         buildingRequest.setProcessPlugins(false);
-        buildingRequest.setResolveDependencies(false);
+        buildingRequest.setResolveDependencies(resolveDependencies);
 
         final MavenProject project = lookup(ProjectBuilder.class).build(projectFile, buildingRequest).getProject();
+        
+        final MavenSession session = new MavenSession(getContainer(), repositorySession, request, result);
         session.setCurrentProject(project);
         
         return session;
@@ -224,7 +247,7 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         if (!this.isHudsonBuild()) {
             final String localRepos = getLocalReposDir().getAbsolutePath();
             final String rootPath = new File(".").getAbsolutePath();
-            this.installDirToRepos(localRepos, rootPath);
+            this.installDirToRepos(localRepos, rootPath.endsWith(".") ? rootPath.substring(0, rootPath.length() - 2) : rootPath);
         }
         return testDir;
     }
@@ -331,23 +354,75 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         }
         
         final File phpmavenDir = new File(reposPath + "/org/phpmaven");
-        if (phpmavenDir.exists()) {
+        if (phpmavenDir.exists() && installedProjects.isEmpty()) {
             FileUtils.deleteDirectory(phpmavenDir);
         }
         
+        installLocalProject(reposPath, root);
+    }
+
+    /**
+     * Installs a local project into target directory
+     * @param reposPath repos path
+     * @param root root of the project to be installed
+     * @throws Exception
+     */
+    private void installLocalProject(final String reposPath, String root) throws Exception {
+        final String projectName = new File(root).getName();
+        if (installedProjects.contains(projectName)) {
+            return;
+        }
+        installedProjects.add(projectName);
+        
+        // first install dependencies
+        final File projectFile = new File(root, "pom.xml");
+        final ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest();
+        buildingRequest.setLocalRepository(null);
+        buildingRequest.setRepositorySession(null);
+        buildingRequest.setSystemProperties(null);
+        // buildingRequest.getRemoteRepositories().addAll(request.getRemoteRepositories());
+        buildingRequest.setProfiles(null);
+        buildingRequest.setActiveProfileIds(null);
+        buildingRequest.setProcessPlugins(false);
+        buildingRequest.setResolveDependencies(false);
+
+        final MavenProject project = lookup(ProjectBuilder.class).build(projectFile, buildingRequest).getProject();
+        
+        for (final Dependency dep : project.getDependencies()) {
+            if (dep.getScope().equals(Artifact.SCOPE_COMPILE) && "org.phpmaven".equals(dep.getGroupId())) {
+                this.installLocalProject(reposPath, new File(root).getParent() + "/" + dep.getArtifactId());
+            }
+        }
+        
+        // install the project itself
         final Verifier verifier = new Verifier(root, true);
         verifier.setLocalRepo(reposPath);
         verifier.setAutoclean(false);
-        verifier.setForkJvm(false);
+        verifier.setForkJvm(true);
         final File target = new File(root, "target");
         if (!target.exists()) {
             target.mkdir();
         }
         verifier.setLogFileName("target/log.txt");
         verifier.addCliOption("-N");
-        verifier.executeGoal("invoker:install");
-        // verifier.verifyErrorFreeLog();
+        verifier.addCliOption("-nsu");
+        verifier.addCliOption("-Dmaven.test.skip=true");
+        verifier.executeGoal("install");
+        verifier.verifyErrorFreeLog();
         verifier.resetStreams();
+    }
+
+    protected void resolveProjectDependencies(MavenSession session) throws Exception {
+        final List<String> scopesToResolve = new ArrayList<String>();
+        scopesToResolve.add(Artifact.SCOPE_COMPILE);
+        scopesToResolve.add(Artifact.SCOPE_TEST);
+        final List<String> scopesToCollect = new ArrayList<String>();
+        final LifecycleDependencyResolver lifeCycleDependencyResolver = lookup(LifecycleDependencyResolver.class);
+        session.getCurrentProject().setArtifacts(null);
+        session.getCurrentProject().setArtifactFilter(new CumulativeScopeArtifactFilter(scopesToResolve));
+        lifeCycleDependencyResolver.resolveProjectDependencies(session.getCurrentProject(), scopesToCollect,
+                scopesToResolve, session, false,
+                Collections.<Artifact> emptySet());
     }
 
 }

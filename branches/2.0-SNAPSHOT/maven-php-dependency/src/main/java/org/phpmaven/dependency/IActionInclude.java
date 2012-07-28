@@ -25,7 +25,7 @@ package org.phpmaven.dependency;
  * 
  * <pre>
  * &nbsp;&nbsp;&lt;actions><br />
- * &nbsp;&nbsp;&nbsp;&nbsp;&lt;action>&lt;include>&lt;pharPath>/my/local/path&lt;/pharPath>&lt;/include>&lt;/action><br />
+ * &nbsp;&nbsp;&nbsp;&nbsp;&lt;include>&lt;pharPath>/my/local/path&lt;/pharPath>&lt;/include><br />
  * &nbsp;&nbsp;&lt;/actions><br />
  * </pre>
  * 
