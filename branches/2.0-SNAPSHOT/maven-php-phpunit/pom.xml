@@ -46,6 +46,19 @@
         	<artifactId>maven-php-project</artifactId>
         	<version>${project.version}</version>
         </dependency>
+        
+        <dependency>
+        	<groupId>org.phpmaven</groupId>
+        	<artifactId>phpmaven-testtool</artifactId>
+        	<version>${project.version}</version>
+        	<scope>test</scope>
+        </dependency>
+        <dependency>
+        	<groupId>org.phpmaven</groupId>
+        	<artifactId>maven-php-phar</artifactId>
+        	<version>${project.version}</version>
+        	<scope>test</scope>
+        </dependency>
     </dependencies>
   
   <build>
@@ -66,6 +79,24 @@
                 <groupId>org.phpmaven.sites</groupId>
                 <artifactId>sitemap-plugin</artifactId>
             </plugin>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-site-plugin</artifactId>
+              <configuration>
+              	<reportPlugins>
+              		<plugin>
+                		<groupId>org.codehaus.mojo</groupId>
+                		<artifactId>cobertura-maven-plugin</artifactId>
+		                <configuration>
+        			        <formats>
+        			            <format>xml</format>
+        			            <format>html</format>
+        			        </formats>
+            			</configuration>
+		            </plugin>
+              	</reportPlugins>
+              </configuration>
+          </plugin>
             <plugin>
                 <groupId>org.codehaus.plexus</groupId>
                 <artifactId>plexus-component-metadata</artifactId>
