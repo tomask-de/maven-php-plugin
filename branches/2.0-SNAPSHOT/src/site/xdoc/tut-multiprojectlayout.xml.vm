@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Copyright 2010-2012 by PHP-maven.org
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+	http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+	<properties>
+		<title>Maven for PHP - Multi project layouts</title>
+		<author email="martin.eisengardt@googlemail.com">Martin Eisengardt</author>
+	</properties>
+	
+	<head>
+		<title>Maven for PHP - Multi project layouts</title>
+		<meta name="keyword" content="apache, maven, php, php-maven, maven tutorial, php maven tutorial, project organization, multi project, php modules, phar modules" />		
+	</head>
+	
+	<body>
+		<p style="text-align:center">[ <a href="tut-add3partylibs.html">Previous</a> | <a href="tutorials.html">TOC</a> | <a href="tut-dependencymanagement.html">Next</a> ]</p>
+		
+		<section name="Setup a multi project layout">
+		<p>
+		Maven contains two important features: <i>inheritance</i> and <i>multi-project poms</i>. The inheritance feature can be used to
+		share project information across multiple projects. Whenever you create more than one project there is potential to use the project
+		inheritance. A multi-project pom can be used to devide your project into several peaces/ modules and create them by one maven
+		invocation. 
+		</p>
+		
+		<subsection name="A sample multi-project pom">
+		<p>
+		Let us look at a sample project layout that contains three levels:</p>
+<source>
+root
+`-- pom.xml 
+	`-- libraries
+		|-- pom.xml
+		|`-- core-lib 
+		|	`-- pom.xml
+		`-- web-lib
+			`-- pom.xml
+			</source>
+	    <p>
+	    As you see there are multiple poms. The root model is located in the root folder. The root pom.xml is called "aggregator".
+	    Within the folder "libraries" there are other projects, called "modules". So the root aggregator contains the module "libraries".
+	    The "libraries" is itself an aggregator and contains the modules "core-lib" and "web-lib".
+		</p>
+		
+		<p>
+		There are some other layouts, for example the "maven flat layout". However you are able to organize the poms in any way within
+		the filesystem. But the layout shown above is recommended as it directly shows the realtionship from aggregator to modules
+		within the file system.
+		</p>
+		
+		<p>
+		Maven won't respect the relationship between aggregators and modules only by placing some folders. So how do you tell maven
+		about this relationship? It is fairly simple. First of all the aggregtor projects are always non-php projects. They do not contain
+		any source file at all. Aggregators are made of packaging "pom". A sample pom of the root aggregator:
+<macro name="snippet">
+<param name="id" value="root"></param>
+<param name="file" value="${phpmavenFsRoot}/src/site/include/pom_multi.xml"></param>
+</macro>
+		</p>
+		
+		<p>The libraries pom.xml is fairly simple too. It only contains the two modules.
+<macro name="snippet">
+<param name="id" value="libraries"></param>
+<param name="file" value="${phpmavenFsRoot}/src/site/include/pom_multi.xml"></param>
+</macro></p>
+
+		<p>And that's it. The two libraries itself do not need any additional setup. The libraries do not even know anything about
+		being part of an aggregator.</p>
+		</subsection>
+		
+		<subsection name="Behaviour of multi-project layouts">
+		<p>You can checkout every folder. If you only want to work on "core-lib" from the example above you may only checkout
+		this folder. If you want to work on everything you can checkout the root.</p>
+		
+		<p>Maven commands are always being invoked on every project within the aggregator. If you invoke "mvn install" on the root
+		it will compile/test/install all modules and the root pom itself.</p>
+		
+		<p>If you deploy a project to a remote repository the aggregator poms are deployed too. To disable deployment you should
+		simply put a local folder as deployment url. This trick will cause that aggregator plugins will not be copied to the
+		remote repository but instead into a local folder that you can throw away after building.</p>
+		</subsection>
+		
+		<subsection name="Inheritance">
+		<p>Another feature is pom inheritance. You often will see that this is combined with aggregator poms (multi-project layout).
+		But it is not required that inheritance must be combined with aggregators. However there is one main difference: As soon as
+		you choose inheritance you must ensure that the parent poms are deployed to your repository too.</p>
+		
+		<p>But what exactly is inheritance? You already know of inheritance. The pom.xml files of a typical php-maven project
+		are having a section called "parent". This small part tells maven that your pom.xml will inherit important things
+		from another pom.xml identified by given groupId/artifactId/version. The following elements are merged from parent pom:</p>
+		<ul>
+			<li>dependencies</li>
+			<li>developers and contributors</li>
+			<li>plugin lists</li>
+			<li>plugin executions</li>
+			<li>plugin configuration</li>
+			<li>resources</li>
+		</ul>
+		
+		<p>To activate inheritance simply add a parent inside the pom of your project. You can find some detailed explanation
+		at the <a href="http://maven.apache.org/guides/introduction/introduction-to-the-pom.html">maven homepage</a>.</p>
+		</subsection>
+		</section>
+		
+		<p style="text-align:center">[ <a href="tut-add3partylibs.html">Previous</a> | <a href="tutorials.html">TOC</a> | <a href="tut-dependencymanagement.html">Next</a> ]</p>
+	</body>
+</document>
