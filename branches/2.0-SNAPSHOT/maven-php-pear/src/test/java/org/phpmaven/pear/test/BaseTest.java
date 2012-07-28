@@ -266,11 +266,11 @@ public class BaseTest extends AbstractTestCase {
      */
     public void testPackageInstallation() throws Exception {
         final IPearChannel channel = getChannel(true);
-        final IPackage pkg = channel.getPackage("Config");
-        final IPackageVersion version = pkg.getVersion("0.3.1");
+        final IPackage pkg = channel.getPackage("Auth");
+        final IPackageVersion version = pkg.getVersion("1.6.4");
         assertNull(pkg.getInstalledVersion());
         version.install();
-        assertEquals("0.3.1", pkg.getInstalledVersion().getVersion().getMavenVersion());
+        assertEquals("1.6.4", pkg.getInstalledVersion().getVersion().getMavenVersion());
         
         assertTrue(
                 channel.getPearUtility().getPhpDir().getAbsolutePath().startsWith(
