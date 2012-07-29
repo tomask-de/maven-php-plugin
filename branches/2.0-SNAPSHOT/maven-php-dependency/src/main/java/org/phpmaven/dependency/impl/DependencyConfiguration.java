@@ -28,7 +28,7 @@ import org.phpmaven.dependency.IDependencyConfiguration;
  * Dependency configuration.
  * 
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
- * @since 2.0.0
+ * @since 2.0.1
  */
 @Component(role = IDependencyConfiguration.class, instantiationStrategy = "per-lookup")
 public class DependencyConfiguration implements IDependencyConfiguration {
