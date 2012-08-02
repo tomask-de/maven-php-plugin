@@ -330,6 +330,7 @@ public class PhpMojoHelper implements IPhpExecution {
         final ProjectBuildingRequest request = session.getProjectBuildingRequest();
         request.setLocalRepository(session.getLocalRepository());
         request.setRemoteRepositories(this.project.getRemoteArtifactRepositories());
+        request.setProcessPlugins(false);
         return this.mavenProjectBuilder.build(a, request).getProject();
     }
 
