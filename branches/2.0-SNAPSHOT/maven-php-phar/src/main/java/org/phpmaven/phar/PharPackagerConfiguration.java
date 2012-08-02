@@ -61,7 +61,7 @@ public class PharPackagerConfiguration implements IPharPackagerConfiguration {
     @Override
     public IPharPackager getPharPackager() throws PlexusConfigurationException,
             ComponentLookupException {
-        return this.factory.lookup(IPharPackager.class, IComponentFactory.EMPTY_CONFIG, this.session);
+        return this.factory.lookup(IPharPackager.class, this.packager, IComponentFactory.EMPTY_CONFIG, this.session);
     }
 
     /**
