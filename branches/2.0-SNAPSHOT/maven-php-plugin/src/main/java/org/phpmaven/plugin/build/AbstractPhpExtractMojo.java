@@ -23,6 +23,7 @@ import org.codehaus.plexus.component.configurator.expression.ExpressionEvaluatio
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.phpmaven.core.IComponentFactory;
+import org.phpmaven.dependency.IDependencyConfiguration;
 import org.phpmaven.plugin.php.MultiException;
 import org.phpmaven.plugin.php.PhpException;
 import org.phpmaven.project.IProjectPhpExecution;
@@ -47,7 +48,13 @@ public abstract class AbstractPhpExtractMojo extends AbstractPhpMojo {
         getLog().info("Unpacking dependencies...");
         IProjectPhpExecution config = null;
         File targetDir = null;
+        IDependencyConfiguration depConfig = null;
         try {
+            depConfig = factory.lookup(
+                IDependencyConfiguration.class,
+                IComponentFactory.EMPTY_CONFIG,
+                this.getSession());
+            
             config = factory.lookup(
                 IProjectPhpExecution.class,
                 IComponentFactory.EMPTY_CONFIG,
@@ -67,7 +74,14 @@ public abstract class AbstractPhpExtractMojo extends AbstractPhpMojo {
         }
         
         try {
-            this.getPhpHelper().prepareDependencies(this.factory, this.getSession(), targetDir, getTargetScope());
+            // TODO move this to a plugin (f.e. maven-php-project)
+            // TODO verify integrity of dependencies config
+            this.getPhpHelper().prepareDependencies(
+                this.factory,
+                this.getSession(),
+                targetDir,
+                getTargetScope(),
+                depConfig);
         } catch (MultiException e) {
             throw new MojoExecutionException(e.getMessage(), e);
         } catch (PhpException e) {
