@@ -108,6 +108,9 @@ public class ComponentFactory implements IComponentFactory {
         if (componentDescriptor != null) {
             realm = componentDescriptor.getRealm();
         }
+        if (realm == null && clazz.getClassLoader() instanceof ClassRealm) {
+            realm = (ClassRealm) clazz.getClassLoader();
+        }
         if (realm == null) {
             realm = this.plexusContainer.getContainerRealm();
         }
@@ -136,6 +139,9 @@ public class ComponentFactory implements IComponentFactory {
                 this.plexusContainer.getComponentDescriptor(clazz.getName(), roleHint);
         if (componentDescriptor != null) {
             realm = componentDescriptor.getRealm();
+        }
+        if (realm == null && clazz.getClassLoader() instanceof ClassRealm) {
+            realm = (ClassRealm) clazz.getClassLoader();
         }
         if (realm == null) {
             realm = this.plexusContainer.getContainerRealm();

@@ -313,6 +313,7 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         final Verifier verifier = new Verifier(testDir.getAbsolutePath(), true);
         verifier.setLocalRepo(localReposFile.getAbsolutePath());
         verifier.addCliOption("-nsu");
+        verifier.setForkJvm(true);
         return verifier;
     }
     
@@ -330,6 +331,7 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         final Verifier verifier = new Verifier(testDir.getAbsolutePath(), true);
         verifier.setLocalRepo(localReposFile.getAbsolutePath());
         verifier.addCliOption("-nsu");
+        verifier.setForkJvm(true);
         return verifier;
     }
     
@@ -347,6 +349,7 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         final Verifier verifier = new Verifier(testDir.getAbsolutePath(), true);
         verifier.setLocalRepo(localReposFile.getAbsolutePath());
         verifier.addCliOption("-nsu");
+        verifier.setForkJvm(true);
         return verifier;
     }
     
