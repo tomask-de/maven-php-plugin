@@ -32,12 +32,12 @@ import org.phpmaven.phar.IPharPackagingRequest;
 import org.phpmaven.test.AbstractTestCase;
 
 /**
- * test cases for the PHAR packager.
+ * test cases for the Java-variant PHAR packager.
  * 
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
-public class BaseTest extends AbstractTestCase {
+public class JavaTest extends AbstractTestCase {
 
     /**
      * Tests if the execution configuration can be created.
@@ -56,6 +56,7 @@ public class BaseTest extends AbstractTestCase {
         // assert that it is not null
         assertNotNull(pharConfig);
         // assert that we are able to create the packager
+        pharConfig.setPackager("JAVA");
         final IPharPackager exec = pharConfig.getPharPackager();
         assertNotNull(exec);
         // assert that we are able to create the request
@@ -82,6 +83,7 @@ public class BaseTest extends AbstractTestCase {
                 IPharPackagerConfiguration.class,
                 IComponentFactory.EMPTY_CONFIG,
                 session);
+        pharConfig.setPackager("JAVA");
         final IPharPackager exec = pharConfig.getPharPackager();
         final IPharPackagingRequest request = factory.lookup(
                 IPharPackagingRequest.class,
@@ -90,7 +92,6 @@ public class BaseTest extends AbstractTestCase {
         
         // prepare the request
         request.setStub("die('HELLO STUB!');");
-        request.setLargePhar(true);
         request.addFile("/some/file.php", new File(session.getCurrentProject().getBasedir(), "testphar.php"));
         request.addDirectory("/", new File(session.getCurrentProject().getBasedir(), "phar1"));
         assertEquals(
@@ -132,7 +133,10 @@ public class BaseTest extends AbstractTestCase {
                 IPharPackagerConfiguration.class,
                 IComponentFactory.EMPTY_CONFIG,
                 session);
+        // TODO As soon as java packager supports the other methods (list etc.) change it.
         final IPharPackager exec = pharConfig.getPharPackager();
+        pharConfig.setPackager("JAVA");
+        final IPharPackager javaExec = pharConfig.getPharPackager();
         final IPharPackagingRequest request = factory.lookup(
                 IPharPackagingRequest.class,
                 IComponentFactory.EMPTY_CONFIG,
@@ -140,7 +144,6 @@ public class BaseTest extends AbstractTestCase {
         
         // prepare the request
         request.setStub("die('HELLO STUB!');");
-        request.setLargePhar(false);
         request.addFile("/some/file.php", new File(session.getCurrentProject().getBasedir(), "testphar.php"));
         request.addDirectory("/", new File(session.getCurrentProject().getBasedir(), "phar1"));
         assertEquals(
@@ -151,7 +154,7 @@ public class BaseTest extends AbstractTestCase {
         
         // package
         final DefaultLog logger = new DefaultLog(new ConsoleLogger());
-        exec.packagePhar(request, logger);
+        javaExec.packagePhar(request, logger);
         assertTrue(pharFile.exists());
         
         final IPhpExecutableConfiguration phpConfig = factory.lookup(

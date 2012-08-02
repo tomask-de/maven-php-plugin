@@ -43,7 +43,7 @@ import org.phpmaven.phar.PharEntry.EntryType;
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
-@Component(role = IPharPackager.class, instantiationStrategy = "per-lookup")
+@Component(role = IPharPackager.class, hint = "PHP_EXE", instantiationStrategy = "per-lookup")
 @BuildPluginConfiguration(groupId = "org.phpmaven", artifactId = "php-maven-phar", filter = {
         "packager", "pharConfig" })
 public class PharPackager implements IPharPackager {
@@ -132,18 +132,24 @@ public class PharPackager implements IPharPackager {
         String compression = "";
         if (request.isCompressed()) {
             if (request.isLargePhar()) {
-                compression = "foreach ($phar as $file) { $file->compress(Phar::GZ); }\n";
+                compression =
+                    "$phar->stopBuffering();\n" +
+                    "$phar = new Phar('$:{pharfilepath}'.DIRECTORY_SEPARATOR.'" +
+                    "$:{pharfilename}', 0, '$:{pharfilename}');\n" +
+                    "$phar->startBuffering();\n" +
+                    "foreach (new RecursiveIteratorIterator($phar) as $file) {" +
+                    " if (!$file->isDir()) $file->compress(Phar::GZ); }\n";
             } else {
                 compression = "$phar->compressFiles(Phar::GZ);\n";
             }
         }
 
         final String snippet = request.getPackagePhpTemplate().
+                // TODO: May we need to set a compression template????
+                replace("$:{pharcompression}", compression).
                 replace("$:{pharfilepath}", targetMasked).
                 replace("$:{pharfilename}", request.getFilename()).
                 replace("$:{pharcontents}", contents.toString()).
-                // TODO: May we need to set a compression template????
-                replace("$:{pharcompression}", compression).
                 replace("$:{pharstub}", "<?php " + stubToUse + " __HALT_COMPILER(); ?>").
                 replace("$:{pharmetadata}", metadata);
 
