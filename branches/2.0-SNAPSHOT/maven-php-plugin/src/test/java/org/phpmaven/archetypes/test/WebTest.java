@@ -22,12 +22,12 @@ import org.apache.maven.it.Verifier;
 import org.phpmaven.test.AbstractTestCase;
 
 /**
- * Tests the php5-doctrine-archetype.
+ * Tests the php5-web-archetype.
  * 
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
-public class DoctrineTest extends AbstractTestCase {
+public class WebTest extends AbstractTestCase {
 
     /**
      * tests the goal "package" after installing the archetype.
@@ -35,13 +35,11 @@ public class DoctrineTest extends AbstractTestCase {
      * @throws Exception 
      */
     public void testPackage() throws Exception {
-        final Verifier verifier = this.getPhpMavenVerifier("archetypes/doctrine");
-        
-        final File localReposDir = getLocalReposDir();
-        this.installToRepos(localReposDir.getAbsolutePath(), "../archetypes");
+        final Verifier verifier = this.getPhpMavenVerifier("archetypes/web");
+        this.installArchetypes();
         
         verifier.addCliOption("-DarchetypeGroupId=org.phpmaven");
-        verifier.addCliOption("-DarchetypeArtifactId=php5-doctrine-archetype");
+        verifier.addCliOption("-DarchetypeArtifactId=php5-web-archetype");
         verifier.addCliOption("-DarchetypeVersion=2.0-SNAPSHOT");
         verifier.addCliOption("-DgroupId=org.sample");
         verifier.addCliOption("-DartifactId=my-app");
@@ -52,17 +50,17 @@ public class DoctrineTest extends AbstractTestCase {
         verifier.verifyErrorFreeLog();
         
         verifier.assertFilePresent("my-app/pom.xml");
-        verifier.assertFilePresent("my-app/src/main/php/MyApp/Entities/MyModel.php");
-        verifier.assertFilePresent("my-app/src/main/php/bootstrap_doctrine.php");
-        verifier.assertFilePresent("my-app/src/main/php/bootstrap.php");
-        verifier.assertFilePresent("my-app/src/main/php/cli-config.php");
-        verifier.assertFilePresent("my-app/src/main/php/cli-tools.php");
-        verifier.assertFilePresent("my-app/src/main/php/my-app.php");
-        verifier.assertFilePresent("my-app/src/main/resources/config/doctrine.ini");
+        verifier.assertFilePresent("my-app/src/main/php/lib/org/phpmaven/library/LibraryClass.php");
+        verifier.assertFilePresent("my-app/src/main/php/webapp/css/Css.php");
+        verifier.assertFilePresent("my-app/src/main/php/webapp/javascript/JavaScript.php");
+        verifier.assertFilePresent("my-app/src/main/php/webapp/index.php");
+        verifier.assertFilePresent("my-app/src/main/resources/webapp/css/style.css");
+        verifier.assertFilePresent("my-app/src/main/resources/webapp/javascript/jquery-1.7.min.js");
         verifier.assertFilePresent("my-app/src/site/apt/index.apt");
         verifier.assertFilePresent("my-app/src/site/site.xml");
+        verifier.assertFilePresent("my-app/src/test/php/org/phpmaven/library/LibraryClassTest.php");
         
-        final Verifier verifier2 = this.getVerifierWithoutPrepare("archetypes/doctrine");
+        final Verifier verifier2 = this.getVerifierWithoutPrepare("archetypes/web");
         verifier2.executeGoal("package");
         verifier2.verifyErrorFreeLog();
         verifier2.assertFilePresent("my-app/target/my-app-0.0.1-SNAPSHOT.phar");

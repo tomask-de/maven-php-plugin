@@ -22,12 +22,12 @@ import org.apache.maven.it.Verifier;
 import org.phpmaven.test.AbstractTestCase;
 
 /**
- * Tests the php5-web-archetype.
+ * Tests the php5-zend-archetype.
  * 
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
-public class WebTest extends AbstractTestCase {
+public class ZendTest extends AbstractTestCase {
 
     /**
      * tests the goal "package" after installing the archetype.
@@ -35,13 +35,11 @@ public class WebTest extends AbstractTestCase {
      * @throws Exception 
      */
     public void testPackage() throws Exception {
-        final Verifier verifier = this.getPhpMavenVerifier("archetypes/web");
-        
-        final File localReposDir = getLocalReposDir();
-        this.installToRepos(localReposDir.getAbsolutePath(), "../archetypes");
+        final Verifier verifier = this.getPhpMavenVerifier("archetypes/zend");
+        this.installArchetypes();
         
         verifier.addCliOption("-DarchetypeGroupId=org.phpmaven");
-        verifier.addCliOption("-DarchetypeArtifactId=php5-web-archetype");
+        verifier.addCliOption("-DarchetypeArtifactId=php5-zend-archetype");
         verifier.addCliOption("-DarchetypeVersion=2.0-SNAPSHOT");
         verifier.addCliOption("-DgroupId=org.sample");
         verifier.addCliOption("-DartifactId=my-app");
@@ -52,17 +50,22 @@ public class WebTest extends AbstractTestCase {
         verifier.verifyErrorFreeLog();
         
         verifier.assertFilePresent("my-app/pom.xml");
-        verifier.assertFilePresent("my-app/src/main/php/lib/org/phpmaven/library/LibraryClass.php");
-        verifier.assertFilePresent("my-app/src/main/php/webapp/css/Css.php");
-        verifier.assertFilePresent("my-app/src/main/php/webapp/javascript/JavaScript.php");
-        verifier.assertFilePresent("my-app/src/main/php/webapp/index.php");
-        verifier.assertFilePresent("my-app/src/main/resources/webapp/css/style.css");
-        verifier.assertFilePresent("my-app/src/main/resources/webapp/javascript/jquery-1.7.min.js");
+        verifier.assertFilePresent("my-app/src/main/php/application/controllers/ErrorController.php");
+        verifier.assertFilePresent("my-app/src/main/php/application/controllers/IndexController.php");
+        verifier.assertFilePresent("my-app/src/main/php/application/views/scripts/error/error.phtml");
+        verifier.assertFilePresent("my-app/src/main/php/application/views/scripts/index/index.phtml");
+        verifier.assertFilePresent("my-app/src/main/php/application/Bootstrap.php");
+        verifier.assertFilePresent("my-app/src/main/php/public/index.php");
+        verifier.assertFilePresent("my-app/src/main/resources/application/configs/application.ini");
+        verifier.assertFilePresent("my-app/src/main/resources/etc/logback.xml");
+        verifier.assertFilePresent("my-app/src/main/resources/etc/phpunit.xml");
+        verifier.assertFilePresent("my-app/src/main/resources/public/.htaccess");
+        verifier.assertFilePresent("my-app/src/main/resources/webapp/WEB-INF/web.xml");
+        verifier.assertFilePresent("my-app/src/main/resources/.zfproject.xml");
         verifier.assertFilePresent("my-app/src/site/apt/index.apt");
         verifier.assertFilePresent("my-app/src/site/site.xml");
-        verifier.assertFilePresent("my-app/src/test/php/org/phpmaven/library/LibraryClassTest.php");
         
-        final Verifier verifier2 = this.getVerifierWithoutPrepare("archetypes/web");
+        final Verifier verifier2 = this.getVerifierWithoutPrepare("archetypes/zend");
         verifier2.executeGoal("package");
         verifier2.verifyErrorFreeLog();
         verifier2.assertFilePresent("my-app/target/my-app-0.0.1-SNAPSHOT.phar");

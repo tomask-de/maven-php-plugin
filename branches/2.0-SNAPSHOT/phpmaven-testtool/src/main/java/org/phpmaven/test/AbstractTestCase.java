@@ -253,6 +253,17 @@ public abstract class AbstractTestCase extends PlexusTestCase {
     }
     
     /**
+     * Installs the archetypes
+     * @throws Exception
+     */
+    protected void installArchetypes() throws Exception {
+        final String localRepos = getLocalReposDir().getAbsolutePath();
+        final String rootPath = new File(".").getAbsolutePath();
+        final File rootFile = new File(rootPath.endsWith(".") ? rootPath.substring(0, rootPath.length() - 2) : rootPath);
+        this.installLocalProject(localRepos, rootFile.getParent() + "/archetypes");
+    }
+    
+    /**
      * Returns the test dir.
      * @param strTestDir local path to test folder.
      * @return absolute test dir in temporary path.
@@ -374,6 +385,11 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         }
         installedProjects.add(projectName);
         
+        if (!projectName.equals("var")) {
+            this.installLocalProject(reposPath, new File(root).getParentFile().getParentFile().getParent() + "/var");
+            this.installLocalProject(reposPath, new File(root).getParent() + "/java-parent");
+        }
+        
         // first install dependencies
         final File projectFile = new File(root, "pom.xml");
         final ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest();
@@ -389,7 +405,7 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         final MavenProject project = lookup(ProjectBuilder.class).build(projectFile, buildingRequest).getProject();
         
         for (final Dependency dep : project.getDependencies()) {
-            if (dep.getScope().equals(Artifact.SCOPE_COMPILE) && "org.phpmaven".equals(dep.getGroupId())) {
+            if ("org.phpmaven".equals(dep.getGroupId())) {
                 this.installLocalProject(reposPath, new File(root).getParent() + "/" + dep.getArtifactId());
             }
         }

@@ -36,9 +36,7 @@ public class LibTest extends AbstractTestCase {
      */
     public void testPackage() throws Exception {
         final Verifier verifier = this.getPhpMavenVerifier("archetypes/lib");
-        
-        final File localReposDir = getLocalReposDir();
-        this.installToRepos(localReposDir.getAbsolutePath(), "../archetypes");
+        this.installArchetypes();
         
         verifier.addCliOption("-DarchetypeGroupId=org.phpmaven");
         verifier.addCliOption("-DarchetypeArtifactId=php5-lib-archetype");
