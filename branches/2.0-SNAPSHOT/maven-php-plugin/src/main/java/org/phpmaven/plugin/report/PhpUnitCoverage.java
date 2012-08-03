@@ -163,9 +163,9 @@ public class PhpUnitCoverage extends AbstractApiDocReport implements IPhpunitCon
     private void writeReport() {
         if (getSink() != null)  {
             getSink().rawText(
-                "<a href=\"phpunit/index.html\" target=\"_blank\">" +
+                "<a href=\"index.html\" target=\"_blank\">" +
                     "Show documention<br>" +
-                    "<iframe src=\"phpunit/index.html\"" +
+                    "<iframe src=\"index.html\"" +
                     "frameborder=0 style=\"border=0px;width:100%;height:400px\">");
         }
     }

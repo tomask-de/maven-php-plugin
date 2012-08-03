@@ -29,6 +29,7 @@ import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.phpmaven.core.BuildPluginConfiguration;
 import org.phpmaven.core.ConfigurationParameter;
+import org.phpmaven.core.ExecutionUtils;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.exec.IPhpExecutable;
 import org.phpmaven.exec.IPhpExecutableConfiguration;
@@ -122,40 +123,19 @@ public class PhpdocPearSupport extends AbstractPhpdocSupport implements IPhpdocS
                 // there is a very strange dependency mismatching in phpdoc.
                 // an unknown version 0.17.0 is used as dependency for various things.
                 // however it does not really work; maybe we need an empty dummy package.
-                
-                //if (>=2.0.0-alpha-2.....) util.installFromMavenRepository("org.phpdoc", "phpDocumentor", "0.17.0");
-                // another option would be to install alpha 1 and after that install alpha 2
-                /*if (!"2.0.0-alpha-1".equals(this.phpdocVersion)) {
-                    util.installFromMavenRepository("org.phpdoc", "phpDocumentor", "2.0.0-alpha-1");
-                }*/
                 util.installFromMavenRepository("org.phpdoc", "phpDocumentor", "0.17.0");
                 
                 util.installFromMavenRepository("org.phpdoc", "phpDocumentor", this.phpdocVersion);
             }
             
-            /*
-            IPackage pkg = null;
-            if (this.phpdocVersion.startsWith("1.")) {
-                writeIni(log, request, phpDocConfigFile, generatedPhpDocConfigFile);
-                pkg = util.channelDiscover("pear.php.net").getPackage("PhpDocumentor");
-            } else {
-                writeXml(log, request, phpDocConfigFile, generatedPhpDocConfigFile);
-                pkg = util.channelDiscover("pear.phpdoc.org").getPackage("phpDocumentor");
+            final String phpDoc = ExecutionUtils.searchExecutable(log,
+                    "phpdoc.php",
+                    util.getBinDir().getAbsolutePath());
+            if (phpDoc == null) {
+                throw new PhpCoreException("phpdoc not found in path (" + util.getBinDir() + ")");
             }
-            
-            final IPackageVersion version = pkg.getVersion(this.phpdocVersion);
-            if (pkg.getInstalledVersion() == null) {
-                version.install();
-            } else if (!pkg.getInstalledVersion().getVersion().getPearVersion().equals(
-                    version.getVersion().getPearVersion())) {
-                version.install();
-            }*/
-            
-            final File phpDocFile = new File(util.getBinDir(), "phpdoc");
-            if (phpDocFile == null || !phpDocFile.isFile()) {
-                throw new PhpCoreException("phpdoc not found in path");
-            }
-            String command = "\"" + phpDocFile + "\" -c \"" + generatedPhpDocConfigFile.getAbsolutePath() + "\"";
+            String command = "\"" + phpDoc + "\" " + 
+                    "-c \"" + generatedPhpDocConfigFile.getAbsolutePath() + "\"";
             if (arguments != null && arguments.length() > 0) {
                 command += " " + arguments;
             }
@@ -170,7 +150,7 @@ public class PhpdocPearSupport extends AbstractPhpdocSupport implements IPhpdocS
             final IPhpExecutable exec = config.getPhpExecutable(log);
             
             try {
-                result = exec.execute(command, phpDocFile);
+                result = exec.execute(command, new File(phpDoc));
             } catch (PhpWarningException ex) {
                 result = ex.getAppendedOutput();
                 // silently ignore; only errors are important
@@ -181,7 +161,7 @@ public class PhpdocPearSupport extends AbstractPhpdocSupport implements IPhpdocS
                     log.error("Got error from php-documentor. " +
                         "Enable debug (-X) to fetch the php output.\n" +
                         line);
-                    throw new PhpErrorException(phpDocFile, line);
+                    throw new PhpErrorException(new File(phpDoc), line);
                 }
             }
         } catch (PlexusConfigurationException ex) {

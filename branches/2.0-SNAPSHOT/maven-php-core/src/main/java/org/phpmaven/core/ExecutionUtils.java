@@ -115,12 +115,22 @@ public final class ExecutionUtils {
 
     /**
      * Searches for the executable in system path.
-     * @param log logging
+     * @param log logging (maybe null)
      * @param executable executable name
      * @return executable path or null if it cannot be found
      */
     public static String searchExecutable(Log log, String executable) {
-        final String path = System.getProperty("java.library.path") + File.pathSeparator + System.getenv("PATH");
+        return searchExecutable(log, executable,
+                System.getProperty("java.library.path") + File.pathSeparator + System.getenv("PATH"));
+    }
+
+    /**
+     * Searches for the executable in system path.
+     * @param log logging (maybe null)
+     * @param executable executable name
+     * @return executable path or null if it cannot be found
+     */
+    public static String searchExecutable(Log log, String executable, String path) {
         if (log != null) {
             log.debug("searching for " + executable + " in PATH: " + path);
         }
