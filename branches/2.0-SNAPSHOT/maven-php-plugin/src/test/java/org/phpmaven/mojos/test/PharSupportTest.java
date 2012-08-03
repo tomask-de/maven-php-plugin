@@ -16,7 +16,11 @@
 
 package org.phpmaven.mojos.test;
 
+import java.io.File;
+import java.util.List;
+
 import org.apache.maven.it.Verifier;
+import org.codehaus.plexus.util.FileUtils;
 import org.phpmaven.test.AbstractTestCase;
 
 /**
@@ -51,6 +55,48 @@ public class PharSupportTest extends AbstractTestCase {
         
         verifier.assertArtifactPresent("org.phpmaven.test", "phar-simple", "0.0.1", "pom");
         verifier.assertArtifactPresent("org.phpmaven.test", "phar-simple", "0.0.1", "phar");
+    }
+
+    /**
+     * tests the goal "install" with simple phar file.
+     *
+     * @throws Exception 
+     */
+    public void testListFiles() throws Exception {
+        final Verifier verifier = this.getPhpMavenVerifier("mojos-phar/phar-simple");
+        
+        // delete the pom from previous runs
+        verifier.deleteArtifact("org.phpmaven.test", "phar-simple", "0.0.1", "pom");
+        verifier.deleteArtifact("org.phpmaven.test", "phar-simple", "0.0.1", "phar");
+
+        // execute testing
+        verifier.executeGoal("package");
+
+        // verify no error was thrown
+        verifier.verifyErrorFreeLog();
+
+        // reset the streams
+        verifier.resetStreams();
+        
+        verifier.setAutoclean(false);
+        verifier.addCliOption("-Dphar=target/phar-simple-0.0.1.phar");
+        verifier.executeGoal("org.phpmaven:maven-php-plugin:list-phar-files");
+        @SuppressWarnings("unchecked")
+        final List<String> lines = verifier.loadFile(verifier.getBasedir(), verifier.getLogFileName(), false);
+        boolean found = false;
+        for (final String line : lines) {
+            if (line.startsWith("[INFO] " + File.separatorChar + "MyClass.php")) {
+                found = true;
+            }
+        }
+
+        // verify no error was thrown
+        verifier.verifyErrorFreeLog();
+
+        // reset the streams
+        verifier.resetStreams();
+        
+        assertTrue(found);
     }
 
     /**
