@@ -1,0 +1,170 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <properties>
+        <phpmavenTagName>${project.version}</phpmavenTagName>
+    </properties>
+
+    <parent>
+        <groupId>org.phpmaven.build</groupId>
+        <artifactId>site-parent-tags</artifactId>
+        <version>1</version>
+        <relativePath>../../var/site-parent-tags/pom.xml</relativePath>
+    </parent>
+
+    <groupId>org.phpmaven.sites</groupId>
+    <artifactId>site</artifactId>
+    <version>2.0.1</version>
+    <packaging>pom</packaging>
+
+    <name>${project.version}</name>
+
+    <description>
+        A Maven plugin for dependency management and quality assurance in PHP projects. Uses
+        the default Maven lifecycle to provide multiple php features.
+    </description>
+    
+    <url>${phpmavenRootUrl}/${phpmavenTagType}/${phpmavenTagName}/</url>
+    
+    <distributionManagement>
+        <site>
+            <id>upload-${phpmavenSitesId}</id>
+            <name>${phpmavenSitesName}</name>
+            <url>${phpmavenSitesUploadUrl}/${phpmavenTagType}/${phpmavenTagName}/</url>
+        </site>
+    </distributionManagement>
+    
+    <scm>
+        <connection>${phpmavenRootScmUrl}</connection>
+        <developerConnection>${phpmavenRootScmUrl}</developerConnection>
+        <url>${phpmavenRootScmUrlWeb}</url>
+    </scm>
+    
+    <modules>
+    </modules>
+    
+    <profiles>
+    	<profile>
+    		<id>maven-php-include-defaults</id>
+    		<modules>
+    			<module>java-parent</module>
+        		<module>site-parent</module>
+        		<module>generic-parent</module>
+    			<module>archetypes</module>
+		        <module>maven-php-jettycgi</module>
+		        <module>phpmaven-testtool</module>
+		        <module>maven-php-core</module>
+        		<module>maven-httpd-control-api</module>
+        		<module>maven-httpd-control-config</module>
+        		<module>maven-httpd-control-ix</module>
+        		<module>maven-httpd-control-win32</module>
+        		<module>maven-httpd-plugin</module>
+		        <module>maven-php-exec</module>
+		        <module>maven-php-statedb</module>
+		        <module>maven-php-dependency</module>
+		        <module>maven-php-project</module>
+		        <module>maven-php-phar</module>
+		        <module>maven-php-phpunit</module>
+		        <module>maven-php-phpdoc</module>
+        		<module>maven-php-pear</module>
+        		<module>maven-php-validate-lint</module>
+        		<module>maven-php-plugin</module>
+    		</modules>
+    		<activation>
+    			<activeByDefault>true</activeByDefault>
+    		</activation>
+    	</profile>
+    	<profile>
+    		<id>maven-php-include-php-parent-pom</id>
+    		<modules>
+    			<module>php-parent-pom</module>
+    		</modules>
+    	</profile>
+    </profiles>
+    
+    <build>
+        <plugins>
+        	<plugin>
+        		<groupId>org.apache.maven.plugins</groupId>
+        		<artifactId>maven-javadoc-plugin</artifactId>
+        		<version>2.8</version>
+        		<configuration>
+                    <show>private</show>
+                    <header>${google.analytics.header}</header>
+                    <bottom>${htmlBottom}</bottom>
+                </configuration>
+        		<executions>
+        			<execution>
+        				<id>aggregate</id>
+        				<goals><goal>aggregate</goal></goals>
+        				<phase>site</phase>
+        			</execution>
+				</executions>
+        	</plugin>
+        	<plugin>
+        		<groupId>org.apache.maven.plugins</groupId>
+        		<artifactId>maven-jxr-plugin</artifactId>
+        		<version>2.3</version>
+        		<configuration>
+        			<bottom>${google.analytics.header} ${htmlBottom}</bottom>
+                </configuration>
+        		<executions>
+        			<execution>
+        				<id>aggregate</id>
+        				<goals><goal>aggregate</goal></goals>
+        				<phase>site</phase>
+        			</execution>
+				</executions>
+        	</plugin>
+        	<plugin>
+        		<groupId>org.apache.maven.plugins</groupId>
+        		<artifactId>maven-surefire-report-plugin</artifactId>
+        		<version>2.12</version>
+        		<configuration>
+                    <aggregate>true</aggregate>
+                </configuration>
+        		<executions>
+        			<execution>
+        				<id>aggregate</id>
+        				<goals><goal>report</goal></goals>
+        				<phase>site</phase>
+        			</execution>
+				</executions>
+        	</plugin>
+        	<plugin>
+        		<groupId>org.codehaus.mojo</groupId>
+        		<artifactId>cobertura-maven-plugin</artifactId>
+        		<version>2.6-SNAPSHOT</version>
+        		<configuration>
+                    <aggregate>true</aggregate>
+                    <formats><format>xml</format><format>html</format></formats>
+                	<forceMojoExecution>true</forceMojoExecution>
+                	<outputDirectory>${project.build.directory}/site/cobertura</outputDirectory>
+                </configuration>
+        		<executions>
+        			<execution>
+        				<id>aggregate</id>
+        				<goals><goal>cobertura</goal></goals>
+        				<phase>site</phase>
+        			</execution>
+				</executions>
+        	</plugin>
+            <plugin>
+                <groupId>org.phpmaven.sites</groupId>
+                <artifactId>sitemap-plugin</artifactId>
+                <version>1</version>
+                <configuration>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>site</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    
+</project>

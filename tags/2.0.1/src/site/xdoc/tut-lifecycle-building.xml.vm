@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Copyright 2010-2012 by PHP-maven.org
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+	http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+	<properties>
+		<title>Maven for PHP - Building phase</title>
+		<author email="mep_eisen@web.de">
+			Martin Eisengardt
+		</author>
+	</properties>
+	
+	<head>
+		<title>Maven for PHP - Building phase</title>
+		<meta name="keyword" content="apache, maven, php, php-maven, maven tutorial, php maven tutorial, mvn, maven build, php build, php maven build, mvn, php mvn" />		
+	</head>
+	
+	<body>
+	
+		<p style="text-align:center">[ <a href="tut-lifecycle-testing.html">Previous</a> | <a href="tutorials.html">TOC</a> | <a href="tut-lifecycle-documentation.html">Next</a> ]</p>
+		
+		<section name="Building phase">
+		
+			<subsection name="Preamble">
+			<p>Within this tutorial you will get a detailed explanation of the maven lifecycles and how to customize them.</p>
+			</subsection>
+		
+			<subsection name="The lifecycles in details">
+			<p>We will not explain too much details here. But we will try to explain the things you may need as a php developer.</p>
+		
+				<subsection name="The lifecycle ordering">
+				<p>The lifecycle goals (you already got some of them) are depending on each other. This means: Later goals
+				require the previous goals succeeding. For example packaging requires that testing succeeded.</p>
+				
+				<p>Let us know look at a simplified ordering of the build lifecycle phases:</p>
+				
+				<ul>
+				<li>resources (*)</li>
+				<li>test</li>
+				<li>package</li>
+				<li>verify</li>
+				<li>install</li>
+				<li>deploy</li>
+				</ul>
+				
+				<p>(*) The <a href="http://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html">standard maven documentation</a>
+				Differs in some way. Do not mind it. As we said we try to explain it in words a php developer understands.</p>
+				
+					<subsection name="resources">
+					<p>The very first phase you notice is the resource phase. Within our tutorial we already learned a way to customize
+					resources on the fly (remember the filtering for version.txt). However the php-maven plugin will do both, the copying
+					and filtering of resources into the target folders and the copying of the php sources into the target folder.</p>
+					</subsection>
+					
+					<subsection name="test">
+					<p>The testing phase will execute any test case you specified. Testing is important because it ensures at least
+					a minimum of project quality. Of course the project quality depends on amount and quality of your test cases.
+					There is a statement you should follow: &quot;Writing test cases may be time consuming but you will always tune up
+					quality and speed up the roll out because of minimum of reported bugs.&quot; But there are two more statements:
+					&quot;Automatic test cases do not ensure that your project is bug free but writing test cases for each bug increases
+					the possibility that it never appears again.&quot; and &quot;There may be a point where writing a unit test is too complex
+					and time consuming so do only write it when there is a bug report.&quot; Find the way that best fits your needs.</p>
+					</subsection>
+					
+					<subsection name="package">
+					<p>The packaging phase will create a package. Maven manages projects always in a two-file specification. For those
+					of you that already know maven from Java: Do not complain here. Yeah, Maven knows of managing more than two files
+					per project but for PHP developer two files are enough. The most important file is the pom file. It contains all
+					information such as name and version or your project. The second important file is the package. For historic
+					reason php-maven will support multiple formats here.</p>
+					
+					<p>Introduced in php-maven1 it will support classic zips and jars. However jar is not php-like. Php-maven2 now
+					only supports php5 and the more php-like PHAR. So we require at least PHP 5.2.0 here. Because of bugs within
+					PHP we recommend at least version 5.2.6. There are still some open bugs related to phar support:
+					</p>
+					
+					<ul>
+					<li><a href="https://bugs.php.net/bug.php?id=50797">#50797</a></li>
+					<li><a href="https://bugs.php.net/bug.php?id=53467">#53467</a></li>
+					</ul>
+					
+					<p>Some of the bugs influence the behavior of php-maven and may cause bad performance because of workarounds.
+					You will find some workarounds later on within the detailed explanation of the configuration options.</p>
+					</subsection>
+					
+					<subsection name="verify">
+					<p>Php-maven itself won&apos;t do anything at this phase. But you can use it to perform additional tasks right
+					before anything is installed anywhere. Remember that we said above the later phases won&apos;t be executed if anything
+					in previous phases fails. Some people like doing a checkstyle and let the build fail on checkstyle violations.
+					It is good practice to do the checkstyle and other checks within the verify phase.</p>
+					</subsection>
+					
+					<subection name="install">
+					<p>The install phase will copy the package and the pom into your local repository. Maven silently created
+					a local repository for you. You already visited it because it is located in the user home at ~/.m2/repository
+					nearby your settings.xml. This location can be manipulated but we do not explain this here. Each module
+					and project is first copied to this location before it can be used by maven. This is important since
+					it allows you to work offline as soon as maven got every dependency. So it is a good task to execute
+					the following maven command on your project:</p>
+					
+					<source>mvn clean install site stage</source>
+					
+					<p>This command should do everything and download everything needed by your project. The site goal is discussed in
+					another tutorial chapter related to the project documentation. The stage goal is only needed by multi project layouts.
+					As for a single project simple remove the stage goal. Do work offline simply add the flag &quot;--offline&quot; at command line,
+					for example:</p>
+					
+					<source>mvn --offline test</source>
+					
+					<p>Notice: Maven will fail if working in offline mode but needing something it does not find in the local repository.
+					Adding new dependencies or build plugins, changing versions may require to be online one time to download them.
+					Working offline means to not detect for newer versions of snapshots too.</p>
+					</subection>
+					
+					<subsection name="deploy">
+					<p>Deploying projects means to publish them into a repository. So called it means to &quot;install&quot; them to become available
+					to others. That&apos;s not the correct explanation but we will use this term. It is not important for the deploy goal
+					where to deploy it. It simply must know the repository target/url. However it is your task to ensure that others
+					can access this repository. The deploy task may even use another local repository in your filesystem no other developers
+					ever see...</p>
+					</subsection>
+				</subsection>
+				
+				<subsection name="Add additional tasks">
+				<p>We will show up a checkstyle invocation to manipulate the lifecycle. As we already said this should be placed
+				in the verify phase. Add the following to your pom.xml:</p>
+				
+				<source><![CDATA[
+<project>
+  ...
+  <build>
+    <plugins>
+      ...
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>2.5</version>
+        <configuration>
+          <configLocation>${project.basedir}/checkstyle.xml</configLocation>
+          <consoleOutput>true</consoleOutput>
+          <logViolationsToConsole>true</logViolationsToConsole>
+          <detail>true</detail>
+          <failOnViolation>true</failOnViolation>
+          <failsOnError>true</failsOnError>
+          <violationSeverity>warning</violationSeverity>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      ...
+    </plugins>
+  </build>
+  ...
+</project>
+				]]></source>
+				
+				<p>Of course you can use other phases too. The above configuration requires you to place your
+				checkstyle profile at the root directory of your project.</p>
+				</subsection>
+			</subsection>
+			
+		</section>
+		
+		<p style="text-align:center">[ <a href="tut-lifecycle-testing.html">Previous</a> | <a href="tutorials.html">TOC</a> | <a href="tut-lifecycle-documentation.html">Next</a> ]</p>
+		
+	</body>
+</document>
