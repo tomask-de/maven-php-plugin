@@ -16,6 +16,8 @@
 
 package org.phpmaven.php.test;
 
+import java.io.File;
+
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.monitor.logging.DefaultLog;
 import org.apache.maven.plugin.logging.Log;
@@ -51,6 +53,13 @@ public class GetVersionTest extends AbstractTestCase {
         if (ExecutionUtils.isWindows()) {
             exec.setValue(session.getCurrentProject().getBasedir() + "/php4.cmd");
         } else {
+            // try chmod
+            final String[] cmd = {
+                "chmod",
+                "777",
+                new File(session.getCurrentProject().getBasedir(), "php4").getAbsolutePath()};
+            final Process p = Runtime.getRuntime().exec(cmd);
+            p.waitFor();
             exec.setValue(session.getCurrentProject().getBasedir() + "/php4");
         }
         dom.addChild(exec);
@@ -79,6 +88,13 @@ public class GetVersionTest extends AbstractTestCase {
         if (ExecutionUtils.isWindows()) {
             exec.setValue(session.getCurrentProject().getBasedir() + "/php5.cmd");
         } else {
+            // try chmod
+            final String[] cmd = {
+                "chmod",
+                "777",
+                new File(session.getCurrentProject().getBasedir(), "php5").getAbsolutePath()};
+            final Process p = Runtime.getRuntime().exec(cmd);
+            p.waitFor();
             exec.setValue(session.getCurrentProject().getBasedir() + "/php5");
         }
         dom.addChild(exec);
@@ -107,6 +123,13 @@ public class GetVersionTest extends AbstractTestCase {
         if (ExecutionUtils.isWindows()) {
             exec.setValue(session.getCurrentProject().getBasedir() + "/php6.cmd");
         } else {
+            // try chmod
+            final String[] cmd = {
+                "chmod",
+                "777",
+                new File(session.getCurrentProject().getBasedir(), "php6").getAbsolutePath()};
+            final Process p = Runtime.getRuntime().exec(cmd);
+            p.waitFor();
             exec.setValue(session.getCurrentProject().getBasedir() + "/php6");
         }
         dom.addChild(exec);
@@ -135,6 +158,13 @@ public class GetVersionTest extends AbstractTestCase {
         if (ExecutionUtils.isWindows()) {
             exec.setValue(session.getCurrentProject().getBasedir() + "/phpUnknown.cmd");
         } else {
+            // try chmod
+            final String[] cmd = {
+                "chmod",
+                "777",
+                new File(session.getCurrentProject().getBasedir(), "phpUnknown").getAbsolutePath()};
+            final Process p = Runtime.getRuntime().exec(cmd);
+            p.waitFor();
             exec.setValue(session.getCurrentProject().getBasedir() + "/phpUnknown");
         }
         dom.addChild(exec);
@@ -163,6 +193,13 @@ public class GetVersionTest extends AbstractTestCase {
         if (ExecutionUtils.isWindows()) {
             exec.setValue(session.getCurrentProject().getBasedir() + "/phpIllegal.cmd");
         } else {
+            // try chmod
+            final String[] cmd = {
+                "chmod",
+                "777",
+                new File(session.getCurrentProject().getBasedir(), "phpIllegal").getAbsolutePath()};
+            final Process p = Runtime.getRuntime().exec(cmd);
+            p.waitFor();
             exec.setValue(session.getCurrentProject().getBasedir() + "/phpIllegal");
         }
         dom.addChild(exec);
@@ -199,6 +236,13 @@ public class GetVersionTest extends AbstractTestCase {
         if (ExecutionUtils.isWindows()) {
             exec.setValue(session.getCurrentProject().getBasedir() + "/php4.cmd");
         } else {
+            // try chmod
+            final String[] cmd = {
+                "chmod",
+                "777",
+                new File(session.getCurrentProject().getBasedir(), "php4").getAbsolutePath()};
+            final Process p = Runtime.getRuntime().exec(cmd);
+            p.waitFor();
             exec.setValue(session.getCurrentProject().getBasedir() + "/php4");
         }
         dom.addChild(exec);
@@ -228,6 +272,13 @@ public class GetVersionTest extends AbstractTestCase {
         if (ExecutionUtils.isWindows()) {
             exec.setValue(session.getCurrentProject().getBasedir() + "/php5.cmd");
         } else {
+            // try chmod
+            final String[] cmd = {
+                "chmod",
+                "777",
+                new File(session.getCurrentProject().getBasedir(), "php5").getAbsolutePath()};
+            final Process p = Runtime.getRuntime().exec(cmd);
+            p.waitFor();
             exec.setValue(session.getCurrentProject().getBasedir() + "/php5");
         }
         dom.addChild(exec);
@@ -257,6 +308,13 @@ public class GetVersionTest extends AbstractTestCase {
         if (ExecutionUtils.isWindows()) {
             exec.setValue(session.getCurrentProject().getBasedir() + "/php6.cmd");
         } else {
+            // try chmod
+            final String[] cmd = {
+                "chmod",
+                "777",
+                new File(session.getCurrentProject().getBasedir(), "php6").getAbsolutePath()};
+            final Process p = Runtime.getRuntime().exec(cmd);
+            p.waitFor();
             exec.setValue(session.getCurrentProject().getBasedir() + "/php6");
         }
         dom.addChild(exec);
@@ -286,6 +344,13 @@ public class GetVersionTest extends AbstractTestCase {
         if (ExecutionUtils.isWindows()) {
             exec.setValue(session.getCurrentProject().getBasedir() + "/phpUnknown.cmd");
         } else {
+            // try chmod
+            final String[] cmd = {
+                "chmod",
+                "777",
+                new File(session.getCurrentProject().getBasedir(), "phpUnknown").getAbsolutePath()};
+            final Process p = Runtime.getRuntime().exec(cmd);
+            p.waitFor();
             exec.setValue(session.getCurrentProject().getBasedir() + "/phpUnknown");
         }
         dom.addChild(exec);
@@ -315,6 +380,13 @@ public class GetVersionTest extends AbstractTestCase {
         if (ExecutionUtils.isWindows()) {
             exec.setValue(session.getCurrentProject().getBasedir() + "/phpIllegal.cmd");
         } else {
+            // try chmod
+            final String[] cmd = {
+                "chmod",
+                "777",
+                new File(session.getCurrentProject().getBasedir(), "phpIllegal").getAbsolutePath()};
+            final Process p = Runtime.getRuntime().exec(cmd);
+            p.waitFor();
             exec.setValue(session.getCurrentProject().getBasedir() + "/phpIllegal");
         }
         dom.addChild(exec);
