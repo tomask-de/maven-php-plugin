@@ -160,6 +160,21 @@ public abstract class AbstractTestCase extends PlexusTestCase {
      */
     protected MavenSession createSessionForPhpMaven(final String strTestDir, boolean resolveDependencies)
         throws Exception {
+        return createSessionForPhpMaven(strTestDir, resolveDependencies, false);
+    }
+    
+    /**
+     * Creates a maven session with given test directory (name relative to this class package).
+     * 
+     * @param strTestDir the relative folder containing the pom.xml to be used
+     * @return the maven session
+     * @throws Exception thrown on errors
+     */
+    protected MavenSession createSessionForPhpMaven(
+            final String strTestDir,
+            boolean resolveDependencies,
+            boolean processPlugins)
+        throws Exception {
         final File testDir = preparePhpMavenLocalRepos(strTestDir);
         
         final File localReposFile = this.getLocalReposDir();
@@ -222,7 +237,7 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         buildingRequest.getRemoteRepositories().addAll(request.getRemoteRepositories());
         buildingRequest.setProfiles(request.getProfiles());
         buildingRequest.setActiveProfileIds(request.getActiveProfiles());
-        buildingRequest.setProcessPlugins(false);
+        buildingRequest.setProcessPlugins(processPlugins);
         buildingRequest.setResolveDependencies(resolveDependencies);
 
         final MavenProject project = lookup(ProjectBuilder.class).build(projectFile, buildingRequest).getProject();
