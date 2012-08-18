@@ -33,6 +33,7 @@ import org.phpmaven.plugin.php.PhpUnitTestfileWalker;
  *
  * @goal phpunit-coverage
  * @phase site
+ * @execute phase="test-compile"
  * @author Martin Eisengardt
  */
 public class PhpUnitCoverage extends AbstractPhpUnitReportMojo implements IPhpunitConfigurationMojo {

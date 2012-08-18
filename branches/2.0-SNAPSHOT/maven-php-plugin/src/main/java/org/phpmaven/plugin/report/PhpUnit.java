@@ -35,6 +35,7 @@ import org.phpmaven.plugin.php.PhpUnitTestfileWalker;
  *
  * @goal phpunit
  * @phase site
+ * @execute phase="test-compile"
  * @author Martin Eisengardt
  */
 public class PhpUnit extends AbstractPhpUnitReportMojo implements IPhpunitConfigurationMojo {

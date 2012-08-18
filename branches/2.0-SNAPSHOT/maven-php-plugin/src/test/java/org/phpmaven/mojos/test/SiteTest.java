@@ -35,6 +35,43 @@ public class SiteTest extends AbstractTestCase {
      *
      * @throws Exception 
      */
+    public void testSiteOnClean() throws Exception {
+        final Verifier verifier = this.getPhpMavenVerifier("mojos-sites/site-all");
+        
+        // delete the pom from previous runs
+        verifier.deleteArtifact("org.phpmaven.test", "site-all", "0.0.1", "pom");
+        verifier.deleteArtifact("org.phpmaven.test", "site-all", "0.0.1", "phar");
+        verifier.setAutoclean(true);
+
+        final List<String> goals = new ArrayList<String>();
+        goals.add("site");
+        verifier.addCliOption("-X");
+        verifier.executeGoals(goals);
+        verifier.verifyErrorFreeLog();
+        verifier.resetStreams();
+        
+        // phpdocumentor report
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor.html");
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/index.html");
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/packages.html");
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/default/_MyClass.php.html");
+        
+        // phpunit-coverage report
+        verifier.assertFilePresent("target/site/phpunit/coverage.html");
+        verifier.assertFilePresent("target/site/phpunit/report.html");
+        verifier.assertFilePresent("target/site/phpunit/index.html");
+        verifier.assertFilePresent("target/site/phpunit/classes.html");
+        verifier.assertFilePresent("target/site/phpunit/classes_MyClass.php.html");
+        
+        // test report
+        verifier.assertFilePresent("target/site/phpunit/report.html");
+    }
+    
+    /**
+     * tests the goal "site" with a project containing all default reports.
+     *
+     * @throws Exception 
+     */
     public void testSite() throws Exception {
         final Verifier verifier = this.getPhpMavenVerifier("mojos-sites/site-all");
         
