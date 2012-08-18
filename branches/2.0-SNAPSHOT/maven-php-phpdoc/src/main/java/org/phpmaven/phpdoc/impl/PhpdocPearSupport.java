@@ -26,6 +26,10 @@ import org.codehaus.plexus.component.annotations.Configuration;
 import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 import org.codehaus.plexus.configuration.PlexusConfigurationException;
+import org.codehaus.plexus.util.cli.CommandLineException;
+import org.codehaus.plexus.util.cli.CommandLineUtils;
+import org.codehaus.plexus.util.cli.Commandline;
+import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.phpmaven.core.BuildPluginConfiguration;
 import org.phpmaven.core.ConfigurationParameter;
@@ -147,15 +151,36 @@ public class PhpdocPearSupport extends AbstractPhpdocSupport implements IPhpdocS
             log.debug("Executing PHPDocumentor: " + command);
             // XXX: commandLine.setWorkingDirectory(phpDocFile.getParent());
             String result;
-            final IPhpExecutableConfiguration config = this.factory.lookup(
-                    IPhpExecutableConfiguration.class,
-                    this.executableConfig,
-                    this.session);
-            config.getIncludePath().add(util.getPhpDir().getAbsolutePath());
-            final IPhpExecutable exec = config.getPhpExecutable(log);
             
             try {
-                result = exec.execute(command, new File(phpDoc));
+                if (phpDoc.endsWith(".php")) {
+                    final IPhpExecutableConfiguration config = this.factory.lookup(
+                            IPhpExecutableConfiguration.class,
+                            this.executableConfig,
+                            this.session);
+                    config.getIncludePath().add(util.getPhpDir().getAbsolutePath());
+                    final IPhpExecutable exec = config.getPhpExecutable(log);
+                    result = exec.execute(command, new File(phpDoc));
+                } else {
+                    final Commandline commandLine = new Commandline(command);
+                    final StringBuilder stdout = new StringBuilder();
+                    final StringBuilder stderr = new StringBuilder();
+                    CommandLineUtils.executeCommandLine(commandLine, new StreamConsumer() {
+                        @Override
+                        public void consumeLine(String line) {
+                            stdout.append(line);
+                            stdout.append("\n");
+                        }
+                    }, new StreamConsumer() {
+                        @Override
+                        public void consumeLine(String line) {
+                            stderr.append(line);
+                            stderr.append("\n");
+                        }
+                    });
+                    result = stdout.toString();
+                    log.debug("phpdoc output:\n" + result);
+                }
             } catch (PhpWarningException ex) {
                 result = ex.getAppendedOutput();
                 // silently ignore; only errors are important
@@ -174,6 +199,8 @@ public class PhpdocPearSupport extends AbstractPhpdocSupport implements IPhpdocS
         } catch (IOException ex) {
             throw new PhpCoreException("Errors invoking phpdoc", ex);
         } catch (ComponentLookupException ex) {
+            throw new PhpCoreException("Errors invoking phpdoc", ex);
+        } catch (CommandLineException ex) {
             throw new PhpCoreException("Errors invoking phpdoc", ex);
         }
     }
