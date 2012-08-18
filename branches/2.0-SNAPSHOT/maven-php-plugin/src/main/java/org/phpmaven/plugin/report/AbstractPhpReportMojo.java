@@ -43,50 +43,6 @@ public abstract class AbstractPhpReportMojo extends AbstractMavenReport
      * @readonly
      */
     private MavenProject project;
-
-    /**
-     * Path to the php executable.
-     *
-     * @parameter default-value="php" expression="${phpExecutable}"
-     */
-    private String phpExecutable;
-
-    /**
-     * PHP arguments. Use php -h to get a list of all php compile arguments.
-     *
-     * @parameter default-value="" expression="${additionalPhpParameters}"
-     */
-    private String additionalPhpParameters;
-
-    /**
-     * Where the php dependency files will be written to.
-     *
-     * @parameter default-value="${project.basedir}/target/php-deps" expression="${dependenciesTargetDirectory}"
-     */
-    private File dependenciesTargetDirectory;
-
-    /*CHECKSTYLE:OFF*/
-    /**
-     * Where the php test dependency files will be written to.
-     *
-     * @parameter default-value="${project.basedir}/target/php-test-deps" expression="${testDependenciesTargetDirectory}"
-     */
-    private File testDependenciesTargetDirectory;
-    /*CHECKSTYLE:ON*/
-
-    /**
-     * If true, errors triggered because of missing includes will be ignored.
-     *
-     * @parameter default-value="false" expression="${ignoreIncludeErrors}"
-     */
-    private boolean ignoreIncludeErrors;
-
-    /**
-     * If the output of the php scripts will be written to the console.
-     *
-     * @parameter default-value="false" expression="${logPhpOutput}"
-     */
-    private boolean logPhpOutput;
     
     /**
      * The directory containing generated test classes of the project being tested. This will be included at the
@@ -103,13 +59,6 @@ public abstract class AbstractPhpReportMojo extends AbstractMavenReport
      * @parameter default-value="${project.build.outputDirectory}"
      */
     private File targetClassesDirectory;
-    
-    /**
-     * A temporary script file that can be used for php execution of small code snippets.
-     * 
-     * @parameter default-value="${project.basedir}/target/snippet.php" expression="${temporaryScriptFile}"
-     */
-    private File temporaryScriptFile;
     
     /**
      * The maven project builder.
@@ -202,46 +151,6 @@ public abstract class AbstractPhpReportMojo extends AbstractMavenReport
     public MavenProject getProject() {
         return project;
     }
-
-    /**
-     * Path to the PHP executable.
-     *
-     * @return path of the php executable
-     */
-    @Override
-    public String getPhpExecutable() {
-        return phpExecutable;
-    }
-
-    /**
-     * Parameters which should be added to the generated PHP parameters.
-     *
-     * @return additional arguments for php execution
-     */
-    @Override
-    public String getAdditionalPhpParameters() {
-        return additionalPhpParameters;
-    }
-
-    /**
-     * Where the dependencies should be unpacked to.
-     *
-     * @return where to store the dependency files
-     */
-    @Override
-    public File getDependenciesTargetDirectory() {
-        return this.dependenciesTargetDirectory;
-    }
-
-    /**
-     * Where the test dependencies should be unpacked to.
-     *
-     * @return where to store the test dependency files
-     */
-    @Override
-    public File getTestDependenciesTargetDirectory() {
-        return this.testDependenciesTargetDirectory;
-    }
     
     /**
      * Where the sources should get copied to.
@@ -261,36 +170,6 @@ public abstract class AbstractPhpReportMojo extends AbstractMavenReport
     @Override
     public File getTargetTestClassesDirectory() {
         return this.targetTestClassesDirectory;
-    }
-
-    /**
-     * Returns if include errors should be ignored.
-     *
-     * @return if include errors should be ignored
-     */
-    @Override
-    public boolean isIgnoreIncludeErrors() {
-        return ignoreIncludeErrors;
-    }
-
-    /**
-     * Returns if output from the PHP executable should be logged.
-     *
-     * @return if php output will be printed to the log
-     */
-    @Override
-    public boolean isLogPhpOutput() {
-        return logPhpOutput;
-    }
-
-    /**
-     * The file of the temporary script used to execute temporary php actions.
-     * 
-     * @return temporary script filename.
-     */
-    @Override
-    public File getTemporaryScriptFilename() {
-        return this.temporaryScriptFile;
     }
 
     /**
