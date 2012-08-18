@@ -64,36 +64,37 @@ public class PhpUnitTestfileWalker extends AbstractPhpWalkHelper {
             return;
         }
         
-        // XXX: Support for multiple source directories; see Eclipse plugin: PhpmavenTestExecution
         config.getLog().debug("Starting test file walker.");
-        final String testCompiledSource = config.getProject().getTestCompileSourceRoots().get(0).toString();
-        if (config.getLog().isDebugEnabled()) {
-            config.getLog().debug("param testCompilSourceRoot: " + testCompiledSource);
-            config.getLog().debug("param isFailIfNoTests: " + (config.isFailIfNoTests() ? "true" : "false"));
-            config.getLog().debug("param testPostfix: " + config.getTestPostfix());
-            config.getLog().debug("param phpFileEnding: " + config.getPhpFileEnding());
-            if (config.getExcludes() != null) {
-                for (final String exclude : config.getExcludes()) {
-                    config.getLog().debug("param excludes: " + exclude);
+        for (final String testCompiledSource : config.getProject().getTestCompileSourceRoots())
+        {
+            if (config.getLog().isDebugEnabled()) {
+                config.getLog().debug("param testCompilSourceRoot: " + testCompiledSource);
+                config.getLog().debug("param isFailIfNoTests: " + (config.isFailIfNoTests() ? "true" : "false"));
+                config.getLog().debug("param testPostfix: " + config.getTestPostfix());
+                config.getLog().debug("param phpFileEnding: " + config.getPhpFileEnding());
+                if (config.getExcludes() != null) {
+                    for (final String exclude : config.getExcludes()) {
+                        config.getLog().debug("param excludes: " + exclude);
+                    }
+                }
+                if (config.getIncludes() != null) {
+                    for (final String include : config.getIncludes()) {
+                        config.getLog().debug("param includes: " + include);
+                    }
                 }
             }
-            if (config.getIncludes() != null) {
-                for (final String include : config.getIncludes()) {
-                    config.getLog().debug("param includes: " + include);
+            final File testSourceFolder = new File(testCompiledSource);
+            if (!testSourceFolder.isDirectory()) {
+                config.getLog().info("No test cases found; skipping.");
+                if (config.isFailIfNoTests()) {
+                    config.getLog().info(FAIL_ON_NO_TEST_TEXT);
+                    throw new MojoFailureException(FAIL_ON_NO_TEST_TEXT);
                 }
+                return;
             }
+            
+            this.goRecursiveAndCall(testSourceFolder);
         }
-        final File testSourceFolder = new File(testCompiledSource);
-        if (!testSourceFolder.isDirectory()) {
-            config.getLog().info("No test cases found; skipping.");
-            if (config.isFailIfNoTests()) {
-                config.getLog().info(FAIL_ON_NO_TEST_TEXT);
-                throw new MojoFailureException(FAIL_ON_NO_TEST_TEXT);
-            }
-            return;
-        }
-        
-        this.goRecursiveAndCall(testSourceFolder);
         
         if (config.isFailIfNoTests() && this.testFiles.isEmpty()) {
             config.getLog().info(FAIL_ON_NO_TEST_TEXT);

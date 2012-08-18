@@ -40,12 +40,30 @@ import org.phpmaven.plugin.php.PhpUnitTestfileWalker;
  * @author Tobias Sarnowski
  * @author Erik Dannenberg
  */
-public final class PhpTest extends AbstractPhpMojo implements IPhpunitConfigurationMojo {
+public final class PhpTest extends AbstractPhpWalkMojo implements IPhpunitConfigurationMojo {
     
     /**
      * Text do ignore test failures.
      */
     public static final String IGNORING_TEST_FAILURES_TEXT = "Ignoring test failures.";
+    
+    /**
+     * The directory containing generated test classes of the project being tested. This will be included at the
+     * beginning of the test classpath.
+     * 
+     * @parameter default-value="${project.build.testOutputDirectory}"
+     * @readonly
+     */
+    private File targetTestClassesDirectory;
+    
+    /**
+     * The directory containing generated classes of the project being tested. This will be included after the test
+     * classes in the test classpath.
+     * 
+     * @parameter default-value="${project.build.outputDirectory}"
+     * @readonly
+     */
+    private File targetClassesDirectory;
 
     /**
      * Where the test results should be stored.
@@ -170,6 +188,24 @@ public final class PhpTest extends AbstractPhpMojo implements IPhpunitConfigurat
     private File phpUnitXmlConfigurationPath;
     
     // end of properties for IPhpunitConfigurationMojo
+    
+    /**
+     * Where the sources should get copied to.
+     *
+     * @return where the jar inclusion directory is
+     */
+    public File getTargetClassesDirectory() {
+        return this.targetClassesDirectory;
+    }
+
+    /**
+     * The target directory where to copy the test sources to.
+     *
+     * @return where the test-jar inclusion directory is
+     */
+    public File getTargetTestClassesDirectory() {
+        return this.targetTestClassesDirectory;
+    }
 
     public PhpTest() {
         super();

@@ -19,11 +19,8 @@ import java.io.File;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
-import org.apache.maven.project.ProjectBuilder;
 import org.apache.maven.reporting.AbstractMavenReport;
-import org.phpmaven.plugin.php.IPhpConfigurationMojo;
 import org.phpmaven.plugin.php.IPhpWalkConfigurationMojo;
-import org.phpmaven.plugin.php.PhpMojoHelper;
 
 /**
  * Abstract base class for report mojos that need to execute php.
@@ -31,7 +28,7 @@ import org.phpmaven.plugin.php.PhpMojoHelper;
  * @author Martin Eisengardt
  */
 public abstract class AbstractPhpReportMojo extends AbstractMavenReport
-    implements IPhpConfigurationMojo, IPhpWalkConfigurationMojo {
+    implements IPhpWalkConfigurationMojo {
 
     // properties for IPhpConfigurationMojo
     
@@ -49,6 +46,7 @@ public abstract class AbstractPhpReportMojo extends AbstractMavenReport
      * beginning of the test classpath.
      * 
      * @parameter default-value="${project.build.testOutputDirectory}"
+     * @readonly
      */
     private File targetTestClassesDirectory;
     
@@ -57,15 +55,9 @@ public abstract class AbstractPhpReportMojo extends AbstractMavenReport
      * classes in the test classpath.
      * 
      * @parameter default-value="${project.build.outputDirectory}"
+     * @readonly
      */
     private File targetClassesDirectory;
-    
-    /**
-     * The maven project builder.
-     * @component
-     * @required
-     */
-    private ProjectBuilder mavenProjectBuilder;
     
     /**
      * The Maven session.
@@ -77,11 +69,6 @@ public abstract class AbstractPhpReportMojo extends AbstractMavenReport
     private MavenSession session;
     
     // end of properties for IPhpConfigurationMojo
-
-    /**
-     * The mojo helper for php management and php execution.
-     */
-    private PhpMojoHelper phpHelper;
     
     // properties for IPhpWalkConfigurationMojo
 
@@ -107,18 +94,6 @@ public abstract class AbstractPhpReportMojo extends AbstractMavenReport
     private String phpFileEnding;
     
     // end of properties for IPhpWalkConfigurationMojo
-    
-    /**
-     * Returns the php helper to execute and manage php.
-     * 
-     * @return php helper.
-     */
-    public PhpMojoHelper getPhpHelper() {
-        if (this.phpHelper == null) {
-            this.phpHelper = new PhpMojoHelper(this);
-        }
-        return this.phpHelper;
-    }
 
     /**
      * Callback for executing a file.
@@ -170,15 +145,6 @@ public abstract class AbstractPhpReportMojo extends AbstractMavenReport
     @Override
     public File getTargetTestClassesDirectory() {
         return this.targetTestClassesDirectory;
-    }
-
-    /**
-     * Returns the Project builder to be used.
-     * @return the project builder
-     */
-    @Override
-    public ProjectBuilder getMavenProjectBuilder() {
-        return this.mavenProjectBuilder;
     }
     
     /**

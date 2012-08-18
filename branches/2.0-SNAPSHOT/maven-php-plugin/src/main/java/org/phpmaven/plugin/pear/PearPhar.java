@@ -28,17 +28,17 @@ import org.phpmaven.phar.IPharPackagingRequest;
 import org.phpmaven.phar.PharDirectory;
 import org.phpmaven.phar.PharEntry;
 import org.phpmaven.phar.PharEntry.EntryType;
-import org.phpmaven.plugin.build.AbstractPhpMojo;
+import org.phpmaven.plugin.build.AbstractMojo;
 import org.phpmaven.plugin.build.FileHelper;
 
 /**
- * pack a phar file using the contents of the library.
+ * pack a phar file using the contents of the library (used by pear packaging).
  *
  * @requiresDependencyResolution compile
  * @goal phar-pear
  * @author Martin Eisengardt
  */
-public final class PearPhar extends AbstractPhpMojo {
+public final class PearPhar extends AbstractMojo {
     
     /**
      * The phar packager configuration.

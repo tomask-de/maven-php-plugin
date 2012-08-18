@@ -14,8 +14,6 @@
 
 package org.phpmaven.plugin.php;
 
-import java.io.File;
-
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
@@ -41,20 +39,6 @@ public interface IPhpConfigurationMojo {
      * @return logging delegate.
      */
     Log getLog();
-    
-    /**
-     * The target classes directory.
-     * 
-     * @return target/classes
-     */
-    File getTargetClassesDirectory();
-    
-    /**
-     * The target test classes directory.
-     * 
-     * @return target/test-classes
-     */
-    File getTargetTestClassesDirectory();
     
     /**
      * Returns the Project builder to be used.
