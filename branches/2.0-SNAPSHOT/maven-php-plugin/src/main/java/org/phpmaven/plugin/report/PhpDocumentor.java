@@ -34,6 +34,14 @@ import org.phpmaven.phpdoc.IPhpdocSupport;
  * @author Tobias Sarnowski
  */
 public class PhpDocumentor extends AbstractApiDocReport {
+
+    /**
+     * The output directory of phpdocumentor generated documentation.
+     *
+     * @parameter expression="${project.build.directory}/site/apidocs"
+     * @required
+     */
+    private File outputApiDocDirectory;
     
     /**
      * The Maven session.
@@ -50,6 +58,10 @@ public class PhpDocumentor extends AbstractApiDocReport {
      * @required
      */
     protected IComponentFactory factory;
+
+    protected File getApiDocOutputDirectory() {
+        return outputApiDocDirectory;
+    }
 
     private void writeReport() {
         if (getSink() != null)  {
@@ -116,9 +128,14 @@ public class PhpDocumentor extends AbstractApiDocReport {
     public String getOutputName() {
         return "apidocs/phpdocumentor";
     }
-    @Override
+    
     protected String getFolderName() {
         return "phpdocumentor";
+    }
+
+    @Override
+    protected String getOutputDirectory() {
+        return getApiDocOutputDirectory().getAbsolutePath();
     }
 
 }

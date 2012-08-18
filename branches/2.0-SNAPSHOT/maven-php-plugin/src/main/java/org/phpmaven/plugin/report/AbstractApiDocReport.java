@@ -22,6 +22,8 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.apache.maven.doxia.siterenderer.Renderer;
+import org.apache.maven.project.MavenProject;
+import org.apache.maven.reporting.AbstractMavenReport;
 import org.phpmaven.core.IComponentFactory;
 
 /**
@@ -30,15 +32,7 @@ import org.phpmaven.core.IComponentFactory;
  * @author Christian Wiedemann
  * @author Tobias Sarnowski
  */
-public abstract class AbstractApiDocReport extends AbstractPhpReportMojo {
-
-    /**
-     * The output directory of doxygen generated documentation.
-     *
-     * @parameter expression="${project.build.directory}/site/apidocs"
-     * @required
-     */
-    private File outputApiDocDirectory;
+public abstract class AbstractApiDocReport extends AbstractMavenReport {
 
     /**
      * <i>Maven Internal</i>: The Doxia Site Renderer.
@@ -55,14 +49,22 @@ public abstract class AbstractApiDocReport extends AbstractPhpReportMojo {
     protected IComponentFactory factory;
 
     /**
-     * Where to store the output.
+     * The Maven project.
      *
-     * @return the folder
+     * @parameter expression="${project}"
+     * @required
+     * @readonly
      */
-    protected abstract String getFolderName();
-
-    protected File getApiDocOutputDirectory() {
-        return outputApiDocDirectory;
+    private MavenProject project;
+    
+    /**
+     * Represents the maven project.
+     *
+     * @return the current maven project.
+     */
+    @Override
+    public MavenProject getProject() {
+        return project;
     }
 
     /**
@@ -104,11 +106,6 @@ public abstract class AbstractApiDocReport extends AbstractPhpReportMojo {
     @Override
     protected Renderer getSiteRenderer() {
         return siteRenderer;
-    }
-
-    @Override
-    protected String getOutputDirectory() {
-        return getApiDocOutputDirectory().getAbsolutePath();
     }
 
 }
