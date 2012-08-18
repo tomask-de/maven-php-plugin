@@ -36,6 +36,7 @@ public class ZendTest extends AbstractTestCase {
      */
     public void testPackage() throws Exception {
         final Verifier verifier = this.getPhpMavenVerifier("archetypes/zend");
+        this.installPhpParentPom();
         this.installArchetypes();
         
         verifier.addCliOption("-DarchetypeGroupId=org.phpmaven");

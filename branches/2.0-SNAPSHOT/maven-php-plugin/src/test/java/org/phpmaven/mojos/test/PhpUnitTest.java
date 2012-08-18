@@ -39,6 +39,7 @@ public class PhpUnitTest extends AbstractTestCase {
      */
     public void testGoalTestWithDependencies() throws Exception {
         final Verifier verifierDep1 = this.getPhpMavenVerifier("mojos-phpunit/test-with-dep1");
+        this.installPhpParentPom();
         
         // delete the pom from previous runs
         verifierDep1.deleteArtifact("org.phpmaven.test", "test-with-dep1", "0.0.1", "pom");
@@ -75,6 +76,7 @@ public class PhpUnitTest extends AbstractTestCase {
      */
     public void testGoalTestWithAutoprependFile() throws Exception {
         final Verifier verifier = this.getPhpMavenVerifier("mojos-phpunit/test-autoprepend");
+        this.installPhpParentPom();
         
         // delete the pom from previous runs
         verifier.deleteArtifact("org.phpmaven.test", "test-autoprepend", "0.0.1", "pom");
@@ -96,6 +98,7 @@ public class PhpUnitTest extends AbstractTestCase {
      */
     public void testGoalTestWithBootstrapFile() throws Exception {
         final Verifier verifier = this.getPhpMavenVerifier("mojos-phpunit/test-bootstrap");
+        this.installPhpParentPom();
         
         // delete the pom from previous runs
         verifier.deleteArtifact("org.phpmaven.test", "test-bootstrap", "0.0.1", "pom");
@@ -118,6 +121,7 @@ public class PhpUnitTest extends AbstractTestCase {
      */
     public void testGoalTestWithBootstrap2File() throws Exception {
         final Verifier verifier = this.getPhpMavenVerifier("mojos-phpunit/test-bootstrap2");
+        this.installPhpParentPom();
         
         // delete the pom from previous runs
         verifier.deleteArtifact("org.phpmaven.test", "test-bootstrap", "0.0.1", "pom");
@@ -139,6 +143,7 @@ public class PhpUnitTest extends AbstractTestCase {
      */
     public void testGoalTestWithTests() throws Exception {
         final Verifier verifier = this.getPhpMavenVerifier("mojos-phpunit/test-oktests");
+        this.installPhpParentPom();
         
         // delete the pom from previous runs
         verifier.deleteArtifact("org.phpmaven.test", "test-oktests", "0.0.1", "pom");
@@ -160,6 +165,7 @@ public class PhpUnitTest extends AbstractTestCase {
      */
     public void testGoalTestWith2Tests() throws Exception {
         final Verifier verifier = this.getPhpMavenVerifier("mojos-phpunit/test-oktests-multiple");
+        this.installPhpParentPom();
         
         // delete the pom from previous runs
         verifier.deleteArtifact("org.phpmaven.test", "test-oktests-multiple", "0.0.1", "pom");
@@ -206,6 +212,7 @@ public class PhpUnitTest extends AbstractTestCase {
      */
     public void testGoalTestWithNoTests() throws Exception {
         final Verifier verifier = this.getPhpMavenVerifier("mojos-phpunit/test-notests");
+        this.installPhpParentPom();
         
         // delete the pom from previous runs
         verifier.deleteArtifact("org.phpmaven.test", "test-notests", "0.0.1", "pom");
@@ -227,6 +234,7 @@ public class PhpUnitTest extends AbstractTestCase {
      */
     public void testGoalTestWithNoTestsFailing() throws Exception {
         final Verifier verifier = this.getPhpMavenVerifier("mojos-phpunit/test-notests");
+        this.installPhpParentPom();
         // delete the pom from previous runs
         verifier.deleteArtifact("org.phpmaven.test", "test-notest", "0.0.1", "pom");
 
@@ -250,6 +258,7 @@ public class PhpUnitTest extends AbstractTestCase {
      */
     public void testGoalTestFailingSkipped() throws Exception {
         final Verifier verifier = this.getPhpMavenVerifier("mojos-phpunit/test-failing");
+        this.installPhpParentPom();
         
         // delete the pom from previous runs
         verifier.deleteArtifact("org.phpmaven.test", "test-failing", "0.0.1", "pom");
@@ -273,6 +282,7 @@ public class PhpUnitTest extends AbstractTestCase {
      */
     public void testGoalTestFailingSkipped2() throws Exception {
         final Verifier verifier = this.getPhpMavenVerifier("mojos-phpunit/test-failing");
+        this.installPhpParentPom();
         
         // delete the pom from previous runs
         verifier.deleteArtifact("org.phpmaven.test", "test-failing", "0.0.1", "pom");
@@ -296,6 +306,7 @@ public class PhpUnitTest extends AbstractTestCase {
      */
     public void testGoalTestFailingIgnored() throws Exception {
         final Verifier verifier = this.getPhpMavenVerifier("mojos-phpunit/test-failing");
+        this.installPhpParentPom();
         
         // delete the pom from previous runs
         verifier.deleteArtifact("org.phpmaven.test", "test-failing", "0.0.1", "pom");
@@ -318,6 +329,7 @@ public class PhpUnitTest extends AbstractTestCase {
      */
     public void testGoalTestFailing() throws Exception {
         final Verifier verifier = this.getPhpMavenVerifier("mojos-phpunit/test-failing");
+        this.installPhpParentPom();
         // delete the pom from previous runs
         verifier.deleteArtifact("org.phpmaven.test", "test-failing", "0.0.1", "pom");
 

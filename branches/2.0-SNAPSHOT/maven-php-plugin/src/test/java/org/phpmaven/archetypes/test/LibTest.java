@@ -36,6 +36,7 @@ public class LibTest extends AbstractTestCase {
      */
     public void testPackage() throws Exception {
         final Verifier verifier = this.getPhpMavenVerifier("archetypes/lib");
+        this.installPhpParentPom();
         this.installArchetypes();
         
         verifier.addCliOption("-DarchetypeGroupId=org.phpmaven");

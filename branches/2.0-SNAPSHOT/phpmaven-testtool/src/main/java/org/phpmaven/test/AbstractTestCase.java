@@ -247,6 +247,18 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         
         return session;
     }
+    
+    protected void installPhpParentPom() throws Exception {
+        // skip installing of projects for hudson build
+        if (!this.isHudsonBuild()) {
+            final String localRepos = getLocalReposDir().getAbsolutePath();
+            String rootPath = new File(".").getAbsolutePath();
+            rootPath = rootPath.endsWith(".") ? rootPath.substring(0, rootPath.length() - 2) : rootPath;
+            rootPath = new File(new File(rootPath).getParentFile(), "php-parent-pom").getAbsolutePath();
+            this.installDirToRepos(localRepos, rootPath);
+            this.installLocalProject(localRepos, new File(rootPath).getParent() + "/generic-parent", false);
+        }
+    }
 
     /**
      * Prepares a local repository and installs the php-maven projects.
@@ -275,7 +287,7 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         final String localRepos = getLocalReposDir().getAbsolutePath();
         final String rootPath = new File(".").getAbsolutePath();
         final File rootFile = new File(rootPath.endsWith(".") ? rootPath.substring(0, rootPath.length() - 2) : rootPath);
-        this.installLocalProject(localRepos, rootFile.getParent() + "/archetypes");
+        this.installLocalProject(localRepos, rootFile.getParent() + "/archetypes", true);
     }
     
     /**
@@ -387,16 +399,17 @@ public abstract class AbstractTestCase extends PlexusTestCase {
             FileUtils.deleteDirectory(phpmavenDir);
         }
         
-        installLocalProject(reposPath, root);
+        installLocalProject(reposPath, root, false);
     }
 
     /**
      * Installs a local project into target directory
      * @param reposPath repos path
      * @param root root of the project to be installed
+     * @param withModules
      * @throws Exception
      */
-    private void installLocalProject(final String reposPath, String root) throws Exception {
+    private void installLocalProject(final String reposPath, String root, boolean withModules) throws Exception {
         final String projectName = new File(root).getName();
         if (installedProjects.contains(projectName)) {
             return;
@@ -404,8 +417,8 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         installedProjects.add(projectName);
         
         if (!projectName.equals("var")) {
-            this.installLocalProject(reposPath, new File(root).getParentFile().getParentFile().getParent() + "/var");
-            this.installLocalProject(reposPath, new File(root).getParent() + "/java-parent");
+            this.installLocalProject(reposPath, new File(root).getParentFile().getParentFile().getParent() + "/var", false);
+            this.installLocalProject(reposPath, new File(root).getParent() + "/java-parent", false);
         }
         
         // first install dependencies
@@ -424,7 +437,7 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         
         for (final Dependency dep : project.getDependencies()) {
             if ("org.phpmaven".equals(dep.getGroupId())) {
-                this.installLocalProject(reposPath, new File(root).getParent() + "/" + dep.getArtifactId());
+                this.installLocalProject(reposPath, new File(root).getParent() + "/" + dep.getArtifactId(), false);
             }
         }
         
@@ -444,6 +457,12 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         verifier.executeGoal("install");
         verifier.verifyErrorFreeLog();
         verifier.resetStreams();
+        
+        if (withModules) {
+            for (final String module : project.getModules()) {
+                this.installLocalProject(reposPath, new File(root) + "/" + module, false);
+            }
+        }
     }
 
     protected void resolveProjectDependencies(MavenSession session) throws Exception {

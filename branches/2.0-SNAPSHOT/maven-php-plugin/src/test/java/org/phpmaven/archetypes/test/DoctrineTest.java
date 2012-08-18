@@ -36,6 +36,7 @@ public class DoctrineTest extends AbstractTestCase {
      */
     public void testPackage() throws Exception {
         final Verifier verifier = this.getPhpMavenVerifier("archetypes/doctrine");
+        this.installPhpParentPom();
         this.installArchetypes();
         
         verifier.addCliOption("-DarchetypeGroupId=org.phpmaven");
