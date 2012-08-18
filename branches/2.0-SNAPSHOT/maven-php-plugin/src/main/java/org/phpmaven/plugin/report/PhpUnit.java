@@ -37,16 +37,15 @@ import org.phpmaven.plugin.php.PhpUnitTestfileWalker;
  * @phase site
  * @author Martin Eisengardt
  */
-public class PhpUnit extends AbstractApiDocReport implements IPhpunitConfigurationMojo {
+public class PhpUnit extends AbstractPhpUnitReportMojo implements IPhpunitConfigurationMojo {
 
     /**
-     * The generated test suite.
+     * The output directory of phpunit report.
      *
-     * @parameter expression="${project.build.directory}/temp/phpunit/MavenCoverageTestSuite.php";
+     * @parameter expression="${project.build.directory}/site/phpunit"
      * @required
-     * @readonly
      */
-    private File generatedPhpUnitTestsuiteFile;
+    private File outputPhpunitDirectory;
 
     /**
      * Where the test results should be stored.
@@ -236,9 +235,10 @@ public class PhpUnit extends AbstractApiDocReport implements IPhpunitConfigurati
     public String getOutputName() {
         return "phpunit/report";
     }
+
     @Override
-    protected String getFolderName() {
-        return "phpunit";
+    protected String getOutputDirectory() {
+        return this.outputPhpunitDirectory.getAbsolutePath();
     }
 
 }

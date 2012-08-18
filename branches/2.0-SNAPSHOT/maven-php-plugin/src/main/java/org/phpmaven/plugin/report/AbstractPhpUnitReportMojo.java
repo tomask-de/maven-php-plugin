@@ -16,10 +16,12 @@ package org.phpmaven.plugin.report;
 
 import java.io.File;
 
+import org.apache.maven.doxia.siterenderer.Renderer;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.reporting.AbstractMavenReport;
+import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.plugin.php.IPhpWalkConfigurationMojo;
 
 /**
@@ -27,8 +29,22 @@ import org.phpmaven.plugin.php.IPhpWalkConfigurationMojo;
  *
  * @author Martin Eisengardt
  */
-public abstract class AbstractPhpReportMojo extends AbstractMavenReport
+public abstract class AbstractPhpUnitReportMojo extends AbstractMavenReport
     implements IPhpWalkConfigurationMojo {
+
+    /**
+     * <i>Maven Internal</i>: The Doxia Site Renderer.
+     *
+     * @component
+     */
+    private Renderer siteRenderer;
+    
+    /**
+     * The configuration factory.
+     * @component
+     * @required
+     */
+    protected IComponentFactory factory;
 
     // properties for IPhpConfigurationMojo
     
@@ -40,24 +56,6 @@ public abstract class AbstractPhpReportMojo extends AbstractMavenReport
      * @readonly
      */
     private MavenProject project;
-    
-    /**
-     * The directory containing generated test classes of the project being tested. This will be included at the
-     * beginning of the test classpath.
-     * 
-     * @parameter default-value="${project.build.testOutputDirectory}"
-     * @readonly
-     */
-    private File targetTestClassesDirectory;
-    
-    /**
-     * The directory containing generated classes of the project being tested. This will be included after the test
-     * classes in the test classpath.
-     * 
-     * @parameter default-value="${project.build.outputDirectory}"
-     * @readonly
-     */
-    private File targetClassesDirectory;
     
     /**
      * The Maven session.
@@ -128,26 +126,6 @@ public abstract class AbstractPhpReportMojo extends AbstractMavenReport
     }
     
     /**
-     * Where the sources should get copied to.
-     *
-     * @return where the jar inclusion directory is
-     */
-    @Override
-    public File getTargetClassesDirectory() {
-        return this.targetClassesDirectory;
-    }
-
-    /**
-     * The target directory where to copy the test sources to.
-     *
-     * @return where the test-jar inclusion directory is
-     */
-    @Override
-    public File getTargetTestClassesDirectory() {
-        return this.targetTestClassesDirectory;
-    }
-    
-    /**
      * Returns the The Maven session to be used.
      * @return the maven session.
      */
@@ -188,5 +166,19 @@ public abstract class AbstractPhpReportMojo extends AbstractMavenReport
     }
     
     // end of methods for IPhpWalkConfigurationMojo
+
+    /**
+     * Sets the renderer for site generation.
+     *
+     * @param siteRenderer the siteRenderer to set.
+     */
+    public void setSiteRenderer(Renderer siteRenderer) {
+        this.siteRenderer = siteRenderer;
+    }
+
+    @Override
+    protected Renderer getSiteRenderer() {
+        return siteRenderer;
+    }
 
 }
