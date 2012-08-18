@@ -36,6 +36,7 @@ public class WebTest extends AbstractTestCase {
      */
     public void testPackage() throws Exception {
         final Verifier verifier = this.getPhpMavenVerifier("archetypes/web");
+        this.installPhpParentPom();
         this.installArchetypes();
         
         verifier.addCliOption("-DarchetypeGroupId=org.phpmaven");
