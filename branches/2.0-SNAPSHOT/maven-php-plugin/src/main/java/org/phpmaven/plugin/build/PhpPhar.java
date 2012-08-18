@@ -15,7 +15,7 @@
 package org.phpmaven.plugin.build;
 
 /**
- * pack a phar file using the contents of the library.
+ * pack a phar file using the contents of the library (used by php packaging).
  *
  * @requiresDependencyResolution compile
  * @goal phar

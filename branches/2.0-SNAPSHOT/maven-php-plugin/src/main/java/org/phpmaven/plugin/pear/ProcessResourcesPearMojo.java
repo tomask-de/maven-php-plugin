@@ -31,7 +31,7 @@ import org.phpmaven.pear.IPackageVersion;
 import org.phpmaven.pear.IPearChannel;
 import org.phpmaven.pear.IPearConfiguration;
 import org.phpmaven.pear.IPearUtility;
-import org.phpmaven.plugin.build.AbstractPhpMojo;
+import org.phpmaven.plugin.build.AbstractMojo;
 
 /**
  * Goal to copy the resources and classes to the output folder.
@@ -41,7 +41,7 @@ import org.phpmaven.plugin.build.AbstractPhpMojo;
  * 
  * @author mepeisen
  */
-public class ProcessResourcesPearMojo extends AbstractPhpMojo
+public class ProcessResourcesPearMojo extends AbstractMojo
 {
 
 	/**

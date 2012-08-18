@@ -38,7 +38,7 @@ import org.phpmaven.plugin.php.MultiException;
  * @author Christian Wiedemann
  * @author Martin Eisengardt
  */
-public abstract class AbstractPhpResources extends AbstractPhpMojo {
+public abstract class AbstractPhpResources extends AbstractPhpWalkMojo {
 
     /**
      * A list of files which will not be validated but they will also be part of the result.
@@ -67,6 +67,24 @@ public abstract class AbstractPhpResources extends AbstractPhpMojo {
      * The lint checker.
      */
     private ILintChecker checker;
+    
+    /**
+     * The directory containing generated test classes of the project being tested. This will be included at the
+     * beginning of the test classpath.
+     * 
+     * @parameter default-value="${project.build.testOutputDirectory}"
+     * @readonly
+     */
+    private File targetTestClassesDirectory;
+    
+    /**
+     * The directory containing generated classes of the project being tested. This will be included after the test
+     * classes in the test classpath.
+     * 
+     * @parameter default-value="${project.build.outputDirectory}"
+     * @readonly
+     */
+    private File targetClassesDirectory;
 
     /**
      * Returns if the PHP validation should be skipped.
@@ -75,6 +93,24 @@ public abstract class AbstractPhpResources extends AbstractPhpMojo {
      */
     private boolean isIgnoreValidate() {
         return ignoreValidate;
+    }
+    
+    /**
+     * Where the sources should get copied to.
+     *
+     * @return where the jar inclusion directory is
+     */
+    public File getTargetClassesDirectory() {
+        return this.targetClassesDirectory;
+    }
+
+    /**
+     * The target directory where to copy the test sources to.
+     *
+     * @return where the test-jar inclusion directory is
+     */
+    public File getTargetTestClassesDirectory() {
+        return this.targetTestClassesDirectory;
     }
     
     /**

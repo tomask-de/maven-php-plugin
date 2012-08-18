@@ -19,11 +19,8 @@ import java.io.File;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.project.MavenProject;
-import org.apache.maven.project.ProjectBuilder;
 import org.phpmaven.core.IComponentFactory;
-import org.phpmaven.plugin.php.IPhpConfigurationMojo;
 import org.phpmaven.plugin.php.IPhpWalkConfigurationMojo;
-import org.phpmaven.plugin.php.PhpMojoHelper;
 
 /**
  * Helper class to give fast access to the PHP executable and the basic configuration.
@@ -31,7 +28,7 @@ import org.phpmaven.plugin.php.PhpMojoHelper;
  * @author Christian Wiedemann
  * @author Tobias Sarnowski
  */
-public abstract class AbstractPhpMojo extends AbstractMojo implements IPhpConfigurationMojo, IPhpWalkConfigurationMojo {
+public abstract class AbstractPhpWalkMojo extends AbstractMojo implements IPhpWalkConfigurationMojo {
 
     // properties for IPhpConfigurationMojo
     
@@ -43,29 +40,6 @@ public abstract class AbstractPhpMojo extends AbstractMojo implements IPhpConfig
      * @readonly
      */
     private MavenProject project;
-    
-    /**
-     * The directory containing generated test classes of the project being tested. This will be included at the
-     * beginning of the test classpath.
-     * 
-     * @parameter default-value="${project.build.testOutputDirectory}"
-     */
-    private File targetTestClassesDirectory;
-    
-    /**
-     * The directory containing generated classes of the project being tested. This will be included after the test
-     * classes in the test classpath.
-     * 
-     * @parameter default-value="${project.build.outputDirectory}"
-     */
-    private File targetClassesDirectory;
-    
-    /**
-     * The maven project builder.
-     * @component
-     * @required
-     */
-    private ProjectBuilder mavenProjectBuilder;
     
     /**
      * The Maven session.
@@ -120,28 +94,11 @@ public abstract class AbstractPhpMojo extends AbstractMojo implements IPhpConfig
     private boolean includeInJar = true;
     
     /**
-     * The mojo helper for php management and php execution.
-     */
-    private PhpMojoHelper phpHelper;
-    
-    /**
      * The configuration factory.
      * @component
      * @required
      */
     protected IComponentFactory factory;
-
-    /**
-     * Returns the php helper to execute and manage php.
-     * 
-     * @return php helper.
-     */
-    public PhpMojoHelper getPhpHelper() {
-        if (this.phpHelper == null) {
-            this.phpHelper = new PhpMojoHelper(this);
-        }
-        return this.phpHelper;
-    }
 
     // methods for IPhpConfigurationMojo
     
@@ -153,35 +110,6 @@ public abstract class AbstractPhpMojo extends AbstractMojo implements IPhpConfig
     @Override
     public MavenProject getProject() {
         return project;
-    }
-    
-    /**
-     * Where the sources should get copied to.
-     *
-     * @return where the jar inclusion directory is
-     */
-    @Override
-    public File getTargetClassesDirectory() {
-        return this.targetClassesDirectory;
-    }
-
-    /**
-     * The target directory where to copy the test sources to.
-     *
-     * @return where the test-jar inclusion directory is
-     */
-    @Override
-    public File getTargetTestClassesDirectory() {
-        return this.targetTestClassesDirectory;
-    }
-
-    /**
-     * Returns the Project builder to be used.
-     * @return the project builder
-     */
-    @Override
-    public ProjectBuilder getMavenProjectBuilder() {
-        return this.mavenProjectBuilder;
     }
     
     /**
