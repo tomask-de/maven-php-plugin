@@ -22,11 +22,12 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 import org.codehaus.plexus.configuration.PlexusConfigurationException;
+import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.exec.IPhpExecutable;
 import org.phpmaven.exec.IPhpExecutableConfiguration;
 import org.phpmaven.exec.PhpException;
-import org.phpmaven.plugin.build.AbstractPhpMojo;
+import org.phpmaven.plugin.build.AbstractMojo;
 import org.phpmaven.project.IProjectPhpExecution;
 
 /**
@@ -35,7 +36,7 @@ import org.phpmaven.project.IProjectPhpExecution;
  * @goal exec
  * @author Martin Eisengardt
  */
-public final class PhpExec extends AbstractPhpMojo {
+public final class PhpExec extends AbstractMojo {
     
     /**
      * The php file to be executed.
@@ -72,27 +73,37 @@ public final class PhpExec extends AbstractPhpMojo {
      * @parameter expression="${phpOutToFile}"
      */
     private File phpOutToFile;
+    
+    /**
+     * The executable configuration to be used. See the javadoc or configuration page for details.
+     * @parameter
+     */
+    private Xpp3Dom executableConfiguration;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
             IPhpExecutable exec;
+            final Xpp3Dom[] xppconfig = this.executableConfiguration == null ?
+                    IComponentFactory.EMPTY_CONFIG :
+                        new Xpp3Dom[]{ this.executableConfiguration };
+            
             if (this.testIncludePath) {
                 final IProjectPhpExecution projExec = this.factory.lookup(
                         IProjectPhpExecution.class,
-                        IComponentFactory.EMPTY_CONFIG,
+                        xppconfig,
                         this.getSession());
                 exec = projExec.getTestExecutionConfiguration().getPhpExecutable(this.getLog());
             } else if (this.compileIncludePath) {
                 final IProjectPhpExecution projExec = this.factory.lookup(
                         IProjectPhpExecution.class,
-                        IComponentFactory.EMPTY_CONFIG,
+                        xppconfig,
                         this.getSession());
                 exec = projExec.getExecutionConfiguration().getPhpExecutable(this.getLog());
             } else {
                 final IPhpExecutableConfiguration config = this.factory.lookup(
                         IPhpExecutableConfiguration.class,
-                        IComponentFactory.EMPTY_CONFIG,
+                        xppconfig,
                         this.getSession());
                 exec = config.getPhpExecutable(this.getLog());
             }
