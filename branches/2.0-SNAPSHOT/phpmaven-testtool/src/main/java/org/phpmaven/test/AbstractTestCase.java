@@ -401,6 +401,16 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         
         installLocalProject(reposPath, root, false);
     }
+    
+    protected void installPhpmavenProjectToRepos(String prjName) throws Exception{// skip installing of projects for hudson build
+        if (!this.isHudsonBuild()) {
+            final String localRepos = getLocalReposDir().getAbsolutePath();
+            String rootPath = new File(".").getAbsolutePath();
+            rootPath = rootPath.endsWith(".") ? rootPath.substring(0, rootPath.length() - 2) : rootPath;
+            rootPath = new File(new File(rootPath).getParentFile(), prjName).getAbsolutePath();
+            this.installDirToRepos(localRepos, rootPath);
+        }
+    }
 
     /**
      * Installs a local project into target directory

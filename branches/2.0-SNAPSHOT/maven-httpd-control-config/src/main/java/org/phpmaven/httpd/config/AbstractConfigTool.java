@@ -54,7 +54,7 @@ abstract class AbstractConfigTool extends AbstractConfigCommon implements IApach
     /**
      * configuration file.
      */
-    @ConfigurationParameter(name = "configFile", expression = "${project.basedir}/target/apache/httpd.conf")
+    @ConfigurationParameter(name = "configFile", expression = "${project.build.directory}/apache/httpd.conf")
     private File configFile;
     
     /**

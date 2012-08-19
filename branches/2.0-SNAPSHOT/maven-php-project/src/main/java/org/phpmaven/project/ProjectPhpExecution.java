@@ -251,7 +251,7 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
         if (buildConfig == null || buildConfig.getChild("dependenciesDir") == null) {
             depsDir = this.componentFactory.filterString(
                     mavenSession,
-                    "${project.basedir}/target/php-deps",
+                    "${project.build.directory}/php-deps",
                     File.class);
         } else {
             depsDir = this.componentFactory.filterString(
@@ -414,7 +414,7 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
         depSession.setCurrentProject(depProject);
         final String depTargetDir = this.componentFactory.filterString(
                 depSession,
-                "${project.basedir}/target/classes",
+                "${project.build.directory}/classes",
                 File.class).getAbsolutePath();
         return depTargetDir;
     }
@@ -459,7 +459,7 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
         if (buildConfig == null || buildConfig.getChild("testDependenciesDir") == null) {
             depsDir = this.componentFactory.filterString(
                     mavenSession,
-                    "${project.basedir}/target/php-test-deps",
+                    "${project.build.directory}/php-test-deps",
                     File.class);
         } else {
             depsDir = this.componentFactory.filterString(
@@ -570,7 +570,7 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
         if (buildConfig == null || buildConfig.getChild("dependenciesDir") == null) {
             depsDir = this.componentFactory.filterString(
                     mavenSession,
-                    "${project.basedir}/target/php-deps",
+                    "${project.build.directory}/php-deps",
                     File.class);
         } else {
             depsDir = this.componentFactory.filterString(
@@ -602,7 +602,7 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
         if (buildConfig == null || buildConfig.getChild("testDependenciesDir") == null) {
             depsDir = this.componentFactory.filterString(
                     mavenSession,
-                    "${project.basedir}/target/php-test-deps",
+                    "${project.build.directory}/php-test-deps",
                     File.class);
         } else {
             depsDir = this.componentFactory.filterString(

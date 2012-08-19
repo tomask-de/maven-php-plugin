@@ -39,7 +39,7 @@ import org.phpmaven.core.IComponentFactory;
  *   <td>-</td>
  *   <td>-</td>
  *   <td>-</td>
- *   <td>Alternative target directory. Defaults to "${project.basedir}/target".
+ *   <td>Alternative target directory. Defaults to "${project.build.directory}".
  *   </td>
  * </tr>
  * <tr>

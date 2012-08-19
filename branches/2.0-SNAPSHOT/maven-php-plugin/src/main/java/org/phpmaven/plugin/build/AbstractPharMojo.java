@@ -41,10 +41,10 @@ public abstract class AbstractPharMojo extends AbstractMojo {
      * The target directory to be used.
      * 
      * <p>
-     * Defaults to "${project.basedir}/target".
+     * Defaults to "${project.build.directory}".
      * </p>
      * 
-     * @parameter expression="${project.basedir}/target"
+     * @parameter expression="${project.build.directory}"
      * @required
      * @readonly
      */

@@ -157,7 +157,7 @@ import org.phpmaven.core.IComponentFactory;
  *   <td>temporaryScriptFile</td>
  *   <td>-Dphp.executable.temporaryScript=</td>
  *   <td>php.executable.temporaryScript</td>
- *   <td>${project.basedir}/target/snippet.php</td>
+ *   <td>${project.build.directory}/snippet.php</td>
  *   <td>Some mojos will execute small script files. This parameter sets a filename that will be used for this
  *       script executions. PHP-Maven will put the script to be executed in this file and will execute the file.
  *   </td>

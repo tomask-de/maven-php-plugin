@@ -70,7 +70,7 @@ public class PhpExecutableConfiguration implements IPhpExecutableConfiguration {
     /**
      * The work directory to be used.
      */
-    @ConfigurationParameter(name = "workDirectory", expression = "${project.basedir}/target")
+    @ConfigurationParameter(name = "workDirectory", expression = "${project.build.directory}")
     private File workDirectory;
     
     /**
@@ -111,7 +111,7 @@ public class PhpExecutableConfiguration implements IPhpExecutableConfiguration {
     /**
      * A temporary script file that can be used for php execution of small code snippets.
      */
-    @ConfigurationParameter(name = "temporaryScriptFile", expression = "${project.basedir}/target/snippet.php")
+    @ConfigurationParameter(name = "temporaryScriptFile", expression = "${project.build.directory}/snippet.php")
     private File temporaryScriptFile;
     
     /**

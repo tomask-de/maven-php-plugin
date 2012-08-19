@@ -45,7 +45,7 @@ public class StateDatabase implements IStateDatabase {
     /**
      * The database file.
      */
-    @ConfigurationParameter(name = "dbfile", expression = "${project.basedir}/target/phpmaven.state.db")
+    @ConfigurationParameter(name = "dbfile", expression = "${project.build.directory}/phpmaven.state.db")
     private File dbfile;
     
     /**
