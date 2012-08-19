@@ -17,44 +17,37 @@
 package org.phpmaven.phpunit.test;
 
 import java.io.File;
+import java.util.Iterator;
 
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.it.Verifier;
 import org.apache.maven.monitor.logging.DefaultLog;
 import org.codehaus.plexus.logging.console.ConsoleLogger;
-import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.phpunit.IPhpunitConfiguration;
+import org.phpmaven.phpunit.IPhpunitResult;
 import org.phpmaven.phpunit.IPhpunitSupport;
 import org.phpmaven.phpunit.IPhpunitTestRequest;
 import org.phpmaven.phpunit.IPhpunitTestResult;
 
 /**
- * test cases for PHPUNIT support of additional arguments.
+ * test cases for PHPUNIT support.
  * 
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
-public class ArgumentsTest extends AbstractVersionTestCase {
+public class ArgumentsV3310Test extends AbstractVersionTestCase {
 
     /**
      * The phpunit version.
      */
-    private static final String PHPUNIT_VERSION = "3.6.2";
+    private static final String PHPUNIT_VERSION = "3.3.10";
     
     /**
      * The packages.
      */
     private static final Pkg[] PACKAGES = new Pkg[]{
-        new Pkg("de.phpunit", "PHPUnit", PHPUNIT_VERSION),
-        new Pkg("de.phpunit", "File_Iterator", "1.3.0"),
-        new Pkg("de.phpunit", "Text_Template", "1.1.1"),
-        new Pkg("de.phpunit", "PHP_CodeCoverage", "1.1.0"),
-        new Pkg("de.phpunit", "PHP_TokenStream", "1.1.0"),
-        new Pkg("de.phpunit", "PHP_Timer", "1.0.1"),
-        new Pkg("de.phpunit", "PHPUnit_MockObject", "1.1.0"),
-        new Pkg("de.phpunit", "PHP_Invoker", "1.1.0"),
-        new Pkg("com.symfony-project", "YAML", "1.0.2")
+        new Pkg("de.phpunit", "PHPUnit", PHPUNIT_VERSION)
     };
 
     /**
@@ -66,12 +59,12 @@ public class ArgumentsTest extends AbstractVersionTestCase {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the execution config
-        final MavenSession session = this.createSessionForPhpMaven("phpunit/pom-360-arguments", false, true);
+        final MavenSession session = this.createSimpleSession("phpunit/pom-3310-arguments");
         final IPhpunitConfiguration config = factory.lookup(
                 IPhpunitConfiguration.class,
                 IComponentFactory.EMPTY_CONFIG,
                 session);
-        final Verifier verifier = this.getVerifier("phpunit/pom-360-arguments");
+        final Verifier verifier = this.getVerifier("phpunit/pom-3310-arguments");
         final IPhpunitSupport phpunit = config.getPhpunitSupport(PHPUNIT_VERSION);
         
         this.prepareMaven(verifier, session, PACKAGES);
@@ -94,7 +87,7 @@ public class ArgumentsTest extends AbstractVersionTestCase {
             fail(testResult.toString());
         }
         verifier.assertFilePresent(
-            new File(session.getCurrentProject().getBasedir(), "target/hbclover.xml").getAbsolutePath());
+                new File(session.getCurrentProject().getBasedir(), "target/hbclover.xml").getAbsolutePath());
     }
 
 }
