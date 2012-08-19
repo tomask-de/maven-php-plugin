@@ -68,27 +68,27 @@ public class ProcessResourcesPearMojo extends AbstractMojo
     private String pearPackageVersion;
     
     /**
-     * @parameter expression="${project.basedir}/target/pear-data"
+     * @parameter expression="${project.build.directory}/pear-data"
      */
     private File targetDataDir;
     
     /**
-     * @parameter expression="${project.basedir}/target/pear-doc"
+     * @parameter expression="${project.build.directory}/pear-doc"
      */
     private File targetDocDir;
     
     /**
-     * @parameter expression="${project.basedir}/target/pear-www"
+     * @parameter expression="${project.build.directory}/pear-www"
      */
     private File targetWwwDir;
     
     /**
-     * @parameter expression="${project.basedir}/target/${project.artifactId}-${project.version}-package.xml"
+     * @parameter expression="${project.build.directory}/${project.artifactId}-${project.version}-package.xml"
      */
     private File packageXmlFile;
     
     /**
-     * @parameter expression="${project.basedir}/target/${project.artifactId}-${project.version}-pear.tgz"
+     * @parameter expression="${project.build.directory}/${project.artifactId}-${project.version}-pear.tgz"
      */
     private File tgzFile;
     

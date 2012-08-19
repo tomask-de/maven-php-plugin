@@ -70,7 +70,7 @@ public final class PhpTest extends AbstractPhpWalkMojo implements IPhpunitConfig
      *
      * Default: target/phpunit-reports
      *
-     * @parameter default-value="${project.basedir}/target/phpunit-reports" expression="${resultFolder}"
+     * @parameter default-value="${project.build.directory}/phpunit-reports" expression="${resultFolder}"
      */
     private File resultFolder;
 

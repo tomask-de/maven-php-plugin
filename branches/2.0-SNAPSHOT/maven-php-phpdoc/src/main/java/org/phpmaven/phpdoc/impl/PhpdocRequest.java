@@ -54,7 +54,7 @@ public class PhpdocRequest implements IPhpdocRequest {
     /**
      * The installation folder.
      */
-    @ConfigurationParameter(name = "installFolder", expression = "${project.basedir}/target/phpdoc")
+    @ConfigurationParameter(name = "installFolder", expression = "${project.build.directory}/phpdoc")
     private File installFolder;
 
     /**

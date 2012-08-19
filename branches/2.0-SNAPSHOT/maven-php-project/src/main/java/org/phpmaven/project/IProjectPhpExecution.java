@@ -51,7 +51,7 @@ import org.phpmaven.exec.IPhpExecutableConfiguration;
  * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;artifactId>maven-php-project&lt;/artifactId><br />
  * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;configuration><br />
  * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- * &lt;dependenciesDir>${project.basedir}/target/php-dependencies&lt;/dependenciesDir><br />
+ * &lt;dependenciesDir>${project.build.directory}/php-dependencies&lt;/dependenciesDir><br />
  * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/configuration><br />
  * &nbsp;&nbsp;&nbsp;&nbsp;&lt;/plugin><br />
  * &nbsp;&nbsp;&nbsp;&nbsp;...<br />
@@ -72,14 +72,14 @@ import org.phpmaven.exec.IPhpExecutableConfiguration;
  *   <td>dependenciesDir</td>
  *   <td>-</td>
  *   <td>-</td>
- *   <td>${project.basedir}/target/php-deps</td>
+ *   <td>${project.build.directory}/php-deps</td>
  *   <td>The folder for the php compile/runtime dependencies to be used</td>
  * </tr>
  * <tr>
  *   <td>testDependenciesDir</td>
  *   <td>-</td>
  *   <td>-</td>
- *   <td>${project.basedir}/target/php-test-deps</td>
+ *   <td>${project.build.directory}/php-test-deps</td>
  *   <td>The folder for the php test dependencies to be used</td>
  * </tr>
  * <tr>

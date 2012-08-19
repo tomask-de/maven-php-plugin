@@ -56,7 +56,7 @@ public class PhpUnitCoverage extends AbstractPhpUnitReportMojo implements IPhpun
      *
      * Default: target/phpunit-coverage-reports
      *
-     * @parameter default-value="${project.basedir}/target/phpunit-reports" expression="${resultFolder}"
+     * @parameter default-value="${project.build.directory}/phpunit-reports" expression="${resultFolder}"
      */
     private File resultFolder;
     
@@ -70,7 +70,7 @@ public class PhpUnitCoverage extends AbstractPhpUnitReportMojo implements IPhpun
     /**
      * The clover xml file to write to
      * 
-     * @parameter default-value="${project.basedir}/target/phpunit-reports/clover.xml" expression="${coverageOutputCloverFile}"
+     * @parameter default-value="${project.build.directory}/phpunit-reports/clover.xml" expression="${coverageOutputCloverFile}"
      */
     private File outputCloverFile;
     
