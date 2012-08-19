@@ -831,11 +831,9 @@ public class PearUtility implements IPearUtility {
         return resultArtifact;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void installFromMavenRepository(String groupId, String artifactId, String version) throws PhpException {
+    private void installFromMavenRepository(
+            String groupId, String artifactId, String version,
+            boolean ignoreCore) throws PhpException {
         final Artifact artifact = this.resolveArtifact(groupId, artifactId, version, "pom", null);
         final File pomFile = artifact.getFile();
         final ProjectBuildingRequest pbr = new DefaultProjectBuildingRequest(this.session.getProjectBuildingRequest());
@@ -871,7 +869,7 @@ public class PearUtility implements IPearUtility {
                     groupId + ":" +
                     artifactId + ":" + 
                     version);
-            this.resolveTgz(groupId, artifactId, version, filesToInstall);
+            this.resolveTgz(groupId, artifactId, version, filesToInstall, ignoreCore);
             this.resolveChannels(project);
             for (final org.sonatype.aether.graph.Dependency dep : deps.values()) {
                 this.log.debug(
@@ -879,7 +877,7 @@ public class PearUtility implements IPearUtility {
                         dep.getArtifact().getGroupId() + ":" +
                         dep.getArtifact().getArtifactId() + ":" + 
                         dep.getArtifact().getVersion());
-                if (this.isMavenCorePackage(
+                if (ignoreCore && this.isMavenCorePackage(
                     dep.getArtifact().getGroupId(),
                     dep.getArtifact().getArtifactId())) {
                     // ignore core packages
@@ -889,7 +887,8 @@ public class PearUtility implements IPearUtility {
                     dep.getArtifact().getGroupId(),
                     dep.getArtifact().getArtifactId(),
                     dep.getArtifact().getVersion(),
-                    filesToInstall);
+                    filesToInstall,
+                    ignoreCore);
                 final Artifact depPomArtifact = this.resolveArtifact(
                     dep.getArtifact().getGroupId(),
                     dep.getArtifact().getArtifactId(),
@@ -912,6 +911,22 @@ public class PearUtility implements IPearUtility {
         } catch (DependencyResolutionException ex) {
             throw new PhpCoreException(ex);
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void installFromMavenRepository(String groupId, String artifactId, String version) throws PhpException {
+        this.installFromMavenRepository(groupId, artifactId, version, true);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void installCoreFromMavenRepository(String groupId, String artifactId, String version) throws PhpException {
+        this.installFromMavenRepository(groupId, artifactId, version, false);
     }
 
     /**
@@ -943,11 +958,13 @@ public class PearUtility implements IPearUtility {
      * @param artifactId artifact id
      * @param version version
      * @param filesToInstall files to be installed
+     * @param ignoreCore true to ignore core packages
      * @throws PhpException thrown on resolve errors.
      */
-    private void resolveTgz(String groupId, String artifactId, String version, List<File> filesToInstall)
+    private void resolveTgz(
+            String groupId, String artifactId, String version, List<File> filesToInstall, boolean ignoreCore)
         throws PhpException {
-        if (!this.isMavenCorePackage(groupId, artifactId)) {
+        if (!ignoreCore || !this.isMavenCorePackage(groupId, artifactId)) {
             final Artifact artifact = this.resolveArtifact(groupId, artifactId, version, "tgz", "pear-tgz");
             filesToInstall.add(artifact.getFile());
         }

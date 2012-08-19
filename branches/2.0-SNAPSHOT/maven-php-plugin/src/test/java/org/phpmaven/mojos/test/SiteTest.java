@@ -16,6 +16,7 @@
 
 package org.phpmaven.mojos.test;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -133,6 +134,127 @@ public class SiteTest extends AbstractTestCase {
         verifier.assertFilePresent("target/site/apidocs/phpdocumentor/index.html");
         verifier.assertFilePresent("target/site/apidocs/phpdocumentor/packages.html");
         verifier.assertFilePresent("target/site/apidocs/phpdocumentor/default/_MyClass.php.html");
+    }
+    
+    /**
+     * tests the goal "site" with a project containing all default reports.
+     *
+     * @throws Exception 
+     */
+    public void testSitePhpdocPearDeprecated() throws Exception {
+        final Verifier verifier = this.getPhpMavenVerifier("mojos-sites/site-phpdoc-dep");
+        
+        // delete the pom from previous runs
+        verifier.deleteArtifact("org.phpmaven.test", "site-all", "0.0.1", "pom");
+        verifier.deleteArtifact("org.phpmaven.test", "site-all", "0.0.1", "phar");
+        verifier.setAutoclean(true);
+
+        final List<String> goals = new ArrayList<String>();
+        goals.add("site");
+        verifier.addCliOption("-X");
+        verifier.executeGoals(goals);
+        verifier.verifyErrorFreeLog();
+        verifier.resetStreams();
+        
+        // phpdocumentor report
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor.html");
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/index.html");
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/packages.html");
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/default/_MyClass.php.html");
+        
+        @SuppressWarnings("unchecked")
+        final List<String> lines = verifier.loadFile(verifier.getBasedir(), verifier.getLogFileName(), false);
+        boolean found = false;
+        for (final String line : lines) {
+            if (line.startsWith("[DEBUG] php.out: Deprecated: Function split()")) {
+                found = true;
+                break;
+            }
+        }
+        
+        assertTrue(found);
+    }
+    
+    /**
+     * tests the goal "site" with a project containing all default reports.
+     *
+     * @throws Exception 
+     */
+    public void testSitePhpdocPearIgnoreDeprecated() throws Exception {
+        final Verifier verifier = this.getPhpMavenVerifier("mojos-sites/site-phpdoc-ndep");
+        
+        // delete the pom from previous runs
+        verifier.deleteArtifact("org.phpmaven.test", "site-all", "0.0.1", "pom");
+        verifier.deleteArtifact("org.phpmaven.test", "site-all", "0.0.1", "phar");
+        verifier.setAutoclean(true);
+
+        final List<String> goals = new ArrayList<String>();
+        goals.add("compile");
+        goals.add("test-compile");
+        goals.add("site");
+        verifier.addCliOption("-X");
+        verifier.executeGoals(goals);
+        verifier.verifyErrorFreeLog();
+        verifier.resetStreams();
+        
+        // phpdocumentor report
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor.html");
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/index.html");
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/packages.html");
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/default/_MyClass.php.html");
+        
+        @SuppressWarnings("unchecked")
+        final List<String> lines = verifier.loadFile(verifier.getBasedir(), verifier.getLogFileName(), false);
+        boolean found = false;
+        for (final String line : lines) {
+            if (line.startsWith("[DEBUG] php.out: Deprecated: Function split()")) {
+                found = true;
+                break;
+            }
+        }
+        
+        assertFalse(found);
+    }
+    
+    /**
+     * tests the goal "site" with a project containing all default reports.
+     *
+     * @throws Exception 
+     */
+    public void testSitePhpdocPearIgnoreDeprecated2() throws Exception {
+        final Verifier verifier = this.getPhpMavenVerifier("mojos-sites/site-phpdoc-ndep2");
+        
+        // delete the pom from previous runs
+        verifier.deleteArtifact("org.phpmaven.test", "site-all", "0.0.1", "pom");
+        verifier.deleteArtifact("org.phpmaven.test", "site-all", "0.0.1", "phar");
+        verifier.setAutoclean(true);
+
+        final List<String> goals = new ArrayList<String>();
+        goals.add("compile");
+        goals.add("test-compile");
+        goals.add("site");
+        verifier.addCliOption("-X");
+        verifier.executeGoals(goals);
+        verifier.verifyErrorFreeLog();
+        verifier.resetStreams();
+        
+        // phpdocumentor report
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor.html");
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/index.html");
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/packages.html");
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/default/_MyClass.php.html");
+        
+        @SuppressWarnings("unchecked")
+        final List<String> lines = verifier.loadFile(verifier.getBasedir(), verifier.getLogFileName(), false);
+        boolean found = false;
+        for (final String line : lines) {
+            if (line.startsWith("[DEBUG] php.out: Deprecated: Function split()")) {
+                found = true;
+                break;
+            }
+        }
+        
+        assertFalse(found);
     }
     
     // alpha support dropped.

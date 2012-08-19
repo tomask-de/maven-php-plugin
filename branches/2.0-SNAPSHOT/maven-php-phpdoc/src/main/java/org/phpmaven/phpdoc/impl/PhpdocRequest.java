@@ -35,7 +35,7 @@ import org.phpmaven.phpdoc.IPhpdocRequest;
  */
 @Component(role = IPhpdocRequest.class, instantiationStrategy = "per-lookup")
 @BuildPluginConfiguration(groupId = "org.phpmaven", artifactId = "maven-php-phpdoc", filter = {
-        "phpdocService", "phpdocVersion"
+        "phpdocService", "phpdocVersion", "executableConfig"
         })
 public class PhpdocRequest implements IPhpdocRequest {
     

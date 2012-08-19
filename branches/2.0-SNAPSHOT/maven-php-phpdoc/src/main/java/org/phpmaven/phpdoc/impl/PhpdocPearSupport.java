@@ -59,6 +59,68 @@ import org.phpmaven.phpdoc.IPhpdocSupport;
 public class PhpdocPearSupport extends AbstractPhpdocSupport implements IPhpdocSupport {
 
     /**
+     * phpdoc hack script to prevent error_reporting override
+     */
+    private static final String PHPDOC_INC =
+            "\n" +
+            "/**\n" +
+            " * startup file\n" +
+            " * \n" +
+            " * phpDocumentor :: automatic documentation generator\n" +
+            " * \n" +
+            " * PHP versions 4 and 5\n" +
+            " *\n" +
+            " * Copyright (c) 2000-2007 Joshua Eichorn, Gregory Beaver\n" +
+            " * \n" +
+            " * LICENSE:\n" +
+            " * \n" +
+            " * This library is free software; you can redistribute it\n" +
+            " * and/or modify it under the terms of the GNU Lesser General\n" +
+            " * Public License as published by the Free Software Foundation;\n" +
+            " * either version 2.1 of the License, or (at your option) any\n" +
+            " * later version.\n" +
+            " * \n" +
+            " * This library is distributed in the hope that it will be useful,\n" +
+            " * but WITHOUT ANY WARRANTY; without even the implied warranty of\n" +
+            " * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU\n" +
+            " * Lesser General Public License for more details.\n" +
+            " * \n" +
+            " * You should have received a copy of the GNU Lesser General Public\n" +
+            " * License along with this library; if not, write to the Free Software\n" +
+            " * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA\n" +
+            " *\n" +
+            " * @category  ToolsAndUtilities\n" +
+            " * @package   phpDocumentor\n" +
+            " * @author    Joshua Eichorn <jeichorn@phpdoc.org>\n" +
+            " * @author    Gregory Beaver <cellog@php.net>\n" +
+            " * @copyright 2000-2007 Joshua Eichorn, Gregory Beaver\n" +
+            " * @license   http://www.opensource.org/licenses/lgpl-license.php LGPL\n" +
+            " * @version   CVS: $Id: phpdoc.inc,v 1.4 2007/10/10 01:18:25 ashnazg Exp $\n" +
+            " * @link      http://www.phpdoc.org\n" +
+            " * @link      http://pear.php.net/PhpDocumentor\n" +
+            " * @since     0.1\n" +
+            " * @filesource\n" +
+            " * @todo      CS cleanup - change package to PhpDocumentor\n" +
+            " */\n" +
+            "\n" +
+            "\n" +
+            "/**\n" +
+            " * All command-line handling from previous version has moved to here\n" +
+            " *\n" +
+            " * Many settings also moved to phpDocumentor.ini\n" +
+            " */\n" +
+            "$old = error_reporting();\n" +
+            "require_once \"phpDocumentor/Setup.inc.php\";\n" +
+            "error_reporting($old);\n" +
+            "\n" +
+            "$phpdoc = new phpDocumentor_setup;\n" +
+            "$phpdoc->readCommandLineSettings();\n" +
+            "$phpdoc->setupConverters();\n" +
+            "$phpdoc->createDocs();\n" +
+            "\n" +
+            "";
+
+    /**
      * The phpdoc configuraton file. The default is ${project.basedir}/src/site/phpdoc/phpdoc.config
      */
     @ConfigurationParameter(name = "phpDocConfigFile", expression = "${project.basedir}/src/site/phpdoc/phpdoc.config")
@@ -108,9 +170,15 @@ public class PhpdocPearSupport extends AbstractPhpdocSupport implements IPhpdocS
     @Override
     public void generateReport(Log log, IPhpdocRequest request) throws PhpException {
         try {
+            final Xpp3Dom dom = new Xpp3Dom("configuration");
+            if (this.executableConfig != null) {
+                final Xpp3Dom configNode = new Xpp3Dom("executableConfig");
+                configNode.addChild(executableConfig);
+                dom.addChild(configNode);
+            }
             final IPearUtility util = this.factory.lookup(
                     IPearConfiguration.class,
-                    this.executableConfig,
+                    dom,
                     this.session).getUtility(log);
 
             if (!util.isInstalled()) {
@@ -118,10 +186,13 @@ public class PhpdocPearSupport extends AbstractPhpdocSupport implements IPhpdocS
             }
             // do not try to read remote channels; so that we will work in offline mode etc.
             util.initChannels(false);
+            
+            boolean disableDeprecatedWarning = false;
 
             if (this.phpdocVersion.startsWith("1.")) {
                 writeIni(log, request, phpDocConfigFile, generatedPhpDocConfigFile);
                 util.installFromMavenRepository("net.php", "PhpDocumentor", this.phpdocVersion);
+                disableDeprecatedWarning = true;
             } else {
                 writeXml(log, request, phpDocConfigFile, generatedPhpDocConfigFile);
                 // there is a very strange dependency mismatching in phpdoc.
@@ -138,31 +209,54 @@ public class PhpdocPearSupport extends AbstractPhpdocSupport implements IPhpdocS
             if (phpDoc == null) {
                 phpDoc = ExecutionUtils.searchExecutable(log,
                     "phpdoc",
-                    util.getBinDir().getAbsolutePath());
+                    util.getBinDir().getAbsolutePath(),
+                    false);
                 if (phpDoc == null) {
                     throw new PhpCoreException("phpdoc not found in path (" + util.getBinDir() + ")");
                 }
             }
-            String command = "\"" + phpDoc + "\" " + 
-                    "-c \"" + generatedPhpDocConfigFile.getAbsolutePath() + "\"";
+            String command = "-c \"" + generatedPhpDocConfigFile.getAbsolutePath() + "\"";
             if (arguments != null && arguments.length() > 0) {
                 command += " " + arguments;
             }
-            log.debug("Executing PHPDocumentor: " + command);
+            log.debug("Executing PHPDocumentor with args: " + command);
             // XXX: commandLine.setWorkingDirectory(phpDocFile.getParent());
             String result;
             
             try {
-                if (phpDoc.endsWith(".php")) {
+                if (!phpDoc.endsWith(".bat")) {
                     final IPhpExecutableConfiguration config = this.factory.lookup(
                             IPhpExecutableConfiguration.class,
                             this.executableConfig,
                             this.session);
+                    
+                    // phpdoc overwrites error_reporting. we need to hack if we plan to overwrite it by ourselves.
+                    final String newErrorReporting = config.getNumErrorReporting() == -1 ? (
+                            disableDeprecatedWarning ? "E_ALL & !E_DEPRECATED" : null
+                            ) : String.valueOf(config.getNumErrorReporting());
+                    
+                    // try to find phpdoc.inc
+                    final File phpDocInc = new File(util.getPhpDir(), "PhpDocumentor/phpDocumentor/phpdoc.inc");
+                    
+                    if (newErrorReporting != null) {
+                        log.debug("setting error reporting to " + newErrorReporting);
+                        log.debug("using phpdoc.inc at " + phpDocInc);
+                        config.setErrorReporting(newErrorReporting);
+                    }
+
                     config.getIncludePath().add(util.getPhpDir().getAbsolutePath());
-                    final IPhpExecutable exec = config.getPhpExecutable(log);
-                    result = exec.execute(command, new File(phpDoc));
+                    if (newErrorReporting == null || !phpDocInc.exists()) {
+                        // direct execution
+                        final IPhpExecutable exec = config.getPhpExecutable(log);
+                        result = exec.execute("\"" + phpDoc + "\" " + command, new File(phpDoc));
+                    } else {
+                        // try to hack the deprecated warning
+                        config.getIncludePath().add(phpDocInc.getParentFile().getParentFile().getAbsolutePath());
+                        final IPhpExecutable exec = config.getPhpExecutable(log);
+                        result = exec.executeCode("", PHPDOC_INC, command);
+                    }
                 } else {
-                    final Commandline commandLine = new Commandline(command);
+                    final Commandline commandLine = new Commandline("\"" + phpDoc + "\" " + command);
                     final StringBuilder stdout = new StringBuilder();
                     final StringBuilder stderr = new StringBuilder();
                     CommandLineUtils.executeCommandLine(commandLine, new StreamConsumer() {
