@@ -59,6 +59,27 @@ public class PhpUnitCoverage extends AbstractPhpUnitReportMojo implements IPhpun
      * @parameter default-value="${project.basedir}/target/phpunit-reports" expression="${resultFolder}"
      */
     private File resultFolder;
+    
+    /**
+     * True to output a clover xml file
+     * 
+     * @parameter default-value="false" expression="${coverageOutputClover}"
+     */
+    private boolean outputClover;
+    
+    /**
+     * The clover xml file to write to
+     * 
+     * @parameter default-value="${project.basedir}/target/phpunit-reports/clover.xml" expression="${coverageOutputCloverFile}"
+     */
+    private File outputCloverFile;
+    
+    /**
+     * True to output html files
+     *
+     * @parameter default-value="true" expression="${coverageOutputHtml}"
+     */
+    private boolean outputHtml;
 
     // properties for IPhpunitConfigurationMojo
 
@@ -171,6 +192,25 @@ public class PhpUnitCoverage extends AbstractPhpUnitReportMojo implements IPhpun
                     "T E S T S - R E P O R T I N G   C O D E C O V E R A G E\n" +
                     "-------------------------------------------------------\n");
             
+            final String strCoverageOutputClover = System.getProperty("coverageOutputClover");
+            final String strCoverageOutputHtml = System.getProperty("coverageOutputHtml");
+            if (strCoverageOutputClover != null) {
+                this.outputClover = "1".equals(strCoverageOutputClover) || Boolean.parseBoolean(strCoverageOutputClover);
+            }
+            if (strCoverageOutputHtml != null) {
+                this.outputHtml = "1".equals(strCoverageOutputHtml) || Boolean.parseBoolean(strCoverageOutputHtml);
+            }
+            
+            if (this.outputHtml) {
+                getLog().info("Generating html output to " + this.outputCoverageDirectory.getAbsolutePath());
+            }
+            if (this.outputClover) {
+                getLog().info("Generating clover-xml output to " + this.outputCloverFile.getAbsolutePath());
+            }
+            if (!this.outputClover && !this.outputHtml) {
+                throw new MavenReportException("You should at least either activate coverage html or xml reporting");
+            }
+            
             // test files
             final Iterable<File> files = new PhpUnitTestfileWalker(this).getTestFiles();
             
@@ -194,8 +234,12 @@ public class PhpUnitCoverage extends AbstractPhpUnitReportMojo implements IPhpun
                 support.setPhpunitArguments(this.phpUnitArguments);
                 support.setXmlResult(new File(this.resultFolder, "coverage.phpunit.xml"));
                 support.setResultFolder(this.resultFolder);
-                support.setCoverageResult(this.outputCoverageDirectory);
-                // TODO generatedPhpUnitTestsuiteFile
+                if (this.outputHtml) {
+                    support.setCoverageResult(this.outputCoverageDirectory);
+                }
+                if (this.outputClover) {
+                    support.setCoverageResultXml(this.outputCloverFile);
+                }
                 
                 getLog().info("Starting tests.");
                 

@@ -69,6 +69,37 @@ public class SiteTest extends AbstractTestCase {
     }
     
     /**
+     * tests the goal "site" with a clover xml report.
+     *
+     * @throws Exception 
+     */
+    public void testSiteClover() throws Exception {
+        final Verifier verifier = this.getPhpMavenVerifier("mojos-sites/site-clover");
+        
+        // delete the pom from previous runs
+        verifier.deleteArtifact("org.phpmaven.test", "site-all", "0.0.1", "pom");
+        verifier.deleteArtifact("org.phpmaven.test", "site-all", "0.0.1", "phar");
+        verifier.setAutoclean(true);
+
+        final List<String> goals = new ArrayList<String>();
+        goals.add("site");
+        verifier.addCliOption("-X");
+        verifier.addCliOption("-DcoverageOutputClover=1");
+        verifier.executeGoals(goals);
+        verifier.verifyErrorFreeLog();
+        verifier.resetStreams();
+        
+        // phpunit-coverage report
+        verifier.assertFilePresent("target/site/phpunit/coverage.html");
+        verifier.assertFilePresent("target/site/phpunit/index.html");
+        verifier.assertFilePresent("target/site/phpunit/classes.html");
+        verifier.assertFilePresent("target/site/phpunit/classes_MyClass.php.html");
+        
+        // clover xml
+        verifier.assertFilePresent("target/phpunit-reports/clover.xml");
+    }
+    
+    /**
      * tests the goal "site" with a project containing all default reports.
      *
      * @throws Exception 
