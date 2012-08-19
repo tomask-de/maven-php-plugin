@@ -128,9 +128,12 @@ public final class ExecutionUtils {
      * Searches for the executable in system path.
      * @param log logging (maybe null)
      * @param executable executable name
+     * @param path the path to be searched for (must not be null)
+     * @param preferWindowsExecutable true to prefer windows file extensions (exe etc.)
      * @return executable path or null if it cannot be found
      */
-    public static String searchExecutable(Log log, String executable, String path) {
+    public static String searchExecutable(
+        Log log, String executable, String path, boolean preferWindowsExecutable) {
         if (log != null) {
             log.debug("searching for " + executable + " in PATH: " + path);
         }
@@ -141,6 +144,15 @@ public final class ExecutionUtils {
         }
         
         for (int i = 0; i < paths.length; i++) {
+            // if not prefer windows executable search without extension first
+            if (!preferWindowsExecutable) {
+                final File file = new File(paths[i], executable);
+                if (file.isFile()) {
+                    return file.getAbsolutePath();
+                }
+            }
+            
+            // search with extension
             if (isWindows()) {
                 for (final String suffix : WIN_SUFFIXES) {
                     final File file2 = new File(paths[i], executable + "." + suffix);
@@ -149,13 +161,28 @@ public final class ExecutionUtils {
                     }
                 }
             }
-            final File file = new File(paths[i], executable);
-            if (file.isFile()) {
-                return file.getAbsolutePath();
+            
+            // if windows extensions are preferred search without
+            if (preferWindowsExecutable) {
+                final File file = new File(paths[i], executable);
+                if (file.isFile()) {
+                    return file.getAbsolutePath();
+                }
             }
         }
         
         return null;
+    }
+
+    /**
+     * Searches for the executable in system path.
+     * @param log logging (maybe null)
+     * @param executable executable name
+     * @param path the path to be searched for (must not be null)
+     * @return executable path or null if it cannot be found
+     */
+    public static String searchExecutable(Log log, String executable, String path) {
+        return searchExecutable(log, executable, path, true);
     }
     
     /**

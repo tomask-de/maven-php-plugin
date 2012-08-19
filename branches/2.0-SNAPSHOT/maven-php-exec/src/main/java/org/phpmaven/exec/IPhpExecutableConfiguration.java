@@ -162,6 +162,16 @@ import org.phpmaven.core.IComponentFactory;
  *       script executions. PHP-Maven will put the script to be executed in this file and will execute the file.
  *   </td>
  * </tr>
+ * <tr>
+ *   <td>errorReporting</td>
+ *   <td>-Dphp.error.reporting=</td>
+ *   <td>php.error.reporting</td>
+ *   <td>NONE</td>
+ *   <td>Overwrite error reporting of php ({@see http://www.php.net/error_reporting}). You can use the term "NONE"
+ *       to use the original value of php.ini as well as numeric values or the well known php constants
+ *       (f.e. "E_ALL & ~E_NOTICE")
+ *   </td>
+ * </tr>
  * </table>
  * 
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
@@ -324,5 +334,82 @@ public interface IPhpExecutableConfiguration {
      * @param file work directory.
      */
     void setWorkDirectory(File file);
+    
+    /**
+     * Returns the error reporting as string.
+     * @return error reporting
+     */
+    String getErrorReporting();
+    
+    /**
+     * Sets the error reporting as string.
+     * @param errorReporting error reporting
+     */
+    void setErrorReporting(String errorReporting);
+    
+    /**
+     * Returns the numeric error reporting.
+     * @return numeric error reporting
+     */
+    int getNumErrorReporting();
+    
+    /**
+     * Error reporting constants.
+     */
+    enum ERROR_REPORTING {
+        /** E_ERROR {@see http://www.php.net/manual/en/errorfunc.constants.php}. */
+        E_ERROR(1),
+        /** E_WARNING {@see http://www.php.net/manual/en/errorfunc.constants.php}. */
+        E_WARNING(2),
+        /** E_PARSE {@see http://www.php.net/manual/en/errorfunc.constants.php}. */
+        E_PARSE(4),
+        /** E_NOTICE {@see http://www.php.net/manual/en/errorfunc.constants.php}. */
+        E_NOTICE(8),
+        /** E_CORE_ERROR {@see http://www.php.net/manual/en/errorfunc.constants.php}. */
+        E_CORE_ERROR(16),
+        /** E_CORE_WARNING {@see http://www.php.net/manual/en/errorfunc.constants.php}. */
+        E_CORE_WARNING(32),
+        /** E_COMPILE_ERROR {@see http://www.php.net/manual/en/errorfunc.constants.php}. */
+        E_COMPILE_ERROR(64),
+        /** E_COMPILE_WARNING {@see http://www.php.net/manual/en/errorfunc.constants.php}. */
+        E_COMPILE_WARNING(128),
+        /** E_USER_ERROR {@see http://www.php.net/manual/en/errorfunc.constants.php}. */
+        E_USER_ERROR(256),
+        /** E_USER_WARNING {@see http://www.php.net/manual/en/errorfunc.constants.php}. */
+        E_USER_WARNING(512),
+        /** E_USER_NOTICE {@see http://www.php.net/manual/en/errorfunc.constants.php}. */
+        E_USER_NOTICE(1024),
+        /** E_STRICT {@see http://www.php.net/manual/en/errorfunc.constants.php}. */
+        E_STRICT(2048),
+        /** E_RECOVERABLE_ERROR {@see http://www.php.net/manual/en/errorfunc.constants.php}. */
+        E_RECOVERABLE_ERROR(4096),
+        /** E_DEPRECATED {@see http://www.php.net/manual/en/errorfunc.constants.php}. */
+        E_DEPRECATED(8192),
+        /** E_USER_DEPRECATED {@see http://www.php.net/manual/en/errorfunc.constants.php}. */
+        E_USER_DEPRECATED(16384),
+        /** E_ALL {@see http://www.php.net/manual/en/errorfunc.constants.php}. */
+        E_ALL(32767);
+        
+        /**
+         * Numeric value.
+         */
+        private int num;
+        
+        /**
+         * Constructor.
+         * @param num
+         */
+        private ERROR_REPORTING(int num) {
+            this.num = num;
+        }
+        
+        /**
+         * Returns the number.
+         * @return numeric value of the error reporting constant
+         */
+        public int getNumericValue() {
+            return this.num;
+        }
+    }
 
 }
