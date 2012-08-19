@@ -53,7 +53,7 @@ public class ErrorReportingTest extends AbstractTestCase {
 
         // assert that the execution is aware of detecting the error
         final IPhpExecutable exec = execConfig.getPhpExecutable(new DefaultLog(new ConsoleLogger()));
-        assertTrue(exec.execute(defineTestPhp).contains("Unknown error: some deprecated warning"));
+        assertTrue(exec.execute(defineTestPhp).contains("some deprecated warning"));
     }
 
     /**
@@ -76,7 +76,7 @@ public class ErrorReportingTest extends AbstractTestCase {
 
         // assert that the execution is aware of detecting the error
         final IPhpExecutable exec = execConfig.getPhpExecutable(new DefaultLog(new ConsoleLogger()));
-        assertTrue(exec.execute(defineTestPhp).contains("Unknown error: some deprecated warning"));
+        assertTrue(exec.execute(defineTestPhp).contains("some deprecated warning"));
     }
 
     /**
