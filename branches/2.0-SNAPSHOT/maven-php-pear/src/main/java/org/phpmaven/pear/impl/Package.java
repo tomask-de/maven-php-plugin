@@ -210,7 +210,11 @@ public class Package implements IPackage {
                 this.getPackageName() + "-" + 
                 version.getVersion().getPearVersion();
         final String result = this.pearUtility.executePearCmd(cmd);
-        // TODO Parse result
+        for (final String line : result.split("\n")) {
+            if (line.trim().startsWith("ERROR: ")) {
+                throw new PhpCoreException("install error:\n" + line);
+            }
+        }
         this.installedVersion = version;
     }
 
