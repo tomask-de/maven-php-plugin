@@ -19,9 +19,14 @@ package org.phpmaven.project;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import org.apache.maven.artifact.Artifact;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.project.ProjectBuilder;
+import org.apache.maven.project.ProjectBuildingException;
+import org.apache.maven.project.ProjectBuildingRequest;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.component.configurator.expression.ExpressionEvaluationException;
@@ -30,6 +35,12 @@ import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.phpmaven.core.ConfigurationParameter;
 import org.phpmaven.core.IComponentFactory;
+import org.phpmaven.dependency.IAction;
+import org.phpmaven.dependency.IAction.ActionType;
+import org.phpmaven.dependency.IActionExtractAndInclude;
+import org.phpmaven.dependency.IActionInclude;
+import org.phpmaven.dependency.IDependency;
+import org.phpmaven.dependency.IDependencyConfiguration;
 import org.phpmaven.exec.IPhpExecutableConfiguration;
 
 /**
@@ -52,6 +63,12 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
      */
     @ConfigurationParameter(name = "session", expression = "${session}")
     private MavenSession session;
+    
+    /**
+     * The maven project builder.
+     */
+    @Requirement
+    private ProjectBuilder mavenProjectBuilder;
 
     /**
      * {@inheritDoc}
@@ -160,8 +177,12 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
                 IPhpExecutableConfiguration.class,
                 configs.toArray(new Xpp3Dom[configs.size()]),
                 mavenSession);
+        final IDependencyConfiguration depConfig = this.componentFactory.lookup(
+                IDependencyConfiguration.class,
+                IComponentFactory.EMPTY_CONFIG,
+                mavenSession);
         try {
-            this.addIncludes(execConfig, buildConfig, mojoConfig, project, mavenSession);
+            this.addIncludes(execConfig, buildConfig, mojoConfig, project, mavenSession, depConfig);
         } catch (ExpressionEvaluationException ex) {
             throw new PlexusConfigurationException("Problems evaluating the includes", ex);
         }
@@ -195,9 +216,13 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
                 IPhpExecutableConfiguration.class,
                 configs.toArray(new Xpp3Dom[configs.size()]),
                 mavenSession);
+        final IDependencyConfiguration depConfig = this.componentFactory.lookup(
+                IDependencyConfiguration.class,
+                IComponentFactory.EMPTY_CONFIG,
+                mavenSession);
         try {
-            this.addIncludes(execConfig, buildConfig, mojoConfig, project, mavenSession);
-            this.addTestIncludes(execConfig, buildConfig, mojoConfig, project, mavenSession);
+            this.addIncludes(execConfig, buildConfig, mojoConfig, project, mavenSession, depConfig);
+            this.addTestIncludes(execConfig, buildConfig, mojoConfig, project, mavenSession, depConfig);
         } catch (ExpressionEvaluationException ex) {
             throw new PlexusConfigurationException("Problems evaluating the includes", ex);
         }
@@ -218,7 +243,8 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
             Xpp3Dom buildConfig,
             Xpp3Dom mojoConfig,
             MavenProject project,
-            MavenSession mavenSession)
+            MavenSession mavenSession,
+            IDependencyConfiguration depConfig)
         throws ExpressionEvaluationException {
         execConfig.getIncludePath().add(project.getBuild().getOutputDirectory());
         File depsDir;
@@ -242,6 +268,173 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
         execConfig.getIncludePath().add(depsDir.getAbsolutePath());
         // TODO: Bad hack for broken pear libraries.
         execConfig.getIncludePath().add(new File(depsDir, "pear").getAbsolutePath());
+        
+        addFromDepConfig(execConfig, project, Artifact.SCOPE_COMPILE, depConfig, depsDir);
+        
+        // add the project dependencies of multi-project-poms
+        addProjectDependencies(execConfig, project, Artifact.SCOPE_COMPILE, depConfig);
+    }
+
+    /**
+     * Adds additional include paths from dependency config.
+     * @param execConfig
+     * @param project
+     * @param targetScope
+     * @param depConfig
+     * @param depsDir
+     * @throws ExpressionEvaluationException 
+     */
+    private void addFromDepConfig(
+        IPhpExecutableConfiguration execConfig,
+        MavenProject project,
+        String targetScope,
+        IDependencyConfiguration depConfig,
+        File depsDir) throws ExpressionEvaluationException {
+        final Set<Artifact> deps = project.getArtifacts();
+        for (final IDependency dep : depConfig.getDependencies()) {
+            Artifact depObject = null;
+            for (final Artifact adep : deps) {
+                if (!targetScope.equals(adep.getScope())) {
+                    continue;
+                }
+                if (adep.getGroupId().equals(dep.getGroupId()) && adep.getArtifactId().equals(dep.getArtifactId())) {
+                    depObject = adep;
+                    break;
+                }
+            }
+            
+            if (depObject == null) {
+                // silently ignore
+                continue;
+            }
+            
+            MavenProject depProject;
+            try {
+                depProject = this.getProjectFromArtifact(project, depObject);
+            } catch (ProjectBuildingException ex) {
+                throw new ExpressionEvaluationException("Problems creating maven project from dependency", ex);
+            }
+            if (depProject.getFile() != null) {
+                // Reference to a local project; should only happen in IDEs or multi-project poms
+                
+                for (final IAction action : dep.getActions()) {
+                    if (action.getType() == ActionType.ACTION_INCLUDE) {
+                        final String includePath =
+                            getClassesDirFromProject(depProject) +
+                            "/" +
+                            ((IActionInclude) action).getPharPath();
+                        execConfig.getIncludePath().add(new File(includePath).getAbsolutePath());
+                    } else if (action.getType() == ActionType.ACTION_EXTRACT_INCLUDE) {
+                        final String includePath =
+                            getClassesDirFromProject(depProject) +
+                            "/" +
+                            ((IActionExtractAndInclude) action).getPharPath() +
+                            "/" +
+                            ((IActionExtractAndInclude) action).getIncludePath();
+                        execConfig.getIncludePath().add(new File(includePath).getAbsolutePath());
+                    } else if (action.getType() == ActionType.ACTION_CLASSIC) {
+                        final String includePath =
+                            getClassesDirFromProject(depProject);
+                        execConfig.getIncludePath().add(new File(includePath).getAbsolutePath());
+                    }
+                }
+            }
+            
+            if (depObject.getFile() != null) {
+                // Reference to a local repository
+                for (final IAction action : dep.getActions()) {
+                    if (action.getType() == ActionType.ACTION_INCLUDE) {
+                        final String includePath = ((IActionInclude) action).getPharPath();
+                        execConfig.getIncludePath().add(
+                            "phar://" +
+                            depObject.getFile().getAbsolutePath().replace("\\", "/") +
+                            "/" +
+                            (includePath.startsWith("/") ? includePath.substring(1) : includePath));
+                    } else if (action.getType() == ActionType.ACTION_EXTRACT_INCLUDE) {
+                        final String includePath = ((IActionExtractAndInclude) action).getIncludePath();
+                        final String pharPath = ((IActionExtractAndInclude) action).getPharPath();
+                        execConfig.getIncludePath().add(
+                            "phar://" +
+                            depObject.getFile().getAbsolutePath().replace("\\", "/") +
+                            "/" +
+                            (pharPath.startsWith("/") ? pharPath.substring(1) : pharPath) +
+                            (pharPath.endsWith("/") || pharPath.length() == 0 ? "" : "/") +
+                            (includePath.startsWith("/") ? includePath.substring(1) : includePath));
+                    }
+                }
+            }
+        }
+        
+    }
+
+    /**
+     * Adds project dependencies (/target/classes) for given scope (needed for IDE/multi-pom).
+     * @param execConfig executable config.
+     * @param project project.
+     * @param targetScope target scope.
+     * @throws ExpressionEvaluationException thrown on errors.
+     * @since 2.0.1
+     */
+    private void addProjectDependencies(
+        IPhpExecutableConfiguration execConfig,
+        MavenProject project,
+        final String targetScope,
+        IDependencyConfiguration depConfig)
+        throws ExpressionEvaluationException {
+        final Set<Artifact> deps = project.getArtifacts();
+        for (final Artifact dep : deps) {
+            if (!targetScope.equals(dep.getScope())) {
+                continue;
+            }
+            boolean foundDepConfig = false;
+            for (final IDependency depC : depConfig.getDependencies()) {
+                if (depC.getGroupId().equals(dep.getGroupId()) && depC.getArtifactId().equals(dep.getArtifactId())) {
+                    foundDepConfig = true;
+                }
+            }
+            if (foundDepConfig) {
+                // was already be performed by addFromDepConfig()
+                continue;
+            }
+            try {
+                final MavenProject depProject = this.getProjectFromArtifact(project, dep);
+                if (depProject.getFile() != null) {
+                    // Reference to a local project; should only happen in IDEs or multi-project poms
+                    final String depTargetDir = getClassesDirFromProject(depProject);
+                    execConfig.getIncludePath().add(depTargetDir);
+                }
+            } catch (ProjectBuildingException ex) {
+                throw new ExpressionEvaluationException("Problems creating maven project from dependency", ex);
+            }
+        }
+    }
+
+    private String getClassesDirFromProject(final MavenProject depProject) throws ExpressionEvaluationException {
+        final MavenSession depSession = session.clone();
+        depSession.setCurrentProject(depProject);
+        final String depTargetDir = this.componentFactory.filterString(
+                depSession,
+                "${project.basedir}/target/classes",
+                File.class).getAbsolutePath();
+        return depTargetDir;
+    }
+    
+    /**
+     * Returns the maven project from given artifact.
+     * @param project the maven project
+     * @param a artifact
+     * @return maven project
+     * @throws ProjectBuildingException thrown if there are problems creating the project
+     * @since 2.0.1
+     */
+    protected MavenProject getProjectFromArtifact(final MavenProject project, final Artifact a)
+        throws ProjectBuildingException {
+        final ProjectBuildingRequest request = session.getProjectBuildingRequest();
+        request.setLocalRepository(session.getLocalRepository());
+        request.setRemoteRepositories(project.getRemoteArtifactRepositories());
+        request.setResolveDependencies(false);
+        request.setProcessPlugins(false);
+        return this.mavenProjectBuilder.build(a, request).getProject();
     }
     
     /**
@@ -258,7 +451,8 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
             Xpp3Dom buildConfig,
             Xpp3Dom mojoConfig,
             MavenProject project,
-            MavenSession mavenSession)
+            MavenSession mavenSession,
+            IDependencyConfiguration depConfig)
         throws ExpressionEvaluationException {
         execConfig.getIncludePath().add(project.getBuild().getTestOutputDirectory());
         File depsDir;
@@ -282,6 +476,11 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
         execConfig.getIncludePath().add(depsDir.getAbsolutePath());
         // TODO: Bad hack for broken pear libraries.
         execConfig.getIncludePath().add(new File(depsDir, "pear").getAbsolutePath());
+        
+        addFromDepConfig(execConfig, project, Artifact.SCOPE_TEST, depConfig, depsDir);
+        
+        // add the project dependencies of multi-project-poms
+        addProjectDependencies(execConfig, project, Artifact.SCOPE_TEST, depConfig);
     }
 
     /**

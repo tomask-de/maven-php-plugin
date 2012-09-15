@@ -17,6 +17,7 @@
 package org.phpmaven.phar;
 
 import java.io.File;
+import java.util.Map;
 
 import org.phpmaven.core.IComponentFactory;
 
@@ -105,6 +106,14 @@ import org.phpmaven.core.IComponentFactory;
  *   Setting this flag to true will overwrite the templates. if you need to use alternative templates and run into
  *   problems you should set 'compressed' to false and use an alternative file template that compresses the single
  *   php files.
+ *   </td>
+ * </tr>
+ * <tr>
+ *   <td>metadata</td>
+ *   <td>-</td>
+ *   <td>-</td>
+ *   <td>-</td>
+ *   <td>List of arbitrary elements that will be added to the phar metadata.<p>Usage: &lt;metadata&gt;&lt;myMetadataKey&gt;Value&lt;/myMetadataKey&gt;&lt/metadata&gt;
  *   </td>
  * </tr>
  * </table>
@@ -323,5 +332,16 @@ public interface IPharPackagingRequest {
      * @return true to compress
      */
     boolean isCompressed();
-    
+
+    /**
+     * Returns the phar metadata
+     * @return the metadata elements
+     */
+	Map<String, String> getMetadata();
+
+	/**
+	 * Sets the phar metadata
+	 * @param metadatas the metadata elements
+	 */
+	void setMetadata(Map<String,String> metadatas);
 }

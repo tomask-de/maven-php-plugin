@@ -70,6 +70,11 @@ public abstract class AbstractPhpunitSupport implements IPhpunitSupport {
      * Coverage result file.
      */
     private File coverageResult;
+
+    /**
+     * Coverage xml result file.
+     */
+    private File coverageResultXml;
     
     /**
      * The executable configuration.
@@ -206,6 +211,22 @@ public abstract class AbstractPhpunitSupport implements IPhpunitSupport {
     @Override
     public void setCoverageResult(File coverageResult) {
         this.coverageResult = coverageResult;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public File getCoverageResultXml() {
+        return this.coverageResultXml;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setCoverageResultXml(File coverageResultXml) {
+        this.coverageResultXml = coverageResultXml;
     }
 
 }

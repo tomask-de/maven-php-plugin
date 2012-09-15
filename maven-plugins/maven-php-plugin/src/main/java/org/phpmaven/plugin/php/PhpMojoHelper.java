@@ -34,6 +34,11 @@ import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.phpmaven.core.IComponentFactory;
+import org.phpmaven.dependency.IAction;
+import org.phpmaven.dependency.IActionExtract;
+import org.phpmaven.dependency.IActionExtractAndInclude;
+import org.phpmaven.dependency.IDependency;
+import org.phpmaven.dependency.IDependencyConfiguration;
 import org.phpmaven.plugin.build.FileHelper;
 
 import com.google.common.base.Preconditions;
@@ -330,6 +335,7 @@ public class PhpMojoHelper implements IPhpExecution {
         final ProjectBuildingRequest request = session.getProjectBuildingRequest();
         request.setLocalRepository(session.getLocalRepository());
         request.setRemoteRepositories(this.project.getRemoteArtifactRepositories());
+        request.setProcessPlugins(false);
         return this.mavenProjectBuilder.build(a, request).getProject();
     }
 
@@ -340,32 +346,101 @@ public class PhpMojoHelper implements IPhpExecution {
      * @param session maven session
      * @param targetDir target directory
      * @param sourceScope dependency scope to unpack from
+     * @param depConfig the dependency config 
      *
      * @throws IOException if something goes wrong while prepareing the dependencies
      * @throws PhpException php exceptions can fly everywhere..
      */
-    public void prepareDependencies(IComponentFactory factory, MavenSession session, File targetDir, String sourceScope)
+    public void prepareDependencies(
+            IComponentFactory factory,
+            MavenSession session,
+            File targetDir,
+            String sourceScope,
+            IDependencyConfiguration depConfig)
             throws IOException, PhpException, MojoExecutionException {
-        final List<String> packedElements = new ArrayList<String>();
         final Set<Artifact> deps = this.project.getArtifacts();
         for (final Artifact dep : deps) {
             if (!sourceScope.equals(dep.getScope())) {
                 continue;
             }
-            this.log.info(dep.getFile().getAbsolutePath());
-            try {
-                if (this.getProjectFromArtifact(dep).getFile() != null) {
-                    // Reference to a local project; should only happen in IDEs
-                    this.log.debug("Dependency resolved to a local project. skipping.");
-                    // XXX: Should we support this or is this only relevant within IDEs (f.e. eclipse)?
-                    continue;
-                }
-            } catch (ProjectBuildingException ex) {
-                throw new IOException("Problems creating maven project from dependency", ex);
-            }
+            
+            final List<String> packedElements = new ArrayList<String>();
             packedElements.add(dep.getFile().getAbsolutePath());
+            boolean isClassic = true;
+            final Class<?> clazz1 = IDependency.class;
+            for (final IDependency depCfg : depConfig.getDependencies()) {
+                if (depCfg.getGroupId().equals(dep.getGroupId()) &&
+                        depCfg.getArtifactId().equals(dep.getArtifactId())) {
+                    isClassic = false;
+                    for (final IAction action : depCfg.getActions()) {
+                        switch (action.getType()) {
+                            case ACTION_CLASSIC:
+                                isClassic = true;
+                                break;
+                            case ACTION_PEAR:
+                                this.log.info(dep.getFile().getAbsolutePath() + " will be installed through pear");
+                                // TODO add support
+                                throw new PhpCoreException("pear installed currently not supported");
+                            case ACTION_IGNORE:
+                                // do nothing, isClassic should be false so that it is ignored
+                                this.log.info(dep.getFile().getAbsolutePath() + " will be ignored");
+                                break;
+                            case ACTION_INCLUDE:
+                                this.log.info(dep.getFile().getAbsolutePath() + " will be added on include path");
+                                break;
+                            case ACTION_EXTRACT:
+                                this.log.info(dep.getFile().getAbsolutePath() + " will be extracted to " +
+                                    ((IActionExtract) action).getTargetPath());
+                                if (((IActionExtract) action).getPharPath() == null ||
+                                    ((IActionExtract) action).getPharPath().equals("/")) {
+                                    FileHelper.unzipElements(
+                                        this.log,
+                                        new File(((IActionExtract) action).getTargetPath()),
+                                        packedElements,
+                                        factory,
+                                        session);
+                                } else {
+                                    // TODO add support
+                                    throw new PhpCoreException("paths inside phar currently not supported");
+                                }
+                                break;
+                            case ACTION_EXTRACT_INCLUDE:
+                                this.log.info(dep.getFile().getAbsolutePath() + " will be extracted to " +
+                                    ((IActionExtractAndInclude) action).getTargetPath() + " and added on " +
+                                    "include path");
+                                if (((IActionExtractAndInclude) action).getPharPath() == null ||
+                                    ((IActionExtractAndInclude) action).getPharPath().equals("/")) {
+                                    FileHelper.unzipElements(
+                                        this.log,
+                                        new File(((IActionExtractAndInclude) action).getTargetPath()),
+                                        packedElements,
+                                        factory,
+                                        session);
+                                } else {
+                                    // TODO add support
+                                    throw new PhpCoreException("paths inside phar currently not supported");
+                                }
+                                break;
+                        }
+                    }
+                }
+            }
+            
+            if (isClassic) {
+                this.log.info("Extracting " + dep.getFile().getAbsolutePath() + " to target directory");
+                try {
+                    if (this.getProjectFromArtifact(dep).getFile() != null) {
+                        // Reference to a local project; should only happen in IDEs or multi-project-poms
+                        this.log.debug("Dependency resolved to a local project. skipping.");
+                        // the maven-php-project plugin will fix it by adding the include paths
+                        continue;
+                    }
+                } catch (ProjectBuildingException ex) {
+                    throw new IOException("Problems creating maven project from dependency", ex);
+                }
+                FileHelper.unzipElements(this.log, targetDir, packedElements, factory, session);
+            }
         }
-        FileHelper.unzipElements(this.log, targetDir, packedElements, factory, session);
     }
 
 }

@@ -83,16 +83,28 @@ public interface IPhpunitSupport {
     void setXmlResult(File xmlResult);
     
     /**
-     * Returns the location to put the coverage result to.
+     * Returns the location to put the coverage result (html) to.
      * @return location for coverage result or {@code null} to not create any coverage information.
      */
     File getCoverageResult();
     
     /**
-     * Sets the location for coverage results.
+     * Sets the location for coverage results (html).
      * @param coverageResult location for coverage result or {@code null} to not create any coverage information.
      */
     void setCoverageResult(File coverageResult);
+    
+    /**
+     * Returns the location to put the coverage result (xml) to.
+     * @return location for coverage result or {@code null} to not create any coverage information.
+     */
+    File getCoverageResultXml();
+    
+    /**
+     * Sets the location for coverage results (xml).
+     * @param coverageResult location for coverage result or {@code null} to not create any coverage information.
+     */
+    void setCoverageResultXml(File coverageResult);
     
     /**
      * Executes the phpunit tests.

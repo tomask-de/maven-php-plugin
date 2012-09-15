@@ -19,6 +19,7 @@ package org.phpmaven.phar;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.logging.Log;
@@ -42,7 +43,7 @@ import org.phpmaven.phar.PharEntry.EntryType;
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
-@Component(role = IPharPackager.class, instantiationStrategy = "per-lookup")
+@Component(role = IPharPackager.class, hint = "PHP_EXE", instantiationStrategy = "per-lookup")
 @BuildPluginConfiguration(groupId = "org.phpmaven", artifactId = "php-maven-phar", filter = {
         "packager", "pharConfig" })
 public class PharPackager implements IPharPackager {
@@ -66,6 +67,24 @@ public class PharPackager implements IPharPackager {
     private Xpp3Dom executableConfig;
     
     /**
+     * Masks a string/path to be used in php source code.
+     * @param orig original
+     * @return masked
+     */
+    private String maskBackslash(String orig) {
+        return orig.replace("\\", "\\\\");
+    }
+    
+    /**
+     * Masks a string to be used in php source code.
+     * @param orig original
+     * @return masked
+     */
+    private String maskString(String orig) {
+        return orig.replace("\\", "\\\\").replace("'", "\\'");
+    }
+    
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -79,8 +98,8 @@ public class PharPackager implements IPharPackager {
         for (final PharEntry entry : request.getEntries()) {
             if (entry.getType() == EntryType.DIRECTORY) {
                 final PharDirectory dir = (PharDirectory) entry;
-                final String maskedRelativePath = dir.getRelativePath().replace("\\", "\\\\");
-                final String maskedToPackPath = dir.getPathToPack().getAbsolutePath().replace("\\", "\\\\");
+                final String maskedRelativePath = this.maskBackslash(dir.getRelativePath());
+                final String maskedToPackPath = this.maskBackslash(dir.getPathToPack().getAbsolutePath());
                 
                 contents.append(
                         request.getPackagePhpDirectoryTemplate().
@@ -88,8 +107,8 @@ public class PharPackager implements IPharPackager {
                         replace("$:{pkgbasedir}", maskedToPackPath));  
             } else {
                 final PharFile file = (PharFile) entry;
-                final String fileMasked = file.getFile().getAbsolutePath().replace("\\", "\\\\");
-                final String fileLocalNameMasked = file.getLocalName().replace("\\", "\\\\");
+                final String fileMasked = this.maskBackslash(file.getFile().getAbsolutePath());
+                final String fileLocalNameMasked = this.maskBackslash(file.getLocalName());
                 contents.append(
                         request.getPackagePhpFileTemplate().
                         replace("$:{filename}", fileLocalNameMasked).
@@ -97,25 +116,42 @@ public class PharPackager implements IPharPackager {
             }
         }
 
-        final String targetMasked = request.getTargetDirectory().getAbsolutePath().replace("\\", "\\\\");
-        final String stubToUse = request.getStub().replace("\\", "\\\\").replace("'", "\\'");
-        
+        final String targetMasked = this.maskBackslash(request.getTargetDirectory().getAbsolutePath());
+        final String stubToUse = this.maskString(request.getStub());
+
+        final StringBuilder metadata = new StringBuilder();
+        if (!request.getMetadata().isEmpty() ) {
+        	metadata.append("$metadata = $phar->getMetadata();\n");
+        	for (Entry<String, String> entry : request.getMetadata().entrySet()) {
+        		metadata.append(String.format("$metadata['%s'] = '%s';\n",
+        		   this.maskString(entry.getKey()), this.maskString(entry.getValue())));
+        	}
+        	metadata.append("$phar->setMetadata($metadata);\n");
+        }
+
         String compression = "";
         if (request.isCompressed()) {
             if (request.isLargePhar()) {
-                compression = "foreach ($phar as $file) { $file->compress(Phar::GZ); }\n";
+                compression =
+                    "$phar->stopBuffering();\n" +
+                    "$phar = new Phar('$:{pharfilepath}'.DIRECTORY_SEPARATOR.'" +
+                    "$:{pharfilename}', 0, '$:{pharfilename}');\n" +
+                    "$phar->startBuffering();\n" +
+                    "foreach (new RecursiveIteratorIterator($phar) as $file) {" +
+                    " if (!$file->isDir()) $file->compress(Phar::GZ); }\n";
             } else {
                 compression = "$phar->compressFiles(Phar::GZ);\n";
             }
         }
 
         final String snippet = request.getPackagePhpTemplate().
+                // TODO: May we need to set a compression template????
+                replace("$:{pharcompression}", compression).
                 replace("$:{pharfilepath}", targetMasked).
                 replace("$:{pharfilename}", request.getFilename()).
                 replace("$:{pharcontents}", contents.toString()).
-                // TODO: May we need to set a compression template????
-                replace("$:{pharcompression}", compression).
-                replace("$:{pharstub}", "<?php " + stubToUse + " __HALT_COMPILER(); ?>");
+                replace("$:{pharstub}", "<?php " + stubToUse + " __HALT_COMPILER(); ?>").
+                replace("$:{pharmetadata}", metadata);
 
         // XXX: respect build directory (set working path)
         exec.executeCode("", snippet);
@@ -150,7 +186,7 @@ public class PharPackager implements IPharPackager {
         final IPhpExecutable executable = execConfig.getPhpExecutable(log);
         
         return executable.executeCode("",
-                "$phar = new Phar('" + pharPackage.getAbsolutePath().replace("\\", "\\\\") + "');\n" +
+                "$phar = new Phar('" + this.maskBackslash(pharPackage.getAbsolutePath()) + "');\n" +
                 "echo $phar->getStub();");
     }
 
@@ -168,8 +204,8 @@ public class PharPackager implements IPharPackager {
         
         // TODO: Make configurable via build config
         
-        final String pharFileName = pharPackage.getAbsolutePath().replace("\\", "\\\\");
-        final String targetName = targetDirectory.getAbsolutePath().replace("\\", "\\\\");
+        final String pharFileName = this.maskBackslash(pharPackage.getAbsolutePath());
+        final String targetName = this.maskBackslash(targetDirectory.getAbsolutePath());
         
         executable.executeCode("",
             /*"$phar = new Phar('$:{pharFile}');\n" +
@@ -216,7 +252,7 @@ public class PharPackager implements IPharPackager {
         final IPhpExecutableConfiguration execConfig = getExecConfig();
         final IPhpExecutable executable = execConfig.getPhpExecutable(log);
             
-        final String pharFileName = pharPackage.getAbsolutePath().replace("\\", "\\\\");
+        final String pharFileName = this.maskBackslash(pharPackage.getAbsolutePath());
         final String files = executable.executeCode("",
             "$iter = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(" +
             "'phar://" + pharFileName + "'));\n" +

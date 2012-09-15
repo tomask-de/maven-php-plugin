@@ -43,6 +43,13 @@ public interface IPearUtility {
     void configure(File installDir, Log logger);
     
     /**
+     * Initialized the known channels and ensures that there is a pear installation at {@link #installDir}.
+     * @param readRemote true to read the remote channels
+     * @throws PhpException thrown if something is wrong.
+     */
+    void initChannels(boolean readRemote) throws PhpException;
+    
+    /**
      * Returns true if pear is installed.
      * 
      * @return true if pear is installed.
@@ -92,6 +99,18 @@ public interface IPearUtility {
      * @throws PhpException thrown on php execution errors.
      */
     IPearChannel channelDiscover(String channelName) throws PhpException;
+    
+    /**
+     * Adds a pear channel (without fetching it remote).
+     * 
+     * @param channelName Host name.
+     * @param alias the channel alias
+     * @param summary the summary
+     * @return the pear channel.
+     * 
+     * @throws PhpException thrown on php execution errors.
+     */
+    IPearChannel channelAdd(String channelName, String alias, String summary) throws PhpException;
     
     /**
      * Adds a pear channel.
