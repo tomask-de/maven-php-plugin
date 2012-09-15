@@ -23,6 +23,7 @@ import org.codehaus.plexus.component.annotations.Configuration;
 import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 import org.codehaus.plexus.configuration.PlexusConfigurationException;
+import org.phpmaven.core.BuildPluginConfiguration;
 import org.phpmaven.core.ConfigurationParameter;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.phpdoc.IPhpdocConfiguration;
@@ -36,6 +37,9 @@ import org.phpmaven.phpdoc.IPhpdocSupport;
  * @since 2.0.0
  */
 @Component(role = IPhpdocConfiguration.class, instantiationStrategy = "per-lookup")
+@BuildPluginConfiguration(groupId = "org.phpmaven", artifactId = "maven-php-phpdoc", filter = {
+        "executableConfig", "phpdocVersion", "installPhpdoc", "installFolder", "arguments"
+        })
 public class PhpdocConfiguration implements IPhpdocConfiguration {
     
     /**

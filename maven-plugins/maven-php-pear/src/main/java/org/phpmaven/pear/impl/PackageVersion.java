@@ -500,6 +500,10 @@ public class PackageVersion implements IPackageVersion {
                 fetchHelper(maintain, child);
             } else if ("maintainers".equals(child.getName())) {
                 fetchMaintainers(maintain, child);
+            } else if ("maintainer".equals(child.getName())) {
+                final IMaintainer maintainer = new Maintainer();
+                fetchMaintainer(child, maintainer);
+                maintain.add(maintainer);
             } else if ("date".equals(child.getName())) {
                 // TODO
             } else if ("release".equals(child.getName())) {
@@ -513,6 +517,8 @@ public class PackageVersion implements IPackageVersion {
             } else if ("license".equals(child.getName())) {
                 // TODO
             } else if ("notes".equals(child.getName())) {
+                // TODO
+            } else if ("srcpackage".equals(child.getName())) {
                 // TODO
             } else if ("contents".equals(child.getName())) {
                 processContents(files, child);
@@ -557,6 +563,10 @@ public class PackageVersion implements IPackageVersion {
                 // TODO
             } else if ("provides".equals(rchild.getName())) {
                 // TODO
+            } else if ("warnings".equals(rchild.getName())) {
+                // TODO used by PEAR_Frontend_Web 0.2.2
+            } else if ("configureoptions".equals(rchild.getName())) {
+                // TODO used by http://pecl.php.net/rest/r/vpopmail/package.0.2.xml
             } else if ("filelist".equals(rchild.getName())) {
                 processContents(files, rchild);
             } else if ("deps".equals(rchild.getName())) {
@@ -630,9 +640,7 @@ public class PackageVersion implements IPackageVersion {
         for (final Xpp3Dom mchild : child.getChildren()) {
             final IMaintainer maintainer = new Maintainer();
             if ("maintainer".equals(mchild.getName())) {
-                for (final Xpp3Dom mmchild : mchild.getChildren()) {
-                    fetchMaintainer(maintainer, mmchild);
-                }
+                fetchMaintainer(mchild, maintainer);
             } else {
                 throw new PhpCoreException("Unknown name in package.xml: " + mchild.getName());
             }
@@ -640,39 +648,37 @@ public class PackageVersion implements IPackageVersion {
         }
     }
 
+    private void fetchMaintainer(final Xpp3Dom mchild, final IMaintainer maintainer) throws PhpCoreException {
+        for (final Xpp3Dom mmchild : mchild.getChildren()) {
+            fetchMaintainer(maintainer, mmchild);
+        }
+    }
+
     private void fetchHelper(final List<IMaintainer> maintain, final Xpp3Dom child) throws PhpCoreException {
         final IMaintainer maintainer = new Maintainer();
         maintainer.setRole("helper");
-        for (final Xpp3Dom mmchild : child.getChildren()) {
-            fetchMaintainer(maintainer, mmchild);
-        }
+        fetchMaintainer(child, maintainer);
         maintain.add(maintainer);
     }
 
     private void fetchContributor(final List<IMaintainer> maintain, final Xpp3Dom child) throws PhpCoreException {
         final IMaintainer maintainer = new Maintainer();
         maintainer.setRole("constributor");
-        for (final Xpp3Dom mmchild : child.getChildren()) {
-            fetchMaintainer(maintainer, mmchild);
-        }
+        fetchMaintainer(child, maintainer);
         maintain.add(maintainer);
     }
 
     private void fetchDeveloper(final List<IMaintainer> maintain, final Xpp3Dom child) throws PhpCoreException {
         final IMaintainer maintainer = new Maintainer();
         maintainer.setRole("developer");
-        for (final Xpp3Dom mmchild : child.getChildren()) {
-            fetchMaintainer(maintainer, mmchild);
-        }
+        fetchMaintainer(child, maintainer);
         maintain.add(maintainer);
     }
 
     private void fetchLead(final List<IMaintainer> maintain, final Xpp3Dom child) throws PhpCoreException {
         final IMaintainer maintainer = new Maintainer();
         maintainer.setRole("lead");
-        for (final Xpp3Dom mmchild : child.getChildren()) {
-            fetchMaintainer(maintainer, mmchild);
-        }
+        fetchMaintainer(child, maintainer);
         maintain.add(maintainer);
     }
 
@@ -762,6 +768,8 @@ public class PackageVersion implements IPackageVersion {
                     dep.setType(DependencyType.PHP);
                 } else if (type.equals("pkg")) {
                     dep.setType(DependencyType.PACKAGE);
+                } else if (type.equals("sapi")) {
+                    dep.setType(DependencyType.SAPI);
                 } else if (type.equals("ext")) {
                     dep.setType(DependencyType.PHP_EXTENSION);
                 } else {
@@ -832,6 +840,11 @@ public class PackageVersion implements IPackageVersion {
             } else if ("extension".equals(child.getName())) {
                 final IDependency dep = new Dependency();
                 dep.setType(DependencyType.PHP_EXTENSION);
+                fetchDep(child, dep);
+                depsArray.add(dep);
+            } else if ("os".equals(child.getName())) {
+                final IDependency dep = new Dependency();
+                dep.setType(DependencyType.OS);
                 fetchDep(child, dep);
                 depsArray.add(dep);
             } else {
@@ -934,6 +947,11 @@ public class PackageVersion implements IPackageVersion {
     @Override
     public void install() throws PhpException {
         this.pearChannel.getPackage(this.getPackageName()).install(this, true, true, true);
+    }
+
+    @Override
+    public void install(boolean noUninstall) throws PhpException {
+        this.pearChannel.getPackage(this.getPackageName()).install(this, !noUninstall, true, true);
     }
 
     /**

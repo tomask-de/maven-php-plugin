@@ -36,8 +36,12 @@ public interface IDependency {
         PACKAGE,
         /** subpackage dependency. */
         SUBPACKAGE,
+        /** sapi dependency. */
+        SAPI,
         /** extension dependency. */
         PHP_EXTENSION,
+        /** operating system dependency. */
+        OS
     }
     
     /**
