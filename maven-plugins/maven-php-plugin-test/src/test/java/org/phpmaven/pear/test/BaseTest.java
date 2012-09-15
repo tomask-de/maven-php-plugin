@@ -279,12 +279,12 @@ public class BaseTest extends AbstractTestCase {
         channel.initializePackages(true, true);
         // the getters may throw exceptions if a package cannot be read
         for (final IPackage pkg : channel.getKnownPackages()) {
-            System.out.println("test pkg " + pkg.getPackageName());
+            // System.out.println("test pkg " + pkg.getPackageName());
             for (final IPackageVersion version : pkg.getKnownVersions()) {
                 // this forces the read of the package
-                System.out.println("test version " + 
+                /*System.out.println("test version " + 
                     pkg.getPackageName() + "/" + 
-                    version.getVersion().getPearVersion());
+                    version.getVersion().getPearVersion());*/
                 try {
                     version.getReleasingDeveloper();
                     version.getMaintainers();
@@ -293,9 +293,10 @@ public class BaseTest extends AbstractTestCase {
                     // are referred in the pear channel but do not exist. mostly early versions.
                     // all non-FileNotFoundException will be rethrown to let the test case fail
                     if (!(ex.getCause() instanceof FileNotFoundException)) {
-                        throw ex;
+                        fail("failed analysing package " + pkg.getPackageName() + "/" + 
+                                version.getVersion().getPearVersion() + " -> cause: " + ex.getClass().getName() + "/" + ex.toString());
                     }
-                    System.out.println("Package.xml not found... ignoring failure...");
+                    // System.out.println("Package.xml not found... ignoring failure...");
                 }
             }
         }
@@ -358,6 +359,86 @@ public class BaseTest extends AbstractTestCase {
         version = pkg.getVersion("1.5.0a1");
         assertEquals("1.5.0a1", version.getVersion().getPearVersion());
         assertEquals("1.5.0-alpha-1", version.getVersion().getMavenVersion());
+    }
+    
+    /**
+     * Tests the versions.
+     * 
+     * @throws Exception 
+     */
+    public void testFileLayoutV2() throws Exception {
+        final IPearChannel channel = getChannel(false);
+        
+        channel.initializePackages(true, true);
+        
+        IPackage pkg;
+        IPackageVersion version;
+        Iterator<String> dataFiles;
+        Iterator<String> docFiles;
+        Iterator<String> phpFiles;
+        
+        pkg = channel.getPackage("HTML_QuickForm2");
+        version = pkg.getVersion("0.3.0");
+        dataFiles = version.getFiles(IPackageVersion.FILE_ROLE_DATA).iterator();
+        assertEquals("HTML_QuickForm2/data/quickform.css", dataFiles.next());
+        assertFalse(dataFiles.hasNext());
+
+        pkg = channel.getPackage("Net_DNSBL");
+        version = pkg.getVersion("1.3.6");
+        docFiles = version.getFiles(IPackageVersion.FILE_ROLE_DOC).iterator();
+        assertEquals("Net_DNSBL/examples/check_dnsbl", docFiles.next());
+        assertFalse(docFiles.hasNext());
+
+        pkg = channel.getPackage("HTML_QuickForm2");
+        version = pkg.getVersion("0.4.0");
+        dataFiles = version.getFiles(IPackageVersion.FILE_ROLE_DATA).iterator();
+        assertEquals("HTML_QuickForm2/quickform.css", dataFiles.next());
+        assertFalse(dataFiles.hasNext());
+        docFiles = version.getFiles(IPackageVersion.FILE_ROLE_DOC).iterator();
+        while (docFiles.hasNext()) {
+            assertTrue(docFiles.next().startsWith("HTML_QuickForm2/examples/"));
+        }
+        
+        pkg = channel.getPackage("pearweb_channelxml");
+        version = pkg.getVersion("1.13.0");
+        dataFiles = version.getFiles(IPackageVersion.FILE_ROLE_WWW).iterator();
+        while (dataFiles.hasNext()) {
+            assertTrue(dataFiles.next().startsWith("public_html/"));
+        }
+        
+        pkg = channel.getPackage("Genealogy_Gedcom");
+        version = pkg.getVersion("1.0.1");
+        phpFiles = version.getFiles(IPackageVersion.FILE_ROLE_PHP).iterator();
+        while (phpFiles.hasNext()) {
+            final String file = phpFiles.next();
+            assertTrue(file.startsWith("Genealogy/Gedcom/") || "Genealogy/Gedcom.php".equals(file));
+        }
+        
+        pkg = channel.getPackage("Crypt_Xtea");
+        version = pkg.getVersion("1.1.0RC1");
+        phpFiles = version.getFiles(IPackageVersion.FILE_ROLE_PHP).iterator();
+        assertEquals("Crypt/Xtea.php", phpFiles.next());
+        assertFalse(phpFiles.hasNext());
+        docFiles = version.getFiles(IPackageVersion.FILE_ROLE_DOC).iterator();
+        assertEquals("Crypt_Xtea/README", docFiles.next());
+        assertFalse(docFiles.hasNext());
+        
+        pkg = channel.getPackage("Structures_BibTex");
+        version = pkg.getVersion("0.1.0");
+        phpFiles = version.getFiles(IPackageVersion.FILE_ROLE_PHP).iterator();
+        assertEquals("Structures/BibTex.php", phpFiles.next());
+        assertFalse(phpFiles.hasNext());
+        docFiles = version.getFiles(IPackageVersion.FILE_ROLE_DOC).iterator();
+        assertEquals("Structures_BibTex/examples/Structures_BibTex_example.php", docFiles.next());
+        assertFalse(docFiles.hasNext());
+        
+        pkg = channel.getPackage("PHP_CodeSniffer");
+        version = pkg.getVersion("0.0.5");
+        phpFiles = version.getFiles(IPackageVersion.FILE_ROLE_PHP).iterator();
+        while (phpFiles.hasNext()) {
+            final String file = phpFiles.next();
+            assertTrue(file.startsWith("PHP/CodeSniffer/") || "PHP/CodeSniffer.php".equals(file));
+        }
     }
      
     /**

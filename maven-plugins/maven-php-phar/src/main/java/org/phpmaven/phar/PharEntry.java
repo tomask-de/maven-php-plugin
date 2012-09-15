@@ -27,7 +27,7 @@ public abstract class PharEntry {
     /**
      * The phar entry type.
      */
-    enum EntryType {
+    public enum EntryType {
         /** file type {@link PharFile}. */
         FILE,
         /** directory type {@link PharDirectory}. */
@@ -38,6 +38,6 @@ public abstract class PharEntry {
      * Returns the entry type.
      * @return entry type.
      */
-    abstract EntryType getType();
+    public abstract EntryType getType();
 
 }

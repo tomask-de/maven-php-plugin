@@ -64,7 +64,7 @@ public class SiteTest extends AbstractTestCase {
         verifier.assertFilePresent("target/site/phpunit/phpunit/MyClass.php.html");
         
         // test report
-        verifier.assertFilePresent("target/site/surefire-report.html");
+        verifier.assertFilePresent("target/site/phpunit/report.html");
     }
     
     /**
@@ -121,8 +121,38 @@ public class SiteTest extends AbstractTestCase {
         // phpdocumentor report
         verifier.assertFilePresent("target/site/apidocs/phpdocumentor.html");
         verifier.assertFilePresent("target/site/apidocs/phpdocumentor/index.html");
-        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/packages.html");
-        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/default/_MyClass.php.html");
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/graph_class.html");
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/packages/db_Default.html");
+    }
+    
+    /**
+     * tests the goal "site" with a project containing all default reports.
+     *
+     * @throws Exception 
+     */
+    public void testSitePhpdoc2Alpha2() throws Exception {
+        final Verifier verifier = this.getPhpMavenVerifier("mojos-sites/site-phpdoc2-alpha2");
+        
+        // delete the pom from previous runs
+        verifier.deleteArtifact("org.phpmaven.test", "site-all", "0.0.1", "pom");
+        verifier.deleteArtifact("org.phpmaven.test", "site-all", "0.0.1", "phar");
+        verifier.setAutoclean(true);
+
+        final List<String> goals = new ArrayList<String>();
+        goals.add("compile");
+        goals.add("test-compile");
+        goals.add("site");
+        verifier.addCliOption("-X");
+        verifier.executeGoals(goals);
+        verifier.verifyErrorFreeLog();
+        verifier.resetStreams();
+        
+        // phpdocumentor report
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor.html");
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/index.html");
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/graph_class.html");
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/packages/Default.html");
+        verifier.assertFilePresent("target/site/apidocs/phpdocumentor/classes/MyMavenTestClass.html");
     }
 
 }
