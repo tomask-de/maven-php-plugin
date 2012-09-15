@@ -24,7 +24,7 @@ public class LintHelper {
     /**
      * Thread count.
      */
-    private static final int THREAD_COUNT = 20;
+    private static final int THREAD_COUNT = 5;
     
     /**
      * The queue
