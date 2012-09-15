@@ -163,20 +163,12 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         return createSessionForPhpMaven(strTestDir, resolveDependencies, false);
     }
     
-    /**
-     * Creates a maven session with given test directory (name relative to this class package).
-     * 
-     * @param strTestDir the relative folder containing the pom.xml to be used
-     * @return the maven session
-     * @throws Exception thrown on errors
-     */
-    protected MavenSession createSessionForPhpMaven(
-            final String strTestDir,
-            boolean resolveDependencies,
-            boolean processPlugins)
-        throws Exception {
-        final File testDir = preparePhpMavenLocalRepos(strTestDir);
-        
+    protected static final class MavenData {
+    	ProjectBuildingRequest projectBuildingRequest;
+    	MavenExecutionRequest executionRequest;
+    }
+    
+    protected MavenData createProjectBuildingRequest() throws Exception {
         final File localReposFile = this.getLocalReposDir();
         
         final SimpleLocalRepositoryManager localRepositoryManager = new SimpleLocalRepositoryManager(
@@ -224,8 +216,7 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         request.setSystemProperties(new Properties(System.getProperties()));
         request.getSystemProperties().put("java.version", System.getProperty("java.version"));
         repositorySession.setLocalRepositoryManager(localRepositoryManager);
-        final MavenExecutionResult result = null;
-        final File projectFile = new File(testDir, "pom.xml");
+
         final ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest();
         buildingRequest.setLocalRepository(request.getLocalRepository());
         buildingRequest.setRepositorySession(repositorySession);
@@ -237,12 +228,38 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         buildingRequest.getRemoteRepositories().addAll(request.getRemoteRepositories());
         buildingRequest.setProfiles(request.getProfiles());
         buildingRequest.setActiveProfileIds(request.getActiveProfiles());
-        buildingRequest.setProcessPlugins(processPlugins);
-        buildingRequest.setResolveDependencies(resolveDependencies);
+        buildingRequest.setProcessPlugins(false);
+        buildingRequest.setResolveDependencies(false);
+        
+        final MavenData data = new MavenData();
+        data.executionRequest = request;
+        data.projectBuildingRequest = buildingRequest;
+        
+        return data;
+    }
+    
+    /**
+     * Creates a maven session with given test directory (name relative to this class package).
+     * 
+     * @param strTestDir the relative folder containing the pom.xml to be used
+     * @return the maven session
+     * @throws Exception thrown on errors
+     */
+    protected MavenSession createSessionForPhpMaven(
+            final String strTestDir,
+            boolean resolveDependencies,
+            boolean processPlugins)
+        throws Exception {
+        final File testDir = preparePhpMavenLocalRepos(strTestDir);
+        final MavenExecutionResult result = null;
+        final MavenData data = this.createProjectBuildingRequest();
+        final ProjectBuildingRequest buildingRequest = data.projectBuildingRequest;
+        final MavenExecutionRequest request = data.executionRequest;
 
+        final File projectFile = new File(testDir, "pom.xml");
         final MavenProject project = lookup(ProjectBuilder.class).build(projectFile, buildingRequest).getProject();
         
-        final MavenSession session = new MavenSession(getContainer(), repositorySession, request, result);
+        final MavenSession session = new MavenSession(getContainer(), buildingRequest.getRepositorySession(), request, result);
         session.setCurrentProject(project);
         
         return session;
@@ -426,22 +443,14 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         }
         installedProjects.add(projectName);
         
-        if (!projectName.equals("var")) {
-            this.installLocalProject(reposPath, new File(root).getParentFile().getParentFile().getParent() + "/var", false);
+        if (!projectName.equals("java-parent")) {
+//            this.installLocalProject(reposPath, new File(root).getParentFile().getParentFile().getParent() + "/var", false);
             this.installLocalProject(reposPath, new File(root).getParent() + "/java-parent", false);
         }
         
         // first install dependencies
         final File projectFile = new File(root, "pom.xml");
-        final ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest();
-        buildingRequest.setLocalRepository(null);
-        buildingRequest.setRepositorySession(null);
-        buildingRequest.setSystemProperties(null);
-        // buildingRequest.getRemoteRepositories().addAll(request.getRemoteRepositories());
-        buildingRequest.setProfiles(null);
-        buildingRequest.setActiveProfileIds(null);
-        buildingRequest.setProcessPlugins(false);
-        buildingRequest.setResolveDependencies(false);
+        final ProjectBuildingRequest buildingRequest = this.createProjectBuildingRequest().projectBuildingRequest;
 
         final MavenProject project = lookup(ProjectBuilder.class).build(projectFile, buildingRequest).getProject();
         

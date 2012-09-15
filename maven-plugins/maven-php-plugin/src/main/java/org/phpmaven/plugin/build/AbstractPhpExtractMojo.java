@@ -15,7 +15,6 @@
 package org.phpmaven.plugin.build;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -24,11 +23,9 @@ import org.codehaus.plexus.component.configurator.expression.ExpressionEvaluatio
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.phpmaven.core.IComponentFactory;
-import org.phpmaven.dependency.IDependencyConfiguration;
+import org.phpmaven.exec.PhpException;
 import org.phpmaven.plugin.php.IPhpConfigurationMojo;
-import org.phpmaven.plugin.php.MultiException;
-import org.phpmaven.plugin.php.PhpException;
-import org.phpmaven.plugin.php.PhpMojoHelper;
+import org.phpmaven.project.IPhpProject;
 import org.phpmaven.project.IProjectPhpExecution;
 
 
@@ -39,11 +36,6 @@ import org.phpmaven.project.IProjectPhpExecution;
  * @author Erik Dannenberg
  */
 public abstract class AbstractPhpExtractMojo extends AbstractMojo implements IPhpConfigurationMojo {
-    
-    /**
-     * The mojo helper for php management and php execution.
-     */
-    private PhpMojoHelper phpHelper;
     
     /**
      * The maven project builder.
@@ -62,18 +54,6 @@ public abstract class AbstractPhpExtractMojo extends AbstractMojo implements IPh
     }
 
     /**
-     * Returns the php helper to execute and manage php.
-     * 
-     * @return php helper.
-     */
-    public PhpMojoHelper getPhpHelper() {
-        if (this.phpHelper == null) {
-            this.phpHelper = new PhpMojoHelper(this);
-        }
-        return this.phpHelper;
-    }
-
-    /**
      * Returns the scope from which dependencies should be unpacked from.
      * @return target scope
      */
@@ -83,11 +63,12 @@ public abstract class AbstractPhpExtractMojo extends AbstractMojo implements IPh
     public void execute() throws MojoExecutionException {
         getLog().info("Unpacking dependencies...");
         IProjectPhpExecution config = null;
+        IPhpProject project = null;
         File targetDir = null;
-        IDependencyConfiguration depConfig = null;
+        // TODO verify integrity of dependencies config
         try {
-            depConfig = factory.lookup(
-                IDependencyConfiguration.class,
+        	project = factory.lookup(
+                IPhpProject.class,
                 IComponentFactory.EMPTY_CONFIG,
                 this.getSession());
             
@@ -101,30 +82,34 @@ public abstract class AbstractPhpExtractMojo extends AbstractMojo implements IPh
             } else {
                 targetDir = config.getDepsDir();
             }
+            
+            project.prepareDependencies(getLog(), targetDir, getTargetScope());
         } catch (ComponentLookupException ex) {
             throw new MojoExecutionException(ex.getMessage(), ex);
         } catch (PlexusConfigurationException ex) {
             throw new MojoExecutionException(ex.getMessage(), ex);
         } catch (ExpressionEvaluationException ex) {
             throw new MojoExecutionException(ex.getMessage(), ex);
+        } catch (PhpException ex) {
+            throw new MojoExecutionException(ex.getMessage(), ex);
         }
         
-        try {
-            // TODO move this to a plugin (f.e. maven-php-project)
-            // TODO verify integrity of dependencies config
-            this.getPhpHelper().prepareDependencies(
-                this.factory,
-                this.getSession(),
-                targetDir,
-                getTargetScope(),
-                depConfig);
-        } catch (MultiException e) {
-            throw new MojoExecutionException(e.getMessage(), e);
-        } catch (PhpException e) {
-            throw new MojoExecutionException(e.getMessage(), e);
-        } catch (IOException e) {
-            throw new MojoExecutionException(e.getMessage(), e);
-        }
+//        try {
+//            // TODO move this to a plugin (f.e. maven-php-project)
+//            // TODO verify integrity of dependencies config
+////            this.getPhpHelper().prepareDependencies(
+////                this.factory,
+////                this.getSession(),
+////                targetDir,
+////                getTargetScope(),
+////                depConfig);
+//        } catch (MultiException e) {
+//            throw new MojoExecutionException(e.getMessage(), e);
+//        } catch (PhpException e) {
+//            throw new MojoExecutionException(e.getMessage(), e);
+//        } catch (IOException e) {
+//            throw new MojoExecutionException(e.getMessage(), e);
+//        }
     }
 
 }

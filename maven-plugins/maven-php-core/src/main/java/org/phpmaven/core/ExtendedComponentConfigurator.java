@@ -37,6 +37,7 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
  */
 @Component(role = ComponentConfigurator.class, hint = "php-maven", instantiationStrategy = "per-lookup")
 public class ExtendedComponentConfigurator extends BasicComponentConfigurator {
+	
     
     /**
      * {@inheritDoc}

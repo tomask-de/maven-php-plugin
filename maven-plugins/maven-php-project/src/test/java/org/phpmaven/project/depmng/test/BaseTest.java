@@ -16,7 +16,6 @@
 
 package org.phpmaven.project.depmng.test;
 
-import java.io.File;
 import java.util.List;
 
 import org.apache.maven.execution.MavenSession;
@@ -45,6 +44,7 @@ public class BaseTest extends AbstractTestCase {
         
         final Verifier verifier = this.getPhpMavenVerifier("project/depmng/lib1");
         this.installPhpmavenProjectToRepos("maven-php-plugin");
+        this.installPhpParentPom();
         
         verifier.executeGoal("install");
         verifier.verifyErrorFreeLog();

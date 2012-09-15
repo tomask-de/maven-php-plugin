@@ -116,7 +116,6 @@ public class ComponentFactory implements IComponentFactory {
         }
         
         configure(
-                clazz,
                 configuration,
                 session.getCurrentProject(),
                 result,
@@ -148,7 +147,6 @@ public class ComponentFactory implements IComponentFactory {
         }
         
         configure(
-                clazz,
                 configuration,
                 session.getCurrentProject(),
                 result,
@@ -160,7 +158,6 @@ public class ComponentFactory implements IComponentFactory {
 
     /**
      * Configure the component.
-     * @param clazz
      * @param configuration
      * @param mavenProject
      * @param result
@@ -168,7 +165,7 @@ public class ComponentFactory implements IComponentFactory {
      * @param session
      * @throws PlexusConfigurationException
      */
-    private <T> void configure(Class<T> clazz, Xpp3Dom[] configuration,
+    private <T> void configure(Xpp3Dom[] configuration,
             MavenProject mavenProject, final T result, final ClassRealm realm, MavenSession session)
         throws ComponentLookupException, PlexusConfigurationException {
         final MojoExecution execution = new MojoExecution(null);
@@ -179,6 +176,7 @@ public class ComponentFactory implements IComponentFactory {
         while (resultClazz != null) {
             for (final Field field : resultClazz.getDeclaredFields()) {
                 final ConfigurationParameter param = field.getAnnotation(ConfigurationParameter.class);
+                final Requirement req = field.getAnnotation(Requirement.class);
                 if (param != null) {
                     if (classAnnotationConfig == null) {
                         classAnnotationConfig = new Xpp3Dom("configuration");
@@ -186,6 +184,16 @@ public class ComponentFactory implements IComponentFactory {
                     final Xpp3Dom child = new Xpp3Dom(param.name());
                     child.setValue(param.expression());
                     classAnnotationConfig.addChild(child);
+                }
+                if (req != null) {
+                	// pre-configure the component we fetched here
+                	try {
+                		field.setAccessible(true);
+                		final Object value = field.get(result);
+                		this.configure(IComponentFactory.EMPTY_CONFIG, mavenProject, value, realm, session);
+                	} catch (IllegalAccessException ex) {
+                		throw new PlexusConfigurationException("Cannot access requirement field", ex);
+                	}
                 }
             }
             resultClazz = resultClazz.getSuperclass();
@@ -385,7 +393,6 @@ public class ComponentFactory implements IComponentFactory {
         
         for (final T res : result) {
             configure(
-                    type,
                     config,
                     session.getCurrentProject(),
                     res,
