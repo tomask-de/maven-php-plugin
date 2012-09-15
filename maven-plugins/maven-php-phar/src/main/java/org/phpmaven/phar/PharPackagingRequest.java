@@ -102,7 +102,7 @@ public class PharPackagingRequest implements IPharPackagingRequest {
      * The target directory.
      */
     @ConfigurationParameter(name = "targetDirectory", expression =
-            "${project.basedir}/target")
+            "${project.build.directory}")
     private File targetDirectory;
     
     /**

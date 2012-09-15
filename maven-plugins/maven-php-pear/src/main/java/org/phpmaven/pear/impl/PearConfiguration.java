@@ -51,7 +51,7 @@ public class PearConfiguration implements IPearConfiguration {
     /**
      * The pear installation directory.
      */
-    @ConfigurationParameter(name = "installDir", expression = "${project.basedir}/target/pear")
+    @ConfigurationParameter(name = "installDir", expression = "${project.build.directory}/pear")
     private File installDir;
     
     /**

@@ -14,8 +14,8 @@
 
 package org.phpmaven.plugin.pear;
 
+import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.phpmaven.plugin.build.AbstractPhpMojo;
 
 /**
  * Goal to copy the resources and classes to the test output folder.
@@ -25,7 +25,7 @@ import org.phpmaven.plugin.build.AbstractPhpMojo;
  * 
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
-public class ProcessTestResourcesPearMojo extends AbstractPhpMojo
+public class ProcessTestResourcesPearMojo extends AbstractMojo
 {
 
     /**

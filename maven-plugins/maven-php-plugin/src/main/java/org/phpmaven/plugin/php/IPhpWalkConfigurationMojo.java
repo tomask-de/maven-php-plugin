@@ -14,13 +14,17 @@
 
 package org.phpmaven.plugin.php;
 
+import org.apache.maven.execution.MavenSession;
+import org.apache.maven.plugin.logging.Log;
+import org.apache.maven.project.MavenProject;
+
 
 /**
  * Interface for mojos that are aware to be configured for walk helpers. Mainly introduces Getters.
  * 
  * @author Martin Eisengardt
  */
-public interface IPhpWalkConfigurationMojo extends IPhpConfigurationMojo {
+public interface IPhpWalkConfigurationMojo {
 
     /**
      * Returns files and directories to exclude.
@@ -39,6 +43,26 @@ public interface IPhpWalkConfigurationMojo extends IPhpConfigurationMojo {
      * @return how php files will be identified after the last point.
      */
     String getPhpFileEnding();
+    
+    /**
+     * Returns the maven project we are configured on.
+     * 
+     * @return The maven project.
+     */
+    MavenProject getProject();
+    
+    /**
+     * Returns the logging delegate.
+     * 
+     * @return logging delegate.
+     */
+    Log getLog();
+    
+    /**
+     * Returns the The Maven session to be used.
+     * @return the maven session.
+     */
+    MavenSession getSession();
     
 
 }

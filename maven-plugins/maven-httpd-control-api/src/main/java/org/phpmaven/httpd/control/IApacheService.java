@@ -77,14 +77,14 @@ import org.codehaus.plexus.configuration.PlexusConfigurationException;
  *   <td>configFile</td>
  *   <td>-</td>
  *   <td>-</td>
- *   <td>${project.basedir}/target/apache/httpd.conf</td>
+ *   <td>${project.build.directory}/apache/httpd.conf</td>
  *   <td>The name of the httpd configuration file</td>
  * </tr>
  * <tr>
  *   <td>serverDir</td>
  *   <td>-</td>
  *   <td>-</td>
- *   <td>${project.basedir}/target/apache</td>
+ *   <td>${project.build.directory}/apache</td>
  *   <td>The name of the server directory (runtime path, this is not the directory root)</td>
  * </tr>
  * <tr>
@@ -98,7 +98,7 @@ import org.codehaus.plexus.configuration.PlexusConfigurationException;
  *   <td>pidFile</td>
  *   <td>apache.pidFile</td>
  *   <td>apache.pidFile</td>
- *   <td>${project.basedir}/target/apache/apache2.pid</td>
+ *   <td>${project.build.directory}/apache/apache2.pid</td>
  *   <td>The pid file to be used by apache.</td>
  * </tr>
  * </table>

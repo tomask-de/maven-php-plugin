@@ -35,7 +35,7 @@ import org.phpmaven.phpdoc.IPhpdocRequest;
  */
 @Component(role = IPhpdocRequest.class, instantiationStrategy = "per-lookup")
 @BuildPluginConfiguration(groupId = "org.phpmaven", artifactId = "maven-php-phpdoc", filter = {
-        "phpdocService", "phpdocVersion"
+        "phpdocService", "phpdocVersion", "executableConfig"
         })
 public class PhpdocRequest implements IPhpdocRequest {
     
@@ -54,7 +54,7 @@ public class PhpdocRequest implements IPhpdocRequest {
     /**
      * The installation folder.
      */
-    @ConfigurationParameter(name = "installFolder", expression = "${project.basedir}/target/phpdoc")
+    @ConfigurationParameter(name = "installFolder", expression = "${project.build.directory}/phpdoc")
     private File installFolder;
 
     /**

@@ -87,7 +87,7 @@ import org.phpmaven.exec.IPhpExecutableConfiguration;
  *   <td>-</td>
  *   <td>-</td>
  *   <td>-</td>
- *   <td>Alternative pear installation directory. Defaults to "${project.basedir}/target/pear".
+ *   <td>Alternative pear installation directory. Defaults to "${project.build.directory}/pear".
  *   </td>
  * </tr>
  * </table>

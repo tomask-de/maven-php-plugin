@@ -57,19 +57,19 @@ public class W32Controller22 implements IApacheController {
     /**
      * configuration file.
      */
-    @ConfigurationParameter(name = "configFile", expression = "${project.basedir}/target/apache/httpd.conf")
+    @ConfigurationParameter(name = "configFile", expression = "${project.build.directory}/apache/httpd.conf")
     private File configFile;
     
     /**
      * server directory.
      */
-    @ConfigurationParameter(name = "serverDir", expression = "${project.basedir}/target/apache")
+    @ConfigurationParameter(name = "serverDir", expression = "${project.build.directory}/apache")
     private File serverDir;
     
     /**
      * pid File.
      */
-    @ConfigurationParameter(name = "serverDir", expression = "${project.basedir}/target/apache/apache2.pid")
+    @ConfigurationParameter(name = "serverDir", expression = "${project.build.directory}/apache/apache2.pid")
     private File pidFile;
     
     /**

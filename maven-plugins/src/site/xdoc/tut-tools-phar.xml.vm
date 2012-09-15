@@ -50,7 +50,7 @@ mvn -Dphar=path/to/my/file.phar org.phpmaven:maven-php-plugin:${phpmavenTagName}
 [INFO] Building Maven Stub Project (No POM) 1
 [INFO] ------------------------------------------------------------------------
 [INFO]
-[INFO] --- maven-php-plugin:2.0.1:list-phar-files (default-cli) @ standal
+[INFO] --- maven-php-plugin:2.0.2:list-phar-files (default-cli) @ standal
 one-pom ---
 [INFO] contents of phar file C:\test\my.phar
 [INFO] \MyClass.php
@@ -62,6 +62,65 @@ one-pom ---
 [INFO] Final Memory: 7M/118M
 [INFO] ------------------------------------------------------------------------
 </source>
+		</section>
+		
+		<section name="Extract-Files">
+		<p>To extract a phar file into a target directory you can use the extract-phar mojo:</p>
+<source>
+mvn -Dphar=path/to/my/file.phar -Dtarget=path/to/my/target-dir org.phpmaven:maven-php-plugin:${phpmavenTagName}:extract-phar
+</source>
+		<p>You will get an output similar to the following:</p>
+<source>
+[INFO] Scanning for projects...
+[INFO]
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Maven Stub Project (No POM) 1
+[INFO] ------------------------------------------------------------------------
+[INFO]
+[INFO] --- maven-php-plugin:2.0.2:extract-phar (default-cli) @ standal
+one-pom ---
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 1.056s
+[INFO] Finished at: Fri Aug 03 22:58:36 CEST 2012
+[INFO] Final Memory: 7M/118M
+[INFO] ------------------------------------------------------------------------
+</source>
+		</section>
+		
+		<section name="Convert-Files">
+		<p>To convert a zip file to phar (and vice-versa) use the convert-phar mojo:</p>
+<source>
+mvn -Dfrom=path/to/my/src-file.phar -Dto=path/to/my/dest-file.zip org.phpmaven:maven-php-plugin:${phpmavenTagName}:convert-phar
+</source>
+		<p>You will get an output similar to the following:</p>
+<source>
+[INFO] Scanning for projects...
+[INFO]
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Maven Stub Project (No POM) 1
+[INFO] ------------------------------------------------------------------------
+[INFO]
+[INFO] --- maven-php-plugin:2.0.2:convert-phar (default-cli) @ standal
+one-pom ---
+[INFO] Extracting zip: C:\Test\test.zip
+[INFO] Packing phar: C:\Test\test.phar
+[INFO] Deleting temporary directory: C:\Test\temp
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 1.056s
+[INFO] Finished at: Fri Aug 03 22:58:36 CEST 2012
+[INFO] Final Memory: 7M/118M
+[INFO] ------------------------------------------------------------------------
+</source>
+		<p>Currently the mojo recognizes files by extensions:</p>
+		<ul>
+			<li>zip</li>
+			<li>jar</li>
+			<li>phar</li>
+		</ul>
 		</section>
 		
 		<p style="text-align:center">[ <a href="tut-lifecycle-deploy.html">Previous</a> | <a href="tutorials.html">TOC</a> | <a href="tut-xworldsrepos.html">Next</a> ]</p>

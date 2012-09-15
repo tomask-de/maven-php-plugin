@@ -34,30 +34,14 @@ import org.phpmaven.phpdoc.IPhpdocSupport;
  * @author Tobias Sarnowski
  */
 public class PhpDocumentor extends AbstractApiDocReport {
-//
-//    /**
-//     * Path to phpDoc. If nothing is configured phpdoc is expected in the path.
-//     *
-//     * @parameter default-value="phpdoc" expression="${phpDocFilePath}"
-//     */
-//    private String phpDocFilePath = "phpdoc";
-//
-//    /**
-//     * The phpdoc configuraton file. The default is ${project.basedir}/src/site/phpdoc/phpdoc.config
-//     *
-//     * @parameter default-value="${project.basedir}/src/site/phpdoc/phpdoc.config" expression="${phpDocConfigFile}"
-//     * @required
-//     */
-//    private File phpDocConfigFile;
-//
-//    /**
-//     * The generated phpDoc file.
-//     *
-//     * @parameter expression="${project.build.directory}/temp/phpdoc/phpdoc.ini";
-//     * @required
-//     * @readonly
-//     */
-//    private File generatedPhpDocConfigFile;
+
+    /**
+     * The output directory of phpdocumentor generated documentation.
+     *
+     * @parameter expression="${project.build.directory}/site/apidocs"
+     * @required
+     */
+    private File outputApiDocDirectory;
     
     /**
      * The Maven session.
@@ -74,9 +58,10 @@ public class PhpDocumentor extends AbstractApiDocReport {
      * @required
      */
     protected IComponentFactory factory;
-    
-    // XXX: Load phpDocumentor via maven dependencies
-    // XXX: Configuration option to specifiy the phpDocumentor to be used
+
+    protected File getApiDocOutputDirectory() {
+        return outputApiDocDirectory;
+    }
 
     private void writeReport() {
         if (getSink() != null)  {
@@ -109,50 +94,6 @@ public class PhpDocumentor extends AbstractApiDocReport {
             request.setReportFolder(new File(getApiDocOutputDirectory().
                   getAbsoluteFile().getPath() + "/" + getFolderName()));
             support.generateReport(getLog(), request);
-            
-//            final Properties properties = new Properties();
-//            if (phpDocConfigFile.isFile()) {
-//                getLog().debug("generating phpdoc using config from " + phpDocConfigFile.getAbsolutePath());
-//                properties.load(new FileInputStream(phpDocConfigFile));
-//            } else {
-//                getLog().debug("config file " + phpDocConfigFile.getAbsolutePath() + " not found. ignoring.");
-//            }
-//            properties.put("directory", getSourceDirectory().getAbsolutePath());
-//            properties.put("target", getApiDocOutputDirectory().
-//                getAbsoluteFile().getPath() + "/" + getFolderName());
-//
-//            writePropFile(properties, generatedPhpDocConfigFile, "[Parse Data]");
-//            final String path = System.getProperty("java.library.path") + File.pathSeparator + System.getenv("PATH");
-//            getLog().debug("PATH: " + path);
-//            final String[] paths = path.split(File.pathSeparator);
-//            File phpDocFile = null;
-//            if ("phpdoc".equals(phpDocFilePath)) {
-//                for (int i = 0; i < paths.length; i++) {
-//                    final File file = new File(paths[i], "phpdoc");
-//                    if (file.isFile()) {
-//                        phpDocFile = file;
-//                        break;
-//                    }
-//                }
-//            } else {
-//                phpDocFile = new File(phpDocFilePath);
-//            }
-//            if (phpDocFile == null || !phpDocFile.isFile()) {
-//                throw new PhpDocumentorNotFoundException();
-//            }
-//            final String command = "\"" + phpDocFile + "\" -c \"" + generatedPhpDocConfigFile.getAbsolutePath() + "\"";
-//            getLog().debug("Executing PHPDocumentor: " + command);
-//            // XXX: commandLine.setWorkingDirectory(phpDocFile.getParent());
-//            final String result = this.getPhpHelper().execute(command, phpDocFile);
-//            for (final String line : result.split("\n")) {
-//                if (line.startsWith("ERROR:")) {
-//                    // this is a error of phpdocumentor.
-//                    getLog().error("Got error from php-documentor. " +
-//                        "Enable debug (-X) to fetch the php output.\n" +
-//                        line);
-//                    throw new PhpErrorException(phpDocFile, line);
-//                }
-//            }
             writeReport();
         /*CHECKSTYLE:OFF*/
         } catch (Exception e) {
@@ -187,9 +128,14 @@ public class PhpDocumentor extends AbstractApiDocReport {
     public String getOutputName() {
         return "apidocs/phpdocumentor";
     }
-    @Override
+    
     protected String getFolderName() {
         return "phpdocumentor";
+    }
+
+    @Override
+    protected String getOutputDirectory() {
+        return getApiDocOutputDirectory().getAbsolutePath();
     }
 
 }
