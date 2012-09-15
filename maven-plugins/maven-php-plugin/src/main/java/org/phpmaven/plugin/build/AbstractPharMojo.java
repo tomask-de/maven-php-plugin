@@ -35,20 +35,38 @@ import org.phpmaven.phar.PharEntry.EntryType;
  *
  * @author Martin Eisengardt
  */
-public abstract class AbstractPharMojo extends AbstractPhpMojo {
+public abstract class AbstractPharMojo extends AbstractMojo {
     
     /**
      * The target directory to be used.
      * 
      * <p>
-     * Defaults to "${project.basedir}/target".
+     * Defaults to "${project.build.directory}".
      * </p>
      * 
-     * @parameter expression="${project.basedir}/target"
+     * @parameter expression="${project.build.directory}"
      * @required
      * @readonly
      */
     private File targetDirectory;
+    
+    /**
+     * The directory containing generated test classes of the project being tested. This will be included at the
+     * beginning of the test classpath.
+     * 
+     * @parameter default-value="${project.build.testOutputDirectory}"
+     * @readonly
+     */
+    private File targetTestClassesDirectory;
+    
+    /**
+     * The directory containing generated classes of the project being tested. This will be included after the test
+     * classes in the test classpath.
+     * 
+     * @parameter default-value="${project.build.outputDirectory}"
+     * @readonly
+     */
+    private File targetClassesDirectory;
     
     /**
      * The contents of the packed file.
@@ -132,6 +150,24 @@ public abstract class AbstractPharMojo extends AbstractPhpMojo {
             this.relPath = relPath;
         }
         
+    }
+    
+    /**
+     * Where the sources should get copied to.
+     *
+     * @return where the jar inclusion directory is
+     */
+    public File getTargetClassesDirectory() {
+        return this.targetClassesDirectory;
+    }
+
+    /**
+     * The target directory where to copy the test sources to.
+     *
+     * @return where the test-jar inclusion directory is
+     */
+    public File getTargetTestClassesDirectory() {
+        return this.targetTestClassesDirectory;
     }
     
     /**

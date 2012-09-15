@@ -14,8 +14,6 @@
 
 package org.phpmaven.plugin.php;
 
-import java.io.File;
-
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
@@ -41,69 +39,6 @@ public interface IPhpConfigurationMojo {
      * @return logging delegate.
      */
     Log getLog();
-
-    /**
-     * Returns the path/command for php executable.
-     * 
-     * @return The php executable
-     */
-    String getPhpExecutable();
-    
-    /**
-     * Returns additional parameters to be passed to php and command line.
-     * 
-     * @return Additional php parameters.
-     */
-    String getAdditionalPhpParameters();
-    
-    /**
-     * Returns the file for dependencies to be extracted to.
-     * 
-     * @return The dependencies extraction target directory.
-     */
-    File getDependenciesTargetDirectory();
-    
-    /**
-     * Returns the file for dependencies in testing stage to be extracted to.
-     * 
-     * @return The test dependencies extraction target directory.
-     */
-    File getTestDependenciesTargetDirectory();
-    
-    /**
-     * True if any output of php invocations should be printed to console.
-     * 
-     * @return true to print php output
-     */
-    boolean isLogPhpOutput();
-    
-    /**
-     * True if any include error should be ignored.
-     * 
-     * @return true for ignoring include errors.
-     */
-    boolean isIgnoreIncludeErrors();
-    
-    /**
-     * The file of the temporary script used to execute temporary php actions.
-     * 
-     * @return temporary script filename.
-     */
-    File getTemporaryScriptFilename();
-    
-    /**
-     * The target classes directory.
-     * 
-     * @return target/classes
-     */
-    File getTargetClassesDirectory();
-    
-    /**
-     * The target test classes directory.
-     * 
-     * @return target/test-classes
-     */
-    File getTargetTestClassesDirectory();
     
     /**
      * Returns the Project builder to be used.

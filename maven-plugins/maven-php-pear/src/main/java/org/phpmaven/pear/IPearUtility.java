@@ -236,13 +236,23 @@ public interface IPearUtility {
     File getTestDir() throws PhpException;
     
     /**
-     * Installs given artifact from repository.
+     * Installs given artifact from repository (ignores core packages).
      * @param groupId maven group id.
      * @param artifactId maven artifact id.
      * @param version maven version.
      * @throws PhpException the php exception is thrown on installation errors.
      */
     void installFromMavenRepository(final String groupId, final String artifactId, final String version)
+        throws PhpException;
+    
+    /**
+     * Installs given artifact from repository (includes core packages).
+     * @param groupId maven group id.
+     * @param artifactId maven artifact id.
+     * @param version maven version.
+     * @throws PhpException the php exception is thrown on installation errors.
+     */
+    void installCoreFromMavenRepository(final String groupId, final String artifactId, final String version)
         throws PhpException;
     
     /**

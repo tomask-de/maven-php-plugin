@@ -138,6 +138,8 @@ public final class PhpExecutable implements IPhpExecutable {
 
     private File workDirectory;
 
+    private int errorReporting;
+
     /**
      * Checks if a line (string) contains a PHP error message.
      *
@@ -190,6 +192,10 @@ public final class PhpExecutable implements IPhpExecutable {
         for (final Map.Entry<String, String> phpDefine : this.phpDefines.entrySet()) {
             command += " -d ";
             command += phpDefine.getKey() + "=\"" + phpDefine.getValue() + "\"";
+        }
+        
+        if (this.errorReporting != -1) {
+            command += " -d error_reporting=" + this.errorReporting;
         }
         
         if (this.includePath.size() > 0) {
@@ -436,6 +442,7 @@ public final class PhpExecutable implements IPhpExecutable {
         this.includePath = new ArrayList<String>(config.getIncludePath());
         this.phpDefines = new HashMap<String, String>(config.getPhpDefines());
         this.workDirectory = config.getWorkDirectory();
+        this.errorReporting = config.getNumErrorReporting();
     }
 
     /**

@@ -28,17 +28,17 @@ import org.phpmaven.phar.IPharPackagingRequest;
 import org.phpmaven.phar.PharDirectory;
 import org.phpmaven.phar.PharEntry;
 import org.phpmaven.phar.PharEntry.EntryType;
-import org.phpmaven.plugin.build.AbstractPhpMojo;
+import org.phpmaven.plugin.build.AbstractMojo;
 import org.phpmaven.plugin.build.FileHelper;
 
 /**
- * pack a phar file using the contents of the library.
+ * pack a phar file using the contents of the library (used by pear packaging).
  *
  * @requiresDependencyResolution compile
  * @goal phar-pear
  * @author Martin Eisengardt
  */
-public final class PearPhar extends AbstractPhpMojo {
+public final class PearPhar extends AbstractMojo {
     
     /**
      * The phar packager configuration.
@@ -50,42 +50,42 @@ public final class PearPhar extends AbstractPhpMojo {
     protected Xpp3Dom pharPackagerConfig;
     
     /**
-     * @parameter expression="${project.basedir}/target/pear-data"
+     * @parameter expression="${project.build.directory}/pear-data"
      */
     private File targetDataDir;
     
     /**
-     * @parameter expression="${project.basedir}/target/pear-doc"
+     * @parameter expression="${project.build.directory}/pear-doc"
      */
     private File targetDocDir;
     
     /**
-     * @parameter expression="${project.basedir}/target/pear-www"
+     * @parameter expression="${project.build.directory}/pear-www"
      */
     private File targetWwwDir;
     
     /**
-     * @parameter expression="${project.basedir}/target/${project.artifactId}-${project.version}-package.xml"
+     * @parameter expression="${project.build.directory}/${project.artifactId}-${project.version}-package.xml"
      */
     private File packageXmlFile;
     
     /**
-     * @parameter expression="${project.basedir}/target/${project.artifactId}-${project.version}-pear.tgz"
+     * @parameter expression="${project.build.directory}/${project.artifactId}-${project.version}-pear.tgz"
      */
     private File tgzFile;
     
     /**
-     * @parameter expression="${project.basedir}/target/${project.artifactId}-${project.version}-data.phar"
+     * @parameter expression="${project.build.directory}/${project.artifactId}-${project.version}-data.phar"
      */
     private File pharDataFile;
     
     /**
-     * @parameter expression="${project.basedir}/target/${project.artifactId}-${project.version}-www.phar"
+     * @parameter expression="${project.build.directory}/${project.artifactId}-${project.version}-www.phar"
      */
     private File pharWwwFile;
     
     /**
-     * @parameter expression="${project.basedir}/target/${project.artifactId}-${project.version}-doc.phar"
+     * @parameter expression="${project.build.directory}/${project.artifactId}-${project.version}-doc.phar"
      */
     private File pharDocFile;
     

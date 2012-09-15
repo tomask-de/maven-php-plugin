@@ -31,7 +31,7 @@ import org.phpmaven.pear.IPackageVersion;
 import org.phpmaven.pear.IPearChannel;
 import org.phpmaven.pear.IPearConfiguration;
 import org.phpmaven.pear.IPearUtility;
-import org.phpmaven.plugin.build.AbstractPhpMojo;
+import org.phpmaven.plugin.build.AbstractMojo;
 
 /**
  * Goal to copy the resources and classes to the output folder.
@@ -41,7 +41,7 @@ import org.phpmaven.plugin.build.AbstractPhpMojo;
  * 
  * @author mepeisen
  */
-public class ProcessResourcesPearMojo extends AbstractPhpMojo
+public class ProcessResourcesPearMojo extends AbstractMojo
 {
 
 	/**
@@ -68,27 +68,27 @@ public class ProcessResourcesPearMojo extends AbstractPhpMojo
     private String pearPackageVersion;
     
     /**
-     * @parameter expression="${project.basedir}/target/pear-data"
+     * @parameter expression="${project.build.directory}/pear-data"
      */
     private File targetDataDir;
     
     /**
-     * @parameter expression="${project.basedir}/target/pear-doc"
+     * @parameter expression="${project.build.directory}/pear-doc"
      */
     private File targetDocDir;
     
     /**
-     * @parameter expression="${project.basedir}/target/pear-www"
+     * @parameter expression="${project.build.directory}/pear-www"
      */
     private File targetWwwDir;
     
     /**
-     * @parameter expression="${project.basedir}/target/${project.artifactId}-${project.version}-package.xml"
+     * @parameter expression="${project.build.directory}/${project.artifactId}-${project.version}-package.xml"
      */
     private File packageXmlFile;
     
     /**
-     * @parameter expression="${project.basedir}/target/${project.artifactId}-${project.version}-pear.tgz"
+     * @parameter expression="${project.build.directory}/${project.artifactId}-${project.version}-pear.tgz"
      */
     private File tgzFile;
     

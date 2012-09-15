@@ -70,7 +70,7 @@ public class PhpExecutableConfiguration implements IPhpExecutableConfiguration {
     /**
      * The work directory to be used.
      */
-    @ConfigurationParameter(name = "workDirectory", expression = "${project.basedir}/target")
+    @ConfigurationParameter(name = "workDirectory", expression = "${project.build.directory}")
     private File workDirectory;
     
     /**
@@ -111,7 +111,7 @@ public class PhpExecutableConfiguration implements IPhpExecutableConfiguration {
     /**
      * A temporary script file that can be used for php execution of small code snippets.
      */
-    @ConfigurationParameter(name = "temporaryScriptFile", expression = "${project.basedir}/target/snippet.php")
+    @ConfigurationParameter(name = "temporaryScriptFile", expression = "${project.build.directory}/snippet.php")
     private File temporaryScriptFile;
     
     /**
@@ -125,6 +125,13 @@ public class PhpExecutableConfiguration implements IPhpExecutableConfiguration {
      */
     @ConfigurationParameter(name = "session", expression = "${session}")
     private MavenSession session;
+
+    /**
+     * error reporting constant.
+     */
+    @Configuration(name = "errorReporting", value = "NONE")
+    @ConfigurationParameter(name = "errorReporting", expression = "${php.error.reporting}")
+    private String errorReporting;
 
     /**
      * {@inheritDoc}
@@ -416,6 +423,116 @@ public class PhpExecutableConfiguration implements IPhpExecutableConfiguration {
     @Override
     public void setWorkDirectory(File file) {
         this.workDirectory = file;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getErrorReporting() {
+        return this.errorReporting;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setErrorReporting(String errorReporting) {
+        this.errorReporting = errorReporting;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getNumErrorReporting() {
+        if (this.errorReporting == null ||
+                this.errorReporting.length() == 0 ||
+                this.errorReporting.equalsIgnoreCase("NONE")) {
+            return -1;
+        }
+        
+        try {
+            return Integer.parseInt(this.errorReporting);
+        } catch (NumberFormatException ex) {
+            // ignore it
+        }
+        
+        int result = 0;
+        int i = 0;
+        if (Character.isDigit(this.errorReporting.charAt(0))) {
+            final String[] numSplit = this.errorReporting.split("\\D", 2);
+            result = Integer.parseInt(numSplit[0]);
+            i += numSplit[0].length();
+        } else if (this.errorReporting.charAt(0) == 'E') {
+            final String[] wrdSplit = this.errorReporting.split("[^\\w_]", 2);
+            result = Enum.valueOf(ERROR_REPORTING.class, wrdSplit[0]).getNumericValue();
+            i += wrdSplit[0].length();
+        } else {
+            throw new IllegalStateException("error reporting expression not supported or too complex: " +
+                    this.errorReporting);
+        }
+        
+        String reporting = this.errorReporting.substring(i);
+        boolean isAnd = false;
+        boolean isOr = false;
+        boolean isNot = false;
+        while (reporting.length() > 0) {
+            switch (reporting.charAt(0)) {
+                case ' ':
+                case '\t':
+                    // skip whitespaces
+                    reporting = reporting.substring(1);
+                    continue;
+                case '&':
+                    // and
+                    isAnd = true;
+                    reporting = reporting.substring(1);
+                    continue;
+                case '|':
+                    // or
+                    isOr = true;
+                    reporting = reporting.substring(1);
+                    continue;
+                case '!':
+                    // not
+                    isNot = true;
+                    reporting = reporting.substring(1);
+                    continue;
+                default:
+                    // fall through
+                    break;
+            }
+            if (!isAnd && !isOr) {
+                throw new IllegalStateException("error reporting expression not supported or too complex: " +
+                        this.errorReporting);
+            }
+            int operand = 0;
+            if (Character.isDigit(reporting.charAt(0))) {
+                final String[] numSplit = reporting.split("\\D", 2);
+                operand = Integer.parseInt(numSplit[0]);
+                reporting = reporting.substring(numSplit[0].length());
+            } else if (reporting.charAt(0) == 'E') {
+                final String[] wrdSplit = reporting.split("[^\\w_]", 2);
+                operand = Enum.valueOf(ERROR_REPORTING.class, wrdSplit[0]).getNumericValue();
+                reporting = reporting.substring(wrdSplit[0].length());
+            } else {
+                throw new IllegalStateException("error reporting expression not supported or too complex: " +
+                        this.errorReporting);
+            }
+            if (isNot) {
+                operand = Integer.MAX_VALUE - operand;
+            }
+            if (isAnd) {
+                result &= operand;
+            } else if (isOr) {
+                result &= operand;
+            }
+            isNot = false;
+            isAnd = false;
+            isOr = false;
+        }
+        return result;
     }
 
 }

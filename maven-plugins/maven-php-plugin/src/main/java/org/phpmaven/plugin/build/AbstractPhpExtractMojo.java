@@ -19,13 +19,16 @@ import java.io.IOException;
 
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.project.ProjectBuilder;
 import org.codehaus.plexus.component.configurator.expression.ExpressionEvaluationException;
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.dependency.IDependencyConfiguration;
+import org.phpmaven.plugin.php.IPhpConfigurationMojo;
 import org.phpmaven.plugin.php.MultiException;
 import org.phpmaven.plugin.php.PhpException;
+import org.phpmaven.plugin.php.PhpMojoHelper;
 import org.phpmaven.project.IProjectPhpExecution;
 
 
@@ -35,7 +38,40 @@ import org.phpmaven.project.IProjectPhpExecution;
  * @requiresDependencyResolution compile
  * @author Erik Dannenberg
  */
-public abstract class AbstractPhpExtractMojo extends AbstractPhpMojo {
+public abstract class AbstractPhpExtractMojo extends AbstractMojo implements IPhpConfigurationMojo {
+    
+    /**
+     * The mojo helper for php management and php execution.
+     */
+    private PhpMojoHelper phpHelper;
+    
+    /**
+     * The maven project builder.
+     * @component
+     * @required
+     */
+    private ProjectBuilder mavenProjectBuilder;
+
+    /**
+     * Returns the Project builder to be used.
+     * @return the project builder
+     */
+    @Override
+    public ProjectBuilder getMavenProjectBuilder() {
+        return this.mavenProjectBuilder;
+    }
+
+    /**
+     * Returns the php helper to execute and manage php.
+     * 
+     * @return php helper.
+     */
+    public PhpMojoHelper getPhpHelper() {
+        if (this.phpHelper == null) {
+            this.phpHelper = new PhpMojoHelper(this);
+        }
+        return this.phpHelper;
+    }
 
     /**
      * Returns the scope from which dependencies should be unpacked from.

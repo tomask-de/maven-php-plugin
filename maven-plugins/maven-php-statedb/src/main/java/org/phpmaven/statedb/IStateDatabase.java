@@ -40,7 +40,7 @@ import org.phpmaven.core.IComponentFactory;
  * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;artifactId>maven-php-statedb&lt;/artifactId><br />
  * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;configuration><br />
  * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- * &lt;dbfile>${project.basedir}/target/phpmaven.alternative.state.db&lt;/dbfile><br />
+ * &lt;dbfile>${project.build.directory}/phpmaven.alternative.state.db&lt;/dbfile><br />
  * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/configuration><br />
  * &nbsp;&nbsp;&nbsp;&nbsp;&lt;/plugin><br />
  * &nbsp;&nbsp;&nbsp;&nbsp;...<br />
@@ -61,7 +61,7 @@ import org.phpmaven.core.IComponentFactory;
  *   <td>dbfile</td>
  *   <td>-</td>
  *   <td>-</td>
- *   <td>${project.basedir}/target/phpmaven.state.db</td>
+ *   <td>${project.build.directory}/phpmaven.state.db</td>
  *   <td>The file to put the persistent state</td>
  * </tr>
  * </table>
