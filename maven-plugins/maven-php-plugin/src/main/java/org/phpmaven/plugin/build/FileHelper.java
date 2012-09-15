@@ -341,5 +341,23 @@ public final class FileHelper {
         scanner.setCaseSensitive(caseSensitiveMatch);
         scanner.scan();
         return scanner.getIncludedFiles();
-   }
+    }
+
+    /**
+     * Counts the number of files within a directory.
+     * @param dir directory
+     * @return number of files
+     */
+    public static int countFiles(File dir) {
+        int result = 0;
+        for (final File file : dir.listFiles()) {
+            if (file.isFile()) {
+                result ++;
+            } else {
+                result += countFiles(file);
+            }
+        }
+        return result;
+    }
+    
 }

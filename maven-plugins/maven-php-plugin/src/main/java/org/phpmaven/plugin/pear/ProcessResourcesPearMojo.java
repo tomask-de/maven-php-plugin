@@ -68,6 +68,31 @@ public class ProcessResourcesPearMojo extends AbstractPhpMojo
     private String pearPackageVersion;
     
     /**
+     * @parameter expression="${project.basedir}/target/pear-data"
+     */
+    private File targetDataDir;
+    
+    /**
+     * @parameter expression="${project.basedir}/target/pear-doc"
+     */
+    private File targetDocDir;
+    
+    /**
+     * @parameter expression="${project.basedir}/target/pear-www"
+     */
+    private File targetWwwDir;
+    
+    /**
+     * @parameter expression="${project.basedir}/target/${project.artifactId}-${project.version}-package.xml"
+     */
+    private File packageXmlFile;
+    
+    /**
+     * @parameter expression="${project.basedir}/target/${project.artifactId}-${project.version}-pear.tgz"
+     */
+    private File tgzFile;
+    
+    /**
      * @inheritDoc
      */
     public void execute() throws MojoExecutionException
@@ -99,12 +124,7 @@ public class ProcessResourcesPearMojo extends AbstractPhpMojo
             final IPearChannel channel = utility.channelDiscover(this.pearChannelAlias);
             final IPackage pkg = channel.getPackage(this.pearPackage);
             final IPackageVersion version = pkg.getVersion(this.pearPackageVersion);
-            if ("pear".equals(this.pearChannelAlias) && (
-                    "Archive_Tar".equals(this.pearPackage)
-                    || "Console_Getopt".equals(this.pearPackage)
-                    || "PEAR".equals(this.pearPackage)
-                    || "Structures_Graph".equals(this.pearPackage)
-                    || "XML_Util".equals(this.pearPackage))) {
+            if (utility.isPearCorePackage(this.pearChannelAlias, this.pearPackage)) {
                 // do not try to uninstall the core packages
                 // downgrade pear itself before installing
                 utility.executePearCmd("install --force pear/PEAR-1.8.0");
@@ -138,18 +158,79 @@ public class ProcessResourcesPearMojo extends AbstractPhpMojo
      */
     private void fetchPackage(IPackageVersion version) throws MojoExecutionException {
         this.getLog().info("copying content");
+        this.fetchPackage(version, new File(this.getProject().getBuild().getOutputDirectory()), IPackageVersion.FILE_ROLE_PHP);
+        this.fetchPackage(version, this.targetDataDir, IPackageVersion.FILE_ROLE_DATA);
+        this.fetchPackage(version, this.targetDocDir, IPackageVersion.FILE_ROLE_DOC);
+        this.fetchPackage(version, this.targetWwwDir, IPackageVersion.FILE_ROLE_WWW);
+        
+        this.fetchTgz(version, this.tgzFile);
+        
+        this.fetchPackageXml(version, this.packageXmlFile);
+    }
+
+    /**
+     * Fetch tgz
+     * @param version
+     * @param file
+     * @throws MojoExecutionException 
+     */
+    private void fetchTgz(IPackageVersion version, File file) throws MojoExecutionException {
+        this.getLog().info("copying original pear tgz to " + file.getAbsolutePath());
+        
+        try {
+            version.writeTgz(file);
+        } catch (PhpException e) {
+            throw new MojoExecutionException("Problems reading tar gz.", e);
+        }
+    }
+
+    /**
+     * Fetch package xml
+     * @param version
+     * @param file
+     * @throws MojoExecutionException 
+     */
+    private void fetchPackageXml(IPackageVersion version, File file) throws MojoExecutionException {
+        this.getLog().info("copying original package xml to " + file.getAbsolutePath());
+        
+        try {
+            version.writePackageXml(file);
+        } catch (PhpException e) {
+            throw new MojoExecutionException("Problems reading package xml.", e);
+        }
+    }
+
+    /**
+     * @param version
+     * @param outputDir 
+     * @param role 
+     * @throws MojoExecutionException 
+     */
+    private void fetchPackage(IPackageVersion version, File outputDir, String role) throws MojoExecutionException {
+        this.getLog().info("copying content for role " + role);
         
         try {
             final IPackage pkg = version.getPackage();
             final IPearChannel channel = pkg.getChannel();
             final IPearUtility utility = channel.getPearUtility();
-            final File phpDir = utility.getPhpDir();
+            File srcDir = null;
+            if (IPackageVersion.FILE_ROLE_PHP.equals(role)) {
+                srcDir = utility.getPhpDir();
+            } else if (IPackageVersion.FILE_ROLE_DATA.equals(role)) {
+                srcDir = utility.getDataDir();
+            } else if (IPackageVersion.FILE_ROLE_DOC.equals(role)) {
+                srcDir = utility.getDocDir();
+            } else if (IPackageVersion.FILE_ROLE_WWW.equals(role)) {
+                srcDir = utility.getWwwDir();
+            } else {
+                throw new MojoExecutionException("Unknown role " + role);
+            }
             boolean copied = false;
-            for (final String relativeName : version.getPhpFiles()) {
+            for (final String relativeName : version.getFiles(role)) {
                 try {
                     // some packages use backslashes. they do not work on linux
-                    final File file = new File(phpDir, relativeName.replace("\\", "/"));
-                    final File destination = new File(this.getProject().getBuild().getOutputDirectory(), relativeName.replace("\\", "/"));
+                    final File file = new File(srcDir, relativeName.replace("\\", "/"));
+                    final File destination = new File(outputDir, relativeName.replace("\\", "/"));
                     getLog().debug("copying " + file.getAbsolutePath() + " to " + destination.getAbsolutePath());
                     FileUtils.copyFile(file, destination);
                     copied = true;
@@ -158,9 +239,10 @@ public class ProcessResourcesPearMojo extends AbstractPhpMojo
                 }
             }
             
-            if (!copied) {
+            if (!copied && role.equals(IPackageVersion.FILE_ROLE_PHP)) {
                 // this would cause the build to fail (empty package). let us create a readme.
-                final File file = new File(phpDir, "__README.EMPTY.PACKAGE.TXT");
+                final File file = new File(this.getProject().getBuild().getOutputDirectory(), "__README.EMPTY.PACKAGE.TXT");
+                file.getParentFile().mkdirs();
                 try {
                     new FileWriter(file).append("this is an empty pear package or import failed.").close();
                 } catch (IOException e) {
@@ -168,8 +250,8 @@ public class ProcessResourcesPearMojo extends AbstractPhpMojo
                 }
             }
         } catch (PhpException e) {
-            throw new MojoExecutionException("Problems reading php package.", e);
+            throw new MojoExecutionException("Problems reading package.", e);
         }
-	}
+    }
     
 }

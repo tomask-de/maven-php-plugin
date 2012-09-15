@@ -19,13 +19,36 @@ package org.phpmaven.pear.impl;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Set;
 import java.util.StringTokenizer;
 
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.repository.ArtifactRepository;
+import org.apache.maven.artifact.resolver.ArtifactResolutionRequest;
+import org.apache.maven.artifact.resolver.ArtifactResolutionResult;
 import org.apache.maven.execution.MavenSession;
+import org.apache.maven.model.Build;
+import org.apache.maven.model.Plugin;
 import org.apache.maven.plugin.logging.Log;
+import org.apache.maven.project.DefaultDependencyResolutionRequest;
+import org.apache.maven.project.DefaultProjectBuildingRequest;
+import org.apache.maven.project.DependencyResolutionException;
+import org.apache.maven.project.DependencyResolutionRequest;
+import org.apache.maven.project.DependencyResolutionResult;
+import org.apache.maven.project.MavenProject;
+import org.apache.maven.project.ProjectBuilder;
+import org.apache.maven.project.ProjectBuildingException;
+import org.apache.maven.project.ProjectBuildingRequest;
+import org.apache.maven.project.ProjectBuildingResult;
+import org.apache.maven.project.ProjectDependenciesResolver;
+import org.apache.maven.repository.RepositorySystem;
+import org.apache.maven.settings.Proxy;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
@@ -39,8 +62,11 @@ import org.phpmaven.exec.IPhpExecutable;
 import org.phpmaven.exec.IPhpExecutableConfiguration;
 import org.phpmaven.exec.PhpCoreException;
 import org.phpmaven.exec.PhpException;
+import org.phpmaven.exec.PhpWarningException;
 import org.phpmaven.pear.IPearChannel;
 import org.phpmaven.pear.IPearUtility;
+import org.sonatype.aether.util.version.GenericVersionScheme;
+import org.sonatype.aether.version.InvalidVersionSpecificationException;
 
 /**
  * Implementation of a pear utility via PHP.EXE and http-client.
@@ -50,6 +76,152 @@ import org.phpmaven.pear.IPearUtility;
  */
 @Component(role = IPearUtility.class, hint = "PHP_EXE", instantiationStrategy = "per-lookup")
 public class PearUtility implements IPearUtility {
+
+    private static final class LogWrapper implements Log {
+        /**
+         * underlying log.
+         */
+        private Log theLog;
+        /**
+         * true if the log is inactive (used to set the proxies).
+         */
+        private boolean silent;
+        
+        /**
+         * Sets the log.
+         * @param log log
+         */
+        public void setLog(Log log) {
+            this.theLog = log;
+        }
+        
+        /**
+         * Sets the silent flag.
+         * @param s silent
+         */
+        public void setSilent(boolean s) {
+            this.silent = s;
+        }
+        
+        @Override
+        public void debug(CharSequence arg0) {
+            if (!this.silent) {
+                this.theLog.debug(arg0);
+            }
+        }
+        
+        @Override
+        public void debug(Throwable arg0) {
+            if (!this.silent) {
+                this.theLog.debug(arg0);
+            }
+        }
+        
+        @Override
+        public void debug(CharSequence arg0, Throwable arg1) {
+            if (!this.silent) {
+                this.theLog.debug(arg0, arg1);
+            }
+        }
+        
+        @Override
+        public void error(CharSequence arg0) {
+            if (!this.silent) {
+                this.theLog.error(arg0);
+            }
+        }
+        
+        @Override
+        public void error(Throwable arg0) {
+            if (!this.silent) {
+                this.theLog.error(arg0);
+            }
+        }
+        
+        @Override
+        public void error(CharSequence arg0, Throwable arg1) {
+            if (!this.silent) {
+                this.theLog.error(arg0, arg1);
+            }
+        }
+        
+        @Override
+        public void info(CharSequence arg0) {
+            if (!this.silent) {
+                this.theLog.info(arg0);
+            }
+        }
+        
+        @Override
+        public void info(Throwable arg0) {
+            if (!this.silent) {
+                this.theLog.info(arg0);
+            }
+        }
+        
+        @Override
+        public void info(CharSequence arg0, Throwable arg1) {
+            if (!this.silent) {
+                this.theLog.info(arg0, arg1);
+            }
+        }
+        
+        @Override
+        public boolean isDebugEnabled() {
+            if (!this.silent) {
+                return this.theLog.isDebugEnabled();
+            }
+            return false;
+        }
+        
+        @Override
+        public boolean isErrorEnabled() {
+            if (!this.silent) {
+                return this.theLog.isErrorEnabled();
+            }
+            return false;
+        }
+        
+        @Override
+        public boolean isInfoEnabled() {
+            if (!this.silent) {
+                return this.theLog.isInfoEnabled();
+            }
+            return false;
+        }
+        
+        @Override
+        public boolean isWarnEnabled() {
+            if (!this.silent) {
+                return this.theLog.isWarnEnabled();
+            }
+            return false;
+        }
+        
+        @Override
+        public void warn(CharSequence arg0) {
+            if (!this.silent) {
+                this.theLog.warn(arg0);
+            }
+        }
+        
+        @Override
+        public void warn(Throwable arg0) {
+            if (!this.silent) {
+                this.theLog.warn(arg0);
+            }
+        }
+        
+        @Override
+        public void warn(CharSequence arg0, Throwable arg1) {
+            if (!this.silent) {
+                this.theLog.warn(arg0, arg1);
+            }
+        }
+    }
+    
+    /** the generic version scheme. */
+    private static final GenericVersionScheme SCHEME = new GenericVersionScheme();
 
     /**
      * The installation directory.
@@ -73,7 +245,7 @@ public class PearUtility implements IPearUtility {
     /**
      * The logger.
      */
-    private Log log;
+    private LogWrapper log = new LogWrapper();
     
     /**
      * The component factory.
@@ -104,6 +276,69 @@ public class PearUtility implements IPearUtility {
     private File testDir;
 
     private File downloadDir;
+    
+    /**
+     * true if the proxy was initialized.
+     */
+    private boolean initializedProxy;
+    
+    /**
+     * the repository system.
+     */
+    @Requirement
+    private RepositorySystem reposSystem;
+    
+    /**
+     * The project builder.
+     */
+    @Requirement
+    private ProjectBuilder projectBuilder;
+    
+    /**
+     * The dependencies resolver
+     */
+    @Requirement
+    private ProjectDependenciesResolver dependencyResolver;
+    
+    /**
+     * initializes the proxy for pear.
+     * @throws PhpException  
+     */
+    private void initializeProxy() throws PhpException {
+        if (!this.initializedProxy) {
+            this.initializedProxy = true;
+            final List<Proxy> proxies = this.session.getRequest().getProxies();
+            for (final Proxy proxy : proxies) {
+                if (proxy.isActive()) {
+                    String proxyString = "";
+                    if (proxy.getProtocol() != null && proxy.getProtocol().length() > 0) {
+                        proxyString += proxy.getProtocol();
+                        proxyString += "://";
+                    }
+                    if (proxy.getUsername() != null && proxy.getUsername().length() > 0) {
+                        proxyString += proxy.getUsername();
+                        if (proxy.getPassword() != null && proxy.getPassword().length() > 0) {
+                            proxyString += ":";
+                            proxyString += proxy.getPassword();
+                        }
+                        proxyString += "@";
+                    }
+                    proxyString += proxy.getHost();
+                    proxyString += ":";
+                    proxyString += proxy.getPort();
+                    this.log.setSilent(true);
+                    try {
+                        this.executePearCmd("config-set http_proxy " + proxyString);
+                    } finally {
+                        this.log.setSilent(false);
+                    }
+                    return;
+                }
+            }
+            // no active proxy configured
+            this.executePearCmd("config-set http_proxy \" \"");
+        }
+    }
 
     /**
      * {@inheritDoc}
@@ -155,6 +390,8 @@ public class PearUtility implements IPearUtility {
                 "  if (get_current_user() != 'root') {\n" +
                 "    $a->pear_conf = $a->safeGetenv('HOME') . '/.pearrc';\n" +
                 "  }\n" +
+                "  $a->temp_dir='$prefix/tmp';\n" +
+                "  $a->download_dir='$prefix/tmp';\n" +
                 "}\n" +
                 "if (PEAR::isError($err = $a->locatePackagesToInstall())) {\n" +
                 "  die();\n" +
@@ -171,6 +408,7 @@ public class PearUtility implements IPearUtility {
         }
         
         if (autoUpdatePear) {
+            this.initializeProxy();
             this.executePearCmd("upgrade-all");
         }
     }
@@ -266,9 +504,15 @@ public class PearUtility implements IPearUtility {
      */
     @Override
     public String executePearCmd(String arguments) throws PhpException {
+        this.initializeProxy();
         final IPhpExecutable ex = this.getExec();
         final File pearCmd = new File(this.getPhpDir(), "pearcmd.php");
-        return ex.execute("\"" + pearCmd.getAbsolutePath() + "\" " + arguments, pearCmd);
+        try {
+            return ex.execute("\"" + pearCmd.getAbsolutePath() + "\" " + arguments, pearCmd);
+        } catch (PhpWarningException e) {
+            // ignore it
+            return e.getAppendedOutput();
+        }
     }
     
     /**
@@ -298,6 +542,7 @@ public class PearUtility implements IPearUtility {
                 final String token = tokenizer.nextToken();
                 if (token.startsWith(" ")) continue;
                 if (token.startsWith("__uri")) continue;
+                if (token.startsWith("CHANNEL")) continue;
                 // if (token.startsWith("doc.")) continue;
                 final PearChannel channel = new PearChannel();
                 channel.initialize(this, new StringTokenizer(token, " ").nextToken());
@@ -386,7 +631,7 @@ public class PearUtility implements IPearUtility {
             throw new IllegalStateException("Must not be called twice!");
         }
         this.installDir = dir;
-        this.log = logger;
+        this.log.setLog(logger);
     }
 
     /**
@@ -491,6 +736,184 @@ public class PearUtility implements IPearUtility {
         return this.testDir;
     }
     
-    
+    /**
+     * Resolves the artifact.
+     * @param groupId group id
+     * @param artifactId artifact id
+     * @param version version
+     * @param type type
+     * @param classifier classifier
+     * @return the resolved artifact
+     * @throws PhpException thrown on resolve errors
+     */
+    private Artifact resolveArtifact(String groupId, String artifactId, String version, String type, String classifier)
+        throws PhpException {
+        final Artifact artifact = this.reposSystem.createArtifactWithClassifier(
+                groupId, artifactId, version, type, classifier);
+        final ArtifactResolutionRequest request = new ArtifactResolutionRequest();
+        request.setArtifact(artifact);
+        request.setLocalRepository(this.session.getLocalRepository());
+        request.setOffline(this.session.isOffline());
+        final Set<ArtifactRepository> setRepos = new HashSet<ArtifactRepository>(
+                this.session.getRequest().getRemoteRepositories());
+        setRepos.addAll(this.session.getCurrentProject().getRemoteArtifactRepositories());
+        request.setRemoteRepositories(new ArrayList<ArtifactRepository>(setRepos));
+        final ArtifactResolutionResult result = this.reposSystem.resolve(request);
+        if (!result.isSuccess()) {
+            throw new PhpCoreException("dependency resolution failed for " +
+                groupId + ":" + artifactId + ":" + version);
+        }
+        
+        final Artifact resultArtifact = result.getArtifacts().iterator().next();
+        return resultArtifact;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void installFromMavenRepository(String groupId, String artifactId, String version) throws PhpException {
+        final Artifact artifact = this.resolveArtifact(groupId, artifactId, version, "pom", null);
+        final File pomFile = artifact.getFile();
+        final ProjectBuildingRequest pbr = new DefaultProjectBuildingRequest(this.session.getProjectBuildingRequest());
+        try {
+            pbr.setProcessPlugins(false);
+            final ProjectBuildingResult pbres = this.projectBuilder.build(pomFile, pbr);
+            final MavenProject project = pbres.getProject();
+            final DependencyResolutionRequest drr = new DefaultDependencyResolutionRequest(
+                project, session.getRepositorySession());
+            final DependencyResolutionResult drres = this.dependencyResolver.resolve(drr);
+            // dependencies may be duplicate. ensure we have only one version (the newest).
+            final Map<String, org.sonatype.aether.graph.Dependency> deps =
+                new HashMap<String, org.sonatype.aether.graph.Dependency>();
+            for (final org.sonatype.aether.graph.Dependency dep : drres.getDependencies()) {
+                final String key = dep.getArtifact().getGroupId() + ":" + dep.getArtifact().getArtifactId();
+                if (!deps.containsKey(key)) {
+                    deps.put(key, dep);
+                } else {
+                    final org.sonatype.aether.graph.Dependency dep2 = deps.get(key);
+                    final org.sonatype.aether.version.Version ver =
+                        SCHEME.parseVersion(dep.getArtifact().getVersion());
+                    final org.sonatype.aether.version.Version ver2 =
+                        SCHEME.parseVersion(dep2.getArtifact().getVersion());
+                    if (ver2.compareTo(ver) < 0) {
+                        deps.put(key, dep);
+                    }
+                }
+            }
+            final List<File> filesToInstall = new ArrayList<File>();
+            // first the dependencies
+            this.log.debug(
+                    "resolving tgz and project for " +
+                    groupId + ":" +
+                    artifactId + ":" + 
+                    version);
+            this.resolveTgz(groupId, artifactId, version, filesToInstall);
+            this.resolveChannels(project);
+            for (final org.sonatype.aether.graph.Dependency dep : deps.values()) {
+                this.log.debug(
+                        "resolving tgz and project for " +
+                        dep.getArtifact().getGroupId() + ":" +
+                        dep.getArtifact().getArtifactId() + ":" + 
+                        dep.getArtifact().getVersion());
+                if (this.isMavenCorePackage(
+                    dep.getArtifact().getGroupId(),
+                    dep.getArtifact().getArtifactId())) {
+                    // ignore core packages
+                    continue;
+                }
+                this.resolveTgz(
+                    dep.getArtifact().getGroupId(),
+                    dep.getArtifact().getArtifactId(),
+                    dep.getArtifact().getVersion(),
+                    filesToInstall);
+                final Artifact depPomArtifact = this.resolveArtifact(
+                    dep.getArtifact().getGroupId(),
+                    dep.getArtifact().getArtifactId(),
+                    dep.getArtifact().getVersion(),
+                    "pom", null);
+                final File depPomFile = depPomArtifact.getFile();
+                final ProjectBuildingResult depPbres = this.projectBuilder.build(depPomFile, pbr);
+                final MavenProject depProject = depPbres.getProject();
+                this.resolveChannels(depProject);
+            }
+            
+            Collections.reverse(filesToInstall);
+            for (final File file : filesToInstall) {
+                this.executePearCmd("install --force --nodeps \"" + file.getAbsolutePath() + "\"");
+            }
+        } catch (InvalidVersionSpecificationException ex) {
+            throw new PhpCoreException(ex);
+        } catch (ProjectBuildingException ex) {
+            throw new PhpCoreException(ex);
+        } catch (DependencyResolutionException ex) {
+            throw new PhpCoreException(ex);
+        }
+    }
+
+    /**
+     * resolving the pear channels from given project.
+     * @param project the project
+     * @throws PhpException thrown on discover errors
+     */
+    private void resolveChannels(MavenProject project) throws PhpException {
+        final Build build = project.getBuild();
+        if (build != null) {
+            for (final Plugin plugin : build.getPlugins()) {
+                if ("org.phpmaven".equals(plugin.getGroupId()) &&
+                        "maven-php-plugin".equals(plugin.getArtifactId())) {
+                    final Xpp3Dom dom = (Xpp3Dom) plugin.getConfiguration();
+                    final Xpp3Dom pearChannelsDom = dom.getChild("pearChannels");
+                    if (pearChannelsDom != null) {
+                        for (final Xpp3Dom child : pearChannelsDom.getChildren()) {
+                            this.channelDiscover(child.getValue());
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Resolves the tgz and adds it to the files for installation.
+     * @param groupId group id
+     * @param artifactId artifact id
+     * @param version version
+     * @param filesToInstall files to be installed
+     * @throws PhpException thrown on resolve errors.
+     */
+    private void resolveTgz(String groupId, String artifactId, String version, List<File> filesToInstall)
+        throws PhpException {
+        if (!this.isMavenCorePackage(groupId, artifactId)) {
+            final Artifact artifact = this.resolveArtifact(groupId, artifactId, version, "tgz", "pear-tgz");
+            filesToInstall.add(artifact.getFile());
+        }
+    }
+
+    @Override
+    public boolean isMavenCorePackage(String groupId, String artifactId) {
+        if (("net.php".equals(groupId)) && (
+                "Archive_Tar".equals(artifactId)
+                || "Console_Getopt".equals(artifactId)
+                || "PEAR".equals(artifactId)
+                || "Structures_Graph".equals(artifactId)
+                || "XML_Util".equals(artifactId))) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isPearCorePackage(String channel, String pkg) {
+        if (("pear".equals(channel) || "pear.php.net".equals(channel)) && (
+                "Archive_Tar".equals(pkg)
+                || "Console_Getopt".equals(pkg)
+                || "PEAR".equals(pkg)
+                || "Structures_Graph".equals(pkg)
+                || "XML_Util".equals(pkg))) {
+            return true;
+        }
+        return false;
+    }
 
 }

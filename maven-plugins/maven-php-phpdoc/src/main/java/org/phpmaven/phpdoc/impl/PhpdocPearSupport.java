@@ -36,8 +36,6 @@ import org.phpmaven.exec.PhpCoreException;
 import org.phpmaven.exec.PhpErrorException;
 import org.phpmaven.exec.PhpException;
 import org.phpmaven.exec.PhpWarningException;
-import org.phpmaven.pear.IPackage;
-import org.phpmaven.pear.IPackageVersion;
 import org.phpmaven.pear.IPearConfiguration;
 import org.phpmaven.pear.IPearUtility;
 import org.phpmaven.phpdoc.IPhpdocRequest;
@@ -113,13 +111,34 @@ public class PhpdocPearSupport extends AbstractPhpdocSupport implements IPhpdocS
             if (!util.isInstalled()) {
                 util.installPear(false);
             }
+
+            if (this.phpdocVersion.startsWith("1.")) {
+                writeIni(log, request, phpDocConfigFile, generatedPhpDocConfigFile);
+                util.installFromMavenRepository("net.php", "PhpDocumentor", this.phpdocVersion);
+            } else {
+                writeXml(log, request, phpDocConfigFile, generatedPhpDocConfigFile);
+                // there is a very strange dependency mismatching in phpdoc.
+                // an unknown version 0.17.0 is used as dependency for various things.
+                // however it does not really work; maybe we need an empty dummy package.
+                
+                //if (>=2.0.0-alpha-2.....) util.installFromMavenRepository("org.phpdoc", "phpDocumentor", "0.17.0");
+                // another option would be to install alpha 1 and after that install alpha 2
+                /*if (!"2.0.0-alpha-1".equals(this.phpdocVersion)) {
+                    util.installFromMavenRepository("org.phpdoc", "phpDocumentor", "2.0.0-alpha-1");
+                }*/
+                util.installFromMavenRepository("org.phpdoc", "phpDocumentor", "0.17.0");
+                
+                util.installFromMavenRepository("org.phpdoc", "phpDocumentor", this.phpdocVersion);
+            }
+            
+            /*
             IPackage pkg = null;
             if (this.phpdocVersion.startsWith("1.")) {
                 writeIni(log, request, phpDocConfigFile, generatedPhpDocConfigFile);
                 pkg = util.channelDiscover("pear.php.net").getPackage("PhpDocumentor");
             } else {
                 writeXml(log, request, phpDocConfigFile, generatedPhpDocConfigFile);
-                pkg = util.channelDiscover("pear.phpdoc.org").getPackage("PhpDocumentor");
+                pkg = util.channelDiscover("pear.phpdoc.org").getPackage("phpDocumentor");
             }
             
             final IPackageVersion version = pkg.getVersion(this.phpdocVersion);
@@ -128,7 +147,7 @@ public class PhpdocPearSupport extends AbstractPhpdocSupport implements IPhpdocS
             } else if (!pkg.getInstalledVersion().getVersion().getPearVersion().equals(
                     version.getVersion().getPearVersion())) {
                 version.install();
-            }
+            }*/
             
             final File phpDocFile = new File(util.getBinDir(), "phpdoc");
             if (phpDocFile == null || !phpDocFile.isFile()) {

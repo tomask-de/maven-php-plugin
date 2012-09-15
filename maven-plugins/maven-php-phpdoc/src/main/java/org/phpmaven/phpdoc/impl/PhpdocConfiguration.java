@@ -57,7 +57,7 @@ public class PhpdocConfiguration implements IPhpdocConfiguration {
     /**
      * The service name.
      */
-    @Configuration(name = "phpdocService", value = "PHP_EXE")
+    @Configuration(name = "phpdocService", value = "PEAR")
     private String phpdocService;
 
     /**

@@ -76,7 +76,7 @@ public class PharDirectory extends PharEntry {
      * {@inheritDoc}
      */
     @Override
-    EntryType getType() {
+    public EntryType getType() {
         return EntryType.DIRECTORY;
     }
 

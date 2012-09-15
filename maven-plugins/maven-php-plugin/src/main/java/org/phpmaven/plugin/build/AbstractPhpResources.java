@@ -26,7 +26,6 @@ import org.phpmaven.lint.ILintExecution;
 import org.phpmaven.plugin.php.AbstractPhpWalkHelper;
 import org.phpmaven.plugin.php.IPhpWalkConfigurationMojo;
 import org.phpmaven.plugin.php.MultiException;
-import org.phpmaven.plugin.php.PhpException;
 
 
 /**

@@ -16,6 +16,8 @@
 
 package org.phpmaven.pear;
 
+import java.io.File;
+
 import org.phpmaven.exec.PhpException;
 
 /**
@@ -25,6 +27,43 @@ import org.phpmaven.exec.PhpException;
  * @since 2.0.0
  */
 public interface IPackageVersion {
+    
+    /**
+     * File role: php script files.
+     */
+    String FILE_ROLE_PHP = "php";
+    
+    /**
+     * File role: doc files.
+     */
+    String FILE_ROLE_DOC = "doc";
+    
+    /**
+     * File role: www files.
+     */
+    String FILE_ROLE_WWW = "www";
+    
+    /**
+     * File role: data files.
+     */
+    String FILE_ROLE_DATA = "data";
+    
+    /**
+     * Pear packager version.
+     */
+    enum PearPkgVersion {
+        /** version 1 pear package. */
+        PKG_V1,
+        /** version 2 pear package. */
+        PKG_V2
+    }
+    
+    /**
+     * Returns the packager version.
+     * @return packager version.
+     * @throws PhpException thrown on errors.
+     */
+    PearPkgVersion getPackagerVersion() throws PhpException;
     
     /**
      * Returns the package name.
@@ -213,8 +252,9 @@ public interface IPackageVersion {
      * if this method is called twice.
      * @param pearUtility the pear utility to be used.
      * @param pearChannel the pear channel to be used.
+     * @param pearPackage the pear Package to be used.
      */
-    void initialize(IPearUtility pearUtility, IPearChannel pearChannel);
+    void initialize(IPearUtility pearUtility, IPearChannel pearChannel, IPackage pearPackage);
     
     /**
      * Returns the maintainers.
@@ -238,7 +278,7 @@ public interface IPackageVersion {
 
     /**
      * Installs this version.
-     * @param noUnistall true to not uninstall and instead try to overwrite an already installed package.
+     * @param noUninstall true to not uninstall and instead try to overwrite an already installed package.
      * @throws PhpException thrown on exceptions.
      */
     void install(boolean noUninstall) throws PhpException;
@@ -249,6 +289,14 @@ public interface IPackageVersion {
      * @throws PhpException thrown on execution errors
      */
     Iterable<String> getPhpFiles() throws PhpException;
+
+    /**
+     * Gets the php files.
+     * @param role the file role
+     * @return php files.
+     * @throws PhpException thrown on execution errors
+     */
+    Iterable<String> getFiles(String role) throws PhpException;
 
     /**
      * Returns the name of the extension this version provides.
@@ -262,5 +310,19 @@ public interface IPackageVersion {
      * @return pear package.
      */
     IPackage getPackage();
+
+    /**
+     * Writes the package xml to given file.
+     * @param toFile package xml file (target)
+     * @throws PhpException thrown on errors
+     */
+    void writePackageXml(File toFile) throws PhpException;
+    
+    /**
+     * Writes the tgz (original package) to given file.
+     * @param toFile tgz file (target)
+     * @throws PhpException thrown on errors
+     */
+    void writeTgz(File toFile) throws PhpException;
 
 }

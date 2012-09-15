@@ -176,7 +176,7 @@ public class PhpUnitCoverage extends AbstractApiDocReport implements IPhpunitCon
             
             getLog().info(
                     "\n-------------------------------------------------------\n" +
-                    "T E S T S - R E P O R T I N G\n" +
+                    "T E S T S - R E P O R T I N G   C O D E C O V E R A G E\n" +
                     "-------------------------------------------------------\n");
             
             // test files

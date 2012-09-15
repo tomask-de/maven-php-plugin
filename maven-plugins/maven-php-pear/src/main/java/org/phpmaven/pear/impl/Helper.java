@@ -18,6 +18,7 @@ package org.phpmaven.pear.impl;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -98,6 +99,40 @@ public final class Helper {
             throw new IOException("Empty response.");
         }
         return EntityUtils.toString(entity);
+    }
+    
+    /**
+     * Returns the binary file contents.
+     * @param uri URI of the resource.
+     * @return the files content.
+     * @throws IOException thrown on errors.
+     */
+    public static byte[] getBinaryFileContents(String uri) throws IOException {
+        // is it inside the local filesystem?
+        if (uri.startsWith("file://")) {
+            final File channelFile = new File(uri.substring(7));
+
+            final byte[] result = new byte[(int) channelFile.length()];
+            final FileInputStream fis = new FileInputStream(channelFile);
+            fis.read(result);
+            return result;
+        }
+        
+        // try http connection
+        final HttpClient client = new DefaultHttpClient();
+        final HttpGet httpget = new HttpGet(uri);
+        final HttpResponse response = client.execute(httpget);
+        if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+            throw new IOException("Invalid http status: " +
+                    response.getStatusLine().getStatusCode() +
+                    " / " +
+                    response.getStatusLine().getReasonPhrase());
+        }
+        final HttpEntity entity = response.getEntity();
+        if (entity == null) {
+            throw new IOException("Empty response.");
+        }
+        return EntityUtils.toByteArray(entity);
     }
 
 }
