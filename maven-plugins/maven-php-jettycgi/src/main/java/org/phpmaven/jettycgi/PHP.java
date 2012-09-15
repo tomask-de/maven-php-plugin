@@ -292,7 +292,14 @@ public class PHP extends HttpServlet
           execCmd=_cmdPrefix+" "+execCmd;*/
 
       env.set("SCRIPT_FILENAME", path);
+      env.set("REDIRECT_STATUS", "200");
       final String execCmd = (this._cmdPrefix == null ? "php-cgi" : this._cmdPrefix) + " -d include_path='" + this.includePath + "'";
+      
+      if (Log.isDebugEnabled())
+      {
+          Log.debug("executing: " + execCmd);
+          Log.debug("ENV: " + env);
+      }
       // PHP-END
       
       Process p=(dir==null)?Runtime.getRuntime().exec(execCmd, env.getEnvArray()):Runtime.getRuntime().exec(execCmd,env.getEnvArray(),dir);

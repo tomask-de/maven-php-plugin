@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+	<properties>
+		<author email="mep_eisen@web.de">
+			Martin Eisengardt
+		</author>
+
+		<title>Configuration overview</title>
+		<meta name="keyword" content="apache, maven, php, tutorials"></meta>
+	</properties>
+	
+	<body>
+
+	<section name="Configuration overview">
+	<p>
+	  As the most maven plugins the configuration is placed within the build section of your pom.xml. Depending on the configuration option you want to change
+	  add the following to your pom:
+	</p>
+	<macro name="snippet">
+	  <param name="id" value="pom"></param>
+	  <param name="file" value="${phpmavenFsRoot}/src/site/include/pom_config_example.xml"></param>
+    </macro>
+	</section>
+
+	<section name="Configuration - PHP.EXE">
+	<p>
+	  At first you should choose the best plugin to influence the php.exe. See the following hints:
+	</p>
+	<ul>
+	<li><b>maven-php-plugin</b> will influence the php.exe configuration for some of the goals. Not all goals support seeting the
+	    php executable configuration.</li>
+	<li><b>maven-php-xxxx</b> will influence the php.exe for all tasks this plugin is performing. For example maven-php-phpunit willm influence
+	    the executable configuration for phpunit invocations.</li>
+	<li><b>maven-php-project</b> will influence the php.exe for each project invocation. Project invocations are each phpunit tests and each
+	    invocation to a cli script.</li>
+	<li><b>maven-php-exec</b> will influence the php.exe for <i>everything</i>. Be careful to use this because if you do some mistake php-maven will
+	    not be working any more. Even the packing of phar files may fail.</li>
+	</ul>
+	<p>
+	  As you see we have several locations for setting the php.exe. You should always be careful where to set command line options or additional defines.
+	  If you only need them for phpunit then use the phpunit plugin for configuration.
+	</p>
+	<p>
+	  PHP-Maven assumes that you find PHP.EXE on path variable. However this may be a problem on your system or you want to use an alternative php.exe.
+	  In this case you should use the maven-php-exec configuration and change the phpExecutable.
+	</p>
+	</section>
+	
+	<section name="maven-php-exec">
+	<p>
+	  See <a href="maven-php-exec/apidocs/org/phpmaven/exec/IPhpExecutableConfiguration.html">javadoc</a> for details. This configuration is used for
+	  every invocation of php (including phar and pear). see the following example:
+	</p>
+	<macro name="snippet">
+	  <param name="id" value="pom-exec-default"></param>
+	  <param name="file" value="${phpmavenFsRoot}/src/site/include/pom_config_example.xml"></param>
+    </macro>
+	</section>
+	
+	<section name="maven-php-project">
+	<p>
+	  See <a href="maven-php-project/apidocs/org/phpmaven/project/IProjectPhpExecution.html">javadoc</a> for details. This configuration is used for
+	  every invocation of php for project related stuff; currently php cli invocations and phpunit invocations. See the following example to add
+	  a custom include path:
+	</p>
+	<macro name="snippet">
+	  <param name="id" value="pom-project-default"></param>
+	  <param name="file" value="${phpmavenFsRoot}/src/site/include/pom_config_example.xml"></param>
+    </macro>
+	</section>
+	
+	<section name="maven-php-pear">
+	<p>
+	  See <a href="maven-php-pear/apidocs/org/phpmaven/pear/IPearConfiguration.html">javadoc</a> for details. This configuration is used for
+	  every invocation of pear packages. Notice: You do not need to configure anything for pear if you are using pear project as dependencies.
+	  Pear packages found in the official repository are simple php projects. See the following example to change the pear installation folder:
+	</p>
+	<macro name="snippet">
+	  <param name="id" value="pom-pear-default"></param>
+	  <param name="file" value="${phpmavenFsRoot}/src/site/include/pom_config_example.xml"></param>
+    </macro>
+	</section>
+	
+	<section name="maven-php-phpunit">
+	<p>
+	  See <a href="maven-php-phpunit/apidocs/org/phpmaven/project/IPhpunitConfiguration.html">javadoc</a> for details. This configuration is used for
+	  every phpunit invocation. See the following example to add a bootstrap file:
+	</p>
+	<macro name="snippet">
+	  <param name="id" value="pom-phpunit-default"></param>
+	  <param name="file" value="${phpmavenFsRoot}/src/site/include/pom_config_example.xml"></param>
+    </macro>
+	</section>
+	
+	<section name="maven-php-phpdoc">
+	<p>
+	  See <a href="maven-php-phpdoc/apidocs/org/phpmaven/project/IPhpdocConfiguration.html">javadoc</a> for details. This configuration is used for
+	  every phpdoc report generation. See the following example for seeting the phpdoc version that will be used.
+	</p>
+	<macro name="snippet">
+	  <param name="id" value="pom-phpdoc-default"></param>
+	  <param name="file" value="${phpmavenFsRoot}/src/site/include/pom_config_example.xml"></param>
+    </macro>
+	</section>
+	
+</body>
+</document>

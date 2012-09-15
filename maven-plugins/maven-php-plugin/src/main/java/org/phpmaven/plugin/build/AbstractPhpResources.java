@@ -144,12 +144,15 @@ public abstract class AbstractPhpResources extends AbstractPhpMojo {
             getLog().info("Not including php sources in resulting output.");
         }
         
+        // resolve wildcards in excludeFromValidation
+        excludeFromValidation = FileHelper.getWildcardMatches(excludeFromValidation, getSourceDirectory(), false);
+ 
         getLog().info("Unpacking dependencies");
         
         try {
             // TODO Is this correct?!?
             if (!isIgnoreValidate()) {
-                this.getPhpHelper().prepareCompileDependencies();
+                this.getPhpHelper().prepareCompileDependencies(this.factory, this.getSession());
             }
             getLog().info("Copying php files");
             new PhpWalkHelper(this).goRecursiveAndCall(this.getSourceFolder());
