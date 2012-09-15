@@ -75,10 +75,6 @@ public class LintQueue {
      * Terminates the lint queue
      */
     public void terminate() {
-        this.terminated = true;
-        synchronized (this.mutex) {
-            this.mutex.notifyAll();
-        }
         // wait for the walker threads to handle all lint checks
         while (!this.queue.isEmpty()) {
             try {
@@ -87,6 +83,10 @@ public class LintQueue {
             catch (InterruptedException ex) {
                 // ignore
             }
+        }
+        this.terminated = true;
+        synchronized (this.mutex) {
+            this.mutex.notifyAll();
         }
     }
     

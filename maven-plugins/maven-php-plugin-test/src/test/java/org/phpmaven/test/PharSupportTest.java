@@ -92,7 +92,7 @@ public class PharSupportTest extends TestCase {
     }
 
     /**
-     * tests the goal "install" with autoprepend file.
+     * tests the goal "install" with dependencies to another phar.
      *
      * @throws Exception
      */
@@ -135,6 +135,57 @@ public class PharSupportTest extends TestCase {
         
         verifierDep2.assertArtifactPresent("org.phpmaven.test", "phar-with-dep2", "0.0.1", "pom");
         verifierDep2.assertArtifactPresent("org.phpmaven.test", "phar-with-dep2", "0.0.1", "phar");
+        
+        verifierDep2.assertFilePresent("target/php-deps/MyClass.php");
+    }
+
+    /**
+     * tests the goal "install" with dependencies to another phar that provides a folder structure.
+     *
+     * @throws Exception
+     */
+    public void testGoalTestWithDependenciesInFolders() throws Exception {
+        final File testDirDep1 = ResourceExtractor.simpleExtractResources( getClass(), "/org/phpmaven/test/projects/phar-with-dep1-folders");
+        final File testDirDep2 = ResourceExtractor.simpleExtractResources( getClass(), "/org/phpmaven/test/projects/phar-with-dep2-folders");
+        
+        final Verifier verifierDep1 = new Verifier( testDirDep1.getAbsolutePath() );
+        
+        // delete the pom from previous runs
+        verifierDep1.deleteArtifact( "org.phpmaven.test", "phar-with-dep1-folders", "0.0.1", "pom" );
+        verifierDep1.deleteArtifact( "org.phpmaven.test", "phar-with-dep1-folders", "0.0.1", "phar" );
+
+        // execute testing
+        verifierDep1.executeGoal("install");
+
+        // verify no error was thrown
+        verifierDep1.verifyErrorFreeLog();
+
+        // reset the streams
+        verifierDep1.resetStreams();
+        
+        verifierDep1.assertArtifactPresent("org.phpmaven.test", "phar-with-dep1-folders", "0.0.1", "pom");
+        verifierDep1.assertArtifactPresent("org.phpmaven.test", "phar-with-dep1-folders", "0.0.1", "phar");
+
+        final Verifier verifierDep2 = new Verifier( testDirDep2.getAbsolutePath() );
+        
+        // delete the pom from previous runs
+        verifierDep2.deleteArtifact( "org.phpmaven.test", "phar-with-dep2-folders", "0.0.1", "pom" );
+        verifierDep2.deleteArtifact( "org.phpmaven.test", "phar-with-dep2-folders", "0.0.1", "phar" );
+
+        // execute testing
+        verifierDep2.executeGoal("install");
+
+        // verify no error was thrown
+        verifierDep2.verifyErrorFreeLog();
+
+        // reset the streams
+        verifierDep2.resetStreams();
+        
+        verifierDep2.assertArtifactPresent("org.phpmaven.test", "phar-with-dep2-folders", "0.0.1", "pom");
+        verifierDep2.assertArtifactPresent("org.phpmaven.test", "phar-with-dep2-folders", "0.0.1", "phar");
+        
+        verifierDep2.assertFilePresent("target/php-deps/folderA/MyClassA.php");
+        verifierDep2.assertFilePresent("target/php-deps/folderB/MyClassB.php");
     }
 
 }

@@ -152,7 +152,7 @@ public class PearCreatePomMojo extends DefaultMojo
             "            <plugin>\n" + //$NON-NLS-1$
             "                <groupId>org.phpmaven</groupId>\n" + //$NON-NLS-1$
             "                <artifactId>maven-php-plugin</artifactId>\n" + //$NON-NLS-1$
-            "                <version>2.0.0-beta-1</version>\n" + //$NON-NLS-1$
+            "                <version>2.0.0-beta-2</version>\n" + //$NON-NLS-1$
             "                <extensions>true</extensions>\n" + //$NON-NLS-1$
             "                <configuration>\n" + //$NON-NLS-1$
             "                    <pearChannels>\n" + //$NON-NLS-1$
@@ -447,7 +447,7 @@ public class PearCreatePomMojo extends DefaultMojo
         
         String pomXml = POM_TEMPLATE.replace("${TARGET.GROUPID}", this.pearGroupId);
         pomXml = pomXml.replace("${TARGET.ARTIFACTID}", this.pearArtifactId);
-        pomXml = pomXml.replace("${TARGET.NAME}", info.getSummary() == null ? this.pearName : info.getSummary());
+        pomXml = pomXml.replace("${TARGET.NAME}", escapeXml(info.getSummary()) == null ? this.pearName : info.getSummary());
         pomXml = pomXml.replace("${TARGET.VERSION}", this.pearPackageMavenVersion);
         pomXml = pomXml.replace("${TARGET.PEARVERSION}", this.pearPackageVersion);
         pomXml = pomXml.replace("${TARGET.CHANNELS}", channels.toString());

@@ -419,7 +419,7 @@ public class PhpMojoHelper implements IPhpExecution {
         @SuppressWarnings("unchecked")
         final Set<Artifact> deps = this.project.getArtifacts();
         for (final Artifact dep : deps) {
-            this.log.debug("dependency " + 
+            this.log.info("dependency " + 
                 dep.getGroupId() + ":" + 
                 dep.getArtifactId() + ":" +
                 dep.getVersion() + ":" +
@@ -440,7 +440,11 @@ public class PhpMojoHelper implements IPhpExecution {
             }
             packedElements.add(dep.getFile().getAbsolutePath());
         }
+        // unset additionalPhpParameters temporary for unphar
+        final String s = this.additionalPhpParameters;
+        this.additionalPhpParameters = "";
         FileHelper.unzipElements(this.log, this.dependenciesTargetDirectory, packedElements, this);
+        this.additionalPhpParameters = s; 
     }
 
     /**
@@ -454,7 +458,7 @@ public class PhpMojoHelper implements IPhpExecution {
         @SuppressWarnings("unchecked")
         final Set<Artifact> deps = this.project.getArtifacts();
         for (final Artifact dep : deps) {
-            this.log.debug("dependency " + 
+            this.log.info("dependency " + 
                 dep.getGroupId() + ":" + 
                 dep.getArtifactId() + ":" +
                 dep.getVersion() + ":" +
@@ -475,7 +479,11 @@ public class PhpMojoHelper implements IPhpExecution {
             }
             packedElements.add(dep.getFile().getAbsolutePath());
         }
+        // unset additionalPhpParameters temporary for unphar
+        final String s = this.additionalPhpParameters;
+        this.additionalPhpParameters = "";
         FileHelper.unzipElements(this.log, this.testDependenciesTargetDirectory, packedElements, this);
+        this.additionalPhpParameters = s;
     }
     
     /**
