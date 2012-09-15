@@ -16,8 +16,6 @@
 
 package org.phpmaven.core;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.HashSet;
@@ -43,6 +41,7 @@ import org.codehaus.plexus.component.configurator.converters.lookup.DefaultConve
 import org.codehaus.plexus.component.configurator.expression.ExpressionEvaluationException;
 import org.codehaus.plexus.component.configurator.expression.ExpressionEvaluator;
 import org.codehaus.plexus.component.configurator.expression.TypeAwareExpressionEvaluator;
+import org.codehaus.plexus.component.repository.ComponentDescriptor;
 import org.codehaus.plexus.component.repository.exception.ComponentLifecycleException;
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 import org.codehaus.plexus.configuration.PlexusConfiguration;
@@ -102,8 +101,16 @@ public class ComponentFactory implements IComponentFactory {
     public <T> T lookup(Class<T> clazz, Xpp3Dom[] configuration, MavenSession session)
         throws ComponentLookupException, PlexusConfigurationException {
         final T result = this.plexusContainer.lookup(clazz);
-        
-        ClassRealm realm = this.plexusContainer.getComponentDescriptor(clazz.getName(), "default").getRealm();
+
+        ClassRealm realm = null;
+        final ComponentDescriptor<?> componentDescriptor =
+            this.plexusContainer.getComponentDescriptor(clazz.getName(), "default");
+        if (componentDescriptor != null) {
+            realm = componentDescriptor.getRealm();
+        }
+        if (realm == null && clazz.getClassLoader() instanceof ClassRealm) {
+            realm = (ClassRealm) clazz.getClassLoader();
+        }
         if (realm == null) {
             realm = this.plexusContainer.getContainerRealm();
         }
@@ -127,7 +134,18 @@ public class ComponentFactory implements IComponentFactory {
         throws ComponentLookupException, PlexusConfigurationException {
         final T result = this.plexusContainer.lookup(clazz, roleHint);
         
-        final ClassRealm realm = this.plexusContainer.getComponentDescriptor(clazz.getName(), roleHint).getRealm();
+        ClassRealm realm = null;
+        final ComponentDescriptor<?> componentDescriptor =
+                this.plexusContainer.getComponentDescriptor(clazz.getName(), roleHint);
+        if (componentDescriptor != null) {
+            realm = componentDescriptor.getRealm();
+        }
+        if (realm == null && clazz.getClassLoader() instanceof ClassRealm) {
+            realm = (ClassRealm) clazz.getClassLoader();
+        }
+        if (realm == null) {
+            realm = this.plexusContainer.getContainerRealm();
+        }
         
         configure(
                 clazz,
@@ -152,7 +170,7 @@ public class ComponentFactory implements IComponentFactory {
      */
     private <T> void configure(Class<T> clazz, Xpp3Dom[] configuration,
             MavenProject mavenProject, final T result, final ClassRealm realm, MavenSession session)
-        throws PlexusConfigurationException {
+        throws ComponentLookupException, PlexusConfigurationException {
         final MojoExecution execution = new MojoExecution(null);
         final ExpressionEvaluator expressionEvaluator = new PluginParameterExpressionEvaluator(session, execution);
         
@@ -216,7 +234,7 @@ public class ComponentFactory implements IComponentFactory {
     private void configureFromAnnotation(Class<?> clazz,
             MavenProject mavenProject, final Object result, final ClassRealm realm,
             final ExpressionEvaluator expressionEvaluator)
-        throws PlexusConfigurationException {
+        throws ComponentLookupException, PlexusConfigurationException {
         final BuildPluginConfiguration pConfiguration = clazz.getAnnotation(BuildPluginConfiguration.class);
         if (pConfiguration != null) {
             
@@ -266,7 +284,7 @@ public class ComponentFactory implements IComponentFactory {
      */
     private void populatePluginFields(Object component, PlexusConfiguration configuration,
         ExpressionEvaluator expressionEvaluator, ClassRealm realm)
-        throws PlexusConfigurationException {
+        throws ComponentLookupException, PlexusConfigurationException {
         ComponentConfigurator configurator = null;
         
         try {
@@ -285,25 +303,7 @@ public class ComponentFactory implements IComponentFactory {
             }
             message += ": " + e.getMessage();
             
-            throw new IllegalStateException(message, e);
-        } catch (ComponentLookupException e) {
-            throw new PlexusConfigurationException(
-                         "Unable to retrieve component configurator basic "
-                             + " for configuration of component " + component.getClass().getName(), e);
-        } catch (NoClassDefFoundError e) {
-            final ByteArrayOutputStream os = new ByteArrayOutputStream(1024);
-            final PrintStream ps = new PrintStream(os);
-            ps.println("A required class was missing during configuration of component "
-                    + component.getClass().getName() + ": " + e.getMessage());
-
-            throw new PlexusConfigurationException(os.toString(), e);
-        } catch (LinkageError e) {
-            final ByteArrayOutputStream os = new ByteArrayOutputStream(1024);
-            final PrintStream ps = new PrintStream(os);
-            ps.println("An API incompatibility was encountered during configuration of component "
-                    + component.getClass().getName() + ": " + e.getClass().getName() + ": " + e.getMessage());
-
-            throw new PlexusConfigurationException(os.toString(), e);
+            throw new PlexusConfigurationException(message, e);
         } finally {
             if (configurator != null) {
                 try {
@@ -372,7 +372,17 @@ public class ComponentFactory implements IComponentFactory {
         final List<T> list = this.plexusContainer.lookupList(type);
         @SuppressWarnings("unchecked")
         final T[] result = list.toArray((T[]) Array.newInstance(type, list.size()));
-        final ClassRealm realm = this.plexusContainer.getComponentDescriptor(type.getName(), "default").getRealm();
+        
+        ClassRealm realm = null;
+        final ComponentDescriptor<?> componentDescriptor =
+                this.plexusContainer.getComponentDescriptor(type.getName(), "default");
+        if (componentDescriptor != null) {
+            realm = componentDescriptor.getRealm();
+        }
+        if (realm == null) {
+            realm = this.plexusContainer.getContainerRealm();
+        }
+        
         for (final T res : result) {
             configure(
                     type,

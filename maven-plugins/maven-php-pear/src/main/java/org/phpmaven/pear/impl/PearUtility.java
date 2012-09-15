@@ -17,6 +17,7 @@
 package org.phpmaven.pear.impl;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -295,7 +296,7 @@ public class PearUtility implements IPearUtility {
     private ProjectBuilder projectBuilder;
     
     /**
-     * The dependencies resolver
+     * The dependencies resolver.
      */
     @Requirement
     private ProjectDependenciesResolver dependencyResolver;
@@ -387,9 +388,8 @@ public class PearUtility implements IPearUtility {
                 "  $a->localInstall = true;\n" +
                 "  $a->pear_conf = '$prefix\\\\pear.ini';\n" +
                 "} else {\n" +
-                "  if (get_current_user() != 'root') {\n" +
-                "    $a->pear_conf = $a->safeGetenv('HOME') . '/.pearrc';\n" +
-                "  }\n" +
+                "  $a->localInstall = true;\n" +
+                "  $a->pear_conf = '$prefix/pear.ini';\n" +
                 "  $a->temp_dir='$prefix/tmp';\n" +
                 "  $a->download_dir='$prefix/tmp';\n" +
                 "}\n" +
@@ -508,7 +508,11 @@ public class PearUtility implements IPearUtility {
         final IPhpExecutable ex = this.getExec();
         final File pearCmd = new File(this.getPhpDir(), "pearcmd.php");
         try {
-            return ex.execute("\"" + pearCmd.getAbsolutePath() + "\" " + arguments, pearCmd);
+            return ex.execute(
+                "\"" + pearCmd.getAbsolutePath() + "\" " +
+                "-c \"" + new File(this.getInstallDir().getAbsolutePath(), "pear.ini").getAbsolutePath() + "\" " +
+                "-C \"" + new File(this.getInstallDir().getAbsolutePath(), "pear.conf").getAbsolutePath() + "\" " +
+                " " + arguments, pearCmd);
         } catch (PhpWarningException e) {
             // ignore it
             return e.getAppendedOutput();
@@ -517,9 +521,10 @@ public class PearUtility implements IPearUtility {
     
     /**
      * Initialized the known channels and ensures that there is a pear installation at {@link #installDir}.
+     * @param readRemote true to read the remote channels
      * @throws PhpException thrown if something is wrong.
      */
-    private void initChannels() throws PhpException {
+    public void initChannels(boolean readRemote) throws PhpException {
         // already installed
         if (this.knownChannels != null) {
             return;
@@ -545,13 +550,29 @@ public class PearUtility implements IPearUtility {
                 if (token.startsWith("CHANNEL")) continue;
                 // if (token.startsWith("doc.")) continue;
                 final PearChannel channel = new PearChannel();
-                channel.initialize(this, new StringTokenizer(token, " ").nextToken());
+                if (readRemote) {
+                    channel.initialize(this, new StringTokenizer(token, " ").nextToken());
+                } else {
+                    final StringTokenizer tokenizer2 = new StringTokenizer(token, " ");
+                    final String name = tokenizer2.nextToken().trim();
+                    final String alias = tokenizer2.nextToken().trim();
+                    final String summary = tokenizer2.nextToken().trim();
+                    channel.initialize(this, name, alias, summary);
+                }
                 channels.add(channel);
             }
         } catch (NoSuchElementException ex) {
             throw new PhpCoreException("Unexpected output from pear:\n" + output, ex);
         }
         this.knownChannels = channels;
+    }
+    
+    /**
+     * Initialized the known channels and ensures that there is a pear installation at {@link #installDir}.
+     * @throws PhpException thrown if something is wrong.
+     */
+    private void initChannels() throws PhpException {
+        this.initChannels(true);
     }
 
     /**
@@ -561,6 +582,48 @@ public class PearUtility implements IPearUtility {
     public Iterable<IPearChannel> listKnownChannels() throws PhpException {
         this.initChannels();
         return this.knownChannels;
+    }
+
+    @Override
+    public IPearChannel channelAdd(String channelName, String alias, String summary) throws PhpException {
+        for (final IPearChannel channel : this.listKnownChannels()) {
+            if (channel.getName().equals(channelName) || channelName.equals(channel.getSuggestedAlias())) {
+                return channel;
+            }
+        }
+        
+        try {
+            // TODO fetch result and check if the channel was installed.
+            final File tmpChannelXml = File.createTempFile(
+                    "channel",
+                    ".xml",
+                    new File(this.session.getCurrentProject().getBasedir(), "target"));
+            tmpChannelXml.deleteOnExit();
+            final FileWriter fw = new FileWriter(tmpChannelXml);
+            fw.write(
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                "<channel " +
+                "version=\"1.0\" " +
+                "xsi:schemaLocation=\"http://pear.php.net/channel-1.0 http://pear.php.net/dtd/channel-1.0.xsd\" " +
+                "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" " +
+                "xmlns=\"http://pear.php.net/channel-1.0\" " +
+                ">\n" +
+                "<name>" + channelName + "</name>\n" +
+                "<suggestedalias>" + (alias == null ? channelName : alias) + "</suggestedalias>\n" +
+                "<summary>" + summary + "</summary>\n" +
+                "<servers><primary><rest>\n" +
+                "<baseurl type=\"REST1.0\">rest/</baseurl>\n" +
+                "</rest></primary></servers>\n" +
+                "</channel>\n");
+            fw.close();
+            final String output = this.executePearCmd("channel-add \"" + tmpChannelXml.getAbsolutePath() + "\"");
+            final PearChannel result = new PearChannel();
+            result.initialize(this, channelName, alias, summary);
+            this.knownChannels.add(result);
+            return result;
+        } catch (IOException ex) {
+            throw new PhpCoreException("Error adding local channel", ex);
+        }
     }
 
     /**
@@ -866,7 +929,7 @@ public class PearUtility implements IPearUtility {
                     final Xpp3Dom pearChannelsDom = dom.getChild("pearChannels");
                     if (pearChannelsDom != null) {
                         for (final Xpp3Dom child : pearChannelsDom.getChildren()) {
-                            this.channelDiscover(child.getValue());
+                            this.channelAdd(child.getValue(), null, "local-pear-channel");
                         }
                     }
                 }

@@ -204,6 +204,9 @@ public abstract class AbstractPhpunitExeSupport extends AbstractPhpunitSupport {
         if (this.getCoverageResult() != null) {
             command += "--coverage-html \"" + this.getCoverageResult().getAbsolutePath() + "\" ";
         }
+        if (this.getCoverageResultXml() != null) {
+            command += "--coverage-xml \"" + this.getCoverageResultXml().getAbsolutePath() + "\" ";
+        }
         if (this.getPhpunitArguments() != null && this.getPhpunitArguments().length() > 0) {
             command += this.getPhpunitArguments() + " ";
         }
@@ -379,6 +382,9 @@ public abstract class AbstractPhpunitExeSupport extends AbstractPhpunitSupport {
             this.getLogXmlArgument() + " \"" + xmlFile.getAbsolutePath() + "\" " + this.getExtraArguments() + " ";
         if (this.getCoverageResult() != null) {
             command += "--coverage-html \"" + this.getCoverageResult().getAbsolutePath() + "\" ";
+        }
+        if (this.getCoverageResultXml() != null) {
+            command += "--coverage-xml \"" + this.getCoverageResultXml().getAbsolutePath() + "\" ";
         }
         if (this.getPhpunitArguments() != null && this.getPhpunitArguments().length() > 0) {
             command += this.getPhpunitArguments() + " ";

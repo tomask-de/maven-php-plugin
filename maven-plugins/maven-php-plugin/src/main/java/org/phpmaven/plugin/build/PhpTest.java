@@ -87,11 +87,18 @@ public final class PhpTest extends AbstractPhpMojo implements IPhpunitConfigurat
     private File phpunitXmlResult;
     
     /**
-     * Target file for the coverage xml result; can only be used if <code>singleTestInvocation</code> was set to true.
+     * Target file for the coverage html result; can only be used if <code>singleTestInvocation</code> was set to true.
      * 
      * @parameter expression="${phpunitCoverageResult}"
      */
     private File phpunitCoverageResult;
+    
+    /**
+     * Target file for the coverage xml result; can only be used if <code>singleTestInvocation</code> was set to true.
+     * 
+     * @parameter expression="${phpunitCoverageResultXml}"
+     */
+    private File phpunitCoverageResultXml;
 
     /**
      * The generated test suite.
@@ -257,6 +264,7 @@ public final class PhpTest extends AbstractPhpMojo implements IPhpunitConfigurat
                 support.setXmlResult(this.phpunitXmlResult);
                 support.setResultFolder(this.resultFolder);
                 support.setCoverageResult(this.phpunitCoverageResult);
+                support.setCoverageResultXml(this.phpunitCoverageResultXml);
                 // TODO generatedPhpUnitTestsuiteFile
                 
                 getLog().info("Starting tests.");

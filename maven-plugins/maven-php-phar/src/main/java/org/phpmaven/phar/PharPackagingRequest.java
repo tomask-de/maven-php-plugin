@@ -18,7 +18,9 @@ package org.phpmaven.phar;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Configuration;
@@ -52,9 +54,10 @@ public class PharPackagingRequest implements IPharPackagingRequest {
             "unlink('$:{pharfilepath}'.DIRECTORY_SEPARATOR.'$:{pharfilename}');\n" + 
             "$phar = new Phar('$:{pharfilepath}'.DIRECTORY_SEPARATOR.'$:{pharfilename}', 0, '$:{pharfilename}');\n" + 
             "$phar->startBuffering();\n" + 
-            "$:{pharcontents}" + 
+            "$:{pharcontents}\n" + 
             "$:{pharcompression}" + 
             "$phar->setStub('$:{pharstub}');\n" + 
+            "$:{pharmetadata}" +
             "$phar->stopBuffering();\n")
     private String packagePhpTemplate;
     
@@ -118,6 +121,11 @@ public class PharPackagingRequest implements IPharPackagingRequest {
      */
     @Configuration(name = "largeFile", value = "true")
     private boolean largeFile;
+
+    /**
+     *  The metadata entries.
+     */
+    private Map<String, String> metadata = new HashMap<String, String>();
 
     /**
      * {@inheritDoc}
@@ -293,5 +301,21 @@ public class PharPackagingRequest implements IPharPackagingRequest {
     public void setLargePhar(boolean flg) {
         this.largeFile = flg;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+	@Override
+	public Map<String, String> getMetadata() {
+		return metadata;
+	}
+
+    /**
+     * {@inheritDoc}
+     */
+	@Override
+	public void setMetadata(Map<String,String> metadata) {
+		this.metadata = metadata;
+	}
 
 }
