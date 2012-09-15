@@ -41,7 +41,7 @@ public class ZendTest extends AbstractTestCase {
         
         verifier.addCliOption("-DarchetypeGroupId=org.phpmaven");
         verifier.addCliOption("-DarchetypeArtifactId=php5-zend-archetype");
-        verifier.addCliOption("-DarchetypeVersion=2.0.2");
+        verifier.addCliOption("-DarchetypeVersion=2.0-SNAPSHOT");
         verifier.addCliOption("-DgroupId=org.sample");
         verifier.addCliOption("-DartifactId=my-app");
         verifier.addCliOption("-Dversion=0.0.1-SNAPSHOT");

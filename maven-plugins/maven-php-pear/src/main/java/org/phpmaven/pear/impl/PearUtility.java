@@ -467,7 +467,6 @@ public class PearUtility implements IPearUtility {
         try {
             final IPhpExecutableConfiguration config =
                     this.factory.lookup(IPhpExecutableConfiguration.class, execConfig, session);
-            // TODO set Working directory.
             config.getEnv().put(
                     "PHP_PEAR_INSTALL_DIR",
                     new File(this.installDir, "PEAR").getAbsolutePath());
