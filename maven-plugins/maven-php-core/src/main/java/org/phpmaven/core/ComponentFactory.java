@@ -103,7 +103,10 @@ public class ComponentFactory implements IComponentFactory {
         throws ComponentLookupException, PlexusConfigurationException {
         final T result = this.plexusContainer.lookup(clazz);
         
-        final ClassRealm realm = this.plexusContainer.getComponentDescriptor(clazz.getName(), "default").getRealm();
+        ClassRealm realm = this.plexusContainer.getComponentDescriptor(clazz.getName(), "default").getRealm();
+        if (realm == null) {
+            realm = this.plexusContainer.getContainerRealm();
+        }
         
         configure(
                 clazz,

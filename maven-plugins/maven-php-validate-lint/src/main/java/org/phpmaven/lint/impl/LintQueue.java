@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 
-package org.phpmaven.plugin.lint;
+package org.phpmaven.lint.impl;
 
 import java.util.Collections;
 import java.util.List;
@@ -22,28 +22,28 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class LintQueue {
 
     /**
-     * The concurrent queue of open lint checks
+     * The concurrent queue of open lint checks.
      */
     private ConcurrentLinkedQueue<LintExecution> queue = new ConcurrentLinkedQueue<LintExecution>();
     
     /**
-     * The mutex
+     * The mutex.
      */
     private Object mutex = new Object();
     
     /**
-     * The failed lint checks
+     * The failed lint checks.
      */
     private List<LintExecution> failed = new Vector<LintExecution>();
 
     /**
-     * true if the queue was terminated
+     * true if the queue was terminated.
      */
     private boolean terminated;
     
     /**
-     * Adds a new lint execution
-     * @param lint
+     * Adds a new lint execution.
+     * @param lint 
      */
     public void addLintCheck(LintExecution lint) {
         this.queue.add(lint);
@@ -53,34 +53,36 @@ public class LintQueue {
     }
     
     /**
-     * returns the next lint execution
+     * returns the next lint execution.
      * @return lint execution or null if there is no execution
      */
     public LintExecution pop() {
         return this.queue.poll();
     }
     
+    /**
+     * Waits for something within the queue.
+     * @param timeout 
+     */
     public void waitForQueue(long timeout) {
         synchronized (this.mutex) {
             try {
                 this.mutex.wait(timeout);
-            }
-            catch (InterruptedException ex) {
+            } catch (InterruptedException ex) {
                 // ignore
             }
         }
     }
     
     /**
-     * Terminates the lint queue
+     * Terminates the lint queue.
      */
     public void terminate() {
         // wait for the walker threads to handle all lint checks
         while (!this.queue.isEmpty()) {
             try {
                 Thread.sleep(100);
-            }
-            catch (InterruptedException ex) {
+            } catch (InterruptedException ex) {
                 // ignore
             }
         }
@@ -91,7 +93,7 @@ public class LintQueue {
     }
     
     /**
-     * Returns true if the lint check is terminated
+     * Returns true if the lint check is terminated.
      * @return true if lint check is terminated
      */
     public boolean isTerminated() {
@@ -99,7 +101,7 @@ public class LintQueue {
     }
     
     /**
-     * Returns the failures
+     * Returns the failures.
      * @return failures
      */
     public Iterable<LintExecution> getFailures() {

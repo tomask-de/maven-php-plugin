@@ -8,13 +8,13 @@
     <parent>
         <groupId>org.phpmaven.build</groupId>
         <artifactId>generic-site-parent</artifactId>
-        <version>2.0.0-beta-3</version>
+        <version>2.0.0-beta-4</version>
         <relativePath>../site-parent/pom.xml</relativePath>
     </parent>
 
     <groupId>org.phpmaven.sites</groupId>
     <artifactId>site-archetypes</artifactId>
-    <version>2.0.0-beta-3</version>
+    <version>2.0.0-beta-4</version>
     <packaging>pom</packaging>
 
     <name>archetypes:${project.version}</name>
@@ -35,6 +35,8 @@
     </distributionManagement>
     
     <modules>
+        <module>archetype-parent</module>
+        <module>php5-doctrine-archetype</module>
         <module>php5-lib-archetype</module>
         <module>php5-web-archetype</module>
         <module>php5-zend-archetype</module>
@@ -42,6 +44,29 @@
     
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.5</version>
+                <executions>
+                    <execution>
+                        <id>copy-archetype-catalog</id>
+                        <phase>site</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.basedir}/target/site/</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.basedir}/src/resources/catalog/</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.phpmaven.sites</groupId>
                 <artifactId>sitemap-plugin</artifactId>

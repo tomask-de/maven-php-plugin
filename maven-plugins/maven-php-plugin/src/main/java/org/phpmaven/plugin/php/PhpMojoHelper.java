@@ -15,7 +15,6 @@
 package org.phpmaven.plugin.php;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +23,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.execution.MavenSession;
+import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuilder;
@@ -35,7 +35,6 @@ import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.plugin.build.FileHelper;
-import org.phpmaven.plugin.build.PhpVersion;
 
 import com.google.common.base.Preconditions;
 
@@ -45,13 +44,9 @@ import com.google.common.base.Preconditions;
  * @author Christian Wiedemann
  * @author Tobias Sarnowski
  * @author Martin Eisengardt
+ * @author Erik Dannenberg
  */
 public class PhpMojoHelper implements IPhpExecution {
-    
-    /**
-     * Parameter to let PHP print out its version.
-     */
-    public static final String PHP_FLAG_VERSION = "-v";
 
     /**
      * This list describes all keywords which will be printed out by PHP
@@ -118,11 +113,6 @@ public class PhpMojoHelper implements IPhpExecution {
      * classes in the test classpath.
      */
     private File targetClassesDirectory;
-
-    /**
-     * The used PHP version (cached after initial call of {@link #getPhpVersion()}.
-     */
-    private PhpVersion phpVersion;
     
     /**
      * The log to be used for logging php output.
@@ -329,48 +319,6 @@ public class PhpMojoHelper implements IPhpExecution {
         }
         return stdout.toString();
     }
-
-    /**
-     * Retrieves the used PHP version.
-     *
-     * @return the PHP version
-     * @throws PhpException is the php version is not resolvable or supported
-     */
-    public final PhpVersion getPhpVersion() throws PhpException {
-
-        // already found out?
-        if (phpVersion != null) {
-            return phpVersion;
-        }
-
-        // execute PHP
-        execute(PHP_FLAG_VERSION,
-            (File) null,
-            new StreamConsumer() {
-                @Override
-                public void consumeLine(String line) {
-                    if (phpVersion == null && line.startsWith("PHP")) {
-                        final String version = line.substring(4, 5);
-                        if ("6".equals(version)) {
-                            phpVersion = PhpVersion.PHP6;
-                            PhpMojoHelper.this.log.warn("PHP6 is not supported yet!");
-                        } else if ("5".equals(version)) {
-                            phpVersion = PhpVersion.PHP5;
-                        } else if ("4".equals(version)) {
-                            phpVersion = PhpVersion.PHP4;
-                            PhpMojoHelper.this.log.warn("PHP4 will not be supported anymore!");
-                        } else {
-                            phpVersion = PhpVersion.UNKNOWN;
-                            PhpMojoHelper.this.log.error("Cannot find out PHP version: " + line);
-                        }
-                    }
-                }
-            }
-        );
-
-        this.log.debug("PHP version: " + phpVersion.name());
-        return phpVersion;
-    }
     
     /**
      * Returns the maven project from given artifact.
@@ -386,27 +334,25 @@ public class PhpMojoHelper implements IPhpExecution {
     }
 
     /**
-     * Unzips all compile dependency sources.
+     * Unzips all dependency sources.
      * 
      * @param factory Component factory
      * @param session maven session
+     * @param targetDir target directory
+     * @param sourceScope dependency scope to unpack from
      *
      * @throws IOException if something goes wrong while prepareing the dependencies
      * @throws PhpException php exceptions can fly everywhere..
      */
-    public void prepareCompileDependencies(IComponentFactory factory, MavenSession session) throws IOException, PhpException {
+    public void prepareDependencies(IComponentFactory factory, MavenSession session, File targetDir, String sourceScope)
+            throws IOException, PhpException, MojoExecutionException {
         final List<String> packedElements = new ArrayList<String>();
         final Set<Artifact> deps = this.project.getArtifacts();
         for (final Artifact dep : deps) {
-            this.log.info("dependency " + 
-                dep.getGroupId() + ":" + 
-                dep.getArtifactId() + ":" +
-                dep.getVersion() + ":" +
-                dep.getScope() + "@" +
-                dep.getFile().getAbsolutePath());
-            if (Artifact.SCOPE_TEST.equals(dep.getScope())) {
+            if (!sourceScope.equals(dep.getScope())) {
                 continue;
             }
+            this.log.info(dep.getFile().getAbsolutePath());
             try {
                 if (this.getProjectFromArtifact(dep).getFile() != null) {
                     // Reference to a local project; should only happen in IDEs
@@ -419,104 +365,7 @@ public class PhpMojoHelper implements IPhpExecution {
             }
             packedElements.add(dep.getFile().getAbsolutePath());
         }
-        // unset additionalPhpParameters temporary for unphar
-        final String s = this.additionalPhpParameters;
-        this.additionalPhpParameters = "";
-        FileHelper.unzipElements(this.log, this.dependenciesTargetDirectory, packedElements, factory, session);
-        this.additionalPhpParameters = s; 
-    }
-
-    /**
-     * Unzips all test dependency sources.
-     * 
-     * @param factory Component factory
-     * @param session maven session
-     *
-     * @throws IOException if something goes wrong while prepareing the dependencies
-     * @throws PhpException php exceptions can fly everywhere..
-     */
-    public void prepareTestDependencies(IComponentFactory factory, MavenSession session) throws IOException, PhpException {
-        final List<String> packedElements = new ArrayList<String>();
-        final Set<Artifact> deps = this.project.getArtifacts();
-        for (final Artifact dep : deps) {
-            this.log.info("dependency " + 
-                dep.getGroupId() + ":" + 
-                dep.getArtifactId() + ":" +
-                dep.getVersion() + ":" +
-                dep.getScope() + "@" +
-                dep.getFile().getAbsolutePath());
-            if (!Artifact.SCOPE_TEST.equals(dep.getScope())) {
-                continue;
-            }
-            try {
-                if (this.getProjectFromArtifact(dep).getFile() != null) {
-                    // Reference to a local project; should only happen in IDEs
-                    this.log.debug("Dependency resolved to a local project. skipping.");
-                    // XXX: Should we support this or is this only relevant within IDEs (f.e. eclipse)?
-                    continue;
-                }
-            } catch (ProjectBuildingException ex) {
-                throw new IOException("Problems creating maven project from dependency", ex);
-            }
-            packedElements.add(dep.getFile().getAbsolutePath());
-        }
-        // unset additionalPhpParameters temporary for unphar
-        final String s = this.additionalPhpParameters;
-        this.additionalPhpParameters = "";
-        FileHelper.unzipElements(this.log, this.testDependenciesTargetDirectory, packedElements, factory, session);
-        this.additionalPhpParameters = s;
-    }
-    
-    /**
-     * Executes PHP code snippet with the given arguments and returns its output.
-     *
-     * @param arguments string of arguments for PHP
-     * @param code the php code to be executed
-     * @return the output string
-     * @throws PhpException if the execution failed
-     */
-    @Override
-    public String executeCode(String arguments, String code) throws PhpException {
-        return this.executeCode(arguments, code, null);
-    }
-    
-    /**
-     * Executes PHP code snippet with the given arguments and returns its output.
-     *
-     * @param arguments string of arguments for PHP
-     * @param code the php code to be executed
-     * @param codeArguments Arguments (cli) for the script
-     * @return the output string
-     * @throws PhpException if the execution failed
-     */
-    @Override
-    public String executeCode(String arguments, String code, String codeArguments) throws PhpException {
-        final File snippet = this.temporaryScriptFile;
-        if (!snippet.getParentFile().exists()) {
-            snippet.getParentFile().mkdirs();
-        }
-        if (snippet.exists()) {
-            snippet.delete();
-        }
-        
-        try {
-            final FileWriter w = new FileWriter(snippet);
-            w.write("<?php \n" + code);
-            w.close();
-        } catch (IOException ex) {
-            throw new PhpErrorException(snippet, "Error writing php tempoary code snippet to file");
-        }
-        
-        String command = "";
-        
-        if (arguments != null && arguments.length() > 0) {
-            command += arguments + " ";
-        }
-        command += "\"" + snippet.getAbsolutePath() + "\"";
-        if (codeArguments != null && codeArguments.length() > 0) {
-            command += " " + codeArguments;
-        }
-        return this.execute(command, snippet);
+        FileHelper.unzipElements(this.log, targetDir, packedElements, factory, session);
     }
 
 }

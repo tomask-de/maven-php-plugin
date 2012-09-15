@@ -16,6 +16,9 @@
 
 package org.phpmaven.phpdoc;
 
+import org.apache.maven.plugin.logging.Log;
+import org.phpmaven.exec.PhpException;
+
 
 /**
  * Phpdoc support to generate reports.
@@ -27,8 +30,10 @@ public interface IPhpdocSupport {
     
     /**
      * Generates a phpdoc report.
+     * @param log log
      * @param request phpdoc report.
+     * @throws PhpException thrown on php errors.
      */
-    void generateReport(IPhpdocRequest request);
+    void generateReport(Log log, IPhpdocRequest request) throws PhpException;
 
 }

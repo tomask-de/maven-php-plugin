@@ -11,41 +11,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package org.phpmaven.plugin.lint;
+package org.phpmaven.lint;
 
 import java.io.File;
 
-import org.phpmaven.plugin.php.PhpException;
+import org.apache.maven.plugin.logging.Log;
 
-public class LintExecution {
-    
-    private File fileToCheck;
-    
-    private PhpException exception;
-
-    public LintExecution(File file) {
-        this.fileToCheck = file;
-    }
-
-    public File getFile() {
-        return this.fileToCheck;
-    }
-
-    /**
-     * Sets execution
-     * @param e
-     */
-    public void setException(PhpException e) {
-        this.exception = e;
-    }
+/**
+ * Validator for php files doing a lint check.
+ * 
+ * First set the log (setLog). Then invoke the run method do perform the lint check. TODO description of configuration.
+ * 
+ * @author mepeisen
+ * @since 2.0.0
+ */
+public interface ILintChecker {
     
     /**
-     * Returns the exception
-     * @return exception
+     * Runs the lint check
+     * @param log logger
+     * @return failures
      */
-    public PhpException getException() {
-        return this.exception;
-    }
+    Iterable<ILintExecution> run(Log log);
+    
+    /**
+     * Adds a file to be checked
+     * @param file file to be checked
+     */
+    void addFileToCheck(File file);
     
 }
