@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+	<properties>
+		<author email="mep_eisen@web.de">
+			Martin Eisengardt
+		</author>
+
+		<title>Maven for PHP - Creation phase</title>
+		<meta name="keyword" content="apache, maven, php, tutorials"></meta>
+	</properties>
+	
+	<body>
+	
+		<p style="text-align:center">[ <a href="tut-lifecycle.html">Previous</a> | <a href="tutorials.html">TOC</a> | <a href="tut-lifecycle-developing.html">Next</a> ]</p>
+		
+		<section name="Creation phase">
+		
+			<subsection name="Preamble">
+			<p>We assume that you have a running setup of both, php and maven. That means that you can run both, &quot;php&quot; and &quot;mvn&quot; via command line.
+			If you cannot run them you may read our <a href="${phpmavenRootUrl}/prepare.html">prepare site</a></p>
+			
+			<p>We assume that you use the command line tool (mvn) and not use any complex IDE. Some IDEs (netbeans, eclipse) already have built in
+			support for maven. There is another tutorial section later on you may read for IDE support. We recommend that you should at least
+			read the tutorials about the mvn command line tool since they are based on maven itself.</p>
+			</subsection>
+		
+			<subsection name="Background">
+			<p>Before starting some background information on maven:</p>
+			
+			<p>Maven identifies your project by several IDs. However this is maven related and you should follow them as this is a good choice
+			for any project. First of all there is a <i>groupId</i>. This can be used as your company or organization informational id. In Java
+			(what maven primary targets) and in www simple domain names are used. So if you are owning domain &quot;www.mycompany.org&quot; simply use
+			the groupId &quot;org.mycompany&quot; or &quot;org.mycompany.php&quot;. Think of the groupId being some kind of namespace to identify projects.</p>
+			
+			<p>The project itself is identified by the <i>artifactId</i>. This id must be unique within the groupId. And it should be unique
+			world-wide. The groupId and artifactId are divided by colons. Let us make a simple example:</p>
+			
+			<ul>
+			<li>org.mycompany.php:core</li>
+			<li>org.mycompany.php.web:core</li>
+			</ul>
+			
+			<p>In this example you have two projects. Both of them have an artifactId called &quot;core&quot;. This setup will work but it may be confusing for
+			project users. So you should think of the following naming:</p>
+			
+			<ul>
+			<li>org.mycompany.php:php-core</li>
+			<li>org.mycompany.php.web:web-core</li>
+			</ul>
+			
+			<p>The third important identification of your project is the <i>version</i>. It follows the world wide convention &lt;major&gt;.&lt;minor&gt;.&lt;fixlevel&gt;-&lt;extra&gt;.
+			You should read maven documentation to get more deeper inside since version naming follows some conventions. This is important to find
+			newer versions than those already installed. You may already assume that version 2.4 is greater than version 1.9.5. In short words:
+			If the numeric parts of the version number are identical you should assume the following:</p>
+			
+			<ul>
+			<li>The release version (x.x.x without any extra parts) is always the top most version</li>
+			<li>x.x.x-SNAPSHOT is used by developer versions and is always the top most version that contains an extra string</li>
+			<li>x.x.x-beta-&lt;numeric&gt; is less than snapshot versions</li>
+			<li>x.x.x-alpha-&lt;numeric&gt; is less than beta versions</li>
+			</ul>
+			
+			<p>So a complete identification of your project may be: org.mycompany:php-core:1.4.6-SNAPSHOT</p>
+			</subsection>
+			
+			<subsection name="Create a project">
+			<p>There are two ways to create a project. You can either create it from scratch or use an archetype. Archetypes are some kind of
+			project template. Creating projects from scratch requires more work.</p>
+			
+				<subsection name="Create a project by archetype">
+				<p>There are multiple archetypes you may use. To create a library project simply type the following command:</p>
+				
+				<source>
+mvn archetype:generate \
+-DarchetypeGroupId=org.phpmaven \
+-DarchetypeArtifactId=php5-lib-archetype \
+-DarchetypeVersion=${phpmavenTagName} \
+-DgroupId=org.sample \
+-DartifactId=my-app \
+				</source>
+			
+				<p>This command will create a new folder and put everything you need to startup developing inside it.</p>
+				
+				<p><b>Hint: You may find various archetypes listed at the following site: <a href="${phpmavenRootUrl}/${phpmavenTagType}/${phpmavenTagName}/archetypes/">archetypes overview</a></b></p>
+				</subsection>
+		
+				<subsection name="Create a project from scratch">
+				<p>Create the following directory layout:</p>
+				<source>
+my-app 
+	|-- pom.xml 
+	`-- src 
+		|-- main 
+			 `-- php 
+				 `-- org 
+					 `-- sample  
+						`-- app.php 
+		|`-- test 
+			`-- php 
+				`-- org 
+					`-- sample 
+						`-- apptest.php
+		|`-- site
+			`-- site.xml
+				</source>
+				
+				<p>The contents of the files will be discussed in the following chapter.</p>
+				</subsection>
+		
+				<subsection name="Explained">
+				<p>As you already see it is a convention that the main folder &quot;my-app&quot; equals the artifactId. You should
+				always follow this convention.</p>
+				<p>The main project file for maven is the <i>pom.xml</i>. Here is where all the magic goes. Maven will always
+				read this file to fetch the work it will have to do. So it is important that maven itself finds the file.
+				Every subsequent maven command should always be invoked while the folder &quot;my-app&quot; is the current working
+				directory.</p>
+		
+					<subsection name="pom.xml">
+					<p>Note: We will only discuss the main contents we need for php projects here. There may be archetypes
+					placing some more constructs within the pom.xml. For details you should read the maven documentation.</p>
+					<p>Have a look at the main contents of the pom.xml</p>
+					<source><![CDATA[
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<modelVersion>4.0.0</modelVersion>
+  <groupId>org.sample</groupId>
+  <artifactId>my-app</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>php</packaging>
+  <name>Sample PHP 5 library project</name>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.phpmaven</groupId>
+        <artifactId>maven-php-plugin</artifactId>
+        <version>${phpmavenTagName}</version>
+        <extensions>true</extensions>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.0</version>
+        <inherited>true</inherited>
+        <configuration>
+          <reportPlugins>
+            <plugin>
+              <groupId>org.phpmaven</groupId>
+              <artifactId>maven-php-plugin</artifactId>
+              <reportSets>
+                <reportSet>
+                  <reports>
+                    <report>phpdocumentor</report>
+                  </reports>
+                </reportSet>
+              </reportSets>
+            </plugin
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-surefire-report-plugin</artifactId>
+              <version>2.10</version>
+              <reportSets>
+                <reportSet>
+                  <reports>
+                    <report>report-only</report>
+                  </reports>
+                </reportSet>
+              </reportSets>
+            </plugin>
+          </reportPlugins>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+    <dependency>
+      <groupId>org.phpunit</groupId>
+      <artifactId>phpunit5</artifactId>
+      <version>3.3.9</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+</project>
+					]]></source>
+					
+					<p>At first you will find the three IDs we mentioned. They will identify your project as org.sample:my-app:0.0.1-SNAPSHOT.
+					The packaging tag is very important to let maven identify your project as a php-maven project. Maven itself does only understand
+					project type &quot;pom&quot;. So it needs plugins to identify more project types. But as you see this is fairly simple. Within the
+					build section you will find the reference to the php-maven plugin. Without this reference maven does not understand your
+					project and will complain to use it at all.</p>
+					
+					<p>The build section contains another plugin, the site plugin. We will discuss this later on in the documentation
+					tutorial. For know simply think of &quot;The tutorial says: I need it, so I copy and paste it&quot;.</p>
+					
+					<p>Have a look at the dependencies section. This section tells maven that we need another project. This project is
+					identified as org.phpunit:phpunit5:3.3.9. What does it mean? maven will manage dependencies to other projects.
+					It does all the magic, for example downloading from remote repository, for us. We do not have to know where to get it
+					or how to install it. We only may assume that it is available in any of the configured repositories. PHPUnit itself
+					is indeed available in the official repository where maven already found the phpmaven plugin. As soon as
+					maven feels the need to download phpunit it will do it.</p>
+					
+					<p>The scope:test is another hint for maven. Maven itself will always divide the real-world sources (your project itself)
+					and the test-world sources. Testing is important during development time and release time. But it is not important to
+					run your project or to install a website. So this dependency tells maven: we need phpunit for testing.</p>
+					</subsection>
+			
+					<subsection name="app.php">
+					<p>We do not go more deeper inside since this is only an example. Keep in mind that every php file will be placed within the
+					folder src/main/php. We will discuss developing your project later on.</p>
+					</subsection> 
+			
+					<subsection name="apptest.php">
+					<p>Phpmaven will assume that every php file placed within src/test/php and with suffix &quot;test.php&quot; will represent a test file
+					that should be executed by phpunit.</p>
+					
+					<source><![CDATA[
+<?php
+/**
+ * The foo test class
+ * 
+ * @author mepeisen
+ */
+class FooTest extends PHPUnit_Framework_TestCase
+{
+	
+	/**
+	 * tests the bar function
+	 */
+	public function testBar()
+	{
+		include "org/sample/app.php";
+		$this->fail('we will fail');
+	}
+	
+}
+					]]></source>
+					
+					<p>You may assume that PHPUnit is already included. So you do not need additional includes. And you may assume
+					that the include path is fixed so that your php classes are already available. As you see the inclusion will work.</p>
+					
+					<p>There is nothing more we will say. All you need to do know is creating test cases for your application.</p>
+					</subsection>
+				</subsection>
+			</subsection>
+		</section>
+		
+		<p style="text-align:center">[ <a href="tut-lifecycle.html">Previous</a> | <a href="tutorials.html">TOC</a> | <a href="tut-lifecycle-developing.html">Next</a> ]</p>
+		
+	</body>
+</document>
