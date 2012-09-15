@@ -237,6 +237,13 @@ public interface IPackageVersion {
     void install() throws PhpException;
 
     /**
+     * Installs this version.
+     * @param noUnistall true to not uninstall and instead try to overwrite an already installed package.
+     * @throws PhpException thrown on exceptions.
+     */
+    void install(boolean noUninstall) throws PhpException;
+
+    /**
      * Gets the php files.
      * @return php files.
      * @throws PhpException thrown on execution errors

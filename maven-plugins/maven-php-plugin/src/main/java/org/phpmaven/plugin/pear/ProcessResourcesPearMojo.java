@@ -15,6 +15,7 @@
 package org.phpmaven.plugin.pear;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -98,7 +99,19 @@ public class ProcessResourcesPearMojo extends AbstractPhpMojo
             final IPearChannel channel = utility.channelDiscover(this.pearChannelAlias);
             final IPackage pkg = channel.getPackage(this.pearPackage);
             final IPackageVersion version = pkg.getVersion(this.pearPackageVersion);
-            version.install();
+            if ("pear".equals(this.pearChannelAlias) && (
+                    "Archive_Tar".equals(this.pearPackage)
+                    || "Console_Getopt".equals(this.pearPackage)
+                    || "PEAR".equals(this.pearPackage)
+                    || "Structures_Graph".equals(this.pearPackage)
+                    || "XML_Util".equals(this.pearPackage))) {
+                // do not try to uninstall the core packages
+                // downgrade pear itself before installing
+                utility.executePearCmd("install --force pear/PEAR-1.8.0");
+                version.install(true);
+            } else {
+                version.install();
+            }
             
             this.fetchPackage(version);
             
@@ -127,14 +140,31 @@ public class ProcessResourcesPearMojo extends AbstractPhpMojo
         this.getLog().info("copying content");
         
         try {
+            final IPackage pkg = version.getPackage();
+            final IPearChannel channel = pkg.getChannel();
+            final IPearUtility utility = channel.getPearUtility();
+            final File phpDir = utility.getPhpDir();
+            boolean copied = false;
             for (final String relativeName : version.getPhpFiles()) {
                 try {
-                    final File file = new File(version.getPackage().getChannel().getPearUtility().getPhpDir(), relativeName);
-                    final File destination = new File(this.getProject().getBuild().getOutputDirectory(), relativeName);
+                    // some packages use backslashes. they do not work on linux
+                    final File file = new File(phpDir, relativeName.replace("\\", "/"));
+                    final File destination = new File(this.getProject().getBuild().getOutputDirectory(), relativeName.replace("\\", "/"));
                     getLog().debug("copying " + file.getAbsolutePath() + " to " + destination.getAbsolutePath());
                     FileUtils.copyFile(file, destination);
+                    copied = true;
                 } catch (IOException e) {
                     throw new MojoExecutionException("Problems copying resource " + relativeName, e);
+                }
+            }
+            
+            if (!copied) {
+                // this would cause the build to fail (empty package). let us create a readme.
+                final File file = new File(phpDir, "__README.EMPTY.PACKAGE.TXT");
+                try {
+                    new FileWriter(file).append("this is an empty pear package or import failed.").close();
+                } catch (IOException e) {
+                    throw new MojoExecutionException("Problems creating __README.EMPTY.PACKAGE.TXT", e);
                 }
             }
         } catch (PhpException e) {

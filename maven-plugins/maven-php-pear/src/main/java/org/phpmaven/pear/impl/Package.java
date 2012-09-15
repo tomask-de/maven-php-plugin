@@ -191,10 +191,14 @@ public class Package implements IPackage {
         }
         
         if (this.installedVersion != null) {
-            this.uninstall(ignoreDeps || forceUninstall);
-            if (this.installedVersion.getVersion().getPearVersion().equals(version.getVersion().getPearVersion())) {
+            if (version.getVersion() == null
+                 || this.installedVersion.getVersion().getPearVersion().equals(
+                         version.getVersion().getPearVersion())) {
                 // already installed
                 return;
+            }
+            if (forceUninstall) {
+                this.uninstall(true);
             }
         }
         

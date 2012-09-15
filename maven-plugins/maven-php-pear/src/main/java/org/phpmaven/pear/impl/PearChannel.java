@@ -416,32 +416,55 @@ public class PearChannel implements IPearChannel {
             }
             
             if (!doNotReadInstalled) {
-                final String res = this.pearUtility.executePearCmd("list -c " + this.getName());
-                final StringTokenizer tokenizer = new StringTokenizer(res, "\n");
-                if (tokenizer.nextToken().trim().startsWith("INSTALLED PACKAGES")) {
-                    // skip header
-                    tokenizer.nextToken();
-                    tokenizer.nextToken();
-                    while (tokenizer.hasMoreTokens()) {
-                        final String t = tokenizer.nextToken().trim();
-                        final int indexOf = t.indexOf(" ");
-                        final String n = t.substring(0, indexOf);
-                        final IPackage pkg = allPackages.get(n);
-                        if (pkg == null) {
-                            throw new PhpCoreException(
-                                    "Installed package " + n +
-                                    " not found in packages.xml of channel " + this.getName());
-                        }
-                        installed.add(pkg);
-                        final String t2 = t.substring(indexOf).trim();
-                        final String pearVersion = t2.substring(0, t2.indexOf(" ")).trim();
-                        pkg.setInstalledVersion(pkg.getVersion(pearVersion));
-                    }
-                }
+                readInstalled(installed, allPackages);
             }
             
             this.knownPackages = allPackages;
             this.installedPackages = installed;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void reinitializeInstalledPackages() throws PhpException {
+        final List<IPackage> installed = new ArrayList<IPackage>();
+        for (final IPackage pkg : installed) {
+            pkg.setInstalledVersion(null);
+        }
+        readInstalled(installed, this.knownPackages);
+    }
+
+    /**
+     * Reads the installed packages.
+     * @param installed installed packages.
+     * @param allPackages all packages.
+     * @throws PhpException php exception
+     */
+    private void readInstalled(final List<IPackage> installed, final Map<String, IPackage> allPackages)
+        throws PhpException {
+        final String res = this.pearUtility.executePearCmd("list -c " + this.getName());
+        final StringTokenizer tokenizer = new StringTokenizer(res, "\n");
+        if (tokenizer.nextToken().trim().startsWith("INSTALLED PACKAGES")) {
+            // skip header
+            tokenizer.nextToken();
+            tokenizer.nextToken();
+            while (tokenizer.hasMoreTokens()) {
+                final String t = tokenizer.nextToken().trim();
+                final int indexOf = t.indexOf(" ");
+                final String n = t.substring(0, indexOf);
+                final IPackage pkg = allPackages.get(n);
+                if (pkg == null) {
+                    throw new PhpCoreException(
+                            "Installed package " + n +
+                            " not found in packages.xml of channel " + this.getName());
+                }
+                installed.add(pkg);
+                final String t2 = t.substring(indexOf).trim();
+                final String pearVersion = t2.substring(0, t2.indexOf(" ")).trim();
+                pkg.setInstalledVersion(pkg.getVersion(pearVersion));
+            }
         }
     }
     

@@ -111,6 +111,28 @@ public class PhpUnitTest extends AbstractTestCase {
     }
 
     /**
+     * tests the goal "test" with bootstrap file (passing phpunit options).
+     * 
+     * @see http://trac.php-maven.org/ticket/59
+     * @throws Exception 
+     */
+    public void testGoalTestWithBootstrap2File() throws Exception {
+        final Verifier verifier = this.getPhpMavenVerifier("mojos-phpunit/test-bootstrap2");
+        
+        // delete the pom from previous runs
+        verifier.deleteArtifact("org.phpmaven.test", "test-bootstrap", "0.0.1", "pom");
+
+        // execute testing
+        verifier.executeGoal("test");
+
+        // verify no error was thrown
+        verifier.verifyErrorFreeLog();
+
+        // reset the streams
+        verifier.resetStreams();
+    }
+
+    /**
      * tests the goal "test" with simple test.
      *
      * @throws Exception 
