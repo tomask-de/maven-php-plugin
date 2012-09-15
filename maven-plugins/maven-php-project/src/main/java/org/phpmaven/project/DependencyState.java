@@ -1,4 +1,6 @@
 /**
+ * Copyright 2010-2012 by PHP-maven.org
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,21 +14,23 @@
  * limitations under the License.
  */
 
-package org.phpmaven.plugin.php;
+package org.phpmaven.project;
 
-import java.io.File;
-
+import java.util.HashMap;
 
 /**
- * Symbolizes an error, printed out by a PHP execution.
- *
- * @author Tobias Sarnowski
+ * The persistent state of the dependencies.
+ * 
+ * Key is the target scope of the dependencies.
+ * 
+ * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
+ * @since 2.0.3
  */
-public class PhpWarningException extends PhpExecutionException {
+public class DependencyState extends HashMap<String, DependencyInformation> {
 
-    private static final long serialVersionUID = 1L;
+	/**
+	 * serial version uid
+	 */
+	private static final long serialVersionUID = 1L;
 
-    public PhpWarningException(File phpFile, String phpErrorMessage) {
-        super(phpFile, phpErrorMessage);
-    }
 }

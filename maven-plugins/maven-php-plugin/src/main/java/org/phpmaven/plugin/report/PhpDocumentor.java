@@ -85,6 +85,12 @@ public class PhpDocumentor extends AbstractApiDocReport {
     @Override
     protected void executeReport(Locale locale) throws MavenReportException {
         try {
+            
+            getLog().info(
+                    "\n-------------------------------------------------------\n" +
+                    "P H P D O C U M E N T O R - R E P O R T I N G\n" +
+                    "-------------------------------------------------------\n");
+            
             final IPhpdocConfiguration config = this.factory.lookup(
                     IPhpdocConfiguration.class, IComponentFactory.EMPTY_CONFIG, this.session);
             final IPhpdocSupport support = config.getPhpdocSupport();
