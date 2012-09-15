@@ -75,7 +75,11 @@ public class PhpunitSupport360 extends AbstractPhpunitExeSupport {
      */
     @Override
     protected String getExtraArguments() {
-        return "";
+        if (getTestRequest().getPhpunitXml() != null) {
+            return "--configuration \"" + getTestRequest().getPhpunitXml() + "\"";
+        } else {
+            return "";
+        }
     }
 
 }

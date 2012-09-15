@@ -116,6 +116,8 @@ public class PharPackager implements IPharPackager {
                 IPhpExecutableConfiguration.class,
                 executableConfig,
                 this.session);
+        // unset additional params for unphar
+        execConfig.setAdditionalPhpParameters("");
         return execConfig;
     }
 

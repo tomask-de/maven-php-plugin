@@ -206,7 +206,7 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         final File testDir = prepareResources(strTestDir);
         
         // skip installing of projects for hudson build
-        if (this.isHudsonBuild()) {
+        if (!this.isHudsonBuild()) {
             final String[] pomsToInstall = new String[]{
                     // the common parent
                     "../../../build/common-parent",

@@ -287,8 +287,11 @@ public final class FileHelper {
 
         // just a directory to create
         if (zipEntry.isDirectory()) {
-            destFile.mkdir();
+            destFile.mkdirs();
             return;
+        } else {
+            // ensure parent dir exists
+            destFile.getParentFile().mkdirs();
         }
 
         OutputStream out = null;

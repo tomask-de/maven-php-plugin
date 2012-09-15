@@ -94,7 +94,7 @@ public class PhpDocumentor extends AbstractApiDocReport {
                 getAbsoluteFile().getPath() + "/" + getFolderName());
 
             writePropFile(properties, generatedPhpDocConfigFile, "[Parse Data]");
-            final String path = System.getProperty("java.library.path");
+            final String path = System.getProperty("java.library.path") + File.pathSeparator + System.getenv("PATH");
             getLog().debug("PATH: " + path);
             final String[] paths = path.split(File.pathSeparator);
             File phpDocFile = null;

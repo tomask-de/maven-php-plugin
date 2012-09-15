@@ -72,6 +72,16 @@ public abstract class AbstractPhpunitExeSupport extends AbstractPhpunitSupport {
      * @return extra arguments.
      */
     protected abstract String getExtraArguments();
+
+    /**
+     * Returns the IPhpunitTestRequest.
+     * @return IPhpunitTestRequest
+     */
+    private IPhpunitTestRequest testRequest;
+    
+    protected IPhpunitTestRequest getTestRequest() {
+        return this.testRequest;
+    }
     
     /**
      * {@inheritDoc}
@@ -80,6 +90,7 @@ public abstract class AbstractPhpunitExeSupport extends AbstractPhpunitSupport {
     public IPhpunitTestResult executeTests(IPhpunitTestRequest request, Log log)
         throws PhpException {
         try {
+            this.testRequest = request;
             final IPhpExecutable exec = this.getExec(log);
             final IPhpunitTestResult result = new PhpunitTestResult();
             
@@ -189,7 +200,7 @@ public abstract class AbstractPhpunitExeSupport extends AbstractPhpunitSupport {
     protected String getForkInvocationCommand(final IPhpunitEntry entry,
             final File xmlFile) {
         String command =
-            this.getLogXmlArgument() + " \"" + xmlFile.getAbsolutePath() + "\" " + this.getExtraArguments();
+            this.getLogXmlArgument() + " \"" + xmlFile.getAbsolutePath() + "\" " + this.getExtraArguments() + " ";
         if (this.getCoverageResult() != null) {
             command += "--coverage-html \"" + this.getCoverageResult().getAbsolutePath() + "\" ";
         }
@@ -315,6 +326,7 @@ public abstract class AbstractPhpunitExeSupport extends AbstractPhpunitSupport {
             deleteFile(getTestSuiteFile());
             final FileWriter writer = new FileWriter(getTestSuiteFile());
             writer.write(suite);
+            writer.close();
         } catch (IOException ex) {
             throw new PhpCoreException("Error writing test suite to " + getTestSuiteFile(), ex);
         }
@@ -364,7 +376,7 @@ public abstract class AbstractPhpunitExeSupport extends AbstractPhpunitSupport {
      */
     protected String getSingleInvocationCommand(final File xmlFile) {
         String command =
-            this.getLogXmlArgument() + " \"" + xmlFile.getAbsolutePath() + "\" " + this.getExtraArguments();
+            this.getLogXmlArgument() + " \"" + xmlFile.getAbsolutePath() + "\" " + this.getExtraArguments() + " ";
         if (this.getCoverageResult() != null) {
             command += "--coverage-html \"" + this.getCoverageResult().getAbsolutePath() + "\" ";
         }

@@ -16,16 +16,16 @@ package org.phpmaven.plugin.build;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
-import org.phpmaven.plugin.lint.LintExecution;
-import org.phpmaven.plugin.lint.LintHelper;
+import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
+import org.codehaus.plexus.configuration.PlexusConfigurationException;
+import org.phpmaven.core.IComponentFactory;
+import org.phpmaven.lint.ILintChecker;
+import org.phpmaven.lint.ILintExecution;
 import org.phpmaven.plugin.php.AbstractPhpWalkHelper;
 import org.phpmaven.plugin.php.IPhpWalkConfigurationMojo;
 import org.phpmaven.plugin.php.MultiException;
-import org.phpmaven.plugin.php.PhpErrorException;
 import org.phpmaven.plugin.php.PhpException;
 
 
@@ -47,15 +47,6 @@ public abstract class AbstractPhpResources extends AbstractPhpMojo {
      * @parameter
      */
     private String[] excludeFromValidation = new String[0];
-    
-    /**
-     * Flag to use the runkit lint check.
-     * 
-     * May tune performance during lint check of large projects, but requires extension unkit to be installed.
-     * 
-     * @parameter default-value="false" expression="${useRunkit}"
-     */
-    private boolean useRunkit;
 
     /**
      * If true the validation will be skipped and the source files will be moved to the target/classes
@@ -74,14 +65,9 @@ public abstract class AbstractPhpResources extends AbstractPhpMojo {
     private boolean forceOverwrite;
 
     /**
-     * The php files to check.
+     * The lint checker.
      */
-    private List<String> phpFiles = new ArrayList<String>();
-    
-    /**
-     * Lint helper
-     */
-    private LintHelper lintHelper;
+    private ILintChecker checker;
 
     /**
      * Returns if the PHP validation should be skipped.
@@ -130,13 +116,6 @@ public abstract class AbstractPhpResources extends AbstractPhpMojo {
 
     @Override
     public void execute() throws MojoExecutionException {
-        // trigger to automatically check for supported PHP version
-        try {
-            this.getPhpHelper().getPhpVersion();
-        } catch (PhpException e) {
-            throw new MojoExecutionException("PHP not usable", e);
-        }
-
         if (isIgnoreValidate()) {
             getLog().info("Validation of php sources is disabled.");
         }
@@ -146,81 +125,26 @@ public abstract class AbstractPhpResources extends AbstractPhpMojo {
         
         // resolve wildcards in excludeFromValidation
         excludeFromValidation = FileHelper.getWildcardMatches(excludeFromValidation, getSourceDirectory(), false);
- 
-        getLog().info("Unpacking dependencies");
-        
+
         try {
-            // TODO Is this correct?!?
-            if (!isIgnoreValidate()) {
-                this.getPhpHelper().prepareCompileDependencies(this.factory, this.getSession());
-            }
-            getLog().info("Copying php files");
+            getLog().info("Copying source files and performing LINT validation...");
+            this.checker = this.factory.lookup(ILintChecker.class, IComponentFactory.EMPTY_CONFIG, this.getSession());
             new PhpWalkHelper(this).goRecursiveAndCall(this.getSourceFolder());
         } catch (MultiException e) {
             throw new MojoExecutionException(e.getMessage(), e);
-        } catch (PhpException e) {
+        } catch (ComponentLookupException e) {
             throw new MojoExecutionException(e.getMessage(), e);
-        } catch (IOException e) {
+        } catch (PlexusConfigurationException e) {
             throw new MojoExecutionException(e.getMessage(), e);
         }
         
-        if (this.useRunkit) {
-            // see http://php.net/manual/de/function.runkit-lint.php
-            performLintWithRunkit();
+        boolean hadFailure = false;
+        for (final ILintExecution failure : this.checker.run(this.getLog())) {
+            getLog().info("Lint check failure for " + failure.getFile(), failure.getException());
+            hadFailure = true;
         }
-        else {
-            boolean hadFailure = false;
-            for (final LintExecution failure : this.lintHelper.waitAndReturnFailures()) {
-                getLog().info("Lint check failure for " + failure.getFile(), failure.getException());
-                hadFailure = true;
-            }
-            if (hadFailure) {
-                throw new MojoExecutionException("Lint check failures.");
-            }
-        }
-    }
-
-    /**
-     * Performs the lint check by using the runkit extension.
-     * 
-     * @throws MojoExecutionException mojo execution exception
-     */
-    private void performLintWithRunkit() throws MojoExecutionException {
-        final StringBuffer fileContent = new StringBuffer(
-                "<?php \n" +
-                "$files = array(");
-        for (final String file : this.phpFiles) {
-            fileContent.append("\n    '").append(file.replace("\\", "\\\\")).append("',");
-        }
-        // trim last comma
-        fileContent.setLength(fileContent.length() - 1);
-        fileContent.append("\n" +
-                ");\n" +
-                "foreach ($files as $file) {" +
-                "    echo \"Syntax check for $file\".PHP_EOL;\n" +
-                "    if (!runkit_lint_file($file)) {\n" +
-                "        // force include so that we display the error\n" +
-                "        require $file;\n" +
-                "        die('Parse error: '.$file);\n" +
-                "    }\n" +
-                "}");
-        try {
-            getLog().debug("Validating all files using runkit");
-            try {
-                this.getPhpHelper().executeCode(null, fileContent.toString());
-            } catch (PhpErrorException e) {
-                // try to extract the parse error message
-                final String message = e.getMessage();
-                final int pos = message.indexOf("Parse error: ");
-                if (pos != -1) {
-                    throw new MojoExecutionException(
-                            "syntax check failure: \n"
-                            + message.substring(pos));
-                }
-                throw e;
-            }
-        } catch (PhpException e) {
-            throw new MojoExecutionException(e.getMessage(), e);
+        if (hadFailure) {
+            throw new MojoExecutionException("Lint check failures.");
         }
     }
 
@@ -230,9 +154,6 @@ public abstract class AbstractPhpResources extends AbstractPhpMojo {
     private final class PhpWalkHelper extends AbstractPhpWalkHelper {
         private PhpWalkHelper(IPhpWalkConfigurationMojo config) {
             super(config);
-            if (!useRunkit) {
-                lintHelper = new LintHelper(getLog(), getPhpHelper());
-            }
         }
 
         @Override
@@ -258,12 +179,7 @@ public abstract class AbstractPhpResources extends AbstractPhpMojo {
                 return;
             }
             
-            if (useRunkit) {
-                phpFiles.add(file.getAbsolutePath());
-                return;
-            }
-            
-            lintHelper.addFile(file);
+            checker.addFileToCheck(file);
         }
     }
     
