@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.phpmaven.project;
+package org.phpmaven.project.impl;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,15 +32,21 @@ import org.apache.maven.project.ProjectBuildingException;
 import org.apache.maven.project.ProjectBuildingRequest;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
+import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
+import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.phpmaven.core.ConfigurationParameter;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.dependency.IAction;
+import org.phpmaven.dependency.IAction.ActionType;
 import org.phpmaven.dependency.IActionExtract;
 import org.phpmaven.dependency.IActionExtractAndInclude;
 import org.phpmaven.dependency.IDependency;
 import org.phpmaven.dependency.IDependencyConfiguration;
+import org.phpmaven.exec.IPhpExecutable;
 import org.phpmaven.exec.PhpCoreException;
 import org.phpmaven.exec.PhpException;
+import org.phpmaven.project.IPhpProject;
+import org.phpmaven.project.IProjectPhpExecution;
 import org.phpmaven.statedb.IStateDatabase;
 
 /**
@@ -111,6 +117,8 @@ public class PhpProject implements IPhpProject {
 		}
 		final DependencyInformation info = depState.get(sourceScope);
 		
+		final BootstrapInfo bootstrapInfo = new BootstrapInfo();
+		
 		try {
 			final MavenProject project = this.session.getCurrentProject();
 			final Set<Artifact> deps = project.getArtifacts();
@@ -128,6 +136,9 @@ public class PhpProject implements IPhpProject {
 	                	isClassic = false;
 	                    for (final IAction action : depCfg.getActions()) {
 	                        switch (action.getType()) {
+	                        	case ACTION_BOOTSTRAP:
+	                        		performBootstrap(log, info, dep, bootstrapInfo);
+	                        		break;
 	                            case ACTION_CLASSIC:
 	                                isClassic = true;
 	                                break;
@@ -162,7 +173,81 @@ public class PhpProject implements IPhpProject {
 			throw new MojoExecutionException("Failed preparing dependencies", ex);
 		}
 		
+		if (!bootstrapInfo.isEmpty()) {
+			// invoke the bootstrap
+			invokeBootstrap(log, bootstrapInfo, targetDir, sourceScope, depConfig.getBootstrapFile());
+		}
+		
 		this.stateDatabase.set(GROUPID, ARTIFACTID, DEPSTATEKEY, depState);
+	}
+
+	/**
+	 * @param bootstrapInfo
+	 * @param targetDir
+	 * @param sourceScope
+	 * @param bootstrapFile
+	 */
+	private void invokeBootstrap(Log log, BootstrapInfo bootstrapInfo, File targetDir,
+			String sourceScope, File bootstrapFile) throws PhpException {
+		try {
+			final IProjectPhpExecution config = this.factory.lookup(
+	                IProjectPhpExecution.class,
+	                IComponentFactory.EMPTY_CONFIG,
+	                this.session);
+	        final IPhpExecutable exec = config.getExecutionConfiguration(
+	                null,
+	                this.session.getCurrentProject()).getPhpExecutable(log);
+	        final StringBuffer script = new StringBuffer();
+	        script.append("$mavenDependencies = array(\n");
+	        for (final BootstrapFileInfo fileInfo : bootstrapInfo) {
+	        	script.append("    array(\n");
+	        	script.append("        'groupId' => '").append(fileInfo.getGroupId()).append("',\n");
+	        	script.append("        'artifactId' => '").append(fileInfo.getArtifactId()).append("',\n");
+	        	script.append("        'version' => '").append(fileInfo.getVersion()).append("',\n");
+	        	script.append("        'pharFile' => '").append(fileInfo.getPharFile().getAbsolutePath().replace("\\", "\\\\").replace("'", "\\'")).append("',\n");
+	        	script.append("        'isNew' => ").append(fileInfo.isNew() ? "true" : "false").append(",\n");
+	        	script.append("        'isChanged' => ").append(fileInfo.isChanged() ? "true" : "false").append("\n");
+	        	script.append("    ),\n");
+	        }
+	        script.append("    'scope' => '").append(sourceScope).append("',\n");
+	        script.append("    'targetDir' => '").append(targetDir.getAbsolutePath().replace("\\", "\\\\").replace("'", "\\'")).append("'\n");
+	        script.append(");\n");
+	        script.append("require '").append(bootstrapFile.getAbsolutePath().replace("\\", "\\\\").replace("'", "\\'")).append("';\n");
+	        exec.executeCode("", script.toString());
+		} catch (ComponentLookupException ex) {
+			throw new PhpCoreException("Unable to execute bootstrap script", ex);
+		} catch (PlexusConfigurationException ex) {
+			throw new PhpCoreException("Unable to execute bootstrap script", ex);
+		}
+	}
+
+	/**
+	 * @param info
+	 * @param dep
+	 */
+	private void performBootstrap(Log log, final DependencyInformation info,
+			final Artifact dep, BootstrapInfo bootstrapInfo) {
+		final String depKey = getDepKey(dep);
+		log.debug("Dependency " + depKey + " will be passed to bootstrap.");
+		final BootstrapFileInfo fileInfo = new BootstrapFileInfo();
+		fileInfo.setGroupId(dep.getGroupId());
+		fileInfo.setArtifactId(dep.getArtifactId());
+		fileInfo.setVersion(dep.getVersion());
+		fileInfo.setPharFile(dep.getFile());
+		DependencyArtifact artifact = info.get(depKey);
+		if (artifact == null || !artifact.getActionStatement().equals("bootstrap")) {
+			fileInfo.setNew(true);
+			artifact = new DependencyArtifact();
+			artifact.setDepKey(depKey);
+			artifact.setActionStatement("bootstrap");
+			artifact.setFileTimestamp(dep.getFile().lastModified());
+			artifact.setReposFile(dep.getFile());
+		} else if (artifact.getFileTimestamp() != dep.getFile().lastModified() || !artifact.getReposFile().equals(dep.getFile())) {
+			fileInfo.setChanged(true);
+			artifact.setFileTimestamp(dep.getFile().lastModified());
+			artifact.setReposFile(dep.getFile());
+		}
+		bootstrapInfo.add(fileInfo);
 	}
 
 	/**
@@ -337,5 +422,30 @@ public class PhpProject implements IPhpProject {
     private String getDepKey(Artifact dep) {
     	return dep.getGroupId()+":"+dep.getArtifactId()+":"+dep.getVersion()+":"+dep.getClassifier();
     }
+
+	@Override
+	public void validateDependencies() throws MojoExecutionException {
+		// check if we have a dependency that is not added to dependency section
+		final MavenProject project = this.session.getCurrentProject();
+		final Set<Artifact> deps = project.getArtifacts();
+		for (final IDependency depCfg : depConfig.getDependencies()) {
+			for (final IAction action : depCfg.getActions()) {
+				if (action.getType() == ActionType.ACTION_BOOTSTRAP && (depConfig.getBootstrapFile() == null || !depConfig.getBootstrapFile().exists())) {
+					throw new MojoExecutionException("There are bootstrap actions but bootstrap file '" + depConfig.getBootstrapFile() + "' does not exist or was not set.");
+				}
+			}
+			boolean found = false;
+			for (final Artifact dep : deps) {
+	            if (depCfg.getGroupId().equals(dep.getGroupId()) &&
+	                    depCfg.getArtifactId().equals(dep.getArtifactId())) {
+	            	found = true;
+	            	break;
+	            }
+			}
+			if (!found) {
+				throw new MojoExecutionException("Dependency " + depCfg.getGroupId() + ":" + depCfg.getArtifactId() + " has a dependency configuration but is not added to dependency section.");
+			}
+		}
+	}
 
 }

@@ -14,23 +14,21 @@
  * limitations under the License.
  */
 
-package org.phpmaven.project;
+package org.phpmaven.dependency.impl;
 
-import java.util.HashMap;
+import org.phpmaven.dependency.IActionBootstrap;
 
 /**
- * The persistent state of the dependencies.
- * 
- * Key is the target scope of the dependencies.
+ * Boostrap action
  * 
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.3
  */
-public class DependencyState extends HashMap<String, DependencyInformation> {
-
-	/**
-	 * serial version uid
-	 */
-	private static final long serialVersionUID = 1L;
-
+public class Bootstrap implements IActionBootstrap {
+    
+    @Override
+    public ActionType getType() {
+        return ActionType.ACTION_BOOTSTRAP;
+    }
+    
 }

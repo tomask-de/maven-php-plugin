@@ -71,6 +71,7 @@ public abstract class AbstractPhpExtractMojo extends AbstractMojo implements IPh
                 IPhpProject.class,
                 IComponentFactory.EMPTY_CONFIG,
                 this.getSession());
+        	project.validateDependencies();
             
             config = factory.lookup(
                 IProjectPhpExecution.class,

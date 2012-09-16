@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.phpmaven.project;
+package org.phpmaven.project.impl;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -42,6 +42,7 @@ import org.phpmaven.dependency.IActionInclude;
 import org.phpmaven.dependency.IDependency;
 import org.phpmaven.dependency.IDependencyConfiguration;
 import org.phpmaven.exec.IPhpExecutableConfiguration;
+import org.phpmaven.project.IProjectPhpExecution;
 
 /**
  * Implementation of the php project execution helper.

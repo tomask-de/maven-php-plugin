@@ -28,11 +28,27 @@ import org.phpmaven.core.ConfigurationParameter;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.lint.ILintChecker;
 import org.phpmaven.lint.ILintExecution;
+import org.phpmaven.statedb.IStateDatabase;
 
 @Component(role = ILintChecker.class, instantiationStrategy = "per-lookup")
 public class LintChecker implements ILintChecker {
     
     /**
+	 * 
+	 */
+	private static final String STATEKEY = "LintState";
+
+	/**
+	 * 
+	 */
+	private static final String ARTIFACTID = "maven-php-validate-lint";
+
+	/**
+	 * 
+	 */
+	private static final String GROUPID = "org.phpmaven";
+
+	/**
      * Thread count.
      * TODO configrable
      */
@@ -59,6 +75,12 @@ public class LintChecker implements ILintChecker {
      * The walkers.
      */
     private LintThread[] walkers = new LintThread[THREAD_COUNT];
+    
+    /**
+     * The state database
+     */
+    @Requirement
+    private IStateDatabase stateDb;
     
     /**
      * The lint helper.
@@ -93,10 +115,17 @@ public class LintChecker implements ILintChecker {
 
     @Override
     public Iterable<ILintExecution> run(Log log) {
+    	// Filter lint checks
+    	LintState state = this.stateDb.get(GROUPID, ARTIFACTID, STATEKEY, LintState.class);
+    	if (state == null) {
+    		state = new LintState();
+    	}
+    	
         for (int i = 0; i < walkers.length; i++) {
             try {
                 walkers[i] = this.factory.lookup(LintThread.class, IComponentFactory.EMPTY_CONFIG, this.session);
                 walkers[i].setQueue(queue);
+                walkers[i].setLintState(state);
             } catch (ComponentLookupException ex) {
                 throw new IllegalStateException(ex);
             } catch (PlexusConfigurationException ex) {
@@ -110,6 +139,11 @@ public class LintChecker implements ILintChecker {
         for (final LintExecution exec : this.waitAndReturnFailures()) {
             result.add(exec);
         }
+        
+        this.stateDb.set(GROUPID, ARTIFACTID, STATEKEY, state);
+        
+        log.info("checked " + this.queue.getCheckedFileCount() + " new/changed files (" + this.queue.getTotalFiles() + " total): detected " + this.queue.getFailureCount() + " failures.");
+        
         return result;
     }
     

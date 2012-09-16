@@ -16,11 +16,13 @@
 
 package org.phpmaven.dependency.test;
 
+import java.io.File;
 import java.util.Iterator;
 
 import org.apache.maven.execution.MavenSession;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.dependency.IAction;
+import org.phpmaven.dependency.IActionBootstrap;
 import org.phpmaven.dependency.IActionClassic;
 import org.phpmaven.dependency.IActionExtract;
 import org.phpmaven.dependency.IActionExtractAndInclude;
@@ -148,6 +150,33 @@ public class BaseTest extends AbstractTestCase {
         }
         fail("dependency " + groupId + ":" + artifactId + " not found");
         return null;
+    }
+
+    /**
+     * Tests if the bootstrap configuration is parsed correctly.
+     *
+     * @throws Exception thrown on errors
+     */
+    public void testBootstrap() throws Exception {
+        // look up the component factory
+        final IComponentFactory factory = lookup(IComponentFactory.class);
+        // create the execution config
+        final MavenSession session = this.createSimpleSession("dependency/bootstrap");
+        final IDependencyConfiguration depConfig = factory.lookup(
+                IDependencyConfiguration.class,
+                IComponentFactory.EMPTY_CONFIG,
+                session);
+        assertNotNull(depConfig);
+        
+        IDependency dep = this.findDep(depConfig, "org.group1", "bootstrap1");
+        Iterator<IAction> actionIter = dep.getActions().iterator();
+        assertTrue(actionIter.hasNext());
+        IAction action = actionIter.next();
+        assertEquals(action.getType(), IAction.ActionType.ACTION_BOOTSTRAP);
+        assertTrue(action instanceof IActionBootstrap);
+        assertFalse(actionIter.hasNext());
+        
+        assertEquals(new File(session.getCurrentProject().getBuild().getDirectory(), "/foo.php").getAbsolutePath(), depConfig.getBootstrapFile().getAbsolutePath());
     }
     
 }

@@ -251,3 +251,37 @@
 	...
 </project>
 <!-- END SNIPPET: pear -->
+<!-- START SNIPPET: bootstrap -->
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	...
+	<dependencies>
+		<dependency>
+			<groupId>org.mygroup</groupId>
+			<artifactId>my-lib</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.phpmaven</groupId>
+				<artifactId>maven-php-dependency</artifactId>
+				<configuration>
+					<bootstrapFile>${project.basedir}/src/bootstrap/configureDependencies.php</bootstrapFile>
+					<dependencies>
+						<dependency>
+							<groupId>org.mygroup</groupId>
+							<artifactId>my-lib</artifactId>
+							<actions>
+								<bootstrap />
+							</actions>
+						</dependency>
+					</dependencies>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	...
+</project>
+<!-- END SNIPPET: bootstrap -->

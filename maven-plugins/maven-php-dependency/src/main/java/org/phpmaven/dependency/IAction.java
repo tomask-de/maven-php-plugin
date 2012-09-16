@@ -40,7 +40,12 @@ public interface IAction {
         /** extract and include instruction */
         ACTION_EXTRACT_INCLUDE,
         /** install through pear */
-        ACTION_PEAR
+        ACTION_PEAR,
+        /**
+         * invoke a bootstrap script
+         * @since 2.0.3
+         */
+        ACTION_BOOTSTRAP,
     }
     
     /**

@@ -14,40 +14,61 @@
  * limitations under the License.
  */
 
-package org.phpmaven.project;
+package org.phpmaven.lint.impl;
 
-import java.io.File;
-import java.util.HashMap;
+import java.io.Serializable;
+
+import org.phpmaven.exec.PhpException;
 
 /**
+ * The lint file state
  * 
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.3
  */
-public class DependencyInformation extends HashMap<String, DependencyArtifact> {
-
+public class LintFileState implements Serializable {
+	
 	/**
 	 * serial version uid
 	 */
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * the default target directory
+	 * The file timestamp
 	 */
-	private File defaultTargetDir;
-
-	/**
-	 * @return the defaultTargetDir
-	 */
-	public File getDefaultTargetDir() {
-		return this.defaultTargetDir;
-	}
-
-	/**
-	 * @param defaultTargetDir the defaultTargetDir to set
-	 */
-	public void setDefaultTargetDir(File defaultTargetDir) {
-		this.defaultTargetDir = defaultTargetDir;
-	}
+	private long fileDate;
 	
+	/**
+	 * The php exception if there is any
+	 */
+	private PhpException exception;
+
+	/**
+	 * @return the fileDate
+	 */
+	public long getFileDate() {
+		return this.fileDate;
+	}
+
+	/**
+	 * @param fileDate the fileDate to set
+	 */
+	public void setFileDate(long fileDate) {
+		this.fileDate = fileDate;
+	}
+
+	/**
+	 * @return the exception
+	 */
+	public PhpException getException() {
+		return exception;
+	}
+
+	/**
+	 * @param exception the exception to set
+	 */
+	public void setException(PhpException exception) {
+		this.exception = exception;
+	}
+
 }

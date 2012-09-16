@@ -44,5 +44,11 @@ public interface IPhpProject {
 	 * @throws PhpException thrown on errors
 	 */
 	void prepareDependencies(final Log log, final File targetDir, String sourceScope) throws MojoExecutionException, PhpException;
+	
+	/**
+	 * Validates the dependencies.
+	 * @throws MojoExecutionException thrown if the dependency configuration are invalid
+	 */
+	void validateDependencies() throws MojoExecutionException;
 
 }
