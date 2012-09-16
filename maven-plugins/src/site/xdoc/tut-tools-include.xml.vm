@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Copyright 2010-2012 by PHP-maven.org
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+	http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+	<properties>
+		<title>Maven for PHP - Include path tooling</title>
+		<author email="mep_eisen@web.de">Martin Eisengardt</author>
+	</properties>
+	
+	<head>
+		<title>Maven for PHP - Include path tooling</title>
+		<meta name="keyword" content="apache, maven, php, php-maven, maven tutorial, php maven tutorial, php repository, maven repository, maven support, php support, php maven support" />		
+	</head>
+	
+	<body>
+	
+		<p style="text-align:center">[ <a href="tut-tools-phar.html">Previous</a> | <a href="tutorials.html">TOC</a> | <a href="tut-tools-exec.html">Next</a> ]</p>
+		
+		<section name="Preamble">
+		<p>Php-maven builds the include path by resolving the dependencies and respecting the dependency configurations.</p>
+		</section>
+		
+		<section name="Print-Include">
+		<p>To print the execution include path use the following command:</p>
+<source>
+mvn org.phpmaven:maven-php-plugin:${phpmavenTagName}:print-include-path
+</source>
+		<p>You will get an output similar to the following:</p>
+<source>
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Sample PHP 5 library project 0.0.1
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-php-plugin:2.0.3-SNAPSHOT:print-include-path (default-cli) @ test-oktests ---
+[INFO] include path: [C:\myproject\target\classes, C:\myproject\target\php-deps, C:\myproject\target\php-deps\pear]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 10.292s
+[INFO] Finished at: Sun Sep 16 21:52:55 CEST 2012
+[INFO] Final Memory: 11M/166M
+[INFO] ------------------------------------------------------------------------
+</source>
+		</section>
+		
+		<section name="Alternative formats">
+		<p>To print alternative formats you can set the format parameter:</p>
+<source>
+mvn -Dformat=phpstring org.phpmaven:maven-php-plugin:${phpmavenTagName}:print-include-path
+</source>
+		<p>The output changes to:</p>
+<source>
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Sample PHP 5 library project 0.0.1
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-php-plugin:2.0.3-SNAPSHOT:print-include-path (default-cli) @ test-oktests ---
+[INFO] include path: 'C:\\myproject\\target\\classes;C:\\myproject\\target\\php-deps;C:\\myproject\\target\\php-deps\\pear'
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 10.292s
+[INFO] Finished at: Sun Sep 16 21:52:55 CEST 2012
+[INFO] Final Memory: 11M/166M
+[INFO] ------------------------------------------------------------------------
+</source>
+		<p>All the formats that are supported:</p>
+		<ul>
+		<li><b>toString:</b> The default format (comma seperated, see the first example)</li>
+		<li><b>phpstring:</b> A php string, escaped and ready to be used, separated by ';' at windows and ':' at unix.</li>
+		<li><b>plain:</b> A plaing string, non-escaped, separated by ';' at windows and ':' at unix.</li>
+		</ul>
+		</section>
+		
+		<section name="Print to file">
+		<p>You can print the include path directly to a file. Use the toFile option:</p>
+<source>
+mvn -Dformat=plain -DtoFile=includes.txt org.phpmaven:maven-php-plugin:${phpmavenTagName}:print-include-path
+</source>
+		</section>
+		
+		<section name="Test-Include-Path">
+		<p>If you need the test include path (including all test dependencies) you can use the print-test-include-path goal:</p>
+<source>
+mvn -Dformat=plain org.phpmaven:maven-php-plugin:${phpmavenTagName}:print-test-include-path
+</source>
+		</section>
+		
+		<p style="text-align:center">[ <a href="tut-tools-phar.html">Previous</a> | <a href="tutorials.html">TOC</a> | <a href="tut-tools-exec.html">Next</a> ]</p>
+		
+</body>
+</document>
