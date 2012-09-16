@@ -17,7 +17,6 @@
 package org.phpmaven.dependency.impl;
 
 import org.codehaus.plexus.component.annotations.Configuration;
-import org.phpmaven.core.ConfigurationParameter;
 import org.phpmaven.dependency.IActionExtract;
 
 /**

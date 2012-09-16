@@ -16,6 +16,8 @@
 
 package org.phpmaven.dependency;
 
+import java.io.File;
+
 import org.phpmaven.core.BuildPluginConfiguration;
 import org.phpmaven.core.IComponentFactory;
 
@@ -92,5 +94,11 @@ public interface IDependencyConfiguration {
      * @return dependencies.
      */
     Iterable<IDependency> getDependencies();
+    
+    /**
+     * A bootstrap file that will be invoked on bootstrap dependencies.
+     * @return bootstrap php file.
+     */
+    File getBootstrapFile();
 
 }

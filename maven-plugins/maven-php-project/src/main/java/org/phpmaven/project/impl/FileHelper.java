@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 
-package org.phpmaven.project;
+package org.phpmaven.project.impl;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

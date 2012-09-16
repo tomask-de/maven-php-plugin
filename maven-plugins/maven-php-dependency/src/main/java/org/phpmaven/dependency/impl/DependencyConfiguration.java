@@ -16,6 +16,7 @@
 
 package org.phpmaven.dependency.impl;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -38,6 +39,11 @@ public class DependencyConfiguration implements IDependencyConfiguration {
      */
     @Configuration(name = "dependencies", value = "")
     private ArrayList<IDependency> dependencies = new ArrayList<IDependency>();
+    
+    /**
+     * A bootstrap file for bootstrap dependency actions.
+     */
+    private File bootstrapFile;
 
     
     /**
@@ -47,5 +53,11 @@ public class DependencyConfiguration implements IDependencyConfiguration {
     public Iterable<IDependency> getDependencies() {
         return Collections.unmodifiableList(this.dependencies);
     }
+
+
+	@Override
+	public File getBootstrapFile() {
+		return this.bootstrapFile;
+	}
     
 }

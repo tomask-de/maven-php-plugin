@@ -60,7 +60,6 @@ public class SetSources extends AbstractMojo {
         return baseDir;
     }
     
-    @SuppressWarnings("unchecked")
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         final List<String> sourceFolders = this.project.getCompileSourceRoots();

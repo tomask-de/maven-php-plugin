@@ -75,6 +75,11 @@ public class LintThread implements Runnable {
     private boolean terminated = false;
 
     /**
+     * The lint state to be used
+     */
+	private LintState lintState;
+
+    /**
      * Constructor.
      */
     public LintThread() {
@@ -117,14 +122,39 @@ public class LintThread implements Runnable {
             while (true) {
                 final LintExecution execution = this.queue.pop();
                 if (execution != null) {
-                    final String command = "-l \"" + execution.getFile().getAbsolutePath() + "\"";
-                    this.log.debug("Validating: " + execution.getFile().getAbsolutePath());
-                    try {
-                        exec.execute(command, execution.getFile());
-                    } catch (PhpException e) {
-                        execution.setException(e);
-                        this.queue.addFailure(execution);
-                    }
+                	
+                	LintFileState fileState = null;
+                	synchronized (this.lintState) {
+                		fileState = this.lintState.get(execution.getFile());
+                		if (fileState == null) {
+                			fileState = new LintFileState();
+                			this.lintState.put(execution.getFile(), fileState);
+                		}
+                	}
+                	
+                	if (fileState.getFileDate() == execution.getFile().lastModified()) {
+                		if (fileState.getException() != null) {
+                			this.log.debug("Reusing cached lint check failure for " + execution.getFile().getAbsolutePath());
+                			execution.setException(fileState.getException());
+                			this.queue.incrementFailures();
+                            this.queue.addFailure(execution);
+                		} else {
+                			this.log.debug("Reusing cached success for " + execution.getFile().getAbsolutePath());
+                		}
+                	} else {
+                		fileState.setFileDate(execution.getFile().lastModified());
+                        final String command = "-l \"" + execution.getFile().getAbsolutePath() + "\"";
+                        this.log.debug("Validating: " + execution.getFile().getAbsolutePath());
+                        try {
+                            exec.execute(command, execution.getFile());
+                        } catch (PhpException e) {
+                            execution.setException(e);
+                            fileState.setException(e);
+                            this.queue.incrementFailures();
+                            this.queue.addFailure(execution);
+                        }
+                        this.queue.incrementCheckedFiles();
+                	}
                 } else {
                     // Currently we add no components as long as the threads are running.
                     // XXX: Mabye this is not good.
@@ -159,5 +189,12 @@ public class LintThread implements Runnable {
             }
         }
     }
+
+	/**
+	 * @param state
+	 */
+	public void setLintState(LintState state) {
+		this.lintState = state;
+	}
     
 }

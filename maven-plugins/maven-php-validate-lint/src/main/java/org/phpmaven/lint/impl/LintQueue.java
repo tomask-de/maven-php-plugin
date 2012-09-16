@@ -42,10 +42,26 @@ public class LintQueue {
     private boolean terminated;
     
     /**
+     * Count of checked files.
+     */
+    private long checkedFileCount;
+    
+    /**
+     * Count of total files.
+     */
+    private long totalFiles;
+    
+    /**
+     * Count of failures.
+     */
+    private long failureCount;
+    
+    /**
      * Adds a new lint execution.
      * @param lint 
      */
     public void addLintCheck(LintExecution lint) {
+    	this.totalFiles++;
         this.queue.add(lint);
         synchronized (this.mutex) {
             this.mutex.notify();
@@ -53,6 +69,41 @@ public class LintQueue {
     }
     
     /**
+     * Increments the checked files
+     */
+    public void incrementCheckedFiles() {
+    	this.checkedFileCount++;
+    }
+    
+    /**
+     * Increments the failures
+     */
+    public void incrementFailures() {
+    	this.failureCount++;
+    }
+    
+    /**
+	 * @return the checkedFileCount
+	 */
+	public long getCheckedFileCount() {
+		return this.checkedFileCount;
+	}
+
+	/**
+	 * @return the totalFiles
+	 */
+	public long getTotalFiles() {
+		return this.totalFiles;
+	}
+
+	/**
+	 * @return the failureCount
+	 */
+	public long getFailureCount() {
+		return this.failureCount;
+	}
+
+	/**
      * returns the next lint execution.
      * @return lint execution or null if there is no execution
      */
