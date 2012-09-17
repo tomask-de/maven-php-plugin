@@ -22,6 +22,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.maven.execution.DefaultMavenExecutionRequest;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.plugin.DebugConfigurationListener;
@@ -49,6 +50,7 @@ import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.codehaus.plexus.configuration.xml.XmlPlexusConfiguration;
 import org.codehaus.plexus.logging.Logger;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
+import org.sonatype.aether.RepositorySystemSession;
 
 /**
  * The component lookup factory for components that are configured via pom.xml.
@@ -117,10 +119,10 @@ public class ComponentFactory implements IComponentFactory {
         
         configure(
                 configuration,
-                session.getCurrentProject(),
+                session == null ? null : session.getCurrentProject(),
                 result,
                 realm,
-                session);
+                session == null ? new MavenSession(null, (RepositorySystemSession) null, new DefaultMavenExecutionRequest(), null) : session);
         
         return result;
     }
@@ -148,10 +150,10 @@ public class ComponentFactory implements IComponentFactory {
         
         configure(
                 configuration,
-                session.getCurrentProject(),
+                session == null ? null : session.getCurrentProject(),
                 result,
                 realm,
-                session);
+                session == null ? new MavenSession(null, (RepositorySystemSession) null, new DefaultMavenExecutionRequest(), null) : session);
         
         return result;
     }
@@ -328,6 +330,9 @@ public class ComponentFactory implements IComponentFactory {
      */
     @Override
     public Xpp3Dom getBuildConfig(final MavenProject project, String groupid, String artifactId) {
+    	if (project == null) {
+    		return null;
+    	}
         final List<Plugin> plugins = project.getBuildPlugins();
         for (final Plugin plugin : plugins) {
             if (plugin.getGroupId().equals(groupid)
@@ -394,10 +399,10 @@ public class ComponentFactory implements IComponentFactory {
         for (final T res : result) {
             configure(
                     config,
-                    session.getCurrentProject(),
+                    session == null ? null : session.getCurrentProject(),
                     res,
                     realm,
-                    session);
+                    session == null ? new MavenSession(null, (RepositorySystemSession) null, new DefaultMavenExecutionRequest(), null) : session);
         }
         return result;
     }

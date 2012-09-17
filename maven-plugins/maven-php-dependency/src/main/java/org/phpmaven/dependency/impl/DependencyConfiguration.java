@@ -22,6 +22,7 @@ import java.util.Collections;
 
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Configuration;
+import org.phpmaven.dependency.IAction;
 import org.phpmaven.dependency.IDependency;
 import org.phpmaven.dependency.IDependencyConfiguration;
 
@@ -44,6 +45,12 @@ public class DependencyConfiguration implements IDependencyConfiguration {
      * A bootstrap file for bootstrap dependency actions.
      */
     private File bootstrapFile;
+    
+    /**
+     * The default actions.
+     */
+    @Configuration(name = "defaults", value = "")
+    private ArrayList<IAction> defaults = new ArrayList<IAction>();
 
     
     /**
@@ -58,6 +65,12 @@ public class DependencyConfiguration implements IDependencyConfiguration {
 	@Override
 	public File getBootstrapFile() {
 		return this.bootstrapFile;
+	}
+
+
+	@Override
+	public Iterable<IAction> getDefaults() {
+		return this.defaults;
 	}
     
 }

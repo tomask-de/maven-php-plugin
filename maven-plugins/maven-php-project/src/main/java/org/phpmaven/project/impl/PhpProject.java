@@ -30,6 +30,7 @@ import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuilder;
 import org.apache.maven.project.ProjectBuildingException;
 import org.apache.maven.project.ProjectBuildingRequest;
+import org.apache.maven.repository.RepositorySystem;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
@@ -102,6 +103,12 @@ public class PhpProject implements IPhpProject {
      */
 	@Requirement
     private ProjectBuilder mavenProjectBuilder;
+    
+    /**
+     * the repository system.
+     */
+    @Requirement
+    private RepositorySystem reposSystem;
 
 	@Override
 	public void prepareDependencies(final Log log, File targetDir, String sourceScope)
@@ -129,45 +136,34 @@ public class PhpProject implements IPhpProject {
 	            
 	            final List<String> packedElements = new ArrayList<String>();
 	            packedElements.add(dep.getFile().getAbsolutePath());
-	            boolean isClassic = true;
-	            for (final IDependency depCfg : depConfig.getDependencies()) {
-	                if (depCfg.getGroupId().equals(dep.getGroupId()) &&
-	                        depCfg.getArtifactId().equals(dep.getArtifactId())) {
-	                	isClassic = false;
-	                    for (final IAction action : depCfg.getActions()) {
-	                        switch (action.getType()) {
-	                        	case ACTION_BOOTSTRAP:
-	                        		performBootstrap(log, info, dep, bootstrapInfo);
-	                        		break;
-	                            case ACTION_CLASSIC:
-	                                isClassic = true;
-	                                break;
-	                            case ACTION_PEAR:
-	                            	performPearInstall(log, dep, info);
-	                            	break;
-	                            case ACTION_IGNORE:
-	                                // do nothing, isClassic should be false so that it is ignored
-	                                log.info(dep.getFile().getAbsolutePath() + " will be ignored");
-	                                break;
-	                            case ACTION_INCLUDE:
-	                                log.info(dep.getFile().getAbsolutePath() + " will be added on include path");
-	                                break;
-	                            case ACTION_EXTRACT:
-	                            	performExtraction(log, dep, packedElements,
-										action, info);
-	                                break;
-	                            case ACTION_EXTRACT_INCLUDE:
-	                            	performExtractAndInclude(log, dep,
-										packedElements, action, info);
-	                                break;
-	                        }
-	                    }
-	                }
-	            }
-	            
-	            if (isClassic) {
-	                performClassic(log, targetDir, dep, packedElements, info);
-	            }
+	            for (final IAction action : DependencyHelper.getDependencyActions(dep, depConfig, reposSystem, session, mavenProjectBuilder, factory)) {
+                    switch (action.getType()) {
+                    	case ACTION_BOOTSTRAP:
+                    		performBootstrap(log, info, dep, bootstrapInfo);
+                    		break;
+                        case ACTION_CLASSIC:
+                        	performClassic(log, targetDir, dep, packedElements, info);
+                            break;
+                        case ACTION_PEAR:
+                        	performPearInstall(log, dep, info);
+                        	break;
+                        case ACTION_IGNORE:
+                            // do nothing, isClassic should be false so that it is ignored
+                            log.info(dep.getFile().getAbsolutePath() + " will be ignored");
+                            break;
+                        case ACTION_INCLUDE:
+                            log.info(dep.getFile().getAbsolutePath() + " will be added on include path");
+                            break;
+                        case ACTION_EXTRACT:
+                        	performExtraction(log, dep, packedElements,
+								action, info);
+                            break;
+                        case ACTION_EXTRACT_INCLUDE:
+                        	performExtractAndInclude(log, dep,
+								packedElements, action, info);
+                            break;
+                    }
+                }
 	        }
 		} catch (IOException ex) {
 			throw new MojoExecutionException("Failed preparing dependencies", ex);
