@@ -128,6 +128,11 @@ public class PharPackager implements IPharPackager {
         	}
         	metadata.append("$phar->setMetadata($metadata);\n");
         }
+        
+        String alias = "";
+        if (request.getAlias() != null && request.getAlias().length() > 0) {
+        	alias = "$phar->setAlias('" + request.getAlias() + "');\n";
+        }
 
         String compression = "";
         if (request.isCompressed()) {
@@ -147,6 +152,7 @@ public class PharPackager implements IPharPackager {
         final String snippet = request.getPackagePhpTemplate().
                 // TODO: May we need to set a compression template????
                 replace("$:{pharcompression}", compression).
+                replace("$:{pharalias}", alias).
                 replace("$:{pharfilepath}", targetMasked).
                 replace("$:{pharfilename}", request.getFilename()).
                 replace("$:{pharcontents}", contents.toString()).
