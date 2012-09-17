@@ -58,6 +58,7 @@ public class PharPackagingRequest implements IPharPackagingRequest {
             "$:{pharcompression}" + 
             "$phar->setStub('$:{pharstub}');\n" + 
             "$:{pharmetadata}" +
+            "$:{pharalias}" +
             "$phar->stopBuffering();\n")
     private String packagePhpTemplate;
     
@@ -121,6 +122,12 @@ public class PharPackagingRequest implements IPharPackagingRequest {
      */
     @Configuration(name = "largeFile", value = "true")
     private boolean largeFile;
+    
+    /**
+     * The phar alias
+     */
+    @Configuration(name = "alias", value = "")
+    private String alias;
 
     /**
      *  The metadata entries.
@@ -316,6 +323,16 @@ public class PharPackagingRequest implements IPharPackagingRequest {
 	@Override
 	public void setMetadata(Map<String,String> metadata) {
 		this.metadata = metadata;
+	}
+
+	@Override
+	public String getAlias() {
+		return this.alias;
+	}
+
+	@Override
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 
 }

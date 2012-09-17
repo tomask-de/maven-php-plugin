@@ -116,6 +116,14 @@ import org.phpmaven.core.IComponentFactory;
  *   <td>List of arbitrary elements that will be added to the phar metadata.<p>Usage: &lt;metadata&gt;&lt;myMetadataKey&gt;Value&lt;/myMetadataKey&gt;&lt/metadata&gt;
  *   </td>
  * </tr>
+ * <tr>
+ *   <td>alias</td>
+ *   <td>-</td>
+ *   <td>-</td>
+ *   <td>-</td>
+ *   <td>Optional alias that may be used in phar stream wrapper access for the phar. See &lt;a href="http://php.net/manual/en/phar.setalias.php"&gt;http://php.net/manual/en/phar.setalias.php&lt;/a&gt;.
+ *   </td>
+ * </tr>
  * </table>
  * 
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
@@ -343,5 +351,18 @@ public interface IPharPackagingRequest {
 	 * Sets the phar metadata
 	 * @param metadatas the metadata elements
 	 */
-	void setMetadata(Map<String,String> metadatas);
+	void setMetadata(Map<String, String> metadatas);
+	
+	/**
+	 * Returns the phar alias
+	 * @return the alias
+	 */
+	String getAlias();
+	
+	/**
+	 * Sets the phar alias
+	 * @param alias the alias
+	 */
+	void setAlias(String alias);
+	
 }

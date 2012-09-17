@@ -120,7 +120,9 @@ public class PharJavaPackager implements IPharPackager {
             
             final byte[] fileEntries = fileEntriesBaos.toByteArray();
             
-            final byte[] pharAlias = pharFile.getName().getBytes("UTF-8");
+            final byte[] pharAlias = (request.getAlias() == null || request.getAlias().length() == 0) ? 
+            		pharFile.getName().getBytes("UTF-8") :
+            		request.getAlias().getBytes("UTF-8");
             final int manifestLength = metadata.length + fileEntries.length + pharAlias.length + 14;
             writeIntLE(fos, manifestLength);
             writeIntLE(fos, fileCount);
