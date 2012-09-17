@@ -100,5 +100,11 @@ public interface IDependencyConfiguration {
      * @return bootstrap php file.
      */
     File getBootstrapFile();
+    
+    /**
+     * Returns the default actions of this project
+     * @return default actions
+     */
+    Iterable<IAction> getDefaults();
 
 }

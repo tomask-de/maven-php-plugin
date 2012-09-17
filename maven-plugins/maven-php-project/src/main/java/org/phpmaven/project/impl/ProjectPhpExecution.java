@@ -23,10 +23,12 @@ import java.util.Set;
 
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.execution.MavenSession;
+import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuilder;
 import org.apache.maven.project.ProjectBuildingException;
 import org.apache.maven.project.ProjectBuildingRequest;
+import org.apache.maven.repository.RepositorySystem;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.component.configurator.expression.ExpressionEvaluationException;
@@ -70,6 +72,12 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
      */
     @Requirement
     private ProjectBuilder mavenProjectBuilder;
+    
+    /**
+     * the repository system.
+     */
+    @Requirement
+    private RepositorySystem reposSystem;
 
     /**
      * {@inheritDoc}
@@ -186,6 +194,8 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
             this.addIncludes(execConfig, buildConfig, mojoConfig, project, mavenSession, depConfig);
         } catch (ExpressionEvaluationException ex) {
             throw new PlexusConfigurationException("Problems evaluating the includes", ex);
+        } catch (MojoExecutionException ex) {
+            throw new PlexusConfigurationException("Problems evaluating the includes", ex);
         }
         return execConfig;
     }
@@ -226,6 +236,8 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
             this.addTestIncludes(execConfig, buildConfig, mojoConfig, project, mavenSession, depConfig);
         } catch (ExpressionEvaluationException ex) {
             throw new PlexusConfigurationException("Problems evaluating the includes", ex);
+        } catch (MojoExecutionException ex) {
+            throw new PlexusConfigurationException("Problems evaluating the includes", ex);
         }
         return execConfig;
     }
@@ -246,7 +258,7 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
             MavenProject project,
             MavenSession mavenSession,
             IDependencyConfiguration depConfig)
-        throws ExpressionEvaluationException {
+        throws ExpressionEvaluationException, MojoExecutionException {
         execConfig.getIncludePath().add(project.getBuild().getOutputDirectory());
         File depsDir;
         if (buildConfig == null || buildConfig.getChild("dependenciesDir") == null) {
@@ -290,22 +302,11 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
         MavenProject project,
         String targetScope,
         IDependencyConfiguration depConfig,
-        File depsDir) throws ExpressionEvaluationException {
+        File depsDir) throws ExpressionEvaluationException, MojoExecutionException {
         final Set<Artifact> deps = project.getArtifacts();
-        for (final IDependency dep : depConfig.getDependencies()) {
-            Artifact depObject = null;
-            for (final Artifact adep : deps) {
-                if (!targetScope.equals(adep.getScope())) {
-                    continue;
-                }
-                if (adep.getGroupId().equals(dep.getGroupId()) && adep.getArtifactId().equals(dep.getArtifactId())) {
-                    depObject = adep;
-                    break;
-                }
-            }
-            
-            if (depObject == null) {
-                // silently ignore
+        
+        for (final Artifact depObject : deps) {
+            if (!targetScope.equals(depObject.getScope())) {
                 continue;
             }
             
@@ -315,10 +316,11 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
             } catch (ProjectBuildingException ex) {
                 throw new ExpressionEvaluationException("Problems creating maven project from dependency", ex);
             }
+            
             if (depProject.getFile() != null) {
                 // Reference to a local project; should only happen in IDEs or multi-project poms
                 
-                for (final IAction action : dep.getActions()) {
+                for (final IAction action : DependencyHelper.getDependencyActions(depObject, depConfig, reposSystem, session, mavenProjectBuilder, componentFactory)) {
                     if (action.getType() == ActionType.ACTION_INCLUDE) {
                         final String includePath =
                             getClassesDirFromProject(depProject) +
@@ -343,7 +345,7 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
             
             if (depObject.getFile() != null) {
                 // Reference to a local repository
-                for (final IAction action : dep.getActions()) {
+                for (final IAction action : DependencyHelper.getDependencyActions(depObject, depConfig, reposSystem, session, mavenProjectBuilder, componentFactory)) {
                     if (action.getType() == ActionType.ACTION_INCLUDE) {
                         final String includePath = ((IActionInclude) action).getPharPath();
                         execConfig.getIncludePath().add(
@@ -365,7 +367,6 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
                 }
             }
         }
-        
     }
 
     /**
@@ -454,7 +455,7 @@ public class ProjectPhpExecution implements IProjectPhpExecution {
             MavenProject project,
             MavenSession mavenSession,
             IDependencyConfiguration depConfig)
-        throws ExpressionEvaluationException {
+        throws ExpressionEvaluationException, MojoExecutionException {
         execConfig.getIncludePath().add(project.getBuild().getTestOutputDirectory());
         File depsDir;
         if (buildConfig == null || buildConfig.getChild("testDependenciesDir") == null) {
