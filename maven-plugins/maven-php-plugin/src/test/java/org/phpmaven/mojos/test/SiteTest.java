@@ -16,9 +16,11 @@
 
 package org.phpmaven.mojos.test;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.maven.it.Verifier;
 import org.phpmaven.test.AbstractTestCase;
 
@@ -65,6 +67,40 @@ public class SiteTest extends AbstractTestCase {
         
         // test report
         verifier.assertFilePresent("target/site/phpunit/report.html");
+    }
+    
+    /**
+     * tests the goal "site" with a project containing all default reports.
+     * Tests if the phpunit report is only respected once.
+     *
+     * @throws Exception 
+     */
+    public void testSiteDuplicateTests() throws Exception {
+        final Verifier verifier = this.getPhpMavenVerifier("mojos-sites/site-all");
+        
+        // delete the pom from previous runs
+        verifier.deleteArtifact("org.phpmaven.test", "site-all", "0.0.1", "pom");
+        verifier.deleteArtifact("org.phpmaven.test", "site-all", "0.0.1", "phar");
+        verifier.setAutoclean(true);
+
+        final List<String> goals = new ArrayList<String>();
+        goals.add("site");
+        verifier.addCliOption("-X");
+        verifier.executeGoals(goals);
+        verifier.verifyErrorFreeLog();
+        verifier.resetStreams();
+        
+        // second execution.
+        verifier.setAutoclean(false);
+        verifier.executeGoals(goals);
+        verifier.verifyErrorFreeLog();
+        verifier.resetStreams();
+        
+        // check the phpunit report.
+        verifier.assertFilePresent("target/site/phpunit/report.html");
+        final String content = FileUtils.readFileToString(new File(verifier.getBasedir() + "/target/site/phpunit/report.html"));
+        assertFalse(content.contains("<a name=\"Summary\"></a><p>[<a href=\"#Summary\">Summary</a>] [<a href=\"#Package_List\">Package List</a>] [<a href=\"#Test_Cases\">Test Cases</a>]</p><br /><table border=\"0\" class=\"bodyTable\"><tr class=\"a\"><th>Tests</th><th>Errors </th><th>Failures</th><th>Skipped</th><th>Success Rate</th><th>Time</th></tr><tr class=\"b\"><td>2</td>"));
+        assertTrue(content.contains("<a name=\"Summary\"></a><p>[<a href=\"#Summary\">Summary</a>] [<a href=\"#Package_List\">Package List</a>] [<a href=\"#Test_Cases\">Test Cases</a>]</p><br /><table border=\"0\" class=\"bodyTable\"><tr class=\"a\"><th>Tests</th><th>Errors </th><th>Failures</th><th>Skipped</th><th>Success Rate</th><th>Time</th></tr><tr class=\"b\"><td>1</td>"));
     }
     
     /**

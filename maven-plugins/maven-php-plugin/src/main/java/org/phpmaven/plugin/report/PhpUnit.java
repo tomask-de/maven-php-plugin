@@ -53,7 +53,7 @@ public class PhpUnit extends AbstractPhpUnitReportMojo implements IPhpunitConfig
      *
      * Default: target/phpunit-coverage-reports
      *
-     * @parameter default-value="${project.build.directory}/phpunit-reports" expression="${resultFolder}"
+     * @parameter default-value="${project.build.directory}/phpunit-site-reports" expression="${resultFolder}"
      */
     private File resultFolder;
 
