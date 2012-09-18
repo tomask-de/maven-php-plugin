@@ -146,6 +146,8 @@ public class PhpUnit extends AbstractPhpUnitReportMojo implements IPhpunitConfig
     
     @Override
     protected void executeReport(Locale locale) throws MavenReportException {
+    	this.loadPluginConfig();
+    	
         try {
             
             getLog().info(
@@ -173,14 +175,28 @@ public class PhpUnit extends AbstractPhpUnitReportMojo implements IPhpunitConfig
                 }
                 final IPhpunitSupport support = config.getPhpunitSupport();
                 support.setIsSingleTestInvocation(true);
-                support.setPhpunitArguments(this.phpUnitArguments);
-                support.setXmlResult(new File(this.resultFolder, "phpunit.xml"));
+                if (this.phpUnitArguments != null) {
+                	support.setPhpunitArguments(this.phpUnitArguments);
+                }
+                final File xmlResult = new File(this.resultFolder, "phpunit.xml");
+                if (xmlResult.exists()) {
+                	xmlResult.delete();
+                }
+				support.setXmlResult(xmlResult);
                 support.setResultFolder(this.resultFolder);
                 // TODO generatedPhpUnitTestsuiteFile
                 
                 getLog().info("Starting tests.");
                 
                 final IPhpunitTestResult result = support.executeTests(request, getLog());
+                
+                if (!xmlResult.exists() || xmlResult.length() == 0) {
+                	// generate a failed result.
+                	if (result.getResults().iterator().hasNext()) {
+                		throw result.getResults().iterator().next().getException();
+                	}
+                	throw new MavenReportException("fatal test failures");
+                }
                 
                 final List<File> reportsDirectoryList = new ArrayList<File>();
                 reportsDirectoryList.add(this.resultFolder);
@@ -202,6 +218,14 @@ public class PhpUnit extends AbstractPhpUnitReportMojo implements IPhpunitConfig
     }
 
     /**
+	 * loads plugin config if there is no site config
+	 */
+	private void loadPluginConfig() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
      * Returns the locale resource bundle.
      * @param locale locale
      * @return bundle
