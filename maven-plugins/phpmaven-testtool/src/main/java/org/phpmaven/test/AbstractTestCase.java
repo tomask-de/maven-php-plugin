@@ -358,6 +358,7 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         verifier.setLocalRepo(localReposFile.getAbsolutePath());
         verifier.addCliOption("-nsu");
         verifier.setForkJvm(true);
+        this.installPhpParentPom();
         return verifier;
     }
     

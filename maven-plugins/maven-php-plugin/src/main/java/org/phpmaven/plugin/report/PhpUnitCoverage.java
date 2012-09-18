@@ -231,7 +231,9 @@ public class PhpUnitCoverage extends AbstractPhpUnitReportMojo implements IPhpun
                 }
                 final IPhpunitSupport support = config.getPhpunitSupport();
                 support.setIsSingleTestInvocation(true);
-                support.setPhpunitArguments(this.phpUnitArguments);
+                if (this.phpUnitArguments != null) {
+                	support.setPhpunitArguments(this.phpUnitArguments);
+                }
                 support.setXmlResult(new File(this.resultFolder, "coverage.phpunit.xml"));
                 support.setResultFolder(this.resultFolder);
                 if (this.outputHtml) {
