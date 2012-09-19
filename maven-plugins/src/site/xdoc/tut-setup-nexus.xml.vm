@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Copyright 2010-2012 by PHP-maven.org
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+	http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+	<properties>
+		<title>Maven for PHP - Setup nexus repository server</title>
+		<author email="martin.eisengardt@googlemail.com">Martin Eisengardt</author>
+	</properties>
+	
+	<head>
+		<title>Maven for PHP - Setup nexus repository server</title>
+		<meta name="keyword" content="apache, maven, php, php-maven, maven tutorial, php maven tutorial, project organization, multi project, php modules, phar modules" />		
+	</head>
+	
+	<body>
+		<p style="text-align:center">[ <a href="tut-customizing.html">Previous</a> | <a href="tutorials.html">TOC</a> | <a href="tut-setup-hudson.html">Next</a> ]</p>
+		
+		<section name="Setup nexus repository server">
+		<p>
+		A nexus repository server can be used to create a productional repository for your modules. You can always at least setup
+		other variants (f.e. a small apache webserver combined with ftp access to upload the files). Setting up a repository
+		server gives you some benefit, for example you can proxy all other repositories for your company and minimize the
+		traffic for both, php-maven and your entire company. Even for one-developer projects this may be a great benefit.
+		</p>
+		<p>
+		You should read the following: <a href="http://www.sonatype.com/books/nexus-book/reference/">Nexus book</a> from sonatype. This
+		at least helps you to understand nexus. We do only provide a small how-to list. For details on various topics you should always
+		prefer reading the nexus book. So what should you do to install nexus?
+		</p>
+		<ol>
+		<li><a href="http://www.sonatype.com/books/nexus-book/reference/install-sect-downloading.html">Download Nexus</a>. Choose the war
+		package if you already have a running tomcat that you want to use nexus. If you do not yet have a tomcat simply download the
+		zip package.</li>
+		<li>Follow the <a href="http://www.sonatype.com/books/nexus-book/reference/_installing_nexus.html">Install instructions</a> and
+		the <a href="http://www.sonatype.com/books/nexus-book/reference/install-sect-running.html">Running instructions</a>.</li>
+		<li>Follow the <a href="http://www.sonatype.com/books/nexus-book/reference/install-sect-repoman-post-install.html">post install instructions</a>.</li>
+		</ol>
+		<p>You now have a working nexus. But you need some additional setup. First of all you will create two proxies. The first
+		one will proxy the phpmaven-releases and the second one will proxy phpmaven-snapshots. In the repositories view click on "Add" -> "Proxy repository".
+		Configure the repository policy to either "Releases" or "Snapshots". Configure the correct url in the Remote storage location. That's it.</p>
+		<p>You now want to create repositories for your own modules. Create the repository by clicking on "Add" -> "Hosted repository".
+		Add the configuration.</p>
+		</section>
+		
+		<section name="Hosted repository vs. repository group">
+		<p>
+		Hosted repositories are single repositories you use for uploading and downloading artifacts. You should at least have two repositories,
+		one for releases and one for snapshots.
+		</p>
+		<p>
+		Repository groups are built of several other repositories. For example php-maven has multiple repositories, each covering a specific topic,
+		for example the maven build plugins are not mixed up with open sourced php libraries. But the end-user (developer) does not want to mess up
+		with tens of repositories. So we created a group containing all the other repositories. The end-user only needs to add this single group to
+		his settings.xml. Remember to have two groups, one for releases, one for snapshots.
+		</p>
+		</section>
+		
+		<section name="Access control/ passwords">
+		<p>
+		In the Users view you can create users with passwords. Additional variants (f.e. using ldap servers) are described in the nexus book.
+		There is an anonymous user that represent the world wide web (everyone that is not authenticated). Users are connected to roles.
+		Roles contain privileges on nexus ui itself and on repositories. You should at this point read the nexus book because the way you must
+		configure the nexus for non-public repositories depends on the nexus version you use.
+		</p>
+		<p>
+		Within your settings.xml you can add mirrors via the following snippet:
+		</p>
+	<macro name="snippet">
+	  <param name="id" value="mirror"></param>
+	  <param name="file" value="${phpmavenFsRoot}/src/site/include/settings-nexus.xml"></param>
+    </macro>
+		</section>
+		
+		<p style="text-align:center">[ <a href="tut-customizing.html">Previous</a> | <a href="tutorials.html">TOC</a> | <a href="tut-setup-hudson.html">Next</a> ]</p>
+	</body>
+</document>
