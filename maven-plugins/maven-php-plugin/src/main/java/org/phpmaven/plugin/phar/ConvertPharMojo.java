@@ -173,6 +173,7 @@ public class ConvertPharMojo extends AbstractMojo {
             
             // deleting temp
             this.getLog().info("Deleting temporary directory: " + this.temp);
+            FileUtils.deleteDirectory(this.temp);
         } catch (ComponentLookupException ex) {
             throw new MojoExecutionException("failed executing convert-phar", ex);
         } catch (PlexusConfigurationException ex) {
