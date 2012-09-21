@@ -40,7 +40,10 @@ import org.apache.maven.it.Verifier;
 import org.apache.maven.it.util.FileUtils;
 import org.apache.maven.it.util.ResourceExtractor;
 import org.apache.maven.lifecycle.internal.LifecycleDependencyResolver;
-import org.apache.maven.model.Dependency;
+import org.apache.maven.model.Plugin;
+import org.apache.maven.plugin.Mojo;
+import org.apache.maven.plugin.PluginParameterExpressionEvaluator;
+import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 import org.apache.maven.project.DefaultProjectBuildingRequest;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuilder;
@@ -49,10 +52,19 @@ import org.apache.maven.settings.building.DefaultSettingsBuildingRequest;
 import org.apache.maven.settings.building.SettingsBuilder;
 import org.apache.maven.settings.building.SettingsBuildingRequest;
 import org.apache.maven.settings.building.SettingsBuildingResult;
-import org.codehaus.plexus.PlexusTestCase;
+import org.codehaus.plexus.component.configurator.ComponentConfigurator;
+import org.codehaus.plexus.component.configurator.expression.ExpressionEvaluator;
+import org.codehaus.plexus.configuration.PlexusConfiguration;
+import org.codehaus.plexus.configuration.xml.XmlPlexusConfiguration;
+import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.sonatype.aether.RepositorySystemSession;
 import org.sonatype.aether.impl.internal.SimpleLocalRepositoryManager;
 import org.sonatype.aether.util.DefaultRepositorySystemSession;
+import org.sonatype.aether.util.graph.transformer.ChainedDependencyGraphTransformer;
+import org.sonatype.aether.util.graph.transformer.ConflictMarker;
+import org.sonatype.aether.util.graph.transformer.JavaDependencyContextRefiner;
+import org.sonatype.aether.util.graph.transformer.JavaEffectiveScopeCalculator;
+import org.sonatype.aether.util.graph.transformer.NearestVersionConflictResolver;
 
 /**
  * Abstract base class for testing the modules.
@@ -60,22 +72,7 @@ import org.sonatype.aether.util.DefaultRepositorySystemSession;
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
-public abstract class AbstractTestCase extends PlexusTestCase {
-    
-    /** list of already installed project versions */
-    private static List<String> installedProjects = new ArrayList<String>();
-    
-    /**
-     * Returns true for hudson builds. That causes the test case to assume that we have a proper local repository
-     * where all maven plugins are present. So let us not create our own local repository (much more cheeper).
-     * For development builds in eclipse this will result in using older snapshots from repository. So in eclipse
-     * you should not use this flag to let the test cases always create their own repository (much more time
-     * consuming).
-     * @return true for hudson builds.
-     */
-    protected boolean isHudsonBuild() {
-        return "1".equals(System.getProperty("phpmaven.hudsonintegration", "0"));
-    }
+public abstract class AbstractTestCase extends AbstractMojoTestCase {
     
     /**
      * Local repository directory.
@@ -83,22 +80,8 @@ public abstract class AbstractTestCase extends PlexusTestCase {
      * @throws VerificationException thrown on verififcation errors.
      */
     protected File getLocalReposDir() throws VerificationException {
-        if (this.isHudsonBuild()) {
-            // in hudson builds we always use the local repository from our hudson.
-            final Verifier verifier = new Verifier("foo", true);
-            return new File(verifier.localRepo);
-        }
-        final File tempDir = new File(System.getProperty("java.io.tmpdir", "/temp"));
-        return new File(tempDir, "local-repos");
-    }
-    
-    /**
-     * Local log file.
-     * @return local log file
-     */
-    protected File getLocalLogFile() {
-        final File tempDir = new File(System.getProperty("java.io.tmpdir", "/temp"));
-        return new File(tempDir, "log.txt");
+        final Verifier verifier = new Verifier("foo", true);
+        return new File(verifier.localRepo);
     }
 
     /**
@@ -118,6 +101,38 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         final MavenProject project = buildProject(testDir);
         session.setCurrentProject(project);
         return session;
+    }
+    
+    /**
+     * Creates a mojo
+     * @param clazz
+     * @param groupId
+     * @param config
+     * @return mojo
+     */
+    protected <T extends Mojo> T createConfiguredMojo(Class<T> clazz, MavenSession session, String groupId, String artifactId, String version, String goal, Xpp3Dom config) throws Exception {
+    	final PlexusConfiguration plexusConfig = new XmlPlexusConfiguration(config);
+    	final T result = clazz.cast(lookupMojo(groupId, artifactId, version, goal, plexusConfig));
+    	
+        ExpressionEvaluator evaluator = new PluginParameterExpressionEvaluator( session, newMojoExecution(goal) );
+
+        Xpp3Dom configuration = null;
+        Plugin plugin = session.getCurrentProject().getPlugin( groupId + ":" + artifactId );
+        if ( plugin != null )
+        {
+            configuration = (Xpp3Dom) plugin.getConfiguration();
+        }
+        if ( configuration == null )
+        {
+            configuration = new Xpp3Dom( "configuration" );
+        }
+        configuration = Xpp3Dom.mergeXpp3Dom( newMojoExecution(goal).getConfiguration(), configuration );
+
+        PlexusConfiguration pluginConfiguration = new XmlPlexusConfiguration( configuration );
+
+        getContainer().lookup( ComponentConfigurator.class, "basic" ).configureComponent( result, pluginConfiguration, evaluator, getContainer().getContainerRealm() );
+        
+        return result;
     }
 
     private MavenProject buildProject(final File projectDir) throws Exception {
@@ -179,6 +194,9 @@ public abstract class AbstractTestCase extends PlexusTestCase {
             repositorySession.getSystemProperties().put(entry.getKey().toString(), entry.getValue().toString());
         }
         repositorySession.getSystemProperties().put("java.version", System.getProperty("java.version"));
+        repositorySession.setDependencyGraphTransformer(new ChainedDependencyGraphTransformer( new ConflictMarker(), new JavaEffectiveScopeCalculator(),
+                new NearestVersionConflictResolver(),
+                new JavaDependencyContextRefiner() ));
         final MavenExecutionRequest request = new DefaultMavenExecutionRequest();
         final MavenExecutionRequestPopulator populator = lookup(MavenExecutionRequestPopulator.class);
         populator.populateDefaults(request);
@@ -201,18 +219,8 @@ public abstract class AbstractTestCase extends PlexusTestCase {
                 layout,
                 policy,
                 policy);
-        final MavenArtifactRepository userRepos = new MavenArtifactRepository(
-                "user",
-                new File(MavenCli.userMavenConfigurationHome, "/repository").toURI().toURL().toString(),
-                layout,
-                policy,
-                policy);
         
         request.setLocalRepository(repos);
-        // skip wrapping local repository as a remote one for hudson
-        if (!this.isHudsonBuild()) {
-            request.getRemoteRepositories().add(userRepos);
-        }
         request.setSystemProperties(new Properties(System.getProperties()));
         request.getSystemProperties().put("java.version", System.getProperty("java.version"));
         repositorySession.setLocalRepositoryManager(localRepositoryManager);
@@ -221,10 +229,6 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         buildingRequest.setLocalRepository(request.getLocalRepository());
         buildingRequest.setRepositorySession(repositorySession);
         buildingRequest.setSystemProperties(request.getSystemProperties());
-        // skip wrapping local repository as a remote one for hudson
-        if (!this.isHudsonBuild()) {
-            buildingRequest.getPluginArtifactRepositories().add(userRepos);
-        }
         buildingRequest.getRemoteRepositories().addAll(request.getRemoteRepositories());
         buildingRequest.setProfiles(request.getProfiles());
         buildingRequest.setActiveProfileIds(request.getActiveProfiles());
@@ -264,18 +268,6 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         
         return session;
     }
-    
-    protected void installPhpParentPom() throws Exception {
-        // skip installing of projects for hudson build
-        if (!this.isHudsonBuild()) {
-            final String localRepos = getLocalReposDir().getAbsolutePath();
-            String rootPath = new File(".").getAbsolutePath();
-            rootPath = rootPath.endsWith(".") ? rootPath.substring(0, rootPath.length() - 2) : rootPath;
-            rootPath = new File(new File(rootPath).getParentFile(), "php-parent-pom").getAbsolutePath();
-            this.installDirToRepos(localRepos, rootPath);
-            this.installLocalProject(localRepos, new File(rootPath).getParent() + "/generic-parent", false);
-        }
-    }
 
     /**
      * Prepares a local repository and installs the php-maven projects.
@@ -286,37 +278,6 @@ public abstract class AbstractTestCase extends PlexusTestCase {
     private File preparePhpMavenLocalRepos(final String strTestDir)
         throws Exception {
         final File testDir = prepareResources(strTestDir);
-        
-        // skip installing of projects for hudson build
-        if (!this.isHudsonBuild()) {
-            final String localRepos = getLocalReposDir().getAbsolutePath();
-            final String rootPath = new File(".").getAbsolutePath();
-            this.installDirToRepos(localRepos, rootPath.endsWith(".") ? rootPath.substring(0, rootPath.length() - 2) : rootPath);
-        }
-        return testDir;
-    }
-    
-    /**
-     * Installs the archetypes
-     * @throws Exception
-     */
-    protected void installArchetypes() throws Exception {
-        final String localRepos = getLocalReposDir().getAbsolutePath();
-        final String rootPath = new File(".").getAbsolutePath();
-        final File rootFile = new File(rootPath.endsWith(".") ? rootPath.substring(0, rootPath.length() - 2) : rootPath);
-        this.installLocalProject(localRepos, rootFile.getParent() + "/archetypes", true);
-    }
-    
-    /**
-     * Returns the test dir.
-     * @param strTestDir local path to test folder.
-     * @return absolute test dir in temporary path.
-     * @throws IOException io exception.
-     */
-    protected File getTestDir(String strTestDir) throws IOException {
-        final String tempDirPath = System.getProperty(
-                "maven.test.tmpdir", System.getProperty("java.io.tmpdir"));
-        final File testDir = new File(tempDirPath, "org/phpmaven/test/projects/" + strTestDir);
         return testDir;
     }
 
@@ -343,147 +304,6 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         
         return testDir;
     }
-    
-    /**
-     * Prepares a verifier and installs php maven to a local repository.
-     * @param strTestDir strTestDir The local test directory for the project to be tested
-     * @return The verifier to be used for testing
-     * @throws Exception 
-     */
-    protected Verifier getPhpMavenVerifier(final String strTestDir)
-        throws Exception {
-        final File testDir = this.preparePhpMavenLocalRepos(strTestDir);
-        final File localReposFile = this.getLocalReposDir();
-        final Verifier verifier = new Verifier(testDir.getAbsolutePath(), true);
-        verifier.setLocalRepo(localReposFile.getAbsolutePath());
-        verifier.addCliOption("-nsu");
-        verifier.setForkJvm(true);
-        this.installPhpParentPom();
-        return verifier;
-    }
-    
-    /**
-     * Prepares a verifier and installs php maven to a local repository.
-     * @param strTestDir strTestDir The local test directory for the project to be tested
-     * @return The verifier to be used for testing
-     * @throws VerificationException 
-     * @throws IOException 
-     */
-    protected Verifier getVerifier(final String strTestDir)
-        throws IOException, VerificationException {
-        final File testDir = this.prepareResources(strTestDir);
-        final File localReposFile = this.getLocalReposDir();
-        final Verifier verifier = new Verifier(testDir.getAbsolutePath(), true);
-        verifier.setLocalRepo(localReposFile.getAbsolutePath());
-        verifier.addCliOption("-nsu");
-        verifier.setForkJvm(true);
-        return verifier;
-    }
-    
-    /**
-     * Prepares a verifier and installs php maven to a local repository.
-     * @param strTestDir strTestDir The local test directory for the project to be tested
-     * @return The verifier to be used for testing
-     * @throws VerificationException 
-     * @throws IOException 
-     */
-    protected Verifier getVerifierWithoutPrepare(final String strTestDir)
-        throws IOException, VerificationException {
-        final File testDir = this.getTestDir(strTestDir);
-        final File localReposFile = this.getLocalReposDir();
-        final Verifier verifier = new Verifier(testDir.getAbsolutePath(), true);
-        verifier.setLocalRepo(localReposFile.getAbsolutePath());
-        verifier.addCliOption("-nsu");
-        verifier.setForkJvm(true);
-        return verifier;
-    }
-    
-    /**
-     * Installs the project identified by given pom to the local repository.
-     * @param reposPath the repository path
-     * @param root path to local pom that will be installed; an absolute path
-     * @throws Exception thrown if the given pom cannot be installed
-     */
-    protected void installDirToRepos(final String reposPath, String root)
-        throws Exception {
-        
-        // do not install in hudson builds
-        if (this.isHudsonBuild()) {
-            return;
-        }
-        
-        final File phpmavenDir = new File(reposPath + "/org/phpmaven");
-        if (phpmavenDir.exists() && installedProjects.isEmpty()) {
-            FileUtils.deleteDirectory(phpmavenDir);
-        }
-        
-        installLocalProject(reposPath, root, false);
-    }
-    
-    protected void installPhpmavenProjectToRepos(String prjName) throws Exception{// skip installing of projects for hudson build
-        if (!this.isHudsonBuild()) {
-            final String localRepos = getLocalReposDir().getAbsolutePath();
-            String rootPath = new File(".").getAbsolutePath();
-            rootPath = rootPath.endsWith(".") ? rootPath.substring(0, rootPath.length() - 2) : rootPath;
-            rootPath = new File(new File(rootPath).getParentFile(), prjName).getAbsolutePath();
-            this.installDirToRepos(localRepos, rootPath);
-        }
-    }
-
-    /**
-     * Installs a local project into target directory
-     * @param reposPath repos path
-     * @param root root of the project to be installed
-     * @param withModules
-     * @throws Exception
-     */
-    private void installLocalProject(final String reposPath, String root, boolean withModules) throws Exception {
-        final String projectName = new File(root).getName();
-        if (installedProjects.contains(projectName)) {
-            return;
-        }
-        installedProjects.add(projectName);
-        
-        if (!projectName.equals("java-parent")) {
-//            this.installLocalProject(reposPath, new File(root).getParentFile().getParentFile().getParent() + "/var", false);
-            this.installLocalProject(reposPath, new File(root).getParent() + "/java-parent", false);
-        }
-        
-        // first install dependencies
-        final File projectFile = new File(root, "pom.xml");
-        final ProjectBuildingRequest buildingRequest = this.createProjectBuildingRequest().projectBuildingRequest;
-
-        final MavenProject project = lookup(ProjectBuilder.class).build(projectFile, buildingRequest).getProject();
-        
-        for (final Dependency dep : project.getDependencies()) {
-            if ("org.phpmaven".equals(dep.getGroupId())) {
-                this.installLocalProject(reposPath, new File(root).getParent() + "/" + dep.getArtifactId(), false);
-            }
-        }
-        
-        // install the project itself
-        final Verifier verifier = new Verifier(root, true);
-        verifier.setLocalRepo(reposPath);
-        verifier.setAutoclean(false);
-        verifier.setForkJvm(true);
-        final File target = new File(root, "target");
-        if (!target.exists()) {
-            target.mkdir();
-        }
-        verifier.setLogFileName("target/log.txt");
-        verifier.addCliOption("-N");
-        verifier.addCliOption("-nsu");
-        verifier.addCliOption("-Dmaven.test.skip=true");
-        verifier.executeGoal("install");
-        verifier.verifyErrorFreeLog();
-        verifier.resetStreams();
-        
-        if (withModules) {
-            for (final String module : project.getModules()) {
-                this.installLocalProject(reposPath, new File(root) + "/" + module, false);
-            }
-        }
-    }
 
     protected void resolveProjectDependencies(MavenSession session) throws Exception {
         final List<String> scopesToResolve = new ArrayList<String>();
@@ -492,10 +312,31 @@ public abstract class AbstractTestCase extends PlexusTestCase {
         final List<String> scopesToCollect = new ArrayList<String>();
         final LifecycleDependencyResolver lifeCycleDependencyResolver = lookup(LifecycleDependencyResolver.class);
         session.getCurrentProject().setArtifacts(null);
-        session.getCurrentProject().setArtifactFilter(new CumulativeScopeArtifactFilter(scopesToResolve));
         lifeCycleDependencyResolver.resolveProjectDependencies(session.getCurrentProject(), scopesToCollect,
                 scopesToResolve, session, false,
                 Collections.<Artifact> emptySet());
+        session.getCurrentProject().setArtifactFilter(new CumulativeScopeArtifactFilter(scopesToResolve));
+    }
+    
+    protected void assertIterableCount(Iterable<?> iter, int count) {
+    	int result = 0;
+    	for (@SuppressWarnings("unused") final Object elm : iter) {
+    		result++;
+    	}
+    	assertEquals(count, result);
+    }
+    
+    protected <T> void assertIterableContains(Iterable<T> iter, T element) {
+    	boolean found = false;
+    	for (final T elm : iter) {
+    		if (elm.equals(element)) {
+    			found = true;
+    			break;
+    		}
+    	}
+    	if (!found) {
+    		fail("Element " + element + " not found.");
+    	}
     }
 
 }

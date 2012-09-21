@@ -20,7 +20,6 @@ import java.io.File;
 import java.util.Iterator;
 
 import org.apache.maven.execution.MavenSession;
-import org.apache.maven.it.Verifier;
 import org.apache.maven.monitor.logging.DefaultLog;
 import org.codehaus.plexus.logging.console.ConsoleLogger;
 import org.phpmaven.core.IComponentFactory;
@@ -59,15 +58,14 @@ public class V3310Test extends AbstractVersionTestCase {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the execution config
-        final MavenSession session = this.createSimpleSession("phpunit/pom-3310");
+        final MavenSession session = this.createSessionForPhpMaven("phpunit/pom-3310");
         final IPhpunitConfiguration config = factory.lookup(
                 IPhpunitConfiguration.class,
                 IComponentFactory.EMPTY_CONFIG,
                 session);
-        final Verifier verifier = this.getVerifier("phpunit/pom-3310");
         final IPhpunitSupport phpunit = config.getPhpunitSupport(PHPUNIT_VERSION);
         
-        this.prepareMaven(verifier, session, PACKAGES);
+        this.prepareMaven(session, PACKAGES);
         
         final IPhpunitTestRequest request = factory.lookup(
                 IPhpunitTestRequest.class,

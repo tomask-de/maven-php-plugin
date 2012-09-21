@@ -16,8 +16,11 @@
 
 package org.phpmaven.mojos.test;
 
-import org.apache.maven.it.VerificationException;
-import org.apache.maven.it.Verifier;
+import org.apache.maven.execution.MavenSession;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.codehaus.plexus.util.xml.Xpp3Dom;
+import org.phpmaven.plugin.build.PhpResources;
+import org.phpmaven.plugin.build.PhpTestResources;
 import org.phpmaven.test.AbstractTestCase;
 
 /**
@@ -34,21 +37,19 @@ public class LintTest extends AbstractTestCase {
      * @throws Exception 
      */
     public void testSimpleFailure() throws Exception {
-        final Verifier verifier = getPhpMavenVerifier("mojos-lint/check-lint");
-        
-        // delete the pom from previous runs
-        verifier.deleteArtifact("org.phpmaven.test", "check-lint", "0.0.1", "pom");
-        verifier.deleteArtifact("org.phpmaven.test", "check-lint", "0.0.1", "phar");
-
-        try {
-            verifier.executeGoal("compile");
-            verifier.resetStreams();
-            fail("Build failure expected");
-        } catch (VerificationException ex) {
-            // we expect a verification exception
-            verifier.verifyTextInLog("Lint check failure");
-            verifier.resetStreams();
-        }
+    	final MavenSession session = this.createSimpleSession("mojos-lint/check-lint");
+    	
+    	final PhpResources resourcesMojo = this.createConfiguredMojo(
+    			PhpResources.class, session,
+    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"resources",
+    			new Xpp3Dom("configuration"));
+    	try {
+    		resourcesMojo.execute();
+    		fail("Build failure expected");
+    	} catch (MojoExecutionException ex) {
+    		assertEquals("Lint check failures.", ex.getMessage());
+    	}
     }
 
     /**
@@ -58,15 +59,14 @@ public class LintTest extends AbstractTestCase {
      * @throws Exception 
      */
     public void testCompileOkWithTestFailure() throws Exception {
-        final Verifier verifier = this.getPhpMavenVerifier("mojos-lint/check-linttests");
-        
-        // delete the pom from previous runs
-        verifier.deleteArtifact("org.phpmaven.test", "check-linttests", "0.0.1", "pom");
-        verifier.deleteArtifact("org.phpmaven.test", "check-linttests", "0.0.1", "phar");
-
-        verifier.executeGoal("compile");
-        verifier.verifyErrorFreeLog();
-        verifier.resetStreams();
+    	final MavenSession session = this.createSimpleSession("mojos-lint/check-linttests");
+    	
+    	final PhpResources resourcesMojo = this.createConfiguredMojo(
+    			PhpResources.class, session,
+    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"resources",
+    			new Xpp3Dom("configuration"));
+		resourcesMojo.execute();
     }
 
     /**
@@ -75,21 +75,19 @@ public class LintTest extends AbstractTestCase {
      * @throws Exception 
      */
     public void testSimpletestFailure() throws Exception {
-        final Verifier verifier = this.getPhpMavenVerifier("mojos-lint/check-linttests");
-        
-        // delete the pom from previous runs
-        verifier.deleteArtifact("org.phpmaven.test", "check-linttests", "0.0.1", "pom");
-        verifier.deleteArtifact("org.phpmaven.test", "check-linttests", "0.0.1", "phar");
-
-        try {
-            verifier.executeGoal("test-compile");
-            verifier.resetStreams();
-            fail("Build failure expected");
-        } catch (VerificationException ex) {
-            // we expect a verification exception
-            verifier.verifyTextInLog("Lint check failure");
-            verifier.resetStreams();
-        }
+    	final MavenSession session = this.createSimpleSession("mojos-lint/check-linttests");
+    	
+    	final PhpTestResources resourcesMojo = this.createConfiguredMojo(
+    			PhpTestResources.class, session,
+    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"testResources",
+    			new Xpp3Dom("configuration"));
+		try {
+    		resourcesMojo.execute();
+    		fail("Build failure expected");
+    	} catch (MojoExecutionException ex) {
+    		assertEquals("Lint check failures.", ex.getMessage());
+    	}
     }
 
 }

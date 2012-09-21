@@ -17,8 +17,12 @@
 package org.phpmaven.mojos.test;
 
 import java.io.File;
+import java.io.StringReader;
 
-import org.apache.maven.it.Verifier;
+import org.apache.maven.execution.MavenSession;
+import org.codehaus.plexus.util.xml.Xpp3Dom;
+import org.codehaus.plexus.util.xml.Xpp3DomBuilder;
+import org.phpmaven.plugin.phar.UnpackPharMojo;
 import org.phpmaven.test.AbstractTestCase;
 
 /**
@@ -35,39 +39,29 @@ public class UnpackPharTest extends AbstractTestCase {
      * @throws Exception 
      */
     public void testGoal() throws Exception {
-        final Verifier verifierDep1 = this.getPhpMavenVerifier("mojos-phar/phar-with-dep1-folders");
-        
-        // delete the pom from previous runs
-        verifierDep1.deleteArtifact("org.phpmaven.test", "phar-with-dep1-folders", "0.0.1", "pom");
-        verifierDep1.deleteArtifact("org.phpmaven.test", "phar-with-dep1-folders", "0.0.1", "phar");
-
-        // execute testing
-        verifierDep1.executeGoal("package");
-
-        // verify no error was thrown
-        verifierDep1.verifyErrorFreeLog();
-
-        // reset the streams
-        verifierDep1.resetStreams();
-        
-        final File phar = new File(new File(verifierDep1.getBasedir()), "target/phar-with-dep1-folders-0.0.1.phar");
-        assertTrue(phar.exists());
-        
-        verifierDep1.setAutoclean(false);
-        
-        verifierDep1.addCliOption("-Dphar="+phar.getAbsolutePath());
-        verifierDep1.addCliOption("-Dtarget="+new File(phar.getParent(), "extracted").getAbsolutePath());
-        
-        verifierDep1.executeGoal("org.phpmaven:maven-php-plugin:extract-phar");
-
-        // verify no error was thrown
-        verifierDep1.verifyErrorFreeLog();
-
-        // reset the streams
-        verifierDep1.resetStreams();
-        
-        verifierDep1.assertFilePresent("target/extracted/folderA/MyClassA.php");
-        verifierDep1.assertFilePresent("target/extracted/folderB/MyClassB.php");
+    	final MavenSession session = this.createSimpleSession("mojos-phar/unpack-phar");
+    	final File phar = new File(session.getCurrentProject().getBasedir(), "phar-with-dep1-folders-0.0.1.phar");
+    	final File fileA = new File(session.getCurrentProject().getBasedir(), "target/folderA/MyClassA.php");
+    	final File fileB = new File(session.getCurrentProject().getBasedir(), "target/folderB/MyClassB.php");
+    	
+    	assertTrue(phar.exists());
+    	assertFalse(fileA.exists());
+    	assertFalse(fileB.exists());
+    	
+    	Xpp3Dom config = Xpp3DomBuilder.build(new StringReader(
+    			"<configuration>" +
+    			"<phar>"+phar.getAbsolutePath()+"</phar>" +
+    			"<target>"+new File(session.getCurrentProject().getBasedir(), "target").getAbsolutePath()+"</target>" +
+    			"</configuration>"));
+    	UnpackPharMojo unpackMojo = this.createConfiguredMojo(
+    			UnpackPharMojo.class, session,
+    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"extract-phar",
+    			config);
+    	unpackMojo.execute();
+    	
+    	assertTrue(fileA.exists());
+    	assertTrue(fileB.exists());
     }
 
 }

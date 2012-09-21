@@ -196,7 +196,7 @@ public class ConvertPharMojo extends AbstractMojo {
                 {
                     if (!name.endsWith("/"))
                         name += "/";
-                    ZipEntry entry = new ZipEntry(name);
+                    ZipEntry entry = new ZipEntry(name.substring(1));
                     entry.setTime(source.lastModified());
                     target.putNextEntry(entry);
                     target.closeEntry();
@@ -206,7 +206,7 @@ public class ConvertPharMojo extends AbstractMojo {
                 return;
             }
             
-            ZipEntry entry = new ZipEntry(source.getPath().substring(relLength).replace("\\", "/"));
+            ZipEntry entry = new ZipEntry(source.getPath().substring(relLength).replace("\\", "/").substring(1));
             entry.setTime(source.lastModified());
             target.putNextEntry(entry);
             in = new BufferedInputStream(new FileInputStream(source));
@@ -240,7 +240,7 @@ public class ConvertPharMojo extends AbstractMojo {
                 {
                     if (!name.endsWith("/"))
                         name += "/";
-                    JarEntry entry = new JarEntry(name);
+                    JarEntry entry = new JarEntry(name.substring(1));
                     entry.setTime(source.lastModified());
                     target.putNextEntry(entry);
                     target.closeEntry();
@@ -250,7 +250,7 @@ public class ConvertPharMojo extends AbstractMojo {
                 return;
             }
             
-            JarEntry entry = new JarEntry(source.getPath().substring(relLength).replace("\\", "/"));
+            JarEntry entry = new JarEntry(source.getPath().substring(relLength).replace("\\", "/").substring(1));
             entry.setTime(source.lastModified());
             target.putNextEntry(entry);
             in = new BufferedInputStream(new FileInputStream(source));

@@ -18,8 +18,9 @@ package org.phpmaven.phpunit.test;
 
 import java.io.File;
 
+import org.apache.maven.artifact.Artifact;
 import org.apache.maven.execution.MavenSession;
-import org.apache.maven.it.Verifier;
+import org.apache.maven.model.Dependency;
 import org.apache.maven.monitor.logging.DefaultLog;
 import org.codehaus.plexus.logging.console.ConsoleLogger;
 import org.phpmaven.core.IComponentFactory;
@@ -100,7 +101,7 @@ public abstract class AbstractVersionTestCase extends AbstractTestCase {
      * @param packages packages to be installed
      * @throws Exception 
      */
-    protected void prepareMaven(Verifier v, MavenSession session, Pkg[] packages) throws Exception {
+    protected void prepareMaven(MavenSession session, Pkg[] packages) throws Exception {
         final IComponentFactory factory = lookup(IComponentFactory.class);
         final IPharPackagerConfiguration config = factory.lookup(
                 IPharPackagerConfiguration.class,
@@ -108,19 +109,22 @@ public abstract class AbstractVersionTestCase extends AbstractTestCase {
                 session);
         final IPharPackager packager = config.getPharPackager();
         final DefaultLog logger = new DefaultLog(new ConsoleLogger());
+    	
+        session.getCurrentProject().getModel().getDependencies().clear();
 
         for (final Pkg p : packages) {
-            final Verifier verifier = new Verifier(v.getBasedir(), true);
-            verifier.getSystemProperties().put(
-                    "artifact",
-                    p.getGroupId() + ":" +
-                    p.getArtifactId() + ":" +
-                    p.getVersion() + ":phar");
-            verifier.setLocalRepo(v.localRepo);
-            verifier.setAutoclean(false);
-            verifier.executeGoal("org.apache.maven.plugins:maven-dependency-plugin:2.4:get");
-            verifier.verifyErrorFreeLog();
-
+        	final Dependency dep = new Dependency();
+        	dep.setGroupId(p.getGroupId());
+        	dep.setArtifactId(p.getArtifactId());
+        	dep.setVersion(p.getVersion());
+        	dep.setType("phar");
+        	dep.setScope(Artifact.SCOPE_TEST);
+        	session.getCurrentProject().getModel().getDependencies().add(dep);
+        }
+        
+        this.resolveProjectDependencies(session);
+        
+        for (final Pkg p : packages) {
             final File pharPackage = new File(this.getLocalReposDir(),
                     p.getGroupId().replace(".", "/") + 
                     "/" + p.getArtifactId() +
@@ -132,6 +136,7 @@ public abstract class AbstractVersionTestCase extends AbstractTestCase {
                     new File(session.getCurrentProject().getBasedir(), "target/php-test-deps"),
                     logger);
         }
+        
     }
 
 }

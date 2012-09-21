@@ -46,8 +46,6 @@ public class BaseTest extends AbstractTestCase {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the execution config
-        this.installPhpmavenProjectToRepos("maven-php-plugin");
-        this.installPhpParentPom();
         final MavenSession session = this.createSessionForPhpMaven(
                 "project/legacy/small-project");
         final IProjectPhpExecution prjConfig = factory.lookup(
@@ -143,8 +141,6 @@ public class BaseTest extends AbstractTestCase {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the execution config
-        this.installPhpmavenProjectToRepos("maven-php-plugin");
-        this.installPhpParentPom();
         final MavenSession session = this.createSessionForPhpMaven(
                 "project/legacy/include-project");
         final IProjectPhpExecution prjConfig = factory.lookup(

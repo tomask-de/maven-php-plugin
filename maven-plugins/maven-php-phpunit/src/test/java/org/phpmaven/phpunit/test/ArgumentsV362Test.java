@@ -19,7 +19,6 @@ package org.phpmaven.phpunit.test;
 import java.io.File;
 
 import org.apache.maven.execution.MavenSession;
-import org.apache.maven.it.Verifier;
 import org.apache.maven.monitor.logging.DefaultLog;
 import org.codehaus.plexus.logging.console.ConsoleLogger;
 import org.phpmaven.core.IComponentFactory;
@@ -70,10 +69,9 @@ public class ArgumentsV362Test extends AbstractVersionTestCase {
                 IPhpunitConfiguration.class,
                 IComponentFactory.EMPTY_CONFIG,
                 session);
-        final Verifier verifier = this.getVerifier("phpunit/pom-360-arguments");
         final IPhpunitSupport phpunit = config.getPhpunitSupport(PHPUNIT_VERSION);
         
-        this.prepareMaven(verifier, session, PACKAGES);
+        this.prepareMaven(session, PACKAGES);
         
         final IPhpunitTestRequest request = factory.lookup(
                 IPhpunitTestRequest.class,
@@ -92,8 +90,8 @@ public class ArgumentsV362Test extends AbstractVersionTestCase {
         if (!testResult.isSuccess()) {
             fail(testResult.toString());
         }
-        verifier.assertFilePresent(
-            new File(session.getCurrentProject().getBasedir(), "target/hbclover.xml").getAbsolutePath());
+        
+        assertTrue(new File(session.getCurrentProject().getBasedir(), "target/hbclover.xml").exists());
     }
 
 }
