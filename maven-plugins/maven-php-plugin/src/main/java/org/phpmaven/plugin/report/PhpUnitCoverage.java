@@ -63,21 +63,21 @@ public class PhpUnitCoverage extends AbstractPhpUnitReportMojo implements IPhpun
     /**
      * True to output a clover xml file
      * 
-     * @parameter default-value="false" expression="${coverageOutputClover}"
+     * @parameter default-value="false" expression="${outputClover}"
      */
     private boolean outputClover;
     
     /**
      * The clover xml file to write to
      * 
-     * @parameter default-value="${project.build.directory}/phpunit-reports/clover.xml" expression="${coverageOutputCloverFile}"
+     * @parameter default-value="${project.build.directory}/phpunit-reports/clover.xml" expression="${outputCloverFile}"
      */
     private File outputCloverFile;
     
     /**
      * True to output html files
      *
-     * @parameter default-value="true" expression="${coverageOutputHtml}"
+     * @parameter default-value="true" expression="${outputHtml}"
      */
     private boolean outputHtml;
 
@@ -290,7 +290,7 @@ public class PhpUnitCoverage extends AbstractPhpUnitReportMojo implements IPhpun
 
     @Override
     public String getOutputName() {
-        return "phpunit/coverage";
+        return "coverage";
     }
 
     @Override

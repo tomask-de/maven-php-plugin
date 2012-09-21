@@ -132,7 +132,7 @@ public class PhpDocumentor extends AbstractApiDocReport {
 
     @Override
     public String getOutputName() {
-        return "apidocs/phpdocumentor";
+        return "phpdocumentor";
     }
     
     protected String getFolderName() {

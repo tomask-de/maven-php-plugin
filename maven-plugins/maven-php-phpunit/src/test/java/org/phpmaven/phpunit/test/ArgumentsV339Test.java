@@ -17,15 +17,12 @@
 package org.phpmaven.phpunit.test;
 
 import java.io.File;
-import java.util.Iterator;
 
 import org.apache.maven.execution.MavenSession;
-import org.apache.maven.it.Verifier;
 import org.apache.maven.monitor.logging.DefaultLog;
 import org.codehaus.plexus.logging.console.ConsoleLogger;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.phpunit.IPhpunitConfiguration;
-import org.phpmaven.phpunit.IPhpunitResult;
 import org.phpmaven.phpunit.IPhpunitSupport;
 import org.phpmaven.phpunit.IPhpunitTestRequest;
 import org.phpmaven.phpunit.IPhpunitTestResult;
@@ -59,15 +56,14 @@ public class ArgumentsV339Test extends AbstractVersionTestCase {
         // look up the component factory
         final IComponentFactory factory = lookup(IComponentFactory.class);
         // create the execution config
-        final MavenSession session = this.createSimpleSession("phpunit/pom-339-arguments");
+        final MavenSession session = this.createSessionForPhpMaven("phpunit/pom-339-arguments");
         final IPhpunitConfiguration config = factory.lookup(
                 IPhpunitConfiguration.class,
                 IComponentFactory.EMPTY_CONFIG,
                 session);
-        final Verifier verifier = this.getVerifier("phpunit/pom-339-arguments");
         final IPhpunitSupport phpunit = config.getPhpunitSupport(PHPUNIT_VERSION);
         
-        this.prepareMaven(verifier, session, PACKAGES);
+        this.prepareMaven(session, PACKAGES);
         
         final IPhpunitTestRequest request = factory.lookup(
                 IPhpunitTestRequest.class,
@@ -86,8 +82,8 @@ public class ArgumentsV339Test extends AbstractVersionTestCase {
         if (!testResult.isSuccess()) {
             fail(testResult.toString());
         }
-        verifier.assertFilePresent(
-                new File(session.getCurrentProject().getBasedir(), "target/hbclover.xml").getAbsolutePath());
+        assertTrue(
+                new File(session.getCurrentProject().getBasedir(), "target/hbclover.xml").exists());
     }
 
 }

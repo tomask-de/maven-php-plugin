@@ -17,9 +17,16 @@
 package org.phpmaven.mojos.test;
 
 import java.io.File;
-import java.util.List;
+import java.io.StringReader;
 
-import org.apache.maven.it.Verifier;
+import org.apache.maven.execution.MavenSession;
+import org.apache.maven.monitor.logging.DefaultLog;
+import org.codehaus.plexus.logging.console.ConsoleLogger;
+import org.codehaus.plexus.util.xml.Xpp3Dom;
+import org.codehaus.plexus.util.xml.Xpp3DomBuilder;
+import org.phpmaven.core.IComponentFactory;
+import org.phpmaven.phar.IPharPackagerConfiguration;
+import org.phpmaven.plugin.phar.ConvertPharMojo;
 import org.phpmaven.test.AbstractTestCase;
 
 /**
@@ -36,99 +43,66 @@ public class ConvertPharTest extends AbstractTestCase {
      * @throws Exception 
      */
     public void testGoal() throws Exception {
-        final Verifier verifierDep1 = this.getPhpMavenVerifier("mojos-phar/phar-with-dep1-folders");
+    	final MavenSession session = this.createSimpleSession("mojos-phar/convert-phar");
+        final File phar = new File(session.getCurrentProject().getBasedir(), "phar-with-dep1-folders-0.0.1.phar");
+        final File phar2 = new File(session.getCurrentProject().getBasedir(), "phar-with-dep1-folders-0.0.1-2.phar");
+        final File zip = new File(session.getCurrentProject().getBasedir(), "phar-with-dep1-folders-0.0.1.zip");
+        final File jar = new File(session.getCurrentProject().getBasedir(), "phar-with-dep1-folders-0.0.1.jar");
         
-        // delete the pom from previous runs
-        verifierDep1.deleteArtifact("org.phpmaven.test", "phar-with-dep1-folders", "0.0.1", "pom");
-        verifierDep1.deleteArtifact("org.phpmaven.test", "phar-with-dep1-folders", "0.0.1", "phar");
-
-        // execute testing
-        verifierDep1.executeGoal("package");
-
-        // verify no error was thrown
-        verifierDep1.verifyErrorFreeLog();
-
-        // reset the streams
-        verifierDep1.resetStreams();
-        
-        final File phar = new File(new File(verifierDep1.getBasedir()), "target/phar-with-dep1-folders-0.0.1.phar");
         assertTrue(phar.exists());
-        
-        verifierDep1.setAutoclean(false);
-        
-        // to zip
-        verifierDep1.addCliOption("-Dfrom="+phar.getAbsolutePath());
-        verifierDep1.addCliOption("-Dto="+
-                phar.getAbsolutePath().substring(0, phar.getAbsolutePath().length() - 4) + "zip");
-        
-        verifierDep1.executeGoal("org.phpmaven:maven-php-plugin:convert-phar");
-
-        // verify no error was thrown
-        verifierDep1.verifyErrorFreeLog();
-
-        // reset the streams
-        verifierDep1.resetStreams();
-        
-        verifierDep1.assertFilePresent("target/phar-with-dep1-folders-0.0.1.zip");
-        
-        // to jar
-        verifierDep1.getCliOptions().clear();
-        verifierDep1.addCliOption("-Dfrom="+
-                phar.getAbsolutePath().substring(0, phar.getAbsolutePath().length() - 4) + "zip");
-        verifierDep1.addCliOption("-Dto="+
-                phar.getAbsolutePath().substring(0, phar.getAbsolutePath().length() - 4) + "jar");
-        
-        verifierDep1.executeGoal("org.phpmaven:maven-php-plugin:convert-phar");
-
-        // verify no error was thrown
-        verifierDep1.verifyErrorFreeLog();
-
-        // reset the streams
-        verifierDep1.resetStreams();
-        
-        verifierDep1.assertFilePresent("target/phar-with-dep1-folders-0.0.1.jar");
-        
-        // to phar
-        verifierDep1.getCliOptions().clear();
-        verifierDep1.addCliOption("-Dfrom="+
-                phar.getAbsolutePath().substring(0, phar.getAbsolutePath().length() - 4) + "jar");
-        verifierDep1.addCliOption("-Dto="+
-                phar.getAbsolutePath().substring(0, phar.getAbsolutePath().length() - 4) + "2.phar");
-        
-        verifierDep1.executeGoal("org.phpmaven:maven-php-plugin:convert-phar");
-
-        // verify no error was thrown
-        verifierDep1.verifyErrorFreeLog();
-
-        // reset the streams
-        verifierDep1.resetStreams();
-        
-        verifierDep1.assertFilePresent("target/phar-with-dep1-folders-0.0.1.2.phar");
-
-        verifierDep1.getCliOptions().clear();
-        verifierDep1.addCliOption("-Dphar=target/phar-with-dep1-folders-0.0.1.2.phar");
-        verifierDep1.executeGoal("org.phpmaven:maven-php-plugin:list-phar-files");
-        @SuppressWarnings("unchecked")
-        final List<String> lines = verifierDep1.loadFile(verifierDep1.getBasedir(), verifierDep1.getLogFileName(), false);
-        boolean found1 = false;
-        boolean found2 = false;
-        for (final String line : lines) {
-            if (line.startsWith("[INFO] " + File.separatorChar + "folderA" + File.separatorChar + "MyClassA.php")) {
-                found1 = true;
-            }
-            if (line.startsWith("[INFO] " + File.separatorChar + "folderB" + File.separatorChar + "MyClassB.php")) {
-                found2 = true;
-            }
-        }
-        
-        // verify no error was thrown
-        verifierDep1.verifyErrorFreeLog();
-
-        // reset the streams
-        verifierDep1.resetStreams();
-        
-        assertTrue(found1);
-        assertTrue(found2);
+        assertFalse(phar2.exists());
+        assertFalse(zip.exists());
+        assertFalse(jar.exists());
+    	
+    	Xpp3Dom config = Xpp3DomBuilder.build(new StringReader(
+    			"<configuration>" +
+    			"<from>"+phar.getAbsolutePath()+"</from>" +
+    			"<to>"+zip.getAbsolutePath()+"</to>" +
+    			"</configuration>"));
+    	ConvertPharMojo convertMojo = this.createConfiguredMojo(
+    			ConvertPharMojo.class, session,
+    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"convert-phar",
+    			config);
+    	convertMojo.execute();
+    	
+    	config = Xpp3DomBuilder.build(new StringReader(
+    			"<configuration>" +
+    			"<from>"+zip.getAbsolutePath()+"</from>" +
+    			"<to>"+jar.getAbsolutePath()+"</to>" +
+    			"</configuration>"));
+    	convertMojo = this.createConfiguredMojo(
+    			ConvertPharMojo.class, session,
+    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"convert-phar",
+    			config);
+    	convertMojo.execute();
+    	
+    	assertTrue(jar.exists());
+    	
+    	config = Xpp3DomBuilder.build(new StringReader(
+    			"<configuration>" +
+    			"<from>"+jar.getAbsolutePath()+"</from>" +
+    			"<to>"+phar2.getAbsolutePath()+"</to>" +
+    			"</configuration>"));
+    	convertMojo = this.createConfiguredMojo(
+    			ConvertPharMojo.class, session,
+    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"convert-phar",
+    			config);
+    	convertMojo.execute();
+    	
+    	assertTrue(phar2.exists());
+    	
+    	// list files
+    	final IPharPackagerConfiguration pharConfig = lookup(IComponentFactory.class).lookup(
+    		IPharPackagerConfiguration.class, IComponentFactory.EMPTY_CONFIG, session);
+    	final Iterable<String> files = pharConfig.getPharPackager().listFiles(phar2, new DefaultLog(new ConsoleLogger()));
+    	
+    	assertIterableCount(files, 3);
+    	assertIterableContains(files, File.separatorChar + "folderA" + File.separatorChar + "MyClassA.php");
+    	assertIterableContains(files, File.separatorChar + "folderB" + File.separatorChar + "MyClassB.php");
+    	assertIterableContains(files, File.separatorChar + "META-INF" + File.separatorChar + "MANIFEST.MF");
     }
 
 }

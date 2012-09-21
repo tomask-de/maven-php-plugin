@@ -258,7 +258,7 @@ public class PhpUnit extends AbstractPhpUnitReportMojo implements IPhpunitConfig
 
     @Override
     public String getOutputName() {
-        return "phpunit/report";
+        return "report";
     }
 
     @Override

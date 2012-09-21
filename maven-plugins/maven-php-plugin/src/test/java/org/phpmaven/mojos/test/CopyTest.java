@@ -16,7 +16,12 @@
 
 package org.phpmaven.mojos.test;
 
-import org.apache.maven.it.Verifier;
+import java.io.File;
+
+import org.apache.maven.execution.MavenSession;
+import org.codehaus.plexus.util.xml.Xpp3Dom;
+import org.phpmaven.plugin.build.PhpResources;
+import org.phpmaven.plugin.build.PhpTestResources;
 import org.phpmaven.test.AbstractTestCase;
 
 /**
@@ -33,18 +38,16 @@ public class CopyTest extends AbstractTestCase {
      * @throws Exception 
      */
     public void testCompile() throws Exception {
-        final Verifier verifier = this.getPhpMavenVerifier("mojos-compile/source-copy");
-        
-        // delete the pom from previous runs
-        verifier.deleteArtifact("org.phpmaven.test", "source-copy", "0.0.1", "pom");
-        verifier.deleteArtifact("org.phpmaven.test", "source-copy", "0.0.1", "phar");
-        verifier.setAutoclean(true);
-
-        verifier.executeGoal("compile");
-        verifier.verifyErrorFreeLog();
-        verifier.resetStreams();
-        
-        verifier.assertFilePresent("target/classes/MyClass.php");
+    	final MavenSession session = this.createSimpleSession("mojos-compile/source-copy");
+    	
+    	final PhpResources resourcesMojo = this.createConfiguredMojo(
+    			PhpResources.class, session,
+    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"resources",
+    			new Xpp3Dom("configuration"));
+    	resourcesMojo.execute();
+    	
+    	assertTrue(new File(session.getCurrentProject().getBasedir(), "target/classes/MyClass.php").exists());
     }
 
     /**
@@ -53,18 +56,16 @@ public class CopyTest extends AbstractTestCase {
      * @throws Exception 
      */
     public void testTestCompile() throws Exception {
-        final Verifier verifier = this.getPhpMavenVerifier("mojos-compile/source-copy");
-        
-        // delete the pom from previous runs
-        verifier.deleteArtifact("org.phpmaven.test", "source-copy", "0.0.1", "pom");
-        verifier.deleteArtifact("org.phpmaven.test", "source-copy", "0.0.1", "phar");
-        verifier.setAutoclean(true);
-
-        verifier.executeGoal("test-compile");
-        verifier.verifyErrorFreeLog();
-        verifier.resetStreams();
-        
-        verifier.assertFilePresent("target/test-classes/FooTest.php");
+    	final MavenSession session = this.createSimpleSession("mojos-compile/source-copy");
+    	
+    	final PhpTestResources resourcesMojo = this.createConfiguredMojo(
+    			PhpTestResources.class, session,
+    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"testResources",
+    			new Xpp3Dom("configuration"));
+    	resourcesMojo.execute();
+    	
+    	assertTrue(new File(session.getCurrentProject().getBasedir(), "target/test-classes/FooTest.php").exists());
     }
 
 }
