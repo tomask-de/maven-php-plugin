@@ -42,8 +42,8 @@ import org.codehaus.plexus.util.DirectoryScanner;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.IOUtil;
 import org.phpmaven.core.IComponentFactory;
-import org.phpmaven.exec.PhpException;
 import org.phpmaven.phar.IPharPackagerConfiguration;
+import org.phpmaven.phpexec.library.PhpException;
 
 import com.google.common.base.Preconditions;
 

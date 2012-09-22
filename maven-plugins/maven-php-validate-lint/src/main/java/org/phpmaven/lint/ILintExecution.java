@@ -16,7 +16,7 @@ package org.phpmaven.lint;
 
 import java.io.File;
 
-import org.phpmaven.exec.PhpException;
+import org.phpmaven.phpexec.library.PhpException;
 
 /**
  * A single lint execution (lint checked file)

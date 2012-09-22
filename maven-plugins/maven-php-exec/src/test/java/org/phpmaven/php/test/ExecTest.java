@@ -19,12 +19,10 @@ package org.phpmaven.php.test;
 import java.io.File;
 
 import org.apache.maven.execution.MavenSession;
-import org.apache.maven.monitor.logging.DefaultLog;
-import org.codehaus.plexus.logging.console.ConsoleLogger;
 import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.phpmaven.core.IComponentFactory;
-import org.phpmaven.exec.IPhpExecutable;
 import org.phpmaven.exec.IPhpExecutableConfiguration;
+import org.phpmaven.phpexec.library.IPhpExecutable;
 import org.phpmaven.test.AbstractTestCase;
 
 /**
@@ -53,7 +51,7 @@ public class ExecTest extends AbstractTestCase {
         final File envTestPhp = new File(session.getCurrentProject().getBasedir(), "args-test.php");
 
         // assert that the environment variable is mapped correctly
-        final IPhpExecutable exec = execConfig.getPhpExecutable(new DefaultLog(new ConsoleLogger()));
+        final IPhpExecutable exec = execConfig.getPhpExecutable();
         assertEquals(0, exec.execute("\"" + envTestPhp.getAbsolutePath() + "\" JUNIT_ARG_TEST", envTestPhp,
                 new StreamConsumer() {
 
@@ -80,7 +78,7 @@ public class ExecTest extends AbstractTestCase {
                 session);
 
         // assert that the environment variable is mapped correctly
-        final IPhpExecutable exec = execConfig.getPhpExecutable(new DefaultLog(new ConsoleLogger()));
+        final IPhpExecutable exec = execConfig.getPhpExecutable();
         final String output = exec.executeCode("", "echo 'FOO';");
         assertEquals("FOO\n", output);
     }
@@ -101,7 +99,7 @@ public class ExecTest extends AbstractTestCase {
                 session);
 
         // assert that the environment variable is mapped correctly
-        final IPhpExecutable exec = execConfig.getPhpExecutable(new DefaultLog(new ConsoleLogger()));
+        final IPhpExecutable exec = execConfig.getPhpExecutable();
         final String output = exec.executeCode("", "echo $argv[1];", "JUNIT_ARG_TEST");
         assertEquals("JUNIT_ARG_TEST\n", output);
     }
@@ -124,7 +122,7 @@ public class ExecTest extends AbstractTestCase {
         final File envTestPhp = new File(session.getCurrentProject().getBasedir(), "args-test.php");
 
         // assert that the environment variable is mapped correctly
-        final IPhpExecutable exec = execConfig.getPhpExecutable(new DefaultLog(new ConsoleLogger()));
+        final IPhpExecutable exec = execConfig.getPhpExecutable();
         assertEquals(0, exec.execute("\"" + envTestPhp.getAbsolutePath() + "\" JUNIT_ARG_TEST",
                 new StreamConsumer() {
 

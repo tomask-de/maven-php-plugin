@@ -23,7 +23,7 @@ import org.codehaus.plexus.component.configurator.expression.ExpressionEvaluatio
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.phpmaven.core.IComponentFactory;
-import org.phpmaven.exec.PhpException;
+import org.phpmaven.phpexec.library.PhpException;
 import org.phpmaven.plugin.php.IPhpConfigurationMojo;
 import org.phpmaven.project.IPhpProject;
 import org.phpmaven.project.IProjectPhpExecution;

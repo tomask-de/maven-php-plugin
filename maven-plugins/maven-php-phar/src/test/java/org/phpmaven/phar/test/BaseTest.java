@@ -24,11 +24,11 @@ import org.apache.maven.execution.MavenSession;
 import org.apache.maven.monitor.logging.DefaultLog;
 import org.codehaus.plexus.logging.console.ConsoleLogger;
 import org.phpmaven.core.IComponentFactory;
-import org.phpmaven.exec.IPhpExecutable;
 import org.phpmaven.exec.IPhpExecutableConfiguration;
 import org.phpmaven.phar.IPharPackager;
 import org.phpmaven.phar.IPharPackagerConfiguration;
 import org.phpmaven.phar.IPharPackagingRequest;
+import org.phpmaven.phpexec.library.IPhpExecutable;
 import org.phpmaven.test.AbstractTestCase;
 
 /**
@@ -110,7 +110,7 @@ public class BaseTest extends AbstractTestCase {
                 session);
         phpConfig.setAdditionalPhpParameters("-d suhosin.executor.include.whitelist=\"phar\"");
         // check the phar
-        final IPhpExecutable phpExec = phpConfig.getPhpExecutable(logger);
+        final IPhpExecutable phpExec = phpConfig.getPhpExecutable();
         assertEquals("INSIDE FILE.PHP\n", phpExec.execute(new File(
                 session.getCurrentProject().getBasedir(), "testphar.php")));
     }
@@ -160,7 +160,7 @@ public class BaseTest extends AbstractTestCase {
                 session);
         phpConfig.setAdditionalPhpParameters("-d suhosin.executor.include.whitelist=\"phar\"");
         // check the phar
-        final IPhpExecutable phpExec = phpConfig.getPhpExecutable(logger);
+        final IPhpExecutable phpExec = phpConfig.getPhpExecutable();
         assertEquals("INSIDE FILE.PHP\n", phpExec.execute(new File(
                 session.getCurrentProject().getBasedir(), "testphar.php")));
         

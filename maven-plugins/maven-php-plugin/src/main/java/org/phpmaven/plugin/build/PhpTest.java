@@ -21,13 +21,13 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.phpmaven.core.IComponentFactory;
+import org.phpmaven.phpexec.library.PhpException;
 import org.phpmaven.phpunit.IPhpunitConfiguration;
 import org.phpmaven.phpunit.IPhpunitSupport;
 import org.phpmaven.phpunit.IPhpunitTestRequest;
 import org.phpmaven.phpunit.IPhpunitTestResult;
 import org.phpmaven.plugin.php.IPhpunitConfigurationMojo;
 import org.phpmaven.plugin.php.MultiException;
-import org.phpmaven.plugin.php.PhpException;
 import org.phpmaven.plugin.php.PhpUnitTestfileWalker;
 
 /**
@@ -320,8 +320,6 @@ public final class PhpTest extends AbstractPhpWalkMojo implements IPhpunitConfig
         } catch (PlexusConfigurationException e) {
             throw new MojoExecutionException(e.getMessage(), e);
         } catch (ComponentLookupException e) {
-            throw new MojoExecutionException(e.getMessage(), e);
-        } catch (org.phpmaven.exec.PhpException e) {
             throw new MojoExecutionException(e.getMessage(), e);
         } catch (PhpException e) {
             throw new MojoExecutionException(e.getMessage(), e);

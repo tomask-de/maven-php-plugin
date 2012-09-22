@@ -17,7 +17,7 @@
 package org.phpmaven.phpdoc;
 
 import org.apache.maven.plugin.logging.Log;
-import org.phpmaven.exec.PhpException;
+import org.phpmaven.phpexec.library.PhpException;
 
 
 /**

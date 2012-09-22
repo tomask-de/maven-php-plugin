@@ -25,8 +25,8 @@ import org.apache.maven.execution.MavenSession;
 import org.apache.maven.monitor.logging.DefaultLog;
 import org.codehaus.plexus.logging.console.ConsoleLogger;
 import org.phpmaven.core.IComponentFactory;
+import org.phpmaven.pear.IMavenPearUtility;
 import org.phpmaven.pear.IPearConfiguration;
-import org.phpmaven.pear.IPearUtility;
 import org.phpmaven.test.AbstractTestCase;
 
 /**
@@ -72,7 +72,7 @@ public class LocalInstallTest extends AbstractTestCase {
                 session);
         // assert that we are able to create the util
         final DefaultLog logger = new DefaultLog(new ConsoleLogger());
-        final IPearUtility util = pearConfig.getUtility(logger);
+        final IMavenPearUtility util = pearConfig.getUtility(logger);
         
         util.installPear(false);
         util.installFromMavenRepository("net.php", "XML_fo2pdf", "0.98");

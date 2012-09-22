@@ -20,7 +20,7 @@ import java.io.File;
 
 import org.apache.maven.plugin.logging.Log;
 import org.phpmaven.core.IComponentFactory;
-import org.phpmaven.exec.PhpException;
+import org.phpmaven.phpexec.library.PhpException;
 
 /**
  * Support to execute phpunit test cases.

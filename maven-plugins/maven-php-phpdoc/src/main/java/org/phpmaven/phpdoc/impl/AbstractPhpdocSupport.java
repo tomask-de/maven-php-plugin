@@ -23,11 +23,11 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.apache.maven.plugin.logging.Log;
-import org.phpmaven.exec.PhpCoreException;
 import org.phpmaven.phpdoc.IPhpdocEntry;
 import org.phpmaven.phpdoc.IPhpdocEntry.EntryType;
 import org.phpmaven.phpdoc.IPhpdocRequest;
 import org.phpmaven.phpdoc.IPhpdocSupport;
+import org.phpmaven.phpexec.library.PhpCoreException;
 
 /**
  * A maven 2.0 plugin for generating phpdocumentor documentations. This plugin is

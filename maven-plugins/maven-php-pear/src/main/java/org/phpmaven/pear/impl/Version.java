@@ -16,7 +16,8 @@
 
 package org.phpmaven.pear.impl;
 
-import org.phpmaven.pear.IVersion;
+import org.phpmaven.pear.IMavenPearVersion;
+
 
 /**
  * A single version number.
@@ -24,7 +25,7 @@ import org.phpmaven.pear.IVersion;
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
-public class Version implements IVersion {
+public class Version extends org.phpmaven.pear.library.impl.Version implements IMavenPearVersion {
     
     /**
      * The pear version number.
@@ -49,7 +50,7 @@ public class Version implements IVersion {
      */
     @Override
     public void setPearVersion(String version) {
-        this.mavenVersion = Package.convertPearVersionToMavenVersion(version);
+        this.mavenVersion = PackageHelper.convertPearVersionToMavenVersion(version);
         this.pearVersion = version;
     }
 
@@ -66,7 +67,7 @@ public class Version implements IVersion {
      */
     @Override
     public void setMavenVersion(String mavenVersion) {
-        this.pearVersion = Package.convertMavenVersionToPearVersion(mavenVersion);
+        this.pearVersion = PackageHelper.convertMavenVersionToPearVersion(mavenVersion);
         this.mavenVersion = mavenVersion;
     }
 

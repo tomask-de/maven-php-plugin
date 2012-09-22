@@ -27,8 +27,8 @@ import org.codehaus.plexus.component.repository.exception.ComponentLookupExcepti
 import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.phpmaven.core.IComponentFactory;
-import org.phpmaven.exec.PhpException;
 import org.phpmaven.phar.IPharPackagerConfiguration;
+import org.phpmaven.phpexec.library.PhpException;
 
 /**
  * Mojo to unpack a phar file.

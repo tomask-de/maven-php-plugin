@@ -19,15 +19,12 @@ package org.phpmaven.php.test;
 import java.io.File;
 
 import org.apache.maven.execution.MavenSession;
-import org.apache.maven.monitor.logging.DefaultLog;
-import org.apache.maven.plugin.logging.Log;
-import org.codehaus.plexus.logging.console.ConsoleLogger;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.phpmaven.core.ExecutionUtils;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.exec.IPhpExecutableConfiguration;
-import org.phpmaven.exec.PhpException;
-import org.phpmaven.exec.PhpVersion;
+import org.phpmaven.phpexec.library.PhpException;
+import org.phpmaven.phpexec.library.PhpVersion;
 import org.phpmaven.test.AbstractTestCase;
 
 /**
@@ -69,8 +66,7 @@ public class GetVersionTest extends AbstractTestCase {
                 new Xpp3Dom[]{dom},
                 session);
 
-        final Log log = new DefaultLog(new ConsoleLogger());
-        assertEquals(PhpVersion.PHP4, execConfig.getPhpExecutable(log).getVersion());
+        assertEquals(PhpVersion.PHP4, execConfig.getPhpExecutable().getVersion());
     }
 
     /**
@@ -104,8 +100,8 @@ public class GetVersionTest extends AbstractTestCase {
                 new Xpp3Dom[]{dom},
                 session);
 
-        final Log log = new DefaultLog(new ConsoleLogger());
-        assertEquals(PhpVersion.PHP5, execConfig.getPhpExecutable(log).getVersion());
+        
+        assertEquals(PhpVersion.PHP5, execConfig.getPhpExecutable().getVersion());
     }
 
     /**
@@ -139,8 +135,8 @@ public class GetVersionTest extends AbstractTestCase {
                 new Xpp3Dom[]{dom},
                 session);
 
-        final Log log = new DefaultLog(new ConsoleLogger());
-        assertEquals(PhpVersion.PHP6, execConfig.getPhpExecutable(log).getVersion());
+        
+        assertEquals(PhpVersion.PHP6, execConfig.getPhpExecutable().getVersion());
     }
 
     /**
@@ -174,8 +170,8 @@ public class GetVersionTest extends AbstractTestCase {
                 new Xpp3Dom[]{dom},
                 session);
 
-        final Log log = new DefaultLog(new ConsoleLogger());
-        assertEquals(PhpVersion.UNKNOWN, execConfig.getPhpExecutable(log).getVersion());
+        
+        assertEquals(PhpVersion.UNKNOWN, execConfig.getPhpExecutable().getVersion());
     }
 
     /**
@@ -209,9 +205,9 @@ public class GetVersionTest extends AbstractTestCase {
                 new Xpp3Dom[]{dom},
                 session);
 
-        final Log log = new DefaultLog(new ConsoleLogger());
+        
         try {
-            execConfig.getPhpExecutable(log).getVersion();
+            execConfig.getPhpExecutable().getVersion();
             fail("Expected exception not thrown");
         // CHECKSTYLE:OFF
         // checkstyle does not like empty catches
@@ -253,8 +249,8 @@ public class GetVersionTest extends AbstractTestCase {
                 session);
         execConfig.setUseCache(false);
 
-        final Log log = new DefaultLog(new ConsoleLogger());
-        assertEquals(PhpVersion.PHP4, execConfig.getPhpExecutable(log).getVersion());
+        
+        assertEquals(PhpVersion.PHP4, execConfig.getPhpExecutable().getVersion());
     }
 
     /**
@@ -289,8 +285,8 @@ public class GetVersionTest extends AbstractTestCase {
                 session);
         execConfig.setUseCache(false);
 
-        final Log log = new DefaultLog(new ConsoleLogger());
-        assertEquals(PhpVersion.PHP5, execConfig.getPhpExecutable(log).getVersion());
+        
+        assertEquals(PhpVersion.PHP5, execConfig.getPhpExecutable().getVersion());
     }
 
     /**
@@ -325,8 +321,8 @@ public class GetVersionTest extends AbstractTestCase {
                 session);
         execConfig.setUseCache(false);
 
-        final Log log = new DefaultLog(new ConsoleLogger());
-        assertEquals(PhpVersion.PHP6, execConfig.getPhpExecutable(log).getVersion());
+        
+        assertEquals(PhpVersion.PHP6, execConfig.getPhpExecutable().getVersion());
     }
 
     /**
@@ -361,8 +357,8 @@ public class GetVersionTest extends AbstractTestCase {
                 session);
         execConfig.setUseCache(false);
 
-        final Log log = new DefaultLog(new ConsoleLogger());
-        assertEquals(PhpVersion.UNKNOWN, execConfig.getPhpExecutable(log).getVersion());
+        
+        assertEquals(PhpVersion.UNKNOWN, execConfig.getPhpExecutable().getVersion());
     }
 
     /**
@@ -397,9 +393,9 @@ public class GetVersionTest extends AbstractTestCase {
                 session);
         execConfig.setUseCache(false);
 
-        final Log log = new DefaultLog(new ConsoleLogger());
+        
         try {
-            execConfig.getPhpExecutable(log).getVersion();
+            execConfig.getPhpExecutable().getVersion();
             fail("Expected exception not thrown");
         // CHECKSTYLE:OFF
         // checkstyle does not like empty catches

@@ -23,9 +23,9 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.phpmaven.core.BuildPluginConfiguration;
 import org.phpmaven.core.ConfigurationParameter;
 import org.phpmaven.core.IComponentFactory;
-import org.phpmaven.exec.IPhpExecutable;
 import org.phpmaven.exec.IPhpExecutableConfiguration;
-import org.phpmaven.exec.PhpException;
+import org.phpmaven.phpexec.library.IPhpExecutable;
+import org.phpmaven.phpexec.library.PhpException;
 
 /**
  * Lint checker runnable that will walk the queue and do lint checks.
@@ -114,7 +114,7 @@ public class LintThread implements Runnable {
             try {
                 final IPhpExecutableConfiguration config =
                         this.factory.lookup(IPhpExecutableConfiguration.class, this.executableConfig, session);
-                exec = config.getPhpExecutable(this.log);
+                exec = config.getPhpExecutable();
             } catch (Exception ex) {
                 this.log.error(ex);
                 return;

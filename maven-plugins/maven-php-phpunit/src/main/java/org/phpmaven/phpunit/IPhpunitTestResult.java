@@ -18,7 +18,7 @@ package org.phpmaven.phpunit;
 
 import java.io.File;
 
-import org.phpmaven.exec.PhpException;
+import org.phpmaven.phpexec.library.PhpException;
 
 /**
  * Phpunit test result.

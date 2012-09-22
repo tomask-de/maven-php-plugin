@@ -17,9 +17,12 @@
 package org.phpmaven.pear.impl;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.logging.Log;
+import org.apache.maven.settings.Proxy;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Configuration;
 import org.codehaus.plexus.component.annotations.Requirement;
@@ -29,8 +32,10 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.phpmaven.core.BuildPluginConfiguration;
 import org.phpmaven.core.ConfigurationParameter;
 import org.phpmaven.core.IComponentFactory;
+import org.phpmaven.exec.IPhpExecutableConfiguration;
+import org.phpmaven.pear.IMavenPearUtility;
 import org.phpmaven.pear.IPearConfiguration;
-import org.phpmaven.pear.IPearUtility;
+import org.phpmaven.pear.library.IPearProxy;
 
 /**
  * The pear configuration implementation.
@@ -43,6 +48,55 @@ import org.phpmaven.pear.IPearUtility;
 public class PearConfiguration implements IPearConfiguration {
     
     /**
+	 * 
+	 * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
+	 * @since 2.0.3
+	 */
+	private static final class ProxyWrapper implements IPearProxy {
+		/**
+		 * 
+		 */
+		private final Proxy proxy;
+
+		/**
+		 * @param proxy
+		 */
+		private ProxyWrapper(Proxy proxy) {
+			this.proxy = proxy;
+		}
+
+		@Override
+		public boolean isActive() {
+			return this.proxy.isActive();
+		}
+
+		@Override
+		public String getUsername() {
+			return this.proxy.getUsername();
+		}
+
+		@Override
+		public String getProtocol() {
+			return this.proxy.getProtocol();
+		}
+
+		@Override
+		public int getPort() {
+			return this.proxy.getPort();
+		}
+
+		@Override
+		public String getPassword() {
+			return this.proxy.getPassword();
+		}
+
+		@Override
+		public String getHost() {
+			return this.proxy.getHost();
+		}
+	}
+
+	/**
      * The pear utility implementation to be used.
      */
     @Configuration(name = "pearUtility", value = "PHP_EXE")
@@ -61,9 +115,8 @@ public class PearConfiguration implements IPearConfiguration {
     private MavenSession session;
     
     /**
-     * The executable config (dummy to let the configurator not complain).
+     * The executable config.
      */
-    @SuppressWarnings("unused")
     private Xpp3Dom executableConfig;
     
     /**
@@ -92,14 +145,24 @@ public class PearConfiguration implements IPearConfiguration {
      * {@inheritDoc}
      */
     @Override
-    public IPearUtility getUtility(Log logger) throws PlexusConfigurationException,
+    public IMavenPearUtility getUtility(Log logger) throws PlexusConfigurationException,
             ComponentLookupException {
-        final IPearUtility result = this.factory.lookup(
-                        IPearUtility.class,
+    	final IPhpExecutableConfiguration execConfig = this.factory.lookup(
+    			IPhpExecutableConfiguration.class,
+    			this.executableConfig,
+    			this.session);
+    	
+    	final List<IPearProxy> proxies = new ArrayList<IPearProxy>();
+    	for (final Proxy proxy : this.session.getSettings().getProxies()) {
+    		proxies.add(new ProxyWrapper(proxy));
+    	}
+    	
+        final IMavenPearUtility result = this.factory.lookup(
+        				IMavenPearUtility.class,
                         this.pearUtility,
                         IComponentFactory.EMPTY_CONFIG,
                         this.session);
-        result.configure(this.installDir, logger);
+        result.configure(this.installDir, execConfig, proxies);
         return result;
     }
 

@@ -16,52 +16,32 @@
 
 package org.phpmaven.pear.impl;
 
-import org.phpmaven.pear.IRestBaseUrl;
+import org.phpmaven.pear.library.impl.Package;
 
 /**
- * Rest base url.
+ * Package helper to access the maven conversion functions.
  * 
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
-public class RestBaseUrl implements IRestBaseUrl {
-
-    /** version. */
-    private String version;
+public class PackageHelper extends Package {
     
-    /** base url. */
-    private String baseUrl;
-
     /**
-     * {@inheritDoc}
+     * Converts a maven version to a pear version.
+     * @param src maven version
+     * @return pear version
      */
-    @Override
-    public String getRestVersion() {
-        return this.version;
+    public static String convertMavenVersionToPearVersion(String src) {
+    	return Package.convertMavenVersionToPearVersion(src);
     }
-
+    
     /**
-     * {@inheritDoc}
+     * Converts a pear version to a maven version.
+     * @param src pear version.
+     * @return maven version.
      */
-    @Override
-    public void setRestVersion(String ver) {
-        this.version = ver;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getBaseUrl() {
-        return this.baseUrl;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setBaseUrl(String url) {
-        this.baseUrl = url;
+    public static String convertPearVersionToMavenVersion(String src) {
+        return Package.convertPearVersionToMavenVersion(src);
     }
 
 }

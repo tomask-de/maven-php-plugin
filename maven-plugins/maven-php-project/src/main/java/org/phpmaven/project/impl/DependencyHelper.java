@@ -40,11 +40,11 @@ import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.dependency.IAction;
+import org.phpmaven.dependency.IAction.ActionType;
 import org.phpmaven.dependency.IDependency;
 import org.phpmaven.dependency.IDependencyConfiguration;
-import org.phpmaven.dependency.IAction.ActionType;
 import org.phpmaven.dependency.impl.Classic;
-import org.phpmaven.exec.PhpException;
+import org.phpmaven.phpexec.library.PhpException;
 
 /**
  * Helper to process and calculate the dependency actions on a dependency

@@ -25,12 +25,12 @@ import org.codehaus.plexus.component.repository.exception.ComponentLookupExcepti
 import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.codehaus.plexus.util.FileUtils;
 import org.phpmaven.core.IComponentFactory;
-import org.phpmaven.exec.PhpException;
-import org.phpmaven.pear.IPackage;
-import org.phpmaven.pear.IPackageVersion;
-import org.phpmaven.pear.IPearChannel;
 import org.phpmaven.pear.IPearConfiguration;
-import org.phpmaven.pear.IPearUtility;
+import org.phpmaven.pear.library.IPackage;
+import org.phpmaven.pear.library.IPackageVersion;
+import org.phpmaven.pear.library.IPearChannel;
+import org.phpmaven.pear.library.IPearUtility;
+import org.phpmaven.phpexec.library.PhpException;
 import org.phpmaven.plugin.build.AbstractMojo;
 
 /**

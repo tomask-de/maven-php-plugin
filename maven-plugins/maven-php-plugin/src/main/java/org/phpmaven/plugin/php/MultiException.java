@@ -16,6 +16,8 @@ package org.phpmaven.plugin.php;
 
 import java.util.List;
 
+import org.phpmaven.phpexec.library.PhpException;
+
 
 /**
  * Symbolizes multiple exceptions at once.
