@@ -17,13 +17,10 @@
 package org.phpmaven.php.test;
 
 import org.apache.maven.execution.MavenSession;
-import org.apache.maven.monitor.logging.DefaultLog;
-import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
-import org.codehaus.plexus.logging.console.ConsoleLogger;
 import org.phpmaven.core.IComponentFactory;
-import org.phpmaven.exec.IPhpExecutable;
 import org.phpmaven.exec.IPhpExecutableConfiguration;
-import org.phpmaven.exec.PhpException;
+import org.phpmaven.phpexec.library.IPhpExecutable;
+import org.phpmaven.phpexec.library.PhpException;
 import org.phpmaven.test.AbstractTestCase;
 
 /**
@@ -51,68 +48,9 @@ public class BaseTest extends AbstractTestCase {
         // assert that it is not null
         assertNotNull(execConfig);
         // assert that we are able to create the executable
-        final IPhpExecutable exec = execConfig.getPhpExecutable(new DefaultLog(new ConsoleLogger()));
+        final IPhpExecutable exec = execConfig.getPhpExecutable();
         assertNotNull(exec.getStrVersion());
         assertNotNull(exec.getVersion());
-    }
-
-    /**
-     * Tests if the execution configuration can be created.
-     *
-     * @throws Exception thrown on errors
-     */
-    public void testConfigureFailes() throws Exception {
-        // look up the component factory
-        final IComponentFactory factory = lookup(IComponentFactory.class);
-        // create the execution config
-        final MavenSession session = this.createSimpleEmptySession();
-        final IPhpExecutableConfiguration execConfig = factory.lookup(
-                IPhpExecutableConfiguration.class,
-                IComponentFactory.EMPTY_CONFIG,
-                session);
-        // assert that it is not null
-        assertNotNull(execConfig);
-        // assert that we are able to create the executable
-        final IPhpExecutable exec = execConfig.getPhpExecutable(new DefaultLog(new ConsoleLogger()));
-        try {
-            exec.configure(null, null);
-            fail("Exception expected");
-        // CHECKSTYLE:OFF
-        // checkstyle does not like empty catches
-        } catch (IllegalStateException ex) {
-            // ignore; we expect this exception
-        }
-        // CHECKSTYLE:ON
-    }
-
-    /**
-     * Tests if the execution configuration can be created.
-     *
-     * @throws Exception thrown on errors
-     */
-    public void testConfigureFailesNotCached() throws Exception {
-        // look up the component factory
-        final IComponentFactory factory = lookup(IComponentFactory.class);
-        // create the execution config
-        final MavenSession session = this.createSimpleEmptySession();
-        final IPhpExecutableConfiguration execConfig = factory.lookup(
-                IPhpExecutableConfiguration.class,
-                IComponentFactory.EMPTY_CONFIG,
-                session);
-        // assert that it is not null
-        assertNotNull(execConfig);
-        // assert that we are able to create the executable
-        execConfig.setUseCache(false);
-        final IPhpExecutable exec = execConfig.getPhpExecutable(new DefaultLog(new ConsoleLogger()));
-        try {
-            exec.configure(null, null);
-            fail("Exception expected");
-        // CHECKSTYLE:OFF
-        // checkstyle does not like empty catches
-        } catch (IllegalStateException ex) {
-            // ignore; we expect this exception
-        }
-        // CHECKSTYLE:ON
     }
 
     /**
@@ -132,7 +70,7 @@ public class BaseTest extends AbstractTestCase {
                 session);
         execConfig.setExecutable("/foo/bar/php");
         // assert that we are able to create the executable
-        final IPhpExecutable exec = execConfig.getPhpExecutable(new DefaultLog(new ConsoleLogger()));
+        final IPhpExecutable exec = execConfig.getPhpExecutable();
         try {
             exec.getStrVersion();
             fail("Exception expected");
@@ -163,11 +101,11 @@ public class BaseTest extends AbstractTestCase {
         execConfig.setInterpreter("foo-bar-php");
         // assert that we are able to create the executable
         try {
-            execConfig.getPhpExecutable(new DefaultLog(new ConsoleLogger()));
+            execConfig.getPhpExecutable();
             fail("Exception expected");
         // CHECKSTYLE:OFF
         // checkstyle does not like empty catches
-        } catch (ComponentLookupException ex) {
+        } catch (IllegalStateException ex) {
             // ignore; we expect this exception
         }
         // CHECKSTYLE:ON

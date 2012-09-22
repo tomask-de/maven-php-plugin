@@ -43,9 +43,9 @@ import org.phpmaven.dependency.IActionExtract;
 import org.phpmaven.dependency.IActionExtractAndInclude;
 import org.phpmaven.dependency.IDependency;
 import org.phpmaven.dependency.IDependencyConfiguration;
-import org.phpmaven.exec.IPhpExecutable;
-import org.phpmaven.exec.PhpCoreException;
-import org.phpmaven.exec.PhpException;
+import org.phpmaven.phpexec.library.IPhpExecutable;
+import org.phpmaven.phpexec.library.PhpCoreException;
+import org.phpmaven.phpexec.library.PhpException;
 import org.phpmaven.project.IPhpProject;
 import org.phpmaven.project.IProjectPhpExecution;
 import org.phpmaven.statedb.IStateDatabase;
@@ -192,7 +192,7 @@ public class PhpProject implements IPhpProject {
 	                this.session);
 	        final IPhpExecutable exec = config.getExecutionConfiguration(
 	                null,
-	                this.session.getCurrentProject()).getPhpExecutable(log);
+	                this.session.getCurrentProject()).getPhpExecutable();
 	        final StringBuffer script = new StringBuffer();
 	        script.append("$mavenDependencies = array(\n");
 	        for (final BootstrapFileInfo fileInfo : bootstrapInfo) {

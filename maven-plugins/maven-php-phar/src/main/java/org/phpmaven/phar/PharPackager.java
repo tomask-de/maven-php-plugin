@@ -32,10 +32,10 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.phpmaven.core.BuildPluginConfiguration;
 import org.phpmaven.core.ConfigurationParameter;
 import org.phpmaven.core.IComponentFactory;
-import org.phpmaven.exec.IPhpExecutable;
 import org.phpmaven.exec.IPhpExecutableConfiguration;
-import org.phpmaven.exec.PhpException;
 import org.phpmaven.phar.PharEntry.EntryType;
+import org.phpmaven.phpexec.library.IPhpExecutable;
+import org.phpmaven.phpexec.library.PhpException;
 
 /**
  * Phar packager implementation to use php-exe.
@@ -92,7 +92,7 @@ public class PharPackager implements IPharPackager {
         throws PhpException, ComponentLookupException, PlexusConfigurationException {
         final IPhpExecutableConfiguration execConfig = getExecConfig();
         execConfig.getPhpDefines().put("phar.readonly", "0");
-        final IPhpExecutable exec = execConfig.getPhpExecutable(log);
+        final IPhpExecutable exec = execConfig.getPhpExecutable();
         
         final StringBuilder contents = new StringBuilder();
         for (final PharEntry entry : request.getEntries()) {
@@ -189,7 +189,7 @@ public class PharPackager implements IPharPackager {
     public String readStub(File pharPackage, Log log)
         throws PhpException, ComponentLookupException, PlexusConfigurationException {
         final IPhpExecutableConfiguration execConfig = getExecConfig();
-        final IPhpExecutable executable = execConfig.getPhpExecutable(log);
+        final IPhpExecutable executable = execConfig.getPhpExecutable();
         
         return executable.executeCode("",
                 "$phar = new Phar('" + this.maskBackslash(pharPackage.getAbsolutePath()) + "');\n" +
@@ -203,7 +203,7 @@ public class PharPackager implements IPharPackager {
     public void extractPharTo(File pharPackage, File targetDirectory, Log log)
         throws PhpException, ComponentLookupException, PlexusConfigurationException {
         final IPhpExecutableConfiguration execConfig = getExecConfig();
-        final IPhpExecutable executable = execConfig.getPhpExecutable(log);
+        final IPhpExecutable executable = execConfig.getPhpExecutable();
         
         // XXX: There seems to be a bug on some php versions. https://bugs.php.net/bug.php?id=50797
         // However extractTo should be used for performance. Manually extracting is slow.
@@ -256,7 +256,7 @@ public class PharPackager implements IPharPackager {
     public Iterable<String> listFiles(File pharPackage, Log log)
         throws PhpException, ComponentLookupException, PlexusConfigurationException {
         final IPhpExecutableConfiguration execConfig = getExecConfig();
-        final IPhpExecutable executable = execConfig.getPhpExecutable(log);
+        final IPhpExecutable executable = execConfig.getPhpExecutable();
             
         final String pharFileName = this.maskBackslash(pharPackage.getAbsolutePath());
         final String files = executable.executeCode("",

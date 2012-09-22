@@ -16,36 +16,30 @@
 
 package org.phpmaven.pear;
 
+import org.phpmaven.pear.library.IVersion;
+
 /**
- * A REST base url definition.
+ * A single package version (extended version for maven).
+ * 
+ * <p>
+ * The package version supports mapping between pear versions and maven versions.
+ * </p>
  * 
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
-public interface IRestBaseUrl {
+public interface IMavenPearVersion extends IVersion {
     
     /**
-     * Returns the version.
-     * @return version.
+     * Returns the maven version.
+     * @return maven version.
      */
-    String getRestVersion();
+    String getMavenVersion();
     
     /**
-     * Sets the version.
-     * @param version version.
+     * Sets the maven version.
+     * @param mavenVersion maven version.
      */
-    void setRestVersion(String version);
-    
-    /**
-     * Returns the base url.
-     * @return base url.
-     */
-    String getBaseUrl();
-    
-    /**
-     * Sets the base url.
-     * @param url base url.
-     */
-    void setBaseUrl(String url);
+    void setMavenVersion(String mavenVersion);
 
 }

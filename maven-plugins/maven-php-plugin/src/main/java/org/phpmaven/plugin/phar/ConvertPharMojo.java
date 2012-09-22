@@ -37,9 +37,9 @@ import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.phpmaven.core.IComponentFactory;
-import org.phpmaven.exec.PhpException;
 import org.phpmaven.phar.IPharPackagerConfiguration;
 import org.phpmaven.phar.IPharPackagingRequest;
+import org.phpmaven.phpexec.library.PhpException;
 import org.phpmaven.plugin.build.FileHelper;
 
 /**

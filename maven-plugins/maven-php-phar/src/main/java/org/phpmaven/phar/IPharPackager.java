@@ -21,7 +21,7 @@ import java.io.File;
 import org.apache.maven.plugin.logging.Log;
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 import org.codehaus.plexus.configuration.PlexusConfigurationException;
-import org.phpmaven.exec.PhpException;
+import org.phpmaven.phpexec.library.PhpException;
 
 /**
  * A phar packager used to package, extract and read phars.

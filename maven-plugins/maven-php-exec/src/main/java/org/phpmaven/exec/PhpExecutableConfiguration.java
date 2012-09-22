@@ -23,13 +23,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.maven.execution.MavenSession;
-import org.apache.maven.plugin.logging.Log;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Configuration;
 import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 import org.codehaus.plexus.configuration.PlexusConfigurationException;
-import org.codehaus.plexus.util.cli.StreamConsumer;
 import org.phpmaven.core.ConfigurationParameter;
 import org.phpmaven.core.IComponentFactory;
 
@@ -132,7 +130,7 @@ public class PhpExecutableConfiguration implements IPhpExecutableConfiguration {
     @Configuration(name = "errorReporting", value = "NONE")
     @ConfigurationParameter(name = "errorReporting", expression = "${php.error.reporting}")
     private String errorReporting;
-
+    
     /**
      * {@inheritDoc}
      */
@@ -297,116 +295,36 @@ public class PhpExecutableConfiguration implements IPhpExecutableConfiguration {
      * {@inheritDoc}
      */
     @Override
-    public IPhpExecutable getPhpExecutable(Log log) throws PlexusConfigurationException, ComponentLookupException {
-        final IPhpExecutable result = this.componentFactory.lookup(
-                IPhpExecutable.class,
-                this.getInterpreter(),
-                IComponentFactory.EMPTY_CONFIG,
-                this.session);
-        result.configure(this, log);
-        if (this.useCache) {
-            final IPhpExecutable cache = ExecCache.instance().get(this, log);
-            return new CachedExecutable(cache, result);
-        }
-        return result;
-    }
-    
-    /**
-     * Helper implementation for a cached php executable.
-     */
-    private static final class CachedExecutable implements IPhpExecutable {
-        
-        /** cached executable. */
-        private final IPhpExecutable cache;
-        
-        /** resulting php executable. */
-        private final IPhpExecutable result;
-
-        /**
-         * Constructor.
-         * @param cache
-         * @param result
-         */
-        private CachedExecutable(IPhpExecutable cache, IPhpExecutable result) {
-            this.cache = cache;
-            this.result = result;
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public PhpVersion getVersion() throws PhpException {
-            return this.cache.getVersion();
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public String executeCode(String arguments, String code,
-                String codeArguments) throws PhpException {
-            return this.result.executeCode(arguments, code, codeArguments);
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public String executeCode(String arguments, String code)
-            throws PhpException {
-            return this.result.executeCode(arguments, code);
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public int execute(String arguments, StreamConsumer stdout,
-                StreamConsumer stderr) throws PhpException {
-            return this.result.execute(arguments, stdout, stderr);
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public int execute(String arguments, File file, StreamConsumer stdout)
-            throws PhpException {
-            return this.result.execute(arguments, file, stdout);
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public String execute(String arguments, File file) throws PhpException {
-            return this.result.execute(arguments, file);
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public void configure(IPhpExecutableConfiguration config, Log log) {
-            throw new IllegalStateException("Must not call this method twice. The executable is already configured.");
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public String getStrVersion() throws PhpException {
-            return this.cache.getStrVersion();
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public String execute(File file) throws PhpException {
-            return this.result.execute(file);
-        }
+    public org.phpmaven.phpexec.library.IPhpExecutable getPhpExecutable() {
+    	if ("PHP_EXE".equals(this.getInterpreter())) {
+    		final org.phpmaven.phpexec.cli.PhpExecutableConfiguration config = new org.phpmaven.phpexec.cli.PhpExecutableConfiguration();
+    		config.setAdditionalPhpParameters(this.getAdditionalPhpParameters());
+    		config.setEnv(this.getEnv());
+    		config.setErrorReporting(this.getErrorReporting());
+    		config.setExecutable(this.getExecutable());
+    		config.setIgnoreIncludeErrors(this.isIgnoreIncludeErrors());
+    		config.setIncludePath(this.getIncludePath());
+    		config.setLogPhpOutput(this.isLogPhpOutput());
+    		config.setPhpDefines(this.getPhpDefines());
+    		config.setTemporaryScriptFile(this.getTemporaryScriptFile());
+    		config.setUseCache(this.isUseCache());
+    		config.setWorkDirectory(this.getWorkDirectory());
+    		return config.getPhpExecutable();
+    	}
+    	try {
+	    	final IPhpExecutableWrapper result = this.componentFactory.lookup(
+	    			IPhpExecutableWrapper.class,
+	                this.getInterpreter(),
+	                IComponentFactory.EMPTY_CONFIG,
+	                this.session);
+	        result.config(this);
+	        // we do not cache here. The implementor is responsible for doing a good caching.
+	        return result;
+    	} catch (PlexusConfigurationException ex) {
+    		throw new IllegalStateException(ex);
+    	} catch (ComponentLookupException ex) {
+    		throw new IllegalStateException(ex);
+    	}
     }
 
     /**

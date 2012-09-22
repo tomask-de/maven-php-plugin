@@ -28,7 +28,7 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.phpmaven.core.BuildPluginConfiguration;
 import org.phpmaven.core.ConfigurationParameter;
 import org.phpmaven.core.IComponentFactory;
-import org.phpmaven.exec.IPhpExecutable;
+import org.phpmaven.phpexec.library.IPhpExecutable;
 import org.phpmaven.phpunit.IPhpunitSupport;
 import org.phpmaven.project.IProjectPhpExecution;
 
@@ -130,7 +130,7 @@ public abstract class AbstractPhpunitSupport implements IPhpunitSupport {
                 this.session);
         return config.getTestExecutionConfiguration(
                 this.getExecConfig(),
-                this.session.getCurrentProject()).getPhpExecutable(log);
+                this.session.getCurrentProject()).getPhpExecutable();
     }
 
     /**

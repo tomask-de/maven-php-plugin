@@ -119,7 +119,7 @@ public interface IPearConfiguration {
      * @throws PlexusConfigurationException thrown if there is a configuration problem.
      * @throws ComponentLookupException thrown if there is a configuration problem.
      */
-    IPearUtility getUtility(Log logger) throws PlexusConfigurationException, ComponentLookupException;
+    IMavenPearUtility getUtility(Log logger) throws PlexusConfigurationException, ComponentLookupException;
     
     /**
      * Sets the installation directory to be used for pear.

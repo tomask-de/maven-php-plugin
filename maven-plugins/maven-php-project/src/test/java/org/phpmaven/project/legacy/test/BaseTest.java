@@ -21,8 +21,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.maven.execution.MavenSession;
-import org.apache.maven.monitor.logging.DefaultLog;
-import org.codehaus.plexus.logging.console.ConsoleLogger;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.exec.IPhpExecutableConfiguration;
@@ -148,17 +146,16 @@ public class BaseTest extends AbstractTestCase {
                 IComponentFactory.EMPTY_CONFIG,
                 session);
         
-        final DefaultLog logger = new DefaultLog(new ConsoleLogger());
         final File testPhp = new File(session.getCurrentProject().getBasedir(), "test.php");
         final File test2Php = new File(session.getCurrentProject().getBasedir(), "test2.php");
         
-        final String result = prjConfig.getExecutionConfiguration().getPhpExecutable(logger).execute(testPhp);
+        final String result = prjConfig.getExecutionConfiguration().getPhpExecutable().execute(testPhp);
         assertEquals("foobar", result.trim());
         
-        final String resultTest = prjConfig.getTestExecutionConfiguration().getPhpExecutable(logger).execute(testPhp);
+        final String resultTest = prjConfig.getTestExecutionConfiguration().getPhpExecutable().execute(testPhp);
         assertEquals("foobar", resultTest.trim());
         
-        final String result2 = prjConfig.getTestExecutionConfiguration().getPhpExecutable(logger).execute(test2Php);
+        final String result2 = prjConfig.getTestExecutionConfiguration().getPhpExecutable().execute(test2Php);
         assertEquals("testFoobar", result2.trim());
     }
    

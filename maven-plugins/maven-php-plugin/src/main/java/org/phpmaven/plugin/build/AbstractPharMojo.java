@@ -28,6 +28,7 @@ import org.phpmaven.phar.IPharPackagingRequest;
 import org.phpmaven.phar.PharDirectory;
 import org.phpmaven.phar.PharEntry;
 import org.phpmaven.phar.PharEntry.EntryType;
+import org.phpmaven.phpexec.library.PhpException;
 
 
 /**
@@ -264,7 +265,7 @@ public abstract class AbstractPharMojo extends AbstractMojo {
             throw new MojoExecutionException("failed creating the phar packager.", ex);
         } catch (ComponentLookupException ex) {
             throw new MojoExecutionException("failed creating the phar packager.", ex);
-        } catch (org.phpmaven.exec.PhpException ex) {
+        } catch (PhpException ex) {
             throw new MojoExecutionException("failed creating the phar.", ex);
         } catch (IOException ex) {
             throw new MojoExecutionException("failed creating the phar.", ex);

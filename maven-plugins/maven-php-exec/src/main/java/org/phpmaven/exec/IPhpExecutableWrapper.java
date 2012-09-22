@@ -14,38 +14,22 @@
  * limitations under the License.
  */
 
-package org.phpmaven.pear;
+package org.phpmaven.exec;
+
 
 /**
- * A soap server definition.
- *  
+ * A php executable wrapper.
+ * 
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
- * @since 2.0.0
+ * @since 2.0.3
  */
-public interface ISoapServer {
-    
-    /**
-     * Returns the path.
-     * @return path.
-     */
-    String getPath();
-    
-    /**
-     * Sets the path.
-     * @param path path.
-     */
-    void setPath(String path);
-    
-    /**
-     * Returns the soap functions.
-     * @return soap functions.
-     */
-    Iterable<ISoapFunction> getFunctions();
-    
-    /**
-     * Adds the soap function.
-     * @param function soap function.
-     */
-    void addFunction(ISoapFunction function);
+public interface IPhpExecutableWrapper extends org.phpmaven.phpexec.library.IPhpExecutable {
+	
+	/**
+	 * Configures the executable after being created
+	 * @param config configuration
+	 * @throws IllegalStateException thrown if this method is called twice
+	 */
+    void config(IPhpExecutableConfiguration config);
 
 }

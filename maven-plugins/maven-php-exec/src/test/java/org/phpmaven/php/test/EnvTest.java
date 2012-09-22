@@ -21,11 +21,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.maven.execution.MavenSession;
-import org.apache.maven.monitor.logging.DefaultLog;
-import org.codehaus.plexus.logging.console.ConsoleLogger;
 import org.phpmaven.core.IComponentFactory;
-import org.phpmaven.exec.IPhpExecutable;
 import org.phpmaven.exec.IPhpExecutableConfiguration;
+import org.phpmaven.phpexec.library.IPhpExecutable;
 import org.phpmaven.test.AbstractTestCase;
 
 /**
@@ -55,7 +53,7 @@ public class EnvTest extends AbstractTestCase {
         execConfig.getEnv().put("JUNIT_ENV_TEST", "foo bar");
 
         // assert that the environment variable is mapped correctly
-        final IPhpExecutable exec = execConfig.getPhpExecutable(new DefaultLog(new ConsoleLogger()));
+        final IPhpExecutable exec = execConfig.getPhpExecutable();
         assertEquals("success: foo bar\n", exec.execute(envTestPhp));
     }
 
@@ -80,7 +78,7 @@ public class EnvTest extends AbstractTestCase {
         execConfig.setEnv(env);
 
         // assert that the environment variable is mapped correctly
-        final IPhpExecutable exec = execConfig.getPhpExecutable(new DefaultLog(new ConsoleLogger()));
+        final IPhpExecutable exec = execConfig.getPhpExecutable();
         assertEquals("success: foo bar\n", exec.execute(envTestPhp));
     }
     

@@ -21,13 +21,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.maven.execution.MavenSession;
-import org.apache.maven.monitor.logging.DefaultLog;
-import org.codehaus.plexus.logging.console.ConsoleLogger;
 import org.phpmaven.core.IComponentFactory;
-import org.phpmaven.exec.IPhpExecutable;
 import org.phpmaven.exec.IPhpExecutableConfiguration;
-import org.phpmaven.exec.PhpErrorException;
-import org.phpmaven.exec.PhpWarningException;
+import org.phpmaven.phpexec.library.IPhpExecutable;
+import org.phpmaven.phpexec.library.PhpErrorException;
+import org.phpmaven.phpexec.library.PhpWarningException;
 import org.phpmaven.test.AbstractTestCase;
 
 /**
@@ -58,7 +56,7 @@ public class IncludesTest extends AbstractTestCase {
                 new File(session.getCurrentProject().getBasedir(), "includes").getAbsolutePath());
 
         // assert that the environment variable is mapped correctly
-        final IPhpExecutable exec = execConfig.getPhpExecutable(new DefaultLog(new ConsoleLogger()));
+        final IPhpExecutable exec = execConfig.getPhpExecutable();
         assertEquals("SUCCESS_EXISTING\n", exec.execute(includeTestPhp));
     }
 
@@ -84,7 +82,7 @@ public class IncludesTest extends AbstractTestCase {
         execConfig.setIncludePath(includes);
 
         // assert that the environment variable is mapped correctly
-        final IPhpExecutable exec = execConfig.getPhpExecutable(new DefaultLog(new ConsoleLogger()));
+        final IPhpExecutable exec = execConfig.getPhpExecutable();
         assertEquals("SUCCESS_EXISTING\n", exec.execute(includeTestPhp));
     }
 
@@ -106,7 +104,7 @@ public class IncludesTest extends AbstractTestCase {
         final File includeTestPhp = new File(session.getCurrentProject().getBasedir(), "includes-test.php");
 
         // assert that the environment variable is mapped correctly
-        final IPhpExecutable exec = execConfig.getPhpExecutable(new DefaultLog(new ConsoleLogger()));
+        final IPhpExecutable exec = execConfig.getPhpExecutable();
         try {
             // we will either expect a php warning or a php error.
             // depends on php.ini and php version.
@@ -140,7 +138,7 @@ public class IncludesTest extends AbstractTestCase {
 //        execConfig.setIgnoreIncludeErrors(true);
 //
 //        // assert that the environment variable is mapped correctly
-//        final IPhpExecutable exec = execConfig.getPhpExecutable(new DefaultLog(new ConsoleLogger()));
+//        final IPhpExecutable exec = execConfig.getPhpExecutable();
 //        // TODO exec.execute(includeTestPhp);
 //        // TODO currently does not work because the php.exe returns non-zero error code at cli.
 //        // there should be no exception thrown.

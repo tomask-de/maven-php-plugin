@@ -30,14 +30,14 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.phpmaven.core.BuildPluginConfiguration;
 import org.phpmaven.core.ConfigurationParameter;
 import org.phpmaven.core.IComponentFactory;
-import org.phpmaven.exec.IPhpExecutable;
 import org.phpmaven.exec.IPhpExecutableConfiguration;
-import org.phpmaven.exec.PhpCoreException;
-import org.phpmaven.exec.PhpErrorException;
-import org.phpmaven.exec.PhpException;
-import org.phpmaven.exec.PhpWarningException;
 import org.phpmaven.phpdoc.IPhpdocRequest;
 import org.phpmaven.phpdoc.IPhpdocSupport;
+import org.phpmaven.phpexec.library.IPhpExecutable;
+import org.phpmaven.phpexec.library.PhpCoreException;
+import org.phpmaven.phpexec.library.PhpErrorException;
+import org.phpmaven.phpexec.library.PhpException;
+import org.phpmaven.phpexec.library.PhpWarningException;
 
 /**
  * Implementation of phpdoc support invoking the phpdoc batch.
@@ -110,7 +110,7 @@ public class PhpdocBatchSupport extends AbstractPhpdocSupport {
             final IPhpExecutable exec = this.factory.lookup(
                     IPhpExecutableConfiguration.class,
                     this.executableConfig,
-                    this.session).getPhpExecutable(log);
+                    this.session).getPhpExecutable();
             
             if (this.phpdocVersion.startsWith("1.")) {
                 writeIni(log, request, phpDocConfigFile, generatedPhpDocConfigFile);

@@ -35,16 +35,16 @@ import org.phpmaven.core.BuildPluginConfiguration;
 import org.phpmaven.core.ConfigurationParameter;
 import org.phpmaven.core.ExecutionUtils;
 import org.phpmaven.core.IComponentFactory;
-import org.phpmaven.exec.IPhpExecutable;
 import org.phpmaven.exec.IPhpExecutableConfiguration;
-import org.phpmaven.exec.PhpCoreException;
-import org.phpmaven.exec.PhpErrorException;
-import org.phpmaven.exec.PhpException;
-import org.phpmaven.exec.PhpWarningException;
+import org.phpmaven.pear.IMavenPearUtility;
 import org.phpmaven.pear.IPearConfiguration;
-import org.phpmaven.pear.IPearUtility;
 import org.phpmaven.phpdoc.IPhpdocRequest;
 import org.phpmaven.phpdoc.IPhpdocSupport;
+import org.phpmaven.phpexec.library.IPhpExecutable;
+import org.phpmaven.phpexec.library.PhpCoreException;
+import org.phpmaven.phpexec.library.PhpErrorException;
+import org.phpmaven.phpexec.library.PhpException;
+import org.phpmaven.phpexec.library.PhpWarningException;
 
 /**
  * Implementation of phpdoc support invoking the phpdoc via php exe and loaded from repository or dependency.
@@ -176,7 +176,7 @@ public class PhpdocPearSupport extends AbstractPhpdocSupport implements IPhpdocS
                 configNode.addChild(executableConfig);
                 dom.addChild(configNode);
             }
-            final IPearUtility util = this.factory.lookup(
+            final IMavenPearUtility util = this.factory.lookup(
                     IPearConfiguration.class,
                     dom,
                     this.session).getUtility(log);
@@ -247,12 +247,12 @@ public class PhpdocPearSupport extends AbstractPhpdocSupport implements IPhpdocS
                     config.getIncludePath().add(util.getPhpDir().getAbsolutePath());
                     if (newErrorReporting == null || !phpDocInc.exists()) {
                         // direct execution
-                        final IPhpExecutable exec = config.getPhpExecutable(log);
+                        final IPhpExecutable exec = config.getPhpExecutable();
                         result = exec.execute("\"" + phpDoc + "\" " + command, new File(phpDoc));
                     } else {
                         // try to hack the deprecated warning
                         config.getIncludePath().add(phpDocInc.getParentFile().getParentFile().getAbsolutePath());
-                        final IPhpExecutable exec = config.getPhpExecutable(log);
+                        final IPhpExecutable exec = config.getPhpExecutable();
                         result = exec.executeCode("", PHPDOC_INC, command);
                     }
                 } else {

@@ -24,9 +24,9 @@ import org.codehaus.plexus.component.repository.exception.ComponentLookupExcepti
 import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.phpmaven.core.IComponentFactory;
-import org.phpmaven.exec.IPhpExecutable;
 import org.phpmaven.exec.IPhpExecutableConfiguration;
-import org.phpmaven.exec.PhpException;
+import org.phpmaven.phpexec.library.IPhpExecutable;
+import org.phpmaven.phpexec.library.PhpException;
 import org.phpmaven.plugin.build.AbstractMojo;
 import org.phpmaven.project.IProjectPhpExecution;
 
@@ -110,19 +110,19 @@ public final class PhpExec extends AbstractMojo {
                         IProjectPhpExecution.class,
                         xppconfig,
                         this.getSession());
-                exec = projExec.getTestExecutionConfiguration().getPhpExecutable(this.getLog());
+                exec = projExec.getTestExecutionConfiguration().getPhpExecutable();
             } else if (this.compileIncludePath) {
                 final IProjectPhpExecution projExec = this.factory.lookup(
                         IProjectPhpExecution.class,
                         xppconfig,
                         this.getSession());
-                exec = projExec.getExecutionConfiguration().getPhpExecutable(this.getLog());
+                exec = projExec.getExecutionConfiguration().getPhpExecutable();
             } else {
                 final IPhpExecutableConfiguration config = this.factory.lookup(
                         IPhpExecutableConfiguration.class,
                         xppconfig,
                         this.getSession());
-                exec = config.getPhpExecutable(this.getLog());
+                exec = config.getPhpExecutable();
             }
             
             String commandLine = "";

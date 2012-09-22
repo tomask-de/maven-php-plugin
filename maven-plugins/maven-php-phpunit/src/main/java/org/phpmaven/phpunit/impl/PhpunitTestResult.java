@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.codehaus.plexus.component.annotations.Component;
-import org.phpmaven.exec.PhpException;
+import org.phpmaven.phpexec.library.PhpException;
 import org.phpmaven.phpunit.IPhpunitResult;
 import org.phpmaven.phpunit.IPhpunitResult.ResultType;
 import org.phpmaven.phpunit.IPhpunitTestResult;

@@ -21,7 +21,7 @@ import java.io.File;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.logging.Log;
 import org.phpmaven.core.IComponentFactory;
-import org.phpmaven.exec.PhpException;
+import org.phpmaven.phpexec.library.PhpException;
 
 /**
  * Helper to do actions on php projects.

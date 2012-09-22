@@ -28,6 +28,7 @@ import org.phpmaven.phar.IPharPackagingRequest;
 import org.phpmaven.phar.PharDirectory;
 import org.phpmaven.phar.PharEntry;
 import org.phpmaven.phar.PharEntry.EntryType;
+import org.phpmaven.phpexec.library.PhpException;
 import org.phpmaven.plugin.build.AbstractMojo;
 import org.phpmaven.plugin.build.FileHelper;
 
@@ -164,7 +165,7 @@ public final class PearPhar extends AbstractMojo {
             throw new MojoExecutionException("failed creating the phar packager.", ex);
         } catch (ComponentLookupException ex) {
             throw new MojoExecutionException("failed creating the phar packager.", ex);
-        } catch (org.phpmaven.exec.PhpException ex) {
+        } catch (PhpException ex) {
             throw new MojoExecutionException("failed creating the phar.", ex);
         }
     }
@@ -242,7 +243,7 @@ public final class PearPhar extends AbstractMojo {
             throw new MojoExecutionException("failed creating the phar packager.", ex);
         } catch (ComponentLookupException ex) {
             throw new MojoExecutionException("failed creating the phar packager.", ex);
-        } catch (org.phpmaven.exec.PhpException ex) {
+        } catch (PhpException ex) {
             throw new MojoExecutionException("failed creating the phar.", ex);
         }
     }
@@ -305,7 +306,7 @@ public final class PearPhar extends AbstractMojo {
             throw new MojoExecutionException("failed creating the phar packager.", ex);
         } catch (ComponentLookupException ex) {
             throw new MojoExecutionException("failed creating the phar packager.", ex);
-        } catch (org.phpmaven.exec.PhpException ex) {
+        } catch (PhpException ex) {
             throw new MojoExecutionException("failed creating the phar.", ex);
         }
     }

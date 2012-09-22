@@ -32,9 +32,9 @@ import org.apache.maven.plugin.logging.Log;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 import org.codehaus.plexus.configuration.PlexusConfigurationException;
-import org.phpmaven.exec.PhpCoreException;
-import org.phpmaven.exec.PhpException;
 import org.phpmaven.phar.PharEntry.EntryType;
+import org.phpmaven.phpexec.library.PhpCoreException;
+import org.phpmaven.phpexec.library.PhpException;
 
 /**
  * Phar packager implementation to use php-exe.

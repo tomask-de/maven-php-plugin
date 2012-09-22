@@ -19,11 +19,9 @@ package org.phpmaven.php.test;
 import java.io.File;
 
 import org.apache.maven.execution.MavenSession;
-import org.apache.maven.monitor.logging.DefaultLog;
-import org.codehaus.plexus.logging.console.ConsoleLogger;
 import org.phpmaven.core.IComponentFactory;
-import org.phpmaven.exec.IPhpExecutable;
 import org.phpmaven.exec.IPhpExecutableConfiguration;
+import org.phpmaven.phpexec.library.IPhpExecutable;
 import org.phpmaven.test.AbstractTestCase;
 
 /**
@@ -52,7 +50,7 @@ public class ErrorReportingTest extends AbstractTestCase {
         final File defineTestPhp = new File(session.getCurrentProject().getBasedir(), "false-test.php");
 
         // assert that the execution is aware of detecting the error
-        final IPhpExecutable exec = execConfig.getPhpExecutable(new DefaultLog(new ConsoleLogger()));
+        final IPhpExecutable exec = execConfig.getPhpExecutable();
         assertTrue(exec.execute(defineTestPhp).contains("some deprecated warning"));
     }
 
@@ -75,7 +73,7 @@ public class ErrorReportingTest extends AbstractTestCase {
         final File defineTestPhp = new File(session.getCurrentProject().getBasedir(), "test.php");
 
         // assert that the execution is aware of detecting the error
-        final IPhpExecutable exec = execConfig.getPhpExecutable(new DefaultLog(new ConsoleLogger()));
+        final IPhpExecutable exec = execConfig.getPhpExecutable();
         assertTrue(exec.execute(defineTestPhp).contains("some deprecated warning"));
     }
 
@@ -98,7 +96,7 @@ public class ErrorReportingTest extends AbstractTestCase {
         final File defineTestPhp = new File(session.getCurrentProject().getBasedir(), "test.php");
 
         // assert that the execution is aware of detecting the error
-        final IPhpExecutable exec = execConfig.getPhpExecutable(new DefaultLog(new ConsoleLogger()));
+        final IPhpExecutable exec = execConfig.getPhpExecutable();
         assertEquals("", exec.execute(defineTestPhp));
     }
 
@@ -121,7 +119,7 @@ public class ErrorReportingTest extends AbstractTestCase {
         final File defineTestPhp = new File(session.getCurrentProject().getBasedir(), "test.php");
 
         // assert that the execution is aware of detecting the error
-        final IPhpExecutable exec = execConfig.getPhpExecutable(new DefaultLog(new ConsoleLogger()));
+        final IPhpExecutable exec = execConfig.getPhpExecutable();
         assertEquals("", exec.execute(defineTestPhp));
     }
     

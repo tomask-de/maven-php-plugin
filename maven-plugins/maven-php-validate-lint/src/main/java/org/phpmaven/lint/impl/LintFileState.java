@@ -18,7 +18,7 @@ package org.phpmaven.lint.impl;
 
 import java.io.Serializable;
 
-import org.phpmaven.exec.PhpException;
+import org.phpmaven.phpexec.library.PhpException;
 
 /**
  * The lint file state
