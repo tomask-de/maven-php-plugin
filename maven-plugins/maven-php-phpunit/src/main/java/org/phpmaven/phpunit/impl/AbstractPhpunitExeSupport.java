@@ -186,7 +186,7 @@ public abstract class AbstractPhpunitExeSupport extends AbstractPhpunitSupport {
                     throw new PhpCoreException("Error analyzing xml output. See test results in " + txtFile, ex);
                 }
             } catch (PhpException ex) {
-                result.setSuccess(! (ex instanceof PhpWarningException));
+                result.setSuccess(result.isSuccess() && (ex instanceof PhpWarningException));
                 result.appendException(entry.getFile(), ex);
             }
         }
@@ -368,7 +368,7 @@ public abstract class AbstractPhpunitExeSupport extends AbstractPhpunitSupport {
                 throw new PhpCoreException("Error analyzing xml output. See test results in " + txtFile, ex);
             }
         } catch (PhpException ex) {
-            result.setSuccess(! (ex instanceof PhpWarningException));
+            result.setSuccess(ex instanceof PhpWarningException);
             result.appendException(getTestSuiteFile(), ex);
         }
     }
