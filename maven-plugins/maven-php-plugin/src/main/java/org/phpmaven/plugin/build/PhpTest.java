@@ -23,6 +23,7 @@ import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.phpexec.library.PhpException;
 import org.phpmaven.phpunit.IPhpunitConfiguration;
+import org.phpmaven.phpunit.IPhpunitResult;
 import org.phpmaven.phpunit.IPhpunitSupport;
 import org.phpmaven.phpunit.IPhpunitTestRequest;
 import org.phpmaven.phpunit.IPhpunitTestResult;
@@ -314,6 +315,13 @@ public final class PhpTest extends AbstractPhpWalkMojo implements IPhpunitConfig
                         getLog().info(IGNORING_TEST_FAILURES_TEXT);
                     } else {
                         throw new MojoExecutionException("Test failures");
+                    }
+                } else {
+                	for (final IPhpunitResult phpunitres : result.getResults()) {
+                    	if (phpunitres.getException() != null) {
+                    		getLog().warn("There was at least one php warning. You should fix your test cases.");
+                    		break;
+                    	}
                     }
                 }
             }

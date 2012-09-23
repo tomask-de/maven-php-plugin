@@ -32,6 +32,7 @@ import org.codehaus.plexus.configuration.PlexusConfigurationException;
 import org.phpmaven.phpexec.library.IPhpExecutable;
 import org.phpmaven.phpexec.library.PhpCoreException;
 import org.phpmaven.phpexec.library.PhpException;
+import org.phpmaven.phpexec.library.PhpWarningException;
 import org.phpmaven.phpunit.IPhpunitEntry;
 import org.phpmaven.phpunit.IPhpunitEntry.EntryType;
 import org.phpmaven.phpunit.IPhpunitTestRequest;
@@ -185,7 +186,7 @@ public abstract class AbstractPhpunitExeSupport extends AbstractPhpunitSupport {
                     throw new PhpCoreException("Error analyzing xml output. See test results in " + txtFile, ex);
                 }
             } catch (PhpException ex) {
-                result.setSuccess(false);
+                result.setSuccess(! (ex instanceof PhpWarningException));
                 result.appendException(entry.getFile(), ex);
             }
         }
@@ -367,7 +368,7 @@ public abstract class AbstractPhpunitExeSupport extends AbstractPhpunitSupport {
                 throw new PhpCoreException("Error analyzing xml output. See test results in " + txtFile, ex);
             }
         } catch (PhpException ex) {
-            result.setSuccess(false);
+            result.setSuccess(! (ex instanceof PhpWarningException));
             result.appendException(getTestSuiteFile(), ex);
         }
     }
