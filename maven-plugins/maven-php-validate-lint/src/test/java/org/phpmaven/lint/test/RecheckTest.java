@@ -133,11 +133,11 @@ public class RecheckTest extends AbstractTestCase {
         assertNotNull(failures.get(failed2File));
         
         // third check to test override of the state db with new source file
-        Thread.sleep(1000); // sleep one second so that lastModified is really new.
         final FileOutputStream fos = new FileOutputStream(failedFile);
         fos.write("<?php echo 'FOO';".getBytes());
         fos.flush();
         fos.close();
+        failedFile.setLastModified(failedFile.lastModified() + 1000); // ensure the last modified is changed and causes a recheck
         checker = factory.lookup(ILintChecker.class, IComponentFactory.EMPTY_CONFIG, session);
         checker.addFileToCheck(new File(session.getCurrentProject().getBasedir(), "multiple/success.php"));
         checker.addFileToCheck(failedFile);
