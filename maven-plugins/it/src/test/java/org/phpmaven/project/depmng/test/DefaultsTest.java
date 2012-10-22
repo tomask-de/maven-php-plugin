@@ -23,7 +23,7 @@ import org.apache.maven.it.Verifier;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.exec.IPhpExecutableConfiguration;
 import org.phpmaven.project.IProjectPhpExecution;
-import org.phpmaven.test.AbstractTestCase;
+import org.phpmaven.test.it.AbstractTestCase;
 
 /**
  * test cases for PHP project support with dependency management.
