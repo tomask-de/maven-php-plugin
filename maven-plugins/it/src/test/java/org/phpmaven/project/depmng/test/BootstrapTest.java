@@ -19,7 +19,7 @@ package org.phpmaven.project.depmng.test;
 import java.util.List;
 
 import org.apache.maven.it.Verifier;
-import org.phpmaven.test.AbstractTestCase;
+import org.phpmaven.test.it.AbstractTestCase;
 
 /**
  * test cases for PHP project support with dependency management.
