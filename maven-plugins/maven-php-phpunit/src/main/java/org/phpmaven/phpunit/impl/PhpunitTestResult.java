@@ -151,7 +151,7 @@ public class PhpunitTestResult implements IPhpunitTestResult {
                     buffer.append(result.getErrors()).append(" Errors\n");
                     break;
                 case EXCEPTION:
-                    buffer.append("  EXCEPTION [").append(result.getException().getMessage()).append("\n");
+                    buffer.append("  EXCEPTION [").append(result.getException().getClass().getName() + " " + result.getException().getMessage()).append("\n");
                     buffer.append(result.getException().getAppendedOutput()).append("]\n");
                     break;
             }
