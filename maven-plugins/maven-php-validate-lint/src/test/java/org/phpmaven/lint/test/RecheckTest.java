@@ -133,6 +133,7 @@ public class RecheckTest extends AbstractTestCase {
         assertNotNull(failures.get(failed2File));
         
         // third check to test override of the state db with new source file
+        Thread.sleep(100); // sleep 100ms so that lastModified is really new.
         final FileOutputStream fos = new FileOutputStream(failedFile);
         fos.write("<?php echo 'FOO';".getBytes());
         fos.flush();
