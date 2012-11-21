@@ -314,7 +314,7 @@ public class PhpUnitTest extends AbstractTestCase {
         verifier.executeGoal("test");
 
         // verify no error was thrown
-        verifier.verifyTextInLog("No test case found; failing because failIfNoTests set to true.");
+        verifier.verifyTextInLog("Ignoring test failures.");
 
         // reset the streams
         verifier.resetStreams();
