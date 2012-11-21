@@ -540,7 +540,7 @@ public abstract class AbstractTestCase extends AbstractMojoTestCase {
     
     protected void assertIterableCount(Iterable<?> iter, int count) {
     	int result = 0;
-    	for (final Object elm : iter) {
+    	for (@SuppressWarnings("unused") final Object elm : iter) {
     		result++;
     	}
     	assertEquals(count, result);

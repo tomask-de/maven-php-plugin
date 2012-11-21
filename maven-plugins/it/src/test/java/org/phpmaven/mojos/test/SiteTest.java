@@ -53,20 +53,20 @@ public class SiteTest extends AbstractTestCase {
         verifier.resetStreams();
         
         // phpdocumentor report
-        verifier.assertFilePresent("target/site/apidocs/phpdocumentor.html");
+        verifier.assertFilePresent("target/site/phpdocumentor.html");
         verifier.assertFilePresent("target/site/apidocs/phpdocumentor/index.html");
         verifier.assertFilePresent("target/site/apidocs/phpdocumentor/packages.html");
         verifier.assertFilePresent("target/site/apidocs/phpdocumentor/default/_MyClass.php.html");
         
         // phpunit-coverage report
-        verifier.assertFilePresent("target/site/phpunit/coverage.html");
+        verifier.assertFilePresent("target/site/coverage.html");
         verifier.assertFilePresent("target/site/phpunit/report.html");
         verifier.assertFilePresent("target/site/phpunit/index.html");
         verifier.assertFilePresent("target/site/phpunit/classes.html");
         verifier.assertFilePresent("target/site/phpunit/classes_MyClass.php.html");
         
         // test report
-        verifier.assertFilePresent("target/site/phpunit/report.html");
+        verifier.assertFilePresent("target/site/report.html");
     }
     
     /**
@@ -97,8 +97,8 @@ public class SiteTest extends AbstractTestCase {
         verifier.resetStreams();
         
         // check the phpunit report.
-        verifier.assertFilePresent("target/site/phpunit/report.html");
-        final String content = FileUtils.readFileToString(new File(verifier.getBasedir() + "/target/site/phpunit/report.html"));
+        verifier.assertFilePresent("target/site/report.html");
+        final String content = FileUtils.readFileToString(new File(verifier.getBasedir() + "/target/site/report.html"));
         assertFalse(content.contains("<a name=\"Summary\"></a><p>[<a href=\"#Summary\">Summary</a>] [<a href=\"#Package_List\">Package List</a>] [<a href=\"#Test_Cases\">Test Cases</a>]</p><br /><table border=\"0\" class=\"bodyTable\"><tr class=\"a\"><th>Tests</th><th>Errors </th><th>Failures</th><th>Skipped</th><th>Success Rate</th><th>Time</th></tr><tr class=\"b\"><td>2</td>"));
         assertTrue(content.contains("<a name=\"Summary\"></a><p>[<a href=\"#Summary\">Summary</a>] [<a href=\"#Package_List\">Package List</a>] [<a href=\"#Test_Cases\">Test Cases</a>]</p><br /><table border=\"0\" class=\"bodyTable\"><tr class=\"a\"><th>Tests</th><th>Errors </th><th>Failures</th><th>Skipped</th><th>Success Rate</th><th>Time</th></tr><tr class=\"b\"><td>1</td>"));
     }
@@ -125,7 +125,7 @@ public class SiteTest extends AbstractTestCase {
         verifier.resetStreams();
         
         // phpunit-coverage report
-        verifier.assertFilePresent("target/site/phpunit/coverage.html");
+        verifier.assertFilePresent("target/site/coverage.html");
         verifier.assertFilePresent("target/site/phpunit/index.html");
         verifier.assertFilePresent("target/site/phpunit/classes.html");
         verifier.assertFilePresent("target/site/phpunit/classes_MyClass.php.html");
@@ -155,7 +155,7 @@ public class SiteTest extends AbstractTestCase {
         verifier.resetStreams();
         
         // phpunit-coverage report
-        verifier.assertFilePresent("target/site/phpunit/coverage.html");
+        verifier.assertFilePresent("target/site/coverage.html");
         verifier.assertFilePresent("target/site/phpunit/index.html");
         verifier.assertFilePresent("target/site/phpunit/classes.html");
         verifier.assertFilePresent("target/site/phpunit/classes_MyClass.php.html");
@@ -184,20 +184,20 @@ public class SiteTest extends AbstractTestCase {
         verifier.resetStreams();
         
         // phpdocumentor report
-        verifier.assertFilePresent("target/site/apidocs/phpdocumentor.html");
+        verifier.assertFilePresent("target/site/phpdocumentor.html");
         verifier.assertFilePresent("target/site/apidocs/phpdocumentor/index.html");
         verifier.assertFilePresent("target/site/apidocs/phpdocumentor/packages.html");
         verifier.assertFilePresent("target/site/apidocs/phpdocumentor/default/_MyClass.php.html");
         
         // phpunit-coverage report
-        verifier.assertFilePresent("target/site/phpunit/coverage.html");
+        verifier.assertFilePresent("target/site/coverage.html");
         verifier.assertFilePresent("target/site/phpunit/report.html");
         verifier.assertFilePresent("target/site/phpunit/index.html");
         verifier.assertFilePresent("target/site/phpunit/classes.html");
         verifier.assertFilePresent("target/site/phpunit/classes_MyClass.php.html");
         
         // test report
-        verifier.assertFilePresent("target/site/phpunit/report.html");
+        verifier.assertFilePresent("target/site/report.html");
     }
     
     /**
@@ -223,7 +223,7 @@ public class SiteTest extends AbstractTestCase {
         verifier.resetStreams();
         
         // phpdocumentor report
-        verifier.assertFilePresent("target/site/apidocs/phpdocumentor.html");
+        verifier.assertFilePresent("target/site/phpdocumentor.html");
         verifier.assertFilePresent("target/site/apidocs/phpdocumentor/index.html");
         verifier.assertFilePresent("target/site/apidocs/phpdocumentor/packages.html");
         verifier.assertFilePresent("target/site/apidocs/phpdocumentor/default/_MyClass.php.html");
@@ -250,7 +250,7 @@ public class SiteTest extends AbstractTestCase {
         verifier.resetStreams();
         
         // phpdocumentor report
-        verifier.assertFilePresent("target/site/apidocs/phpdocumentor.html");
+        verifier.assertFilePresent("target/site/phpdocumentor.html");
         verifier.assertFilePresent("target/site/apidocs/phpdocumentor/index.html");
         verifier.assertFilePresent("target/site/apidocs/phpdocumentor/packages.html");
         verifier.assertFilePresent("target/site/apidocs/phpdocumentor/default/_MyClass.php.html");
@@ -291,7 +291,7 @@ public class SiteTest extends AbstractTestCase {
         verifier.resetStreams();
         
         // phpdocumentor report
-        verifier.assertFilePresent("target/site/apidocs/phpdocumentor.html");
+        verifier.assertFilePresent("target/site/phpdocumentor.html");
         verifier.assertFilePresent("target/site/apidocs/phpdocumentor/index.html");
         verifier.assertFilePresent("target/site/apidocs/phpdocumentor/packages.html");
         verifier.assertFilePresent("target/site/apidocs/phpdocumentor/default/_MyClass.php.html");
@@ -332,7 +332,7 @@ public class SiteTest extends AbstractTestCase {
         verifier.resetStreams();
         
         // phpdocumentor report
-        verifier.assertFilePresent("target/site/apidocs/phpdocumentor.html");
+        verifier.assertFilePresent("target/site/phpdocumentor.html");
         verifier.assertFilePresent("target/site/apidocs/phpdocumentor/index.html");
         verifier.assertFilePresent("target/site/apidocs/phpdocumentor/packages.html");
         verifier.assertFilePresent("target/site/apidocs/phpdocumentor/default/_MyClass.php.html");
