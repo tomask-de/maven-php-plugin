@@ -64,7 +64,7 @@ public class BootstrapTest extends AbstractTestCase {
         
         // check for bootstrap invocation
         @SuppressWarnings("unchecked")
-		final List<String> lines = verifier.loadFile(verifier.getBasedir(), verifier.getLogFileName(), false);
+		final List<String> lines = verifier.loadFile(verifier.getBasedir() + "/target/php-deps", "foo.txt", false);
         boolean found1 = false;
         boolean found2 = false;
         for (final String line : lines) {
