@@ -60,7 +60,7 @@ public class SiteTest extends AbstractTestCase {
         
         // phpunit-coverage report
         verifier.assertFilePresent("target/site/coverage.html");
-        verifier.assertFilePresent("target/site/phpunit/report.html");
+        verifier.assertFilePresent("target/site/report.html");
         verifier.assertFilePresent("target/site/phpunit/index.html");
         verifier.assertFilePresent("target/site/phpunit/classes.html");
         verifier.assertFilePresent("target/site/phpunit/classes_MyClass.php.html");
@@ -191,7 +191,7 @@ public class SiteTest extends AbstractTestCase {
         
         // phpunit-coverage report
         verifier.assertFilePresent("target/site/coverage.html");
-        verifier.assertFilePresent("target/site/phpunit/report.html");
+        verifier.assertFilePresent("target/site/report.html");
         verifier.assertFilePresent("target/site/phpunit/index.html");
         verifier.assertFilePresent("target/site/phpunit/classes.html");
         verifier.assertFilePresent("target/site/phpunit/classes_MyClass.php.html");
