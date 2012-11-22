@@ -172,9 +172,9 @@ public class PhpdocPearSupport extends AbstractPhpdocSupport implements IPhpdocS
         try {
             final Xpp3Dom dom = new Xpp3Dom("configuration");
             if (this.executableConfig != null) {
-                final Xpp3Dom configNode = new Xpp3Dom("executableConfig");
-                configNode.addChild(executableConfig);
-                dom.addChild(configNode);
+//                final Xpp3Dom configNode = new Xpp3Dom("executableConfig");
+//                configNode.addChild(executableConfig);
+                dom.addChild(this.executableConfig);
             }
             final IMavenPearUtility util = this.factory.lookup(
                     IPearConfiguration.class,
