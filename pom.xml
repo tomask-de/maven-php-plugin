@@ -19,10 +19,14 @@
         <module>phpexec-java</module>
         <!-- wrapper for pear -->
         <module>pear-java</module>
+        <!-- phpunit 3.6.2 (with dependencies) -->
+        <module>phpunit</module>
     </modules>
 
 
     <properties>
+        <!-- temporarily deactivation of tests -->
+        <skip.tests>true</skip.tests>
         <junit.version>4.11</junit.version>
         <maven.wagon.version>2.6</maven.wagon.version>
         <maven.version>3.2.1</maven.version>
@@ -40,6 +44,11 @@
     <dependencyManagement>
         <dependencies>
             <!-- own -->
+            <dependency>
+                <groupId>org.github.phpmaven</groupId>
+                <artifactId>phpunit5</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.github.phpmaven</groupId>
                 <artifactId>phpexec-cli</artifactId>
@@ -338,6 +347,9 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
+                    <configuration>
+                        <skipTests>${skip.tests}</skipTests>
+                    </configuration>
                     <version>2.17</version>
                 </plugin>
 
@@ -391,5 +403,14 @@
             </plugins>
         </pluginManagement>
     </build>
+
+    <distributionManagement>
+        <!-- temporarily for internal usage. feel free to overwrite it! -->
+        <repository>
+            <id>pcp-release</id>
+            <url>http://buildbox.axelspringer.de/nexus/content/repositories/maven-php-plugin-repo</url>
+        </repository>
+    </distributionManagement>
+
 
 </project>
