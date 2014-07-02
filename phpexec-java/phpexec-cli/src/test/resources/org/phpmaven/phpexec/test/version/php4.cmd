@@ -1,0 +1,1 @@
+@echo PHP 4.2.4 Foo

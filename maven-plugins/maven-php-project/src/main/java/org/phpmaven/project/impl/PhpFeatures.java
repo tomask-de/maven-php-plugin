@@ -38,7 +38,7 @@ import org.phpmaven.project.IPhpFeatures;
  * @since 2.0.3
  */
 @Component(role = IPhpFeatures.class, instantiationStrategy = "per-lookup")
-@BuildPluginConfiguration(groupId = "org.phpmaven", artifactId = "maven-php-project", filter = {"dependenciesDir", "testDependenciesDir", "executableConfig"})
+@BuildPluginConfiguration(groupId = "org.github.phpmaven", artifactId = "maven-php-project", filter = {"dependenciesDir", "testDependenciesDir", "executableConfig"})
 public class PhpFeatures implements IPhpFeatures {
 	
 	/**

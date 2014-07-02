@@ -59,11 +59,7 @@ public class ConvertPharTest extends AbstractTestCase {
     			"<from>"+phar.getAbsolutePath()+"</from>" +
     			"<to>"+zip.getAbsolutePath()+"</to>" +
     			"</configuration>"));
-    	ConvertPharMojo convertMojo = this.createConfiguredMojo(
-    			ConvertPharMojo.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
-    			"convert-phar",
-    			config);
+    	ConvertPharMojo convertMojo = createConfiguredMojo(ConvertPharMojo.class, session, "maven-php-plugin", "convert-phar", config);
     	convertMojo.execute();
     	
     	config = Xpp3DomBuilder.build(new StringReader(
@@ -71,11 +67,8 @@ public class ConvertPharTest extends AbstractTestCase {
     			"<from>"+zip.getAbsolutePath()+"</from>" +
     			"<to>"+jar.getAbsolutePath()+"</to>" +
     			"</configuration>"));
-    	convertMojo = this.createConfiguredMojo(
-    			ConvertPharMojo.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
-    			"convert-phar",
-    			config);
+    	convertMojo = createConfiguredMojo(
+    			ConvertPharMojo.class, session, "maven-php-plugin", "convert-phar",	config);
     	convertMojo.execute();
     	
     	assertTrue(jar.exists());
@@ -85,12 +78,9 @@ public class ConvertPharTest extends AbstractTestCase {
     			"<from>"+jar.getAbsolutePath()+"</from>" +
     			"<to>"+phar2.getAbsolutePath()+"</to>" +
     			"</configuration>"));
-    	convertMojo = this.createConfiguredMojo(
-    			ConvertPharMojo.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
-    			"convert-phar",
-    			config);
-    	convertMojo.execute();
+    	convertMojo = createConfiguredMojo(
+    			ConvertPharMojo.class, session, "maven-php-plugin", "convert-phar",	config);
+        convertMojo.execute();
     	
     	assertTrue(phar2.exists());
     	

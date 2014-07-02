@@ -47,14 +47,14 @@ import org.apache.maven.repository.RepositorySystem;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
+import org.eclipse.aether.graph.Dependency;
+import org.eclipse.aether.util.version.GenericVersionScheme;
+import org.eclipse.aether.version.InvalidVersionSpecificationException;
 import org.phpmaven.core.ConfigurationParameter;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.pear.IMavenPearUtility;
-import org.phpmaven.pear.library.impl.Version;
 import org.phpmaven.phpexec.library.PhpCoreException;
 import org.phpmaven.phpexec.library.PhpException;
-import org.sonatype.aether.util.version.GenericVersionScheme;
-import org.sonatype.aether.version.InvalidVersionSpecificationException;
 
 /**
  * Implementation of a pear utility via PHP.EXE and http-client.
@@ -160,18 +160,15 @@ public class PearUtility  extends org.phpmaven.pear.library.impl.PearUtility imp
                 project, session.getRepositorySession());
             final DependencyResolutionResult drres = this.dependencyResolver.resolve(drr);
             // dependencies may be duplicate. ensure we have only one version (the newest).
-            final Map<String, org.sonatype.aether.graph.Dependency> deps =
-                new HashMap<String, org.sonatype.aether.graph.Dependency>();
-            for (final org.sonatype.aether.graph.Dependency dep : drres.getDependencies()) {
+            final Map<String, Dependency> deps = new HashMap<String, Dependency>();
+            for (final Dependency dep : drres.getDependencies()) {
                 final String key = dep.getArtifact().getGroupId() + ":" + dep.getArtifact().getArtifactId();
                 if (!deps.containsKey(key)) {
                     deps.put(key, dep);
                 } else {
-                    final org.sonatype.aether.graph.Dependency dep2 = deps.get(key);
-                    final org.sonatype.aether.version.Version ver =
-                        SCHEME.parseVersion(dep.getArtifact().getVersion());
-                    final org.sonatype.aether.version.Version ver2 =
-                        SCHEME.parseVersion(dep2.getArtifact().getVersion());
+                    final Dependency dep2 = deps.get(key);
+                    final org.eclipse.aether.version.Version ver = SCHEME.parseVersion(dep.getArtifact().getVersion());
+                    final org.eclipse.aether.version.Version ver2 = SCHEME.parseVersion(dep2.getArtifact().getVersion());
                     if (ver2.compareTo(ver) < 0) {
                         deps.put(key, dep);
                     }
@@ -186,7 +183,7 @@ public class PearUtility  extends org.phpmaven.pear.library.impl.PearUtility imp
 //                    version);
             this.resolveTgz(groupId, artifactId, version, filesToInstall, ignoreCore);
             this.resolveChannels(project);
-            for (final org.sonatype.aether.graph.Dependency dep : deps.values()) {
+            for (final Dependency dep : deps.values()) {
 //                this.log.debug(
 //                        "resolving tgz and project for " +
 //                        dep.getArtifact().getGroupId() + ":" +
@@ -253,7 +250,7 @@ public class PearUtility  extends org.phpmaven.pear.library.impl.PearUtility imp
         final Build build = project.getBuild();
         if (build != null) {
             for (final Plugin plugin : build.getPlugins()) {
-                if ("org.phpmaven".equals(plugin.getGroupId()) &&
+                if ("org.github.phpmaven".equals(plugin.getGroupId()) &&
                         "maven-php-plugin".equals(plugin.getArtifactId())) {
                     final Xpp3Dom dom = (Xpp3Dom) plugin.getConfiguration();
                     final Xpp3Dom pearChannelsDom = dom.getChild("pearChannels");

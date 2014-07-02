@@ -24,6 +24,7 @@ import org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.monitor.logging.DefaultLog;
 import org.codehaus.plexus.logging.console.ConsoleLogger;
+import org.junit.Ignore;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.pear.IMavenPearUtility;
 import org.phpmaven.pear.IPearConfiguration;
@@ -35,6 +36,7 @@ import org.phpmaven.test.AbstractTestCase;
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
+@Ignore
 public class LocalInstallTest extends AbstractTestCase {
     
     /**

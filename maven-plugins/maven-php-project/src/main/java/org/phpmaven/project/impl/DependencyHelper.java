@@ -123,7 +123,7 @@ public class DependencyHelper {
 				throw new MojoExecutionException("Error building project", e);
 			}
 			final MavenProject project = pbres.getProject();
-			final Xpp3Dom pluginConfig = factory.getBuildConfig(project, "org.phpmaven", "maven-php-dependency");
+			final Xpp3Dom pluginConfig = factory.getBuildConfig(project, "org.github.phpmaven", "maven-php-dependency");
 			if (pluginConfig != null) {
 				final Xpp3Dom defaultConfig = pluginConfig.getChild("defaults");
 				if (defaultConfig != null) {

@@ -22,6 +22,7 @@ import java.util.Set;
 
 import org.apache.maven.execution.MavenSession;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
+import org.junit.Ignore;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.exec.IPhpExecutableConfiguration;
 import org.phpmaven.project.IProjectPhpExecution;
@@ -33,6 +34,7 @@ import org.phpmaven.test.AbstractTestCase;
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
+@Ignore
 public class BaseTest extends AbstractTestCase {
 
     /**

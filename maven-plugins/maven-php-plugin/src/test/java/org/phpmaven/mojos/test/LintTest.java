@@ -37,13 +37,9 @@ public class LintTest extends AbstractTestCase {
      * @throws Exception 
      */
     public void testSimpleFailure() throws Exception {
-    	final MavenSession session = this.createSimpleSession("mojos-lint/check-lint");
+    	final MavenSession session = createSimpleSession("mojos-lint/check-lint");
     	
-    	final PhpResources resourcesMojo = this.createConfiguredMojo(
-    			PhpResources.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
-    			"resources",
-    			new Xpp3Dom("configuration"));
+    	final PhpResources resourcesMojo = createConfiguredMojo(PhpResources.class, session, "maven-php-plugin", "resources", new Xpp3Dom("configuration"));
     	try {
     		resourcesMojo.execute();
     		fail("Build failure expected");
@@ -59,13 +55,9 @@ public class LintTest extends AbstractTestCase {
      * @throws Exception 
      */
     public void testCompileOkWithTestFailure() throws Exception {
-    	final MavenSession session = this.createSimpleSession("mojos-lint/check-linttests");
+    	final MavenSession session = createSimpleSession("mojos-lint/check-linttests");
     	
-    	final PhpResources resourcesMojo = this.createConfiguredMojo(
-    			PhpResources.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
-    			"resources",
-    			new Xpp3Dom("configuration"));
+    	final PhpResources resourcesMojo = createConfiguredMojo(PhpResources.class, session, "maven-php-plugin", "resources", new Xpp3Dom("configuration"));
 		resourcesMojo.execute();
     }
 
@@ -75,13 +67,9 @@ public class LintTest extends AbstractTestCase {
      * @throws Exception 
      */
     public void testSimpletestFailure() throws Exception {
-    	final MavenSession session = this.createSimpleSession("mojos-lint/check-linttests");
+    	final MavenSession session = createSimpleSession("mojos-lint/check-linttests");
     	
-    	final PhpTestResources resourcesMojo = this.createConfiguredMojo(
-    			PhpTestResources.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
-    			"testResources",
-    			new Xpp3Dom("configuration"));
+    	final PhpTestResources resourcesMojo = createConfiguredMojo(PhpTestResources.class, session, "maven-php-plugin", "testResources", new Xpp3Dom("configuration"));
 		try {
     		resourcesMojo.execute();
     		fail("Build failure expected");

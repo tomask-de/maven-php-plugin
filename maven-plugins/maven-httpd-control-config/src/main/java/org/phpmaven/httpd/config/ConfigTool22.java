@@ -28,7 +28,7 @@ import org.phpmaven.httpd.control.IApacheService.APACHE_VERSION;
  * @since 2.0.1
  */
 @Component(role = IApacheConfig.class, instantiationStrategy = "per-lookup", hint = "V2.2")
-@BuildPluginConfiguration(groupId = "org.phpmaven", artifactId = "maven-httpd-control-api")
+@BuildPluginConfiguration(groupId = "org.github.phpmaven", artifactId = "maven-httpd-control-api")
 public class ConfigTool22 extends AbstractConfigTool {
 
     @Override

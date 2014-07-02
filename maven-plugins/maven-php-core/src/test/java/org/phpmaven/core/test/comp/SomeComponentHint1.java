@@ -31,7 +31,7 @@ import org.phpmaven.core.ConfigurationParameter;
  * @since 2.0.0
  */
 @Component(role = ISomeComponentHint.class, hint = "hint1", instantiationStrategy = "per-lookup")
-@BuildPluginConfiguration(groupId = "org.phpmaven", artifactId = "maven-php-plugin-test")
+@BuildPluginConfiguration(groupId = "org.github.phpmaven", artifactId = "maven-php-plugin-test")
 public class SomeComponentHint1 implements ISomeComponentHint {
     
     /** foo. */

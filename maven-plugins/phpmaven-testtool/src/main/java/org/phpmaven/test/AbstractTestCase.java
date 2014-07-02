@@ -16,14 +16,6 @@
 
 package org.phpmaven.test;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepositoryPolicy;
 import org.apache.maven.artifact.repository.MavenArtifactRepository;
@@ -52,20 +44,34 @@ import org.apache.maven.settings.building.DefaultSettingsBuildingRequest;
 import org.apache.maven.settings.building.SettingsBuilder;
 import org.apache.maven.settings.building.SettingsBuildingRequest;
 import org.apache.maven.settings.building.SettingsBuildingResult;
+import org.codehaus.plexus.PlexusContainer;
 import org.codehaus.plexus.component.configurator.ComponentConfigurator;
 import org.codehaus.plexus.component.configurator.expression.ExpressionEvaluator;
 import org.codehaus.plexus.configuration.PlexusConfiguration;
 import org.codehaus.plexus.configuration.xml.XmlPlexusConfiguration;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
-import org.sonatype.aether.RepositorySystemSession;
-import org.sonatype.aether.impl.internal.SimpleLocalRepositoryManager;
-import org.sonatype.aether.util.DefaultRepositorySystemSession;
-import org.sonatype.aether.util.graph.transformer.ChainedDependencyGraphTransformer;
-import org.sonatype.aether.util.graph.transformer.ConflictMarker;
-import org.sonatype.aether.util.graph.transformer.JavaDependencyContextRefiner;
-import org.sonatype.aether.util.graph.transformer.JavaEffectiveScopeCalculator;
-import org.sonatype.aether.util.graph.transformer.NearestVersionConflictResolver;
+import org.eclipse.aether.DefaultRepositorySystemSession;
+import org.eclipse.aether.RepositorySystemSession;
+import org.eclipse.aether.internal.impl.SimpleLocalRepositoryManagerFactory;
+import org.eclipse.aether.repository.LocalRepository;
+import org.eclipse.aether.repository.LocalRepositoryManager;
+import org.eclipse.aether.util.graph.transformer.ChainedDependencyGraphTransformer;
+import org.eclipse.aether.util.graph.transformer.ConflictMarker;
+import org.eclipse.aether.util.graph.transformer.ConflictResolver;
+import org.eclipse.aether.util.graph.transformer.JavaDependencyContextRefiner;
+import org.eclipse.aether.util.graph.transformer.JavaScopeDeriver;
+import org.eclipse.aether.util.graph.transformer.JavaScopeSelector;
+import org.eclipse.aether.util.graph.transformer.NearestVersionSelector;
+import org.eclipse.aether.util.graph.transformer.SimpleOptionalitySelector;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 /**
  * Abstract base class for testing the modules.
  * 
@@ -73,7 +79,9 @@ import org.sonatype.aether.util.graph.transformer.NearestVersionConflictResolver
  * @since 2.0.0
  */
 public abstract class AbstractTestCase extends AbstractMojoTestCase {
-    
+
+    public static final String VERSION = "3.0.0-SNAPSHOT";
+    public static final String GROUP_ID = "org.github.phpmaven";
     /**
      * Local repository directory.
      * @return local repos dir
@@ -97,12 +105,17 @@ public abstract class AbstractTestCase extends AbstractMojoTestCase {
         final RepositorySystemSession systemSession = null;
         final MavenExecutionRequest request = new DefaultMavenExecutionRequest();
         final MavenExecutionResult result = null;
-        final MavenSession session = new MavenSession(getContainer(), systemSession, request, result);
+        final PlexusContainer container = getContainer();
+        final MavenSession session = new MavenSession(container, systemSession, request, result);
         final MavenProject project = buildProject(testDir);
         session.setCurrentProject(project);
         return session;
     }
-    
+
+    protected <T extends Mojo> T createConfiguredMojo(Class<T> clazz, MavenSession session, String artifactId, String goal, Xpp3Dom config) throws Exception {
+        return createConfiguredMojo(clazz, session, GROUP_ID, artifactId, VERSION, goal, config);
+    }
+
     /**
      * Creates a mojo
      * @param clazz
@@ -186,21 +199,27 @@ public abstract class AbstractTestCase extends AbstractMojoTestCase {
     protected MavenData createProjectBuildingRequest() throws Exception {
         final File localReposFile = this.getLocalReposDir();
         
-        final SimpleLocalRepositoryManager localRepositoryManager = new SimpleLocalRepositoryManager(
-                localReposFile);
-        
+
         final DefaultRepositorySystemSession repositorySession = new DefaultRepositorySystemSession();
+        Map<Object, Object> systemProperties = new HashMap<Object, Object>();
         for (final Map.Entry<Object, Object> entry : System.getProperties().entrySet()) {
-            repositorySession.getSystemProperties().put(entry.getKey().toString(), entry.getValue().toString());
+            systemProperties.put(entry.getKey().toString(), entry.getValue().toString());
         }
-        repositorySession.getSystemProperties().put("java.version", System.getProperty("java.version"));
-        repositorySession.setDependencyGraphTransformer(new ChainedDependencyGraphTransformer( new ConflictMarker(), new JavaEffectiveScopeCalculator(),
-                new NearestVersionConflictResolver(),
-                new JavaDependencyContextRefiner() ));
+
+        systemProperties.put("java.version", System.getProperty("java.version"));
+        repositorySession.setSystemProperties(systemProperties);
+        repositorySession.setDependencyGraphTransformer(new ChainedDependencyGraphTransformer(
+                new ConflictMarker(),
+                new ConflictResolver(new NearestVersionSelector(), new JavaScopeSelector(), new SimpleOptionalitySelector(), new JavaScopeDeriver()),
+                new JavaDependencyContextRefiner()));
+
         final MavenExecutionRequest request = new DefaultMavenExecutionRequest();
         final MavenExecutionRequestPopulator populator = lookup(MavenExecutionRequestPopulator.class);
         populator.populateDefaults(request);
-        
+
+        final LocalRepositoryManager localRepositoryManager = new SimpleLocalRepositoryManagerFactory().newInstance(repositorySession,
+                new LocalRepository(localReposFile));
+
         final SettingsBuildingRequest settingsRequest = new DefaultSettingsBuildingRequest();
         settingsRequest.setGlobalSettingsFile(MavenCli.DEFAULT_GLOBAL_SETTINGS_FILE);
         settingsRequest.setUserSettingsFile(MavenCli.DEFAULT_USER_SETTINGS_FILE);

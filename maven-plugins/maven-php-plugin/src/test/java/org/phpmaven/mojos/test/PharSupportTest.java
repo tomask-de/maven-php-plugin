@@ -43,30 +43,22 @@ public class PharSupportTest extends AbstractTestCase {
      * @throws Exception 
      */
     public void testGoalTestWithSimplePhar() throws Exception {
-    	final MavenSession session = this.createSimpleSession("mojos-phar/phar-support");
+    	final MavenSession session = createSimpleSession("mojos-phar/phar-support");
     	
-    	final PhpResources resourcesMojo = this.createConfiguredMojo(
-    			PhpResources.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
-    			"resources",
-    			new Xpp3Dom("configuration"));
+    	final PhpResources resourcesMojo = createConfiguredMojo(PhpResources.class, session, "maven-php-plugin", "resources", new Xpp3Dom("configuration"));
     	resourcesMojo.execute();
-    	
-    	final PhpPhar pharMojo = this.createConfiguredMojo(
-    			PhpPhar.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
-    			"phar",
-    			new Xpp3Dom("configuration"));
+
+    	final PhpPhar pharMojo = createConfiguredMojo(PhpPhar.class, session, "maven-php-plugin", "phar", new Xpp3Dom("configuration"));
     	pharMojo.execute();
-    	
+
     	final File phar = new File(session.getCurrentProject().getBasedir(), "target/phar-simple-0.0.1.phar");
 		assertTrue(phar.exists());
-    	
+
     	// list files
     	final IPharPackagerConfiguration pharConfig = lookup(IComponentFactory.class).lookup(
     		IPharPackagerConfiguration.class, IComponentFactory.EMPTY_CONFIG, session);
     	final Iterable<String> files = pharConfig.getPharPackager().listFiles(phar, new DefaultLog(new ConsoleLogger()));
-    	
+
     	assertIterableCount(files, 1);
     	assertIterableContains(files, File.separatorChar + "MyClass.php");
     }

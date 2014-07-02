@@ -39,7 +39,7 @@ import org.phpmaven.httpd.control.IApacheService.APACHE_VERSION;
  * @since 2.0.1
  */
 @Component(role = IApacheController.class, instantiationStrategy = "per-lookup", hint = "V2.0")
-@BuildPluginConfiguration(groupId = "org.phpmaven", artifactId = "maven-httpd-control-api")
+@BuildPluginConfiguration(groupId = "org.github.phpmaven", artifactId = "maven-httpd-control-api")
 public class IxController20 implements IApacheController {
     
     /**

@@ -31,7 +31,7 @@ import org.phpmaven.core.ConfigurationParameter;
  * @since 2.0.1
  */
 @Component(role = ISomeComponentHint.class, hint = "with-filter", instantiationStrategy = "per-lookup")
-@BuildPluginConfiguration(groupId = "org.phpmaven", artifactId = "maven-php-plugin-test", filter = {
+@BuildPluginConfiguration(groupId = "org.github.phpmaven", artifactId = "maven-php-plugin-test", filter = {
         "foo"
         })
 public class SomeComponentWithFilter implements ISomeComponentHint {

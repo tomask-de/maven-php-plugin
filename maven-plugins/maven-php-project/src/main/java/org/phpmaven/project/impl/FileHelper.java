@@ -14,6 +14,19 @@
 
 package org.phpmaven.project.impl;
 
+import com.google.common.base.Preconditions;
+import org.apache.maven.execution.MavenSession;
+import org.apache.maven.plugin.logging.Log;
+import org.apache.maven.wagon.PathUtils;
+import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
+import org.codehaus.plexus.configuration.PlexusConfigurationException;
+import org.codehaus.plexus.util.DirectoryScanner;
+import org.codehaus.plexus.util.FileUtils;
+import org.codehaus.plexus.util.IOUtil;
+import org.phpmaven.core.IComponentFactory;
+import org.phpmaven.phar.IPharPackagerConfiguration;
+import org.phpmaven.phpexec.library.PhpException;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -32,20 +45,6 @@ import java.util.jar.JarFile;
 import java.util.jar.JarInputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-
-import org.apache.maven.execution.MavenSession;
-import org.apache.maven.plugin.logging.Log;
-import org.apache.maven.wagon.PathUtils;
-import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
-import org.codehaus.plexus.configuration.PlexusConfigurationException;
-import org.codehaus.plexus.util.DirectoryScanner;
-import org.codehaus.plexus.util.FileUtils;
-import org.codehaus.plexus.util.IOUtil;
-import org.phpmaven.core.IComponentFactory;
-import org.phpmaven.phar.IPharPackagerConfiguration;
-import org.phpmaven.phpexec.library.PhpException;
-
-import com.google.common.base.Preconditions;
 
 /**
  * Static utilities for file handling.
@@ -72,8 +71,8 @@ public final class FileHelper {
         throws IOException {
 
         final String relativeFile = PathUtils.toRelative(
-            sourceDirectory.getAbsoluteFile(),
-            sourceFile.getAbsolutePath()
+                sourceDirectory.getAbsoluteFile(),
+                sourceFile.getAbsolutePath()
         );
         final File targetFile = new File(targetDirectory, relativeFile);
 

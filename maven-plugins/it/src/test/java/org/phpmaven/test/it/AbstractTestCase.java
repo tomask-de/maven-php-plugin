@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -58,9 +59,11 @@ import org.codehaus.plexus.component.configurator.expression.ExpressionEvaluator
 import org.codehaus.plexus.configuration.PlexusConfiguration;
 import org.codehaus.plexus.configuration.xml.XmlPlexusConfiguration;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
-import org.sonatype.aether.RepositorySystemSession;
-import org.sonatype.aether.impl.internal.SimpleLocalRepositoryManager;
-import org.sonatype.aether.util.DefaultRepositorySystemSession;
+import org.eclipse.aether.DefaultRepositorySystemSession;
+import org.eclipse.aether.RepositorySystemSession;
+import org.eclipse.aether.internal.impl.SimpleLocalRepositoryManagerFactory;
+import org.eclipse.aether.repository.LocalRepository;
+import org.eclipse.aether.repository.LocalRepositoryManager;
 
 /**
  * Abstract base class for testing the modules.
@@ -211,14 +214,19 @@ public abstract class AbstractTestCase extends AbstractMojoTestCase {
     protected MavenData createProjectBuildingRequest() throws Exception {
         final File localReposFile = this.getLocalReposDir();
         
-        final SimpleLocalRepositoryManager localRepositoryManager = new SimpleLocalRepositoryManager(
-                localReposFile);
-        
+
         final DefaultRepositorySystemSession repositorySession = new DefaultRepositorySystemSession();
+        Map<Object, Object> params = new HashMap<Object, Object>();
+
         for (final Map.Entry<Object, Object> entry : System.getProperties().entrySet()) {
-            repositorySession.getSystemProperties().put(entry.getKey().toString(), entry.getValue().toString());
+            params.put(entry.getKey().toString(), entry.getValue().toString());
         }
-        repositorySession.getSystemProperties().put("java.version", System.getProperty("java.version"));
+        params.put("java.version", System.getProperty("java.version"));
+        repositorySession.setSystemProperties(params);
+
+        final LocalRepositoryManager localRepositoryManager = new SimpleLocalRepositoryManagerFactory().newInstance(repositorySession, new LocalRepository(localReposFile));
+
+
         final MavenExecutionRequest request = new DefaultMavenExecutionRequest();
         final MavenExecutionRequestPopulator populator = lookup(MavenExecutionRequestPopulator.class);
         populator.populateDefaults(request);
@@ -312,8 +320,9 @@ public abstract class AbstractTestCase extends AbstractMojoTestCase {
             String rootPath = new File(".").getAbsolutePath();
             rootPath = rootPath.endsWith(".") ? rootPath.substring(0, rootPath.length() - 2) : rootPath;
             rootPath = new File(new File(rootPath).getParentFile(), "php-parent-pom").getAbsolutePath();
-            this.installDirToRepos(localRepos, rootPath);
-            this.installLocalProject(localRepos, new File(rootPath).getParent() + "/generic-parent", false);
+            //TODO: php-plugin-parent pom?
+            //this.installDirToRepos(localRepos, rootPath);
+            //this.installLocalProject(localRepos, new File(rootPath).getParent() + "/generic-parent", false);
         }
     }
 
@@ -452,7 +461,7 @@ public abstract class AbstractTestCase extends AbstractMojoTestCase {
             return;
         }
         
-        final File phpmavenDir = new File(reposPath + "/org/phpmaven");
+        final File phpmavenDir = new File(reposPath + "/org/github/phpmaven");
         if (phpmavenDir.exists() && installedProjects.isEmpty()) {
             FileUtils.deleteDirectory(phpmavenDir);
         }
@@ -483,12 +492,14 @@ public abstract class AbstractTestCase extends AbstractMojoTestCase {
             return;
         }
         installedProjects.add(projectName);
-        
+
+        /*
+        TODO: should we install php-plugin-parent?
         if (!projectName.equals("java-parent")) {
 //            this.installLocalProject(reposPath, new File(root).getParentFile().getParentFile().getParent() + "/var", false);
             this.installLocalProject(reposPath, new File(root).getParent() + "/java-parent", false);
         }
-        
+        */
         // first install dependencies
         final File projectFile = new File(root, "pom.xml");
         final ProjectBuildingRequest buildingRequest = this.createProjectBuildingRequest().projectBuildingRequest;
@@ -496,7 +507,7 @@ public abstract class AbstractTestCase extends AbstractMojoTestCase {
         final MavenProject project = lookup(ProjectBuilder.class).build(projectFile, buildingRequest).getProject();
         
         for (final Dependency dep : project.getDependencies()) {
-            if ("org.phpmaven".equals(dep.getGroupId())) {
+            if ("org.github.phpmaven".equals(dep.getGroupId())) {
                 this.installLocalProject(reposPath, new File(root).getParent() + "/" + dep.getArtifactId(), false);
             }
         }

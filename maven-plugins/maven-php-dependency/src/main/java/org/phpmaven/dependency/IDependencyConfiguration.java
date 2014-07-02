@@ -86,7 +86,7 @@ import org.phpmaven.core.IComponentFactory;
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.1
  */
-@BuildPluginConfiguration(groupId = "org.phpmaven", artifactId = "maven-php-dependency")
+@BuildPluginConfiguration(groupId = "org.github.phpmaven", artifactId = "maven-php-dependency")
 public interface IDependencyConfiguration {
     
     /**

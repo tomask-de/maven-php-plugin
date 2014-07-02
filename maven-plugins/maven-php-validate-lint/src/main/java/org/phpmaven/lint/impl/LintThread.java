@@ -33,7 +33,7 @@ import org.phpmaven.phpexec.library.PhpException;
  * @author mepeisen
  */
 @Component(role = LintThread.class, instantiationStrategy = "per-lookup")
-@BuildPluginConfiguration(groupId = "org.phpmaven", artifactId = "maven-php-validate-lint", filter = { "threads" })
+@BuildPluginConfiguration(groupId = "org.github.phpmaven", artifactId = "maven-php-validate-lint", filter = { "threads" })
 public class LintThread implements Runnable {
     
     /**

@@ -1,22 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     
-    <properties>
-        <phpmavenTagName>${project.version}</phpmavenTagName>
-    </properties>
-
     <parent>
-        <groupId>org.phpmaven.build</groupId>
-        <artifactId>generic-java-parent</artifactId>
-        <version>2.0.3-SNAPSHOT</version>
-        <relativePath>../java-parent/pom.xml</relativePath>
+        <groupId>org.github.phpmaven</groupId>
+        <artifactId>maven-plugins-parent</artifactId>
+        <version>3.0.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.phpmaven</groupId>
     <artifactId>maven-php-phar</artifactId>
-    <packaging>jar</packaging>
-
-    <name>maven-php-phar:${project.version}</name>
+    <name>maven-php-phar</name>
 
     <description>
         A Maven plugin for dependency management and quality assurance in PHP projects. Uses
@@ -25,33 +18,21 @@
         Packaging and extracting phar archives.
     </description>
     
-    <url>${phpmavenRootUrl}/${phpmavenTagType}/${phpmavenTagName}/maven-php-phar/</url>
-    
-    <distributionManagement>
-        <site>
-            <id>upload-${phpmavenSitesId}</id>
-            <name>${phpmavenSitesName}</name>
-            <url>${phpmavenSitesUploadUrl}/${phpmavenTagType}/${phpmavenTagName}/maven-php-phar/</url>
-        </site>
-    </distributionManagement>
-    
+
     <dependencies>
         <dependency>
-        	<groupId>org.phpmaven</groupId>
+        	<groupId>org.github.phpmaven</groupId>
         	<artifactId>maven-php-exec</artifactId>
-        	<version>${project.version}</version>
         </dependency>
         
         <dependency>
-        	<groupId>org.phpmaven</groupId>
+        	<groupId>org.github.phpmaven</groupId>
         	<artifactId>phpmaven-testtool</artifactId>
-        	<version>${project.version}</version>
         	<scope>test</scope>
         </dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>2.4</version>
 		</dependency>
     </dependencies>
   
@@ -65,40 +46,10 @@
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-source-plugin</artifactId>
           </plugin>
-          <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-javadoc-plugin</artifactId>
-          </plugin>
-          <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-remote-resources-plugin</artifactId>
-          </plugin>
-            <plugin>
-                <groupId>org.phpmaven.sites</groupId>
-                <artifactId>sitemap-plugin</artifactId>
-            </plugin>
-          <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-site-plugin</artifactId>
-              <configuration>
-              	<reportPlugins>
-              		<plugin>
-                		<groupId>org.codehaus.mojo</groupId>
-                		<artifactId>cobertura-maven-plugin</artifactId>
-		                <configuration>
-        			        <formats>
-        			            <format>xml</format>
-        			            <format>html</format>
-        			        </formats>
-            			</configuration>
-		            </plugin>
-              	</reportPlugins>
-              </configuration>
-          </plugin>
+
             <plugin>
                 <groupId>org.codehaus.plexus</groupId>
                 <artifactId>plexus-component-metadata</artifactId>
-                <version>1.5.5</version>
                 <executions>
                     <execution>
                         <goals>

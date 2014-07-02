@@ -44,7 +44,7 @@ import org.phpmaven.pear.library.IPearProxy;
  * @since 2.0.0
  */
 @Component(role = IPearConfiguration.class, instantiationStrategy = "per-lookup")
-@BuildPluginConfiguration(groupId = "org.phpmaven", artifactId = "maven-php-pear")
+@BuildPluginConfiguration(groupId = "org.github.phpmaven", artifactId = "maven-php-pear")
 public class PearConfiguration implements IPearConfiguration {
     
     /**

@@ -46,7 +46,7 @@ import org.phpmaven.phpexec.library.PhpWarningException;
  * @since 2.0.0
  */
 @Component(role = IPhpdocSupport.class, instantiationStrategy = "per-lookup", hint = "PHP_EXE")
-@BuildPluginConfiguration(groupId = "org.phpmaven", artifactId = "maven-php-phpdoc", filter = {
+@BuildPluginConfiguration(groupId = "org.github.phpmaven", artifactId = "maven-php-phpdoc", filter = {
         "phpdocService", "installPhpdoc", "installFolder"
         })
 public class PhpdocBatchSupport extends AbstractPhpdocSupport {

@@ -38,13 +38,10 @@ public class CopyTest extends AbstractTestCase {
      * @throws Exception 
      */
     public void testCompile() throws Exception {
-    	final MavenSession session = this.createSimpleSession("mojos-compile/source-copy");
+    	final MavenSession session = createSimpleSession("mojos-compile/source-copy");
     	
-    	final PhpResources resourcesMojo = this.createConfiguredMojo(
-    			PhpResources.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
-    			"resources",
-    			new Xpp3Dom("configuration"));
+    	final PhpResources resourcesMojo = createConfiguredMojo(
+    			PhpResources.class, session, "maven-php-plugin", "resources", new Xpp3Dom("configuration"));
     	resourcesMojo.execute();
     	
     	assertTrue(new File(session.getCurrentProject().getBasedir(), "target/classes/MyClass.php").exists());
@@ -58,11 +55,7 @@ public class CopyTest extends AbstractTestCase {
     public void testTestCompile() throws Exception {
     	final MavenSession session = this.createSimpleSession("mojos-compile/source-copy");
     	
-    	final PhpTestResources resourcesMojo = this.createConfiguredMojo(
-    			PhpTestResources.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
-    			"testResources",
-    			new Xpp3Dom("configuration"));
+    	final PhpTestResources resourcesMojo = createConfiguredMojo(PhpTestResources.class, session, "maven-php-plugin", "testResources", new Xpp3Dom("configuration"));
     	resourcesMojo.execute();
     	
     	assertTrue(new File(session.getCurrentProject().getBasedir(), "target/test-classes/FooTest.php").exists());

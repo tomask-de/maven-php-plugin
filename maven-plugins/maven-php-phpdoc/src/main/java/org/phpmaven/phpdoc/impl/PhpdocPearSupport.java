@@ -53,7 +53,7 @@ import org.phpmaven.phpexec.library.PhpWarningException;
  * @since 2.0.0
  */
 @Component(role = IPhpdocSupport.class, instantiationStrategy = "per-lookup", hint = "PEAR")
-@BuildPluginConfiguration(groupId = "org.phpmaven", artifactId = "maven-php-phpdoc", filter = {
+@BuildPluginConfiguration(groupId = "org.github.phpmaven", artifactId = "maven-php-phpdoc", filter = {
         "phpdocService", "installPhpdoc", "installFolder", "phpDocFilePath"
         })
 public class PhpdocPearSupport extends AbstractPhpdocSupport implements IPhpdocSupport {

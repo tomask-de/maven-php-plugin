@@ -32,6 +32,7 @@ import org.apache.maven.monitor.logging.DefaultLog;
 import org.apache.maven.plugin.logging.Log;
 import org.codehaus.plexus.logging.console.ConsoleLogger;
 import org.codehaus.plexus.util.IOUtil;
+import org.junit.Ignore;
 import org.phpmaven.core.IComponentFactory;
 import org.phpmaven.pear.IMavenPearVersion;
 import org.phpmaven.pear.IPearConfiguration;
@@ -49,6 +50,7 @@ import com.google.common.base.Preconditions;
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
+@Ignore
 public class BaseTest extends AbstractTestCase {
 
     /**
@@ -76,6 +78,7 @@ public class BaseTest extends AbstractTestCase {
      * Tests if the packages can be installed and the files can be found.
      * @throws Exception exception
      */
+    @Ignore
     public void testPackageInstallation() throws Exception {
         final IPearChannel channel = getChannel(true);
         final IPackage pkg = channel.getPackage("Validate_AT");

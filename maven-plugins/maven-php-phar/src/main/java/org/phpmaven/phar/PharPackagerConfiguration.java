@@ -34,7 +34,7 @@ import org.phpmaven.core.IComponentFactory;
  * @since 2.0.0
  */
 @Component(role = IPharPackagerConfiguration.class, instantiationStrategy = "per-lookup")
-@BuildPluginConfiguration(groupId = "org.phpmaven", artifactId = "php-maven-phar")
+@BuildPluginConfiguration(groupId = "org.github.phpmaven", artifactId = "php-maven-phar")
 public class PharPackagerConfiguration implements IPharPackagerConfiguration {
     
     /**

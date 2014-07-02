@@ -34,7 +34,7 @@ import org.phpmaven.core.ConfigurationParameter;
  * @since 2.0.0
  */
 @Component(role = IPharPackagingRequest.class, instantiationStrategy = "per-lookup")
-@BuildPluginConfiguration(artifactId = "maven-php-phar", groupId = "org.phpmaven", path = "pharConfig")
+@BuildPluginConfiguration(artifactId = "maven-php-phar", groupId = "org.github.phpmaven", path = "pharConfig")
 public class PharPackagingRequest implements IPharPackagingRequest {
 
     /**
@@ -120,7 +120,7 @@ public class PharPackagingRequest implements IPharPackagingRequest {
     /**
      * Flag for forcing large files.
      */
-    @Configuration(name = "largeFile", value = "true")
+    @Configuration(name = "largeFile", value = "false")
     private boolean largeFile;
     
     /**

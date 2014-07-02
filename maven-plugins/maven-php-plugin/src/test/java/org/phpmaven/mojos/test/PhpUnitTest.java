@@ -47,40 +47,20 @@ public class PhpUnitTest extends AbstractTestCase {
      * @throws Exception 
      */
     public void testGoalTestWithAutoprependFile() throws Exception {
-    	final MavenSession session = this.createSessionForPhpMaven("mojos-phpunit/test-autoprepend");
+    	final MavenSession session = createSessionForPhpMaven("mojos-phpunit/test-autoprepend");
     	
-    	final PhpResources resourcesMojo = this.createConfiguredMojo(
-    			PhpResources.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
-    			"resources",
-    			new Xpp3Dom("configuration"));
+    	final PhpResources resourcesMojo = createConfiguredMojo(PhpResources.class, session, "maven-php-plugin", "resources", new Xpp3Dom("configuration"));
 		resourcesMojo.execute();
-    	final PhpTestResources testResourcesMojo = this.createConfiguredMojo(
-    			PhpTestResources.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
-    			"testResources",
-    			new Xpp3Dom("configuration"));
+    	final PhpTestResources testResourcesMojo = createConfiguredMojo(PhpTestResources.class, session, "maven-php-plugin", "testResources", new Xpp3Dom("configuration"));
     	testResourcesMojo.execute();
 
     	this.resolveProjectDependencies(session);
-		final PhpExtractDeps extractDepsMojo = this.createConfiguredMojo(
-				PhpExtractDeps.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
-    			"extractDependencies",
-    			new Xpp3Dom("configuration"));
+		final PhpExtractDeps extractDepsMojo = createConfiguredMojo(PhpExtractDeps.class, session, "maven-php-plugin", "extractDependencies", new Xpp3Dom("configuration"));
 		extractDepsMojo.execute();
-		final PhpTestExtractDeps extractTestDepsMojo = this.createConfiguredMojo(
-				PhpTestExtractDeps.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
-    			"extractTestDependencies",
-    			new Xpp3Dom("configuration"));
+		final PhpTestExtractDeps extractTestDepsMojo = createConfiguredMojo(PhpTestExtractDeps.class, session, "maven-php-plugin", 	"extractTestDependencies", new Xpp3Dom("configuration"));
 		extractTestDepsMojo.execute();
 		
-		final PhpTest test = this.createConfiguredMojo(
-				PhpTest.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
-    			"test",
-    			new Xpp3Dom("configuration"));
+		final PhpTest test = this.createConfiguredMojo(PhpTest.class, session, "maven-php-plugin", "test", new Xpp3Dom("configuration"));
 		test.execute();
     }
 
@@ -90,44 +70,24 @@ public class PhpUnitTest extends AbstractTestCase {
      * @throws Exception 
      */
     public void testGoalTestWithBootstrapFile() throws Exception {
-    	final MavenSession session = this.createSessionForPhpMaven("mojos-phpunit/test-bootstrap");
+    	final MavenSession session = createSessionForPhpMaven("mojos-phpunit/test-bootstrap");
     	
-    	final PhpResources resourcesMojo = this.createConfiguredMojo(
-    			PhpResources.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
-    			"resources",
-    			new Xpp3Dom("configuration"));
+    	final PhpResources resourcesMojo = createConfiguredMojo(PhpResources.class, session, "maven-php-plugin", "resources", new Xpp3Dom("configuration"));
 		resourcesMojo.execute();
-    	final PhpTestResources testResourcesMojo = this.createConfiguredMojo(
-    			PhpTestResources.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
-    			"testResources",
-    			new Xpp3Dom("configuration"));
+    	final PhpTestResources testResourcesMojo = createConfiguredMojo(PhpTestResources.class, session, "maven-php-plugin", "testResources", new Xpp3Dom("configuration"));
     	testResourcesMojo.execute();
 
     	this.resolveProjectDependencies(session);
-		final PhpExtractDeps extractDepsMojo = this.createConfiguredMojo(
-				PhpExtractDeps.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
-    			"extractDependencies",
-    			new Xpp3Dom("configuration"));
+		final PhpExtractDeps extractDepsMojo = createConfiguredMojo(PhpExtractDeps.class, session, "maven-php-plugin", "extractDependencies", new Xpp3Dom("configuration"));
 		extractDepsMojo.execute();
-		final PhpTestExtractDeps extractTestDepsMojo = this.createConfiguredMojo(
-				PhpTestExtractDeps.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
-    			"extractTestDependencies",
-    			new Xpp3Dom("configuration"));
+		final PhpTestExtractDeps extractTestDepsMojo = createConfiguredMojo(PhpTestExtractDeps.class, session, "maven-php-plugin", "extractTestDependencies", new Xpp3Dom("configuration"));
 		extractTestDepsMojo.execute();
 		
 		Xpp3Dom config = Xpp3DomBuilder.build(new StringReader(
     			"<configuration>" +
     			"<phpUnitArguments>--bootstrap maven-autoloader.php</phpUnitArguments>" +
     			"</configuration>"));
-		final PhpTest test = this.createConfiguredMojo(
-				PhpTest.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
-    			"test",
-    			config);
+		final PhpTest test = createConfiguredMojo(PhpTest.class, session, "maven-php-plugin", "test", config);
 		test.execute();
     }
 
@@ -138,38 +98,31 @@ public class PhpUnitTest extends AbstractTestCase {
      * @throws Exception 
      */
     public void testGoalTestWithBootstrap2File() throws Exception {
-    	final MavenSession session = this.createSessionForPhpMaven("mojos-phpunit/test-bootstrap2");
+    	final MavenSession session = createSessionForPhpMaven("mojos-phpunit/test-bootstrap2");
     	
-    	final PhpResources resourcesMojo = this.createConfiguredMojo(
-    			PhpResources.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
-    			"resources",
-    			new Xpp3Dom("configuration"));
+    	final PhpResources resourcesMojo = createConfiguredMojo(PhpResources.class, session, "maven-php-plugin", "resources", new Xpp3Dom("configuration"));
 		resourcesMojo.execute();
-    	final PhpTestResources testResourcesMojo = this.createConfiguredMojo(
-    			PhpTestResources.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
-    			"testResources",
+    	final PhpTestResources testResourcesMojo = createConfiguredMojo(PhpTestResources.class, session, "maven-php-plugin", "testResources",
     			new Xpp3Dom("configuration"));
     	testResourcesMojo.execute();
 
     	this.resolveProjectDependencies(session);
 		final PhpExtractDeps extractDepsMojo = this.createConfiguredMojo(
 				PhpExtractDeps.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			 "maven-php-plugin",
     			"extractDependencies",
     			new Xpp3Dom("configuration"));
 		extractDepsMojo.execute();
 		final PhpTestExtractDeps extractTestDepsMojo = this.createConfiguredMojo(
 				PhpTestExtractDeps.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			 "maven-php-plugin",
     			"extractTestDependencies",
     			new Xpp3Dom("configuration"));
 		extractTestDepsMojo.execute();
 		
 		final PhpTest test = this.createConfiguredMojo(
 				PhpTest.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			 "maven-php-plugin",
     			"test",
     			new Xpp3Dom("configuration"));
 		test.execute();
@@ -185,13 +138,13 @@ public class PhpUnitTest extends AbstractTestCase {
     	
     	final PhpResources resourcesMojo = this.createConfiguredMojo(
     			PhpResources.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"resources",
     			new Xpp3Dom("configuration"));
 		resourcesMojo.execute();
     	final PhpTestResources testResourcesMojo = this.createConfiguredMojo(
     			PhpTestResources.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"testResources",
     			new Xpp3Dom("configuration"));
     	testResourcesMojo.execute();
@@ -199,20 +152,20 @@ public class PhpUnitTest extends AbstractTestCase {
     	this.resolveProjectDependencies(session);
 		final PhpExtractDeps extractDepsMojo = this.createConfiguredMojo(
 				PhpExtractDeps.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"extractDependencies",
     			new Xpp3Dom("configuration"));
 		extractDepsMojo.execute();
 		final PhpTestExtractDeps extractTestDepsMojo = this.createConfiguredMojo(
 				PhpTestExtractDeps.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"extractTestDependencies",
     			new Xpp3Dom("configuration"));
 		extractTestDepsMojo.execute();
 		
 		final PhpTest test = this.createConfiguredMojo(
 				PhpTest.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"test",
     			new Xpp3Dom("configuration"));
 		test.execute();
@@ -228,13 +181,13 @@ public class PhpUnitTest extends AbstractTestCase {
     	
     	final PhpResources resourcesMojo = this.createConfiguredMojo(
     			PhpResources.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"resources",
     			new Xpp3Dom("configuration"));
 		resourcesMojo.execute();
     	final PhpTestResources testResourcesMojo = this.createConfiguredMojo(
     			PhpTestResources.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"testResources",
     			new Xpp3Dom("configuration"));
     	testResourcesMojo.execute();
@@ -242,20 +195,20 @@ public class PhpUnitTest extends AbstractTestCase {
     	this.resolveProjectDependencies(session);
 		final PhpExtractDeps extractDepsMojo = this.createConfiguredMojo(
 				PhpExtractDeps.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"extractDependencies",
     			new Xpp3Dom("configuration"));
 		extractDepsMojo.execute();
 		final PhpTestExtractDeps extractTestDepsMojo = this.createConfiguredMojo(
 				PhpTestExtractDeps.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"extractTestDependencies",
     			new Xpp3Dom("configuration"));
 		extractTestDepsMojo.execute();
 		
 		final PhpTest test = this.createConfiguredMojo(
 				PhpTest.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"test",
     			new Xpp3Dom("configuration"));
 		test.execute();
@@ -271,13 +224,13 @@ public class PhpUnitTest extends AbstractTestCase {
     	
     	final PhpResources resourcesMojo = this.createConfiguredMojo(
     			PhpResources.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"resources",
     			new Xpp3Dom("configuration"));
 		resourcesMojo.execute();
     	final PhpTestResources testResourcesMojo = this.createConfiguredMojo(
     			PhpTestResources.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"testResources",
     			new Xpp3Dom("configuration"));
     	testResourcesMojo.execute();
@@ -285,20 +238,20 @@ public class PhpUnitTest extends AbstractTestCase {
     	this.resolveProjectDependencies(session);
 		final PhpExtractDeps extractDepsMojo = this.createConfiguredMojo(
 				PhpExtractDeps.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"extractDependencies",
     			new Xpp3Dom("configuration"));
 		extractDepsMojo.execute();
 		final PhpTestExtractDeps extractTestDepsMojo = this.createConfiguredMojo(
 				PhpTestExtractDeps.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"extractTestDependencies",
     			new Xpp3Dom("configuration"));
 		extractTestDepsMojo.execute();
 		
 		final PhpTest test = this.createConfiguredMojo(
 				PhpTest.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"test",
     			new Xpp3Dom("configuration"));
 		test.execute();
@@ -315,13 +268,13 @@ public class PhpUnitTest extends AbstractTestCase {
     	
     	final PhpResources resourcesMojo = this.createConfiguredMojo(
     			PhpResources.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"resources",
     			new Xpp3Dom("configuration"));
 		resourcesMojo.execute();
     	final PhpTestResources testResourcesMojo = this.createConfiguredMojo(
     			PhpTestResources.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"testResources",
     			new Xpp3Dom("configuration"));
     	testResourcesMojo.execute();
@@ -329,20 +282,20 @@ public class PhpUnitTest extends AbstractTestCase {
     	this.resolveProjectDependencies(session);
 		final PhpExtractDeps extractDepsMojo = this.createConfiguredMojo(
 				PhpExtractDeps.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"extractDependencies",
     			new Xpp3Dom("configuration"));
 		extractDepsMojo.execute();
 		final PhpTestExtractDeps extractTestDepsMojo = this.createConfiguredMojo(
 				PhpTestExtractDeps.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"extractTestDependencies",
     			new Xpp3Dom("configuration"));
 		extractTestDepsMojo.execute();
 		
 		final PhpTest test = this.createConfiguredMojo(
 				PhpTest.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"test",
     			new Xpp3Dom("configuration"));
 		try {
@@ -364,13 +317,13 @@ public class PhpUnitTest extends AbstractTestCase {
     	
     	final PhpResources resourcesMojo = this.createConfiguredMojo(
     			PhpResources.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"resources",
     			new Xpp3Dom("configuration"));
 		resourcesMojo.execute();
     	final PhpTestResources testResourcesMojo = this.createConfiguredMojo(
     			PhpTestResources.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"testResources",
     			new Xpp3Dom("configuration"));
     	testResourcesMojo.execute();
@@ -378,20 +331,20 @@ public class PhpUnitTest extends AbstractTestCase {
     	this.resolveProjectDependencies(session);
 		final PhpExtractDeps extractDepsMojo = this.createConfiguredMojo(
 				PhpExtractDeps.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"extractDependencies",
     			new Xpp3Dom("configuration"));
 		extractDepsMojo.execute();
 		final PhpTestExtractDeps extractTestDepsMojo = this.createConfiguredMojo(
 				PhpTestExtractDeps.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"extractTestDependencies",
     			new Xpp3Dom("configuration"));
 		extractTestDepsMojo.execute();
 		
 		final PhpTest test = this.createConfiguredMojo(
 				PhpTest.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"test",
     			new Xpp3Dom("configuration"));
 		test.execute();
@@ -408,13 +361,13 @@ public class PhpUnitTest extends AbstractTestCase {
     	
     	final PhpResources resourcesMojo = this.createConfiguredMojo(
     			PhpResources.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"resources",
     			new Xpp3Dom("configuration"));
 		resourcesMojo.execute();
     	final PhpTestResources testResourcesMojo = this.createConfiguredMojo(
     			PhpTestResources.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"testResources",
     			new Xpp3Dom("configuration"));
     	testResourcesMojo.execute();
@@ -422,20 +375,20 @@ public class PhpUnitTest extends AbstractTestCase {
     	this.resolveProjectDependencies(session);
 		final PhpExtractDeps extractDepsMojo = this.createConfiguredMojo(
 				PhpExtractDeps.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"extractDependencies",
     			new Xpp3Dom("configuration"));
 		extractDepsMojo.execute();
 		final PhpTestExtractDeps extractTestDepsMojo = this.createConfiguredMojo(
 				PhpTestExtractDeps.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"extractTestDependencies",
     			new Xpp3Dom("configuration"));
 		extractTestDepsMojo.execute();
 		
 		final PhpTest test = this.createConfiguredMojo(
 				PhpTest.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"test",
     			new Xpp3Dom("configuration"));
 		test.execute();
@@ -452,13 +405,13 @@ public class PhpUnitTest extends AbstractTestCase {
     	
     	final PhpResources resourcesMojo = this.createConfiguredMojo(
     			PhpResources.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"resources",
     			new Xpp3Dom("configuration"));
 		resourcesMojo.execute();
     	final PhpTestResources testResourcesMojo = this.createConfiguredMojo(
     			PhpTestResources.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"testResources",
     			new Xpp3Dom("configuration"));
     	testResourcesMojo.execute();
@@ -466,20 +419,20 @@ public class PhpUnitTest extends AbstractTestCase {
     	this.resolveProjectDependencies(session);
 		final PhpExtractDeps extractDepsMojo = this.createConfiguredMojo(
 				PhpExtractDeps.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"extractDependencies",
     			new Xpp3Dom("configuration"));
 		extractDepsMojo.execute();
 		final PhpTestExtractDeps extractTestDepsMojo = this.createConfiguredMojo(
 				PhpTestExtractDeps.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"extractTestDependencies",
     			new Xpp3Dom("configuration"));
 		extractTestDepsMojo.execute();
 		
 		final PhpTest test = this.createConfiguredMojo(
 				PhpTest.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"test",
     			new Xpp3Dom("configuration"));
 		test.execute();
@@ -495,13 +448,13 @@ public class PhpUnitTest extends AbstractTestCase {
     	
     	final PhpResources resourcesMojo = this.createConfiguredMojo(
     			PhpResources.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"resources",
     			new Xpp3Dom("configuration"));
 		resourcesMojo.execute();
     	final PhpTestResources testResourcesMojo = this.createConfiguredMojo(
     			PhpTestResources.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"testResources",
     			new Xpp3Dom("configuration"));
     	testResourcesMojo.execute();
@@ -509,20 +462,20 @@ public class PhpUnitTest extends AbstractTestCase {
     	this.resolveProjectDependencies(session);
 		final PhpExtractDeps extractDepsMojo = this.createConfiguredMojo(
 				PhpExtractDeps.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"extractDependencies",
     			new Xpp3Dom("configuration"));
 		extractDepsMojo.execute();
 		final PhpTestExtractDeps extractTestDepsMojo = this.createConfiguredMojo(
 				PhpTestExtractDeps.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"extractTestDependencies",
     			new Xpp3Dom("configuration"));
 		extractTestDepsMojo.execute();
 		
 		final PhpTest test = this.createConfiguredMojo(
 				PhpTest.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
+    			"maven-php-plugin",
     			"test",
     			new Xpp3Dom("configuration"));
 		try {

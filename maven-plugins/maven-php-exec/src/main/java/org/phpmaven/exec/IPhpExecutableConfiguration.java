@@ -170,7 +170,7 @@ import org.phpmaven.core.IComponentFactory;
  * @author Martin Eisengardt <Martin.Eisengardt@googlemail.com>
  * @since 2.0.0
  */
-@BuildPluginConfiguration(groupId = "org.phpmaven", artifactId = "maven-php-exec")
+@BuildPluginConfiguration(groupId = "org.github.phpmaven", artifactId = "maven-php-exec")
 public interface IPhpExecutableConfiguration extends org.phpmaven.phpexec.library.IPhpExecutableConfiguration {
 	
     /**

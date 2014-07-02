@@ -166,6 +166,7 @@ public class ConvertPharMojo extends AbstractMojo {
                 request.addDirectory("/", this.temp.getAbsoluteFile());
                 request.setTargetDirectory(this.to.getParentFile());
                 request.setFilename(this.to.getName());
+                request.setLargePhar(false);
                 config.getPharPackager().packagePhar(request, this.getLog());
             } else {
                 throw new MojoExecutionException("File format of " + this.to + " not supported");

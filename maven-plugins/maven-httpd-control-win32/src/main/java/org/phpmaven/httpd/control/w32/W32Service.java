@@ -42,7 +42,7 @@ import org.phpmaven.httpd.control.IApacheService;
  * @since 2.0.1
  */
 @Component(role = IApacheService.class, instantiationStrategy = "per-lookup")
-@BuildPluginConfiguration(groupId = "org.phpmaven", artifactId = "maven-httpd-control-api", filter = {
+@BuildPluginConfiguration(groupId = "org.github.phpmaven", artifactId = "maven-httpd-control-api", filter = {
         "configFile", "serverDir"
         })
 public class W32Service implements IApacheService {

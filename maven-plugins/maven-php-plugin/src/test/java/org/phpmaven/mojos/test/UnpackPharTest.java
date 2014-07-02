@@ -54,9 +54,7 @@ public class UnpackPharTest extends AbstractTestCase {
     			"<target>"+new File(session.getCurrentProject().getBasedir(), "target").getAbsolutePath()+"</target>" +
     			"</configuration>"));
     	UnpackPharMojo unpackMojo = this.createConfiguredMojo(
-    			UnpackPharMojo.class, session,
-    			"org.phpmaven", "maven-php-plugin", "2.0.3-SNAPSHOT",
-    			"extract-phar",
+    			UnpackPharMojo.class, session, "maven-php-plugin", "extract-phar",
     			config);
     	unpackMojo.execute();
     	

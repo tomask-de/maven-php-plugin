@@ -44,7 +44,7 @@ import org.phpmaven.phpexec.library.PhpException;
  * @since 2.0.0
  */
 @Component(role = IPharPackager.class, hint = "PHP_EXE", instantiationStrategy = "per-lookup")
-@BuildPluginConfiguration(groupId = "org.phpmaven", artifactId = "php-maven-phar", filter = {
+@BuildPluginConfiguration(groupId = "org.github.phpmaven", artifactId = "php-maven-phar", filter = {
         "packager", "pharConfig" })
 public class PharPackager implements IPharPackager {
 
@@ -137,6 +137,8 @@ public class PharPackager implements IPharPackager {
         String compression = "";
         if (request.isCompressed()) {
             if (request.isLargePhar()) {
+                //FIXME: this logic does not work with PHP 5.3.15. ==> "more or less a phar already exists exception"
+                log.warn("Compression of large files is broken ==> unexpected results. Pls set largePhar to false if possible!");
                 compression =
                     "$phar->stopBuffering();\n" +
                     "$phar = new Phar('$:{pharfilepath}'.DIRECTORY_SEPARATOR.'" +
@@ -167,7 +169,7 @@ public class PharPackager implements IPharPackager {
         throws ComponentLookupException, PlexusConfigurationException {
         /*Xpp3Dom executableConfig = this.factory.getBuildConfig(
                 this.session.getCurrentProject(),
-                "org.phpmaven",
+                "org.github.phpmaven",
                 "maven-php-phar");
         if (executableConfig != null) {
             executableConfig = executableConfig.getChild("executableConfig");
