@@ -1,0 +1,102 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<properties>
+		<phpmavenTagName>phpexec-java-${project.version}</phpmavenTagName>
+	</properties>
+
+	<parent>
+		<groupId>org.phpmaven.build</groupId>
+		<artifactId>generic-java-parent</artifactId>
+		<version>2.0.20-SNAPSHOT</version>
+	</parent>
+
+	<groupId>org.phpmaven.phpexec-java</groupId>
+	<artifactId>phpexec-cli</artifactId>
+	<version>0.1.13-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>phpexec-cli:${project.version}</name>
+
+	<description>
+        Execution of php via php-cli binary
+    </description>
+
+	<url>${phpmavenRootUrl}/${phpmavenTagType}/${phpmavenTagName}/cli/</url>
+
+	<distributionManagement>
+		<site>
+			<id>upload-${phpmavenSitesId}</id>
+			<name>${phpmavenSitesName}</name>
+			<url>${phpmavenSitesUploadUrl}/${phpmavenTagType}/${phpmavenTagName}/cli/</url>
+		</site>
+
+		<!-- Publish the versioned releases here -->
+		<repository>
+			<id>mare-nexus-releases</id>
+			<name>Own Nexus Repository</name>
+			<url>https://martinreinhardt-online.de/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>mare-nexus-snapshots</id>
+			<name>Own Nexus Repository</name>
+			<url>https://martinreinhardt-online.de/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.phpmaven.phpexec-java</groupId>
+			<artifactId>phpexec-api</artifactId>
+			<version>0.1.13-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.10</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-remote-resources-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<configuration>
+					<reportPlugins>
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>cobertura-maven-plugin</artifactId>
+							<configuration>
+								<formats>
+									<format>xml</format>
+									<format>html</format>
+								</formats>
+							</configuration>
+						</plugin>
+					</reportPlugins>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

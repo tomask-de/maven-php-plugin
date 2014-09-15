@@ -1,0 +1,368 @@
+<!-- START SNIPPET: simple -->
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	...
+	<dependencies>
+		<dependency>
+			<groupId>org.mygroup</groupId>
+			<artifactId>my-lib</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.phpmaven</groupId>
+				<artifactId>maven-php-dependency</artifactId>
+				<configuration>
+					<dependencies>
+						<dependency>
+							<groupId>org.mygroup</groupId>
+							<artifactId>my-lib</artifactId>
+							<actions>
+								<include/>
+							</actions>
+						</dependency>
+					</dependencies>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	...
+</project>
+<!-- END SNIPPET: simple -->
+<!-- START SNIPPET: extract -->
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	...
+	<dependencies>
+		<dependency>
+			<groupId>org.mygroup</groupId>
+			<artifactId>my-lib</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mygroup</groupId>
+			<artifactId>my-other-lib</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.phpmaven</groupId>
+				<artifactId>maven-php-dependency</artifactId>
+				<configuration>
+					<dependencies>
+						<dependency>
+							<groupId>org.mygroup</groupId>
+							<artifactId>my-lib</artifactId>
+							<actions>
+								<extract>
+									<pharPath>/anyfolder</pharPath>
+								</extract>
+							</actions>
+						</dependency>
+						<dependency>
+							<groupId>org.mygroup</groupId>
+							<artifactId>my-other-lib</artifactId>
+							<actions>
+								<extract>
+									<pharPath>/somefolder</pharPath>
+									<targetPath>${project.build.directory}/external-libs/my-other-lib</targetPath>
+								</extract>
+							</actions>
+						</dependency>
+					</dependencies>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	...
+</project>
+<!-- END SNIPPET: extract -->
+<!-- START SNIPPET: extractAndInclude -->
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	...
+	<dependencies>
+		<dependency>
+			<groupId>org.mygroup</groupId>
+			<artifactId>my-lib</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mygroup</groupId>
+			<artifactId>my-other-lib</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.phpmaven</groupId>
+				<artifactId>maven-php-dependency</artifactId>
+				<configuration>
+					<dependencies>
+						<dependency>
+							<groupId>org.mygroup</groupId>
+							<artifactId>my-lib</artifactId>
+							<actions>
+								<extractAndInclude>
+									<pharPath>/anyfolder</pharPath>
+									<targetPath>${project.build.directory}/external-libs/my-lib</targetPath>
+								</extractAndInclude>
+							</actions>
+						</dependency>
+						<dependency>
+							<groupId>org.mygroup</groupId>
+							<artifactId>my-other-lib</artifactId>
+							<actions>
+								<extract>
+									<pharPath>/somefolder</pharPath>
+									<targetPath>${project.build.directory}/external-libs/my-other-lib</targetPath>
+									<includePath>/deep-path</includePath>
+								</extract>
+							</actions>
+						</dependency>
+					</dependencies>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	...
+</project>
+<!-- END SNIPPET: extractAndInclude -->
+<!-- START SNIPPET: ignore -->
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	...
+	<dependencies>
+		<dependency>
+			<groupId>org.mygroup</groupId>
+			<artifactId>my-lib</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mygroup</groupId>
+			<artifactId>my-other-lib</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.phpmaven</groupId>
+				<artifactId>maven-php-dependency</artifactId>
+				<configuration>
+					<dependencies>
+						<dependency>
+							<groupId>org.mygroup</groupId>
+							<artifactId>my-lib</artifactId>
+							<actions>
+								<ignore />
+							</actions>
+						</dependency>
+					</dependencies>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	...
+</project>
+<!-- END SNIPPET: ignore -->
+<!-- START SNIPPET: include -->
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	...
+	<dependencies>
+		<dependency>
+			<groupId>org.mygroup</groupId>
+			<artifactId>my-lib</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mygroup</groupId>
+			<artifactId>my-other-lib</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.phpmaven</groupId>
+				<artifactId>maven-php-dependency</artifactId>
+				<configuration>
+					<dependencies>
+						<dependency>
+							<groupId>org.mygroup</groupId>
+							<artifactId>my-lib</artifactId>
+							<actions>
+								<include>
+									<pharPath>/anyfolder</pharPath>
+								</include>
+							</actions>
+						</dependency>
+						<dependency>
+							<groupId>org.mygroup</groupId>
+							<artifactId>my-other-lib</artifactId>
+							<actions>
+								<include />
+							</actions>
+						</dependency>
+					</dependencies>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	...
+</project>
+<!-- END SNIPPET: include -->
+<!-- START SNIPPET: pear -->
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	...
+	<dependencies>
+		<dependency>
+			<groupId>org.mygroup</groupId>
+			<artifactId>my-lib</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.phpmaven</groupId>
+				<artifactId>maven-php-dependency</artifactId>
+				<configuration>
+					<dependencies>
+						<dependency>
+							<groupId>org.mygroup</groupId>
+							<artifactId>my-lib</artifactId>
+							<actions>
+								<pear />
+							</actions>
+						</dependency>
+					</dependencies>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	...
+</project>
+<!-- END SNIPPET: pear -->
+<!-- START SNIPPET: bootstrap -->
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	...
+	<dependencies>
+		<dependency>
+			<groupId>org.mygroup</groupId>
+			<artifactId>my-lib</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.phpmaven</groupId>
+				<artifactId>maven-php-dependency</artifactId>
+				<configuration>
+					<bootstrapFile>${project.basedir}/src/bootstrap/configureDependencies.php</bootstrapFile>
+					<dependencies>
+						<dependency>
+							<groupId>org.mygroup</groupId>
+							<artifactId>my-lib</artifactId>
+							<actions>
+								<bootstrap />
+							</actions>
+						</dependency>
+					</dependencies>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	...
+</project>
+<!-- END SNIPPET: bootstrap -->
+<!-- START SNIPPET: definclude1 -->
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	...
+	<dependencies>
+		<dependency>
+			<groupId>org.mycompany</groupId>
+			<artifactId>library1</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.phpmaven</groupId>
+				<artifactId>maven-php-dependency</artifactId>
+				<configuration>
+					<dependencies>
+						<dependency>
+							<groupId>org.mycompany</groupId>
+							<artifactId>library1</artifactId>
+							<actions>
+								<include>
+									<pharPath>/anyfolder</pharPath>
+								</include>
+							</actions>
+						</dependency>
+					</dependencies>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	...
+</project>
+<!-- END SNIPPET: definclude1 -->
+<!-- START SNIPPET: definclude2 -->
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	...
+	<dependencies>
+		<dependency>
+			<groupId>org.mycompany</groupId>
+			<artifactId>library1</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.phpmaven</groupId>
+				<artifactId>maven-php-dependency</artifactId>
+				<configuration>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	...
+</project>
+<!-- END SNIPPET: definclude2 -->
+<!-- START SNIPPET: definclude3 -->
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	...
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.phpmaven</groupId>
+				<artifactId>maven-php-dependency</artifactId>
+				<configuration>
+				    <defaults>
+				        <include>
+				            <pharPath>/anyfolder</pharPath>
+				        </include>
+				    </defaults>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	...
+</project>
+<!-- END SNIPPET: definclude3 -->

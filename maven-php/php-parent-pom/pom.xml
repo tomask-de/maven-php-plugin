@@ -1,0 +1,119 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<properties>
+		<phpmavenTagName>2.0.3-SNAPSHOT</phpmavenTagName>
+
+		<phpmaven.plugin.version>2.0.20-SNAPSHOT</phpmaven.plugin.version>
+		<phpmaven.jettycgi.version>2.0.16</phpmaven.jettycgi.version>
+		<phpmaven.maven-jetty-plugin.version>6.1.10</phpmaven.maven-jetty-plugin.version>
+	</properties>
+
+	<parent>
+		<groupId>org.phpmaven.build</groupId>
+		<artifactId>generic-parent</artifactId>
+		<version>2.0.20-SNAPSHOT</version>
+	</parent>
+
+	<groupId>org.phpmaven</groupId>
+	<artifactId>php-parent-pom</artifactId>
+	<packaging>pom</packaging>
+
+	<name>php-parent-pom:${project.version}</name>
+
+	<description>
+        A Maven plugin for dependency management and quality assurance in PHP projects. Uses
+        the default Maven lifecycle to provide multiple php features.
+        
+        PHP parent pom.
+    </description>
+
+	<url>${phpmavenRootUrl}/${phpmavenTagType}/${phpmavenTagName}/php-parent-pom/</url>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.phpmaven</groupId>
+				<artifactId>maven-php-jettycgi</artifactId>
+				<version>2.0.17</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<extensions>
+			<extension>
+				<groupId>org.phpmaven</groupId>
+				<artifactId>maven-php-plugin</artifactId>
+				<version>${project.version}</version>
+			</extension>
+		</extensions>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.phpmaven</groupId>
+					<artifactId>maven-php-plugin</artifactId>
+					<version>${project.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.phpmaven</groupId>
+					<artifactId>maven-php-core</artifactId>
+					<version>${project.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.phpmaven</groupId>
+					<artifactId>maven-php-exec</artifactId>
+					<version>${project.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.phpmaven</groupId>
+					<artifactId>maven-php-pear</artifactId>
+					<version>${project.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.phpmaven</groupId>
+					<artifactId>maven-php-phar</artifactId>
+					<version>${project.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.phpmaven</groupId>
+					<artifactId>maven-php-phpdoc</artifactId>
+					<version>${project.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.phpmaven</groupId>
+					<artifactId>maven-php-project</artifactId>
+					<version>${project.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.phpmaven</groupId>
+					<artifactId>maven-php-validate-lint</artifactId>
+					<version>${project.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.mortbay.jetty</groupId>
+					<artifactId>maven-jetty-plugin</artifactId>
+					<version>${phpmaven.maven-jetty-plugin.version}</version>
+					<dependencies>
+						<dependency>
+							<groupId>ch.qos.logback</groupId>
+							<artifactId>logback-classic</artifactId>
+							<version>0.9.15</version>
+						</dependency>
+						<dependency>
+							<groupId>org.phpmaven</groupId>
+							<artifactId>maven-php-jettycgi</artifactId>
+							<version>${project.version}</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<sourceDirectory>src/main/php</sourceDirectory>
+		<testSourceDirectory>src/test/php</testSourceDirectory>
+	</build>
+
+</project>

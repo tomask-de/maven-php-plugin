@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Copyright 2010-2012 by PHP-maven.org
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+	http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+	<properties>
+		<title>Maven for PHP - Dependency for natives</title>
+		<author email="martin.eisengardt@googlemail.com">Martin Eisengardt</author>
+	</properties>
+	
+	<head>
+		<title>Maven for PHP - Dependency for natives</title>
+		<meta name="keyword" content="apache, maven, php, php-maven, maven tutorial, php maven tutorial, php dependency, dependency management" />		
+	</head>
+	
+	<body>
+		<p style="text-align:center">[ <a href="tut-dependencydefaults.html">Previous</a> | <a href="tutorials.html">TOC</a> | <a href="tut-pear.html">Next</a> ]</p>
+		
+		<section name="Dependency hints for php binaries and extensions">
+		<p>
+		You already learned how to declare dependencies to other php projects. But how do you declare dependencies to php binaries or php extensions?
+		The answer is very simple: The same way but by using another type specifier: 
+		</p>
+	<macro name="snippet">
+	  <param name="id" value="php-executable"></param>
+	  <param name="file" value="${phpmavenFsRoot}/src/site/include/pom_natives.xml"></param>
+    </macro>
+    	<p>
+    	This example will setup a project that requires php-version 5.4.6. You may also use dependency ranges. For example version number "[5.4.6,5.5.0)". will be translated into:
+    	The newest 5.4.x version starting from 5.4.6.
+    	</p>
+		</section>
+		
+		<section name="Using php extensions">
+		<p>
+		PHP extensions use the type "php-ext":
+		</p>
+	<macro name="snippet">
+	  <param name="id" value="php-extension"></param>
+	  <param name="file" value="${phpmavenFsRoot}/src/site/include/pom_natives.xml"></param>
+    </macro>
+		<p>
+		This example will allow you to rely on "bcmath" extension. As bcmath is shipped with php itself the version number is equal to the
+		version number of the php binary. You can use properties too, for example a property "php.binary.version".
+		</p>
+		</section>
+		
+		<section name="Zend extensions">
+		<p>
+		The following example is a special variant of php extensions. They are called zend-extension. For details please read the php documentation.
+		There may only be one zend-extension. Multiple zend-extensions for the same scope are not supported. This is a limitation from
+		php itself not a limitation from php-maven.
+		</p>
+	<macro name="snippet">
+	  <param name="id" value="php-xdebug"></param>
+	  <param name="file" value="${phpmavenFsRoot}/src/site/include/pom_natives.xml"></param>
+    </macro>
+		</section>
+		
+		<section name="How php-maven resolves the native dependencies">
+		<p>
+		The three types of dependencies (php binary, php extensions and zend extensions) are symbolic hints. They do not behave the same way than classic
+		dependencies. Instead it depends on the php exectable you use.
+		</p>
+		<p>
+		While using the php executable found on PATH variable php-maven only verifies if the given versions are compatible and if the extensions are
+		installed by you. PHP-Maven will print warnings and errors if your local setup does not match.
+		</p>
+		<p>
+		Using the php-nar executable will download and install php natives from maven repositories for your local platform. It will download
+		and install your extensions and zend-extensions too. So php-nar helps you to setup projects without the need to locally install php
+		on every developer machine. And: In multiple projects you keep your installation clean from unwanted configuration and code. Each module
+		has its own best matching local installation of php. You only need some additional disk space.
+		</p>
+		<p>
+		There is a special behavior on extensions: You see xdebug has version number "2.2.1". However this may result in two different packages.
+		The xdebug for php 5.3.x may be different from xdebug for php 5.4.x although both have version number "2.2.1". PHP-Maven solves this by the
+		help of the maven-nar-plugin. It first resolves the php version that should be used and then resolves the best matching xdebug binary.
+		</p>
+		</section>
+		
+		<p style="text-align:center">[ <a href="tut-dependencydefaults.html">Previous</a> | <a href="tutorials.html">TOC</a> | <a href="tut-pear.html">Next</a> ]</p>
+	</body>
+</document>
