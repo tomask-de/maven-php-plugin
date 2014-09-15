@@ -5,7 +5,7 @@
 	<properties>
 		<phpmavenTagName>2.0.3-SNAPSHOT</phpmavenTagName>
 
-		<phpmaven.plugin.version>2.0.20-SNAPSHOT</phpmaven.plugin.version>
+		<phpmaven.plugin.version>2.1.0-SNAPSHOT</phpmaven.plugin.version>
 		<phpmaven.jettycgi.version>2.0.16</phpmaven.jettycgi.version>
 		<phpmaven.maven-jetty-plugin.version>6.1.10</phpmaven.maven-jetty-plugin.version>
 	</properties>
@@ -13,7 +13,7 @@
 	<parent>
 		<groupId>org.phpmaven.build</groupId>
 		<artifactId>generic-parent</artifactId>
-		<version>2.0.20-SNAPSHOT</version>
+		<version>2.1.0-SNAPSHOT</version>
 	</parent>
 
 	<groupId>org.phpmaven</groupId>
@@ -29,7 +29,25 @@
         PHP parent pom.
     </description>
 
-	<url>${phpmavenRootUrl}/${phpmavenTagType}/${phpmavenTagName}/php-parent-pom/</url>
+	<scm>
+		<connection>scm:git:git://github.com/hypery2k/php-maven.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/hypery2k/php-maven.git</developerConnection>
+	</scm>
+
+	<distributionManagement>
+
+		<!-- Publish the versioned releases here -->
+		<repository>
+			<id>mare-nexus-releases</id>
+			<name>Own Nexus Repository</name>
+			<url>https://martinreinhardt-online.de/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>mare-nexus-snapshots</id>
+			<name>Own Nexus Repository</name>
+			<url>https://martinreinhardt-online.de/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 	<dependencyManagement>
 		<dependencies>

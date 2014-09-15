@@ -1,0 +1,90 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<properties>
+		<phpmavenTagName>phpexec-java-${project.version}</phpmavenTagName>
+		<phpmavenRootScmUrl>scm:git:git@github.com:php-maven/phpexec-java.git</phpmavenRootScmUrl>
+		<phpmavenRootScmUrlWeb>http://www.github.com/php-maven/phpexec-java</phpmavenRootScmUrlWeb>
+	</properties>
+
+	<groupId>org.phpmaven.build</groupId>
+	<artifactId>parent</artifactId>
+	<version>2.1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>phpexec-java:${project.version}</name>
+
+	<description>
+        PHP Maven root
+    </description>
+
+	<modules>
+		<module>generic-site-parent</module>
+		<module>generic-java-parent</module>
+		<module>generic-parent</module>
+		<module>pear-java</module>
+		<module>phpexec-java</module>
+		<module>maven-php</module>
+	</modules>
+
+	<distributionManagement>
+		<site>
+			<id>upload-${phpmavenSitesId}</id>
+			<name>${phpmavenSitesName}</name>
+			<url>${phpmavenSitesUploadUrl}/${phpmavenTagType}/${phpmavenTagName}/</url>
+		</site>
+
+		<!-- Publish the versioned releases here -->
+		<repository>
+			<id>mare-nexus-releases</id>
+			<name>Own Nexus Repository</name>
+			<url>https://martinreinhardt-online.de/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>mare-nexus-snapshots</id>
+			<name>Own Nexus Repository</name>
+			<url>https://martinreinhardt-online.de/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>mare-nexus</id>
+			<name>Own Nexus Repository</name>
+			<url>https://martinreinhardt-online.de/nexus/content/groups/maven-php/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+	<repositories>
+		<repository>
+			<id>mare-nexus</id>
+			<name>Own Nexus Repository</name>
+			<url>https://martinreinhardt-online.de/nexus/content/groups/maven-php/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+	</repositories>
+
+	<scm>
+		<connection>scm:git:git://github.com/hypery2k/php-maven.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/hypery2k/php-maven.git</developerConnection>
+	</scm>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.5</version>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

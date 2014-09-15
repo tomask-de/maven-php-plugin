@@ -2,15 +2,14 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<properties>
-		<phpmavenTagName>phpexec-java-${project.version}</phpmavenTagName>
-		<phpmavenRootScmUrl>scm:git:git@github.com:php-maven/phpexec-java.git</phpmavenRootScmUrl>
-		<phpmavenRootScmUrlWeb>http://www.github.com/php-maven/phpexec-java</phpmavenRootScmUrlWeb>
-	</properties>
+	<parent>
+		<groupId>org.phpmaven.build</groupId>
+		<artifactId>parent</artifactId>
+		<version>2.1.0-SNAPSHOT</version>
+	</parent>
 
 	<groupId>org.phpmaven</groupId>
 	<artifactId>phpexec-java</artifactId>
-	<version>0.1.13-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>phpexec-java:${project.version}</name>
@@ -19,14 +18,12 @@
         A public API for executing php from java.
     </description>
 
-	<url>${phpmavenRootUrl}/${phpmavenTagType}/${phpmavenTagName}/</url>
+	<scm>
+		<connection>scm:git:git://github.com/hypery2k/php-maven.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/hypery2k/php-maven.git</developerConnection>
+	</scm>
 
 	<distributionManagement>
-		<site>
-			<id>upload-${phpmavenSitesId}</id>
-			<name>${phpmavenSitesName}</name>
-			<url>${phpmavenSitesUploadUrl}/${phpmavenTagType}/${phpmavenTagName}/</url>
-		</site>
 
 		<!-- Publish the versioned releases here -->
 		<repository>
@@ -41,40 +38,12 @@
 		</snapshotRepository>
 	</distributionManagement>
 
-	<pluginRepositories>
-		<pluginRepository>
-			<id>mare-nexus</id>
-			<name>Own Nexus Repository</name>
-			<url>https://martinreinhardt-online.de/nexus/content/groups/maven-php/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
-	<repositories>
-		<repository>
-			<id>mare-nexus</id>
-			<name>Own Nexus Repository</name>
-			<url>https://martinreinhardt-online.de/nexus/content/groups/maven-php/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</repository>
-	</repositories>
 
-	<scm>
-		<connection>scm:git:git://github.com/neutrico/phpexec-java.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com/neutrico/phpexec-java.git</developerConnection>
-		<tag>phpexec-java-site-0.1.9-SNAPSHOT</tag>
-	</scm>
 
 	<modules>
-		<module>site-parent</module>
 		<module>phpexec-api</module>
 		<module>phpexec-cli</module>
+		<module>phpexec-site</module>
 	</modules>
 
 	<build>
